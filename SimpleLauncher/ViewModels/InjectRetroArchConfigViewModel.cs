@@ -46,7 +46,8 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
-    public InjectRetroArchConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectRetroArchConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox,
+        ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -235,7 +236,8 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRetroArchConfigWindow));
+            var emulatorName =
+                InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRetroArchConfigWindow));
             var window = GetOwnerWindow?.Invoke();
             InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
         }
@@ -264,9 +266,11 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRetroArchConfigWindow));
+            var emulatorName =
+                InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRetroArchConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
+                _messageBox);
         }
     }
 }

@@ -14,7 +14,8 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class UpdateStatusBarServiceTests
 {
-    private static (UpdateStatusBarService Service, Mock<IStatusBarHost> Host) CreateService(Label label, DispatcherTimer? timer)
+    private static (UpdateStatusBarService Service, Mock<IStatusBarHost> Host) CreateService(Label label,
+        DispatcherTimer? timer)
     {
         var hostMock = new Mock<IStatusBarHost>();
         hostMock.SetupGet(x => x.Dispatcher).Returns(() => Dispatcher.CurrentDispatcher);

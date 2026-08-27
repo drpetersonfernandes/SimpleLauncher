@@ -28,7 +28,8 @@ public class RetroArchConfigHandler : IEmulatorConfigHandler
     /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
-        return emulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("retroarch.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+        return emulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) ||
+               (emulatorPath?.Contains("retroarch.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
     /// <inheritdoc />
@@ -44,7 +45,8 @@ public class RetroArchConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectRetroArchConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectRetroArchConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();

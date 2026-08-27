@@ -16,7 +16,8 @@ public static class XeniaConfigurationService
     /// <param name="emulatorPath">The full path to the Xenia emulator executable.</param>
     /// <param name="settings">The settings manager containing Xenia configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -57,11 +58,13 @@ public static class XeniaConfigurationService
         {
             // Log the issue instead of throwing to prevent crash when samples are missing
             // or no config files exist. Xenia will use its default settings.
-            logger.Debug("[XeniaConfig] WARNING: No configuration files found to inject into. Expected xenia.config.toml or xenia-canary.config.toml in emulator directory or Documents\\Xenia. Xenia will use default settings.");
+            logger.Debug(
+                "[XeniaConfig] WARNING: No configuration files found to inject into. Expected xenia.config.toml or xenia-canary.config.toml in emulator directory or Documents\\Xenia. Xenia will use default settings.");
         }
     }
 
-    private static bool UpdateSingleConfigFile(string configPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    private static bool UpdateSingleConfigFile(string configPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         // Backup logic: Create from sample if missing
         if (!File.Exists(configPath))

@@ -21,11 +21,9 @@ public class FavoritesManager
     [IgnoreMember] private ILogger? _logger;
     [IgnoreMember] private static readonly DataFileLocation FileLocation = new("favorites.dat");
 
-    [Key(0)]
-    public ObservableCollection<Favorite> FavoriteList { get; set; } = [];
+    [Key(0)] public ObservableCollection<Favorite> FavoriteList { get; set; } = [];
 
-    [Key(1)]
-    public int Version { get; set; } = 1;
+    [Key(1)] public int Version { get; set; } = 1;
 
     private static string DatFilePath => FileLocation.FilePath;
     private static string TempDatFilePath => FileLocation.TempFilePath;
@@ -87,7 +85,8 @@ public class FavoritesManager
                 byte[] bytes;
                 lock (ListLock)
                 {
-                    var snapshotManager = new FavoritesManager { FavoriteList = new ObservableCollection<Favorite>(sortedSnapshot), Version = Version };
+                    var snapshotManager = new FavoritesManager
+                        { FavoriteList = new ObservableCollection<Favorite>(sortedSnapshot), Version = Version };
                     bytes = MessagePackSerializer.Serialize(snapshotManager);
                 }
 
@@ -190,7 +189,8 @@ public class FavoritesManager
                 byte[] bytes;
                 lock (ListLock)
                 {
-                    var snapshotManager = new FavoritesManager { FavoriteList = new ObservableCollection<Favorite>(sortedSnapshot), Version = Version };
+                    var snapshotManager = new FavoritesManager
+                        { FavoriteList = new ObservableCollection<Favorite>(sortedSnapshot), Version = Version };
                     bytes = MessagePackSerializer.Serialize(snapshotManager);
                 }
 

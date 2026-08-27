@@ -33,7 +33,8 @@ public class RetroAchievementsHashStore : IRetroAchievementsHashStore
         _hashesFolderPathOverride = hashesFolderPathOverride;
     }
 
-    private string HashesFolderPath => _hashesFolderPathOverride ?? Path.Combine(AppDataPaths.SimpleLauncherDataFolder, HashesFolderName);
+    private string HashesFolderPath => _hashesFolderPathOverride ??
+                                       Path.Combine(AppDataPaths.SimpleLauncherDataFolder, HashesFolderName);
 
     /// <summary>
     /// Gets the full path of the JSON hash file for the given system.
@@ -102,7 +103,8 @@ public class RetroAchievementsHashStore : IRetroAchievementsHashStore
                 var json = JsonSerializer.Serialize(systemHashes, JsonOptions);
                 File.WriteAllText(filePath, json);
 
-                _logger.Debug($"[RA Hash Store] Saved {systemHashes.Hashes.Count} hashes for '{systemHashes.SystemName}' to {filePath}.");
+                _logger.Debug(
+                    $"[RA Hash Store] Saved {systemHashes.Hashes.Count} hashes for '{systemHashes.SystemName}' to {filePath}.");
             }
             catch (Exception ex)
             {

@@ -307,7 +307,8 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
             if (isLoading)
             {
-                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+                LoadingOverlay.Content =
+                    message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
             }
         });
     }
@@ -320,7 +321,8 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     /// <param name="downloadManager">The download manager for handling file downloads.</param>
     /// <param name="easyModeManager">The easy mode manager for system configuration.</param>
     /// <param name="logger">The logger for error logging.</param>
-    public EasyModeWindow(PlaySoundEffects playSoundEffects, IConfiguration configuration, DownloadManager downloadManager, EasyModeManager easyModeManager, ILogger logger)
+    public EasyModeWindow(PlaySoundEffects playSoundEffects, IConfiguration configuration,
+        DownloadManager downloadManager, EasyModeManager easyModeManager, ILogger logger)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -366,7 +368,8 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
     private async Task InitializeManagerAsync()
     {
-        SetLoadingState(true, (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...");
+        SetLoadingState(true,
+            (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...");
         await Task.Yield(); // Allow UI to render the loading overlay
 
         _manager = await _easyModeManager.LoadAsync();
@@ -461,7 +464,8 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             return;
         }
 
-        var selectedSystem = _manager?.Systems.FirstOrDefault(system => system.SystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase));
+        var selectedSystem = _manager?.Systems.FirstOrDefault(system =>
+            system.SystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase));
         if (selectedSystem == null)
         {
             // This should ideally not happen if PopulateSystemDropdown is correct, but handle defensively
@@ -470,18 +474,24 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
         var emulator = selectedSystem.Emulators?.Emulator;
         // Determine if download links exist for image packs (for visibility)
-        IsImagePack1Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink) && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
-        IsImagePack2Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink2) && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
-        IsImagePack3Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink3) && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
-        IsImagePack4Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink4) && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
-        IsImagePack5Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink5) && !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack1Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink) &&
+                                !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack2Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink2) &&
+                                !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack3Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink3) &&
+                                !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack4Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink4) &&
+                                !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
+        IsImagePack5Available = !string.IsNullOrEmpty(emulator?.ImagePackDownloadLink5) &&
+                                !string.IsNullOrEmpty(emulator.ImagePackDownloadExtractPath);
 
         // Check if Emulator file already exists on disk. If so, mark it as "downloaded".
         var emulatorLocation = selectedSystem.Emulators?.Emulator?.EmulatorLocation;
         if (!string.IsNullOrEmpty(emulatorLocation))
         {
             var resolvedEmulatorPath = PathHelper.ResolveRelativeToAppDirectory(emulatorLocation);
-            SetDownloadState(EasyModeManager.DownloadType.Emulator, File.Exists(resolvedEmulatorPath) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+            SetDownloadState(EasyModeManager.DownloadType.Emulator,
+                File.Exists(resolvedEmulatorPath) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
         }
         else
         {
@@ -495,20 +505,37 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         if (!string.IsNullOrEmpty(coreLocation))
         {
             var resolvedCorePath = PathHelper.ResolveRelativeToAppDirectory(coreLocation);
-            SetDownloadState(EasyModeManager.DownloadType.Core, File.Exists(resolvedCorePath) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+            SetDownloadState(EasyModeManager.DownloadType.Core,
+                File.Exists(resolvedCorePath) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
         }
         else
         {
             // If no location is defined, it's considered "ready" only if no download is offered.
-            SetDownloadState(EasyModeManager.DownloadType.Core, string.IsNullOrEmpty(coreDownloadLink) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+            SetDownloadState(EasyModeManager.DownloadType.Core,
+                string.IsNullOrEmpty(coreDownloadLink) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
         }
 
         // Reset download status for image packs.
-        SetDownloadState(EasyModeManager.DownloadType.ImagePack1, string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
-        SetDownloadState(EasyModeManager.DownloadType.ImagePack2, string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
-        SetDownloadState(EasyModeManager.DownloadType.ImagePack3, string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
-        SetDownloadState(EasyModeManager.DownloadType.ImagePack4, string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
-        SetDownloadState(EasyModeManager.DownloadType.ImagePack5, string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack1,
+            string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink)
+                ? DownloadButtonState.Downloaded
+                : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack2,
+            string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2)
+                ? DownloadButtonState.Downloaded
+                : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack3,
+            string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3)
+                ? DownloadButtonState.Downloaded
+                : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack4,
+            string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4)
+                ? DownloadButtonState.Downloaded
+                : DownloadButtonState.Idle);
+        SetDownloadState(EasyModeManager.DownloadType.ImagePack5,
+            string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5)
+                ? DownloadButtonState.Downloaded
+                : DownloadButtonState.Idle);
 
         // Resolve path for display in the textbox
         SystemFolderTextBox.Text = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemFolder) ?? "";
@@ -891,7 +918,8 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             // Ensure valid URL and destination path
             if (string.IsNullOrEmpty(downloadUrl))
             {
-                var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
+                var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ??
+                                            "Error: No download URL for";
                 EndOperation();
                 DownloadStatus = $"{errorNodownloadUrLfor} {componentName}";
                 SetDownloadState(type, DownloadButtonState.Idle); // Reset state on error
@@ -900,19 +928,23 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
             if (string.IsNullOrEmpty(destinationPath))
             {
-                var errorInvalidDestinationPath = (string)Application.Current.TryFindResource("ErrorInvalidDestinationPath") ?? "Error: Invalid destination path for";
+                var errorInvalidDestinationPath =
+                    (string)Application.Current.TryFindResource("ErrorInvalidDestinationPath") ??
+                    "Error: Invalid destination path for";
                 DownloadStatus = $"{errorInvalidDestinationPath} {componentName}";
 
                 EndOperation();
                 // Notify developer
-                _logger.Warning($"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
+                _logger.Warning(
+                    $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
                 SetDownloadState(type, DownloadButtonState.Idle); // Reset state on error
                 return;
             }
 
             try
             {
-                var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
+                var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ??
+                                          "Preparing to download";
                 DownloadStatus = $"{preparingtodownload} {componentName}...";
 
                 DownloadProgressBar.Visibility = Visibility.Visible;
@@ -949,7 +981,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 if (success)
                 {
                     EndOperation();
-                    var hasbeensuccessfullydownloadedandinstalled = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
+                    var hasbeensuccessfullydownloadedandinstalled =
+                        (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ??
+                        "has been successfully downloaded and installed.";
                     DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
 
                     // Notify user
@@ -976,14 +1010,19 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                         EndOperation();
                         SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on cancel
                     }
-                    else if (_downloadManager.IsFileLockedDuringDownload) // Specific check for file lock during download
+                    else if (_downloadManager
+                             .IsFileLockedDuringDownload) // Specific check for file lock during download
                     {
                         await _messageBox.ShowDownloadFileLockedMessageBoxAsync(_downloadManager.TempFolder);
                         EndOperation();
                     }
-                    else if (_downloadManager.IsDownloadCompleted) // This means download was completed, but something went wrong *after* (e.g., during cleanup or a very late error)
+                    else if
+                        (_downloadManager
+                         .IsDownloadCompleted) // This means download was completed, but something went wrong *after* (e.g., during cleanup or a very late error)
                     {
-                        var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
+                        var errorFailedtoextract =
+                            (string)Application.Current.TryFindResource("ErrorFailedtoextract") ??
+                            "Error: Failed to extract";
                         DownloadStatus = $"{errorFailedtoextract} {componentName}.";
                         EndOperation();
                         SetDownloadState(type, DownloadButtonState.Failed); // Re-enable on extraction failure
@@ -991,7 +1030,8 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     }
                     else // Generic download failure (not user cancelled, not file locked, not extraction failure)
                     {
-                        var errorDuringDownload = (string)Application.Current.TryFindResource("Errorduringdownload") ?? "Error during download";
+                        var errorDuringDownload = (string)Application.Current.TryFindResource("Errorduringdownload") ??
+                                                  "Error during download";
                         DownloadStatus = $"{errorDuringDownload}: {componentName}.";
 
                         EndOperation();
@@ -1012,12 +1052,15 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 }
 
                 var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
-                var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
+                var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ??
+                                       "download process.";
                 DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
 
                 // Notify developer only if it's not a disk space error
                 // Disk space errors are user-environment issues, not code issues
-                if (!(ex is IOException ioEx && (ioEx.Message.Contains("Insufficient disk space", StringComparison.Ordinal) || ioEx.Message.Contains("Cannot check disk space", StringComparison.Ordinal))))
+                if (!(ex is IOException ioEx &&
+                      (ioEx.Message.Contains("Insufficient disk space", StringComparison.Ordinal) ||
+                       ioEx.Message.Contains("Cannot check disk space", StringComparison.Ordinal))))
                 {
                     var contextMessage = $"Error downloading {componentName}.\n" +
                                          $"URL: {downloadUrl}";
@@ -1097,7 +1140,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         if (_disposed || _manager == null) return null;
 
         return SystemNameDropdown.SelectedItem != null
-            ? _manager.Systems.FirstOrDefault(system => system.SystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase))
+            ? _manager.Systems.FirstOrDefault(system =>
+                system.SystemName.Equals(SystemNameDropdown.SelectedItem.ToString(),
+                    StringComparison.OrdinalIgnoreCase))
             : null;
     }
 
@@ -1110,7 +1155,8 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         StopDownloadButton.IsEnabled = false;
         DownloadProgressBar.Value = 0;
 
-        var cancelingdownload2 = (string)Application.Current.TryFindResource("Cancelingdownload") ?? "Canceling download...";
+        var cancelingdownload2 =
+            (string)Application.Current.TryFindResource("Cancelingdownload") ?? "Canceling download...";
         DownloadStatus = cancelingdownload2;
 
         if (_currentDownloadType != null)
@@ -1167,12 +1213,16 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 {
                     AddSystemButton.IsEnabled = false;
 
-                    LoadingOverlay.Content = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
+                    LoadingOverlay.Content =
+                        (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ??
+                        "Adding system to configuration...";
                     LoadingOverlay.Visibility = Visibility.Visible;
                     await Task.Yield();
 
-                    await Services.SystemManager.SystemManagerService.AddOrUpdateSystemFromEasyModeAsync(selectedSystem, systemFolderRaw);
-                    LoadingOverlay.Content = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
+                    await Services.SystemManager.SystemManagerService.AddOrUpdateSystemFromEasyModeAsync(selectedSystem,
+                        systemFolderRaw);
+                    LoadingOverlay.Content = (string)Application.Current.TryFindResource("Creatingsystemfolders") ??
+                                             "Creating system folders...";
                     await Task.Yield();
 
                     var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderRaw);
@@ -1180,26 +1230,34 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
                     if (resolvedSystemFolder != null && resolvedSystemImageFolder != null)
                     {
-                        await CreateDefaultSystemFoldersService.CreateFoldersAsync(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logger, _messageBox);
+                        await CreateDefaultSystemFoldersService.CreateFoldersAsync(selectedSystem.SystemName,
+                            resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logger, _messageBox);
 
-                        var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
+                        var systemhasbeensuccessfullyadded =
+                            (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ??
+                            "System has been successfully added!";
                         DownloadStatus = systemhasbeensuccessfullyadded;
 
-                        await _messageBox.SystemAddedMessageBoxAsync(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
+                        await _messageBox.SystemAddedMessageBoxAsync(selectedSystem.SystemName, resolvedSystemFolder,
+                            resolvedSystemImageFolder);
                     }
 
                     Close();
                 }
                 catch (InvalidOperationException ex)
                 {
-                    var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
+                    var errorFailedtoaddsystem =
+                        (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ??
+                        "Error: Failed to add system.";
                     DownloadStatus = $"{errorFailedtoaddsystem} {ex.Message}";
 
                     await _messageBox.AddSystemFailedMessageBoxAsync(ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
+                    var errorFailedtoaddsystem =
+                        (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ??
+                        "Error: Failed to add system.";
                     DownloadStatus = errorFailedtoaddsystem;
 
                     const string contextMessage = "Unexpected error adding system.";
@@ -1310,7 +1368,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
     private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
     {
-        var chooseaFolderwithRoMsorIsOs2 = (string)Application.Current.TryFindResource("ChooseafolderwithROMsorISOsforthissystem") ?? "Choose a folder with 'ROMs' or 'ISOs' for this system";
+        var chooseaFolderwithRoMsorIsOs2 =
+            (string)Application.Current.TryFindResource("ChooseafolderwithROMsorISOsforthissystem") ??
+            "Choose a folder with 'ROMs' or 'ISOs' for this system";
 
         // Create a new OpenFolderDialog
         var openFolderDialog = new OpenFolderDialog
@@ -1371,6 +1431,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         MainContentGrid?.IsEnabled = true;
 
         _logger.Debug("[Emergency] User forced overlay dismissal in EasyModeWindow.");
-        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
+            "Emergency reset performed.");
     }
 }

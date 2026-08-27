@@ -62,13 +62,15 @@ public class WpfMessageDialogService : IMessageDialogService
     }
 
     /// <summary>Displays a message box with the specified buttons and icon, returning the user's choice.</summary>
-    public Task<MessageBoxResult> ShowAsync(string message, string title, MessageBoxButton buttons, MessageBoxImage icon)
+    public Task<MessageBoxResult> ShowAsync(string message, string title, MessageBoxButton buttons,
+        MessageBoxImage icon)
     {
         var result = ShowMessageBox(message, title, buttons, icon);
         return Task.FromResult(result);
     }
 
-    private static MessageBoxResult ShowMessageBox(string message, string title, MessageBoxButton buttons, MessageBoxImage icon)
+    private static MessageBoxResult ShowMessageBox(string message, string title, MessageBoxButton buttons,
+        MessageBoxImage icon)
     {
         var wpfButtons = (System.Windows.MessageBoxButton)(int)buttons;
         var wpfIcon = (System.Windows.MessageBoxImage)(int)icon;

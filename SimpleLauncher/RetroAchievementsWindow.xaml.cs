@@ -29,7 +29,8 @@ public partial class RetroAchievementsWindow : ILoadingState
     /// <param name="logger">The error logging service.</param>
     /// <param name="settings">The application settings manager.</param>
     /// <param name="raService">The RetroAchievements API service.</param>
-    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogger logger, SettingsManagerService settings, RetroAchievementsService raService)
+    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogger logger, SettingsManagerService settings,
+        RetroAchievementsService raService)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -97,7 +98,8 @@ public partial class RetroAchievementsWindow : ILoadingState
                 case "UserProgress":
                     _playSoundEffects.PlayNotificationSound();
                     (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent(
-                        (string)Application.Current.TryFindResource("LoadingUserCompletionProgress") ?? "Loading user completion progress...");
+                        (string)Application.Current.TryFindResource("LoadingUserCompletionProgress") ??
+                        "Loading user completion progress...");
                     _ = LoadUserProgressAsync();
                     break;
             }
@@ -179,7 +181,8 @@ public partial class RetroAchievementsWindow : ILoadingState
     private async Task LoadUnlocksByDateAsync()
     {
         (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("FetchingEarnedAchievementsByDate") ?? "Fetching earned achievements by date...");
+            (string)Application.Current.TryFindResource("FetchingEarnedAchievementsByDate") ??
+            "Fetching earned achievements by date...");
         SetLoadingState(true);
 
         // Sync DatePickers with ViewModel
@@ -238,7 +241,8 @@ public partial class RetroAchievementsWindow : ILoadingState
         try
         {
             (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent(
-                (string)Application.Current.TryFindResource("ResettingDatesAndFetchingUnlocks") ?? "Resetting dates and fetching unlocks...");
+                (string)Application.Current.TryFindResource("ResettingDatesAndFetchingUnlocks") ??
+                "Resetting dates and fetching unlocks...");
 
             await _viewModel.ResetDatesCommand.ExecuteAsync(null);
             UnlocksDataGrid.ItemsSource = _viewModel.Unlocks;
@@ -263,7 +267,8 @@ public partial class RetroAchievementsWindow : ILoadingState
     private async Task LoadUserProgressAsync()
     {
         (Owner as MainWindow)?.UpdateStatusBarService.UpdateContent(
-            (string)Application.Current.TryFindResource("FetchingUserCompletionProgress") ?? "Fetching user completion progress...");
+            (string)Application.Current.TryFindResource("FetchingUserCompletionProgress") ??
+            "Fetching user completion progress...");
         SetLoadingState(true);
 
         await _viewModel.LoadUserProgressAsync();

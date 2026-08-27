@@ -65,7 +65,8 @@ public class DaphneSettings : IEmulatorSettings
         Bilinear = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Bilinear), true);
         EnableSound = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(EnableSound), true);
         UseOverlays = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(UseOverlays), true);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

@@ -89,12 +89,14 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
     /// <summary>
     /// Available PPU decoder options for RPCS3.
     /// </summary>
-    public IList<string> PpuDecoderOptions { get; } = ["Recompiler (LLVM)", "Interpreter (static)", "Interpreter (dynamic)"];
+    public IList<string> PpuDecoderOptions { get; } =
+        ["Recompiler (LLVM)", "Interpreter (static)", "Interpreter (dynamic)"];
 
     /// <summary>
     /// Available SPU decoder options for RPCS3.
     /// </summary>
-    public IList<string> SpuDecoderOptions { get; } = ["Recompiler (LLVM)", "Recompiler (ASMJIT)", "Interpreter (static)", "Interpreter (dynamic)"];
+    public IList<string> SpuDecoderOptions { get; } =
+        ["Recompiler (LLVM)", "Recompiler (ASMJIT)", "Interpreter (static)", "Interpreter (dynamic)"];
 
     /// <summary>
     /// Available audio renderer options for RPCS3.
@@ -233,7 +235,8 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRpcs3ConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+                _messageBox);
         }
     }
 
@@ -262,7 +265,8 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRpcs3ConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+                _messageBox);
         }
     }
 }

@@ -110,7 +110,8 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
     private void ApplyLoadedSystemManagers(IList<SystemManager.SystemManagerService> managers)
     {
         _host.SetSystemManagers(managers);
-        var sortedSystemNames = managers.Select(static manager => manager.SystemName).OrderBy(static name => name, StringComparer.Ordinal)
+        var sortedSystemNames = managers.Select(static manager => manager.SystemName)
+            .OrderBy(static name => name, StringComparer.Ordinal)
             .ToList();
         _host.SystemComboBox.ItemsSource = sortedSystemNames;
 
@@ -142,7 +143,8 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
         var systemManagers = _host.GetSystemManagers();
         if (systemManagers == null || systemManagers.Count == 0)
         {
-            var noSystemsConfiguredMsg = (string)Application.Current.TryFindResource("NoSystemsConfiguredMessage") ?? "No systems configured. Please use the 'Edit System' menu to add systems.";
+            var noSystemsConfiguredMsg = (string)Application.Current.TryFindResource("NoSystemsConfiguredMessage") ??
+                                         "No systems configured. Please use the 'Edit System' menu to add systems.";
             _host.GameFileGrid.Children.Add(new TextBlock
             {
                 Text = $"\n{noSystemsConfiguredMsg}",
@@ -207,11 +209,14 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
             };
 
             AutomationProperties.SetName(systemButton, config.SystemName);
-            AutomationProperties.SetHelpText(systemButton, (string)Application.Current.TryFindResource("SelectSystemButtonHelpText") ?? $"Select {config.SystemName} system");
+            AutomationProperties.SetHelpText(systemButton,
+                (string)Application.Current.TryFindResource("SelectSystemButtonHelpText") ??
+                $"Select {config.SystemName} system");
 
             systemButton.SetResourceReference(FrameworkElement.StyleProperty, "SystemButtonStyle");
 
-            systemButton.Click += async (_, _) => await SystemButtonClickAsync(config.SystemName, _host.CurrentCancellationToken);
+            systemButton.Click += async (_, _) =>
+                await SystemButtonClickAsync(config.SystemName, _host.CurrentCancellationToken);
 
             var contextMenu = new System.Windows.Controls.ContextMenu();
 
@@ -226,11 +231,13 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
                 Header = (string)Application.Current.TryFindResource("SelectSystem") ?? "Select System",
                 Icon = selectIcon
             };
-            selectMenuItem.Click += (_, _) => systemButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, systemButton));
+            selectMenuItem.Click += (_, _) =>
+                systemButton.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent, systemButton));
 
             var editIcon = new Image
             {
-                Source = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/settings.png")),
+                Source =
+                    new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/settings.png")),
                 Width = 16,
                 Height = 16
             };
@@ -286,12 +293,14 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
                 _host.SystemComboBox.SelectedItem = systemName;
 
                 _playSoundEffects.PlayNotificationSound();
-                _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
+                _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingSystem") ??
+                                                      "Loading system...");
             }
             catch (OperationCanceledException)
             {
                 _host.SetLoadingState(false);
-                _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SystemLoadCancelled") ?? "System load cancelled.");
+                _updateStatusBarService.UpdateContent(
+                    (string)Application.Current.TryFindResource("SystemLoadCancelled") ?? "System load cancelled.");
             }
             catch (Exception ex)
             {
@@ -349,9 +358,11 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...");
+            _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ??
+                                                  "Opening Expert Mode...");
 
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _helpUserService, _imageLoader, _messageBox, _quitSimpleLauncher, _logger, _parameterResolverService, systemName)
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _helpUserService,
+                _imageLoader, _messageBox, _quitSimpleLauncher, _logger, _parameterResolverService, systemName)
             {
                 Owner = Application.Current.MainWindow
             };
@@ -389,7 +400,8 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
                 }
 
                 ((IUiResetHost)_host).IsUiUpdating = true;
-                _host.SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
+                _host.SetLoadingState(true,
+                    (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
                 await Task.Delay(100, cancellationToken);
                 try
                 {
@@ -407,7 +419,8 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
 
                     var selectedSystem = _host.SystemComboBox.SelectedItem?.ToString();
                     var systemManagers = _host.GetSystemManagers();
-                    var selectedManager = systemManagers.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+                    var selectedManager = systemManagers.FirstOrDefault(c =>
+                        c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
                     if (selectedSystem == null || selectedManager == null)
                     {
                         const string errorMessage = "Selected system or its configuration is null.";
@@ -431,7 +444,8 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
                     ((IUiResetHost)_host).MameSortOrder = AppConstants.MameSortOrderFileName;
                     _host.UpdateSortOrderButtonUi();
 
-                    _host.EmulatorComboBox.ItemsSource = selectedManager.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
+                    _host.EmulatorComboBox.ItemsSource = selectedManager.Emulators
+                        .Select(static emulator => emulator.EmulatorName).ToList();
                     if (_host.EmulatorComboBox.Items.Count > 0)
                     {
                         _host.EmulatorComboBox.SelectedIndex = 0;
@@ -439,10 +453,13 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
 
                     _host.SelectedSystem = selectedSystem;
 
-                    var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+                    var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s =>
+                        s.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
                     _host.PlayTime = systemPlayTime != null ? systemPlayTime.FormattedPlayTime : "00:00:00";
 
-                    var validationResult = await _displaySystemInformation.DisplaySystemInfoAsync(selectedManager, _host.GameFileGrid, cancellationToken);
+                    var validationResult =
+                        await _displaySystemInformation.DisplaySystemInfoAsync(selectedManager, _host.GameFileGrid,
+                            cancellationToken);
 
                     if (!validationResult.IsValid)
                     {
@@ -455,9 +472,11 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
                         await _messageBox.ListOfErrorsMessageBoxAsync(errorMessages);
                     }
 
-                    var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
+                    var resolvedSystemImageFolderPath =
+                        PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
 
-                    var selectedRomFolders = selectedManager.SystemFolders.Select(static path => PathHelper.ResolveRelativeToAppDirectory(path) ?? path).ToList();
+                    var selectedRomFolders = selectedManager.SystemFolders
+                        .Select(static path => PathHelper.ResolveRelativeToAppDirectory(path) ?? path).ToList();
                     var selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
                         ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName)
                         : resolvedSystemImageFolderPath;
@@ -465,7 +484,8 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
                     _host.SetSelectedRomFolders(selectedRomFolders);
                     _host.SetSelectedImageFolder(selectedImageFolder);
 
-                    await PopulateAllGamesForCurrentSystemAsync(selectedManager, selectedSystem, selectedRomFolders, cancellationToken);
+                    await PopulateAllGamesForCurrentSystemAsync(selectedManager, selectedSystem, selectedRomFolders,
+                        cancellationToken);
 
                     _gameFileWatcherService.StartWatching(
                         selectedManager.SystemFolders,
@@ -511,21 +531,26 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
         }
     }
 
-    private async Task PopulateAllGamesForCurrentSystemAsync(SystemManager.SystemManagerService selectedManager, string currentSelectedSystem, List<string> selectedRomFolders, CancellationToken cancellationToken)
+    private async Task PopulateAllGamesForCurrentSystemAsync(SystemManager.SystemManagerService selectedManager,
+        string currentSelectedSystem, List<string> selectedRomFolders, CancellationToken cancellationToken)
     {
         var uniqueFilesForSystem = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (var folder in selectedRomFolders)
         {
             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedManager.FileFormatsToSearch == null) continue;
+            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) ||
+                selectedManager.FileFormatsToSearch == null) continue;
 
-            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch, selectedManager.GroupByFolder, cancellationToken);
+            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath,
+                selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch,
+                selectedManager.GroupByFolder, cancellationToken);
             foreach (var file in filesInFolder)
             {
                 uniqueFilesForSystem.TryAdd(Path.GetFileName(file), file);
             }
         }
 
-        await _gameCacheService.SetAllGamesAsync(uniqueFilesForSystem.Values.ToList(), currentSelectedSystem, cancellationToken);
+        await _gameCacheService.SetAllGamesAsync(uniqueFilesForSystem.Values.ToList(), currentSelectedSystem,
+            cancellationToken);
     }
 }

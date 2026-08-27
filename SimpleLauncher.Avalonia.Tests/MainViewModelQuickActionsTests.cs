@@ -47,25 +47,26 @@ public class MainViewModelQuickActionsTests : IDisposable
 
         _systemXmlPath = Path.Combine(_tempRoot, "system.xml");
         File.WriteAllText(_systemXmlPath, $"""
-            <SystemConfigs>
-              <SystemConfig>
-                <SystemName>Test System</SystemName>
-                <SystemFolders>
-                  <SystemFolder>{_romsFolder}</SystemFolder>
-                </SystemFolders>
-                <SystemImageFolder>{_romsFolder}\images</SystemImageFolder>
-                <FileFormatsToSearch>
-                  <FormatToSearch>.zip</FormatToSearch>
-                  <FormatToSearch>.was</FormatToSearch>
-                </FileFormatsToSearch>
-                <FileFormatsToLaunch>
-                  <FormatToLaunch>.zip</FormatToLaunch>
-                </FileFormatsToLaunch>
-              </SystemConfig>
-            </SystemConfigs>
-            """);
+                                           <SystemConfigs>
+                                             <SystemConfig>
+                                               <SystemName>Test System</SystemName>
+                                               <SystemFolders>
+                                                 <SystemFolder>{_romsFolder}</SystemFolder>
+                                               </SystemFolders>
+                                               <SystemImageFolder>{_romsFolder}\images</SystemImageFolder>
+                                               <FileFormatsToSearch>
+                                                 <FormatToSearch>.zip</FormatToSearch>
+                                                 <FormatToSearch>.was</FormatToSearch>
+                                               </FileFormatsToSearch>
+                                               <FileFormatsToLaunch>
+                                                 <FormatToLaunch>.zip</FormatToLaunch>
+                                               </FileFormatsToLaunch>
+                                             </SystemConfig>
+                                           </SystemConfigs>
+                                           """);
 
-        _config = TestEnvironment.ConfigurationFromJson($$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", @"\\")}}"}""");
+        _config = TestEnvironment.ConfigurationFromJson(
+            $$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", @"\\")}}"}""");
 
         var settings = TestDependencies.Settings(_config, _messageBox);
         var systemManager = new SystemManagerService(_config);

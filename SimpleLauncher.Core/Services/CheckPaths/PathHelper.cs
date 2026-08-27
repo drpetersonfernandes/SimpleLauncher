@@ -121,7 +121,8 @@ public static partial class PathHelper
 
             if (processedToken.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
-                processedToken = processedToken.Replace("%BASEFOLDER%", SanitizePathToken(AppDomain.CurrentDomain.BaseDirectory), StringComparison.OrdinalIgnoreCase);
+                processedToken = processedToken.Replace("%BASEFOLDER%",
+                    SanitizePathToken(AppDomain.CurrentDomain.BaseDirectory), StringComparison.OrdinalIgnoreCase);
             }
 
             if (processedToken.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
@@ -141,25 +142,33 @@ public static partial class PathHelper
                     }
                 }
 
-                processedToken = processedToken.Replace("%SYSTEMFOLDER%", resolvedSystemFolderPaths, StringComparison.OrdinalIgnoreCase);
+                processedToken = processedToken.Replace("%SYSTEMFOLDER%", resolvedSystemFolderPaths,
+                    StringComparison.OrdinalIgnoreCase);
             }
 
-            if (!string.IsNullOrEmpty(romSystemFolder) && processedToken.Contains("%ROMSYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(romSystemFolder) &&
+                processedToken.Contains("%ROMSYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
-                processedToken = processedToken.Replace("%ROMSYSTEMFOLDER%", SanitizePathToken(romSystemFolder), StringComparison.OrdinalIgnoreCase);
+                processedToken = processedToken.Replace("%ROMSYSTEMFOLDER%", SanitizePathToken(romSystemFolder),
+                    StringComparison.OrdinalIgnoreCase);
             }
 
-            if (!string.IsNullOrEmpty(resolvedEmulatorFolderPath) && processedToken.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(resolvedEmulatorFolderPath) &&
+                processedToken.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
-                processedToken = processedToken.Replace("%EMULATORFOLDER%", SanitizePathToken(resolvedEmulatorFolderPath), StringComparison.OrdinalIgnoreCase);
+                processedToken = processedToken.Replace("%EMULATORFOLDER%",
+                    SanitizePathToken(resolvedEmulatorFolderPath), StringComparison.OrdinalIgnoreCase);
             }
 
-            if (!string.IsNullOrEmpty(resolvedRomPath) && processedToken.Contains("%ROM%", StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(resolvedRomPath) &&
+                processedToken.Contains("%ROM%", StringComparison.OrdinalIgnoreCase))
             {
-                processedToken = processedToken.Replace("%ROM%", SanitizePathToken(resolvedRomPath), StringComparison.OrdinalIgnoreCase);
+                processedToken = processedToken.Replace("%ROM%", SanitizePathToken(resolvedRomPath),
+                    StringComparison.OrdinalIgnoreCase);
             }
 
-            if (!string.IsNullOrEmpty(resolvedRomName) && processedToken.Contains("%NAME%", StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(resolvedRomName) &&
+                processedToken.Contains("%NAME%", StringComparison.OrdinalIgnoreCase))
             {
                 processedToken = processedToken.Replace("%NAME%", resolvedRomName, StringComparison.OrdinalIgnoreCase);
             }
@@ -176,7 +185,8 @@ public static partial class PathHelper
                 return $"'{finalTokenValue}'";
             }
 
-            if (finalTokenValue.Contains(' ') && !isQuotedToken && !finalTokenValue.Contains('"') && !finalTokenValue.Contains('\''))
+            if (finalTokenValue.Contains(' ') && !isQuotedToken && !finalTokenValue.Contains('"') &&
+                !finalTokenValue.Contains('\''))
             {
                 return $"\"{finalTokenValue}\"";
             }
@@ -211,7 +221,8 @@ public static partial class PathHelper
         if (path.StartsWith(BaseFolderPlaceholder, StringComparison.OrdinalIgnoreCase))
         {
             basePath = AppDomain.CurrentDomain.BaseDirectory;
-            remainingPath = path[BaseFolderPlaceholder.Length..].TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            remainingPath = path[BaseFolderPlaceholder.Length..]
+                .TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         }
         else if (Path.IsPathRooted(path))
         {
@@ -361,7 +372,8 @@ public static partial class PathHelper
     /// <param name="primarySystemFolder">The primary system folder returned when no match is found.</param>
     /// <param name="filePath">The file path to locate within the folders.</param>
     /// <returns>The resolved folder containing the file, or the primary system folder if none contains it.</returns>
-    public static string? FindContainingSystemFolder(IList<string>? systemFolders, string? primarySystemFolder, string? filePath)
+    public static string? FindContainingSystemFolder(IList<string>? systemFolders, string? primarySystemFolder,
+        string? filePath)
     {
         if (systemFolders == null || systemFolders.Count == 0 || string.IsNullOrEmpty(filePath))
         {

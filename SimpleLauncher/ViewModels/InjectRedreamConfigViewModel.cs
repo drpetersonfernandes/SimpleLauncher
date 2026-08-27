@@ -39,7 +39,8 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
-    public InjectRedreamConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectRedreamConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox,
+        ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -96,7 +97,11 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     /// <summary>
     /// Available window size options for Redream.
     /// </summary>
-    public IList<string> WindowSizeOptions { get; } = ["640x480", "800x600", "1024x768", "1280x960", "1024x576", "1280x720", "1600x900", "1920x1080", "2560x1440", "3840x2160", "2560x1080", "3440x1440"];
+    public IList<string> WindowSizeOptions { get; } =
+    [
+        "640x480", "800x600", "1024x768", "1280x960", "1024x576", "1280x720", "1600x900", "1920x1080", "2560x1440",
+        "3840x2160", "2560x1080", "3440x1440"
+    ];
 
     /// <summary>
     /// Available language options for Redream.
@@ -275,7 +280,8 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRedreamConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
+                _messageBox);
         }
     }
 }

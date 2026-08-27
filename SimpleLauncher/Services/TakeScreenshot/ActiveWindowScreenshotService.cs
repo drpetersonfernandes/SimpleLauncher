@@ -69,7 +69,8 @@ public partial class ActiveWindowScreenshotService
 
                 if (width <= 0 || height <= 0)
                 {
-                    _logger.Debug("[ActiveWindowScreenshot] Cannot take a screenshot of a minimized or zero-size window.");
+                    _logger.Debug(
+                        "[ActiveWindowScreenshot] Cannot take a screenshot of a minimized or zero-size window.");
                     return Task.CompletedTask;
                 }
 
@@ -79,7 +80,8 @@ public partial class ActiveWindowScreenshotService
                 var fileName = $"screenshot_{DateTime.Now:yyyyMMdd_HHmmss_fff}.png";
                 var screenshotPath = Path.Combine(screenshotDir, fileName);
 
-                using (var bitmap = new System.Drawing.Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb))
+                using (var bitmap =
+                       new System.Drawing.Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb))
                 {
                     using (var graphics = System.Drawing.Graphics.FromImage(bitmap))
                     {

@@ -27,7 +27,10 @@ public interface IMountZipFiles
     /// <param name="logErrors">The error logger.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    Task MountZipFileAndLoadEbootBinAsync(string resolvedZipFilePath, string selectedSystemName, string selectedEmulatorName, ISystemManager selectedSystemManager, Emulator selectedEmulatorManager, string rawEmulatorParameters, IWindowContext windowContext, string? logPath, ILauncherService gameLauncher, ILogger logErrors, IMessageBoxLibraryService messageBox);
+    Task MountZipFileAndLoadEbootBinAsync(string resolvedZipFilePath, string selectedSystemName,
+        string selectedEmulatorName, ISystemManager selectedSystemManager, Emulator selectedEmulatorManager,
+        string rawEmulatorParameters, IWindowContext windowContext, string? logPath, ILauncherService gameLauncher,
+        ILogger logErrors, IMessageBoxLibraryService messageBox);
 
     /// <summary>
     /// Mounts a ZIP archive and searches for a nested file to launch using the specified emulator.
@@ -44,7 +47,10 @@ public interface IMountZipFiles
     /// <param name="logErrors">The error logger.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    Task MountZipFileAndSearchForFileToLoadAsync(string resolvedZipFilePath, string selectedSystemName, string selectedEmulatorName, ISystemManager selectedSystemManager, Emulator selectedEmulatorManager, string rawEmulatorParameters, IWindowContext windowContext, string? logPath, ILauncherService gameLauncher, ILogger logErrors, IMessageBoxLibraryService messageBox);
+    Task MountZipFileAndSearchForFileToLoadAsync(string resolvedZipFilePath, string selectedSystemName,
+        string selectedEmulatorName, ISystemManager selectedSystemManager, Emulator selectedEmulatorManager,
+        string rawEmulatorParameters, IWindowContext windowContext, string? logPath, ILauncherService gameLauncher,
+        ILogger logErrors, IMessageBoxLibraryService messageBox);
 
     /// <summary>
     /// Mounts a ZIP archive and launches ScummVM with the mounted game path.
@@ -59,7 +65,9 @@ public interface IMountZipFiles
     /// <param name="logErrors">The error logger.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    Task MountZipFileAndLoadWithScummVmAsync(string resolvedZipFilePath, string selectedSystemName, string selectedEmulatorName, ISystemManager selectedSystemManager, Emulator selectedEmulatorManager, string selectedEmulatorParameters, string? logPath, ILogger logErrors, IMessageBoxLibraryService messageBox);
+    Task MountZipFileAndLoadWithScummVmAsync(string resolvedZipFilePath, string selectedSystemName,
+        string selectedEmulatorName, ISystemManager selectedSystemManager, Emulator selectedEmulatorManager,
+        string selectedEmulatorParameters, string? logPath, ILogger logErrors, IMessageBoxLibraryService messageBox);
 
     /// <summary>
     /// Terminates all running SimpleZipDrive processes to ensure clean unmounting.

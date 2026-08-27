@@ -104,7 +104,8 @@ public class RaineSettings : IEmulatorSettings
         Vsync = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Vsync), true);
         SoundDriver = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(SoundDriver), "directsound");
         SampleRate = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(SampleRate), 44100);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
         ShowFps = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowFps), false);
         FrameSkip = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(FrameSkip), 0);
         NeoCdBios = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(NeoCdBios), "");

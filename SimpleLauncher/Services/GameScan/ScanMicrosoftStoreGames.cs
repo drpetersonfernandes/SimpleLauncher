@@ -38,7 +38,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
     /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
     /// <param name="windowsImagesPath">The directory where game images are stored.</param>
     /// <param name="ignoredGameNames">The set of game names to skip.</param>
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
+        string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {
@@ -119,7 +120,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                 using var process = Process.Start(startInfo);
                 if (process == null)
                 {
-                    _logger.Debug("[ScanMicrosoftStoreGames] PowerShell process returned null (likely blocked by policy). Skipping Microsoft Store scan.");
+                    _logger.Debug(
+                        "[ScanMicrosoftStoreGames] PowerShell process returned null (likely blocked by policy). Skipping Microsoft Store scan.");
                     return;
                 }
 
@@ -130,18 +132,21 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             }
             catch (OperationCanceledException)
             {
-                _logger.Debug("[ScanMicrosoftStoreGames] PowerShell scan timed out after 30 seconds. Skipping Microsoft Store scan.");
+                _logger.Debug(
+                    "[ScanMicrosoftStoreGames] PowerShell scan timed out after 30 seconds. Skipping Microsoft Store scan.");
                 return;
             }
             catch (System.ComponentModel.Win32Exception ex) when (ex.NativeErrorCode is 5 or 2 or 126)
             {
                 // 5 = Access Denied (AppLocker/WDAC), 2 = File Not Found, 126 = Module Not Found
-                _logger.Debug($"[ScanMicrosoftStoreGames] PowerShell blocked or unavailable (Win32 error {ex.NativeErrorCode}). Skipping Microsoft Store scan.");
+                _logger.Debug(
+                    $"[ScanMicrosoftStoreGames] PowerShell blocked or unavailable (Win32 error {ex.NativeErrorCode}). Skipping Microsoft Store scan.");
                 return;
             }
             catch (Exception ex)
             {
-                _logger.Debug($"[ScanMicrosoftStoreGames] Failed to execute PowerShell: {ex.Message}. Skipping Microsoft Store scan.");
+                _logger.Debug(
+                    $"[ScanMicrosoftStoreGames] Failed to execute PowerShell: {ex.Message}. Skipping Microsoft Store scan.");
                 return;
             }
 
@@ -150,7 +155,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                 // Check for execution policy restrictions - skip silently if restricted
                 if (IsExecutionPolicyRestricted(errorOutput))
                 {
-                    _logger.Debug("[ScanMicrosoftStoreGames] PowerShell execution policy restrictions detected. Skipping Microsoft Store games scan.");
+                    _logger.Debug(
+                        "[ScanMicrosoftStoreGames] PowerShell execution policy restrictions detected. Skipping Microsoft Store games scan.");
                     return;
                 }
 
@@ -193,7 +199,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                     var name = element.GetProperty("Name").GetString();
                     var appId = element.GetProperty("AppID").GetString();
                     var installLocation = element.TryGetProperty("InstallLocation", out var il) ? il.GetString() : null;
-                    var packageFamilyName = element.TryGetProperty("PackageFamilyName", out var pfn) ? pfn.GetString() : "";
+                    var packageFamilyName =
+                        element.TryGetProperty("PackageFamilyName", out var pfn) ? pfn.GetString() : "";
                     var logoRelativePath = element.TryGetProperty("Logo", out var lg) ? lg.GetString() : null;
 
                     if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(appId)) continue;
@@ -222,10 +229,12 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                 return;
             }
 
-            _logger.Debug($"[ScanMicrosoftStoreGames] Found {allInstalledApps.Count} Microsoft Store apps. Sending to classification API...");
+            _logger.Debug(
+                $"[ScanMicrosoftStoreGames] Found {allInstalledApps.Count} Microsoft Store apps. Sending to classification API...");
             foreach (var app in allInstalledApps)
             {
-                _logger.Debug($"[ScanMicrosoftStoreGames]   -> Sending: Name=\"{app.Name}\" (Normalized=\"{app.Name.Trim().ToUpperInvariant()}\") AppId=\"{app.AppId}\"");
+                _logger.Debug(
+                    $"[ScanMicrosoftStoreGames]   -> Sending: Name=\"{app.Name}\" (Normalized=\"{app.Name.Trim().ToUpperInvariant()}\") AppId=\"{app.AppId}\"");
             }
 
             var confirmedGames = await ClassifyGamesViaApiAsync(allInstalledApps, logErrors);
@@ -246,13 +255,15 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
 
                     if (!string.IsNullOrEmpty(game.InstallLocation) && Directory.Exists(game.InstallLocation))
                     {
-                        await TryExtractStoreIconAsync(gameScannerService, logErrors, game.Name, game.InstallLocation, game.LogoRelativePath, sanitizedGameName, windowsImagesPath);
+                        await TryExtractStoreIconAsync(gameScannerService, logErrors, game.Name, game.InstallLocation,
+                            game.LogoRelativePath, sanitizedGameName, windowsImagesPath);
                     }
                 }
             }
             else
             {
-                _logger.Debug("[ScanMicrosoftStoreGames] API returned no confirmed games. The admin may need to curate the game list via the dashboard.");
+                _logger.Debug(
+                    "[ScanMicrosoftStoreGames] API returned no confirmed games. The admin may need to curate the game list via the dashboard.");
             }
         }
         catch (Exception ex)
@@ -287,8 +298,10 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
 
             if (!response.IsSuccessStatusCode)
             {
-                _logger.Debug($"[ScanMicrosoftStoreGames] Game classification API returned status: {response.StatusCode}");
-                logErrors.Warning($"Game classification API failed with status {response.StatusCode}. Returning empty game list.");
+                _logger.Debug(
+                    $"[ScanMicrosoftStoreGames] Game classification API returned status: {response.StatusCode}");
+                logErrors.Warning(
+                    $"Game classification API failed with status {response.StatusCode}. Returning empty game list.");
                 return [];
             }
 
@@ -320,23 +333,28 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
         }
         catch (OperationCanceledException)
         {
-            _logger.Debug("[ScanMicrosoftStoreGames] Game classification API request timed out. Returning empty game list.");
+            _logger.Debug(
+                "[ScanMicrosoftStoreGames] Game classification API request timed out. Returning empty game list.");
             return [];
         }
         catch (HttpRequestException ex)
         {
-            _logger.Debug($"[ScanMicrosoftStoreGames] Game classification API network error: {ex.Message}. Returning empty game list.");
+            _logger.Debug(
+                $"[ScanMicrosoftStoreGames] Game classification API network error: {ex.Message}. Returning empty game list.");
             return [];
         }
         catch (Exception ex)
         {
-            _logger.Debug($"[ScanMicrosoftStoreGames] Game classification API error: {ex.Message}. Returning empty game list.");
+            _logger.Debug(
+                $"[ScanMicrosoftStoreGames] Game classification API error: {ex.Message}. Returning empty game list.");
             logErrors.Error(ex, "Failed to classify games via API.");
             return [];
         }
     }
 
-    private static async Task TryExtractStoreIconAsync(GameScannerService gameScannerService, ILogger logErrors, string gameName, string installPath, string logoRelativePath, string sanitizedGameName, string windowsImagesPath)
+    private static async Task TryExtractStoreIconAsync(GameScannerService gameScannerService, ILogger logErrors,
+        string gameName, string installPath, string logoRelativePath, string sanitizedGameName,
+        string windowsImagesPath)
     {
         // Ensure the destination directory exists
         if (!Directory.Exists(windowsImagesPath))
@@ -373,7 +391,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                         await Task.Run(() => File.Copy(fullLogoPath, destPath, true));
                         return;
                     }
-                    catch (IOException ex) when (ex.Message.Contains("could not be encrypted", StringComparison.OrdinalIgnoreCase))
+                    catch (IOException ex) when (ex.Message.Contains("could not be encrypted",
+                                                     StringComparison.OrdinalIgnoreCase))
                     {
                         // EFS encryption error - fallback to byte-level copy which doesn't preserve encryption attributes
                         try
@@ -387,7 +406,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                         }
                         catch (Exception fallbackEx)
                         {
-                            logErrors.Error(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                            logErrors.Error(fallbackEx,
+                                $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
                         }
                     }
                     catch (Exception ex)
@@ -407,7 +427,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             };
 
             // Add search for targetsize (e.g., AppIcon.targetsize-256.png)
-            var searchDirectories = new[] { installPath, Path.Combine(installPath, "Assets"), Path.Combine(installPath, "Images") };
+            var searchDirectories = new[]
+                { installPath, Path.Combine(installPath, "Assets"), Path.Combine(installPath, "Images") };
 
             foreach (var dir in searchDirectories)
             {
@@ -424,7 +445,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                             await Task.Run(() => File.Copy(p, destPath, true));
                             return;
                         }
-                        catch (IOException ex) when (ex.Message.Contains("could not be encrypted", StringComparison.OrdinalIgnoreCase))
+                        catch (IOException ex) when (ex.Message.Contains("could not be encrypted",
+                                                         StringComparison.OrdinalIgnoreCase))
                         {
                             // EFS encryption error - fallback to byte-level copy which doesn't preserve encryption attributes
                             try
@@ -438,7 +460,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                             }
                             catch (Exception fallbackEx)
                             {
-                                logErrors.Error(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                                logErrors.Error(fallbackEx,
+                                    $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
                             }
                         }
                         catch (Exception ex)
@@ -467,7 +490,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                 }
 
                 var bestIcon = pngs
-                    .Where(static f => f.Contains("targetsize", StringComparison.OrdinalIgnoreCase) || f.Contains("scale", StringComparison.OrdinalIgnoreCase))
+                    .Where(static f => f.Contains("targetsize", StringComparison.OrdinalIgnoreCase) ||
+                                       f.Contains("scale", StringComparison.OrdinalIgnoreCase))
                     .OrderByDescending(static f =>
                     {
                         try
@@ -488,7 +512,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                         await Task.Run(() => File.Copy(bestIcon, destPath, true));
                         return;
                     }
-                    catch (IOException ex) when (ex.Message.Contains("could not be encrypted", StringComparison.OrdinalIgnoreCase))
+                    catch (IOException ex) when (ex.Message.Contains("could not be encrypted",
+                                                     StringComparison.OrdinalIgnoreCase))
                     {
                         // EFS encryption error - fallback to byte-level copy which doesn't preserve encryption attributes
                         try
@@ -502,7 +527,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                         }
                         catch (Exception fallbackEx)
                         {
-                            logErrors.Error(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                            logErrors.Error(fallbackEx,
+                                $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
                         }
                     }
                     catch (Exception ex)
@@ -512,7 +538,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                 }
 
                 // Fallback: Just take the largest PNG in the Assets folder
-                if (dir.EndsWith("Assets", StringComparison.Ordinal) || dir.EndsWith("Images", StringComparison.Ordinal))
+                if (dir.EndsWith("Assets", StringComparison.Ordinal) ||
+                    dir.EndsWith("Images", StringComparison.Ordinal))
                 {
                     var largestPng = pngs.OrderByDescending(static f =>
                     {
@@ -532,7 +559,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                             await Task.Run(() => File.Copy(largestPng, destPath, true));
                             return;
                         }
-                        catch (IOException ex) when (ex.Message.Contains("could not be encrypted", StringComparison.OrdinalIgnoreCase))
+                        catch (IOException ex) when (ex.Message.Contains("could not be encrypted",
+                                                         StringComparison.OrdinalIgnoreCase))
                         {
                             // EFS encryption error - fallback to byte-level copy which doesn't preserve encryption attributes
                             try
@@ -546,7 +574,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                             }
                             catch (Exception fallbackEx)
                             {
-                                logErrors.Error(fallbackEx, $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                                logErrors.Error(fallbackEx,
+                                    $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
                             }
                         }
                         catch (Exception ex)
@@ -558,7 +587,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             }
 
             // 4. Final fallback to extracting icon from an EXE in the install folder
-            await gameScannerService.ExtractIconFromGameFolderAsync(logErrors, installPath, sanitizedGameName, windowsImagesPath);
+            await gameScannerService.ExtractIconFromGameFolderAsync(logErrors, installPath, sanitizedGameName,
+                windowsImagesPath);
         }
         catch (Exception ex)
         {
@@ -664,7 +694,8 @@ internal partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                 (lowerError.Contains("prevents execution", StringComparison.Ordinal) ||
                  lowerError.Contains("restricted", StringComparison.Ordinal) ||
                  lowerError.Contains("cannot be loaded", StringComparison.Ordinal))) ||
-               (lowerError.Contains("is not digitally signed", StringComparison.Ordinal) && lowerError.Contains("execution policy", StringComparison.Ordinal));
+               (lowerError.Contains("is not digitally signed", StringComparison.Ordinal) &&
+                lowerError.Contains("execution policy", StringComparison.Ordinal));
     }
 
     [GeneratedRegex("[\0-\b\v\f\x0E-\x1F]", RegexOptions.None, 1000)]

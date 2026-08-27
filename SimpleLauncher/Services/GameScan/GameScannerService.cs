@@ -60,7 +60,9 @@ public class GameScannerService
     /// <param name="logger">The logger instance.</param>
     /// <param name="scanners">The collection of platform-specific game scanners.</param>
     /// <param name="iconExtractor">The icon extractor for extracting icons from executables.</param>
-    public GameScannerService(ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger logger, IEnumerable<IGamePlatformScanner> scanners, IIconExtractor iconExtractor)
+    public GameScannerService(ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary,
+        IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger logger,
+        IEnumerable<IGamePlatformScanner> scanners, IIconExtractor iconExtractor)
     {
         _logger = logErrors;
         _messageBoxLibrary = messageBoxLibrary;
@@ -84,7 +86,9 @@ public class GameScannerService
             _windowsImagesPath = pathResult.ImagesPath ?? "";
             WasNewSystemCreated = pathResult.WasNewSystemCreated;
 
-            var tasks = _scanners.Select(s => s.ScanAsync(this, _logger, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames)).ToList();
+            var tasks = _scanners
+                .Select(s => s.ScanAsync(this, _logger, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames))
+                .ToList();
 
             await Task.WhenAll(tasks);
 
@@ -115,7 +119,8 @@ public class GameScannerService
                 var resolvedRomsPath = PathHelper.ResolveRelativeToAppDirectory(existingRomsPath);
                 var resolvedImagesPath = PathHelper.ResolveRelativeToAppDirectory(existingImagesPath);
 
-                _logger.Debug($"[GameScannerService] Using existing '{WindowsSystemName}' system paths: ROMs='{resolvedRomsPath}', Images='{resolvedImagesPath}'");
+                _logger.Debug(
+                    $"[GameScannerService] Using existing '{WindowsSystemName}' system paths: ROMs='{resolvedRomsPath}', Images='{resolvedImagesPath}'");
 
                 return (resolvedRomsPath, resolvedImagesPath, false);
             }
@@ -153,7 +158,8 @@ public class GameScannerService
             Directory.CreateDirectory(defaultRomsPath);
             Directory.CreateDirectory(defaultImagesPath);
 
-            _logger.Debug($"[GameScannerService] Created new '{WindowsSystemName}' system with default paths: ROMs='{defaultRomsPath}', Images='{defaultImagesPath}'");
+            _logger.Debug(
+                $"[GameScannerService] Created new '{WindowsSystemName}' system with default paths: ROMs='{defaultRomsPath}', Images='{defaultImagesPath}'");
 
             return (defaultRomsPath, defaultImagesPath, true);
         }
@@ -195,7 +201,8 @@ public class GameScannerService
                 {
                     if (response.StatusCode != HttpStatusCode.NotFound)
                     {
-                        _logger.Debug($"[GameScannerService] API query for '{gameName}' failed with status: {response.StatusCode}");
+                        _logger.Debug(
+                            $"[GameScannerService] API query for '{gameName}' failed with status: {response.StatusCode}");
                     }
 
                     return false;
@@ -204,7 +211,8 @@ public class GameScannerService
                 await using var jsonStream = await response.Content.ReadAsStreamAsync();
                 var apiResponse = await JsonSerializer.DeserializeAsync<GameImageApiResponse>(jsonStream);
 
-                if (apiResponse is { Success: true } && Uri.IsWellFormedUriString(apiResponse.ImageUrl, UriKind.Absolute))
+                if (apiResponse is { Success: true } &&
+                    Uri.IsWellFormedUriString(apiResponse.ImageUrl, UriKind.Absolute))
                 {
                     // HttpClient supports absolute URLs directly, even when BaseAddress is configured
                     var imageBytes = await client.GetByteArrayAsync(apiResponse.ImageUrl);
@@ -216,14 +224,16 @@ public class GameScannerService
             catch (OperationCanceledException) when (attempt == 0)
             {
                 // Timeout on first attempt - wait and retry
-                _logger.Debug($"[GameScannerService] Image download timeout for '{gameName}', retrying in 5 seconds...");
+                _logger.Debug(
+                    $"[GameScannerService] Image download timeout for '{gameName}', retrying in 5 seconds...");
                 await Task.Delay(5000);
             }
             catch (HttpRequestException ex) when (attempt == 0)
             {
                 // Network error on first attempt - wait and retry
                 var innerMessage = ex.InnerException?.Message ?? "none";
-                _logger.Debug($"[GameScannerService] Image download network error for '{gameName}': {ex.Message}. Inner: {innerMessage}. Retrying in 5 seconds...");
+                _logger.Debug(
+                    $"[GameScannerService] Image download network error for '{gameName}': {ex.Message}. Inner: {innerMessage}. Retrying in 5 seconds...");
                 await Task.Delay(5000);
             }
             catch (Exception ex)
@@ -236,7 +246,8 @@ public class GameScannerService
                     _ => "error"
                 };
                 var innerDetails = GetInnerExceptionDetails(ex);
-                var logMessage = $"[GameScannerService] Image download failed for '{gameName}' after retry ({errorType}: {ex.Message}).{innerDetails} Falling back to icon extraction.";
+                var logMessage =
+                    $"[GameScannerService] Image download failed for '{gameName}' after retry ({errorType}: {ex.Message}).{innerDetails} Falling back to icon extraction.";
                 _logger.Debug(logMessage);
 
                 // Log persistent network errors at Information level: expected condition (flaky
@@ -268,7 +279,8 @@ public class GameScannerService
     /// <param name="sanitizedGameName">The sanitized name used for the image file.</param>
     /// <param name="windowsImagesPath">The directory where game images are stored.</param>
     /// <param name="specificExePath">Optional specific executable path to extract the icon from.</param>
-    internal async Task FindAndSaveGameImageAsync(ILogger logErrors, string originalGameName, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string? specificExePath = null)
+    internal async Task FindAndSaveGameImageAsync(ILogger logErrors, string originalGameName, string gameInstallPath,
+        string sanitizedGameName, string windowsImagesPath, string? specificExePath = null)
     {
         try
         {
@@ -302,7 +314,8 @@ public class GameScannerService
     /// <param name="sanitizedGameName">The sanitized name used for the image file.</param>
     /// <param name="windowsImagesPath">The directory where game images are stored.</param>
     /// <param name="specificExePath">Optional specific executable path to extract the icon from.</param>
-    internal Task ExtractIconFromGameFolderAsync(ILogger logErrors, string gameInstallPath, string sanitizedGameName, string windowsImagesPath, string? specificExePath = null)
+    internal Task ExtractIconFromGameFolderAsync(ILogger logErrors, string gameInstallPath, string sanitizedGameName,
+        string windowsImagesPath, string? specificExePath = null)
     {
         try
         {
@@ -333,7 +346,8 @@ public class GameScannerService
         }
     }
 
-    private static string? FindMainExecutable(string gameInstallPath, string sanitizedGameName, string? specificExePath = null)
+    private static string? FindMainExecutable(string gameInstallPath, string sanitizedGameName,
+        string? specificExePath = null)
     {
         if (!Directory.Exists(gameInstallPath)) return null;
 
@@ -348,11 +362,13 @@ public class GameScannerService
         if (exeFiles is not { Length: > 0 }) return null;
 
         // 2a. Name match
-        var mainExe = exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Equals(sanitizedGameName, StringComparison.OrdinalIgnoreCase));
+        var mainExe = exeFiles.FirstOrDefault(f =>
+            Path.GetFileNameWithoutExtension(f).Equals(sanitizedGameName, StringComparison.OrdinalIgnoreCase));
         if (mainExe != null) return mainExe;
 
         // 2b. Contains name
-        mainExe = exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Contains(sanitizedGameName, StringComparison.OrdinalIgnoreCase));
+        mainExe = exeFiles.FirstOrDefault(f =>
+            Path.GetFileNameWithoutExtension(f).Contains(sanitizedGameName, StringComparison.OrdinalIgnoreCase));
         if (mainExe != null) return mainExe;
 
         // 2c. Largest EXE (ignoring common non-game executables)

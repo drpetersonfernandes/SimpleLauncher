@@ -68,7 +68,8 @@ public readonly struct PbpHeader
     /// </summary>
     public bool IsValid { get; }
 
-    internal PbpHeader(uint version, int sfoOffset, int icon0Offset, int icon1Offset, int pic0Offset, int pic1Offset, int snd0Offset, int dataPspOffset, int dataPsarOffset)
+    internal PbpHeader(uint version, int sfoOffset, int icon0Offset, int icon1Offset, int pic0Offset, int pic1Offset,
+        int snd0Offset, int dataPspOffset, int dataPsarOffset)
     {
         Version = version;
         SfoOffset = sfoOffset;

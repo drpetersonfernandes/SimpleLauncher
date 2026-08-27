@@ -828,7 +828,8 @@ public interface IMessageBoxLibraryService
     /// <param name="logPath">The full path to the log file, if available.</param>
     /// <param name="exitCode">The exit code returned by the process, if available.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    Task BatchFileFailedMessageBoxAsync(string batchFilePath, string errorDetail, string? logPath, int? exitCode = null);
+    Task BatchFileFailedMessageBoxAsync(string batchFilePath, string errorDetail, string? logPath,
+        int? exitCode = null);
 
     /// <summary>
     /// Displays a warning listing missing paths referenced by a batch file, with an option to continue.

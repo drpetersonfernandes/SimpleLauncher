@@ -113,7 +113,8 @@ public class App : Application, IDisposable
             // The 'out _isFirstInstance' parameter would already be true in this case,
             // but we explicitly set it for clarity and to ensure the flow continues as a first instance.
             _isFirstInstance = true;
-            Log.Debug("Mutex was abandoned by a previous instance, but successfully acquired by this instance. Proceeding as first instance.");
+            Log.Debug(
+                "Mutex was abandoned by a previous instance, but successfully acquired by this instance. Proceeding as first instance.");
         }
 
         // Named EventWaitHandle is Windows-only; on Linux the named Mutex still enforces
@@ -258,7 +259,8 @@ public class App : Application, IDisposable
                     var localization = ServiceProvider.GetService<LocalizationService>();
                     var msg = localization?.GetString("F8ShortcutInUse")
                               ?? "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.";
-                    _ = MessageDialogWindow.ShowAsync(mainWindow, msg, "SimpleLauncher", MessageButtons.Ok, MessageIcon.Warning);
+                    _ =
+ MessageDialogWindow.ShowAsync(mainWindow, msg, "SimpleLauncher", MessageButtons.Ok, MessageIcon.Warning);
                 }
             }
             catch (Exception ex)
@@ -319,7 +321,8 @@ public class App : Application, IDisposable
     /// <summary>
     /// Registers all services, ViewModels, and windows in the DI container.
     /// </summary>
-    internal static void ConfigureServices(IServiceCollection services, IConfiguration configuration, BugReportApiSink? bugReportSink = null)
+    internal static void ConfigureServices(IServiceCollection services, IConfiguration configuration,
+        BugReportApiSink? bugReportSink = null)
     {
         // Register configuration
         services.AddSingleton(configuration);
@@ -438,7 +441,9 @@ public class App : Application, IDisposable
         services.AddSingleton<MameDataService>();
         services.AddSingleton<IMameDataService>(sp => sp.GetRequiredService<MameDataService>());
         services.AddSingleton<IRetroAchievementsFileHasher, RetroAchievementsFileHasher>();
-        services.AddSingleton<IRetroAchievementsEmulatorConfiguratorService, RetroAchievementsEmulatorConfiguratorService>();
+        services
+            .AddSingleton<IRetroAchievementsEmulatorConfiguratorService,
+                RetroAchievementsEmulatorConfiguratorService>();
         services.AddSingleton<IRetroAchievementsSystemMatcher, RetroAchievementsSystemMatcher>();
         services.AddSingleton<IRetroAchievementsHashStore, RetroAchievementsHashStore>();
         services.AddSingleton<IRetroAchievementsHashScanner, RetroAchievementsHashScanner>();
@@ -459,7 +464,8 @@ public class App : Application, IDisposable
         services.AddSingleton<IPlaySoundEffects>(sp => sp.GetRequiredService<PlaySoundEffects>());
         services.AddSingleton<GamePadController>();
         services.AddSingleton<SystemConfigurationWriterService>();
-        services.AddSingleton<ISystemConfigurationWriterService>(sp => sp.GetRequiredService<SystemConfigurationWriterService>());
+        services.AddSingleton<ISystemConfigurationWriterService>(sp =>
+            sp.GetRequiredService<SystemConfigurationWriterService>());
         services.AddSingleton<Stats>();
 
         // Mount services
@@ -474,7 +480,8 @@ public class App : Application, IDisposable
         services.AddSingleton<CleanTempFolderService>();
         services.AddSingleton<ICleanTempFolderService>(sp => sp.GetRequiredService<CleanTempFolderService>());
         services.AddSingleton<CleanSimpleLauncherFolderService>();
-        services.AddSingleton<ICleanSimpleLauncherFolderService>(sp => sp.GetRequiredService<CleanSimpleLauncherFolderService>());
+        services.AddSingleton<ICleanSimpleLauncherFolderService>(sp =>
+            sp.GetRequiredService<CleanSimpleLauncherFolderService>());
         services.AddSingleton<DeleteFilesService>();
         services.AddSingleton<IDeleteFilesService>(sp => sp.GetRequiredService<DeleteFilesService>());
         services.AddSingleton<FormatFileSizeService>();
@@ -692,8 +699,9 @@ public class App : Application, IDisposable
             {
                 var win = sp.GetRequiredService<SystemSelectionWindow>();
                 win.Initialize(guess);
-                await win.ShowDialog((Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
-                                     ?? throw new InvalidOperationException("Main window not available"));
+                await win.ShowDialog(
+                    (Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
+                    ?? throw new InvalidOperationException("Main window not available"));
                 return win.SelectedSystem;
             }
         });
@@ -824,7 +832,8 @@ public class App : Application, IDisposable
     /// initialization checks, usage stats, and the silent update check. All failures
     /// are logged — none of them should block the main window from showing.
     /// </summary>
-    private static async Task RunStartupTasksAsync(AvaloniaApplicationLifecycleService lifecycle, IServiceProvider services)
+    private static async Task RunStartupTasksAsync(AvaloniaApplicationLifecycleService lifecycle,
+        IServiceProvider services)
     {
         try
         {

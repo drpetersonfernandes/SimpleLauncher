@@ -279,11 +279,13 @@ public class DiscConverter : IDiscConverter
         {
             var arch = RuntimeInformation.ProcessArchitecture;
             var exeName = arch == Architecture.Arm64 ? "DolphinTool_arm64.exe" : "DolphinTool.exe";
-            var dolphinToolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToRVZ", exeName);
+            var dolphinToolPath =
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToRVZ", exeName);
 
             if (!File.Exists(dolphinToolPath))
             {
-                _logger.Debug($"[ConvertDiscImageToIso] DolphinTool not found at {dolphinToolPath}. Cannot convert disc image.");
+                _logger.Debug(
+                    $"[ConvertDiscImageToIso] DolphinTool not found at {dolphinToolPath}. Cannot convert disc image.");
                 return null;
             }
 
@@ -346,7 +348,8 @@ public class DiscConverter : IDiscConverter
                 return tempIsoPath;
             }
 
-            _logger.Debug($"[ConvertDiscImageToIso] DolphinTool failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            _logger.Debug(
+                $"[ConvertDiscImageToIso] DolphinTool failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return null;
         }
         catch (Exception ex)

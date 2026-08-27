@@ -139,7 +139,9 @@ public class FavoritesManager
     public Task SaveFavoritesAsync()
     {
         // Notify user outside of any lock to prevent potential deadlock
-        Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites..."));
+        Application.Current.Dispatcher.Invoke(static () =>
+            (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
+                (string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites..."));
 
         // Take a sorted snapshot for serialization without modifying the live collection.
         // This avoids the UI seeing an empty list during Clear()+Add().
@@ -168,7 +170,8 @@ public class FavoritesManager
                     byte[] bytes;
                     lock (ListLock)
                     {
-                        var snapshotManager = new FavoritesManager { FavoriteList = new ObservableCollection<Favorite>(sortedSnapshot), Version = Version };
+                        var snapshotManager = new FavoritesManager
+                            { FavoriteList = new ObservableCollection<Favorite>(sortedSnapshot), Version = Version };
                         bytes = MessagePackSerializer.Serialize(snapshotManager);
                     }
 

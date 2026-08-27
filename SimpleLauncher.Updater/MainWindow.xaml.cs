@@ -85,7 +85,8 @@ public partial class MainWindow
         var processService = new ProcessService();
         var dokanService = new DokanService(downloadService);
 
-        return new UpdateService(gitHubService, downloadService, zipService, processService, dokanService, AppDirectory);
+        return new UpdateService(gitHubService, downloadService, zipService, processService, dokanService,
+            AppDirectory);
     }
 
     /// <summary>
@@ -112,24 +113,15 @@ public partial class MainWindow
         };
         _updateService.ExtractionStarted += (_, _) =>
         {
-            Dispatcher.BeginInvoke(() =>
-            {
-                ProgressStatusText.Text = "Extracting files...";
-            });
+            Dispatcher.BeginInvoke(() => { ProgressStatusText.Text = "Extracting files..."; });
         };
         _updateService.ExtractionProgressChanged += (_, e) =>
         {
-            Dispatcher.BeginInvoke(() =>
-            {
-                ProgressStatusText.Text = e.StatusText;
-            });
+            Dispatcher.BeginInvoke(() => { ProgressStatusText.Text = e.StatusText; });
         };
         _updateService.ExtractionCompleted += (_, _) =>
         {
-            Dispatcher.BeginInvoke(() =>
-            {
-                ProgressStatusText.Text = "Extraction complete";
-            });
+            Dispatcher.BeginInvoke(() => { ProgressStatusText.Text = "Extraction complete"; });
         };
         _updateService.DokanInstallationPrompt += async () =>
         {
@@ -166,7 +158,8 @@ public partial class MainWindow
         {
             // Parse process ID from command line arguments
             int? processId = null;
-            if (_args.Length > 0 && int.TryParse(_args[0], System.Globalization.CultureInfo.InvariantCulture, out var pid) && pid > 0)
+            if (_args.Length > 0 &&
+                int.TryParse(_args[0], System.Globalization.CultureInfo.InvariantCulture, out var pid) && pid > 0)
             {
                 processId = pid;
             }
@@ -187,7 +180,8 @@ public partial class MainWindow
             }
             else if (result.RequiresManualUpdate)
             {
-                RedirectToDownloadPage(result.ErrorMessage ?? "Automatic update failed.\n\nWould you like to update manually?");
+                RedirectToDownloadPage(result.ErrorMessage ??
+                                       "Automatic update failed.\n\nWould you like to update manually?");
             }
         }
         catch (OperationCanceledException)

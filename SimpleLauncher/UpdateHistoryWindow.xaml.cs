@@ -28,7 +28,8 @@ public partial class UpdateHistoryWindow
 
         DataContext = _viewModel;
 
-        HistoryMarkdownViewer.AddHandler(Hyperlink.RequestNavigateEvent, new RequestNavigateEventHandler(OnHyperlinkRequestNavigate));
+        HistoryMarkdownViewer.AddHandler(Hyperlink.RequestNavigateEvent,
+            new RequestNavigateEventHandler(OnHyperlinkRequestNavigate));
         Loaded += UpdateHistoryWindow_LoadedAsync;
         Closed += UpdateHistoryWindow_Closed;
     }
@@ -47,7 +48,8 @@ public partial class UpdateHistoryWindow
 
     private void UpdateHistoryWindow_Closed(object? sender, EventArgs e)
     {
-        HistoryMarkdownViewer.RemoveHandler(Hyperlink.RequestNavigateEvent, new RequestNavigateEventHandler(OnHyperlinkRequestNavigate));
+        HistoryMarkdownViewer.RemoveHandler(Hyperlink.RequestNavigateEvent,
+            new RequestNavigateEventHandler(OnHyperlinkRequestNavigate));
     }
 
     private void OnHyperlinkRequestNavigate(object sender, RequestNavigateEventArgs e)

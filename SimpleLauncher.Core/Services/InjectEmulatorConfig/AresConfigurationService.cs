@@ -15,7 +15,8 @@ public static class AresConfigurationService
     /// <param name="emulatorPath">Path to the Ares executable.</param>
     /// <param name="settings">The settings manager containing Ares configuration.</param>
     /// <param name="logger">The logger instance.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))

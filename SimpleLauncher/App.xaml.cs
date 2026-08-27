@@ -162,7 +162,8 @@ public partial class App : IDisposable
 
         serviceCollection.AddHttpClient("GameImageClient", client =>
         {
-            var apiUrl = configuration.GetValue<string>("ApiSettings:GameImageUrl") ?? "https://simple-launcher-api.doutorpeterson.workers.dev/";
+            var apiUrl = configuration.GetValue<string>("ApiSettings:GameImageUrl") ??
+                         "https://simple-launcher-api.doutorpeterson.workers.dev/";
             client.BaseAddress = new Uri(apiUrl);
             client.Timeout = TimeSpan.FromSeconds(20);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
@@ -171,7 +172,8 @@ public partial class App : IDisposable
         serviceCollection.AddHttpClient("EasyModeClient", client =>
         {
             // Set the base address for the EasyMode configuration API
-            var easyModeUrl = configuration.GetValue<string>("Urls:EasyModeApi") ?? "https://www.purelogiccode.com/simplelauncheradmin/";
+            var easyModeUrl = configuration.GetValue<string>("Urls:EasyModeApi") ??
+                              "https://www.purelogiccode.com/simplelauncheradmin/";
             if (!easyModeUrl.EndsWith('/'))
             {
                 easyModeUrl += "/";
@@ -182,7 +184,8 @@ public partial class App : IDisposable
 
         serviceCollection.AddHttpClient("GameClassificationClient", client =>
         {
-            var classificationUrl = configuration.GetValue<string>("Urls:GameClassificationApi") ?? "https://www.purelogiccode.com/simplelauncheradmin/";
+            var classificationUrl = configuration.GetValue<string>("Urls:GameClassificationApi") ??
+                                    "https://www.purelogiccode.com/simplelauncheradmin/";
             client.BaseAddress = new Uri(classificationUrl);
             client.Timeout = TimeSpan.FromSeconds(30);
             client.DefaultRequestHeaders.Add("User-Agent", "SimpleLauncher/1.0");
@@ -190,7 +193,8 @@ public partial class App : IDisposable
 
         serviceCollection.AddHttpClient("ParameterResolverClient", client =>
         {
-            var resolverUrl = configuration.GetValue<string>("Urls:ParameterResolverApi") ?? "https://www.purelogiccode.com/simplelauncheradmin/";
+            var resolverUrl = configuration.GetValue<string>("Urls:ParameterResolverApi") ??
+                              "https://www.purelogiccode.com/simplelauncheradmin/";
             if (!resolverUrl.EndsWith('/'))
             {
                 resolverUrl += "/";
@@ -250,7 +254,9 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IMountZipFiles, MountZipFiles>();
         serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
         serviceCollection.AddSingleton<RetroAchievementsService>();
-        serviceCollection.AddSingleton<IRetroAchievementsEmulatorConfiguratorService, RetroAchievementsEmulatorConfiguratorService>();
+        serviceCollection
+            .AddSingleton<IRetroAchievementsEmulatorConfiguratorService,
+                RetroAchievementsEmulatorConfiguratorService>();
         serviceCollection.AddSingleton<IRetroAchievementsSystemMatcher, RetroAchievementsSystemMatcher>();
         serviceCollection.AddSingleton<IRetroAchievementsFileHasher, RetroAchievementsFileHasher>();
         serviceCollection.AddSingleton<IRetroAchievementsHashStore, RetroAchievementsHashStore>();
@@ -333,7 +339,8 @@ public partial class App : IDisposable
             var extractionService = sp.GetRequiredService<IExtractionService>();
             var systemMatcher = sp.GetRequiredService<IRetroAchievementsSystemMatcher>();
             var fileHasher = sp.GetRequiredService<IRetroAchievementsFileHasher>();
-            return new RetroAchievementsHasherTool(logger, extractionService, SelectSystemAsync, systemMatcher, fileHasher);
+            return new RetroAchievementsHasherTool(logger, extractionService, SelectSystemAsync, systemMatcher,
+                fileHasher);
 
             Task<string?> SelectSystemAsync(string guess)
             {
@@ -502,7 +509,8 @@ public partial class App : IDisposable
         var tempDir = Path.GetTempPath();
         if (baseDir.StartsWith(tempDir, StringComparison.OrdinalIgnoreCase))
         {
-            MessageBox.Show("Please extract the application first.\n\nIt looks like you are running SimpleLauncher from inside a ZIP or RAR archive.\n\nPlease extract the archive to a folder on your computer and run the application from there.",
+            MessageBox.Show(
+                "Please extract the application first.\n\nIt looks like you are running SimpleLauncher from inside a ZIP or RAR archive.\n\nPlease extract the archive to a folder on your computer and run the application from there.",
                 "SimpleLauncher",
                 MessageBoxButton.OK,
                 MessageBoxImage.Warning);
@@ -521,7 +529,8 @@ public partial class App : IDisposable
         // --- Single Instance Check ---
         // Catch args
         var isRestarting = e.Args.Any(static arg => arg.Equals("--restarting", StringComparison.OrdinalIgnoreCase));
-        var displayHistoryWindow = e.Args.Any(static arg => arg.Equals("-whatsnew", StringComparison.OrdinalIgnoreCase));
+        var displayHistoryWindow =
+            e.Args.Any(static arg => arg.Equals("-whatsnew", StringComparison.OrdinalIgnoreCase));
 
         // Delete temp folders and unneeded files in the background.
         // Resolve the service up front so the fire-and-forget task never reaches into
@@ -563,19 +572,22 @@ public partial class App : IDisposable
                 // The 'out _isFirstInstance' parameter would already be true in this case,
                 // but we explicitly set it for clarity and to ensure the flow continues as a first instance.
                 _isFirstInstance = true;
-                Log.Logger.Debug("Mutex was abandoned by a previous instance, but successfully acquired by this instance. Proceeding as first instance.");
+                Log.Logger.Debug(
+                    "Mutex was abandoned by a previous instance, but successfully acquired by this instance. Proceeding as first instance.");
                 // No need to call ILogger.LogErrorAsync here, as it's not a critical error preventing startup,
                 // but rather an informational event about a previous abnormal shutdown.
             }
             catch (UnauthorizedAccessException ex)
             {
-                ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to create or acquire single instance mutex.");
+                ServiceProvider.GetRequiredService<ILogger>()
+                    .Error(ex, "Failed to create or acquire single instance mutex.");
                 ShowStartupFailureAndShutdown(ServiceProvider.GetRequiredService<IMessageBoxLibraryService>());
                 return;
             }
             catch (IOException ex)
             {
-                ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to create or acquire single instance mutex.");
+                ServiceProvider.GetRequiredService<ILogger>()
+                    .Error(ex, "Failed to create or acquire single instance mutex.");
                 ShowStartupFailureAndShutdown(ServiceProvider.GetRequiredService<IMessageBoxLibraryService>());
                 return;
             }
@@ -646,7 +658,8 @@ public partial class App : IDisposable
         {
             try
             {
-                await ApplicationStats.CallApplicationStatsAsync(configuration, ServiceProvider.GetRequiredService<ILogger>());
+                await ApplicationStats.CallApplicationStatsAsync(configuration,
+                    ServiceProvider.GetRequiredService<ILogger>());
             }
             catch (Exception ex)
             {
@@ -725,7 +738,8 @@ public partial class App : IDisposable
         {
             if (ex is COMException { HResult: unchecked((int)0x88980406) })
             {
-                contextMessage = $"[RenderingEngineFailure] {contextMessage} | HResult=0x88980406 (UCEERR_RENDERTHREADFAILURE). Commonly triggered by GPU driver issues or WPF per-pixel transparency.";
+                contextMessage =
+                    $"[RenderingEngineFailure] {contextMessage} | HResult=0x88980406 (UCEERR_RENDERTHREADFAILURE). Commonly triggered by GPU driver issues or WPF per-pixel transparency.";
             }
 
             Log.Error(ex, contextMessage);
@@ -739,11 +753,13 @@ public partial class App : IDisposable
 
     private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
-        var exception = e.ExceptionObject as Exception ?? new InvalidOperationException($"Unhandled non-exception object: {e.ExceptionObject}");
+        var exception = e.ExceptionObject as Exception ??
+                        new InvalidOperationException($"Unhandled non-exception object: {e.ExceptionObject}");
         ReportException(exception, "Unhandled AppDomain exception.");
     }
 
-    private static void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+    private static void App_DispatcherUnhandledException(object sender,
+        System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
     {
         ReportException(e.Exception, "Unhandled dispatcher exception.");
 
@@ -771,15 +787,18 @@ public partial class App : IDisposable
         // Kill any lingering CHDMounter processes as a safety net
         try
         {
-            ServiceProvider.GetRequiredService<IMountChdFiles>().KillAllChdMounterProcesses(ServiceProvider.GetRequiredService<ILogger>());
+            ServiceProvider.GetRequiredService<IMountChdFiles>()
+                .KillAllChdMounterProcesses(ServiceProvider.GetRequiredService<ILogger>());
         }
         catch (InvalidOperationException ex)
         {
-            ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to kill lingering CHDMounter processes on exit.");
+            ServiceProvider.GetRequiredService<ILogger>()
+                .Error(ex, "Failed to kill lingering CHDMounter processes on exit.");
         }
         catch (SystemException ex)
         {
-            ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to kill lingering CHDMounter processes on exit.");
+            ServiceProvider.GetRequiredService<ILogger>()
+                .Error(ex, "Failed to kill lingering CHDMounter processes on exit.");
         }
 
         try
@@ -829,17 +848,20 @@ public partial class App : IDisposable
             catch (ApplicationException ex)
             {
                 // Notify developer
-                ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to release single instance mutex on exit.");
+                ServiceProvider.GetRequiredService<ILogger>()
+                    .Error(ex, "Failed to release single instance mutex on exit.");
             }
             catch (ObjectDisposedException ex)
             {
                 // Notify developer
-                ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to release single instance mutex on exit.");
+                ServiceProvider.GetRequiredService<ILogger>()
+                    .Error(ex, "Failed to release single instance mutex on exit.");
             }
             catch (InvalidOperationException ex)
             {
                 // Notify developer
-                ServiceProvider.GetRequiredService<ILogger>().Error(ex, "Failed to release single instance mutex on exit.");
+                ServiceProvider.GetRequiredService<ILogger>()
+                    .Error(ex, "Failed to release single instance mutex on exit.");
             }
             finally
             {
@@ -928,7 +950,9 @@ public partial class App : IDisposable
             // Add the new dictionary to the application's resources
             // Find and remove any existing language dictionaries first
             var existingLanguageDictionaries = Current.Resources.MergedDictionaries
-                .Where(static d => d.Source != null && d.Source.OriginalString.Contains("/resources/strings.", StringComparison.Ordinal))
+                .Where(static d =>
+                    d.Source != null &&
+                    d.Source.OriginalString.Contains("/resources/strings.", StringComparison.Ordinal))
                 .ToList();
 
             foreach (var dict in existingLanguageDictionaries)
@@ -957,11 +981,13 @@ public partial class App : IDisposable
                 catch (Exception fallbackEx)
                 {
                     // If even English fails, something is seriously wrong
-                    ServiceProvider.GetRequiredService<ILogger>().Error(fallbackEx, "Failed to apply English as fallback language.");
+                    ServiceProvider.GetRequiredService<ILogger>()
+                        .Error(fallbackEx, "Failed to apply English as fallback language.");
                 }
 
                 // Notify developer
-                ServiceProvider.GetRequiredService<ILogger>().Warning("Fallback to English language resources due to initial culture error.");
+                ServiceProvider.GetRequiredService<ILogger>()
+                    .Warning("Fallback to English language resources due to initial culture error.");
             }
         }
     }
@@ -971,7 +997,9 @@ public partial class App : IDisposable
         try
         {
             // Handle Theme Sync Mode (Adaptive)
-            ThemeManager.Current.ThemeSyncMode = string.Equals(baseTheme, "Adaptive", StringComparison.Ordinal) ? ThemeSyncMode.SyncAll : ThemeSyncMode.DoNotSync;
+            ThemeManager.Current.ThemeSyncMode = string.Equals(baseTheme, "Adaptive", StringComparison.Ordinal)
+                ? ThemeSyncMode.SyncAll
+                : ThemeSyncMode.DoNotSync;
             switch (baseTheme)
             {
                 case "Adaptive":
@@ -1062,14 +1090,18 @@ public partial class App : IDisposable
         }
         catch (Exception ex)
         {
-            ServiceProvider.GetRequiredService<ILogger>().Error(ex, $"Failed to apply custom theme override: {fileName}");
+            ServiceProvider.GetRequiredService<ILogger>()
+                .Error(ex, $"Failed to apply custom theme override: {fileName}");
         }
     }
 
     private static void RemoveCustomThemeOverrides()
     {
         var customThemes = Current.Resources.MergedDictionaries
-            .Where(static d => d.Source != null && (d.Source.OriginalString.Contains("Theme.HighContrast.xaml", StringComparison.Ordinal) || d.Source.OriginalString.Contains("Theme.Midnight.xaml", StringComparison.Ordinal)))
+            .Where(static d =>
+                d.Source != null &&
+                (d.Source.OriginalString.Contains("Theme.HighContrast.xaml", StringComparison.Ordinal) ||
+                 d.Source.OriginalString.Contains("Theme.Midnight.xaml", StringComparison.Ordinal)))
             .ToList();
 
         foreach (var dict in customThemes)
@@ -1091,14 +1123,18 @@ public partial class App : IDisposable
         }
         catch (Exception ex)
         {
-            ServiceProvider.GetRequiredService<ILogger>().Error(ex, $"Failed to apply custom theme override to window {window.GetType().Name}: {fileName}");
+            ServiceProvider.GetRequiredService<ILogger>().Error(ex,
+                $"Failed to apply custom theme override to window {window.GetType().Name}: {fileName}");
         }
     }
 
     private static void RemoveCustomThemeOverridesFromWindow(Window window)
     {
         var customThemes = window.Resources.MergedDictionaries
-            .Where(static d => d.Source != null && (d.Source.OriginalString.Contains("Theme.HighContrast.xaml", StringComparison.Ordinal) || d.Source.OriginalString.Contains("Theme.Midnight.xaml", StringComparison.Ordinal)))
+            .Where(static d =>
+                d.Source != null &&
+                (d.Source.OriginalString.Contains("Theme.HighContrast.xaml", StringComparison.Ordinal) ||
+                 d.Source.OriginalString.Contains("Theme.Midnight.xaml", StringComparison.Ordinal)))
             .ToList();
 
         foreach (var dict in customThemes)
@@ -1150,7 +1186,8 @@ public partial class App : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            ServiceProvider.GetRequiredService<ILogger>().Error(ex, $"Failed to apply theme to window {window.GetType().Name}.");
+            ServiceProvider.GetRequiredService<ILogger>()
+                .Error(ex, $"Failed to apply theme to window {window.GetType().Name}.");
         }
     }
 

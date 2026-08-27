@@ -45,7 +45,8 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectDuckStationConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectDuckStationConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();

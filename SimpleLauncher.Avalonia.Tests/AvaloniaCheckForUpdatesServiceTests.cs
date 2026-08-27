@@ -29,7 +29,8 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
             assets = assetNames.Select(n => new
             {
                 name = n,
-                browser_download_url = $"https://github.com/drpetersonfernandes/SimpleLauncher/releases/download/{versionTag}/{n}"
+                browser_download_url =
+                    $"https://github.com/drpetersonfernandes/SimpleLauncher/releases/download/{versionTag}/{n}"
             })
         });
     }
@@ -41,7 +42,8 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
             $"updater_{Rid}.zip");
     }
 
-    private (AvaloniaCheckForUpdatesService Service, Mock<IMessageBoxLibraryService> MessageBox, Mock<IApplicationLifetime> Lifetime)
+    private (AvaloniaCheckForUpdatesService Service, Mock<IMessageBoxLibraryService> MessageBox,
+        Mock<IApplicationLifetime> Lifetime)
         CreateService(Func<HttpRequestMessage, HttpResponseMessage> responder)
     {
         var handler = new FakeMessageHandler(responder);
@@ -55,7 +57,8 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         var lifetime = new Mock<IApplicationLifetime>();
 
         Directory.CreateDirectory(_updaterDir);
-        var service = new AvaloniaCheckForUpdatesService(httpClientFactory.Object, messageBox.Object, logger.Object, lifetime.Object, _updaterDir);
+        var service = new AvaloniaCheckForUpdatesService(httpClientFactory.Object, messageBox.Object, logger.Object,
+            lifetime.Object, _updaterDir);
         return (service, messageBox, lifetime);
     }
 
@@ -195,7 +198,8 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         var (service, messageBox, lifetime) = CreateService(_ =>
             Json(LatestReleaseAssetsJson("v9.9.9")));
 
-        File.WriteAllText(Path.Combine(_updaterDir, AvaloniaCheckForUpdatesService.UpdaterExecutableName), "not an executable");
+        File.WriteAllText(Path.Combine(_updaterDir, AvaloniaCheckForUpdatesService.UpdaterExecutableName),
+            "not an executable");
 
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.Yes);
@@ -376,7 +380,8 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
             _responder = responder;
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
             return Task.FromResult(_responder(request));
         }

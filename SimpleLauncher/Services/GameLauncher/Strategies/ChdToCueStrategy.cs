@@ -45,10 +45,12 @@ public class ChdToCueStrategy : ILaunchStrategy
         }
 
         var is4Do = context.EmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
-                    (context.EmulatorManager?.EmulatorLocation?.Contains("4do.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+                    (context.EmulatorManager?.EmulatorLocation?.Contains("4do.exe",
+                        StringComparison.OrdinalIgnoreCase) ?? false);
 
         var isRaine = context.EmulatorName.Contains("Raine", StringComparison.OrdinalIgnoreCase) ||
-                      (context.EmulatorManager?.EmulatorLocation?.Contains("raine", StringComparison.OrdinalIgnoreCase) ?? false);
+                      (context.EmulatorManager?.EmulatorLocation?.Contains("raine",
+                          StringComparison.OrdinalIgnoreCase) ?? false);
 
         return is4Do || isRaine;
     }
@@ -74,13 +76,16 @@ public class ChdToCueStrategy : ILaunchStrategy
 
             if (cuePath == null)
             {
-                await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(
+                    PathHelper.ResolveLogFilePath(App.ServiceProvider.GetRequiredService<IConfiguration>()
+                        .GetValue("LogPath", "error_user.log")));
                 return;
             }
 
             try
             {
-                await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManagerService!, context.EmulatorManager!, context.Parameters, context.WindowContext!, context.LoadingState);
+                await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManagerService!,
+                    context.EmulatorManager!, context.Parameters, context.WindowContext!, context.LoadingState);
             }
             finally
             {

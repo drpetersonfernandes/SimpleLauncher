@@ -26,12 +26,18 @@ public sealed class MountChdFilesIntegrationTests
         { @"J:\Microsoft Xbox\007 - Agent Under Fire (USA).chd", "007 - Agent Under Fire (USA)", "xbox" },
         // Sony PlayStation 3 (CHDMounter console alias "ps3")
         { @"X:\Sony PlayStation 3\007 - Blood Stone (USA) (En,Fr).chd", "007 - Blood Stone (USA) (En,Fr)", "ps3" },
-        { @"X:\Sony PlayStation 3\007 - Quantum of Solace (USA) (En,Fr) (Collector's Edition).chd", "007 - Quantum of Solace (USA) (En,Fr) (Collector's Edition)", "ps3" },
+        {
+            @"X:\Sony PlayStation 3\007 - Quantum of Solace (USA) (En,Fr) (Collector's Edition).chd",
+            "007 - Quantum of Solace (USA) (En,Fr) (Collector's Edition)", "ps3"
+        },
         { @"X:\Sony PlayStation 3\3D Dot Game Heroes (USA).chd", "3D Dot Game Heroes (USA)", "ps3" },
         // SNK Neo Geo CD (CHDMounter console alias "neogeocd")
         { @"J:\SNK Neo Geo CD\ADK World (Japan).chd", "ADK World (Japan)", "neogeocd" },
         { @"J:\SNK Neo Geo CD\Andro Dunos (France) (Unl).chd", "Andro Dunos (France) (Unl)", "neogeocd" },
-        { @"J:\SNK Neo Geo CD\2020 Super Baseball (Japan) (En,Ja).chd", "2020 Super Baseball (Japan) (En,Ja)", "neogeocd" }
+        {
+            @"J:\SNK Neo Geo CD\2020 Super Baseball (Japan) (En,Ja).chd", "2020 Super Baseball (Japan) (En,Ja)",
+            "neogeocd"
+        }
     };
 
     /// <summary>
@@ -57,7 +63,8 @@ public sealed class MountChdFilesIntegrationTests
             throw SkipException.ForSkip("Dokan driver is not installed. CHD cannot be mounted.");
         }
 
-        var chdMounterExePath = Path.Combine(AppContext.BaseDirectory, "tools", "CHDMounter", GetChdMounterExecutableName());
+        var chdMounterExePath =
+            Path.Combine(AppContext.BaseDirectory, "tools", "CHDMounter", GetChdMounterExecutableName());
         if (!File.Exists(chdMounterExePath))
         {
             throw SkipException.ForSkip($"CHDMounter executable not found: {chdMounterExePath}");
@@ -129,7 +136,8 @@ public sealed class MountChdFilesIntegrationTests
 
     private static string GetChdMounterExecutableName()
     {
-        return System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture == System.Runtime.InteropServices.Architecture.Arm64
+        return System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture ==
+               System.Runtime.InteropServices.Architecture.Arm64
             ? "CHDMounter_arm64.exe"
             : "CHDMounter.exe";
     }

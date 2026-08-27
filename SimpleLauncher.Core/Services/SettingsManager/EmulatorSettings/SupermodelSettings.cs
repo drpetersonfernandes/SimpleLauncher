@@ -81,10 +81,12 @@ public class SupermodelSettings : IEmulatorSettings
         Throttle = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Throttle), true);
         MusicVolume = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(MusicVolume), 100);
         SoundVolume = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(SoundVolume), 100);
-        InputSystem = ValidateInputSystem(EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(InputSystem), "xinput"));
+        InputSystem =
+            ValidateInputSystem(EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(InputSystem), "xinput"));
         MultiThreaded = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(MultiThreaded), true);
         PowerPcFrequency = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(PowerPcFrequency), 50);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

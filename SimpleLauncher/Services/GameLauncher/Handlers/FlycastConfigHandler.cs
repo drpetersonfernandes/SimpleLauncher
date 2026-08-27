@@ -28,7 +28,8 @@ public class FlycastConfigHandler : IEmulatorConfigHandler
     /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
-        return emulatorName.Contains("Flycast", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("flycast.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+        return emulatorName.Contains("Flycast", StringComparison.OrdinalIgnoreCase) ||
+               (emulatorPath?.Contains("flycast.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
     /// <inheritdoc />
@@ -44,7 +45,8 @@ public class FlycastConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectFlycastConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectFlycastConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();

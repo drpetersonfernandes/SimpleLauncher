@@ -359,10 +359,12 @@ public class AvaloniaHelpUserService
     private string GetSystemDetails(string systemName)
     {
         // Fetch the system details from the configuration
-        var system = _manager.Systems.FirstOrDefault(s => s.SystemName.Contains(systemName, StringComparison.OrdinalIgnoreCase));
+        var system =
+            _manager.Systems.FirstOrDefault(s => s.SystemName.Contains(systemName, StringComparison.OrdinalIgnoreCase));
 
         // WPF parity: use Noinformationavailableforsystem key without quote wrapping
-        var fallback = _localization?.GetString("Noinformationavailableforsystem") ?? "No information available for system";
+        var fallback = _localization?.GetString("Noinformationavailableforsystem") ??
+                       "No information available for system";
         return system?.SystemHelperText ?? $"{fallback} {systemName}";
     }
 }

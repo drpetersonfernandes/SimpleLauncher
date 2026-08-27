@@ -30,7 +30,8 @@ internal partial class EditSystemWindow
         control.ClearValue(ForegroundProperty);
     }
 
-    private void TrimInputValues(out string systemNameText, out string systemFolderText, out string systemImageFolderText,
+    private void TrimInputValues(out string systemNameText, out string systemFolderText,
+        out string systemImageFolderText,
         out string formatToSearchText, out string formatToLaunchText, out string emulator1NameText,
         out string emulator2NameText, out string emulator3NameText, out string emulator4NameText,
         out string emulator5NameText, out string emulator1LocationText, out string emulator2LocationText,
@@ -61,7 +62,8 @@ internal partial class EditSystemWindow
     }
 
     // ReSharper disable once UnusedParameter.Local
-    private static void ValidatePaths(string systemNameText, string systemFolderText, string systemImageFolderText, string emulator1LocationText,
+    private static void ValidatePaths(string systemNameText, string systemFolderText, string systemImageFolderText,
+        string emulator1LocationText,
         string emulator2LocationText, string emulator3LocationText, string emulator4LocationText,
         string emulator5LocationText, out bool isSystemFolderValid, out bool isSystemImageFolderValid,
         out bool isEmulator1LocationValid, out bool isEmulator2LocationValid, out bool isEmulator3LocationValid,
@@ -69,16 +71,23 @@ internal partial class EditSystemWindow
     {
         // CheckPath.IsValidPath is updated to handle %BASEFOLDER% and relative paths
         isSystemFolderValid = string.IsNullOrWhiteSpace(systemFolderText) || CheckPath.IsValidPath(systemFolderText);
-        isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) || CheckPath.IsValidPath(systemImageFolderText);
+        isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) ||
+                                   CheckPath.IsValidPath(systemImageFolderText);
         // Use stricter validation for emulator paths - must be an executable file, not a directory
-        isEmulator1LocationValid = string.IsNullOrWhiteSpace(emulator1LocationText) || CheckPath.IsValidEmulatorExecutablePath(emulator1LocationText);
-        isEmulator2LocationValid = string.IsNullOrWhiteSpace(emulator2LocationText) || CheckPath.IsValidEmulatorExecutablePath(emulator2LocationText);
-        isEmulator3LocationValid = string.IsNullOrWhiteSpace(emulator3LocationText) || CheckPath.IsValidEmulatorExecutablePath(emulator3LocationText);
-        isEmulator4LocationValid = string.IsNullOrWhiteSpace(emulator4LocationText) || CheckPath.IsValidEmulatorExecutablePath(emulator4LocationText);
-        isEmulator5LocationValid = string.IsNullOrWhiteSpace(emulator5LocationText) || CheckPath.IsValidEmulatorExecutablePath(emulator5LocationText);
+        isEmulator1LocationValid = string.IsNullOrWhiteSpace(emulator1LocationText) ||
+                                   CheckPath.IsValidEmulatorExecutablePath(emulator1LocationText);
+        isEmulator2LocationValid = string.IsNullOrWhiteSpace(emulator2LocationText) ||
+                                   CheckPath.IsValidEmulatorExecutablePath(emulator2LocationText);
+        isEmulator3LocationValid = string.IsNullOrWhiteSpace(emulator3LocationText) ||
+                                   CheckPath.IsValidEmulatorExecutablePath(emulator3LocationText);
+        isEmulator4LocationValid = string.IsNullOrWhiteSpace(emulator4LocationText) ||
+                                   CheckPath.IsValidEmulatorExecutablePath(emulator4LocationText);
+        isEmulator5LocationValid = string.IsNullOrWhiteSpace(emulator5LocationText) ||
+                                   CheckPath.IsValidEmulatorExecutablePath(emulator5LocationText);
     }
 
-    private async Task<bool> CheckPathsAsync(bool isSystemFolderValid, bool isSystemImageFolderValid, bool isEmulator1LocationValid,
+    private async Task<bool> CheckPathsAsync(bool isSystemFolderValid, bool isSystemImageFolderValid,
+        bool isEmulator1LocationValid,
         bool isEmulator2LocationValid, bool isEmulator3LocationValid, bool isEmulator4LocationValid,
         bool isEmulator5LocationValid)
     {
@@ -127,7 +136,8 @@ internal partial class EditSystemWindow
         return false; // Validation passed
     }
 
-    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToLaunchAsync(string formatToLaunchText, bool extractFileBeforeLaunch)
+    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToLaunchAsync(string formatToLaunchText,
+        bool extractFileBeforeLaunch)
     {
         var formatsToLaunch = formatToLaunchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
             .Select(static format => format.Trim())
@@ -146,7 +156,8 @@ internal partial class EditSystemWindow
         return (false, formatsToLaunch); // Return false to indicate validation passed
     }
 
-    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToSearchAsync(string formatToSearchText, bool extractFileBeforeLaunch)
+    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToSearchAsync(string formatToSearchText,
+        bool extractFileBeforeLaunch)
     {
         var formatsToSearch = formatToSearchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
             .Select(static format => format.Trim())
@@ -172,12 +183,15 @@ internal partial class EditSystemWindow
         return (false, formatsToSearch);
     }
 
-    private async Task<(bool IsFailed, string FolderText)> ValidateSystemImageFolderAsync(string systemNameText, string systemImageFolderText)
+    private async Task<(bool IsFailed, string FolderText)> ValidateSystemImageFolderAsync(string systemNameText,
+        string systemImageFolderText)
     {
         var defaultPattern = Path.Combine(".", "images", systemNameText);
         var prefixedDefaultPattern = Path.Combine("%BASEFOLDER%", "images", systemNameText);
 
-        if (string.IsNullOrEmpty(systemImageFolderText) || systemImageFolderText.Equals(defaultPattern, StringComparison.OrdinalIgnoreCase) || systemImageFolderText.Equals(prefixedDefaultPattern, StringComparison.OrdinalIgnoreCase))
+        if (string.IsNullOrEmpty(systemImageFolderText) ||
+            systemImageFolderText.Equals(defaultPattern, StringComparison.OrdinalIgnoreCase) ||
+            systemImageFolderText.Equals(prefixedDefaultPattern, StringComparison.OrdinalIgnoreCase))
         {
             systemImageFolderText = prefixedDefaultPattern;
             SystemImageFolderTextBox.Text = systemImageFolderText;
@@ -216,12 +230,15 @@ internal partial class EditSystemWindow
         return (false, systemImageFolderText);
     }
 
-    private async Task<(bool IsFailed, string FolderText)> ValidateSystemFolderAsync(string systemNameText, string systemFolderText)
+    private async Task<(bool IsFailed, string FolderText)> ValidateSystemFolderAsync(string systemNameText,
+        string systemFolderText)
     {
         var defaultPattern = Path.Combine(".", "roms", systemNameText);
         var prefixedDefaultPattern = Path.Combine("%BASEFOLDER%", "roms", systemNameText);
 
-        if (string.IsNullOrEmpty(systemFolderText) || systemFolderText.Equals(defaultPattern, StringComparison.OrdinalIgnoreCase) || systemFolderText.Equals(prefixedDefaultPattern, StringComparison.OrdinalIgnoreCase))
+        if (string.IsNullOrEmpty(systemFolderText) ||
+            systemFolderText.Equals(defaultPattern, StringComparison.OrdinalIgnoreCase) ||
+            systemFolderText.Equals(prefixedDefaultPattern, StringComparison.OrdinalIgnoreCase))
         {
             systemFolderText = prefixedDefaultPattern;
             SystemFolderTextBox.Text = systemFolderText;

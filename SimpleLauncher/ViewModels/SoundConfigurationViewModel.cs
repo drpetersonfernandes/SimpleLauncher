@@ -31,7 +31,8 @@ public partial class SoundConfigurationViewModel : ObservableObject
     /// <param name="logErrors">The logger for recording errors.</param>
     /// <param name="messageBox">The message box service for displaying dialogs.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
-    public SoundConfigurationViewModel(SettingsManagerService settings, PlaySoundEffects playSoundEffects, ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
+    public SoundConfigurationViewModel(SettingsManagerService settings, PlaySoundEffects playSoundEffects,
+        ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
@@ -72,7 +73,8 @@ public partial class SoundConfigurationViewModel : ObservableObject
 
             var destinationFilePath = Path.Combine(AudioFolderPath, chosenFileName);
 
-            if (!string.Equals(Path.GetFullPath(sourceFilePath), Path.GetFullPath(destinationFilePath), StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(Path.GetFullPath(sourceFilePath), Path.GetFullPath(destinationFilePath),
+                    StringComparison.OrdinalIgnoreCase))
             {
                 File.Copy(sourceFilePath, destinationFilePath, true);
             }

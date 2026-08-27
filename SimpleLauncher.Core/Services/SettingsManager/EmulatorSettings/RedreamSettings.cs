@@ -113,7 +113,8 @@ public class RedreamSettings : IEmulatorSettings
         Framerate = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Framerate), false);
         Width = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(Width), 1280);
         Height = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(Height), 720);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

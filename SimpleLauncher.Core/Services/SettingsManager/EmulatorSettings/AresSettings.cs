@@ -82,14 +82,16 @@ public class AresSettings : IEmulatorSettings
         Exclusive = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Exclusive), false);
         Shader = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(Shader), "None");
         Multiplier = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(Multiplier), 2);
-        AspectCorrection = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(AspectCorrection), "Standard");
+        AspectCorrection =
+            EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(AspectCorrection), "Standard");
         Mute = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Mute), false);
         Volume = EmulatorXmlHelpers.ReadDouble(s, SectionName, settings, nameof(Volume), 1.0);
         FastBoot = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(FastBoot), false);
         Rewind = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Rewind), false);
         RunAhead = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(RunAhead), false);
         AutoSaveMemory = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(AutoSaveMemory), true);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

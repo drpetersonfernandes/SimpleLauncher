@@ -217,7 +217,11 @@ public class MednafenConfigInjectionTests : IDisposable
         var configPath = Path.Combine(emuDir, "mednafen.cfg");
         var content = File.ReadAllText(configPath);
 
-        var prefixes = new[] { "apple2", "gb", "gba", "gg", "lynx", "md", "nes", "ngp", "pce", "pce_fast", "pcfx", "psx", "sms", "snes", "snes_faust", "ss", "vb", "wswan" };
+        var prefixes = new[]
+        {
+            "apple2", "gb", "gba", "gg", "lynx", "md", "nes", "ngp", "pce", "pce_fast", "pcfx", "psx", "sms", "snes",
+            "snes_faust", "ss", "vb", "wswan"
+        };
         foreach (var prefix in prefixes)
         {
             Assert.Contains($"{prefix}.stretch aspect", content, StringComparison.Ordinal);

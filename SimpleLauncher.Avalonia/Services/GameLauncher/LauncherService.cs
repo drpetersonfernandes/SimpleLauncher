@@ -186,7 +186,8 @@ public class LauncherService : ILauncherService
             var strategy = _launchStrategies.FirstOrDefault(s => s.IsMatch(context));
             if (strategy == null)
             {
-                Log.Warning("No launch strategy found for the context: SystemName='{System}', EmulatorName='{Emulator}', FilePath='{Path}'",
+                Log.Warning(
+                    "No launch strategy found for the context: SystemName='{System}', EmulatorName='{Emulator}', FilePath='{Path}'",
                     context.SystemName, context.EmulatorName, context.FilePath);
                 await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(LogFilePath());
                 return;
@@ -383,7 +384,8 @@ public class LauncherService : ILauncherService
                     // archive extracted to its data folder, XBLA games are searched for a
                     // launchable file. These paths handle the whole launch themselves.
                     var isRpcs3 = emulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase);
-                    var isScummVm = selectedSystemManager.SystemName.Contains("Scumm", StringComparison.OrdinalIgnoreCase);
+                    var isScummVm =
+                        selectedSystemManager.SystemName.Contains("Scumm", StringComparison.OrdinalIgnoreCase);
                     var isXbla = selectedSystemManager.SystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase);
 
                     if (isRpcs3 || isScummVm || isXbla)
@@ -607,7 +609,8 @@ public class LauncherService : ILauncherService
 
             if (string.IsNullOrEmpty(resolvedEmulatorPath) || !File.Exists(resolvedEmulatorPath))
             {
-                var msg = $"Emulator executable not found after resolving: '{emulatorPath}' -> '{resolvedEmulatorPath}'";
+                var msg =
+                    $"Emulator executable not found after resolving: '{emulatorPath}' -> '{resolvedEmulatorPath}'";
 
                 // OneDrive-specific guidance for the emulator executable
                 if (!string.IsNullOrEmpty(resolvedEmulatorPath) &&
@@ -659,7 +662,9 @@ public class LauncherService : ILauncherService
             else
             {
                 var trimmedParameters = resolvedParameters.TrimEnd();
-                var space = (string.IsNullOrWhiteSpace(trimmedParameters) || trimmedParameters.EndsWith('=')) ? "" : " ";
+                var space = (string.IsNullOrWhiteSpace(trimmedParameters) || trimmedParameters.EndsWith('='))
+                    ? ""
+                    : " ";
                 var isNeoGeoCd = ext is ".CUE" or ".ISO" or ".BIN";
                 if ((isMame || isRaine) && !isNeoGeoCd)
                 {

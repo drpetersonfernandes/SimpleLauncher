@@ -36,7 +36,8 @@ public class LocalizationTests
             .OrderBy(n => n, StringComparer.Ordinal)
             .ToList();
 
-        var actual = LanguageFiles().Select(Path.GetFileName).Where(n => n is not null).Select(n => n!).OrderBy(n => n, StringComparer.Ordinal).ToList();
+        var actual = LanguageFiles().Select(Path.GetFileName).Where(n => n is not null).Select(n => n!)
+            .OrderBy(n => n, StringComparer.Ordinal).ToList();
 
         Assert.Equal(expected, actual);
     }

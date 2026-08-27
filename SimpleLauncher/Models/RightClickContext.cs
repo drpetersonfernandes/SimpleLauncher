@@ -39,22 +39,27 @@ public class RightClickContext(
     public string FilePath { get; } = filePath ?? throw new ArgumentNullException(nameof(filePath));
 
     /// <summary>Gets the file name with extension.</summary>
-    public string FileNameWithExtension { get; } = fileNameWithExtension ?? throw new ArgumentNullException(nameof(fileNameWithExtension));
+    public string FileNameWithExtension { get; } =
+        fileNameWithExtension ?? throw new ArgumentNullException(nameof(fileNameWithExtension));
 
     /// <summary>Gets the file name without extension.</summary>
-    public string FileNameWithoutExtension { get; } = fileNameWithoutExtension ?? throw new ArgumentNullException(nameof(fileNameWithoutExtension));
+    public string FileNameWithoutExtension { get; } = fileNameWithoutExtension ??
+                                                      throw new ArgumentNullException(nameof(fileNameWithoutExtension));
 
     /// <summary>Gets the name of the selected system.</summary>
-    public string SelectedSystemName { get; } = selectedSystemName ?? throw new ArgumentNullException(nameof(selectedSystemName));
+    public string SelectedSystemName { get; } =
+        selectedSystemName ?? throw new ArgumentNullException(nameof(selectedSystemName));
 
     /// <summary>Gets the selected system manager instance.</summary>
-    public SystemManagerService SelectedSystemManager { get; } = selectedSystemManager ?? throw new ArgumentNullException(nameof(selectedSystemManager));
+    public SystemManagerService SelectedSystemManager { get; } =
+        selectedSystemManager ?? throw new ArgumentNullException(nameof(selectedSystemManager));
 
     /// <summary>Gets the list of MAME machine entries.</summary>
     public IList<MameManagerService> Machines { get; } = machines ?? throw new ArgumentNullException(nameof(machines));
 
     /// <summary>Gets the favorites manager instance.</summary>
-    public FavoritesManager FavoritesManager { get; } = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
+    public FavoritesManager FavoritesManager { get; } =
+        favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
 
     /// <summary>Gets the application settings manager.</summary>
     public SettingsManagerService Settings { get; } = settings ?? throw new ArgumentNullException(nameof(settings));
@@ -92,5 +97,7 @@ public class RightClickContext(
     /// <summary>Gets the loading state provider for overlay display.</summary>
     public ILoadingState LoadingStateProvider { get; } = loadingStateProvider
                                                          ?? (mainWindow as ILoadingState
-                                                             ?? throw new ArgumentException($@"{mainWindow.GetType().Name} does not implement {nameof(ILoadingState)}.", nameof(mainWindow)));
+                                                             ?? throw new ArgumentException(
+                                                                 $@"{mainWindow.GetType().Name} does not implement {nameof(ILoadingState)}.",
+                                                                 nameof(mainWindow)));
 }

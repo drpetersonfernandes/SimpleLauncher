@@ -105,7 +105,8 @@ public class MameSettings : IEmulatorSettings
         Autosave = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Autosave), false);
         ConfirmQuit = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ConfirmQuit), false);
         Joystick = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Joystick), true);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
         Autoframeskip = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Autoframeskip), false);
         BgfxBackend = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(BgfxBackend), "auto");
         BgfxScreenChains = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(BgfxScreenChains), "default");

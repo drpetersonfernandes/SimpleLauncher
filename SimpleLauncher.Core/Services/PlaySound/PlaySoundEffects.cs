@@ -75,7 +75,8 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
             lock (Lock)
             {
                 _logger.Error(
-                    new ArgumentNullException(nameof(soundFileName), "PlayConfiguredSound called with null or empty soundFileName."),
+                    new ArgumentNullException(nameof(soundFileName),
+                        "PlayConfiguredSound called with null or empty soundFileName."),
                     "Attempted to play sound with an empty filename.");
             }
 

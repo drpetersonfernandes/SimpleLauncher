@@ -75,7 +75,8 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
     /// Loads game files for the currently selected system, applying letter/search/favorites/RA filters,
     /// sorting, pagination, and rendering the results to the UI.
     /// </summary>
-    public async Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null, CancellationToken cancellationToken = default)
+    public async Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null,
+        CancellationToken cancellationToken = default)
     {
         _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Loading") ?? "Loading...");
 
@@ -93,7 +94,8 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
 
             var selectedSystem = _host.SystemComboBox.SelectedItem.ToString() ?? "";
             var systemManagers = _host.GetSystemManagers();
-            var selectedManager = systemManagers.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+            var selectedManager = systemManagers.FirstOrDefault(c =>
+                c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
             if (selectedManager == null)
             {
                 const string contextMessage = "selectedConfig is null.";
@@ -106,7 +108,8 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                 return;
             }
 
-            var allFiles = await BuildListOfAllFilesToLoad(selectedManager, startLetter, searchQuery, cancellationToken);
+            var allFiles =
+                await BuildListOfAllFilesToLoad(selectedManager, startLetter, searchQuery, cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
 
             if (selectedManager.GroupByFolder)
@@ -116,7 +119,8 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                     if (string.IsNullOrEmpty(path))
                         return path ?? "";
 
-                    return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                    return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) +
+                           Path.DirectorySeparatorChar;
                 }
 
                 var rootFolders = selectedManager.SystemFolders
@@ -143,16 +147,19 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                 allFiles = groupedFiles;
             }
 
-            allFiles = _gameFilterService.SortByMameDescription(allFiles, _host.GetMameSortOrder(), _mameDataService.Lookup);
+            allFiles = _gameFilterService.SortByMameDescription(allFiles, _host.GetMameSortOrder(),
+                _mameDataService.Lookup);
             cancellationToken.ThrowIfCancellationRequested();
 
-            allFiles = await _gameFilterService.FilterByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
+            allFiles = await _gameFilterService.FilterByShowGamesSettingAsync(allFiles, selectedSystem,
+                selectedManager);
             cancellationToken.ThrowIfCancellationRequested();
 
             allFiles = _host.SetPaginationOfListOfFiles(allFiles);
             cancellationToken.ThrowIfCancellationRequested();
 
-            await _gameItemRenderService.RenderGameItemsAsync(allFiles, selectedSystem, selectedManager, cancellationToken);
+            await _gameItemRenderService.RenderGameItemsAsync(allFiles, selectedSystem, selectedManager,
+                cancellationToken);
 
             switch (_settings.ViewMode)
             {
@@ -200,11 +207,13 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
             var currentSystem = _host.SystemComboBox.SelectedItem?.ToString();
             if (!string.Equals(currentSystem, systemName, StringComparison.OrdinalIgnoreCase))
             {
-                _logger.Debug($"[OnGameFilesChangedAsync] Ignoring change for system '{systemName}' (current: '{currentSystem}').");
+                _logger.Debug(
+                    $"[OnGameFilesChangedAsync] Ignoring change for system '{systemName}' (current: '{currentSystem}').");
                 return;
             }
 
-            _logger.Debug($"[OnGameFilesChangedAsync] File change detected for system '{systemName}'. Reloading game list.");
+            _logger.Debug(
+                $"[OnGameFilesChangedAsync] File change detected for system '{systemName}'. Reloading game list.");
 
             await InvalidateGameFileCachesAsync();
             await LoadGameFilesAsync(cancellationToken: CancellationToken.None);
@@ -222,7 +231,8 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
     /// <param name="startLetter">The start letter.</param>
     /// <param name="searchQuery">The search query.</param>
     /// <param name="token">The token.</param>
-    private async Task<IList<string>> BuildListOfAllFilesToLoad(SystemManager.SystemManagerService selectedManager, string? startLetter, string? searchQuery, CancellationToken token)
+    private async Task<IList<string>> BuildListOfAllFilesToLoad(SystemManager.SystemManagerService selectedManager,
+        string? startLetter, string? searchQuery, CancellationToken token)
     {
         if (_host.IsResortOperation)
         {
@@ -289,7 +299,8 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                 {
                     allFiles = [];
                     _logger.Debug($"[BuildListOfAllFilesToLoad] Error matching RA hashes against local files: {ex}");
-                    _logger.Error(ex, $"[BuildListOfAllFilesToLoad] Error matching RA hashes against local files: {ex}");
+                    _logger.Error(ex,
+                        $"[BuildListOfAllFilesToLoad] Error matching RA hashes against local files: {ex}");
                 }
 
                 break;
@@ -316,11 +327,13 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
             {
                 if (string.IsNullOrWhiteSpace(startLetter) && string.IsNullOrWhiteSpace(searchQuery))
                 {
-                    var isPopulated = await _gameCacheService.IsCachePopulatedForSystemAsync(selectedManager.SystemName, token);
+                    var isPopulated =
+                        await _gameCacheService.IsCachePopulatedForSystemAsync(selectedManager.SystemName, token);
                     if (isPopulated)
                     {
                         allFiles = await _gameCacheService.GetAllGamesAsync(token);
-                        _logger.Debug($"[BuildListOfAllFilesToLoad] Reusing cached list for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
+                        _logger.Debug(
+                            $"[BuildListOfAllFilesToLoad] Reusing cached list for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
                     }
                     else
                     {
@@ -329,9 +342,12 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                         {
                             token.ThrowIfCancellationRequested();
                             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
+                            if (string.IsNullOrEmpty(resolvedSystemFolderPath) ||
+                                !Directory.Exists(resolvedSystemFolderPath)) continue;
 
-                            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch, selectedManager.GroupByFolder, token);
+                            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath,
+                                selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch,
+                                selectedManager.GroupByFolder, token);
                             foreach (var file in filesInFolder)
                             {
                                 uniqueFiles.TryAdd(Path.GetFileName(file), file);
@@ -340,12 +356,14 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
 
                         allFiles = uniqueFiles.Values.ToList();
                         await _gameCacheService.SetAllGamesAsync(allFiles, selectedManager.SystemName, token);
-                        _logger.Debug($"[BuildListOfAllFilesToLoad] Populated cache for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
+                        _logger.Debug(
+                            $"[BuildListOfAllFilesToLoad] Populated cache for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
                     }
                 }
                 else
                 {
-                    var isPopulated = await _gameCacheService.IsCachePopulatedForSystemAsync(selectedManager.SystemName, token);
+                    var isPopulated =
+                        await _gameCacheService.IsCachePopulatedForSystemAsync(selectedManager.SystemName, token);
                     if (!isPopulated)
                     {
                         var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -353,9 +371,12 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                         {
                             token.ThrowIfCancellationRequested();
                             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
+                            if (string.IsNullOrEmpty(resolvedSystemFolderPath) ||
+                                !Directory.Exists(resolvedSystemFolderPath)) continue;
 
-                            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch, selectedManager.GroupByFolder, token);
+                            var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath,
+                                selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch,
+                                selectedManager.GroupByFolder, token);
                             foreach (var file in filesInFolder)
                             {
                                 uniqueFiles.TryAdd(Path.GetFileName(file), file);
@@ -377,9 +398,12 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                     await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                 }
 
-                if (!string.IsNullOrWhiteSpace(searchQuery) && !string.Equals(searchQuery, AppConstants.RandomSelection, StringComparison.Ordinal) && !string.Equals(searchQuery, AppConstants.Favorites, StringComparison.Ordinal))
+                if (!string.IsNullOrWhiteSpace(searchQuery) &&
+                    !string.Equals(searchQuery, AppConstants.RandomSelection, StringComparison.Ordinal) &&
+                    !string.Equals(searchQuery, AppConstants.Favorites, StringComparison.Ordinal))
                 {
-                    allFiles = await _gameFilterService.FilterBySearchQueryAsync(allFiles, searchQuery, _mameDataService.Lookup);
+                    allFiles = await _gameFilterService.FilterBySearchQueryAsync(allFiles, searchQuery,
+                        _mameDataService.Lookup);
                     await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                 }
 

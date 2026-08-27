@@ -83,7 +83,8 @@ public class Program
 
             foreach (var batch in batches)
             {
-                Log.Information("  [{LanguageCode}] {LanguageName}: {MissingCount} missing, {DuplicateCount} duplicates",
+                Log.Information(
+                    "  [{LanguageCode}] {LanguageName}: {MissingCount} missing, {DuplicateCount} duplicates",
                     batch.LanguageCode, batch.LanguageName, batch.MissingKeys.Count, batch.DuplicateKeysRemoved.Count);
             }
 
@@ -108,7 +109,9 @@ public class Program
             Log.Information("Available Gemini models:");
             for (var i = 0; i < models.Count; i++)
             {
-                var marker = string.Equals(models[i].Id, "gemini-2.5-flash", StringComparison.Ordinal) ? " (default)" : "";
+                var marker = string.Equals(models[i].Id, "gemini-2.5-flash", StringComparison.Ordinal)
+                    ? " (default)"
+                    : "";
                 Console.WriteLine($"  {i + 1}. {models[i].Name} - {models[i].Description}{marker}");
             }
 
@@ -117,9 +120,12 @@ public class Program
             var modelInput = Console.ReadLine()?.Trim();
 
             GeminiModelInfo selectedModel;
-            if (string.IsNullOrEmpty(modelInput) || !int.TryParse(modelInput, System.Globalization.CultureInfo.InvariantCulture, out var modelIndex) || modelIndex < 1 || modelIndex > models.Count)
+            if (string.IsNullOrEmpty(modelInput) ||
+                !int.TryParse(modelInput, System.Globalization.CultureInfo.InvariantCulture, out var modelIndex) ||
+                modelIndex < 1 || modelIndex > models.Count)
             {
-                selectedModel = models.First(static m => string.Equals(m.Id, "gemini-2.5-flash", StringComparison.Ordinal));
+                selectedModel = models.First(static m =>
+                    string.Equals(m.Id, "gemini-2.5-flash", StringComparison.Ordinal));
                 Log.Information("Using default model: {ModelName}", selectedModel.Name);
             }
             else
@@ -135,7 +141,8 @@ public class Program
 
             foreach (var batch in batches)
             {
-                Log.Information("Processing [{LanguageCode}] {LanguageName}...", batch.LanguageCode, batch.LanguageName);
+                Log.Information("Processing [{LanguageCode}] {LanguageName}...", batch.LanguageCode,
+                    batch.LanguageName);
                 var languageStopwatch = System.Diagnostics.Stopwatch.StartNew();
 
                 var allTranslations = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -159,11 +166,13 @@ public class Program
                         }
 
                         Console.WriteLine($"done in {sw.ElapsedMilliseconds}ms");
-                        Log.Debug("Batch {BatchNumber} completed in {ElapsedMs}ms", batchNumber, sw.ElapsedMilliseconds);
+                        Log.Debug("Batch {BatchNumber} completed in {ElapsedMs}ms", batchNumber,
+                            sw.ElapsedMilliseconds);
                     }
                     catch (Exception ex)
                     {
-                        Log.Warning(ex, "Batch {BatchNumber} failed for {LanguageName}", batchNumber, batch.LanguageName);
+                        Log.Warning(ex, "Batch {BatchNumber} failed for {LanguageName}", batchNumber,
+                            batch.LanguageName);
                         Console.WriteLine($"FAILED: {ex.Message}");
                         Console.WriteLine("  This batch was skipped and will not be written to the resource file.");
                     }
@@ -187,7 +196,8 @@ public class Program
             overallStopwatch.Stop();
             Log.Information("===================================");
             Log.Information("Translation complete!");
-            Log.Information("Total time: {Minutes:D2}:{Seconds:D2}", overallStopwatch.Elapsed.Minutes, overallStopwatch.Elapsed.Seconds);
+            Log.Information("Total time: {Minutes:D2}:{Seconds:D2}", overallStopwatch.Elapsed.Minutes,
+                overallStopwatch.Elapsed.Seconds);
             Log.Information("Languages updated: {BatchCount}", batches.Count);
             Log.Information("Total keys translated: {TotalMissing}", totalMissing);
             if (totalDuplicates > 0)

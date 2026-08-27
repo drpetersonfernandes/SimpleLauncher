@@ -75,7 +75,8 @@ public partial class MessageDialogWindow : Window
         }
 
         IconText.Text = glyph;
-        if (ResourceNodeExtensions.TryFindResource(this, brush, out var brushResource) && brushResource is IBrush foundBrush)
+        if (ResourceNodeExtensions.TryFindResource(this, brush, out var brushResource) &&
+            brushResource is IBrush foundBrush)
         {
             IconText.Foreground = foundBrush;
         }

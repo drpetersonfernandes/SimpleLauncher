@@ -27,7 +27,8 @@ public interface IMenuActionHost
     /// <param name="searchQuery">Optional search query to filter games.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null, CancellationToken cancellationToken = default);
+    Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null,
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets the current parameters used for loading game files.

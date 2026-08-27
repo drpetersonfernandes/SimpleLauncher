@@ -23,7 +23,8 @@ public partial class MainWindow : IMenuActionHost
         SetLoadingState(isLoading, message);
     }
 
-    Task IMenuActionHost.LoadGameFilesAsync(string? startLetter, string? searchQuery, CancellationToken cancellationToken)
+    Task IMenuActionHost.LoadGameFilesAsync(string? startLetter, string? searchQuery,
+        CancellationToken cancellationToken)
     {
         return _gameBrowser.LoadGameFilesAsync(startLetter, searchQuery, cancellationToken);
     }

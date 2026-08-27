@@ -131,5 +131,6 @@ public record RaRecentlyPlayedGame
     /// <summary>
     /// Gets a formatted display string showing hardcore achievement and score progress.
     /// </summary>
-    public string HardcoreProgressDisplay => $"{NumAchievedHardcore}/{AchievementsTotal} ({ScoreAchievedHardcore}/{PossibleScore} pts)";
+    public string HardcoreProgressDisplay =>
+        $"{NumAchievedHardcore}/{AchievementsTotal} ({ScoreAchievedHardcore}/{PossibleScore} pts)";
 }

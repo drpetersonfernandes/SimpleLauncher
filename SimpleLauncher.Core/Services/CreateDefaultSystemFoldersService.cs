@@ -18,12 +18,14 @@ public static class CreateDefaultSystemFoldersService
     /// <param name="configuration">The application configuration for additional folder settings.</param>
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
-    public static async Task CreateFoldersAsync(string systemName, string systemFolder, string systemImageFolder, IConfiguration configuration, ILogger logErrors, IMessageBoxLibraryService messageBox)
+    public static async Task CreateFoldersAsync(string systemName, string systemFolder, string systemImageFolder,
+        IConfiguration configuration, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var additionalFolders = configuration.GetValue<string[]>("AdditionalFolders") ??
         [
-            "roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "carts", "flyers", "pcbs"
+            "roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets",
+            "carts", "flyers", "pcbs"
         ];
         var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolder);
         var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
@@ -87,7 +89,8 @@ public static class CreateDefaultSystemFoldersService
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "The application failed to create the necessary folders for the newly added system.";
+            const string contextMessage =
+                "The application failed to create the necessary folders for the newly added system.";
             logErrors.Error(ex, contextMessage);
 
             // Notify user

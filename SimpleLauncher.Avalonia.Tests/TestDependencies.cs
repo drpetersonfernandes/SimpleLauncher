@@ -40,7 +40,8 @@ internal static class TestDependencies
         return mock;
     }
 
-    public static SettingsManagerService Settings(IConfiguration? configuration = null, Mock<IMessageBoxLibraryService>? messageBox = null)
+    public static SettingsManagerService Settings(IConfiguration? configuration = null,
+        Mock<IMessageBoxLibraryService>? messageBox = null)
     {
         TestEnvironment.EnsurePortableSettings();
         return new SettingsManagerService(
@@ -76,7 +77,8 @@ internal static class TestDependencies
             _responder = responder;
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
             return Task.FromResult(_responder(request));
         }

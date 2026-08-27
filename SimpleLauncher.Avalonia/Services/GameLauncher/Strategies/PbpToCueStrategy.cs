@@ -20,7 +20,8 @@ public class PbpToCueStrategy : ILaunchStrategy
     /// <summary>
     /// Initializes a new instance of the <see cref="PbpToCueStrategy"/> class.
     /// </summary>
-    public PbpToCueStrategy(IMessageBoxLibraryService messageBox, ILogger logger, IDiscConverter discConverter, IConfiguration configuration)
+    public PbpToCueStrategy(IMessageBoxLibraryService messageBox, ILogger logger, IDiscConverter discConverter,
+        IConfiguration configuration)
     {
         _messageBox = messageBox;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -48,7 +49,8 @@ public class PbpToCueStrategy : ILaunchStrategy
 
         // Check if emulator is Mednafen (which doesn't support PBP files)
         var isMednafen = context.EmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
-                         (context.EmulatorManager?.EmulatorLocation?.Contains("mednafen", StringComparison.OrdinalIgnoreCase) ?? false);
+                         (context.EmulatorManager?.EmulatorLocation?.Contains("mednafen",
+                             StringComparison.OrdinalIgnoreCase) ?? false);
 
         {
             return isMednafen;
@@ -76,13 +78,15 @@ public class PbpToCueStrategy : ILaunchStrategy
 
             if (cuePath == null)
             {
-                await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(
+                    PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
             }
 
             try
             {
-                await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManagerService!, context.EmulatorManager!, context.Parameters, context.WindowContext!, context.LoadingState);
+                await launcher.LaunchRegularEmulatorAsync(cuePath, context.EmulatorName, context.SystemManagerService!,
+                    context.EmulatorManager!, context.Parameters, context.WindowContext!, context.LoadingState);
             }
             finally
             {
@@ -94,7 +98,8 @@ public class PbpToCueStrategy : ILaunchStrategy
                     var binPath = Path.ChangeExtension(cuePath, ".bin");
                     if (File.Exists(binPath)) File.Delete(binPath);
 
-                    _logger.Debug($"Cleaned up temporary PBP conversion files: {Path.GetFileNameWithoutExtension(cuePath)}");
+                    _logger.Debug(
+                        $"Cleaned up temporary PBP conversion files: {Path.GetFileNameWithoutExtension(cuePath)}");
                 }
                 catch (Exception ex)
                 {

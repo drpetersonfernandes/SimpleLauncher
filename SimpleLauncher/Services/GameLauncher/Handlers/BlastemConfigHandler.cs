@@ -56,7 +56,8 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
             else if (string.IsNullOrEmpty(resolvedExe))
             {
                 _logger.Debug($"[BlastemConfigHandler] ERROR: Failed to resolve emulator path: {emulatorLocation}");
-                _logger.Error(new InvalidOperationException($"Failed to resolve Blastem emulator path: {emulatorLocation}"),
+                _logger.Error(
+                    new InvalidOperationException($"Failed to resolve Blastem emulator path: {emulatorLocation}"),
                     $"BlastemConfigHandler: Path resolution failed for '{emulatorLocation}'");
                 // Allow game to launch anyway, user will be prompted to select emulator
             }
@@ -74,7 +75,8 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectBlastemConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectBlastemConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();
@@ -94,7 +96,8 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
                     catch (Exception ex)
                     {
                         _logger.Debug($"[BlastemConfigHandler] ERROR: Configuration injection failed: {ex.Message}");
-                        _logger.Error(ex, $"BlastemConfigHandler: Configuration injection failed for path: {resolvedExe}");
+                        _logger.Error(ex,
+                            $"BlastemConfigHandler: Configuration injection failed for path: {resolvedExe}");
                         // Continue launching the game even if injection fails
                     }
                 }

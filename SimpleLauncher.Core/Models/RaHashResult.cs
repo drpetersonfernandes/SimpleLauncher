@@ -32,7 +32,8 @@ public struct RaHashResult
     /// <param name="tempExtractionPath">The temporary path where the ROM was extracted, if applicable.</param>
     /// <param name="isExtractionSuccessful">Whether the extraction was successful.</param>
     /// <param name="extractionErrorMessage">An error message if the extraction failed.</param>
-    public RaHashResult(string? hash, string? tempExtractionPath, bool isExtractionSuccessful = true, string? extractionErrorMessage = null)
+    public RaHashResult(string? hash, string? tempExtractionPath, bool isExtractionSuccessful = true,
+        string? extractionErrorMessage = null)
     {
         Hash = hash;
         TempExtractionPath = tempExtractionPath;

@@ -93,7 +93,8 @@ public class GameItemRenderService : IGameItemRenderService
     /// <summary>
     /// Rebuilds the grid and list view factories with updated system and MAME machine data.
     /// </summary>
-    public void ReloadFactories(IList<SystemManager.SystemManagerService> systemManagers, IList<MameManagerService> machines)
+    public void ReloadFactories(IList<SystemManager.SystemManagerService> systemManagers,
+        IList<MameManagerService> machines)
     {
         _gameButtonFactory = new GameButtonFactory(
             _host.EmulatorComboBox,
@@ -139,7 +140,8 @@ public class GameItemRenderService : IGameItemRenderService
     /// <summary>
     /// Renders the game items in the current view mode (grid or list) by delegating to the appropriate factory.
     /// </summary>
-    public Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManager.SystemManagerService systemManager, CancellationToken ct)
+    public Task RenderGameItemsAsync(IList<string> files, string systemName,
+        SystemManager.SystemManagerService systemManager, CancellationToken ct)
     {
         if (string.Equals(_settings.ViewMode, "GridView", StringComparison.Ordinal))
         {
@@ -197,7 +199,8 @@ public class GameItemRenderService : IGameItemRenderService
         set => _gameButtonFactory?.ImageHeight = value;
     }
 
-    private async Task RenderGridViewAsync(IList<string> files, string systemName, SystemManager.SystemManagerService systemManager, CancellationToken ct)
+    private async Task RenderGridViewAsync(IList<string> files, string systemName,
+        SystemManager.SystemManagerService systemManager, CancellationToken ct)
     {
         var buttonBatch = new List<Button>(Math.Min(BatchSize, files.Count));
 
@@ -229,7 +232,8 @@ public class GameItemRenderService : IGameItemRenderService
         }
     }
 
-    private async Task RenderListViewAsync(IList<string> files, string systemName, SystemManager.SystemManagerService systemManager, CancellationToken ct)
+    private async Task RenderListViewAsync(IList<string> files, string systemName,
+        SystemManager.SystemManagerService systemManager, CancellationToken ct)
     {
         var itemBatch = new List<GameListViewItem>(Math.Min(BatchSize, files.Count));
 
@@ -237,7 +241,8 @@ public class GameItemRenderService : IGameItemRenderService
         {
             ct.ThrowIfCancellationRequested();
 
-            var gameListViewItem = await _gameListFactory.CreateGameListViewItemAsync(filePath, systemName, systemManager);
+            var gameListViewItem =
+                await _gameListFactory.CreateGameListViewItemAsync(filePath, systemName, systemManager);
             itemBatch.Add(gameListViewItem);
 
             if (itemBatch.Count >= BatchSize)

@@ -15,7 +15,8 @@ public interface IDisplaySystemInformation
     /// <param name="gameFileGrid">The WrapPanel used to display the information.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>The result of the system validation.</returns>
-    Task<SystemValidationResult> DisplaySystemInfoAsync(Services.SystemManager.SystemManagerService selectedManager, WrapPanel gameFileGrid, CancellationToken cancellationToken = default);
+    Task<SystemValidationResult> DisplaySystemInfoAsync(Services.SystemManager.SystemManagerService selectedManager,
+        WrapPanel gameFileGrid, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Validates the system configuration without displaying any UI.

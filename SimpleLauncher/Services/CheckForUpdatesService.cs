@@ -19,7 +19,10 @@ public partial class CheckForUpdatesService
 {
     private const string RepoName = "SimpleLauncher";
     private static readonly string[] RepoOwners = ["drpetersonfernandes", "purelogiccode"];
-    private const string SecondaryServerBaseUrl = "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
+
+    private const string SecondaryServerBaseUrl =
+        "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
+
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
@@ -37,7 +40,8 @@ public partial class CheckForUpdatesService
             {
                 Architecture.Arm64 => "win-arm64",
                 Architecture.X64 => "win-x64",
-                _ => throw new NotSupportedException($"Unsupported runtime architecture '{arch}'. Only win-x64 and win-arm64 are supported.")
+                _ => throw new NotSupportedException(
+                    $"Unsupported runtime architecture '{arch}'. Only win-x64 and win-arm64 are supported.")
             };
         }
     }
@@ -51,7 +55,9 @@ public partial class CheckForUpdatesService
     /// <param name="logger">The logger instance.</param>
     /// <param name="quitSimpleLauncher">The service used to shut down the application for an update.</param>
     /// <param name="serviceProvider">The dependency injection service provider.</param>
-    public CheckForUpdatesService(IHttpClientFactory httpClientFactory, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider, ILogger logger, QuitSimpleLauncher quitSimpleLauncher, IServiceProvider serviceProvider)
+    public CheckForUpdatesService(IHttpClientFactory httpClientFactory, IMessageBoxLibraryService messageBoxLibrary,
+        IResourceProvider resourceProvider, ILogger logger, QuitSimpleLauncher quitSimpleLauncher,
+        IServiceProvider serviceProvider)
     {
         ArgumentNullException.ThrowIfNull(httpClientFactory);
         _httpClient = httpClientFactory.CreateClient("UpdateCheckerClient");
@@ -93,10 +99,12 @@ public partial class CheckForUpdatesService
         {
             if (_httpClient == null)
             {
-                throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
+                throw new InvalidOperationException(
+                    "HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            var (latestVersion, releasePackageUrl, updaterZipAssetUrl, fromFallback) = await GetLatestReleaseInfoAsync();
+            var (latestVersion, releasePackageUrl, updaterZipAssetUrl, fromFallback) =
+                await GetLatestReleaseInfoAsync();
 
             if (latestVersion == null) return;
 
@@ -110,7 +118,10 @@ public partial class CheckForUpdatesService
                 {
                     // Notify developer
                     var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
-                    _logger.Error(new FileNotFoundException($"'{expectedUpdaterFileName}' not found for version {latestVersion}. Automatic update of updater not possible.", expectedUpdaterFileName), "Update Check Info");
+                    _logger.Error(
+                        new FileNotFoundException(
+                            $"'{expectedUpdaterFileName}' not found for version {latestVersion}. Automatic update of updater not possible.",
+                            expectedUpdaterFileName), "Update Check Info");
                 }
             }
         }
@@ -141,16 +152,19 @@ public partial class CheckForUpdatesService
         {
             if (_httpClient == null)
             {
-                throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
+                throw new InvalidOperationException(
+                    "HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl, fromFallback) = await GetLatestReleaseInfoAsync();
+            var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl, fromFallback) =
+                await GetLatestReleaseInfoAsync();
 
             if (latestVersion == null)
             {
                 // Expected condition (both sources unreachable / offline); the user is
                 // already notified via the message box below — not a bug report.
-                _logger.Information("Could not determine the latest version (GitHub and the secondary server are unreachable).");
+                _logger.Information(
+                    "Could not determine the latest version (GitHub and the secondary server are unreachable).");
                 await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBoxAsync();
                 return;
             }
@@ -164,7 +178,8 @@ public partial class CheckForUpdatesService
                 else
                 {
                     var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
-                    var message = $"A new version ({latestVersion}) is available, but the required '{expectedUpdaterFileName}' for automatic updater update was not found. ";
+                    var message =
+                        $"A new version ({latestVersion}) is available, but the required '{expectedUpdaterFileName}' for automatic updater update was not found. ";
                     message += releasePackageAssetUrl != null
                         ? $"You can try to download the main package '{Path.GetFileName(releasePackageAssetUrl)}' manually from the releases page."
                         : "The main release package was also not found. Please check the GitHub releases page.";
@@ -203,7 +218,8 @@ public partial class CheckForUpdatesService
         {
             if (_httpClient == null)
             {
-                throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
+                throw new InvalidOperationException(
+                    "HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
             var (latestVersion, _, updaterZipAssetUrl, _) = await GetLatestReleaseInfoAsync();
@@ -224,7 +240,9 @@ public partial class CheckForUpdatesService
     /// package (updater_{rid}.zip).
     /// </summary>
     /// <returns>A tuple with the latest version, release package URL, updater zip URL, and whether the fallback was used.</returns>
-    private async Task<(string? latestVersion, string? releasePackageUrl, string? updaterZipAssetUrl, bool fromFallback)> GetLatestReleaseInfoAsync()
+    private async
+        Task<(string? latestVersion, string? releasePackageUrl, string? updaterZipAssetUrl, bool fromFallback)>
+        GetLatestReleaseInfoAsync()
     {
         _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
 
@@ -232,22 +250,26 @@ public partial class CheckForUpdatesService
         {
             try
             {
-                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{repoOwner}/{RepoName}/releases/latest");
+                var response =
+                    await _httpClient.GetAsync($"https://api.github.com/repos/{repoOwner}/{RepoName}/releases/latest");
                 if (!response.IsSuccessStatusCode)
                 {
-                    _logger.Debug($"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed with status {response.StatusCode}; trying the next source.");
+                    _logger.Debug(
+                        $"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed with status {response.StatusCode}; trying the next source.");
                     continue;
                 }
 
                 _logger.Debug("Check for Updates Success");
 
                 var content = await response.Content.ReadAsStringAsync();
-                var (latestVersion, releasePackageUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
+                var (latestVersion, releasePackageUrl, updaterZipAssetUrl) =
+                    ParseVersionAndAssetUrlsFromResponse(content);
                 return (latestVersion, releasePackageUrl, updaterZipAssetUrl, false);
             }
             catch (Exception ex)
             {
-                _logger.Debug($"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed: {ex.Message}; trying the next source.");
+                _logger.Debug(
+                    $"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed: {ex.Message}; trying the next source.");
             }
         }
 
@@ -257,7 +279,8 @@ public partial class CheckForUpdatesService
             var versionResponse = await _httpClient.GetAsync(SecondaryServerBaseUrl + "version.txt");
             if (!versionResponse.IsSuccessStatusCode)
             {
-                _logger.Debug($"[UpdateChecker] Secondary server check failed with status {versionResponse.StatusCode}.");
+                _logger.Debug(
+                    $"[UpdateChecker] Secondary server check failed with status {versionResponse.StatusCode}.");
                 return (null, null, null, false);
             }
 
@@ -274,7 +297,8 @@ public partial class CheckForUpdatesService
             var releasePackageUrl = SecondaryServerBaseUrl + $"release_{rawVersion}_{CurrentRuntimeIdentifier}.zip";
             var updaterZipAssetUrl = SecondaryServerBaseUrl + $"updater_{CurrentRuntimeIdentifier}.zip";
 
-            _logger.Information("GitHub API unavailable. Using the secondary server: version {LatestVersion}.", latestVersion);
+            _logger.Information("GitHub API unavailable. Using the secondary server: version {LatestVersion}.",
+                latestVersion);
             return (latestVersion, releasePackageUrl, updaterZipAssetUrl, true);
         }
         catch (Exception ex)
@@ -284,7 +308,8 @@ public partial class CheckForUpdatesService
         }
     }
 
-    private async Task ShowUpdateWindowAsync(string? releasePackageUrl, string currentVersion, string latestVersion, Window owner)
+    private async Task ShowUpdateWindowAsync(string? releasePackageUrl, string currentVersion, string latestVersion,
+        Window owner)
     {
         UpdateLogWindow? logWindow = null;
 
@@ -317,7 +342,8 @@ public partial class CheckForUpdatesService
             }
             else
             {
-                logWindow.Log($"The update package URL was not found. Please visit the GitHub releases page for {RepoOwners[0]}/{RepoName}.");
+                logWindow.Log(
+                    $"The update package URL was not found. Please visit the GitHub releases page for {RepoOwners[0]}/{RepoName}.");
             }
         }
         catch (Exception ex)
@@ -368,7 +394,8 @@ public partial class CheckForUpdatesService
     /// <param name="logWindow">The update log window used to report extraction progress, or null.</param>
     /// <param name="logErrors">The logger used to record extraction failures.</param>
     /// <returns>True if the archive was extracted successfully, false otherwise.</returns>
-    internal static bool ExtractAllFromZip(MemoryStream zipStream, string destinationPath, UpdateLogWindow? logWindow, ILogger logErrors)
+    internal static bool ExtractAllFromZip(MemoryStream zipStream, string destinationPath, UpdateLogWindow? logWindow,
+        ILogger logErrors)
     {
         try
         {
@@ -404,11 +431,13 @@ public partial class CheckForUpdatesService
                     var destinationFileFullPath = Path.GetFullPath(Path.Combine(fullDestinationPath, entry.Key));
                     if (!destinationFileFullPath.StartsWith(fullDestinationPath, StringComparison.OrdinalIgnoreCase))
                     {
-                        var errorMessage = $"Security Warning: Path traversal attempt detected for entry '{entry.Key}'. Aborting update.";
+                        var errorMessage =
+                            $"Security Warning: Path traversal attempt detected for entry '{entry.Key}'. Aborting update.";
                         logWindow?.Log(errorMessage);
 
                         // Notify developer
-                        logErrors.Error(new SecurityException("Zip Slip vulnerability detected in update package."), errorMessage);
+                        logErrors.Error(new SecurityException("Zip Slip vulnerability detected in update package."),
+                            errorMessage);
                         return false;
                     }
 
@@ -460,7 +489,9 @@ public partial class CheckForUpdatesService
             if (string.IsNullOrEmpty(currentVersion) || string.IsNullOrEmpty(latestVersion))
             {
                 // Notify developer
-                _logger.Error(new ArgumentException(@"Current or latest version string is null or empty.", nameof(currentVersion)), "Invalid version string for comparison.");
+                _logger.Error(
+                    new ArgumentException(@"Current or latest version string is null or empty.",
+                        nameof(currentVersion)), "Invalid version string for comparison.");
                 return false;
             }
 
@@ -470,7 +501,9 @@ public partial class CheckForUpdatesService
             if (string.IsNullOrEmpty(currentNormalized) || string.IsNullOrEmpty(latestNormalized))
             {
                 // Notify developer
-                _logger.Error(new ArgumentException(@"Normalized version string is null or empty after regex replace.", nameof(latestVersion)), "Invalid version string after normalization.");
+                _logger.Error(
+                    new ArgumentException(@"Normalized version string is null or empty after regex replace.",
+                        nameof(latestVersion)), "Invalid version string after normalization.");
                 return false;
             }
 
@@ -485,7 +518,8 @@ public partial class CheckForUpdatesService
             if (latestVersion != null)
             {
                 // Notify developer
-                _logger.Error(ex, $"Invalid version number format after normalization. Current: '{currentVersion}' (Normalized: '{MyRegex1().Replace(currentVersion, "")}'), Latest: '{latestVersion}' (Normalized: '{MyRegex1().Replace(latestVersion, "")}').");
+                _logger.Error(ex,
+                    $"Invalid version number format after normalization. Current: '{currentVersion}' (Normalized: '{MyRegex1().Replace(currentVersion, "")}'), Latest: '{latestVersion}' (Normalized: '{MyRegex1().Replace(latestVersion, "")}').");
             }
 
             return false;
@@ -498,7 +532,8 @@ public partial class CheckForUpdatesService
         }
     }
 
-    private (string? version, string? releasePackageUrl, string? updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(string jsonResponse)
+    private (string? version, string? releasePackageUrl, string? updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(
+        string jsonResponse)
     {
         try
         {
@@ -513,7 +548,8 @@ public partial class CheckForUpdatesService
             else
             {
                 // Notify developer
-                _logger.Error(new KeyNotFoundException("'tag_name' not found in GitHub API response."), "GitHub API Response Error");
+                _logger.Error(new KeyNotFoundException("'tag_name' not found in GitHub API response."),
+                    "GitHub API Response Error");
                 return (null, null, null);
             }
 
@@ -533,7 +569,10 @@ public partial class CheckForUpdatesService
             if (extractedNormalizedVersion == null)
             {
                 // Notify developer
-                _logger.Error(new FormatException($"Could not extract or normalize a valid version from tag_name: '{versionTag}'."), "GitHub API Response Error");
+                _logger.Error(
+                    new FormatException(
+                        $"Could not extract or normalize a valid version from tag_name: '{versionTag}'."),
+                    "GitHub API Response Error");
                 return (null, null, null);
             }
 
@@ -575,13 +614,19 @@ public partial class CheckForUpdatesService
                 if (foundUpdaterZipUrl == null)
                 {
                     // Notify developer
-                    _logger.Error(new FileNotFoundException($"'{expectedUpdaterFileName}' asset not found in release '{versionTag}'.", expectedUpdaterFileName), "GitHub API Asset Info");
+                    _logger.Error(
+                        new FileNotFoundException(
+                            $"'{expectedUpdaterFileName}' asset not found in release '{versionTag}'.",
+                            expectedUpdaterFileName), "GitHub API Asset Info");
                 }
 
                 if (foundReleasePackageUrl == null)
                 {
                     // Notify developer
-                    _logger.Error(new FileNotFoundException($"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.", expectedReleaseFileName), "GitHub API Asset Info");
+                    _logger.Error(
+                        new FileNotFoundException(
+                            $"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.",
+                            expectedReleaseFileName), "GitHub API Asset Info");
                 }
 
                 return (extractedNormalizedVersion, foundReleasePackageUrl, foundUpdaterZipUrl);
@@ -589,7 +634,8 @@ public partial class CheckForUpdatesService
             else
             {
                 // Notify developer
-                _logger.Error(new KeyNotFoundException("'assets' array not found or invalid in GitHub API response."), "GitHub API Response Error");
+                _logger.Error(new KeyNotFoundException("'assets' array not found or invalid in GitHub API response."),
+                    "GitHub API Response Error");
             }
         }
         catch (JsonException jsonEx)
@@ -632,7 +678,8 @@ public partial class CheckForUpdatesService
     [GeneratedRegex(@"[^\d\.]", RegexOptions.None, 1000)]
     private static partial Regex MyRegex1();
 
-    [GeneratedRegex(@"(\d+(\.\d+){1,3})", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, 1000)]
+    [GeneratedRegex(@"(\d+(\.\d+){1,3})",
+        RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex2();
 
     [GeneratedRegex(@"\.{2,}", RegexOptions.None, 1000)]

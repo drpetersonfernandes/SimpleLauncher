@@ -27,7 +27,8 @@ public sealed partial class AvaloniaGlobalHotkeyService : IDisposable
     [return: MarshalAs(UnmanagedType.Bool)]
     private static partial bool UnregisterHotKey(IntPtr hWnd, int id);
 
-    [LibraryImport("user32.dll", SetLastError = true, EntryPoint = "CreateWindowExW", StringMarshalling = StringMarshalling.Utf16)]
+    [LibraryImport("user32.dll", SetLastError = true, EntryPoint = "CreateWindowExW", StringMarshalling =
+ StringMarshalling.Utf16)]
     private static partial IntPtr CreateWindowEx(uint dwExStyle, string lpClassName, string? lpWindowName,
         uint dwStyle, int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu,
         IntPtr hInstance, IntPtr lpParam);

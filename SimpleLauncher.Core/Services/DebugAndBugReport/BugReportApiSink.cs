@@ -110,7 +110,8 @@ public class BugReportApiSink : ILogEventSink, IDisposable
             if (userLogPath != null)
             {
                 await File.AppendAllTextAsync(userLogPath,
-                    report + "--------------------------------------------------------------------------------------------------------------\n\n\n");
+                    report +
+                    "--------------------------------------------------------------------------------------------------------------\n\n\n");
             }
         }
 
@@ -185,7 +186,8 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         message.AppendLine(CultureInfo.InvariantCulture, $"Application Version: {ApplicationVersion}");
         message.AppendLine(CultureInfo.InvariantCulture, $"OS Version: {RuntimeInformation.OSDescription}");
         message.AppendLine(CultureInfo.InvariantCulture, $"Architecture: {RuntimeInformation.OSArchitecture}");
-        message.AppendLine(CultureInfo.InvariantCulture, $"Bitness: {(Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit")}");
+        message.AppendLine(CultureInfo.InvariantCulture,
+            $"Bitness: {(Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit")}");
         message.AppendLine(CultureInfo.InvariantCulture, $"Windows Version: {GetMicrosoftWindowsVersion.GetVersion()}");
         message.AppendLine(CultureInfo.InvariantCulture, $"Processor Count: {Environment.ProcessorCount}");
         message.AppendLine(CultureInfo.InvariantCulture, $"Base Directory: {AppContext.BaseDirectory}");

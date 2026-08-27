@@ -114,7 +114,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     {
         var allSystemsString = _resourceProvider.GetString("AllSystems", "All Systems");
         var names = new List<string> { allSystemsString };
-        names.AddRange(_systemManagers.Select(static sm => sm.SystemName).OrderBy(static name => name, StringComparer.Ordinal));
+        names.AddRange(_systemManagers.Select(static sm => sm.SystemName)
+            .OrderBy(static name => name, StringComparer.Ordinal));
         SystemNames = names;
         SelectedSystemIndex = 0;
     }
@@ -174,7 +175,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                 {
                     SearchResults = new ObservableCollection<SearchResult>(results);
                     NoResultsVisible = false;
-                    ResultsCountText = string.Format(System.Globalization.CultureInfo.InvariantCulture, _resourceProvider.GetString("FoundResults", "Found {0} results"), results.Count);
+                    ResultsCountText = string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                        _resourceProvider.GetString("FoundResults", "Found {0} results"), results.Count);
                     ResultsCountVisible = true;
                 }
                 else
@@ -272,7 +274,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                 }
 
                 var matchedFilesList = await _getListOfFiles.GetFilesAsync(
-                    systemFolderPath, systemManager.FileFormatsToSearch, effectiveSystemManager.DisableRecursiveSearch, effectiveSystemManager.GroupByFolder, token);
+                    systemFolderPath, systemManager.FileFormatsToSearch, effectiveSystemManager.DisableRecursiveSearch,
+                    effectiveSystemManager.GroupByFolder, token);
 
                 var filesInSystemFolder = matchedFilesList.Where(file =>
                 {
@@ -302,19 +305,22 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                     token.ThrowIfCancellationRequested();
 
                     var machine = _machines.FirstOrDefault(m =>
-                        m.MachineName.Equals(Path.GetFileNameWithoutExtension(filePath), StringComparison.OrdinalIgnoreCase));
+                        m.MachineName.Equals(Path.GetFileNameWithoutExtension(filePath),
+                            StringComparison.OrdinalIgnoreCase));
 
                     results.Add(new SearchResult
                     {
                         FileName = Path.GetFileNameWithoutExtension(filePath),
                         FileNameWithExtension = Path.GetFileName(filePath),
-                        FolderName = Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault() ?? "",
+                        FolderName =
+                            Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault() ?? "",
                         FilePath = filePath,
                         MachineName = machine?.Description ?? "",
                         SystemName = systemManager.SystemName ?? "",
                         EmulatorManager = systemManager.Emulators.FirstOrDefault() ?? null!,
                         CoverImage = _findCoverImage.FindCoverImagePath(
-                            Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName ?? "", systemManager.SystemImageFolder ?? "")
+                            Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName ?? "",
+                            systemManager.SystemImageFolder ?? "")
                     });
                 }
             }
@@ -351,7 +357,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     /// <returns>The matching <see cref="SystemManager"/>, or <c>null</c> if not found.</returns>
     public SystemManager? GetSystemManager(string systemName)
     {
-        return _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        return _systemManagers.FirstOrDefault(manager =>
+            manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>Cancels any in-progress search operation.</summary>

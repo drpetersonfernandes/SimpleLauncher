@@ -22,7 +22,8 @@ public class SearchOrchestratorService : ISearchOrchestratorService
     /// <summary>
     /// Validates the search query and selected system, then clears previous search results from the cache.
     /// </summary>
-    public async Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string? selectedSystem, CancellationToken cancellationToken)
+    public async Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string? selectedSystem,
+        CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(selectedSystem) || string.IsNullOrWhiteSpace(searchQuery))
         {

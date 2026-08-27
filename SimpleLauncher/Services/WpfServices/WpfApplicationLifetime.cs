@@ -11,7 +11,9 @@ namespace SimpleLauncher.Services.WpfServices;
 public class WpfApplicationLifetime(ILogger logErrors, IServiceProvider serviceProvider) : IApplicationLifetime
 {
     private readonly ILogger _logger = logErrors;
-    private readonly Lazy<IMessageBoxLibraryService> _messageBoxLibraryService = new(serviceProvider.GetRequiredService<IMessageBoxLibraryService>);
+
+    private readonly Lazy<IMessageBoxLibraryService> _messageBoxLibraryService =
+        new(serviceProvider.GetRequiredService<IMessageBoxLibraryService>);
 
     /// <summary>Shuts down the WPF application.</summary>
     public void Shutdown()

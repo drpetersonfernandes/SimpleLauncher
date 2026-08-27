@@ -122,7 +122,8 @@ public partial class SteamVdfParser : ISteamVdfParser
             .Replace("\\t", "\t");
     }
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the VDF value")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the VDF value")]
     [GeneratedRegex("\"((?:\\\\.|[^\\\\\"])*)\"", RegexOptions.Compiled, 1000)]
     private static partial Regex MyRegex();
 }

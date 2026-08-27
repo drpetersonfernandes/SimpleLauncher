@@ -103,7 +103,8 @@ public class AvaloniaApplicationLifecycleService
     /// <param name="folders">The folders to watch for game file changes.</param>
     /// <param name="systemName">The name of the system the folders belong to.</param>
     /// <param name="fileExtensions">The optional file extensions to filter the watched files by.</param>
-    public void StartWatching(IEnumerable<string> folders, string systemName, IEnumerable<string>? fileExtensions = null)
+    public void StartWatching(IEnumerable<string> folders, string systemName,
+        IEnumerable<string>? fileExtensions = null)
     {
         _gameFileWatcherService.StartWatchingForSystems(
         [

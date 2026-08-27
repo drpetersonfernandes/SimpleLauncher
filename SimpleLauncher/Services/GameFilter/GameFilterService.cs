@@ -40,10 +40,12 @@ public partial class GameFilterService : IGameFilterService
         foreach (var filePath in files)
         {
             var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
-            var imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, config.SystemImageFolder);
+            var imagePath =
+                _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, config.SystemImageFolder);
 
             bool isDefaultImage;
-            if (string.IsNullOrEmpty(imagePath) || imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(imagePath) ||
+                imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
             {
                 isDefaultImage = true;
             }
@@ -85,7 +87,8 @@ public partial class GameFilterService : IGameFilterService
             }
 
             return files.Where(file => !string.IsNullOrEmpty(file) &&
-                                       Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
+                                       Path.GetFileName(file)
+                                           .StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
         });
     }
 

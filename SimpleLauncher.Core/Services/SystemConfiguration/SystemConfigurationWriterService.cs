@@ -72,7 +72,8 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                     if (root != null)
                     {
                         var existingSystem = root.Elements("SystemConfig")
-                            .FirstOrDefault(el => string.Equals(el.Element("SystemName")?.Value, systemIdentifier, StringComparison.Ordinal));
+                            .FirstOrDefault(el => string.Equals(el.Element("SystemName")?.Value, systemIdentifier,
+                                StringComparison.Ordinal));
 
                         if (existingSystem != null)
                         {
@@ -192,7 +193,8 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                     }
 
                     var systemNode = xmlDoc.Root?.Descendants("SystemConfig")
-                        .FirstOrDefault(el => string.Equals(el.Element("SystemName")?.Value, systemName, StringComparison.Ordinal));
+                        .FirstOrDefault(el =>
+                            string.Equals(el.Element("SystemName")?.Value, systemName, StringComparison.Ordinal));
 
                     if (systemNode != null)
                     {
@@ -229,7 +231,8 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                 var doc = XDocument.Load(reader, LoadOptions.None);
 
                 return doc.Root?.Elements("SystemConfig")
-                    .Any(el => string.Equals(el.Element("SystemName")?.Value, systemName, StringComparison.OrdinalIgnoreCase)) ?? false;
+                    .Any(el => string.Equals(el.Element("SystemName")?.Value, systemName,
+                        StringComparison.OrdinalIgnoreCase)) ?? false;
             }
             catch
             {
@@ -244,11 +247,13 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
             new XElement("SystemName", config.SystemName),
             new XElement("SystemFolders", config.SystemFolders.Select(static f => new XElement("SystemFolder", f))),
             new XElement("SystemImageFolder", config.SystemImageFolder),
-            new XElement("FileFormatsToSearch", config.FileFormatsToSearch.Select(static f => new XElement("FormatToSearch", f))),
+            new XElement("FileFormatsToSearch",
+                config.FileFormatsToSearch.Select(static f => new XElement("FormatToSearch", f))),
             new XElement("GroupByFolder", config.GroupByFolder),
             new XElement("DisableRecursiveSearch", config.DisableRecursiveSearch),
             config.ExtractFileBeforeLaunch ? new XElement("ExtractFileBeforeLaunch", true) : null,
-            new XElement("FileFormatsToLaunch", config.FileFormatsToLaunch.Select(static f => new XElement("FormatToLaunch", f))),
+            new XElement("FileFormatsToLaunch",
+                config.FileFormatsToLaunch.Select(static f => new XElement("FormatToLaunch", f))),
             new XElement("Emulators", config.Emulators.Select(CreateEmulatorXElement))
         );
     }
@@ -267,11 +272,13 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
         foldersElement.ReplaceNodes(config.SystemFolders.Select(static f => new XElement("SystemFolder", f)));
 
         existingSystem.SetElementValue("SystemImageFolder", config.SystemImageFolder);
-        existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(config.FileFormatsToSearch.Select(static f => new XElement("FormatToSearch", f)));
+        existingSystem.Element("FileFormatsToSearch")
+            ?.ReplaceNodes(config.FileFormatsToSearch.Select(static f => new XElement("FormatToSearch", f)));
         existingSystem.SetElementValue("GroupByFolder", config.GroupByFolder);
         existingSystem.SetElementValue("DisableRecursiveSearch", config.DisableRecursiveSearch);
         existingSystem.SetElementValue("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch ? true : null);
-        existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(config.FileFormatsToLaunch.Select(static f => new XElement("FormatToLaunch", f)));
+        existingSystem.Element("FileFormatsToLaunch")
+            ?.ReplaceNodes(config.FileFormatsToLaunch.Select(static f => new XElement("FormatToLaunch", f)));
 
         existingSystem.Element("Emulators")?.Remove();
         existingSystem.Add(new XElement("Emulators", config.Emulators.Select(CreateEmulatorXElement)));

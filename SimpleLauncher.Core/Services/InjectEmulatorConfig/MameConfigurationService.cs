@@ -19,7 +19,8 @@ public static partial class MameConfigurationService
     /// <param name="logger">The logger instance.</param>
     /// <param name="systemRomPath">Optional primary system ROM path to inject into rompath.</param>
     /// <param name="listOfSecondaryRomPath">Optional secondary ROM paths to inject into rompath.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger, string? systemRomPath = null, string[]? listOfSecondaryRomPath = null)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger, string? systemRomPath = null, string[]? listOfSecondaryRomPath = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(emulatorPath);
         ArgumentNullException.ThrowIfNull(settings);
@@ -52,7 +53,8 @@ public static partial class MameConfigurationService
             }
             else
             {
-                throw new FileNotFoundException($"mame.ini not found in {emuDir} and sample not available at {samplePath}");
+                throw new FileNotFoundException(
+                    $"mame.ini not found in {emuDir} and sample not available at {samplePath}");
             }
         }
 
@@ -169,7 +171,8 @@ public static partial class MameConfigurationService
                             continue;
 
                         var fullPath = NormalizePath(GetFullPathSafe(resolvedSecondaryPath, emuDir)!);
-                        if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
+                        if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) &&
+                            uniqueFullPaths.Add(fullPath))
                         {
                             finalPathList.Add(RemoveQuotes(resolvedSecondaryPath));
                         }
@@ -379,7 +382,8 @@ public static partial class MameConfigurationService
         }
     }
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing groups are needed to extract key, whitespace, value and comment")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing groups are needed to extract key, whitespace, value and comment")]
     [GeneratedRegex(@"^(\S+)(\s+)([^#\r\n]*)(#.*)?$", RegexOptions.None, 1000)]
     private static partial Regex IniLineRegex();
 }

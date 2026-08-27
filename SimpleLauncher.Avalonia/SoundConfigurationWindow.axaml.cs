@@ -20,10 +20,7 @@ public partial class SoundConfigurationWindow : Window
     {
         InitializeComponent();
 
-        _saveCompletedHandler = (_, _) =>
-        {
-            Close();
-        };
+        _saveCompletedHandler = (_, _) => { Close(); };
 
         viewModel.SaveCompleted += _saveCompletedHandler;
         viewModel.CloseRequested += OnCloseRequested;
@@ -47,6 +44,7 @@ public partial class SoundConfigurationWindow : Window
     private static async Task<string?> OnRequestSoundFilePath()
     {
         var filePicker = App.ServiceProvider.GetRequiredService<IFilePickerService>();
-        return await filePicker.OpenFileAsync("Select Notification Sound File", "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*");
+        return await filePicker.OpenFileAsync("Select Notification Sound File",
+            "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*");
     }
 }

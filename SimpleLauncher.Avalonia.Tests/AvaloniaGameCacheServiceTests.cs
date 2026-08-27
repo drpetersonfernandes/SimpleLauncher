@@ -115,7 +115,8 @@ public class AvaloniaGameCacheServiceTests
         File.WriteAllText(Path.Combine(tempDir, "notes.txt"), "x");
 
         var system = System("Arcade", tempDir);
-        var orchestrator = new AvaloniaGameFileLoadingOrchestrator(new AvaloniaGameCacheService(), new Mock<ILogger>().Object);
+        var orchestrator =
+            new AvaloniaGameFileLoadingOrchestrator(new AvaloniaGameCacheService(), new Mock<ILogger>().Object);
 
         var files = orchestrator.GetGameFiles(system);
 
@@ -133,7 +134,8 @@ public class AvaloniaGameCacheServiceTests
         File.WriteAllText(Path.Combine(sub, "nested.zip"), "x");
 
         var system = System("Arcade", tempDir);
-        var orchestrator = new AvaloniaGameFileLoadingOrchestrator(new AvaloniaGameCacheService(), new Mock<ILogger>().Object);
+        var orchestrator =
+            new AvaloniaGameFileLoadingOrchestrator(new AvaloniaGameCacheService(), new Mock<ILogger>().Object);
 
         var files = orchestrator.GetGameFiles(system);
 
@@ -145,7 +147,8 @@ public class AvaloniaGameCacheServiceTests
     public void GetGameFiles_SkipsMissingAndInaccessibleFolders()
     {
         var system = System("Arcade", @"C:\does\not\exist", @"Z:\also\missing");
-        var orchestrator = new AvaloniaGameFileLoadingOrchestrator(new AvaloniaGameCacheService(), new Mock<ILogger>().Object);
+        var orchestrator =
+            new AvaloniaGameFileLoadingOrchestrator(new AvaloniaGameCacheService(), new Mock<ILogger>().Object);
 
         var files = orchestrator.GetGameFiles(system);
 
@@ -159,7 +162,8 @@ public class AvaloniaGameCacheServiceTests
         File.WriteAllText(Path.Combine(tempDir, "one.zip"), "x");
 
         var system = System("Arcade", tempDir);
-        var orchestrator = new AvaloniaGameFileLoadingOrchestrator(new AvaloniaGameCacheService(), new Mock<ILogger>().Object);
+        var orchestrator =
+            new AvaloniaGameFileLoadingOrchestrator(new AvaloniaGameCacheService(), new Mock<ILogger>().Object);
 
         Assert.Single(orchestrator.GetGameFiles(system));
 
@@ -178,7 +182,8 @@ public class AvaloniaGameCacheServiceTests
         File.WriteAllText(Path.Combine(tempDir, "a.zip"), "x");
         File.WriteAllText(Path.Combine(tempDir, "b.zip"), "x");
 
-        var orchestrator = new AvaloniaGameFileLoadingOrchestrator(new AvaloniaGameCacheService(), new Mock<ILogger>().Object);
+        var orchestrator =
+            new AvaloniaGameFileLoadingOrchestrator(new AvaloniaGameCacheService(), new Mock<ILogger>().Object);
         var counts = orchestrator.ComputeSystemCounts([System("Arcade", tempDir), System("Empty", "C:\\missing")]);
 
         Assert.Equal(2, counts["Arcade"]);

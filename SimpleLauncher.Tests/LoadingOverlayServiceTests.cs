@@ -12,7 +12,8 @@ namespace SimpleLauncher.Tests;
 /// </summary>
 public class LoadingOverlayServiceTests
 {
-    private static (LoadingOverlayService Service, Mock<ILoadingOverlayHost> Host, Mock<IUpdateStatusBar> StatusBar) CreateService()
+    private static (LoadingOverlayService Service, Mock<ILoadingOverlayHost> Host, Mock<IUpdateStatusBar> StatusBar)
+        CreateService()
     {
         var statusBarMock = new Mock<IUpdateStatusBar>();
         var hostMock = new Mock<ILoadingOverlayHost>();
@@ -82,9 +83,11 @@ public class LoadingOverlayServiceTests
             service.SetLoadingState(true, "second");
             service.SetLoadingState(false);
 
-            host.Verify(x => x.SetLoadingOverlayVisible(true), Times.Exactly(3)); // shown twice + re-asserted while count > 0
+            host.Verify(x => x.SetLoadingOverlayVisible(true),
+                Times.Exactly(3)); // shown twice + re-asserted while count > 0
             host.Verify(x => x.SetLoadingOverlayVisible(false), Times.Never);
-            host.Verify(x => x.SetMainContentGridEnabled(false), Times.Exactly(3)); // one call per SetLoadingState invocation
+            host.Verify(x => x.SetMainContentGridEnabled(false),
+                Times.Exactly(3)); // one call per SetLoadingState invocation
         });
     }
 

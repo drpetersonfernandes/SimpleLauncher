@@ -61,7 +61,8 @@ public class VersionConsistencyTests
         Assert.NotNull(identityElement);
 
         var currentVersion = identityElement.Attribute("version")?.Value;
-        Assert.False(string.IsNullOrWhiteSpace(currentVersion), "assemblyIdentity version attribute not found in app.manifest");
+        Assert.False(string.IsNullOrWhiteSpace(currentVersion),
+            "assemblyIdentity version attribute not found in app.manifest");
 
         if (string.Equals(currentVersion, expectedVersion, StringComparison.Ordinal))
         {
@@ -95,7 +96,8 @@ public class VersionConsistencyTests
         }
 
         File.WriteAllText(versionTxtPath, expectedContent + Environment.NewLine);
-        Assert.Fail($"SimpleLauncher.Updater/version.txt was automatically updated from '{currentContent}' to '{expectedContent}'. " +
-                    "Please review the change and commit it.");
+        Assert.Fail(
+            $"SimpleLauncher.Updater/version.txt was automatically updated from '{currentContent}' to '{expectedContent}'. " +
+            "Please review the change and commit it.");
     }
 }

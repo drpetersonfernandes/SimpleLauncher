@@ -15,7 +15,8 @@ public static class DuckStationConfigurationService
     /// <param name="emulatorPath">Path to the DuckStation executable.</param>
     /// <param name="settings">The settings manager containing DuckStation configuration.</param>
     /// <param name="logger">The logger instance.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -25,7 +26,8 @@ public static class DuckStationConfigurationService
 
         if (!File.Exists(configPath))
         {
-            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "DuckStation", "settings.ini");
+            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "DuckStation",
+                "settings.ini");
             if (File.Exists(samplePath))
             {
                 try
@@ -190,7 +192,8 @@ public static class DuckStationConfigurationService
         }
     }
 
-    private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates, out bool modified)
+    private static void ApplyUpdatesToSection(List<string> lines, string sectionName,
+        Dictionary<string, string> updates, out bool modified)
     {
         if (updates.Count == 0)
         {

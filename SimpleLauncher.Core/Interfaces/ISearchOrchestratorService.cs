@@ -14,5 +14,6 @@ public interface ISearchOrchestratorService
     /// <param name="selectedSystem">The name of the currently selected system, if any.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>A <see cref="SearchValidationResult"/> describing the validation outcome.</returns>
-    Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string? selectedSystem, CancellationToken cancellationToken);
+    Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string? selectedSystem,
+        CancellationToken cancellationToken);
 }

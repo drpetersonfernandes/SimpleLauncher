@@ -60,7 +60,8 @@ public class MountZipFiles : IMountZipFiles
                 : "Z";
         }
 
-        _logger.Debug($"[MountZipFiles] Preferred MountDriveLetter (for {_zipMountExecutableName}): {_preferredMountDriveLetterOnly}");
+        _logger.Debug(
+            $"[MountZipFiles] Preferred MountDriveLetter (for {_zipMountExecutableName}): {_preferredMountDriveLetterOnly}");
         _logger.Debug($"[MountZipFiles] Configured ZipMountExecutableName: {_zipMountExecutableName}");
         _logger.Debug($"[MountZipFiles] Configured ZipMountExecutableRelativePath: {_zipMountExecutableRelativePath}");
     }
@@ -83,7 +84,8 @@ public class MountZipFiles : IMountZipFiles
         return exitCode switch
         {
             -1073741515 => "STATUS_DLL_NOT_FOUND (Dokan library is not installed)",
-            -1073741510 => "STATUS_ORDINAL_NOT_FOUND (Dokan library version mismatch — the installed version may be incompatible)",
+            -1073741510 =>
+                "STATUS_ORDINAL_NOT_FOUND (Dokan library version mismatch — the installed version may be incompatible)",
             _ => "unknown error"
         };
     }
@@ -105,11 +107,13 @@ public class MountZipFiles : IMountZipFiles
             var preferredLetter = char.ToUpper(_preferredMountDriveLetterOnly[0], CultureInfo.InvariantCulture);
             if (!existingDrives.Contains(preferredLetter))
             {
-                _logger.Debug($"[MountZipFiles.GetAvailableDriveLetter] Preferred drive letter {preferredLetter}: is available.");
+                _logger.Debug(
+                    $"[MountZipFiles.GetAvailableDriveLetter] Preferred drive letter {preferredLetter}: is available.");
                 return preferredLetter;
             }
 
-            _logger.Debug($"[MountZipFiles.GetAvailableDriveLetter] Preferred drive letter {preferredLetter}: is already in use. Searching for alternative...");
+            _logger.Debug(
+                $"[MountZipFiles.GetAvailableDriveLetter] Preferred drive letter {preferredLetter}: is already in use. Searching for alternative...");
 
             // If preferred is not available, search from Z: down to D:
             for (var letter = 'Z'; letter >= 'D'; letter--)
@@ -121,7 +125,8 @@ public class MountZipFiles : IMountZipFiles
                 }
             }
 
-            _logger.Debug("[MountZipFiles.GetAvailableDriveLetter] No available drive letters found between D: and Z:.");
+            _logger.Debug(
+                "[MountZipFiles.GetAvailableDriveLetter] No available drive letters found between D: and Z:.");
             return null;
         }
         catch (Exception ex)
@@ -146,7 +151,8 @@ public class MountZipFiles : IMountZipFiles
                 var processes = Process.GetProcessesByName(processName);
                 if (processes.Length == 0) continue;
 
-                _logger.Debug($"[MountZipFiles.KillAllSimpleZipDriveProcesses] Found {processes.Length} {processName} process(es) to kill.");
+                _logger.Debug(
+                    $"[MountZipFiles.KillAllSimpleZipDriveProcesses] Found {processes.Length} {processName} process(es) to kill.");
 
                 foreach (var process in processes)
                 {
@@ -154,14 +160,17 @@ public class MountZipFiles : IMountZipFiles
                     {
                         if (!process.HasExited)
                         {
-                            _logger.Debug($"[MountZipFiles.KillAllSimpleZipDriveProcesses] Killing {processName} (ID: {process.Id}).");
+                            _logger.Debug(
+                                $"[MountZipFiles.KillAllSimpleZipDriveProcesses] Killing {processName} (ID: {process.Id}).");
                             process.Kill(true);
                         }
                     }
                     catch (Exception ex)
                     {
-                        _logger.Debug($"[MountZipFiles.KillAllSimpleZipDriveProcesses] Error killing process {process.Id}: {ex.Message}");
-                        logErrors.Error(ex, $"[MountZipFiles.KillAllSimpleZipDriveProcesses] Error killing process {process.Id}: {ex.Message}");
+                        _logger.Debug(
+                            $"[MountZipFiles.KillAllSimpleZipDriveProcesses] Error killing process {process.Id}: {ex.Message}");
+                        logErrors.Error(ex,
+                            $"[MountZipFiles.KillAllSimpleZipDriveProcesses] Error killing process {process.Id}: {ex.Message}");
                     }
                     finally
                     {
@@ -214,7 +223,8 @@ public class MountZipFiles : IMountZipFiles
                 var simulatedFullPath = Path.GetFullPath(Path.Combine("D:\\MOCKROOT", normalizedEntryName));
                 if (!simulatedFullPath.StartsWith("D:\\MOCKROOT", StringComparison.Ordinal))
                 {
-                    _logger.Debug($"[MountZipFiles] Archive entry escapes simulated root: '{entryName}' -> '{simulatedFullPath}'");
+                    _logger.Debug(
+                        $"[MountZipFiles] Archive entry escapes simulated root: '{entryName}' -> '{simulatedFullPath}'");
                     throw new InvalidOperationException($"Archive entry escapes root: '{entryName}'");
                 }
             }
@@ -224,7 +234,8 @@ public class MountZipFiles : IMountZipFiles
             // Archive is corrupted or in an unsupported format — skip validation.
             // SharpCompress cannot open the archive, so there are no entries to check
             // for path traversal. The caller should notify the user that the file is corrupt.
-            _logger.Debug($"[MountZipFiles] Skipping path traversal validation — unable to open archive: {archivePath}. Error: {ex.Message}");
+            _logger.Debug(
+                $"[MountZipFiles] Skipping path traversal validation — unable to open archive: {archivePath}. Error: {ex.Message}");
             throw new InvalidOperationException($"Archive is corrupted or unsupported: {archivePath}", ex);
         }
     }
@@ -254,7 +265,8 @@ public class MountZipFiles : IMountZipFiles
         }
         catch (Exception ex)
         {
-            var errorMessage = $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
+            var errorMessage =
+                $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
             logErrors.Error(ex, errorMessage);
             await messageBox.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(logPath));
@@ -268,7 +280,8 @@ public class MountZipFiles : IMountZipFiles
         if (string.IsNullOrWhiteSpace(resolvedZipMountExePath) || !File.Exists(resolvedZipMountExePath))
         {
             // Notify developer
-            var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
+            var errorMessage =
+                $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
             logErrors.Warning(errorMessage);
 
@@ -298,7 +311,8 @@ public class MountZipFiles : IMountZipFiles
             return;
         }
 
-        var mountPathArgument = driveLetter.Value.ToString().ToLowerInvariant(); // SimpleZipDrive expects lowercase letter
+        var mountPathArgument =
+            driveLetter.Value.ToString().ToLowerInvariant(); // SimpleZipDrive expects lowercase letter
         var mountDriveRootForChecks = $"{driveLetter.Value}:\\"; // For Directory.Exists checks
 
         _logger.Debug($"[MountZipFiles] Selected drive letter for mounting: {driveLetter.Value}:");
@@ -345,21 +359,24 @@ public class MountZipFiles : IMountZipFiles
             var pollInterval = TimeSpan.FromMilliseconds(500);
             var stopwatch = Stopwatch.StartNew();
 
-            _logger.Debug($"[MountZipFiles] Polling for drive '{mountDriveRootForChecks}' to appear (timeout: {timeout.TotalSeconds}s)...");
+            _logger.Debug(
+                $"[MountZipFiles] Polling for drive '{mountDriveRootForChecks}' to appear (timeout: {timeout.TotalSeconds}s)...");
 
             while (stopwatch.Elapsed < timeout)
             {
                 if (Directory.Exists(mountDriveRootForChecks))
                 {
                     mountSuccessful = true;
-                    _logger.Debug($"[MountZipFiles] Found drive '{mountDriveRootForChecks}' after {stopwatch.Elapsed.TotalSeconds:F1} seconds.");
+                    _logger.Debug(
+                        $"[MountZipFiles] Found drive '{mountDriveRootForChecks}' after {stopwatch.Elapsed.TotalSeconds:F1} seconds.");
                     break;
                 }
 
                 if (mountProcess.HasExited)
                 {
                     var exitCode = mountProcess.ExitCode;
-                    _logger.Debug($"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {exitCode}.");
+                    _logger.Debug(
+                        $"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {exitCode}.");
                     break;
                 }
 
@@ -374,13 +391,17 @@ public class MountZipFiles : IMountZipFiles
                 {
                     var exitCode = mountProcess.ExitCode;
                     var reason = GetExitCodeReason(exitCode);
-                    _logger.Debug($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process exited with code {exitCode} ({reason}).");
-                    throw new InvalidOperationException($"Failed to mount ZIP. {_zipMountExecutableName} exited with code {exitCode} ({reason}).");
+                    _logger.Debug(
+                        $"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process exited with code {exitCode} ({reason}).");
+                    throw new InvalidOperationException(
+                        $"Failed to mount ZIP. {_zipMountExecutableName} exited with code {exitCode} ({reason}).");
                 }
                 else
                 {
-                    _logger.Debug($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process was still running after timeout. Check the console window of {_zipMountExecutableName} for details.");
-                    throw new TimeoutException($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+                    _logger.Debug(
+                        $"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process was still running after timeout. Check the console window of {_zipMountExecutableName} for details.");
+                    throw new TimeoutException(
+                        $"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
                 }
             }
 
@@ -392,13 +413,16 @@ public class MountZipFiles : IMountZipFiles
             if (string.IsNullOrEmpty(ebootBinPath))
             {
                 _logger.Debug($"[MountZipFiles] EBOOT.BIN not found in {mountDriveRootForChecks}.");
-                throw new FileNotFoundException($"EBOOT.BIN not found within the mounted ZIP file at {mountDriveRootForChecks}.");
+                throw new FileNotFoundException(
+                    $"EBOOT.BIN not found within the mounted ZIP file at {mountDriveRootForChecks}.");
             }
 
-            _logger.Debug($"[MountZipFiles] EBOOT.BIN found at: {ebootBinPath}. Proceeding to launch with {selectedEmulatorName}.");
+            _logger.Debug(
+                $"[MountZipFiles] EBOOT.BIN found at: {ebootBinPath}. Proceeding to launch with {selectedEmulatorName}.");
 
             // Pass the original ZIP file path for display in notifications
-            await gameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, windowContext, null, resolvedZipFilePath);
+            await gameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedEmulatorName, selectedSystemManager,
+                selectedEmulatorManager, rawEmulatorParameters, windowContext, null, resolvedZipFilePath);
 
             _logger.Debug($"[MountZipFiles] Emulator for {ebootBinPath} has exited.");
         }
@@ -406,25 +430,32 @@ public class MountZipFiles : IMountZipFiles
         {
             // Notify developer
             _logger.Debug($"[MountZipFiles] Exception during ZIP mounting or launching: {ex}");
-            var exitCodeInfoInCatch = mountProcess is { HasExited: true } ? $"Exit Code: {mountProcess.ExitCode}" : "Process was still running or state unknown.";
+            var exitCodeInfoInCatch = mountProcess is { HasExited: true }
+                ? $"Exit Code: {mountProcess.ExitCode}"
+                : "Process was still running or state unknown.";
             var contextMessage = $"Error during ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"The tool's output was not redirected. {exitCodeInfoInCatch}";
             logErrors.Error(ex, contextMessage);
 
             // Notify user
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(mountProcess is { HasExited: true }
+                ? mountProcess.ExitCode
+                : null);
         }
         finally
         {
-            _logger.Debug($"[MountZipFiles] Entering finally block for {resolvedZipFilePath}. Mount Process ID: {mountProcessId}");
+            _logger.Debug(
+                $"[MountZipFiles] Entering finally block for {resolvedZipFilePath}. Mount Process ID: {mountProcessId}");
             if (mountProcess != null && mountProcessId != -1 && !mountProcess.HasExited)
             {
-                _logger.Debug($"[MountZipFiles] Attempting to unmount by terminating {_zipMountExecutableName} (ID: {mountProcessId}).");
+                _logger.Debug(
+                    $"[MountZipFiles] Attempting to unmount by terminating {_zipMountExecutableName} (ID: {mountProcessId}).");
                 try
                 {
                     mountProcess.Kill(true);
-                    _logger.Debug($"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
+                    _logger.Debug(
+                        $"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
                     using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                     try
                     {
@@ -432,16 +463,19 @@ public class MountZipFiles : IMountZipFiles
                     }
                     catch (TaskCanceledException)
                     {
-                        _logger.Debug($"[MountZipFiles] Timeout (10s) waiting for {_zipMountExecutableName} (ID: {mountProcessId}) to exit after Kill.");
+                        _logger.Debug(
+                            $"[MountZipFiles] Timeout (10s) waiting for {_zipMountExecutableName} (ID: {mountProcessId}) to exit after Kill.");
                     }
 
                     if (mountProcess.HasExited)
                     {
-                        _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
+                        _logger.Debug(
+                            $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
                     }
                     else
                     {
-                        _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                        _logger.Debug(
+                            $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
                     }
                 }
                 catch (InvalidOperationException ioEx)
@@ -449,32 +483,41 @@ public class MountZipFiles : IMountZipFiles
                     if (ioEx.Message.Contains("process has already exited", StringComparison.OrdinalIgnoreCase) ||
                         ioEx.Message.Contains("No process is associated", StringComparison.OrdinalIgnoreCase))
                     {
-                        _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) already exited or no process associated: {ioEx.Message}");
+                        _logger.Debug(
+                            $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) already exited or no process associated: {ioEx.Message}");
                     }
                     else
                     {
-                        _logger.Debug($"[MountZipFiles] InvalidOperationException while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {ioEx}");
+                        _logger.Debug(
+                            $"[MountZipFiles] InvalidOperationException while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {ioEx}");
 
                         // Notify developer
-                        logErrors.Error(ioEx, $"Unexpected InvalidOperationException during {_zipMountExecutableName} termination.");
+                        logErrors.Error(ioEx,
+                            $"Unexpected InvalidOperationException during {_zipMountExecutableName} termination.");
                     }
                 }
                 catch (Exception termEx)
                 {
-                    _logger.Debug($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
+                    _logger.Debug(
+                        $"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
 
                     // Notify developer
-                    logErrors.Error(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
+                    logErrors.Error(termEx,
+                        $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
             {
-                var exitCodeStr = mountProcess is { HasExited: true } ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
-                _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {exitCodeStr}.");
+                var exitCodeStr = mountProcess is { HasExited: true }
+                    ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)
+                    : "N/A";
+                _logger.Debug(
+                    $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {exitCodeStr}.");
             }
             else
             {
-                _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} process was not started successfully (ID: {mountProcessId}). No termination needed.");
+                _logger.Debug(
+                    $"[MountZipFiles] {_zipMountExecutableName} process was not started successfully (ID: {mountProcessId}). No termination needed.");
             }
 
             mountProcess?.Dispose();
@@ -483,11 +526,13 @@ public class MountZipFiles : IMountZipFiles
             // Use mountDriveRootForChecks for Directory.Exists
             if (Directory.Exists(mountDriveRootForChecks))
             {
-                _logger.Debug($"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount. {_zipMountExecutableName} might not have unmounted correctly or is still running.");
+                _logger.Debug(
+                    $"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount. {_zipMountExecutableName} might not have unmounted correctly or is still running.");
             }
             else
             {
-                _logger.Debug($"[MountZipFiles] Drive {mountDriveRootForChecks} successfully unmounted (or was not detected).");
+                _logger.Debug(
+                    $"[MountZipFiles] Drive {mountDriveRootForChecks} successfully unmounted (or was not detected).");
             }
 
             // Safety net: ensure all SimpleZipDrive processes are killed
@@ -520,7 +565,8 @@ public class MountZipFiles : IMountZipFiles
         }
         catch (Exception ex)
         {
-            var errorMessage = $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
+            var errorMessage =
+                $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
             logErrors.Error(ex, errorMessage);
             await messageBox.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(logPath));
@@ -534,7 +580,8 @@ public class MountZipFiles : IMountZipFiles
         if (string.IsNullOrWhiteSpace(resolvedZipMountExePath) || !File.Exists(resolvedZipMountExePath))
         {
             // Notify developer
-            var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
+            var errorMessage =
+                $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
             logErrors.Warning(errorMessage);
 
@@ -607,21 +654,24 @@ public class MountZipFiles : IMountZipFiles
             var pollInterval = TimeSpan.FromMilliseconds(500);
             var stopwatch = Stopwatch.StartNew();
 
-            _logger.Debug($"[MountZipFiles] Polling for drive '{mountDriveRootForChecks}' to appear (timeout: {timeout.TotalSeconds}s)...");
+            _logger.Debug(
+                $"[MountZipFiles] Polling for drive '{mountDriveRootForChecks}' to appear (timeout: {timeout.TotalSeconds}s)...");
 
             while (stopwatch.Elapsed < timeout)
             {
                 if (Directory.Exists(mountDriveRootForChecks))
                 {
                     mountSuccessful = true;
-                    _logger.Debug($"[MountZipFiles] Found drive '{mountDriveRootForChecks}' after {stopwatch.Elapsed.TotalSeconds:F1} seconds.");
+                    _logger.Debug(
+                        $"[MountZipFiles] Found drive '{mountDriveRootForChecks}' after {stopwatch.Elapsed.TotalSeconds:F1} seconds.");
                     break;
                 }
 
                 if (mountProcess.HasExited)
                 {
                     var exitCode = mountProcess.ExitCode;
-                    _logger.Debug($"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {exitCode}.");
+                    _logger.Debug(
+                        $"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {exitCode}.");
                     break;
                 }
 
@@ -636,13 +686,17 @@ public class MountZipFiles : IMountZipFiles
                 {
                     var exitCode = mountProcess.ExitCode;
                     var reason = GetExitCodeReason(exitCode);
-                    _logger.Debug($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process exited with code {exitCode} ({reason}).");
-                    throw new InvalidOperationException($"Failed to mount ZIP. {_zipMountExecutableName} exited with code {exitCode} ({reason}).");
+                    _logger.Debug(
+                        $"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process exited with code {exitCode} ({reason}).");
+                    throw new InvalidOperationException(
+                        $"Failed to mount ZIP. {_zipMountExecutableName} exited with code {exitCode} ({reason}).");
                 }
                 else
                 {
-                    _logger.Debug($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process was still running after timeout. Check the console window of {_zipMountExecutableName} for details.");
-                    throw new TimeoutException($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+                    _logger.Debug(
+                        $"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process was still running after timeout. Check the console window of {_zipMountExecutableName} for details.");
+                    throw new TimeoutException(
+                        $"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
                 }
             }
 
@@ -651,14 +705,18 @@ public class MountZipFiles : IMountZipFiles
 
             if (string.IsNullOrEmpty(fileToLoad))
             {
-                _logger.Debug($"[MountZipFiles] No suitable file found in nested directory structure in {mountDriveRootForChecks}.");
-                throw new FileNotFoundException($"Could not find a file to launch within the expected nested directory structure of the mounted ZIP at {mountDriveRootForChecks}.");
+                _logger.Debug(
+                    $"[MountZipFiles] No suitable file found in nested directory structure in {mountDriveRootForChecks}.");
+                throw new FileNotFoundException(
+                    $"Could not find a file to launch within the expected nested directory structure of the mounted ZIP at {mountDriveRootForChecks}.");
             }
 
-            _logger.Debug($"[MountZipFiles] Nested file found at: {fileToLoad}. Proceeding to launch with {selectedEmulatorName}.");
+            _logger.Debug(
+                $"[MountZipFiles] Nested file found at: {fileToLoad}. Proceeding to launch with {selectedEmulatorName}.");
 
             // Pass the original ZIP file path for display in notifications
-            await gameLauncher.LaunchRegularEmulatorAsync(fileToLoad, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, windowContext, null, resolvedZipFilePath);
+            await gameLauncher.LaunchRegularEmulatorAsync(fileToLoad, selectedEmulatorName, selectedSystemManager,
+                selectedEmulatorManager, rawEmulatorParameters, windowContext, null, resolvedZipFilePath);
 
             _logger.Debug($"[MountZipFiles] Emulator for {fileToLoad} has exited.");
         }
@@ -667,25 +725,32 @@ public class MountZipFiles : IMountZipFiles
             _logger.Debug($"[MountZipFiles] Exception during ZIP mounting or launching: {ex}");
 
             // Notify developer
-            var exitCodeInfoInCatch = mountProcess is { HasExited: true } ? $"Exit Code: {mountProcess.ExitCode}" : "Process was still running or state unknown.";
+            var exitCodeInfoInCatch = mountProcess is { HasExited: true }
+                ? $"Exit Code: {mountProcess.ExitCode}"
+                : "Process was still running or state unknown.";
             var contextMessage = $"Error during ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"The tool's output was not redirected. {exitCodeInfoInCatch}";
             logErrors.Error(ex, contextMessage);
 
             // Notify user
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(mountProcess is { HasExited: true }
+                ? mountProcess.ExitCode
+                : null);
         }
         finally
         {
-            _logger.Debug($"[MountZipFiles] Entering finally block for {resolvedZipFilePath}. Mount Process ID: {mountProcessId}");
+            _logger.Debug(
+                $"[MountZipFiles] Entering finally block for {resolvedZipFilePath}. Mount Process ID: {mountProcessId}");
             if (mountProcess != null && mountProcessId != -1 && !mountProcess.HasExited)
             {
-                _logger.Debug($"[MountZipFiles] Attempting to unmount by terminating {_zipMountExecutableName} (ID: {mountProcessId}).");
+                _logger.Debug(
+                    $"[MountZipFiles] Attempting to unmount by terminating {_zipMountExecutableName} (ID: {mountProcessId}).");
                 try
                 {
                     mountProcess.Kill(true);
-                    _logger.Debug($"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
+                    _logger.Debug(
+                        $"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
                     using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                     try
                     {
@@ -693,34 +758,43 @@ public class MountZipFiles : IMountZipFiles
                     }
                     catch (TaskCanceledException)
                     {
-                        _logger.Debug($"[MountZipFiles] Timeout (10s) waiting for {_zipMountExecutableName} (ID: {mountProcessId}) to exit after Kill.");
+                        _logger.Debug(
+                            $"[MountZipFiles] Timeout (10s) waiting for {_zipMountExecutableName} (ID: {mountProcessId}) to exit after Kill.");
                     }
 
                     if (mountProcess.HasExited)
                     {
-                        _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
+                        _logger.Debug(
+                            $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
                     }
                     else
                     {
-                        _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                        _logger.Debug(
+                            $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
                     }
                 }
                 catch (Exception termEx)
                 {
-                    _logger.Debug($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
+                    _logger.Debug(
+                        $"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
 
                     // Notify developer
-                    logErrors.Error(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
+                    logErrors.Error(termEx,
+                        $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
             {
-                var exitCodeStr = mountProcess is { HasExited: true } ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
-                _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {exitCodeStr}.");
+                var exitCodeStr = mountProcess is { HasExited: true }
+                    ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)
+                    : "N/A";
+                _logger.Debug(
+                    $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {exitCodeStr}.");
             }
             else
             {
-                _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} process was not started successfully (ID: {mountProcessId}). No termination needed.");
+                _logger.Debug(
+                    $"[MountZipFiles] {_zipMountExecutableName} process was not started successfully (ID: {mountProcessId}). No termination needed.");
             }
 
             mountProcess?.Dispose();
@@ -728,7 +802,8 @@ public class MountZipFiles : IMountZipFiles
             await Task.Delay(2000);
             if (Directory.Exists(mountDriveRootForChecks))
             {
-                _logger.Debug($"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount.");
+                _logger.Debug(
+                    $"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount.");
             }
             else
             {
@@ -751,7 +826,8 @@ public class MountZipFiles : IMountZipFiles
             if (targetDirs.Length > 0)
             {
                 var nestedDirPath = targetDirs[0];
-                _logger.Debug($"[FindNestedFile] Found directory at: {nestedDirPath}. Searching for first file inside...");
+                _logger.Debug(
+                    $"[FindNestedFile] Found directory at: {nestedDirPath}. Searching for first file inside...");
 
                 var filesInNestedDir = Directory.GetFiles(nestedDirPath, "*", SearchOption.TopDirectoryOnly);
                 if (filesInNestedDir.Length > 0)
@@ -820,7 +896,8 @@ public class MountZipFiles : IMountZipFiles
                         currentPath = directories[0];
                         continue;
                     case > 1:
-                        _logger.Debug($"[FindScummVmGamePath] Multiple folders found, using current path: {currentPath}");
+                        _logger.Debug(
+                            $"[FindScummVmGamePath] Multiple folders found, using current path: {currentPath}");
                         return currentPath;
                     default:
                         _logger.Debug($"[FindScummVmGamePath] Empty directory, returning current path: {currentPath}");
@@ -862,7 +939,8 @@ public class MountZipFiles : IMountZipFiles
         }
         catch (Exception ex)
         {
-            var errorMessage = $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
+            var errorMessage =
+                $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
             logErrors.Error(ex, errorMessage);
             await messageBox.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(logPath));
@@ -876,7 +954,8 @@ public class MountZipFiles : IMountZipFiles
         if (string.IsNullOrWhiteSpace(resolvedZipMountExePath) || !File.Exists(resolvedZipMountExePath))
         {
             // Notify developer
-            var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
+            var errorMessage =
+                $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
             logErrors.Warning(errorMessage);
 
@@ -949,21 +1028,24 @@ public class MountZipFiles : IMountZipFiles
             var pollInterval = TimeSpan.FromMilliseconds(500);
             var stopwatch = Stopwatch.StartNew();
 
-            _logger.Debug($"[MountZipFiles] Polling for drive '{mountDriveRootForChecks}' to appear (timeout: {timeout.TotalSeconds}s)...");
+            _logger.Debug(
+                $"[MountZipFiles] Polling for drive '{mountDriveRootForChecks}' to appear (timeout: {timeout.TotalSeconds}s)...");
 
             while (stopwatch.Elapsed < timeout)
             {
                 if (Directory.Exists(mountDriveRootForChecks))
                 {
                     mountSuccessful = true;
-                    _logger.Debug($"[MountZipFiles] Found drive '{mountDriveRootForChecks}' after {stopwatch.Elapsed.TotalSeconds:F1} seconds.");
+                    _logger.Debug(
+                        $"[MountZipFiles] Found drive '{mountDriveRootForChecks}' after {stopwatch.Elapsed.TotalSeconds:F1} seconds.");
                     break;
                 }
 
                 if (mountProcess.HasExited)
                 {
                     var exitCode = mountProcess.ExitCode;
-                    _logger.Debug($"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {exitCode}.");
+                    _logger.Debug(
+                        $"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {exitCode}.");
                     break;
                 }
 
@@ -978,31 +1060,39 @@ public class MountZipFiles : IMountZipFiles
                 {
                     var exitCode = mountProcess.ExitCode;
                     var reason = GetExitCodeReason(exitCode);
-                    _logger.Debug($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process exited with code {exitCode} ({reason}).");
-                    throw new InvalidOperationException($"Failed to mount ZIP. {_zipMountExecutableName} exited with code {exitCode} ({reason}).");
+                    _logger.Debug(
+                        $"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process exited with code {exitCode} ({reason}).");
+                    throw new InvalidOperationException(
+                        $"Failed to mount ZIP. {_zipMountExecutableName} exited with code {exitCode} ({reason}).");
                 }
                 else
                 {
-                    _logger.Debug($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process was still running after timeout. Check the console window of {_zipMountExecutableName} for details.");
-                    throw new TimeoutException($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+                    _logger.Debug(
+                        $"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found. The process was still running after timeout. Check the console window of {_zipMountExecutableName} for details.");
+                    throw new TimeoutException(
+                        $"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
                 }
             }
 
-            _logger.Debug($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Proceeding to launch with {selectedEmulatorName}.");
+            _logger.Debug(
+                $"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Proceeding to launch with {selectedEmulatorName}.");
 
             // --- Custom ScummVM Launch Logic ---
 
             // 1. Resolve Emulator Path
             if (string.IsNullOrWhiteSpace(selectedEmulatorManager.EmulatorLocation))
             {
-                throw new FileNotFoundException($"Emulator executable path is not configured for '{selectedEmulatorName}'. " +
-                                                "Please edit the system configuration and provide a valid emulator path.");
+                throw new FileNotFoundException(
+                    $"Emulator executable path is not configured for '{selectedEmulatorName}'. " +
+                    "Please edit the system configuration and provide a valid emulator path.");
             }
 
-            var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorManager.EmulatorLocation);
+            var resolvedEmulatorExePath =
+                PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorManager.EmulatorLocation);
             if (string.IsNullOrEmpty(resolvedEmulatorExePath) || !File.Exists(resolvedEmulatorExePath))
             {
-                throw new FileNotFoundException($"Emulator executable not found: {selectedEmulatorManager.EmulatorLocation}");
+                throw new FileNotFoundException(
+                    $"Emulator executable not found: {selectedEmulatorManager.EmulatorLocation}");
             }
 
             var resolvedEmulatorFolderPath = Path.GetDirectoryName(resolvedEmulatorExePath);
@@ -1013,7 +1103,8 @@ public class MountZipFiles : IMountZipFiles
 
             // 2. Resolve Parameters
             var romSystemFolder = selectedSystemManager != null
-                ? PathHelper.FindContainingSystemFolder(selectedSystemManager.SystemFolders, selectedSystemManager.PrimarySystemFolder, resolvedZipFilePath)
+                ? PathHelper.FindContainingSystemFolder(selectedSystemManager.SystemFolders,
+                    selectedSystemManager.PrimarySystemFolder, resolvedZipFilePath)
                 : null;
             var resolvedParameters = PathHelper.ResolveParameterString(
                 selectedEmulatorParameters,
@@ -1026,7 +1117,9 @@ public class MountZipFiles : IMountZipFiles
             // Navigate into nested single-folder directories to find the actual game files location
             var gamePath = FindScummVmGamePath(mountDriveRootForChecks, logErrors);
             // ScummVM -p expects just the drive letter (e.g. "Y:") for root paths, not "Y:\"
-            var scummVmPath = string.Equals(gamePath, mountDriveRootForChecks, StringComparison.Ordinal) ? mountDriveRootForChecks.TrimEnd('\\') : gamePath;
+            var scummVmPath = string.Equals(gamePath, mountDriveRootForChecks, StringComparison.Ordinal)
+                ? mountDriveRootForChecks.TrimEnd('\\')
+                : gamePath;
             var arguments = $"-p \"{scummVmPath}\" {resolvedParameters} ";
 
             var psiEmulator = new ProcessStartInfo
@@ -1061,25 +1154,32 @@ public class MountZipFiles : IMountZipFiles
             _logger.Debug($"[MountZipFiles] Exception during ScummVM ZIP mounting or launching: {ex}");
 
             // Notify developer
-            var exitCodeInfoInCatch = mountProcess is { HasExited: true } ? $"Exit Code: {mountProcess.ExitCode}" : "Process was still running or state unknown.";
+            var exitCodeInfoInCatch = mountProcess is { HasExited: true }
+                ? $"Exit Code: {mountProcess.ExitCode}"
+                : "Process was still running or state unknown.";
             var contextMessage = $"Error during ScummVM ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"The tool's output was not redirected. {exitCodeInfoInCatch}";
             logErrors.Error(ex, contextMessage);
 
             // Notify user
-            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(mountProcess is { HasExited: true } ? mountProcess.ExitCode : null);
+            await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(mountProcess is { HasExited: true }
+                ? mountProcess.ExitCode
+                : null);
         }
         finally
         {
-            _logger.Debug($"[MountZipFiles] Entering finally block for {resolvedZipFilePath}. Mount Process ID: {mountProcessId}");
+            _logger.Debug(
+                $"[MountZipFiles] Entering finally block for {resolvedZipFilePath}. Mount Process ID: {mountProcessId}");
             if (mountProcess != null && mountProcessId != -1 && !mountProcess.HasExited)
             {
-                _logger.Debug($"[MountZipFiles] Attempting to unmount by terminating {_zipMountExecutableName} (ID: {mountProcessId}).");
+                _logger.Debug(
+                    $"[MountZipFiles] Attempting to unmount by terminating {_zipMountExecutableName} (ID: {mountProcessId}).");
                 try
                 {
                     mountProcess.Kill(true);
-                    _logger.Debug($"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
+                    _logger.Debug(
+                        $"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 20s).");
                     using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                     try
                     {
@@ -1087,34 +1187,43 @@ public class MountZipFiles : IMountZipFiles
                     }
                     catch (TaskCanceledException)
                     {
-                        _logger.Debug($"[MountZipFiles] Timeout (10s) waiting for {_zipMountExecutableName} (ID: {mountProcessId}) to exit after Kill.");
+                        _logger.Debug(
+                            $"[MountZipFiles] Timeout (10s) waiting for {_zipMountExecutableName} (ID: {mountProcessId}) to exit after Kill.");
                     }
 
                     if (mountProcess.HasExited)
                     {
-                        _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
+                        _logger.Debug(
+                            $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
                     }
                     else
                     {
-                        _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                        _logger.Debug(
+                            $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
                     }
                 }
                 catch (Exception termEx)
                 {
-                    _logger.Debug($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
+                    _logger.Debug(
+                        $"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
 
                     // Notify developer
-                    logErrors.Error(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
+                    logErrors.Error(termEx,
+                        $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
             {
-                var exitCodeStr = mountProcess is { HasExited: true } ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
-                _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {exitCodeStr}.");
+                var exitCodeStr = mountProcess is { HasExited: true }
+                    ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)
+                    : "N/A";
+                _logger.Debug(
+                    $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {exitCodeStr}.");
             }
             else
             {
-                _logger.Debug($"[MountZipFiles] {_zipMountExecutableName} process was not started successfully (ID: {mountProcessId}). No termination needed.");
+                _logger.Debug(
+                    $"[MountZipFiles] {_zipMountExecutableName} process was not started successfully (ID: {mountProcessId}). No termination needed.");
             }
 
             mountProcess?.Dispose();
@@ -1122,7 +1231,8 @@ public class MountZipFiles : IMountZipFiles
             await Task.Delay(2000);
             if (Directory.Exists(mountDriveRootForChecks))
             {
-                _logger.Debug($"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount.");
+                _logger.Debug(
+                    $"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount.");
             }
             else
             {

@@ -86,7 +86,8 @@ internal class UpdateService
     /// <param name="ignoredFiles">Files to exclude during extraction (typically updater files).</param>
     /// <param name="cancellationToken">Token to cancel the update operation.</param>
     /// <returns>The result of the update operation.</returns>
-    public async Task<UpdateResult> ExecuteUpdateAsync(int? processId, string[] ignoredFiles, CancellationToken cancellationToken = default)
+    public async Task<UpdateResult> ExecuteUpdateAsync(int? processId, string[] ignoredFiles,
+        CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(_appDirectory))
         {
@@ -128,7 +129,8 @@ internal class UpdateService
             string? fallbackAssetUrl;
             try
             {
-                (latestVersion, assetUrl, fallbackAssetUrl) = await _gitHubService.GetLatestReleaseAssetUrlAsync(cancellationToken);
+                (latestVersion, assetUrl, fallbackAssetUrl) =
+                    await _gitHubService.GetLatestReleaseAssetUrlAsync(cancellationToken);
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
@@ -236,7 +238,8 @@ internal class UpdateService
     /// <summary>
     /// Downloads the update file, retrying from the secondary server when the primary download fails.
     /// </summary>
-    private async Task<MemoryStream> DownloadWithFallbackAsync(string assetUrl, string? fallbackAssetUrl, CancellationToken cancellationToken)
+    private async Task<MemoryStream> DownloadWithFallbackAsync(string assetUrl, string? fallbackAssetUrl,
+        CancellationToken cancellationToken)
     {
         try
         {
@@ -250,8 +253,12 @@ internal class UpdateService
         catch (Exception ex) when (!string.IsNullOrEmpty(fallbackAssetUrl) &&
                                    !string.Equals(assetUrl, fallbackAssetUrl, StringComparison.OrdinalIgnoreCase))
         {
-            LogMessage?.Invoke(this, new EventArgs<string>($"Download from the primary source failed ({ex.Message}). Retrying from the secondary server..."));
-            Log.Information(ex, "Download from the primary source failed; retrying from the secondary server: {FallbackUrl}", fallbackAssetUrl);
+            LogMessage?.Invoke(this,
+                new EventArgs<string>(
+                    $"Download from the primary source failed ({ex.Message}). Retrying from the secondary server..."));
+            Log.Information(ex,
+                "Download from the primary source failed; retrying from the secondary server: {FallbackUrl}",
+                fallbackAssetUrl);
             DownloadProgressReset?.Invoke(this, EventArgs.Empty);
             return await _downloadService.DownloadToMemoryAsync(fallbackAssetUrl, cancellationToken);
         }
@@ -302,7 +309,8 @@ internal class UpdateService
             }
             else
             {
-                LogMessage?.Invoke(this, new EventArgs<string>("No prompt handler configured. Skipping Dokan installation."));
+                LogMessage?.Invoke(this,
+                    new EventArgs<string>("No prompt handler configured. Skipping Dokan installation."));
                 return;
             }
 
@@ -326,7 +334,8 @@ internal class UpdateService
         if (info.Percentage >= 0)
         {
             var speedText = DownloadService.FormatBytes(info.BytesPerSecond) + "/s";
-            statusText = $"{DownloadService.FormatBytes(info.BytesRead)} / {DownloadService.FormatBytes(info.TotalBytes)} ({info.Percentage:F1}%) - {speedText}";
+            statusText =
+                $"{DownloadService.FormatBytes(info.BytesRead)} / {DownloadService.FormatBytes(info.TotalBytes)} ({info.Percentage:F1}%) - {speedText}";
         }
         else
         {

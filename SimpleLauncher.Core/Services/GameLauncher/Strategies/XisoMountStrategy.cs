@@ -19,7 +19,8 @@ public class XisoMountStrategy : ILaunchStrategy
     /// <summary>
     /// Initializes a new instance of the <see cref="XisoMountStrategy"/> class.
     /// </summary>
-    public XisoMountStrategy(IConfiguration configuration, ILogger logErrors, IMessageBoxLibraryService messageBox, IMountXisoFiles mountXisoFiles)
+    public XisoMountStrategy(IConfiguration configuration, ILogger logErrors, IMessageBoxLibraryService messageBox,
+        IMountXisoFiles mountXisoFiles)
     {
         _configuration = configuration;
         _logger = logErrors;
@@ -46,10 +47,14 @@ public class XisoMountStrategy : ILaunchStrategy
     /// <inheritdoc />
     public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
-        await using var mountedDrive = await _mountXisoFiles.MountAsync(context.ResolvedFilePath, PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"), _logger, _messageBox);
+        await using var mountedDrive = await _mountXisoFiles.MountAsync(context.ResolvedFilePath,
+            PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"),
+            _logger, _messageBox);
         if (mountedDrive.IsMounted)
         {
-            await launcher.LaunchRegularEmulatorAsync(mountedDrive.MountedPath, context.EmulatorName, context.SystemManagerService!, context.EmulatorManager!, context.Parameters, context.WindowContext!, context.LoadingState, context.ResolvedFilePath);
+            await launcher.LaunchRegularEmulatorAsync(mountedDrive.MountedPath, context.EmulatorName,
+                context.SystemManagerService!, context.EmulatorManager!, context.Parameters, context.WindowContext!,
+                context.LoadingState, context.ResolvedFilePath);
         }
     }
 }

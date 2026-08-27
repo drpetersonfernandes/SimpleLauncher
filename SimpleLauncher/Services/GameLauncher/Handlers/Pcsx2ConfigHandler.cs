@@ -48,7 +48,8 @@ public class Pcsx2ConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectPcsx2ConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectPcsx2ConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();

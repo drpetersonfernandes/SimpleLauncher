@@ -16,13 +16,15 @@ public class ScanHumbleGames : IGamePlatformScanner
     /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
     /// <param name="windowsImagesPath">The directory where game images are stored.</param>
     /// <param name="ignoredGameNames">The set of game names to skip.</param>
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
+        string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         if (!OperatingSystem.IsWindows()) return;
 
         try
         {
-            var configPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Humble App", "config.json");
+            var configPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "Humble App", "config.json");
             if (!File.Exists(configPath)) return;
 
             var jsonContent = await File.ReadAllTextAsync(configPath);
@@ -35,7 +37,8 @@ public class ScanHumbleGames : IGamePlatformScanner
                     try
                     {
                         var status = game.GetProperty("status").GetString();
-                        if (!string.Equals(status, "installed", StringComparison.Ordinal) && !string.Equals(status, "downloaded", StringComparison.Ordinal)) continue;
+                        if (!string.Equals(status, "installed", StringComparison.Ordinal) &&
+                            !string.Equals(status, "downloaded", StringComparison.Ordinal)) continue;
 
                         if (!game.TryGetProperty("machineName", out var machineNameProp)) continue;
 
@@ -54,7 +57,8 @@ public class ScanHumbleGames : IGamePlatformScanner
                             installDir = fp.GetString();
                         }
                         // Fallback to downloadFilePath + machineName
-                        else if (game.TryGetProperty("downloadFilePath", out var dfp) && !string.IsNullOrEmpty(dfp.GetString()))
+                        else if (game.TryGetProperty("downloadFilePath", out var dfp) &&
+                                 !string.IsNullOrEmpty(dfp.GetString()))
                         {
                             var downloadPath = dfp.GetString();
                             if (!string.IsNullOrEmpty(downloadPath) && !string.IsNullOrEmpty(machineName))
@@ -83,7 +87,8 @@ public class ScanHumbleGames : IGamePlatformScanner
                             fullExePath = Path.Combine(installDir, exePath);
                         }
 
-                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir, sanitizedGameName, windowsImagesPath, fullExePath);
+                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir,
+                            sanitizedGameName, windowsImagesPath, fullExePath);
                     }
                     catch (Exception ex)
                     {

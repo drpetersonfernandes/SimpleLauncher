@@ -40,7 +40,8 @@ public class AvaloniaContextMenuService
     /// <param name="context">The game and services context.</param>
     /// <param name="placementTarget">The control to anchor the menu to.</param>
     /// <param name="extras">Optional Avalonia-only extra actions (details/clipboard/folder/edit-system).</param>
-    public void ShowContextMenu(AvaloniaRightClickContext context, Control placementTarget, GameContextMenuCallbacks? extras = null)
+    public void ShowContextMenu(AvaloniaRightClickContext context, Control placementTarget,
+        GameContextMenuCallbacks? extras = null)
     {
         var contextMenu = new ContextMenu
         {
@@ -61,7 +62,8 @@ public class AvaloniaContextMenuService
         // Remove From Favorites Context Menu
         AddItem(contextMenu, "RemoveFromFavorites", "Remove From Favorites", "brokenheart.png", () =>
         {
-            context.MainViewModel.StatusText = GetStatusOrFallback("RemovingFromFavorites", "Removing from favorites...");
+            context.MainViewModel.StatusText =
+                GetStatusOrFallback("RemovingFromFavorites", "Removing from favorites...");
             _ = SafeAsync(() => _functions.RemoveFromFavoritesAsync(context));
         });
 
@@ -144,7 +146,8 @@ public class AvaloniaContextMenuService
             try
             {
                 context.MainViewModel.StatusText = GetStatusOrFallback("DeletingGame", "Deleting game...");
-                var result = await _messageBox.AreYouSureYouWantToDeleteTheGameMessageBoxAsync(context.FileNameWithExtension);
+                var result =
+                    await _messageBox.AreYouSureYouWantToDeleteTheGameMessageBoxAsync(context.FileNameWithExtension);
                 if (result == CoreMessageBoxResult.Yes)
                 {
                     await _functions.RemoveFromFavoritesAsync(context);
@@ -164,7 +167,9 @@ public class AvaloniaContextMenuService
             try
             {
                 context.MainViewModel.StatusText = GetStatusOrFallback("DeletingCoverImage", "Deleting cover image...");
-                var result = await _messageBox.AreYouSureYouWantToDeleteTheCoverImageMessageBoxAsync(context.FileNameWithoutExtension);
+                var result =
+                    await _messageBox.AreYouSureYouWantToDeleteTheCoverImageMessageBoxAsync(
+                        context.FileNameWithoutExtension);
                 if (result == CoreMessageBoxResult.Yes)
                 {
                     await _functions.DeleteCoverImageAsync(context);
@@ -172,7 +177,8 @@ public class AvaloniaContextMenuService
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "[ShowContextMenu] Error deleting the cover image of {Name}.", context.FileNameWithoutExtension);
+                _logger.Error(ex, "[ShowContextMenu] Error deleting the cover image of {Name}.",
+                    context.FileNameWithoutExtension);
                 await _messageBox.ThereWasAnErrorDeletingTheCoverImageMessageBoxAsync();
             }
         });

@@ -15,7 +15,8 @@ public static class CemuConfigurationService
     /// <param name="emulatorPath">Path to the Cemu executable.</param>
     /// <param name="settings">The settings manager containing Cemu configuration.</param>
     /// <param name="logger">The logger instance.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -57,8 +58,10 @@ public static class CemuConfigurationService
 
             // Root level elements
             SetOrUpdateElement(content, "fullscreen", settings.Cemu.Fullscreen.ToString().ToLowerInvariant());
-            SetOrUpdateElement(content, "use_discord_presence", settings.Cemu.DiscordPresence.ToString().ToLowerInvariant());
-            SetOrUpdateElement(content, "console_language", settings.Cemu.ConsoleLanguage.ToString(CultureInfo.InvariantCulture));
+            SetOrUpdateElement(content, "use_discord_presence",
+                settings.Cemu.DiscordPresence.ToString().ToLowerInvariant());
+            SetOrUpdateElement(content, "console_language",
+                settings.Cemu.ConsoleLanguage.ToString(CultureInfo.InvariantCulture));
 
             // Graphic Section
             var graphic = GetOrCreateElement(content, "Graphic");

@@ -45,13 +45,15 @@ public sealed class GameFileWatcherService : IDisposable
     /// <param name="systemName">The system name associated with these folders.</param>
     /// <param name="fileExtensions">Optional list of file extensions to filter (e.g., ["zip", "tap"]). If null, all files are monitored.</param>
     /// <param name="reset">When true (default), any previously monitored folders are stopped first. When false, the new folders are added without clearing existing watchers (used to watch multiple systems at once).</param>
-    public void StartWatching(IEnumerable<string> folders, string systemName, IEnumerable<string>? fileExtensions = null, bool reset = true)
+    public void StartWatching(IEnumerable<string> folders, string systemName,
+        IEnumerable<string>? fileExtensions = null, bool reset = true)
     {
         ObjectDisposedException.ThrowIf(_disposed, this);
 
         if (reset) StopWatching();
 
-        var extensionFilter = fileExtensions?.Select(static e => e.TrimStart('.').ToLowerInvariant()).ToHashSet(StringComparer.Ordinal);
+        var extensionFilter = fileExtensions?.Select(static e => e.TrimStart('.').ToLowerInvariant())
+            .ToHashSet(StringComparer.Ordinal);
         var resolvedFolders = folders
             .Select(static f => PathHelper.TryGetExistingDirectory(f))
             .Where(static f => f != null)
@@ -101,7 +103,8 @@ public sealed class GameFileWatcherService : IDisposable
 
         lock (_lock)
         {
-            _logger.Debug($"[GameFileWatcherService] Started watching {_watchers.Count} folder(s) for system '{systemName}'.");
+            _logger.Debug(
+                $"[GameFileWatcherService] Started watching {_watchers.Count} folder(s) for system '{systemName}'.");
         }
     }
 
@@ -159,7 +162,8 @@ public sealed class GameFileWatcherService : IDisposable
             }
         }
 
-        _logger.Debug($"[GameFileWatcherService] File change detected: {e.ChangeType} - {e.FullPath} (System: {tag.SystemName})");
+        _logger.Debug(
+            $"[GameFileWatcherService] File change detected: {e.ChangeType} - {e.FullPath} (System: {tag.SystemName})");
 
         DebounceAndRaiseEvent(tag.SystemName);
     }
@@ -187,7 +191,8 @@ public sealed class GameFileWatcherService : IDisposable
 
                     if (!token.IsCancellationRequested)
                     {
-                        _logger.Debug($"[GameFileWatcherService] Debounce complete. Raising GameFilesChanged for system '{systemName}'.");
+                        _logger.Debug(
+                            $"[GameFileWatcherService] Debounce complete. Raising GameFilesChanged for system '{systemName}'.");
                         GameFilesChanged?.Invoke(this, new EventArgs<string>(systemName));
                     }
                 }

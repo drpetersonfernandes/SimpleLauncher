@@ -17,7 +17,8 @@ public interface IGameFileLoadingOrchestrator
     /// <param name="startLetter">An optional letter to filter games by.</param>
     /// <param name="searchQuery">An optional search query to filter games.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
-    Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null, CancellationToken cancellationToken = default);
+    Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null,
+        CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Asynchronously invalidates all game file caches, forcing a refresh on the next load.

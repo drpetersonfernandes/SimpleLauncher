@@ -59,7 +59,8 @@ public class MountXisoFiles : IMountXisoFiles
     /// <summary>
     /// Mounts an XISO file and returns a disposable drive handle with the mounted default.xbe path.
     /// </summary>
-    public async Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string? logPath, ILogger logErrors, IMessageBoxLibraryService messageBox)
+    public async Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string? logPath, ILogger logErrors,
+        IMessageBoxLibraryService messageBox)
     {
         _logger.Debug($"[MountXisoFiles.MountAsync] Starting to mount ISO: {resolvedIsoFilePath}");
 
@@ -127,7 +128,8 @@ public class MountXisoFiles : IMountXisoFiles
 
             _logger.Debug($"[MountXisoFiles.MountAsync] {toolName} process started (ID: {mountProcess.Id}).");
 
-            var mountSuccessful = await WaitForDriveMountAsync(defaultXbePath, driveRoot, mountProcess, toolName, mountProcess.Id, logErrors);
+            var mountSuccessful = await WaitForDriveMountAsync(defaultXbePath, driveRoot, mountProcess, toolName,
+                mountProcess.Id, logErrors);
 
             if (!mountSuccessful)
             {
@@ -169,31 +171,37 @@ public class MountXisoFiles : IMountXisoFiles
         }
     }
 
-    private async Task<bool> WaitForDriveMountAsync(string defaultXbePath, string driveRoot, Process mountProcess, string toolName, int processId, ILogger logErrors)
+    private async Task<bool> WaitForDriveMountAsync(string defaultXbePath, string driveRoot, Process mountProcess,
+        string toolName, int processId, ILogger logErrors)
     {
         const int maxRetries = 240;
         const int pollIntervalMs = 500;
         var retryCount = 0;
 
-        _logger.Debug($"[MountXisoFiles.WaitForDriveMountAsync] Polling for '{defaultXbePath}' to appear (max {maxRetries * pollIntervalMs / 1000}s)...");
+        _logger.Debug(
+            $"[MountXisoFiles.WaitForDriveMountAsync] Polling for '{defaultXbePath}' to appear (max {maxRetries * pollIntervalMs / 1000}s)...");
 
         while (retryCount < maxRetries)
         {
             if (File.Exists(defaultXbePath))
             {
-                _logger.Debug($"[MountXisoFiles.WaitForDriveMountAsync] Found '{defaultXbePath}' after {retryCount * pollIntervalMs / 1000.0:F1} seconds. Mount successful!");
+                _logger.Debug(
+                    $"[MountXisoFiles.WaitForDriveMountAsync] Found '{defaultXbePath}' after {retryCount * pollIntervalMs / 1000.0:F1} seconds. Mount successful!");
                 return true;
             }
 
             if (Directory.Exists(driveRoot))
             {
-                _logger.Debug($"[MountXisoFiles.WaitForDriveMountAsync] {driveRoot} drive exists after {retryCount * pollIntervalMs / 1000.0:F1} seconds, but '{defaultXbePath}' not found. Continuing to poll...");
+                _logger.Debug(
+                    $"[MountXisoFiles.WaitForDriveMountAsync] {driveRoot} drive exists after {retryCount * pollIntervalMs / 1000.0:F1} seconds, but '{defaultXbePath}' not found. Continuing to poll...");
             }
 
             if (mountProcess.HasExited)
             {
-                _logger.Debug($"[MountXisoFiles.WaitForDriveMountAsync] Mount process {toolName} (ID: {processId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
-                var contextMessage = $"Failed to mount ISO. The mounting tool '{toolName}' exited prematurely with code {mountProcess.ExitCode}.";
+                _logger.Debug(
+                    $"[MountXisoFiles.WaitForDriveMountAsync] Mount process {toolName} (ID: {processId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
+                var contextMessage =
+                    $"Failed to mount ISO. The mounting tool '{toolName}' exited prematurely with code {mountProcess.ExitCode}.";
                 logErrors.Warning(contextMessage);
                 return false;
             }
@@ -202,7 +210,8 @@ public class MountXisoFiles : IMountXisoFiles
             await Task.Delay(pollIntervalMs);
         }
 
-        _logger.Debug($"[MountXisoFiles.WaitForDriveMountAsync] Timed out waiting for '{defaultXbePath}' after {maxRetries * pollIntervalMs / 1000} seconds.");
+        _logger.Debug(
+            $"[MountXisoFiles.WaitForDriveMountAsync] Timed out waiting for '{defaultXbePath}' after {maxRetries * pollIntervalMs / 1000} seconds.");
         var timeoutContextMessage = $"Timed out waiting for the ISO to mount to '{driveRoot}'.";
         logErrors.Warning(timeoutContextMessage);
         return false;

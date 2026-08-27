@@ -107,7 +107,8 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
                 foreach (var historyItemConfig in _playHistoryManager.PlayHistoryList)
                 {
                     var machine = _machines.FirstOrDefault(m =>
-                        m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
+                        m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName),
+                            StringComparison.OrdinalIgnoreCase));
                     var machineDescription = machine?.Description ?? "";
                     var systemManager = _systemManagers.FirstOrDefault(config =>
                         config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
@@ -260,7 +261,8 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
     /// <returns>The matching <see cref="SystemManager"/>, or <c>null</c> if not found.</returns>
     public SystemManager? GetSystemManager(string systemName)
     {
-        return _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        return _systemManagers.FirstOrDefault(manager =>
+            manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>Reloads the play history from the manager after a game launch.</summary>
@@ -270,7 +272,8 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         foreach (var historyItemConfig in _playHistoryManager.PlayHistoryList)
         {
             var machine = _machines.FirstOrDefault(m =>
-                m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
+                m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName),
+                    StringComparison.OrdinalIgnoreCase));
             var machineDescription = machine?.Description ?? "";
             var systemManager = _systemManagers.FirstOrDefault(manager =>
                 manager.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
@@ -338,7 +341,8 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
     private string GetCoverImagePath(string systemName, string fileName)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        var systemManager = _systemManagers.FirstOrDefault(manager =>
+            manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
         var defaultCoverImagePath = Path.Combine(baseDirectory, "images", "default.png");
 
@@ -347,7 +351,8 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
             return defaultCoverImagePath;
         }
 
-        return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager.SystemImageFolder);
+        return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName,
+            systemManager.SystemImageFolder);
     }
 
     /// <summary>Releases resources used by this ViewModel.</summary>

@@ -28,7 +28,8 @@ public class SegaModel2ConfigHandler : IEmulatorConfigHandler
     /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
-        return emulatorName.Contains("Model 2", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("emulator.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+        return emulatorName.Contains("Model 2", StringComparison.OrdinalIgnoreCase) ||
+               (emulatorPath?.Contains("emulator.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
     /// <inheritdoc />
@@ -44,7 +45,8 @@ public class SegaModel2ConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectSegaModel2ConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectSegaModel2ConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();

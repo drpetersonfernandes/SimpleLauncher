@@ -49,25 +49,54 @@ internal partial class GameButtonFactory(
     ILogger logger,
     IContextMenuService contextMenuService)
 {
-    private readonly ComboBox _emulatorComboBox = emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
-    private readonly ComboBox _systemComboBox = systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
-    private readonly List<SystemManager.SystemManagerService> _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
+    private readonly ComboBox _emulatorComboBox =
+        emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
+
+    private readonly ComboBox _systemComboBox =
+        systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
+
+    private readonly List<SystemManager.SystemManagerService> _systemManagers =
+        systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
+
     private readonly List<MameManagerService> _machines = machines ?? throw new ArgumentNullException(nameof(machines));
     private readonly SettingsManagerService _settings = settings ?? throw new ArgumentNullException(nameof(settings));
-    private readonly FavoritesManager _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
+
+    private readonly FavoritesManager _favoritesManager =
+        favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
+
     private readonly WrapPanel _gameFileGrid = gameFileGrid ?? throw new ArgumentNullException(nameof(gameFileGrid));
     private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
-    private readonly GamePadController _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
-    private readonly GameLauncher.GameLauncherService _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
-    private readonly PlaySoundEffects _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
-    private readonly IGetListOfFilesService _getListOfFiles = getListOfFiles ?? throw new ArgumentNullException(nameof(getListOfFiles));
-    private readonly IFindCoverImageService _findCoverImage = findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
+
+    private readonly GamePadController _gamePadController =
+        gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
+
+    private readonly GameLauncher.GameLauncherService _gameLauncher =
+        gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
+
+    private readonly PlaySoundEffects _playSoundEffects =
+        playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
+
+    private readonly IGetListOfFilesService _getListOfFiles =
+        getListOfFiles ?? throw new ArgumentNullException(nameof(getListOfFiles));
+
+    private readonly IFindCoverImageService _findCoverImage =
+        findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
+
     private readonly IImageLoader _imageLoader = imageLoader ?? throw new ArgumentNullException(nameof(imageLoader));
-    private readonly IMessageBoxLibraryService _messageBox = messageBox ?? throw new ArgumentNullException(nameof(messageBox));
-    private readonly IRetroAchievementsHasherTool _raHasherTool = raHasherTool ?? throw new ArgumentNullException(nameof(raHasherTool));
-    private readonly IContextMenuFunctions _contextMenuFunctions = contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
+
+    private readonly IMessageBoxLibraryService _messageBox =
+        messageBox ?? throw new ArgumentNullException(nameof(messageBox));
+
+    private readonly IRetroAchievementsHasherTool _raHasherTool =
+        raHasherTool ?? throw new ArgumentNullException(nameof(raHasherTool));
+
+    private readonly IContextMenuFunctions _contextMenuFunctions =
+        contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
+
     private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    private readonly IContextMenuService _contextMenuService = contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
+
+    private readonly IContextMenuService _contextMenuService =
+        contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
 
     private Button _button = null!;
 
@@ -83,7 +112,8 @@ internal partial class GameButtonFactory(
     /// <param name="systemName">The name of the system this game belongs to.</param>
     /// <param name="systemManager">The system manager service providing configuration for the system.</param>
     /// <returns>A configured WPF Button control representing the game.</returns>
-    public async Task<Button> CreateGameButtonAsync(string entityPath, string systemName, SystemManager.SystemManagerService systemManager)
+    public async Task<Button> CreateGameButtonAsync(string entityPath, string systemName,
+        SystemManager.SystemManagerService systemManager)
     {
         var isDirectory = Directory.Exists(entityPath);
 
@@ -103,7 +133,8 @@ internal partial class GameButtonFactory(
         var selectedSystemName = systemName;
         var selectedSystemManager = systemManager ?? throw new ArgumentNullException(nameof(systemManager));
 
-        var imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager.SystemImageFolder);
+        var imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName,
+            selectedSystemManager.SystemImageFolder);
         if (isDirectory) // GroupByFolder is true
         {
             // First, try to find an image with the same name as the folder name.
@@ -112,12 +143,15 @@ internal partial class GameButtonFactory(
             if (imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
             {
                 // Fallback to current logic: look inside the folder for a file to use as a name.
-                var filesInFolder = await _getListOfFiles.GetFilesAsync(entityPath, selectedSystemManager.FileFormatsToSearch, selectedSystemManager.DisableRecursiveSearch, selectedSystemManager.GroupByFolder);
+                var filesInFolder = await _getListOfFiles.GetFilesAsync(entityPath,
+                    selectedSystemManager.FileFormatsToSearch, selectedSystemManager.DisableRecursiveSearch,
+                    selectedSystemManager.GroupByFolder);
                 if (filesInFolder.Count != 0)
                 {
                     var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder.First());
                     // Now search again with the new name. This will become the final imagePath.
-                    imagePath = _findCoverImage.FindCoverImagePath(representativeFileName, selectedSystemName, selectedSystemManager.SystemImageFolder);
+                    imagePath = _findCoverImage.FindCoverImagePath(representativeFileName, selectedSystemName,
+                        selectedSystemManager.SystemImageFolder);
                 }
             }
         }
@@ -148,7 +182,8 @@ internal partial class GameButtonFactory(
         var displayName = GetDisplayName(fileNameWithoutExtension);
 
         // Show filename unless mode is "NoFilename"
-        if (!string.Equals(_settings.FilenameDisplayMode, "NoFilename", StringComparison.Ordinal) && !string.IsNullOrEmpty(displayName))
+        if (!string.Equals(_settings.FilenameDisplayMode, "NoFilename", StringComparison.Ordinal) &&
+            !string.IsNullOrEmpty(displayName))
         {
             var filenameFontSize = GetFilenameFontSize();
             var filenameTextBlock = new TextBlock
@@ -171,7 +206,8 @@ internal partial class GameButtonFactory(
         // Show machine name if the user enabled DisplayMachineName and this is a MAME system
         if (_settings.DisplayMachineName)
         {
-            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+            var machine = _machines.FirstOrDefault(m =>
+                m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
             {
                 var machineNameFontSize = GetMachineNameFontSize();
@@ -333,7 +369,8 @@ internal partial class GameButtonFactory(
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(5, currentVerticalOffset, 5, 0), // Use dynamic offset
                 Cursor = Cursors.Hand,
-                ToolTip = (string)Application.Current.TryFindResource("ViewAchievements") ?? "View Achievements", // Localized ToolTip
+                ToolTip = (string)Application.Current.TryFindResource("ViewAchievements") ??
+                          "View Achievements", // Localized ToolTip
                 // ReSharper disable once AssignNullToNotNullAttribute
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
             };
@@ -363,11 +400,15 @@ internal partial class GameButtonFactory(
                         return;
                     }
 
-                    mainWindowLocal.SetLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
+                    mainWindowLocal.SetLoadingState(true,
+                        (string)Application.Current.TryFindResource("PreparingRetroAchievements") ??
+                        "Preparing RetroAchievements...");
 
                     try
                     {
-                        await _contextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, mainWindowLocal, playSound, context.LoadingStateProvider, loggerLocal, messageBoxLocal);
+                        await _contextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath,
+                            fileNameWithoutExtension, selectedSystemManager, mainWindowLocal, playSound,
+                            context.LoadingStateProvider, loggerLocal, messageBoxLocal);
                     }
                     catch (Exception ex)
                     {
@@ -427,10 +468,12 @@ internal partial class GameButtonFactory(
 
                     playSound.PlayNotificationSound();
 
-                    context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
+                    context.MainWindow?.SetLoadingState(true,
+                        (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        await _contextMenuFunctions.OpenVideoLinkAsync(selectedSystemName, fileNameWithoutExtension, machinesLocal, settingsLocal, mainWindowLocal, loggerLocal, messageBoxLocal);
+                        await _contextMenuFunctions.OpenVideoLinkAsync(selectedSystemName, fileNameWithoutExtension,
+                            machinesLocal, settingsLocal, mainWindowLocal, loggerLocal, messageBoxLocal);
                     }
                     catch (Exception ex)
                     {
@@ -490,10 +533,12 @@ internal partial class GameButtonFactory(
 
                     playSound.PlayNotificationSound();
 
-                    context.MainWindow?.SetLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
+                    context.MainWindow?.SetLoadingState(true,
+                        (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        await _contextMenuFunctions.OpenInfoLinkAsync(selectedSystemName, fileNameWithoutExtension, machinesLocal, settingsLocal, mainWindowLocal, loggerLocal, messageBoxLocal);
+                        await _contextMenuFunctions.OpenInfoLinkAsync(selectedSystemName, fileNameWithoutExtension,
+                            machinesLocal, settingsLocal, mainWindowLocal, loggerLocal, messageBoxLocal);
                     }
                     catch (Exception ex)
                     {
@@ -519,7 +564,8 @@ internal partial class GameButtonFactory(
             // No need to update currentVerticalOffset here as it's the last button.
         }
 
-        var contextMenu = _contextMenuService.AddRightClickReturnContextMenu(context, _findCoverImage, _contextMenuFunctions);
+        var contextMenu =
+            _contextMenuService.AddRightClickReturnContextMenu(context, _findCoverImage, _contextMenuFunctions);
 
         // Create the kebab menu button
         var kebabButton = new Button
@@ -578,7 +624,8 @@ internal partial class GameButtonFactory(
 
         // Set AutomationProperties.Name for the main game button for screen readers
         AutomationProperties.SetName(_button, accessibleGameName);
-        AutomationProperties.SetHelpText(_button, (string)Application.Current.TryFindResource("LaunchGame") ?? "Launch Game");
+        AutomationProperties.SetHelpText(_button,
+            (string)Application.Current.TryFindResource("LaunchGame") ?? "Launch Game");
 
         // Apply the 3D style from MainWindow's resources
         _button.SetResourceReference(FrameworkElement.StyleProperty, "GameButtonStyle");
@@ -622,7 +669,8 @@ internal partial class GameButtonFactory(
                     return;
                 }
 
-                var selectedEmulatorName = emulatorCombo.SelectedItem as string; // Update value to get current selected emulator
+                var selectedEmulatorName =
+                    emulatorCombo.SelectedItem as string; // Update value to get current selected emulator
                 if (string.IsNullOrEmpty(selectedEmulatorName))
                 {
                     // Notify developer
@@ -645,7 +693,9 @@ internal partial class GameButtonFactory(
                         return;
                     }
 
-                    await gameLauncherLocal.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settingsLocal, WpfWindowContext.FromMainWindow(mainWindowLocal!), gamePadCtrl, mainWindowLocal);
+                    await gameLauncherLocal.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName,
+                        selectedSystemManager, settingsLocal, WpfWindowContext.FromMainWindow(mainWindowLocal!),
+                        gamePadCtrl, mainWindowLocal);
                 }
                 finally
                 {
@@ -654,7 +704,8 @@ internal partial class GameButtonFactory(
             }
             catch (Exception ex)
             {
-                loggerLocal.Error(ex, $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
+                loggerLocal.Error(ex,
+                    $"[CreateGameButtonAsync] Error launching the game. entityPath: {entityPath}, systemName: {systemName}");
                 _logger.Debug($"Error launching the game: {ex.Message}");
             }
         };

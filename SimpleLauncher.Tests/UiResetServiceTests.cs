@@ -17,7 +17,8 @@ public class UiResetServiceTests
     {
         var hostMock = new Mock<IUiResetHost>();
         hostMock.SetupAllProperties();
-        hostMock.Setup(x => x.DisplaySystemSelectionScreenAsync(It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
+        hostMock.Setup(x => x.DisplaySystemSelectionScreenAsync(It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
         hostMock.SetupGet(x => x.CurrentCancellationToken).Returns(CancellationToken.None);
 
         var service = new UiResetService(new NoOpLogger());

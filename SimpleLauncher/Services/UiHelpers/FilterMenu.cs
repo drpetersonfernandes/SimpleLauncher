@@ -37,7 +37,8 @@ public class FilterMenu
     {
         Button numButton = new() { Content = "#", Width = 32, Height = 32 };
         // Set AutomationProperties.Name for screen readers
-        AutomationProperties.SetName(numButton, (string)Application.Current.TryFindResource("FilterByNumber") ?? "Filter by Number");
+        AutomationProperties.SetName(numButton,
+            (string)Application.Current.TryFindResource("FilterByNumber") ?? "Filter by Number");
         numButton.Click += (_, _) =>
         {
             _playSoundEffects.PlayNotificationSound();
@@ -74,7 +75,8 @@ public class FilterMenu
         const string allText = "All";
         var allButton = new Button { Content = allText, Width = 50, Height = 32 };
         // Set AutomationProperties.Name for screen readers
-        AutomationProperties.SetName(allButton, (string)Application.Current.TryFindResource("FilterByAll") ?? "Filter by All");
+        AutomationProperties.SetName(allButton,
+            (string)Application.Current.TryFindResource("FilterByAll") ?? "Filter by All");
         allButton.Click += (_, _) =>
         {
             _playSoundEffects.PlayNotificationSound();
@@ -128,7 +130,9 @@ public class FilterMenu
     private int FindNeighbor(Button currentButton, FocusNavigationDirection direction)
     {
         // Get the center point of the current button in LetterPanel coordinates
-        var currentCenter = currentButton.TranslatePoint(new Point(currentButton.ActualWidth / 2, currentButton.ActualHeight / 2), LetterPanel);
+        var currentCenter =
+            currentButton.TranslatePoint(new Point(currentButton.ActualWidth / 2, currentButton.ActualHeight / 2),
+                LetterPanel);
 
         Button? bestMatch = null;
         var bestDistance = double.MaxValue;
@@ -137,7 +141,9 @@ public class FilterMenu
         {
             if (child is not Button targetButton || targetButton == currentButton) continue;
 
-            var targetCenter = targetButton.TranslatePoint(new Point(targetButton.ActualWidth / 2, targetButton.ActualHeight / 2), LetterPanel);
+            var targetCenter =
+                targetButton.TranslatePoint(new Point(targetButton.ActualWidth / 2, targetButton.ActualHeight / 2),
+                    LetterPanel);
 
             var isCorrectDirection = direction switch
             {

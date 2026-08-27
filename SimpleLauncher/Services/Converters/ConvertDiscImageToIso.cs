@@ -27,11 +27,13 @@ public static class ConvertDiscImageToIso
         {
             var arch = RuntimeInformation.ProcessArchitecture;
             var exeName = arch == Architecture.Arm64 ? "DolphinTool_arm64.exe" : "DolphinTool.exe";
-            var dolphinToolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToRVZ", exeName);
+            var dolphinToolPath =
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToRVZ", exeName);
 
             if (!File.Exists(dolphinToolPath))
             {
-                Logger.Debug($"[ConvertDiscImageToIso] DolphinTool not found at {dolphinToolPath}. Cannot convert disc image.");
+                Logger.Debug(
+                    $"[ConvertDiscImageToIso] DolphinTool not found at {dolphinToolPath}. Cannot convert disc image.");
                 return null;
             }
 
@@ -95,13 +97,15 @@ public static class ConvertDiscImageToIso
                 return tempIsoPath;
             }
 
-            Logger.Debug($"[ConvertDiscImageToIso] DolphinTool failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            Logger.Debug(
+                $"[ConvertDiscImageToIso] DolphinTool failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return null;
         }
         catch (Exception ex)
         {
             Logger.Error(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
-            App.ServiceProvider.GetRequiredService<ILogger>().Error(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
+            App.ServiceProvider.GetRequiredService<ILogger>()
+                .Error(ex, "[ConvertDiscImageToIso] Error converting disc image to ISO.");
             return null;
         }
     }

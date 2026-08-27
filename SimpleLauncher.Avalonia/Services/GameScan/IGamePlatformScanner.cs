@@ -13,5 +13,6 @@ public interface IGamePlatformScanner
     /// <param name="windowsRomsPath">The path to the ROM files on Windows.</param>
     /// <param name="windowsImagesPath">The path to the image files on Windows.</param>
     /// <param name="ignoredGameNames">A set of game names to exclude from scanning.</param>
-    Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames);
+    Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
+        string windowsImagesPath, ISet<string> ignoredGameNames);
 }

@@ -62,7 +62,8 @@ public class ParameterResolverService : IParameterResolverService
             }
         }
 
-        var apiException = new InvalidOperationException($"ParameterResolver API returned {(int)response.StatusCode}: {responseBody}");
+        var apiException =
+            new InvalidOperationException($"ParameterResolver API returned {(int)response.StatusCode}: {responseBody}");
         _logger.Error(apiException, "ParameterResolver API error");
         return null;
     }

@@ -53,7 +53,8 @@ public class StartupInitializationService
         _messageBoxLibrary = messageBoxLibrary;
         _applicationLifetime = applicationLifetime;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _toastNotificationService = toastNotificationService ?? throw new ArgumentNullException(nameof(toastNotificationService));
+        _toastNotificationService = toastNotificationService ??
+                                    throw new ArgumentNullException(nameof(toastNotificationService));
         _requiredFiles = new RequiredFiles(messageBoxLibrary);
     }
 
@@ -131,7 +132,8 @@ public class StartupInitializationService
     {
         try
         {
-            _host.SetTrayIconManager(new TrayIconManager(_host.HostWindow, _applicationLifetime, _logger, _toastNotificationService));
+            _host.SetTrayIconManager(new TrayIconManager(_host.HostWindow, _applicationLifetime, _logger,
+                _toastNotificationService));
             _logger.Debug("TrayIconManager was initialized.");
         }
         catch (Exception ex)

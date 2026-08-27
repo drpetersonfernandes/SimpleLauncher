@@ -15,7 +15,8 @@ public static class SegaModel2ConfigurationService
     /// <param name="emulatorPath">The full path to the Sega Model 2 emulator executable.</param>
     /// <param name="settings">The settings manager containing Sega Model 2 configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -25,7 +26,8 @@ public static class SegaModel2ConfigurationService
 
         if (!File.Exists(configPath))
         {
-            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "SEGA Model 2", "EMULATOR.INI");
+            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "SEGA Model 2",
+                "EMULATOR.INI");
             if (File.Exists(samplePath))
             {
                 try
@@ -136,11 +138,13 @@ public static class SegaModel2ConfigurationService
             // Try to add to existing sections
             if (rendererUpdates.Count > 0)
             {
-                var rendererIndex = lines.FindIndex(static l => l.Trim().Equals("[Renderer]", StringComparison.OrdinalIgnoreCase));
+                var rendererIndex = lines.FindIndex(static l =>
+                    l.Trim().Equals("[Renderer]", StringComparison.OrdinalIgnoreCase));
                 if (rendererIndex != -1)
                 {
                     var insertIndex = rendererIndex + 1;
-                    while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) && !lines[insertIndex].Trim().StartsWith('['))
+                    while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
+                           !lines[insertIndex].Trim().StartsWith('['))
                     {
                         insertIndex++;
                     }
@@ -163,11 +167,13 @@ public static class SegaModel2ConfigurationService
 
             if (inputUpdates.Count > 0)
             {
-                var inputIndex = lines.FindIndex(static l => l.Trim().Equals("[Input]", StringComparison.OrdinalIgnoreCase));
+                var inputIndex = lines.FindIndex(static l =>
+                    l.Trim().Equals("[Input]", StringComparison.OrdinalIgnoreCase));
                 if (inputIndex != -1)
                 {
                     var insertIndex = inputIndex + 1;
-                    while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) && !lines[insertIndex].Trim().StartsWith('['))
+                    while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
+                           !lines[insertIndex].Trim().StartsWith('['))
                     {
                         insertIndex++;
                     }

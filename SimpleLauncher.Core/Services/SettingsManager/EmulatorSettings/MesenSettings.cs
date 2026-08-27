@@ -83,7 +83,8 @@ public class MesenSettings : IEmulatorSettings
         Rewind = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Rewind), false);
         RunAhead = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(RunAhead), 0);
         PauseInBackground = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(PauseInBackground), false);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

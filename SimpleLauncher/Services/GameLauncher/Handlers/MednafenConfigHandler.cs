@@ -28,7 +28,8 @@ public class MednafenConfigHandler : IEmulatorConfigHandler
     /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
-        return emulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("mednafen.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+        return emulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||
+               (emulatorPath?.Contains("mednafen.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
     /// <inheritdoc />
@@ -44,7 +45,8 @@ public class MednafenConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectMednafenConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectMednafenConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();
@@ -54,7 +56,8 @@ public class MednafenConfigHandler : IEmulatorConfigHandler
             else
             {
                 shouldRun = true;
-                if (File.Exists(resolvedExe)) MednafenConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
+                if (File.Exists(resolvedExe))
+                    MednafenConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
             }
 
             return shouldRun;

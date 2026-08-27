@@ -90,6 +90,7 @@ public class WindowsCredentialProtector : ICredentialProtector
         if (_warnedPortableFallback) return;
 
         _warnedPortableFallback = true;
-        Log.Warning("DPAPI is not available on this platform; RetroAchievements credentials are stored obfuscated (Base64) instead of encrypted.");
+        Log.Warning(
+            "DPAPI is not available on this platform; RetroAchievements credentials are stored obfuscated (Base64) instead of encrypted.");
     }
 }

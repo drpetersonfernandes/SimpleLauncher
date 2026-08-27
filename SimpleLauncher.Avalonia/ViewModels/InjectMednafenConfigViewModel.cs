@@ -37,7 +37,8 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
     /// <param name="logger">The logger instance.</param>
-    public InjectMednafenConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, EmulatorPathResolver emulatorPathResolver, ILogger logger)
+    public InjectMednafenConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox,
+        EmulatorPathResolver emulatorPathResolver, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -108,7 +109,8 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
         MednafenVideoDriver = _settings.Mednafen.VideoDriver;
         MednafenStretch = _settings.Mednafen.Stretch;
 
-        if (!string.IsNullOrEmpty(_settings.Mednafen.Special) && !string.Equals(_settings.Mednafen.Special, "none", StringComparison.Ordinal))
+        if (!string.IsNullOrEmpty(_settings.Mednafen.Special) &&
+            !string.Equals(_settings.Mednafen.Special, "none", StringComparison.Ordinal))
         {
             MednafenShader = _settings.Mednafen.Special;
         }
@@ -223,7 +225,8 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectMednafenConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+                _messageBox);
         }
     }
 
@@ -252,7 +255,8 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectMednafenConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+                _messageBox);
         }
     }
 }

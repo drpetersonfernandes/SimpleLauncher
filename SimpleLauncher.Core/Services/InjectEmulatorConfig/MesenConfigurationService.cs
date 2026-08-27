@@ -15,7 +15,8 @@ public static class MesenConfigurationService
     /// <param name="emulatorPath">The full path to the Mesen emulator executable.</param>
     /// <param name="settings">The settings manager containing Mesen configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -43,7 +44,8 @@ public static class MesenConfigurationService
             }
             else
             {
-                throw new FileNotFoundException($"settings.json not found in {emuDir} and sample not available at {samplePath}");
+                throw new FileNotFoundException(
+                    $"settings.json not found in {emuDir} and sample not available at {samplePath}");
             }
         }
 

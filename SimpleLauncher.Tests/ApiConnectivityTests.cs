@@ -94,11 +94,13 @@ public class ApiConnectivityTests
         Assert.NotNull(MockHandler.LastRequest);
         Assert.Equal(HttpMethod.Post, MockHandler.LastRequest.Method);
         Assert.Equal(apiUrl, MockHandler.LastRequest.RequestUri?.AbsoluteUri);
-        Assert.Contains(MockHandler.LastRequest.Headers.GetValues("X-API-KEY"), value => string.Equals(value, apiKey, StringComparison.Ordinal));
+        Assert.Contains(MockHandler.LastRequest.Headers.GetValues("X-API-KEY"),
+            value => string.Equals(value, apiKey, StringComparison.Ordinal));
 
         var body = await MockHandler.LastRequest.Content!.ReadAsStringAsync();
         using var bodyJson = JsonDocument.Parse(body);
-        Assert.Equal("Test bug report from SimpleLauncher.Tests", bodyJson.RootElement.GetProperty("message").GetString());
+        Assert.Equal("Test bug report from SimpleLauncher.Tests",
+            bodyJson.RootElement.GetProperty("message").GetString());
         Assert.Equal("SimpleLauncher.Tests", bodyJson.RootElement.GetProperty("applicationName").GetString());
         Assert.Equal("Test stack trace", bodyJson.RootElement.GetProperty("stackTrace").GetString());
     }
@@ -152,7 +154,8 @@ public class ApiConnectivityTests
             LastRequest = null;
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
             LastRequest = request;
 

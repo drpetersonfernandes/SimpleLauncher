@@ -44,7 +44,8 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Initializes all sub-orchestrators with their respective host implementations.
     /// </summary>
-    public void Initialize(IGameFileLoadingHost loadingHost, ISystemSelectionHost selectionHost, IGameItemRenderHost renderHost)
+    public void Initialize(IGameFileLoadingHost loadingHost, ISystemSelectionHost selectionHost,
+        IGameItemRenderHost renderHost)
     {
         _gameFileLoadingOrchestrator.Initialize(loadingHost);
         _systemSelectionOrchestrator.Initialize(selectionHost);
@@ -86,16 +87,13 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Gets or sets the list of available system managers.
     /// </summary>
-    public IList<SystemManager.SystemManagerService> SystemManagers
-    {
-        get;
-        set;
-    } = [];
+    public IList<SystemManager.SystemManagerService> SystemManagers { get; set; } = [];
 
     /// <summary>
     /// Loads game files for the selected system, optionally filtered by start letter or search query.
     /// </summary>
-    public Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null, CancellationToken ct = default)
+    public Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null,
+        CancellationToken ct = default)
     {
         return _gameFileLoadingOrchestrator.LoadGameFilesAsync(startLetter, searchQuery, ct);
     }
@@ -111,7 +109,8 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Validates a search query against the selected system and prepares it for execution.
     /// </summary>
-    public Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string? selectedSystem, CancellationToken ct)
+    public Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string? selectedSystem,
+        CancellationToken ct)
     {
         return _searchOrchestratorService.ValidateAndPrepareAsync(searchQuery, selectedSystem, ct);
     }
@@ -119,7 +118,8 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Rebuilds the game button and list item factories with updated system and MAME machine data.
     /// </summary>
-    public void ReloadFactories(IList<SystemManager.SystemManagerService> systemManagers, IList<MameManagerService> machines)
+    public void ReloadFactories(IList<SystemManager.SystemManagerService> systemManagers,
+        IList<MameManagerService> machines)
     {
         _gameItemRenderService.ReloadFactories(systemManagers, machines);
     }
@@ -127,7 +127,8 @@ public class GameBrowserService : IGameBrowserService
     /// <summary>
     /// Renders game items for the specified file list in the current view mode (grid or list).
     /// </summary>
-    public Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManager.SystemManagerService systemManager, CancellationToken ct)
+    public Task RenderGameItemsAsync(IList<string> files, string systemName,
+        SystemManager.SystemManagerService systemManager, CancellationToken ct)
     {
         return _gameItemRenderService.RenderGameItemsAsync(files, systemName, systemManager, ct);
     }

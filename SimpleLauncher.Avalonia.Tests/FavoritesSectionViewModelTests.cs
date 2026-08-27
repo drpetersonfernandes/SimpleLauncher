@@ -47,30 +47,31 @@ public class FavoritesSectionViewModelTests : IDisposable
 
         _systemXmlPath = Path.Combine(_tempRoot, "system.xml");
         File.WriteAllText(_systemXmlPath, $"""
-            <SystemConfigs>
-              <SystemConfig>
-                <SystemName>Test System</SystemName>
-                <SystemFolders>
-                  <SystemFolder>{_romsFolder}</SystemFolder>
-                </SystemFolders>
-                <SystemImageFolder>{_romsFolder}\images</SystemImageFolder>
-                <FileFormatsToSearch>
-                  <FormatToSearch>.zip</FormatToSearch>
-                </FileFormatsToSearch>
-                <FileFormatsToLaunch>
-                  <FormatToLaunch>.zip</FormatToLaunch>
-                </FileFormatsToLaunch>
-                <Emulators>
-                  <Emulator>
-                    <EmulatorName>Stella</EmulatorName>
-                    <EmulatorPath>stella.exe</EmulatorPath>
-                  </Emulator>
-                </Emulators>
-              </SystemConfig>
-            </SystemConfigs>
-            """);
+                                           <SystemConfigs>
+                                             <SystemConfig>
+                                               <SystemName>Test System</SystemName>
+                                               <SystemFolders>
+                                                 <SystemFolder>{_romsFolder}</SystemFolder>
+                                               </SystemFolders>
+                                               <SystemImageFolder>{_romsFolder}\images</SystemImageFolder>
+                                               <FileFormatsToSearch>
+                                                 <FormatToSearch>.zip</FormatToSearch>
+                                               </FileFormatsToSearch>
+                                               <FileFormatsToLaunch>
+                                                 <FormatToLaunch>.zip</FormatToLaunch>
+                                               </FileFormatsToLaunch>
+                                               <Emulators>
+                                                 <Emulator>
+                                                   <EmulatorName>Stella</EmulatorName>
+                                                   <EmulatorPath>stella.exe</EmulatorPath>
+                                                 </Emulator>
+                                               </Emulators>
+                                             </SystemConfig>
+                                           </SystemConfigs>
+                                           """);
 
-        _config = TestEnvironment.ConfigurationFromJson($$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", @"\\")}}"}""");
+        _config = TestEnvironment.ConfigurationFromJson(
+            $$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", @"\\")}}"}""");
 
         _mameData.Setup(m => m.Lookup).Returns(new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -216,7 +217,8 @@ public class FavoritesSectionViewModelTests : IDisposable
         var vm = CreateViewModel(manager);
         await vm.LoadFavoritesAsync();
 
-        var target = vm.Favorites.FirstOrDefault(r => r.FilePath.EndsWith("asteroids.zip", StringComparison.OrdinalIgnoreCase));
+        var target =
+            vm.Favorites.FirstOrDefault(r => r.FilePath.EndsWith("asteroids.zip", StringComparison.OrdinalIgnoreCase));
         Assert.NotNull(target);
         await vm.RemoveFavoritesAsync([target]);
 

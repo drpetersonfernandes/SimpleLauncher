@@ -31,7 +31,9 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     /// <param name="raService">The RetroAchievements service.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
     /// <param name="configurator">The emulator configurator service for RetroAchievements integration.</param>
-    public RetroAchievementsSettingsViewModel(SettingsManagerService settings, ILogger logErrors, IMessageBoxLibraryService messageBox, RetroAchievementsService raService, IResourceProvider resourceProvider, IRetroAchievementsEmulatorConfiguratorService configurator)
+    public RetroAchievementsSettingsViewModel(SettingsManagerService settings, ILogger logErrors,
+        IMessageBoxLibraryService messageBox, RetroAchievementsService raService, IResourceProvider resourceProvider,
+        IRetroAchievementsEmulatorConfiguratorService configurator)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _logger = logErrors;
@@ -64,7 +66,8 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
             _settings.RaPassword = Password;
             await _settings.SaveAsync();
 
-            Process.Start(new ProcessStartInfo("https://retroachievements.org/controlpanel.php") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo("https://retroachievements.org/controlpanel.php")
+                { UseShellExecute = true });
 
             SaveCompleted?.Invoke(this, EventArgs.Empty);
         }

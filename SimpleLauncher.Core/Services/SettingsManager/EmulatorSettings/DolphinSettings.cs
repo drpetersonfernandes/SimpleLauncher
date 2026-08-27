@@ -45,9 +45,12 @@ public class DolphinSettings : IEmulatorSettings
         var s = settings.Element(SectionName);
         GfxBackend = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(GfxBackend), "Vulkan");
         DspThread = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(DspThread), true);
-        WiimoteContinuousScanning = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(WiimoteContinuousScanning), true);
-        WiimoteEnableSpeaker = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(WiimoteEnableSpeaker), true);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        WiimoteContinuousScanning =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(WiimoteContinuousScanning), true);
+        WiimoteEnableSpeaker =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(WiimoteEnableSpeaker), true);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

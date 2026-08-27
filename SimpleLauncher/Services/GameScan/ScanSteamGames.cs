@@ -37,7 +37,8 @@ internal class ScanSteamGames : IGamePlatformScanner
     /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
     /// <param name="windowsImagesPath">The directory where game images are stored.</param>
     /// <param name="ignoredGameNames">The set of game names to skip.</param>
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
+        string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         var libraryPaths = new List<string>();
 
@@ -48,12 +49,14 @@ internal class ScanSteamGames : IGamePlatformScanner
 
             if (string.IsNullOrEmpty(steamPath))
             {
-                steamPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam", "InstallPath", null) as string;
+                steamPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam", "InstallPath",
+                    null) as string;
             }
 
             if (string.IsNullOrEmpty(steamPath))
             {
-                steamPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Valve\Steam", "InstallPath", null) as string;
+                steamPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Valve\Steam", "InstallPath",
+                    null) as string;
             }
 
             if (string.IsNullOrEmpty(steamPath))
@@ -146,7 +149,8 @@ internal class ScanSteamGames : IGamePlatformScanner
 
                 foreach (var manifestFile in manifestFiles)
                 {
-                    await ProcessSteamManifestAsync(gameScannerService, manifestFile, libraryPath, steamPath, logErrors, windowsRomsPath, windowsImagesPath, ignoredGameNames);
+                    await ProcessSteamManifestAsync(gameScannerService, manifestFile, libraryPath, steamPath, logErrors,
+                        windowsRomsPath, windowsImagesPath, ignoredGameNames);
                 }
             }
 
@@ -173,7 +177,8 @@ internal class ScanSteamGames : IGamePlatformScanner
                 foreach (var modDir in modDirectories)
                 {
                     // Pass windowsImagesPath here
-                    await ProcessSourceModAsync(gameScannerService, modDir, windowsRomsPath, windowsImagesPath, logErrors);
+                    await ProcessSourceModAsync(gameScannerService, modDir, windowsRomsPath, windowsImagesPath,
+                        logErrors);
                 }
             }
         }
@@ -183,12 +188,15 @@ internal class ScanSteamGames : IGamePlatformScanner
         }
     }
 
-    private async Task ProcessSteamManifestAsync(GameScannerService gameScannerService, string manifestFile, string libraryPath, string steamPath, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
+    private async Task ProcessSteamManifestAsync(GameScannerService gameScannerService, string manifestFile,
+        string libraryPath, string steamPath, ILogger logErrors, string windowsRomsPath, string windowsImagesPath,
+        ISet<string> ignoredGameNames)
     {
         try
         {
             var appData = _vdfParser.Parse(manifestFile, logErrors);
-            if (appData.TryGetValue("AppState", out var appState) && appState is Dictionary<string, object> appStateDict)
+            if (appData.TryGetValue("AppState", out var appState) &&
+                appState is Dictionary<string, object> appStateDict)
             {
                 if (appStateDict.TryGetValue("name", out var nameObj) && nameObj is string gameName &&
                     appStateDict.TryGetValue("appid", out var appIdObj) && appIdObj is string appId &&
@@ -203,7 +211,8 @@ internal class ScanSteamGames : IGamePlatformScanner
                     var shortcutContent = $"[InternetShortcut]\nURL=steam://run/{appId}";
                     await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                    await TryCopySteamArtworkAsync(gameScannerService, logErrors, steamPath, appId, gameName, sanitizedGameName, gameInstallPath, windowsImagesPath);
+                    await TryCopySteamArtworkAsync(gameScannerService, logErrors, steamPath, appId, gameName,
+                        sanitizedGameName, gameInstallPath, windowsImagesPath);
                 }
             }
         }
@@ -213,7 +222,8 @@ internal class ScanSteamGames : IGamePlatformScanner
         }
     }
 
-    private async Task ProcessSourceModAsync(GameScannerService gameScannerService, string modDir, string windowsRomsPath, string windowsImagesPath, ILogger logErrors)
+    private async Task ProcessSourceModAsync(GameScannerService gameScannerService, string modDir,
+        string windowsRomsPath, string windowsImagesPath, ILogger logErrors)
     {
         try
         {
@@ -288,7 +298,8 @@ internal class ScanSteamGames : IGamePlatformScanner
 
                 if (!File.Exists(destArtworkPath))
                 {
-                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, modDir, sanitizedGameName, windowsImagesPath);
+                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, modDir, sanitizedGameName,
+                        windowsImagesPath);
                 }
             }
 
@@ -316,7 +327,9 @@ internal class ScanSteamGames : IGamePlatformScanner
         }
     }
 
-    private static async Task TryCopySteamArtworkAsync(GameScannerService gameScannerService, ILogger logErrors, string steamPath, string appId, string gameName, string sanitizedGameName, string gameInstallPath, string windowsImagesPath)
+    private static async Task TryCopySteamArtworkAsync(GameScannerService gameScannerService, ILogger logErrors,
+        string steamPath, string appId, string gameName, string sanitizedGameName, string gameInstallPath,
+        string windowsImagesPath)
     {
         var destArtworkPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
         if (File.Exists(destArtworkPath)) return;
@@ -352,13 +365,15 @@ internal class ScanSteamGames : IGamePlatformScanner
                     }
                     catch (Exception ex)
                     {
-                        logErrors.Error(ex, $"Error converting Steam artwork from JPG to PNG for {sanitizedGameName} (Source: {sourcePath})");
+                        logErrors.Error(ex,
+                            $"Error converting Steam artwork from JPG to PNG for {sanitizedGameName} (Source: {sourcePath})");
                     }
                 }
             }
         }
 
         // 3. Fallback to EXE icon if no artwork was found
-        await gameScannerService.ExtractIconFromGameFolderAsync(logErrors, gameInstallPath, sanitizedGameName, windowsImagesPath);
+        await gameScannerService.ExtractIconFromGameFolderAsync(logErrors, gameInstallPath, sanitizedGameName,
+            windowsImagesPath);
     }
 }

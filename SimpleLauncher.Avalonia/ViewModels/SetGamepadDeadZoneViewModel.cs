@@ -23,7 +23,8 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
     /// <param name="messageBox">The message box service for displaying dialogs.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
     /// <param name="logErrors">The logger for recording errors.</param>
-    public SetGamepadDeadZoneViewModel(SettingsManagerService settingsManager, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogger logErrors)
+    public SetGamepadDeadZoneViewModel(SettingsManagerService settingsManager, IMessageBoxLibraryService messageBox,
+        IResourceProvider resourceProvider, ILogger logErrors)
     {
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
         _messageBox = messageBox;

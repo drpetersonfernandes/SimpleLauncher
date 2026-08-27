@@ -45,7 +45,8 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
+            _logger.Error(ex,
+                $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
             return false;
         }
     }
@@ -118,7 +119,9 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
     {
         var exeDir = Path.GetDirectoryName(exePath);
         var isPortable = exeDir != null && File.Exists(Path.Combine(exeDir, "portable.txt"));
-        var configDir = isPortable ? exeDir : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "DuckStation");
+        var configDir = isPortable
+            ? exeDir
+            : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "DuckStation");
         if (configDir != null)
         {
             var configPath = Path.Combine(configDir, "settings.ini");
@@ -131,7 +134,8 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             }
 
             // Encrypt the token using DuckStation's logic
-            var encryptedToken = EncryptDuckStationToken.EncryptDuckStationTokenMethod(token, username, isPortable, Log.Logger);
+            var encryptedToken =
+                EncryptDuckStationToken.EncryptDuckStationTokenMethod(token, username, isPortable, Log.Logger);
 
             // Validate encryption succeeded
             if (string.IsNullOrEmpty(encryptedToken))
@@ -227,7 +231,8 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         else
         {
             // Standard Dolphin user path is in Documents
-            configDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Dolphin Emulator", "Config");
+            configDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                "Dolphin Emulator", "Config");
         }
 
         var configPath = Path.Combine(configDir, "RetroAchievements.ini");
@@ -281,7 +286,8 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             // Try portable path first, then appdata
             if (!File.Exists(configPath) && !RestoreConfigFromSample("flycast", configPath))
             {
-                configPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "flycast", "emu.cfg");
+                configPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "flycast", "emu.cfg");
 
                 // Try restoring to appdata if portable failed
                 if (!RestoreConfigFromSample("flycast", configPath))
@@ -462,7 +468,8 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             {
                 // Find the end of the section to insert new keys
                 var insertIndex = sectionLineIndex + 1;
-                while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) && !lines[insertIndex].Trim().StartsWith('['))
+                while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
+                       !lines[insertIndex].Trim().StartsWith('['))
                 {
                     insertIndex++;
                 }

@@ -34,7 +34,8 @@ public partial class InjectMesenConfigViewModel : ObservableObject
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
-    public InjectMesenConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectMesenConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox,
+        ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -220,7 +221,8 @@ public partial class InjectMesenConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectMesenConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
+                _messageBox);
         }
     }
 }

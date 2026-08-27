@@ -40,12 +40,20 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
         new() { InternalId = "w2r", Name = "Warcraft II: Remastered" },
         new() { InternalId = "d1", Name = "Diablo" },
         // Classics
-        new() { InternalId = "Diablo II", Name = "Diablo II", IsClassic = true, Exe = "Diablo II.exe", ProductId = "D2" },
-        new() { InternalId = "Warcraft III", Name = "Warcraft III", IsClassic = true, Exe = "Warcraft III.exe", ProductId = "W3" }
+        new()
+        {
+            InternalId = "Diablo II", Name = "Diablo II", IsClassic = true, Exe = "Diablo II.exe", ProductId = "D2"
+        },
+        new()
+        {
+            InternalId = "Warcraft III", Name = "Warcraft III", IsClassic = true, Exe = "Warcraft III.exe",
+            ProductId = "W3"
+        }
     ];
 
     /// <inheritdoc />
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
+        string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         if (!OperatingSystem.IsWindows()) return;
 
@@ -81,7 +89,8 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
                         if (match.Success)
                         {
                             var uid = match.Groups[1].Value;
-                            var def = AppDefinitions.FirstOrDefault(a => uid.StartsWith(a.InternalId, StringComparison.OrdinalIgnoreCase));
+                            var def = AppDefinitions.FirstOrDefault(a =>
+                                uid.StartsWith(a.InternalId, StringComparison.OrdinalIgnoreCase));
 
                             if (def != null)
                             {
@@ -102,14 +111,18 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
 
                                 if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
                                 {
-                                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, def.Name, installLocation, sanitizedGameName, windowsImagesPath);
+                                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, def.Name,
+                                        installLocation, sanitizedGameName, windowsImagesPath);
                                 }
                             }
                         }
-                        else if (displayName != null && AppDefinitions.Any(a => a.IsClassic && displayName.Equals(a.InternalId, StringComparison.OrdinalIgnoreCase)))
+                        else if (displayName != null && AppDefinitions.Any(a =>
+                                     a.IsClassic && displayName.Equals(a.InternalId,
+                                         StringComparison.OrdinalIgnoreCase)))
                         {
                             // Classic Games
-                            var def = AppDefinitions.First(a => a.IsClassic && displayName.Equals(a.InternalId, StringComparison.OrdinalIgnoreCase));
+                            var def = AppDefinitions.First(a =>
+                                a.IsClassic && displayName.Equals(a.InternalId, StringComparison.OrdinalIgnoreCase));
                             if (ignoredGameNames.Contains(def.Name)) continue;
 
                             var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(def.Name);
@@ -118,9 +131,11 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
                             if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
                             {
                                 var exePath = Path.Combine(installLocation, def.Exe);
-                                var batContent = $"@echo off\r\ncd /d \"{installLocation}\"\r\nstart \"\" \"{def.Exe}\"";
+                                var batContent =
+                                    $"@echo off\r\ncd /d \"{installLocation}\"\r\nstart \"\" \"{def.Exe}\"";
                                 await File.WriteAllTextAsync(shortcutPath, batContent);
-                                await gameScannerService.FindAndSaveGameImageAsync(logErrors, def.Name, installLocation, sanitizedGameName, windowsImagesPath, exePath);
+                                await gameScannerService.FindAndSaveGameImageAsync(logErrors, def.Name, installLocation,
+                                    sanitizedGameName, windowsImagesPath, exePath);
                             }
                         }
                     }
@@ -137,7 +152,8 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
         }
     }
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the Battle.net uid")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the Battle.net uid")]
     [GeneratedRegex(@"Battle\.net.*--uid=(.*?)(?:\s|$)", RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 }

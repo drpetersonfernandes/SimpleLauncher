@@ -20,7 +20,8 @@ public class SystemImageResolverService : ISystemImageResolverService
     /// <summary>
     /// Initializes a new instance of the SystemImageResolverService with the specified dependencies.
     /// </summary>
-    public SystemImageResolverService(IConfiguration configuration, IFindCoverImageService findCoverImage, SettingsManagerService settings)
+    public SystemImageResolverService(IConfiguration configuration, IFindCoverImageService findCoverImage,
+        SettingsManagerService settings)
     {
         _configuration = configuration;
         _findCoverImage = findCoverImage;
@@ -66,12 +67,14 @@ public class SystemImageResolverService : ISystemImageResolverService
 
                 // Try stripping annotations from image filenames too
                 foreach (var fileInFolder in Directory.GetFiles(systemImageFolder)
-                             .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase))))
+                             .Where(f => imageExtensions.Any(ext =>
+                                 f.EndsWith(ext, StringComparison.OrdinalIgnoreCase))))
                 {
                     var fileWithoutExt = Path.GetFileNameWithoutExtension(fileInFolder);
                     if (string.IsNullOrEmpty(fileWithoutExt)) continue;
 
-                    if (string.Equals(strippedSystemName, FindCoverImageService.StripAnnotations(fileWithoutExt), StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(strippedSystemName, FindCoverImageService.StripAnnotations(fileWithoutExt),
+                            StringComparison.OrdinalIgnoreCase))
                         return Task.FromResult(fileInFolder);
                 }
             }
@@ -103,7 +106,8 @@ public class SystemImageResolverService : ISystemImageResolverService
                     ? FindCoverImageService.StripAnnotations(lowerFileName)
                     : lowerFileName;
 
-                var similarity = FindCoverImageService.CalculateJaroWinklerSimilarity(normalizedSystemName, normalizedFileName);
+                var similarity =
+                    FindCoverImageService.CalculateJaroWinklerSimilarity(normalizedSystemName, normalizedFileName);
 
                 if (!(similarity > highestSimilarity)) continue;
 
@@ -118,6 +122,8 @@ public class SystemImageResolverService : ISystemImageResolverService
         }
 
         var defaultImagePath = Path.Combine(systemImageFolder, "default.png");
-        return Task.FromResult(File.Exists(defaultImagePath) ? defaultImagePath : Path.Combine(appBaseDir, "images", "default.png"));
+        return Task.FromResult(File.Exists(defaultImagePath)
+            ? defaultImagePath
+            : Path.Combine(appBaseDir, "images", "default.png"));
     }
 }

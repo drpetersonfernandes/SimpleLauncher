@@ -19,7 +19,8 @@ internal class ScanGogGames : IGamePlatformScanner
     /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
     /// <param name="windowsImagesPath">The directory where game images are stored.</param>
     /// <param name="ignoredGameNames">The set of game names to skip.</param>
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
+        string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {
@@ -71,14 +72,16 @@ internal class ScanGogGames : IGamePlatformScanner
                                 var gameInfo = JsonSerializer.Deserialize<GogGameInfo>(json);
 
                                 // If RootGameId exists and is different from GameId, this is a DLC
-                                if (gameInfo != null && !string.IsNullOrEmpty(gameInfo.RootGameId) && !string.Equals(gameInfo.RootGameId, gameInfo.GameId, StringComparison.Ordinal))
+                                if (gameInfo != null && !string.IsNullOrEmpty(gameInfo.RootGameId) &&
+                                    !string.Equals(gameInfo.RootGameId, gameInfo.GameId, StringComparison.Ordinal))
                                 {
                                     isDlc = true;
                                 }
 
                                 if (!isDlc)
                                 {
-                                    var primaryTask = gameInfo?.PlayTasks?.FirstOrDefault(static t => t.IsPrimary && string.Equals(t.Type, "FileTask", StringComparison.Ordinal));
+                                    var primaryTask = gameInfo?.PlayTasks?.FirstOrDefault(static t =>
+                                        t.IsPrimary && string.Equals(t.Type, "FileTask", StringComparison.Ordinal));
                                     if (primaryTask != null && !string.IsNullOrEmpty(primaryTask.Path))
                                     {
                                         mainExePath = Path.Combine(installLocation, primaryTask.Path);
@@ -101,11 +104,13 @@ internal class ScanGogGames : IGamePlatformScanner
                         {
                             Directory.CreateDirectory(windowsRomsPath);
                             var batPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.bat");
-                            var batContent = $"@echo off\r\ncd /d \"{Path.GetDirectoryName(mainExePath)}\"\r\nstart \"\" \"{Path.GetFileName(mainExePath)}\"";
+                            var batContent =
+                                $"@echo off\r\ncd /d \"{Path.GetDirectoryName(mainExePath)}\"\r\nstart \"\" \"{Path.GetFileName(mainExePath)}\"";
                             await File.WriteAllTextAsync(batPath, batContent);
                         }
 
-                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation, sanitizedGameName, windowsImagesPath, mainExePath);
+                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation,
+                            sanitizedGameName, windowsImagesPath, mainExePath);
                     }
                     catch (Exception ex)
                     {

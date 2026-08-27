@@ -16,7 +16,8 @@ public interface IMountChdFiles
     /// <param name="logErrors">The error logger.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
     /// <returns>A task representing the asynchronous operation, resulting in a <see cref="MountChdDrive"/> with the mounted path and drive letter.</returns>
-    Task<MountChdDrive> MountAsync(string resolvedChdFilePath, string? consoleAlias, ILogger logErrors, IMessageBoxLibraryService messageBox);
+    Task<MountChdDrive> MountAsync(string resolvedChdFilePath, string? consoleAlias, ILogger logErrors,
+        IMessageBoxLibraryService messageBox);
 
     /// <summary>
     /// Mounts a CHD file, locates a game file within the mounted drive, launches the emulator, and unmounts on exit.
@@ -32,7 +33,10 @@ public interface IMountChdFiles
     /// <param name="logErrors">The error logger.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    Task MountChdFileAndLoadAsync(string resolvedChdFilePath, string selectedSystemName, string selectedEmulatorName, ISystemManager selectedSystemManager, Emulator selectedEmulatorManager, string rawEmulatorParameters, IWindowContext windowContext, ILauncherService gameLauncher, ILogger logErrors, IMessageBoxLibraryService messageBox);
+    Task MountChdFileAndLoadAsync(string resolvedChdFilePath, string selectedSystemName, string selectedEmulatorName,
+        ISystemManager selectedSystemManager, Emulator selectedEmulatorManager, string rawEmulatorParameters,
+        IWindowContext windowContext, ILauncherService gameLauncher, ILogger logErrors,
+        IMessageBoxLibraryService messageBox);
 
     /// <summary>
     /// Mounts a CHD file with an explicit console alias, locates a game file, launches the emulator, and unmounts on exit.
@@ -49,7 +53,10 @@ public interface IMountChdFiles
     /// <param name="logErrors">The error logger.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    Task MountChdFileAndLoadWithConsoleAliasAsync(string resolvedChdFilePath, string selectedSystemName, string selectedEmulatorName, ISystemManager selectedSystemManager, Emulator selectedEmulatorManager, string rawEmulatorParameters, IWindowContext windowContext, ILauncherService gameLauncher, string? consoleAlias, ILogger logErrors, IMessageBoxLibraryService messageBox);
+    Task MountChdFileAndLoadWithConsoleAliasAsync(string resolvedChdFilePath, string selectedSystemName,
+        string selectedEmulatorName, ISystemManager selectedSystemManager, Emulator selectedEmulatorManager,
+        string rawEmulatorParameters, IWindowContext windowContext, ILauncherService gameLauncher, string? consoleAlias,
+        ILogger logErrors, IMessageBoxLibraryService messageBox);
 
     /// <summary>
     /// Determines the CHDMounter console alias for a given system name and emulator name.
@@ -59,7 +66,8 @@ public interface IMountChdFiles
     /// <param name="emulatorLocation">The emulator executable path (used for emulator-specific overrides), or null.</param>
     /// <param name="logErrors">The error logger.</param>
     /// <returns>The console alias for the system, or null if it could not be determined.</returns>
-    string? GetConsoleAliasFromSystemName(string systemName, string emulatorName, string? emulatorLocation, ILogger logErrors);
+    string? GetConsoleAliasFromSystemName(string systemName, string emulatorName, string? emulatorLocation,
+        ILogger logErrors);
 
     /// <summary>
     /// Terminates all running CHDMounter processes to ensure clean unmounting.

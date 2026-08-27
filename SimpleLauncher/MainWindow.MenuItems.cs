@@ -284,7 +284,8 @@ public partial class MainWindow
             if (sender is not MenuItem clickedItem) return;
 
             var sizeText = clickedItem.Name.Replace("Size", "");
-            if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), System.Globalization.CultureInfo.InvariantCulture, out var newSize)) return;
+            if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()),
+                    System.Globalization.CultureInfo.InvariantCulture, out var newSize)) return;
 
             await _menuOrchestrator.HandleButtonSizeAsync(newSize);
         }
@@ -315,7 +316,8 @@ public partial class MainWindow
             if (sender is not MenuItem clickedItem) return;
 
             var pageText = clickedItem.Name.Replace("Page", "");
-            if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), System.Globalization.CultureInfo.InvariantCulture, out var newPage)) return;
+            if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()),
+                    System.Globalization.CultureInfo.InvariantCulture, out var newPage)) return;
 
             await _menuOrchestrator.HandleGamesPerPageAsync(newPage);
         }
@@ -393,10 +395,13 @@ public partial class MainWindow
 
             UpdateButtonAspectRatioCheckMarks(newAspectRatio);
             // Notify user
-            UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("TogglingButtonAspectRatio") ?? "Toggling button aspect ratio...");
+            UpdateStatusBarService.UpdateContent(
+                (string)Application.Current.TryFindResource("TogglingButtonAspectRatio") ??
+                "Toggling button aspect ratio...");
 
             var (sl, sq) = GetLoadGameFilesParams();
-            SetLoadingState(true, (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
+            SetLoadingState(true,
+                (string)Application.Current.TryFindResource("ReloadingGames") ?? "Reloading games...");
             await Task.Yield(); // Allow UI to render the loading overlay
             await _gameBrowser.LoadGameFilesAsync(sl, sq, _cancellationSource.Token);
         }
@@ -515,7 +520,9 @@ public partial class MainWindow
     private void ApplyShowGamesSetting()
     {
         UpdateShowGamesCheckMarks(_settings.ShowGames);
-        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilitySettings") ?? "Applying game visibility settings...");
+        UpdateStatusBarService.UpdateContent(
+            (string)Application.Current.TryFindResource("ApplyingGameVisibilitySettings") ??
+            "Applying game visibility settings...");
     }
 
     private void ChangeLanguage_Click(object sender, RoutedEventArgs e)

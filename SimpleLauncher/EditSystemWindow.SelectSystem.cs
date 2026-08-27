@@ -68,7 +68,8 @@ internal partial class EditSystemWindow
             SaveSystemButton.IsEnabled = true;
             DeleteSystemButton.IsEnabled = true;
 
-            var selectedSystem = _systems.FirstOrDefault(x => x.SystemName.Equals(systemNameToLoad, StringComparison.OrdinalIgnoreCase));
+            var selectedSystem = _systems.FirstOrDefault(x =>
+                x.SystemName.Equals(systemNameToLoad, StringComparison.OrdinalIgnoreCase));
 
             if (selectedSystem != null)
             {
@@ -92,13 +93,19 @@ internal partial class EditSystemWindow
                 FormatToSearchTextBox.Text = string.Join(", ", selectedSystem.FileFormatsToSearch);
 
                 var extractFileBeforeLaunchValue = selectedSystem.ExtractFileBeforeLaunch ? "true" : "false";
-                ExtractFileBeforeLaunchComboBox.SelectedItem = ExtractFileBeforeLaunchComboBox.Items.Cast<ComboBoxItem>()
-                    .FirstOrDefault(item => string.Equals(item.Content.ToString(), extractFileBeforeLaunchValue, StringComparison.Ordinal));
+                ExtractFileBeforeLaunchComboBox.SelectedItem = ExtractFileBeforeLaunchComboBox.Items
+                    .Cast<ComboBoxItem>()
+                    .FirstOrDefault(item => string.Equals(item.Content.ToString(), extractFileBeforeLaunchValue,
+                        StringComparison.Ordinal));
 
                 var groupByFolderValue = selectedSystem.GroupByFolder ? "true" : "false";
-                GroupByFolderComboBox.SelectedItem = GroupByFolderComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => string.Equals(item.Content.ToString(), groupByFolderValue, StringComparison.Ordinal));
+                GroupByFolderComboBox.SelectedItem = GroupByFolderComboBox.Items.Cast<ComboBoxItem>()
+                    .FirstOrDefault(item =>
+                        string.Equals(item.Content.ToString(), groupByFolderValue, StringComparison.Ordinal));
                 var disableRecursiveSearchValue = selectedSystem.DisableRecursiveSearch ? "true" : "false";
-                DisableRecursiveSearchComboBox.SelectedItem = DisableRecursiveSearchComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => string.Equals(item.Content.ToString(), disableRecursiveSearchValue, StringComparison.Ordinal));
+                DisableRecursiveSearchComboBox.SelectedItem = DisableRecursiveSearchComboBox.Items.Cast<ComboBoxItem>()
+                    .FirstOrDefault(item => string.Equals(item.Content.ToString(), disableRecursiveSearchValue,
+                        StringComparison.Ordinal));
 
                 FormatToLaunchTextBox.Text = string.Join(", ", selectedSystem.FileFormatsToLaunch);
 
@@ -106,30 +113,51 @@ internal partial class EditSystemWindow
                 if (emulators != null)
                 {
                     // Populate fields with saved strings (including %BASEFOLDER% for location)
-                    PopulateEmulatorFields(emulators.ElementAtOrDefault(0), Emulator1NameTextBox, Emulator1PathTextBox, Emulator1ParametersTextBox, ReceiveANotificationOnEmulatorError1);
-                    PopulateEmulatorFields(emulators.ElementAtOrDefault(1), Emulator2NameTextBox, Emulator2PathTextBox, Emulator2ParametersTextBox, ReceiveANotificationOnEmulatorError2);
-                    PopulateEmulatorFields(emulators.ElementAtOrDefault(2), Emulator3NameTextBox, Emulator3PathTextBox, Emulator3ParametersTextBox, ReceiveANotificationOnEmulatorError3);
-                    PopulateEmulatorFields(emulators.ElementAtOrDefault(3), Emulator4NameTextBox, Emulator4PathTextBox, Emulator4ParametersTextBox, ReceiveANotificationOnEmulatorError4);
-                    PopulateEmulatorFields(emulators.ElementAtOrDefault(4), Emulator5NameTextBox, Emulator5PathTextBox, Emulator5ParametersTextBox, ReceiveANotificationOnEmulatorError5);
+                    PopulateEmulatorFields(emulators.ElementAtOrDefault(0), Emulator1NameTextBox, Emulator1PathTextBox,
+                        Emulator1ParametersTextBox, ReceiveANotificationOnEmulatorError1);
+                    PopulateEmulatorFields(emulators.ElementAtOrDefault(1), Emulator2NameTextBox, Emulator2PathTextBox,
+                        Emulator2ParametersTextBox, ReceiveANotificationOnEmulatorError2);
+                    PopulateEmulatorFields(emulators.ElementAtOrDefault(2), Emulator3NameTextBox, Emulator3PathTextBox,
+                        Emulator3ParametersTextBox, ReceiveANotificationOnEmulatorError3);
+                    PopulateEmulatorFields(emulators.ElementAtOrDefault(3), Emulator4NameTextBox, Emulator4PathTextBox,
+                        Emulator4ParametersTextBox, ReceiveANotificationOnEmulatorError4);
+                    PopulateEmulatorFields(emulators.ElementAtOrDefault(4), Emulator5NameTextBox, Emulator5PathTextBox,
+                        Emulator5ParametersTextBox, ReceiveANotificationOnEmulatorError5);
                 }
                 // else: ClearAllEmulatorFieldsInternal() already handled this at the beginning.
 
                 // Try creating default folders based on the *current UI text*, which might contain %BASEFOLDER%
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(SystemFolderTextBox.Text);
-                TryCreateDefaultFolder(resolvedSystemFolder, Path.Combine(".", "roms", SystemNameTextBox.Text), "SystemFolder"); // Pass resolved path
+                TryCreateDefaultFolder(resolvedSystemFolder, Path.Combine(".", "roms", SystemNameTextBox.Text),
+                    "SystemFolder"); // Pass resolved path
 
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(SystemImageFolderTextBox.Text);
-                TryCreateDefaultFolder(resolvedSystemImageFolder, Path.Combine(".", "images", SystemNameTextBox.Text), "SystemImageFolder"); // Pass resolved path
+                TryCreateDefaultFolder(resolvedSystemImageFolder, Path.Combine(".", "images", SystemNameTextBox.Text),
+                    "SystemImageFolder"); // Pass resolved path
 
 
                 // Mark validity. CheckPath.IsValidPath will now handle %BASEFOLDER% internally.
-                SetFieldValidationState(SystemFolderTextBox!, CheckPath.IsValidPath(SystemFolderTextBox!.Text!) || string.IsNullOrWhiteSpace(SystemFolderTextBox.Text));
-                SetFieldValidationState(SystemImageFolderTextBox, CheckPath.IsValidPath(SystemImageFolderTextBox.Text) || string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text));
-                SetFieldValidationState(Emulator1PathTextBox, string.IsNullOrWhiteSpace(Emulator1PathTextBox.Text) || CheckPath.IsValidPath(Emulator1PathTextBox.Text));
-                SetFieldValidationState(Emulator2PathTextBox, string.IsNullOrWhiteSpace(Emulator2PathTextBox.Text) || CheckPath.IsValidPath(Emulator2PathTextBox.Text));
-                SetFieldValidationState(Emulator3PathTextBox, string.IsNullOrWhiteSpace(Emulator3PathTextBox.Text) || CheckPath.IsValidPath(Emulator3PathTextBox.Text));
-                SetFieldValidationState(Emulator4PathTextBox, string.IsNullOrWhiteSpace(Emulator4PathTextBox.Text) || CheckPath.IsValidPath(Emulator4PathTextBox.Text));
-                SetFieldValidationState(Emulator5PathTextBox, string.IsNullOrWhiteSpace(Emulator5PathTextBox.Text) || CheckPath.IsValidPath(Emulator5PathTextBox.Text));
+                SetFieldValidationState(SystemFolderTextBox!,
+                    CheckPath.IsValidPath(SystemFolderTextBox!.Text!) ||
+                    string.IsNullOrWhiteSpace(SystemFolderTextBox.Text));
+                SetFieldValidationState(SystemImageFolderTextBox,
+                    CheckPath.IsValidPath(SystemImageFolderTextBox.Text) ||
+                    string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text));
+                SetFieldValidationState(Emulator1PathTextBox,
+                    string.IsNullOrWhiteSpace(Emulator1PathTextBox.Text) ||
+                    CheckPath.IsValidPath(Emulator1PathTextBox.Text));
+                SetFieldValidationState(Emulator2PathTextBox,
+                    string.IsNullOrWhiteSpace(Emulator2PathTextBox.Text) ||
+                    CheckPath.IsValidPath(Emulator2PathTextBox.Text));
+                SetFieldValidationState(Emulator3PathTextBox,
+                    string.IsNullOrWhiteSpace(Emulator3PathTextBox.Text) ||
+                    CheckPath.IsValidPath(Emulator3PathTextBox.Text));
+                SetFieldValidationState(Emulator4PathTextBox,
+                    string.IsNullOrWhiteSpace(Emulator4PathTextBox.Text) ||
+                    CheckPath.IsValidPath(Emulator4PathTextBox.Text));
+                SetFieldValidationState(Emulator5PathTextBox,
+                    string.IsNullOrWhiteSpace(Emulator5PathTextBox.Text) ||
+                    CheckPath.IsValidPath(Emulator5PathTextBox.Text));
 
                 // Validate parameter fields. This uses ParameterValidator which is updated to handle %BASEFOLDER% etc.
                 ValidateParameterFields();
@@ -152,7 +180,8 @@ internal partial class EditSystemWindow
         }
     }
 
-    private static void PopulateEmulatorFields(Emulator? emulator, TextBox nameTextBox, TextBox pathTextBox, TextBox paramsTextBox, Selector notificationComboBox)
+    private static void PopulateEmulatorFields(Emulator? emulator, TextBox nameTextBox, TextBox pathTextBox,
+        TextBox paramsTextBox, Selector notificationComboBox)
     {
         if (emulator != null)
         {
@@ -165,7 +194,8 @@ internal partial class EditSystemWindow
             {
                 var receiveNotificationValue = emulator.ReceiveANotificationOnEmulatorError ? "true" : "false";
                 notificationComboBox.SelectedItem = notificationComboBox.Items.Cast<ComboBoxItem>()
-                    .FirstOrDefault(item => string.Equals(item.Content.ToString(), receiveNotificationValue, StringComparison.Ordinal));
+                    .FirstOrDefault(item =>
+                        string.Equals(item.Content.ToString(), receiveNotificationValue, StringComparison.Ordinal));
             }
             else
             {
@@ -175,7 +205,8 @@ internal partial class EditSystemWindow
     }
 
     // Accept a resolved path and compare against a default pattern
-    private void TryCreateDefaultFolder(string? resolvedCurrentPath, string defaultPatternPathWithSystemName, string folderTypeForLog)
+    private void TryCreateDefaultFolder(string? resolvedCurrentPath, string defaultPatternPathWithSystemName,
+        string folderTypeForLog)
     {
         // Ensure systemName is not empty before forming the pattern path
         var systemName = SystemNameTextBox.Text; // Get the current system name from UI

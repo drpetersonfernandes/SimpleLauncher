@@ -22,7 +22,10 @@ public interface IMountIsoFiles
     /// <param name="logErrors">The error logger.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    Task MountIsoFileAsync(string resolvedIsoFilePath, string selectedSystemName, string selectedEmulatorName, ISystemManager selectedSystemManager, Emulator selectedEmulatorManager, string rawEmulatorParameters, IWindowContext windowContext, string logPath, ILauncherService gameLauncher, ILogger logErrors, IMessageBoxLibraryService messageBox);
+    Task MountIsoFileAsync(string resolvedIsoFilePath, string selectedSystemName, string selectedEmulatorName,
+        ISystemManager selectedSystemManager, Emulator selectedEmulatorManager, string rawEmulatorParameters,
+        IWindowContext windowContext, string logPath, ILauncherService gameLauncher, ILogger logErrors,
+        IMessageBoxLibraryService messageBox);
 
     /// <summary>
     /// Waits for a directory to exist by polling at regular intervals until a timeout is reached.
@@ -32,7 +35,8 @@ public interface IMountIsoFiles
     /// <param name="pollIntervalMs">Polling interval in milliseconds.</param>
     /// <param name="logErrors">The error logger.</param>
     /// <returns>True if the directory appeared within the timeout; otherwise, false.</returns>
-    Task<bool> WaitForDirectoryToExistAsync(string directoryPath, int maxWaitTimeMs, int pollIntervalMs, ILogger logErrors);
+    Task<bool> WaitForDirectoryToExistAsync(string directoryPath, int maxWaitTimeMs, int pollIntervalMs,
+        ILogger logErrors);
 
     /// <summary>
     /// Mounts an ISO file using a PowerShell command and returns the assigned drive letter.
@@ -41,7 +45,8 @@ public interface IMountIsoFiles
     /// <param name="logErrors">The error logger.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
     /// <returns>The drive letter assigned to the mounted ISO, or null if mounting failed.</returns>
-    Task<string?> ExecutePowerShellMountCommandAsync(string isoPath, ILogger logErrors, IMessageBoxLibraryService messageBox);
+    Task<string?> ExecutePowerShellMountCommandAsync(string isoPath, ILogger logErrors,
+        IMessageBoxLibraryService messageBox);
 
     /// <summary>
     /// Dismounts an ISO file using a PowerShell command.

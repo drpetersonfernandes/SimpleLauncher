@@ -43,7 +43,8 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
     /// <param name="messageBox">The message box service.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
     /// <param name="filePicker">The file picker service for saving reports.</param>
-    public GlobalStatsViewModel(IConfiguration configuration, ILogger logErrors, IGetListOfFilesService getListOfFiles, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, IFilePickerService filePicker)
+    public GlobalStatsViewModel(IConfiguration configuration, ILogger logErrors, IGetListOfFilesService getListOfFiles,
+        IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, IFilePickerService filePicker)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _logger = logErrors;
@@ -191,7 +192,8 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
 
             if (_systemManagers is null or { Count: 0 })
             {
-                InfoText = _resourceProvider.GetString("GlobalStatsNoSystems", "No systems are configured. Please add systems before calculating global statistics.");
+                InfoText = _resourceProvider.GetString("GlobalStatsNoSystems",
+                    "No systems are configured. Please add systems before calculating global statistics.");
                 return;
             }
 
@@ -277,7 +279,8 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
             var totalEmulatorsText = _resourceProvider.GetString("TotalEmulators", "Total Emulators:");
             var totalGamesText = _resourceProvider.GetString("TotalGames", "Total Games:");
             var totalImagesText = _resourceProvider.GetString("TotalImages", "Total Matched Images:");
-            var totalSystemsWithMissingImagesText = _resourceProvider.GetString("TotalSystemsWithMissingImages", "Systems with Missing Images:");
+            var totalSystemsWithMissingImagesText =
+                _resourceProvider.GetString("TotalSystemsWithMissingImages", "Systems with Missing Images:");
             var appFolderText = _resourceProvider.GetString("ApplicationFolder", "Folder:");
             var totalDiskSizeText = _resourceProvider.GetString("TotalDiskSize", "Disk Size:");
 
@@ -337,9 +340,11 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     var path = PathHelper.ResolveRelativeToAppDirectory(folderRaw);
-                    if (!string.IsNullOrEmpty(path) && Directory.Exists(path) && systemManager.FileFormatsToSearch != null)
+                    if (!string.IsNullOrEmpty(path) && Directory.Exists(path) &&
+                        systemManager.FileFormatsToSearch != null)
                     {
-                        var files = await _getListOfFiles.GetFilesAsync(path, systemManager.FileFormatsToSearch, systemManager.DisableRecursiveSearch, systemManager.GroupByFolder, cancellationToken);
+                        var files = await _getListOfFiles.GetFilesAsync(path, systemManager.FileFormatsToSearch,
+                            systemManager.DisableRecursiveSearch, systemManager.GroupByFolder, cancellationToken);
                         allRomFiles.AddRange(files);
                     }
                 }
@@ -364,7 +369,9 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                 }
 
                 // Image Matching
-                var romFileBaseNames = new HashSet<string>(allRomFiles.Select(static f => Path.GetFileNameWithoutExtension(f) ?? ""), StringComparer.OrdinalIgnoreCase);
+                var romFileBaseNames =
+                    new HashSet<string>(allRomFiles.Select(static f => Path.GetFileNameWithoutExtension(f) ?? ""),
+                        StringComparer.OrdinalIgnoreCase);
                 var systemImageFolder = systemManager.SystemImageFolder;
                 var resolvedImagePath = string.IsNullOrEmpty(systemImageFolder)
                     ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemManager.SystemName)
@@ -472,7 +479,9 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                      $"{totalDiskSizeText} {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n\n" +
                      $"{systemSpecificsText}\n-------------------\n";
 
-        return systemStats.Aggregate(report, (current, s) => current + $"{s.SystemName}: {s.NumberOfFiles} {gamesText}, {s.NumberOfImages} {imagesText}\n");
+        return systemStats.Aggregate(report,
+            (current, s) =>
+                current + $"{s.SystemName}: {s.NumberOfFiles} {gamesText}, {s.NumberOfImages} {imagesText}\n");
     }
 
     private void Cancel()

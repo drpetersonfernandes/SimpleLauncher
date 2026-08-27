@@ -28,9 +28,6 @@ public partial class UpdateLogWindow
     /// <param name="message">The message to append.</param>
     public void Log(string message)
     {
-        Dispatcher.Invoke(() =>
-        {
-            _viewModel.AppendLog(message);
-        });
+        Dispatcher.Invoke(() => { _viewModel.AppendLog(message); });
     }
 }

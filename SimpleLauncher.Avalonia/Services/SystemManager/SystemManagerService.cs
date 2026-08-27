@@ -73,7 +73,8 @@ public class SystemManagerService
                     catch (Exception ex)
                     {
                         var name = element.Element("SystemName")?.Value ?? "Unnamed System";
-                        invalidErrors.Add($"The system '{name}' was removed due to the following error(s):\n- {ex.Message}");
+                        invalidErrors.Add(
+                            $"The system '{name}' was removed due to the following error(s):\n- {ex.Message}");
                         dirty = true;
                     }
                 }
@@ -99,8 +100,10 @@ public class SystemManagerService
                     {
                         var nameMatch = SystemNameRegexInstance.Match(match.Value);
                         var sysName = nameMatch.Success ? nameMatch.Groups[1].Value : "Unknown";
-                        invalidErrors.Add($"The system '{sysName}' was removed due to structural corruption in the XML.");
-                        Log.Error(innerEx, "Failed to validate system configuration during recovery for '{SysName}'", sysName);
+                        invalidErrors.Add(
+                            $"The system '{sysName}' was removed due to structural corruption in the XML.");
+                        Log.Error(innerEx, "Failed to validate system configuration during recovery for '{SysName}'",
+                            sysName);
                     }
                 }
             }
@@ -270,7 +273,15 @@ public class SystemManagerService
             {
                 if (attempt < maxRetries - 1)
                 {
-                    try { File.Delete(path + ".tmp"); } catch { /* ignore */ }
+                    try
+                    {
+                        File.Delete(path + ".tmp");
+                    }
+                    catch
+                    {
+                        /* ignore */
+                    }
+
                     Thread.Sleep(retryDelayMs);
                     retryDelayMs *= 2;
                 }
@@ -516,7 +527,8 @@ public class SystemManagerService
                                 }
                                 catch (Exception cleanupEx)
                                 {
-                                    Log.Debug(cleanupEx, "Failed to delete stale system.xml temp file {Path}", systemXmlPath + ".tmp");
+                                    Log.Debug(cleanupEx, "Failed to delete stale system.xml temp file {Path}",
+                                        systemXmlPath + ".tmp");
                                 }
 
                                 Thread.Sleep(retryDelayMs);
@@ -587,7 +599,8 @@ public class SystemManagerService
     ///   (A) Legacy:   &lt;container&gt;&lt;itemElement&gt;...&lt;/itemElement&gt;...&lt;/container&gt;
     ///   (B) Simplified: &lt;container&gt;item1,item2&lt;/container&gt;  (direct child, comma-separated)
     /// </summary>
-    private static List<string> ParseListCompat(XElement systemConfigElement, string containerName, string itemElementName)
+    private static List<string> ParseListCompat(XElement systemConfigElement, string containerName,
+        string itemElementName)
     {
         var container = systemConfigElement.Element(containerName);
         if (container == null) return [];

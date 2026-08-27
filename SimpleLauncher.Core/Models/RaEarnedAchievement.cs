@@ -121,7 +121,8 @@ public record RaEarnedAchievement
     /// <summary>
     /// Gets a formatted display of the unlock date in local time.
     /// </summary>
-    public string UnlockedDateDisplay => UnlockedDate?.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) ?? "N/A";
+    public string UnlockedDateDisplay =>
+        UnlockedDate?.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) ?? "N/A";
 
     /// <summary>
     /// Gets a display string indicating hardcore or casual mode.

@@ -117,7 +117,8 @@ public sealed class MountZipFilesIntegrationTests
             {
                 _ = await mountProcess.StandardOutput.ReadToEndAsync();
                 var stderr = await mountProcess.StandardError.ReadToEndAsync();
-                Assert.True(string.IsNullOrEmpty(stderr) || !stderr.Contains("error", StringComparison.OrdinalIgnoreCase),
+                Assert.True(
+                    string.IsNullOrEmpty(stderr) || !stderr.Contains("error", StringComparison.OrdinalIgnoreCase),
                     $"SimpleZipDrive reported errors for '{gameName}': {stderr}");
             }
         }

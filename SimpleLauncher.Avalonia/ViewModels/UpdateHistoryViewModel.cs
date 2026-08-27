@@ -37,7 +37,8 @@ public class UpdateHistoryViewModel : ObservableObject
 
         try
         {
-            var defaultContent = _resourceProvider.GetString("WhatsNewFileNotFound", "# 'whatsnew.md' not found. The update history file could not be found.");
+            var defaultContent = _resourceProvider.GetString("WhatsNewFileNotFound",
+                "# 'whatsnew.md' not found. The update history file could not be found.");
             MarkdownContent = File.Exists(filePath)
                 ? await File.ReadAllTextAsync(filePath)
                 : defaultContent;
@@ -47,7 +48,8 @@ public class UpdateHistoryViewModel : ObservableObject
             const string contextMessage = "Failed to load 'whatsnew.md'.";
             _logger.Error(ex, contextMessage);
 
-            MarkdownContent = _resourceProvider.GetString("UpdateHistoryLoadError", "Error. Could not load the update history. The error has been logged.");
+            MarkdownContent = _resourceProvider.GetString("UpdateHistoryLoadError",
+                "Error. Could not load the update history. The error has been logged.");
         }
     }
 

@@ -36,7 +36,8 @@ public class AvaloniaDisplaySystemInformation
             result.IsValid = false;
             result.AreSystemFoldersValid = false;
             // WPF parity: use localized strings with trailing newlines
-            var systemFolderMsg = _localization?.GetString("SystemFolderpathisnotvalid") ?? "System Folder path is not valid or does not exist:";
+            var systemFolderMsg = _localization?.GetString("SystemFolderpathisnotvalid") ??
+                                  "System Folder path is not valid or does not exist:";
             result.ErrorMessages.Add($"{systemFolderMsg} '{string.Join(";", config.SystemFolders)}'\n\n");
         }
 
@@ -48,14 +49,16 @@ public class AvaloniaDisplaySystemInformation
                 result.IsValid = false;
                 result.IsSystemImageFolderValid = false;
                 // WPF parity: use localized strings with trailing newlines
-                var imageFolderMsg = _localization?.GetString("SystemImageFolderpathisnotvalid") ?? "System Image Folder path is not valid or does not exist:";
+                var imageFolderMsg = _localization?.GetString("SystemImageFolderpathisnotvalid") ??
+                                     "System Image Folder path is not valid or does not exist:";
                 result.ErrorMessages.Add($"{imageFolderMsg} '{config.SystemImageFolder}'\n\n");
             }
         }
 
         foreach (var emulator in config.Emulators)
         {
-            if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) || CheckPath.IsValidEmulatorExecutablePath(emulator.EmulatorLocation)) continue;
+            if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) ||
+                CheckPath.IsValidEmulatorExecutablePath(emulator.EmulatorLocation)) continue;
 
             result.IsValid = false;
             result.InvalidEmulatorLocations.Add(emulator.EmulatorLocation);

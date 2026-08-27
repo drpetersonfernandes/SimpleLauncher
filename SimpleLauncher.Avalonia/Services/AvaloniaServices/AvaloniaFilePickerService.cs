@@ -14,7 +14,10 @@ public class AvaloniaFilePickerService : IFilePickerService
 {
     private static Window? GetOwnerWindow()
     {
-        return Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime { MainWindow: { } window }
+        return Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime
+        {
+            MainWindow: { } window
+        }
             ? window
             : null;
     }

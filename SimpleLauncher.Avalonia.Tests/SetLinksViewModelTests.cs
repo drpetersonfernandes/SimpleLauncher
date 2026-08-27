@@ -12,7 +12,8 @@ public class SetLinksViewModelTests
     private const string DefaultYouTube = "https://www.youtube.com/results?search_query=";
     private const string DefaultIgdb = "https://www.igdb.com/search?q=";
 
-    private static SetLinksViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox, out SimpleLauncher.Core.Services.SettingsManager.SettingsManagerService settings)
+    private static SetLinksViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox,
+        out SimpleLauncher.Core.Services.SettingsManager.SettingsManagerService settings)
     {
         messageBox = TestDependencies.MessageBox();
         settings = TestDependencies.Settings(

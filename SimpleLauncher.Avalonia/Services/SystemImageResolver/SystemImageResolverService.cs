@@ -99,7 +99,8 @@ public class SystemImageResolverService : ISystemImageResolverService
                     var fileWithoutExt = Path.GetFileNameWithoutExtension(fileInFolder);
                     if (string.IsNullOrEmpty(fileWithoutExt)) continue;
 
-                    if (string.Equals(strippedSystemName, FindCoverImageService.StripAnnotations(fileWithoutExt), StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(strippedSystemName, FindCoverImageService.StripAnnotations(fileWithoutExt),
+                            StringComparison.OrdinalIgnoreCase))
                         return fileInFolder;
                 }
             }
@@ -129,7 +130,8 @@ public class SystemImageResolverService : ISystemImageResolverService
                 ? FindCoverImageService.StripAnnotations(lowerFileName)
                 : lowerFileName;
 
-            var similarity = FindCoverImageService.CalculateJaroWinklerSimilarity(normalizedSystemName, normalizedFileName);
+            var similarity =
+                FindCoverImageService.CalculateJaroWinklerSimilarity(normalizedSystemName, normalizedFileName);
 
             if (!(similarity > highestSimilarity)) continue;
 

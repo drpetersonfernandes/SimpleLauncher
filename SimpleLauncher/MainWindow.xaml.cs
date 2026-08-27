@@ -28,7 +28,8 @@ namespace SimpleLauncher;
 /// <summary>
 /// Main application window for SimpleLauncher, hosting game browsing, filtering, pagination, and system management UI.
 /// </summary>
-public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost, IUiOrchestratorHost, IStartupInitializationHost, IThemeMenuHost, ILanguageMenuHost, IStatusBarHost
+public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost,
+    IUiOrchestratorHost, IStartupInitializationHost, IThemeMenuHost, ILanguageMenuHost, IStatusBarHost
 {
     private CancellationTokenSource _cancellationSource = new();
     private volatile bool _isResortOperation;
@@ -316,15 +317,19 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             await _lifecycle.InitializeStartupAsync(this);
 
             // F8 global hotkey for active window screenshots
-            _globalHotkeyService = App.ServiceProvider.GetRequiredService<Services.TakeScreenshot.GlobalHotkeyService>();
-            _activeWindowScreenshotService = App.ServiceProvider.GetRequiredService<Services.TakeScreenshot.ActiveWindowScreenshotService>();
+            _globalHotkeyService =
+                App.ServiceProvider.GetRequiredService<Services.TakeScreenshot.GlobalHotkeyService>();
+            _activeWindowScreenshotService = App.ServiceProvider
+                .GetRequiredService<Services.TakeScreenshot.ActiveWindowScreenshotService>();
             _globalHotkeyService.Initialize(this);
 
             if (!_globalHotkeyService.IsRegistered)
             {
                 var msg = (string)Application.Current.TryFindResource("F8ShortcutInUse")
-                          ?? "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.";
-                MessageBox.Show(msg, "SimpleLauncher", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                          ??
+                          "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.";
+                MessageBox.Show(msg, "SimpleLauncher", System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Warning);
             }
 
             _globalHotkeyService.F8Pressed += async () =>
@@ -382,19 +387,24 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             if (_systemManagers == null || _systemManagers.Count == 0)
             {
                 // This is the first run. Let's scan for Windows games automatically.
-                SetLoadingState(true, (string)Application.Current.TryFindResource("ScanningForWindowsGames") ?? "Scanning for Windows games...");
+                SetLoadingState(true,
+                    (string)Application.Current.TryFindResource("ScanningForWindowsGames") ??
+                    "Scanning for Windows games...");
                 try
                 {
                     await _gameBrowser.ScanForStoreGamesAsync();
                     if (_gameBrowser.WasNewSystemCreated)
                     {
-                        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("FoundNewMicrosoftWindowsGames") ?? "Found new Microsoft Windows games. Refreshing system list.");
+                        UpdateStatusBarService.UpdateContent(
+                            (string)Application.Current.TryFindResource("FoundNewMicrosoftWindowsGames") ??
+                            "Found new Microsoft Windows games. Refreshing system list.");
 
                         // Reload to get the new system
                         await _gameBrowser.LoadOrReloadSystemManagerAsync();
 
                         // After reloading, the system selection screen needs to be updated.
-                        await _gameBrowser.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken);
+                        await _gameBrowser.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this)
+                            .CurrentCancellationToken);
                     }
                 }
                 catch (Exception ex)
@@ -410,7 +420,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 // If still no systems, show the Easy Mode prompt.
                 if (_systemManagers == null || _systemManagers.Count == 0)
                 {
-                    var result = (System.Windows.MessageBoxResult)(int)await _messageBox.FirstRunWelcomeMessageBoxAsync();
+                    var result =
+                        (System.Windows.MessageBoxResult)(int)await _messageBox.FirstRunWelcomeMessageBoxAsync();
                     if (result == System.Windows.MessageBoxResult.Yes)
                     {
                         var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();
@@ -418,7 +429,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                         easyModeWindow.ShowDialog();
 
                         await _gameBrowser.LoadOrReloadSystemManagerAsync();
-                        await _gameBrowser.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this).CurrentCancellationToken); // Await this now
+                        await _gameBrowser.DisplaySystemSelectionScreenAsync(((IMenuActionHost)this)
+                            .CurrentCancellationToken); // Await this now
                     }
                 }
             }
@@ -625,7 +637,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games...");
             await Task.Yield(); // Allow UI to render the loading overlay
 
-            await _gameBrowser.LoadGameFilesAsync(selectedLetter, null, _cancellationSource.Token); // searchQuery is null
+            await _gameBrowser.LoadGameFilesAsync(selectedLetter, null,
+                _cancellationSource.Token); // searchQuery is null
         }
         catch (Exception ex)
         {
@@ -655,7 +668,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             ((IUiResetHost)this).ActiveSearchQueryOrMode = AppConstants.Favorites;
 
             // Show loading overlay immediately with proper message
-            SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingFavoriteGamesForSystem") ?? "Loading favorite games for system...");
+            SetLoadingState(true,
+                (string)Application.Current.TryFindResource("LoadingFavoriteGamesForSystem") ??
+                "Loading favorite games for system...");
             await Task.Yield(); // Allow UI to render the loading overlay
 
             await _gameBrowser.LoadGameFilesAsync(null, AppConstants.Favorites, _cancellationSource.Token);
@@ -692,7 +707,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             await _gameBrowser.LoadGameFilesAsync(null, AppConstants.RandomSelection, _cancellationSource.Token);
 
             // If in list view, select the game in the DataGrid
-            if (!string.Equals(_settings.ViewMode, "ListView", StringComparison.Ordinal) || GameDataGrid.Items.Count <= 0) return;
+            if (!string.Equals(_settings.ViewMode, "ListView", StringComparison.Ordinal) ||
+                GameDataGrid.Items.Count <= 0) return;
 
             GameDataGrid.SelectedIndex = 0;
             GameDataGrid.ScrollIntoView(GameDataGrid.SelectedItem);
@@ -712,7 +728,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// <param name="systemName">The system name the game belongs to.</param>
     private void RefreshGameListAfterPlay(string fileName, string systemName)
     {
-        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RefreshingGameList") ?? "Refreshing game list...");
+        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RefreshingGameList") ??
+                                             "Refreshing game list...");
         try
         {
             // Only update if in ListView mode
@@ -721,7 +738,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
             // Get the current playtime from history
             var historyItem = PlayHistoryManager.PlayHistoryList
-                .FirstOrDefault(h => h.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) && h.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(h =>
+                    h.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) &&
+                    h.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
             if (historyItem == null)
             {
@@ -943,7 +962,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                     this
                 );
 
-                var contextMenu = _contextMenuService.AddRightClickReturnContextMenu(context, findCoverImage, _contextMenuFunctions);
+                var contextMenu =
+                    _contextMenuService.AddRightClickReturnContextMenu(context, findCoverImage, _contextMenuFunctions);
                 if (contextMenu != null)
                 {
                     // Close the previous context menu before assigning a new one to prevent leaks.
@@ -1012,7 +1032,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 CancelAndRecreateToken();
 
                 _audioInput.PlayNotificationSound();
-                ((IUiResetHost)this).MameSortOrder = string.Equals(((IUiResetHost)this).MameSortOrder, AppConstants.MameSortOrderFileName, StringComparison.Ordinal) ? AppConstants.MameSortOrderMachineDescription : AppConstants.MameSortOrderFileName;
+                ((IUiResetHost)this).MameSortOrder =
+                    string.Equals(((IUiResetHost)this).MameSortOrder, AppConstants.MameSortOrderFileName,
+                        StringComparison.Ordinal)
+                        ? AppConstants.MameSortOrderMachineDescription
+                        : AppConstants.MameSortOrderFileName;
                 UpdateSortOrderButtonUi();
 
                 _isResortOperation = true; // Set flag before loading
@@ -1050,14 +1074,17 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
             return;
         }
 
-        if (string.Equals(((IUiResetHost)this).MameSortOrder, AppConstants.MameSortOrderFileName, StringComparison.Ordinal))
+        if (string.Equals(((IUiResetHost)this).MameSortOrder, AppConstants.MameSortOrderFileName,
+                StringComparison.Ordinal))
         {
-            var tooltipText = (string)Application.Current.TryFindResource("SortByMachineDescriptionTooltip") ?? "Sort by Machine Description";
+            var tooltipText = (string)Application.Current.TryFindResource("SortByMachineDescriptionTooltip") ??
+                              "Sort by Machine Description";
             SortOrderToggleButton.ToolTip = tooltipText;
         }
         else
         {
-            var tooltipText = (string)Application.Current.TryFindResource("SortByFileNameTooltip") ?? "Sort by File Name";
+            var tooltipText = (string)Application.Current.TryFindResource("SortByFileNameTooltip") ??
+                              "Sort by File Name";
             SortOrderToggleButton.ToolTip = tooltipText;
         }
     }
@@ -1069,7 +1096,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     /// <param name="searchQuery">An optional search query to filter games.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task representing the asynchronous load operation.</returns>
-    internal Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null, CancellationToken cancellationToken = default)
+    internal Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null,
+        CancellationToken cancellationToken = default)
     {
         return _gameBrowser.LoadGameFilesAsync(startLetter, searchQuery, cancellationToken);
     }

@@ -89,7 +89,8 @@ public class Rpcs3Settings : IEmulatorSettings
         AudioRenderer = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(AudioRenderer), "Cubeb");
         AudioBuffering = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(AudioBuffering), true);
         StartFullscreen = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(StartFullscreen), false);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

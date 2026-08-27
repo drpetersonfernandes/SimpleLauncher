@@ -245,9 +245,11 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRetroArchConfigWindow));
+            var emulatorName =
+                InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRetroArchConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+                _messageBox);
         }
     }
 
@@ -274,9 +276,11 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRetroArchConfigWindow));
+            var emulatorName =
+                InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRetroArchConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+                _messageBox);
         }
     }
 }

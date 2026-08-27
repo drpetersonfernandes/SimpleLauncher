@@ -76,7 +76,8 @@ internal class ZipService
                     continue;
 
                 var fileName = Path.GetFileName(entryKey);
-                if (!string.IsNullOrEmpty(fileName) && IgnoredFiles.Contains(fileName, StringComparer.OrdinalIgnoreCase))
+                if (!string.IsNullOrEmpty(fileName) &&
+                    IgnoredFiles.Contains(fileName, StringComparer.OrdinalIgnoreCase))
                 {
                     LogMessage?.Invoke(this, new EventArgs<string>($"Skipping self-update file: {entryKey}"));
                     continue;
@@ -143,7 +144,8 @@ internal class ZipService
     /// <returns>A task representing the asynchronous operation.</returns>
     /// <exception cref="IOException">Thrown when the file cannot be written after all retry attempts.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
-    private async Task ExtractFileWithRetryAsync(IReader reader, string destinationPath, string entryKey, CancellationToken cancellationToken = default)
+    private async Task ExtractFileWithRetryAsync(IReader reader, string destinationPath, string entryKey,
+        CancellationToken cancellationToken = default)
     {
         Exception? lastException = null;
 
@@ -179,12 +181,16 @@ internal class ZipService
                 await entryStream.CopyToAsync(destinationFileStream, cancellationToken);
                 return; // Success, exit the method
             }
-            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException && attempt < FileWriteRetryAttempts)
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException &&
+                                       attempt < FileWriteRetryAttempts)
             {
                 // File is likely locked by another process or has permission issues, retry after delay
                 lastException = ex;
-                LogMessage?.Invoke(this, new EventArgs<string>($"File locked or access denied ({attempt}/{FileWriteRetryAttempts}): {entryKey} - retrying in {FileWriteRetryDelayMs}ms..."));
-                await Task.Delay(FileWriteRetryDelayMs * attempt, cancellationToken); // Increasing delay for each attempt
+                LogMessage?.Invoke(this,
+                    new EventArgs<string>(
+                        $"File locked or access denied ({attempt}/{FileWriteRetryAttempts}): {entryKey} - retrying in {FileWriteRetryDelayMs}ms..."));
+                await Task.Delay(FileWriteRetryDelayMs * attempt,
+                    cancellationToken); // Increasing delay for each attempt
             }
         }
 

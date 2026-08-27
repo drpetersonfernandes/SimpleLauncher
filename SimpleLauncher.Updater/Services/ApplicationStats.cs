@@ -60,7 +60,8 @@ internal static class ApplicationStats
                 if (response.StatusCode == HttpStatusCode.TooManyRequests)
                 {
                     // Expected condition (rate limit): not a bug, keep it out of the bug report service.
-                    Log.Information("ApplicationStats API returned non-success status: {StatusCode}", response.StatusCode);
+                    Log.Information("ApplicationStats API returned non-success status: {StatusCode}",
+                        response.StatusCode);
                 }
                 else
                 {

@@ -24,7 +24,8 @@ public partial class AboutWindow
         var version = assembly.GetName().Version;
         AppVersionTextBlock.Text = $"Version {version?.Major ?? 1}.{version?.Minor ?? 0}.{version?.Build ?? 0}";
 
-        AppDescriptionTextBlock.Text = "XML to Binary Converter is a utility application that allows lossless conversion between XML files and binary DAT files using MessagePack serialization.";
+        AppDescriptionTextBlock.Text =
+            "XML to Binary Converter is a utility application that allows lossless conversion between XML files and binary DAT files using MessagePack serialization.";
     }
 
     private void Close_Click(object sender, RoutedEventArgs e)

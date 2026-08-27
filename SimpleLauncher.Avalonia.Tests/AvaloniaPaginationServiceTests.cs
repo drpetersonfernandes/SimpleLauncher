@@ -44,7 +44,8 @@ public class AvaloniaPaginationServiceTests
         }
     }
 
-    private static (AvaloniaPaginationService Service, FakePaginationHost Host) Create(int filesPerPage = 10, int threshold = 10)
+    private static (AvaloniaPaginationService Service, FakePaginationHost Host) Create(int filesPerPage = 10,
+        int threshold = 10)
     {
         var resourceProvider = TestDependencies.ResourceProvider().Object;
         var service = new AvaloniaPaginationService(resourceProvider)

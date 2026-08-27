@@ -70,13 +70,16 @@ public class AzaharSettings : IEmulatorSettings
         GraphicsApi = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(GraphicsApi), 1);
         ResolutionFactor = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(ResolutionFactor), 1);
         UseVsync = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(UseVsync), true);
-        AsyncShaderCompilation = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(AsyncShaderCompilation), true);
+        AsyncShaderCompilation =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(AsyncShaderCompilation), true);
         Fullscreen = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Fullscreen), true);
         Volume = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(Volume), 100);
         IsNew3Ds = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, "IsNew3ds", true);
         LayoutOption = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(LayoutOption), 0);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
-        EnableAudioStretching = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(EnableAudioStretching), true);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        EnableAudioStretching =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(EnableAudioStretching), true);
     }
 
 

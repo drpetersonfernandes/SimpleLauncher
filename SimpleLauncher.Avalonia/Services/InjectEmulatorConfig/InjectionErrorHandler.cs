@@ -17,7 +17,8 @@ public static class InjectionErrorHandler
     /// <param name="emulatorPath">The path to the emulator executable.</param>
     /// <param name="window">The injection window to close.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
-    public static void HandleRunButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath, Window? window, IMessageBoxLibraryService messageBox)
+    public static void HandleRunButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath,
+        Window? window, IMessageBoxLibraryService messageBox)
     {
         // Notify user
         ShowGenericInjectionError(messageBox);
@@ -38,7 +39,8 @@ public static class InjectionErrorHandler
     /// <param name="emulatorPath">The path to the emulator executable.</param>
     /// <param name="window">The injection window to close.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
-    public static void HandleSaveButtonFailure(ILogger logErrors, Exception ex, string emulatorName, string emulatorPath, Window? window, IMessageBoxLibraryService messageBox)
+    public static void HandleSaveButtonFailure(ILogger logErrors, Exception ex, string emulatorName,
+        string emulatorPath, Window? window, IMessageBoxLibraryService messageBox)
     {
         // Notify user
         ShowGenericInjectionError(messageBox);
@@ -71,7 +73,8 @@ public static class InjectionErrorHandler
         }
 
         var typeName = windowType.Name;
-        if (typeName.StartsWith("Inject", StringComparison.Ordinal) && typeName.EndsWith("ConfigWindow", StringComparison.Ordinal))
+        if (typeName.StartsWith("Inject", StringComparison.Ordinal) &&
+            typeName.EndsWith("ConfigWindow", StringComparison.Ordinal))
         {
             return typeName.Substring(6, typeName.Length - 6 - 12);
         }

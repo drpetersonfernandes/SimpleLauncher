@@ -23,7 +23,8 @@ public static class LanguageLaunchTestsBase
         {
             foreach (var config in new[] { "Debug", "Release" })
             {
-                var candidate = Path.Combine(dir.FullName, "SimpleLauncher", "bin", config, "net10.0-windows", "SimpleLauncher.exe");
+                var candidate = Path.Combine(dir.FullName, "SimpleLauncher", "bin", config, "net10.0-windows",
+                    "SimpleLauncher.exe");
                 if (File.Exists(candidate))
                 {
                     return candidate;
@@ -66,7 +67,8 @@ public static class LanguageLaunchTestsBase
         {
             try
             {
-                using var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+                using var fs = new FileStream(file, FileMode.Open, FileAccess.Read,
+                    FileShare.ReadWrite | FileShare.Delete);
                 using var reader = new StreamReader(fs);
                 return reader.ReadToEnd();
             }

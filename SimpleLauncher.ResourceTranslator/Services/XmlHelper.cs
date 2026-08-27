@@ -46,7 +46,8 @@ public static partial class XmlHelper
     /// Returns the compiled regex for matching XAML resource entries.
     /// </summary>
     /// <returns>The compiled regex pattern.</returns>
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing groups are needed to extract key and value")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing groups are needed to extract key and value")]
     [GeneratedRegex("""<system:String\s+x:Key="([^"]+)"[^>]*>([\s\S]*?)</system:String>""", RegexOptions.None, 1000)]
     public static partial Regex EntryRegex();
 }

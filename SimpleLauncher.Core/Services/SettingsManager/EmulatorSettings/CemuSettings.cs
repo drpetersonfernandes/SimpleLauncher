@@ -65,7 +65,8 @@ public class CemuSettings : IEmulatorSettings
         TvVolume = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(TvVolume), 50);
         ConsoleLanguage = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(ConsoleLanguage), 1);
         DiscordPresence = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(DiscordPresence), true);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

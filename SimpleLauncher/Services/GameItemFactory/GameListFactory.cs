@@ -62,7 +62,8 @@ public class GameListFactory(
     /// Creates a <see cref="GameListViewItem"/> for the given game entity path,
     /// populating it with favorites status, play history, and MAME description data.
     /// </summary>
-    public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName, SystemManager.SystemManagerService systemManager)
+    public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName,
+        SystemManager.SystemManagerService systemManager)
     {
         var isDirectory = Directory.Exists(entityPath);
         string fileNameWithoutExtension;
@@ -130,7 +131,10 @@ public class GameListFactory(
             if (_mainWindow == null)
             {
                 // Notify developer
-                _logger.Error(new InvalidOperationException("_mainWindow is null in GameListFactory.HandleSelectionChangedAsync."), "MainWindow instance is null. Cannot update preview.");
+                _logger.Error(
+                    new InvalidOperationException(
+                        "_mainWindow is null in GameListFactory.HandleSelectionChangedAsync."),
+                    "MainWindow instance is null. Cannot update preview.");
 
                 return;
             }
@@ -138,7 +142,10 @@ public class GameListFactory(
             if (_mainWindow.PreviewImage == null)
             {
                 // Notify developer
-                _logger.Error(new InvalidOperationException("_mainWindow.PreviewImage is null in GameListFactory.HandleSelectionChangedAsync."), "PreviewImage control in MainWindow is null. Cannot update preview.");
+                _logger.Error(
+                    new InvalidOperationException(
+                        "_mainWindow.PreviewImage is null in GameListFactory.HandleSelectionChangedAsync."),
+                    "PreviewImage control in MainWindow is null. Cannot update preview.");
 
                 return;
             }
@@ -156,11 +163,14 @@ public class GameListFactory(
                 if (string.IsNullOrEmpty(filePath))
                 {
                     // Notify developer
-                    _logger.Error(new ArgumentException(@"selectedItem.FilePath is null or empty.", nameof(selectedItem)), "Selected item has an invalid file path. Cannot load preview.");
+                    _logger.Error(
+                        new ArgumentException(@"selectedItem.FilePath is null or empty.", nameof(selectedItem)),
+                        "Selected item has an invalid file path. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
                     var (defaultStream, _) = await _imageLoader.LoadImageAsync(null); // Load global default
-                    _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultStream.ToBitmapImage());
+                    _mainWindow.Dispatcher.Invoke(() =>
+                        _mainWindow.PreviewImage.Source = defaultStream.ToBitmapImage());
 
                     return;
                 }
@@ -171,31 +181,38 @@ public class GameListFactory(
                 if (string.IsNullOrEmpty(selectedSystem))
                 {
                     // Notify developer
-                    _logger.Error(new InvalidOperationException("Selected system name is null or empty from ComboBox."), "No system selected or system name is invalid. Cannot load preview.");
+                    _logger.Error(new InvalidOperationException("Selected system name is null or empty from ComboBox."),
+                        "No system selected or system name is invalid. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
                     var (defaultStream, _) = await _imageLoader.LoadImageAsync(null); // Load global default
-                    _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultStream.ToBitmapImage());
+                    _mainWindow.Dispatcher.Invoke(() =>
+                        _mainWindow.PreviewImage.Source = defaultStream.ToBitmapImage());
 
                     return;
                 }
 
-                var systemManager = _systemManagers?.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+                var systemManager = _systemManagers?.FirstOrDefault(c =>
+                    c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
                 if (systemManager == null)
                 {
                     // Notify developer
-                    _logger.Error(new InvalidOperationException($"System configuration not found for '{selectedSystem}'."), $"No system configuration for {selectedSystem}. Cannot load preview.");
+                    _logger.Error(
+                        new InvalidOperationException($"System configuration not found for '{selectedSystem}'."),
+                        $"No system configuration for {selectedSystem}. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
                     var (defaultStream, _) = await _imageLoader.LoadImageAsync(null); // Load global default
-                    _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultStream.ToBitmapImage());
+                    _mainWindow.Dispatcher.Invoke(() =>
+                        _mainWindow.PreviewImage.Source = defaultStream.ToBitmapImage());
 
                     return;
                 }
 
                 var isDirectory = Directory.Exists(filePath);
 
-                var previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager.SystemImageFolder);
+                var previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem,
+                    systemManager.SystemImageFolder);
                 if (isDirectory) // GroupByFolder is true
                 {
                     // First, try to find an image with the same name as the folder name.
@@ -204,12 +221,15 @@ public class GameListFactory(
                     if (previewImagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
                     {
                         // Fallback to current logic: look inside the folder for a file to use as a name.
-                        var filesInFolder = await _getListOfFiles.GetFilesAsync(filePath, systemManager.FileFormatsToSearch, systemManager.DisableRecursiveSearch, systemManager.GroupByFolder);
+                        var filesInFolder = await _getListOfFiles.GetFilesAsync(filePath,
+                            systemManager.FileFormatsToSearch, systemManager.DisableRecursiveSearch,
+                            systemManager.GroupByFolder);
                         if (filesInFolder.Count != 0)
                         {
                             var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder.First());
                             // Now search again with the new name.
-                            previewImagePath = _findCoverImage.FindCoverImagePath(representativeFileName, selectedSystem, systemManager.SystemImageFolder);
+                            previewImagePath = _findCoverImage.FindCoverImagePath(representativeFileName,
+                                selectedSystem, systemManager.SystemImageFolder);
                         }
                     }
                 }
@@ -222,7 +242,9 @@ public class GameListFactory(
                     previewImagePath = PathHelper.ResolveRelativeToAppDirectory(previewImagePath);
                 }
 
-                var (imageStream, _) = await _imageLoader.LoadImageAsync(previewImagePath); // LoadImageAsync handles null/empty path by returning default
+                var (imageStream, _) =
+                    await _imageLoader.LoadImageAsync(
+                        previewImagePath); // LoadImageAsync handles null/empty path by returning default
 
                 _mainWindow.Dispatcher.Invoke(() =>
                 {
@@ -245,7 +267,8 @@ public class GameListFactory(
                     _mainWindow.Dispatcher.Invoke(() =>
                     {
                         // Race condition check: Only assign if the selected item hasn't changed (or is now null)
-                        if (_mainWindow.GameDataGrid.SelectedItem == selectedItem || _mainWindow.GameDataGrid.SelectedItem == null)
+                        if (_mainWindow.GameDataGrid.SelectedItem == selectedItem ||
+                            _mainWindow.GameDataGrid.SelectedItem == null)
                         {
                             _mainWindow?.PreviewImage?.Source = defaultImageStream.ToBitmapImage();
                         }
@@ -286,7 +309,8 @@ public class GameListFactory(
             _logger.Warning("selectedItem is null.");
 
             // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
@@ -294,7 +318,8 @@ public class GameListFactory(
         var filePath = selectedItem.FilePath;
         var selectedEmulatorName = _emulatorComboBox.SelectedItem as string;
         var selectedSystemName = _systemComboBox.SelectedItem as string;
-        var selectedSystemManager = _systemManagers.FirstOrDefault(c => c.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+        var selectedSystemManager = _systemManagers.FirstOrDefault(c =>
+            c.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
 
         if (string.IsNullOrEmpty(filePath))
         {
@@ -302,7 +327,8 @@ public class GameListFactory(
             _logger.Warning("[HandleDoubleClickAsync] filepath is null or empty.");
 
             // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
@@ -313,7 +339,8 @@ public class GameListFactory(
             _logger.Warning("[HandleDoubleClickAsync] selectedEmulatorName is null or empty.");
 
             // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
@@ -324,7 +351,8 @@ public class GameListFactory(
             _logger.Warning("[HandleDoubleClickAsync] selectedSystemName is null or empty.");
 
             // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
@@ -335,11 +363,13 @@ public class GameListFactory(
             _logger.Warning("[HandleDoubleClickAsync] selectedSystemManager is null.");
 
             // Notify user
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
 
             return;
         }
 
-        await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, null);
+        await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName,
+            selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, null);
     }
 }

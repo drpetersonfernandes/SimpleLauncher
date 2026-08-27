@@ -35,7 +35,8 @@ public class EmulatorXmlHelpersTests
     public void ReadBool_FallsBackToFlattenedRootElement()
     {
         var sectionWithoutProperty = new XElement("SystemConfig");
-        var result = EmulatorXmlHelpers.ReadBool(sectionWithoutProperty, "SystemConfig", Root, "Fullscreen", fallback: false);
+        var result =
+            EmulatorXmlHelpers.ReadBool(sectionWithoutProperty, "SystemConfig", Root, "Fullscreen", fallback: false);
         Assert.False(result);
     }
 

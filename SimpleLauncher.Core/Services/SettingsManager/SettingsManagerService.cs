@@ -20,17 +20,29 @@ public class SettingsManagerService : IDisposable
     private readonly DataFileLocation _fileLocation;
     private readonly ReaderWriterLockSlim _settingsLock = new(LockRecursionPolicy.SupportsRecursion);
 
-    private readonly HashSet<int> _validThumbnailSizes = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
+    private readonly HashSet<int> _validThumbnailSizes =
+        [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
+
     private readonly HashSet<int> _validThumbnailSizesForSystem = [50, 100, 150];
     private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 1000, 10000, 1000000];
     private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
     private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
-    private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
+
+    private readonly HashSet<string> _validButtonAspectRatio =
+        ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
+
     private readonly HashSet<string> _validFilenameDisplayModes = ["Original", "CleanUp", "NoFilename"];
     private readonly HashSet<string> _validFontSizes = ["Small", "Normal", "Big"];
     private readonly HashSet<string> _validStyleVariants = ["Default"];
     private readonly HashSet<string> _validBaseThemes = ["Light", "Dark", "Adaptive", "HighContrast", "Midnight"];
-    private readonly HashSet<string> _validAccentColors = ["Amber", "Blue", "Brown", "Cobalt", "Crimson", "Cyan", "Emerald", "Green", "Indigo", "Lime", "Magenta", "Maroon", "Mauve", "Olive", "OliveDrab", "Orange", "Pink", "Plum", "Purple", "Red", "Sienna", "SkyBlue", "Steel", "Taupe", "Teal", "Violet", "Yellow"];
+
+    private readonly HashSet<string> _validAccentColors =
+    [
+        "Amber", "Blue", "Brown", "Cobalt", "Crimson", "Cyan", "Emerald", "Green", "Indigo", "Lime", "Magenta",
+        "Maroon", "Mauve", "Olive", "OliveDrab", "Orange", "Pink", "Plum", "Purple", "Red", "Sienna", "SkyBlue",
+        "Steel", "Taupe", "Teal", "Violet", "Yellow"
+    ];
+
     private bool _disposed;
 
     // Application Settings
@@ -266,7 +278,8 @@ public class SettingsManagerService : IDisposable
     /// <summary>
     /// Initializes a new instance of the SettingsManagerService with the specified dependencies.
     /// </summary>
-    public SettingsManagerService(IConfiguration configuration, ILogger logErrors, ICredentialProtector credentialProtector, IMessageBoxLibraryService? messageBox = null)
+    public SettingsManagerService(IConfiguration configuration, ILogger logErrors,
+        ICredentialProtector credentialProtector, IMessageBoxLibraryService? messageBox = null)
     {
         _configuration = configuration;
         _logger = logErrors;
@@ -274,7 +287,8 @@ public class SettingsManagerService : IDisposable
         _messageBox = messageBox!;
         _fileLocation = new DataFileLocation(DefaultSettingsFilePath);
 
-        VideoUrl = configuration.GetValue<string>("Urls:YouTubeSearch") ?? "https://www.youtube.com/results?search_query=";
+        VideoUrl = configuration.GetValue<string>("Urls:YouTubeSearch") ??
+                   "https://www.youtube.com/results?search_query=";
         InfoUrl = configuration.GetValue<string>("Urls:IgdbSearch") ?? "https://www.igdb.com/search?q=";
     }
 
@@ -365,7 +379,8 @@ public class SettingsManagerService : IDisposable
         Emulator5Expanded = other.Emulator5Expanded;
 
         SystemPlayTimes = other.SystemPlayTimes?
-            .Select(static pt => new SystemPlayTime { SystemName = pt.SystemName, PlayTimeSeconds = pt.PlayTimeSeconds })
+            .Select(static pt => new SystemPlayTime
+                { SystemName = pt.SystemName, PlayTimeSeconds = pt.PlayTimeSeconds })
             .ToList() ?? [];
 
         // Emulator Settings (delegate to each emulator's CopyFrom)
@@ -398,110 +413,154 @@ public class SettingsManagerService : IDisposable
 
         // Application Settings Fallback Logic
         var app = settings.Element("Application");
-        ThumbnailSize = ValidateThumbnailSize(app?.Element("ThumbnailSize")?.Value ?? settings.Element("ThumbnailSize")?.Value ?? "");
-        ThumbnailSizeForSystem = ValidateThumbnailSizeForSystem(app?.Element("ThumbnailSizeForSystem")?.Value ?? settings.Element("ThumbnailSizeForSystem")?.Value ?? "");
-        GamesPerPage = ValidateGamesPerPage(app?.Element("GamesPerPage")?.Value ?? settings.Element("GamesPerPage")?.Value ?? "");
+        ThumbnailSize =
+            ValidateThumbnailSize(
+                app?.Element("ThumbnailSize")?.Value ?? settings.Element("ThumbnailSize")?.Value ?? "");
+        ThumbnailSizeForSystem = ValidateThumbnailSizeForSystem(app?.Element("ThumbnailSizeForSystem")?.Value ??
+                                                                settings.Element("ThumbnailSizeForSystem")?.Value ??
+                                                                "");
+        GamesPerPage =
+            ValidateGamesPerPage(app?.Element("GamesPerPage")?.Value ?? settings.Element("GamesPerPage")?.Value ?? "");
         ShowGames = ValidateShowGames(app?.Element("ShowGames")?.Value ?? settings.Element("ShowGames")?.Value ?? "");
         ViewMode = ValidateViewMode(app?.Element("ViewMode")?.Value ?? settings.Element("ViewMode")?.Value ?? "");
 
-        if (bool.TryParse(app?.Element("EnableGamePadNavigation")?.Value ?? settings.Element("EnableGamePadNavigation")?.Value, out var gp))
+        if (bool.TryParse(
+                app?.Element("EnableGamePadNavigation")?.Value ?? settings.Element("EnableGamePadNavigation")?.Value,
+                out var gp))
         {
             EnableGamePadNavigation = gp;
         }
 
         VideoUrl = app?.Element("VideoUrl")?.Value ?? settings.Element("VideoUrl")?.Value ?? VideoUrl;
         InfoUrl = app?.Element("InfoUrl")?.Value ?? settings.Element("InfoUrl")?.Value ?? InfoUrl;
-        BaseTheme = ValidateBaseTheme(app?.Element("BaseTheme")?.Value ?? settings.Element("BaseTheme")?.Value ?? BaseTheme);
-        AccentColor = ValidateAccentColor(app?.Element("AccentColor")?.Value ?? settings.Element("AccentColor")?.Value ?? AccentColor);
-        StyleVariant = ValidateStyleVariant(app?.Element("StyleVariant")?.Value ?? settings.Element("StyleVariant")?.Value ?? "");
+        BaseTheme = ValidateBaseTheme(app?.Element("BaseTheme")?.Value ??
+                                      settings.Element("BaseTheme")?.Value ?? BaseTheme);
+        AccentColor = ValidateAccentColor(app?.Element("AccentColor")?.Value ??
+                                          settings.Element("AccentColor")?.Value ?? AccentColor);
+        StyleVariant =
+            ValidateStyleVariant(app?.Element("StyleVariant")?.Value ?? settings.Element("StyleVariant")?.Value ?? "");
         Language = app?.Element("Language")?.Value ?? settings.Element("Language")?.Value ?? Language;
-        ButtonAspectRatio = ValidateButtonAspectRatio(app?.Element("ButtonAspectRatio")?.Value ?? settings.Element("ButtonAspectRatio")?.Value ?? "");
-        FilenameDisplayMode = ValidateFilenameDisplayMode(app?.Element("FilenameDisplayMode")?.Value ?? settings.Element("FilenameDisplayMode")?.Value ?? "");
-        if (bool.TryParse(app?.Element("DisplayMachineName")?.Value ?? settings.Element("DisplayMachineName")?.Value, out var dmn))
+        ButtonAspectRatio = ValidateButtonAspectRatio(app?.Element("ButtonAspectRatio")?.Value ??
+                                                      settings.Element("ButtonAspectRatio")?.Value ?? "");
+        FilenameDisplayMode = ValidateFilenameDisplayMode(app?.Element("FilenameDisplayMode")?.Value ??
+                                                          settings.Element("FilenameDisplayMode")?.Value ?? "");
+        if (bool.TryParse(app?.Element("DisplayMachineName")?.Value ?? settings.Element("DisplayMachineName")?.Value,
+                out var dmn))
         {
             DisplayMachineName = dmn;
         }
 
-        FilenameFontSize = ValidateFontSize(app?.Element("FilenameFontSize")?.Value ?? settings.Element("FilenameFontSize")?.Value ?? "");
-        MachineNameFontSize = ValidateFontSize(app?.Element("MachineNameFontSize")?.Value ?? settings.Element("MachineNameFontSize")?.Value ?? "");
+        FilenameFontSize = ValidateFontSize(app?.Element("FilenameFontSize")?.Value ??
+                                            settings.Element("FilenameFontSize")?.Value ?? "");
+        MachineNameFontSize = ValidateFontSize(app?.Element("MachineNameFontSize")?.Value ??
+                                               settings.Element("MachineNameFontSize")?.Value ?? "");
 
-        RaUsername = app?.Element("RaUsername")?.Value ?? settings.Element("RaUsername")?.Value ?? settings.Element("RA_Username")?.Value ?? RaUsername;
-        RaApiKey = DecryptString(app?.Element("RaApiKey")?.Value ?? settings.Element("RaApiKey")?.Value ?? settings.Element("RA_ApiKey")?.Value ?? RaApiKey) ?? "";
-        RaPassword = DecryptString(app?.Element("RaPassword")?.Value ?? settings.Element("RaPassword")?.Value ?? RaPassword) ?? "";
+        RaUsername = app?.Element("RaUsername")?.Value ?? settings.Element("RaUsername")?.Value ??
+            settings.Element("RA_Username")?.Value ?? RaUsername;
+        RaApiKey = DecryptString(app?.Element("RaApiKey")?.Value ??
+                                 settings.Element("RaApiKey")?.Value ??
+                                 settings.Element("RA_ApiKey")?.Value ?? RaApiKey) ?? "";
+        RaPassword =
+            DecryptString(app?.Element("RaPassword")?.Value ?? settings.Element("RaPassword")?.Value ?? RaPassword) ??
+            "";
         RaToken = DecryptString(app?.Element("RaToken")?.Value ?? settings.Element("RaToken")?.Value ?? RaToken) ?? "";
 
-        if (float.TryParse(app?.Element("DeadZoneX")?.Value ?? settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzx))
+        if (float.TryParse(app?.Element("DeadZoneX")?.Value ?? settings.Element("DeadZoneX")?.Value, NumberStyles.Any,
+                CultureInfo.InvariantCulture, out var dzx))
         {
             DeadZoneX = dzx;
         }
 
-        if (float.TryParse(app?.Element("DeadZoneY")?.Value ?? settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var dzy))
+        if (float.TryParse(app?.Element("DeadZoneY")?.Value ?? settings.Element("DeadZoneY")?.Value, NumberStyles.Any,
+                CultureInfo.InvariantCulture, out var dzy))
         {
             DeadZoneY = dzy;
         }
 
-        if (bool.TryParse(app?.Element("EnableFuzzyMatching")?.Value ?? settings.Element("EnableFuzzyMatching")?.Value, out var fm))
+        if (bool.TryParse(app?.Element("EnableFuzzyMatching")?.Value ?? settings.Element("EnableFuzzyMatching")?.Value,
+                out var fm))
         {
             EnableFuzzyMatching = fm;
         }
 
-        if (double.TryParse(app?.Element("FuzzyMatchingThreshold")?.Value ?? settings.Element("FuzzyMatchingThreshold")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var fmt))
+        if (double.TryParse(
+                app?.Element("FuzzyMatchingThreshold")?.Value ?? settings.Element("FuzzyMatchingThreshold")?.Value,
+                NumberStyles.Any, CultureInfo.InvariantCulture, out var fmt))
         {
             FuzzyMatchingThreshold = fmt;
         }
 
-        if (bool.TryParse(app?.Element("EnableAnnotationStripping")?.Value ?? settings.Element("EnableAnnotationStripping")?.Value, out var ans))
+        if (bool.TryParse(
+                app?.Element("EnableAnnotationStripping")?.Value ??
+                settings.Element("EnableAnnotationStripping")?.Value, out var ans))
         {
             EnableAnnotationStripping = ans;
         }
 
-        if (bool.TryParse(app?.Element("EnableNotificationSound")?.Value ?? settings.Element("EnableNotificationSound")?.Value, out var ens))
+        if (bool.TryParse(
+                app?.Element("EnableNotificationSound")?.Value ?? settings.Element("EnableNotificationSound")?.Value,
+                out var ens))
         {
             EnableNotificationSound = ens;
         }
 
-        CustomNotificationSoundFile = app?.Element("CustomNotificationSoundFile")?.Value ?? settings.Element("CustomNotificationSoundFile")?.Value ?? CustomNotificationSoundFile;
-        if (bool.TryParse(app?.Element("OverlayRetroAchievementButton")?.Value ?? settings.Element("OverlayRetroAchievementButton")?.Value, out var ora))
+        CustomNotificationSoundFile = app?.Element("CustomNotificationSoundFile")?.Value ??
+                                      settings.Element("CustomNotificationSoundFile")?.Value ??
+                                      CustomNotificationSoundFile;
+        if (bool.TryParse(
+                app?.Element("OverlayRetroAchievementButton")?.Value ??
+                settings.Element("OverlayRetroAchievementButton")?.Value, out var ora))
         {
             OverlayRetroAchievementButton = ora;
         }
 
-        if (bool.TryParse(app?.Element("OverlayOpenVideoButton")?.Value ?? settings.Element("OverlayOpenVideoButton")?.Value, out var ovb))
+        if (bool.TryParse(
+                app?.Element("OverlayOpenVideoButton")?.Value ?? settings.Element("OverlayOpenVideoButton")?.Value,
+                out var ovb))
         {
             OverlayOpenVideoButton = ovb;
         }
 
-        if (bool.TryParse(app?.Element("OverlayOpenInfoButton")?.Value ?? settings.Element("OverlayOpenInfoButton")?.Value, out var oib))
+        if (bool.TryParse(
+                app?.Element("OverlayOpenInfoButton")?.Value ?? settings.Element("OverlayOpenInfoButton")?.Value,
+                out var oib))
         {
             OverlayOpenInfoButton = oib;
         }
 
-        if (bool.TryParse(app?.Element("AdditionalSystemFoldersExpanded")?.Value ?? settings.Element("AdditionalSystemFoldersExpanded")?.Value, out var asfe))
+        if (bool.TryParse(
+                app?.Element("AdditionalSystemFoldersExpanded")?.Value ??
+                settings.Element("AdditionalSystemFoldersExpanded")?.Value, out var asfe))
         {
             AdditionalSystemFoldersExpanded = asfe;
         }
 
-        if (bool.TryParse(app?.Element("Emulator1Expanded")?.Value ?? settings.Element("Emulator1Expanded")?.Value, out var e1E))
+        if (bool.TryParse(app?.Element("Emulator1Expanded")?.Value ?? settings.Element("Emulator1Expanded")?.Value,
+                out var e1E))
         {
             Emulator1Expanded = e1E;
         }
 
-        if (bool.TryParse(app?.Element("Emulator2Expanded")?.Value ?? settings.Element("Emulator2Expanded")?.Value, out var e2E))
+        if (bool.TryParse(app?.Element("Emulator2Expanded")?.Value ?? settings.Element("Emulator2Expanded")?.Value,
+                out var e2E))
         {
             Emulator2Expanded = e2E;
         }
 
-        if (bool.TryParse(app?.Element("Emulator3Expanded")?.Value ?? settings.Element("Emulator3Expanded")?.Value, out var e3E))
+        if (bool.TryParse(app?.Element("Emulator3Expanded")?.Value ?? settings.Element("Emulator3Expanded")?.Value,
+                out var e3E))
         {
             Emulator3Expanded = e3E;
         }
 
-        if (bool.TryParse(app?.Element("Emulator4Expanded")?.Value ?? settings.Element("Emulator4Expanded")?.Value, out var e4E))
+        if (bool.TryParse(app?.Element("Emulator4Expanded")?.Value ?? settings.Element("Emulator4Expanded")?.Value,
+                out var e4E))
         {
             Emulator4Expanded = e4E;
         }
 
-        if (bool.TryParse(app?.Element("Emulator5Expanded")?.Value ?? settings.Element("Emulator5Expanded")?.Value, out var e5E))
+        if (bool.TryParse(app?.Element("Emulator5Expanded")?.Value ?? settings.Element("Emulator5Expanded")?.Value,
+                out var e5E))
         {
             Emulator5Expanded = e5E;
         }
@@ -765,12 +824,16 @@ public class SettingsManagerService : IDisposable
 
     private int ValidateThumbnailSize(string value)
     {
-        return int.TryParse(value, CultureInfo.InvariantCulture, out var p) && _validThumbnailSizes.Contains(p) ? p : 250;
+        return int.TryParse(value, CultureInfo.InvariantCulture, out var p) && _validThumbnailSizes.Contains(p)
+            ? p
+            : 250;
     }
 
     private int ValidateThumbnailSizeForSystem(string value)
     {
-        return int.TryParse(value, CultureInfo.InvariantCulture, out var p) && _validThumbnailSizesForSystem.Contains(p) ? p : 50;
+        return int.TryParse(value, CultureInfo.InvariantCulture, out var p) && _validThumbnailSizesForSystem.Contains(p)
+            ? p
+            : 50;
     }
 
     private int ValidateGamesPerPage(string value)
@@ -845,7 +908,8 @@ public class SettingsManagerService : IDisposable
         _settingsLock.EnterWriteLock();
         try
         {
-            var item = SystemPlayTimes.FirstOrDefault(s => s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+            var item = SystemPlayTimes.FirstOrDefault(s =>
+                s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
             if (item == null)
             {
                 item = new SystemPlayTime { SystemName = systemName, PlayTimeSeconds = 0 };

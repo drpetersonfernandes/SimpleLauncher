@@ -10,11 +10,13 @@ namespace SimpleLauncher.Avalonia.Tests;
 /// </summary>
 public class SetGamepadDeadZoneViewModelTests
 {
-    private static SetGamepadDeadZoneViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox, out SettingsManagerService settings)
+    private static SetGamepadDeadZoneViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox,
+        out SettingsManagerService settings)
     {
         messageBox = TestDependencies.MessageBox();
         settings = TestDependencies.Settings(messageBox: messageBox);
-        var vm = new SetGamepadDeadZoneViewModel(settings, messageBox.Object, TestDependencies.ResourceProvider().Object, TestDependencies.Logger().Object);
+        var vm = new SetGamepadDeadZoneViewModel(settings, messageBox.Object,
+            TestDependencies.ResourceProvider().Object, TestDependencies.Logger().Object);
         return vm;
     }
 
@@ -26,7 +28,8 @@ public class SetGamepadDeadZoneViewModelTests
         settings.DeadZoneX = 0.11f;
         settings.DeadZoneY = 0.07f;
 
-        var vm = new SetGamepadDeadZoneViewModel(settings, messageBox.Object, TestDependencies.ResourceProvider().Object, TestDependencies.Logger().Object);
+        var vm = new SetGamepadDeadZoneViewModel(settings, messageBox.Object,
+            TestDependencies.ResourceProvider().Object, TestDependencies.Logger().Object);
 
         Assert.Equal(0.11f, vm.DeadZoneX);
         Assert.Equal(0.07f, vm.DeadZoneY);

@@ -69,7 +69,8 @@ public partial class InjectDuckStationConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "DuckStation Executable|duckstation*.exe|All Executables|*.exe",
-            Title = (string)Application.Current.TryFindResource("SelectDuckStationEmulator") ?? "Select DuckStation Emulator"
+            Title = (string)Application.Current.TryFindResource("SelectDuckStationEmulator") ??
+                    "Select DuckStation Emulator"
         };
 
         return dialog.ShowDialog() == true ? dialog.FileName : null;

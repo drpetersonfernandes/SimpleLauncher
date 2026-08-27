@@ -30,56 +30,57 @@ public class AvaloniaSystemSelectionOrchestratorServiceTests : IDisposable
         Directory.CreateDirectory(romsFolder);
 
         File.WriteAllText(_systemXmlPath, """
-            <SystemConfigs>
-              <SystemConfig>
-                <SystemName>Atari 2600</SystemName>
-                <SystemFolders>
-                  <SystemFolder>roms/Atari2600</SystemFolder>
-                </SystemFolders>
-                <SystemImageFolder>images/Atari2600</SystemImageFolder>
-                <FileFormatsToSearch>
-                  <FormatToSearch>.zip</FormatToSearch>
-                </FileFormatsToSearch>
-                <FileFormatsToLaunch>
-                  <FormatToLaunch>.zip</FormatToLaunch>
-                </FileFormatsToLaunch>
-                <Emulators>
-                  <Emulator>
-                    <EmulatorName>Stella</EmulatorName>
-                    <EmulatorPath>stella.exe</EmulatorPath>
-                    <EmulatorParameters></EmulatorParameters>
-                  </Emulator>
-                </Emulators>
-              </SystemConfig>
-              <SystemConfig>
-                <SystemName>NES</SystemName>
-                <SystemFolders>
-                  <SystemFolder>roms/NES</SystemFolder>
-                </SystemFolders>
-                <SystemImageFolder>images/NES</SystemImageFolder>
-                <FileFormatsToSearch>
-                  <FormatToSearch>.nes</FormatToSearch>
-                </FileFormatsToSearch>
-                <FileFormatsToLaunch>
-                  <FormatToLaunch>.nes</FormatToLaunch>
-                </FileFormatsToLaunch>
-                <Emulators>
-                  <Emulator>
-                    <EmulatorName>Mesen</EmulatorName>
-                    <EmulatorPath>mesen.exe</EmulatorPath>
-                    <EmulatorParameters></EmulatorParameters>
-                  </Emulator>
-                  <Emulator>
-                    <EmulatorName>FCEUX</EmulatorName>
-                    <EmulatorPath>fceux.exe</EmulatorPath>
-                    <EmulatorParameters></EmulatorParameters>
-                  </Emulator>
-                </Emulators>
-              </SystemConfig>
-            </SystemConfigs>
-            """);
+                                          <SystemConfigs>
+                                            <SystemConfig>
+                                              <SystemName>Atari 2600</SystemName>
+                                              <SystemFolders>
+                                                <SystemFolder>roms/Atari2600</SystemFolder>
+                                              </SystemFolders>
+                                              <SystemImageFolder>images/Atari2600</SystemImageFolder>
+                                              <FileFormatsToSearch>
+                                                <FormatToSearch>.zip</FormatToSearch>
+                                              </FileFormatsToSearch>
+                                              <FileFormatsToLaunch>
+                                                <FormatToLaunch>.zip</FormatToLaunch>
+                                              </FileFormatsToLaunch>
+                                              <Emulators>
+                                                <Emulator>
+                                                  <EmulatorName>Stella</EmulatorName>
+                                                  <EmulatorPath>stella.exe</EmulatorPath>
+                                                  <EmulatorParameters></EmulatorParameters>
+                                                </Emulator>
+                                              </Emulators>
+                                            </SystemConfig>
+                                            <SystemConfig>
+                                              <SystemName>NES</SystemName>
+                                              <SystemFolders>
+                                                <SystemFolder>roms/NES</SystemFolder>
+                                              </SystemFolders>
+                                              <SystemImageFolder>images/NES</SystemImageFolder>
+                                              <FileFormatsToSearch>
+                                                <FormatToSearch>.nes</FormatToSearch>
+                                              </FileFormatsToSearch>
+                                              <FileFormatsToLaunch>
+                                                <FormatToLaunch>.nes</FormatToLaunch>
+                                              </FileFormatsToLaunch>
+                                              <Emulators>
+                                                <Emulator>
+                                                  <EmulatorName>Mesen</EmulatorName>
+                                                  <EmulatorPath>mesen.exe</EmulatorPath>
+                                                  <EmulatorParameters></EmulatorParameters>
+                                                </Emulator>
+                                                <Emulator>
+                                                  <EmulatorName>FCEUX</EmulatorName>
+                                                  <EmulatorPath>fceux.exe</EmulatorPath>
+                                                  <EmulatorParameters></EmulatorParameters>
+                                                </Emulator>
+                                              </Emulators>
+                                            </SystemConfig>
+                                          </SystemConfigs>
+                                          """);
 
-        _config = TestEnvironment.ConfigurationFromJson($$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", @"\\")}}"}""");
+        _config = TestEnvironment.ConfigurationFromJson(
+            $$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", @"\\")}}"}""");
         _logger = TestDependencies.Logger();
 
         _systemManager = new SystemManagerService(_config);
@@ -206,33 +207,33 @@ public class AvaloniaSystemSelectionOrchestratorServiceTests : IDisposable
     {
         // Simulate adding a system: append to system.xml and invalidate cache
         File.WriteAllText(_systemXmlPath, """
-            <SystemConfigs>
-              <SystemConfig>
-                <SystemName>Atari 2600</SystemName>
-                <SystemFolders><SystemFolder>roms/Atari2600</SystemFolder></SystemFolders>
-                <SystemImageFolder>images/Atari2600</SystemImageFolder>
-                <FileFormatsToSearch><FormatToSearch>.zip</FormatToSearch></FileFormatsToSearch>
-                <FileFormatsToLaunch><FormatToLaunch>.zip</FormatToLaunch></FileFormatsToLaunch>
-                <Emulators><Emulator><EmulatorName>Stella</EmulatorName><EmulatorPath>stella.exe</EmulatorPath><EmulatorParameters></EmulatorParameters></Emulator></Emulators>
-              </SystemConfig>
-              <SystemConfig>
-                <SystemName>NES</SystemName>
-                <SystemFolders><SystemFolder>roms/NES</SystemFolder></SystemFolders>
-                <SystemImageFolder>images/NES</SystemImageFolder>
-                <FileFormatsToSearch><FormatToSearch>.nes</FormatToSearch></FileFormatsToSearch>
-                <FileFormatsToLaunch><FormatToLaunch>.nes</FormatToLaunch></FileFormatsToLaunch>
-                <Emulators><Emulator><EmulatorName>Mesen</EmulatorName><EmulatorPath>mesen.exe</EmulatorPath><EmulatorParameters></EmulatorParameters></Emulator></Emulators>
-              </SystemConfig>
-              <SystemConfig>
-                <SystemName>Sega Genesis</SystemName>
-                <SystemFolders><SystemFolder>roms/Genesis</SystemFolder></SystemFolders>
-                <SystemImageFolder>images/Genesis</SystemImageFolder>
-                <FileFormatsToSearch><FormatToSearch>.gen</FormatToSearch></FileFormatsToSearch>
-                <FileFormatsToLaunch><FormatToLaunch>.gen</FormatToLaunch></FileFormatsToLaunch>
-                <Emulators><Emulator><EmulatorName>BlastEm</EmulatorName><EmulatorPath>blastem.exe</EmulatorPath><EmulatorParameters></EmulatorParameters></Emulator></Emulators>
-              </SystemConfig>
-            </SystemConfigs>
-            """);
+                                          <SystemConfigs>
+                                            <SystemConfig>
+                                              <SystemName>Atari 2600</SystemName>
+                                              <SystemFolders><SystemFolder>roms/Atari2600</SystemFolder></SystemFolders>
+                                              <SystemImageFolder>images/Atari2600</SystemImageFolder>
+                                              <FileFormatsToSearch><FormatToSearch>.zip</FormatToSearch></FileFormatsToSearch>
+                                              <FileFormatsToLaunch><FormatToLaunch>.zip</FormatToLaunch></FileFormatsToLaunch>
+                                              <Emulators><Emulator><EmulatorName>Stella</EmulatorName><EmulatorPath>stella.exe</EmulatorPath><EmulatorParameters></EmulatorParameters></Emulator></Emulators>
+                                            </SystemConfig>
+                                            <SystemConfig>
+                                              <SystemName>NES</SystemName>
+                                              <SystemFolders><SystemFolder>roms/NES</SystemFolder></SystemFolders>
+                                              <SystemImageFolder>images/NES</SystemImageFolder>
+                                              <FileFormatsToSearch><FormatToSearch>.nes</FormatToSearch></FileFormatsToSearch>
+                                              <FileFormatsToLaunch><FormatToLaunch>.nes</FormatToLaunch></FileFormatsToLaunch>
+                                              <Emulators><Emulator><EmulatorName>Mesen</EmulatorName><EmulatorPath>mesen.exe</EmulatorPath><EmulatorParameters></EmulatorParameters></Emulator></Emulators>
+                                            </SystemConfig>
+                                            <SystemConfig>
+                                              <SystemName>Sega Genesis</SystemName>
+                                              <SystemFolders><SystemFolder>roms/Genesis</SystemFolder></SystemFolders>
+                                              <SystemImageFolder>images/Genesis</SystemImageFolder>
+                                              <FileFormatsToSearch><FormatToSearch>.gen</FormatToSearch></FileFormatsToSearch>
+                                              <FileFormatsToLaunch><FormatToLaunch>.gen</FormatToLaunch></FileFormatsToLaunch>
+                                              <Emulators><Emulator><EmulatorName>BlastEm</EmulatorName><EmulatorPath>blastem.exe</EmulatorPath><EmulatorParameters></EmulatorParameters></Emulator></Emulators>
+                                            </SystemConfig>
+                                          </SystemConfigs>
+                                          """);
 
         _systemManager.InvalidateCache();
         _service.LoadOrReloadSystemManager();

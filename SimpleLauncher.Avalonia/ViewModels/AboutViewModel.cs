@@ -22,7 +22,8 @@ public partial class AboutViewModel : ObservableObject
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
     /// <param name="updateChecker">The update checker service.</param>
-    public AboutViewModel(ILogger logErrors, IMessageBoxLibraryService messageBox, AvaloniaCheckForUpdatesService updateChecker)
+    public AboutViewModel(ILogger logErrors, IMessageBoxLibraryService messageBox,
+        AvaloniaCheckForUpdatesService updateChecker)
     {
         _logger = logErrors;
         _messageBox = messageBox;

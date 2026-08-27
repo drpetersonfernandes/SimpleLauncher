@@ -200,7 +200,8 @@ public partial class EditSystemWindow : Window
             SaveSystemButton.IsEnabled = true;
             DeleteSystemButton.IsEnabled = true;
 
-            var selectedSystem = _systems.FirstOrDefault(x => x.SystemName.Equals(systemNameToLoad, StringComparison.OrdinalIgnoreCase));
+            var selectedSystem = _systems.FirstOrDefault(x =>
+                x.SystemName.Equals(systemNameToLoad, StringComparison.OrdinalIgnoreCase));
 
             if (selectedSystem != null)
             {
@@ -219,20 +220,27 @@ public partial class EditSystemWindow : Window
 
                 FormatToSearchTextBox.Text = string.Join(", ", selectedSystem.FileFormatsToSearch);
 
-                ExtractFileBeforeLaunchComboBox.SelectedItem = FindComboItem(ExtractFileBeforeLaunchComboBox, selectedSystem.ExtractFileBeforeLaunch);
+                ExtractFileBeforeLaunchComboBox.SelectedItem = FindComboItem(ExtractFileBeforeLaunchComboBox,
+                    selectedSystem.ExtractFileBeforeLaunch);
                 GroupByFolderComboBox.SelectedItem = FindComboItem(GroupByFolderComboBox, selectedSystem.GroupByFolder);
-                DisableRecursiveSearchComboBox.SelectedItem = FindComboItem(DisableRecursiveSearchComboBox, selectedSystem.DisableRecursiveSearch);
+                DisableRecursiveSearchComboBox.SelectedItem = FindComboItem(DisableRecursiveSearchComboBox,
+                    selectedSystem.DisableRecursiveSearch);
 
                 FormatToLaunchTextBox.Text = string.Join(", ", selectedSystem.FileFormatsToLaunch);
 
                 var emulators = selectedSystem.Emulators;
                 if (emulators != null)
                 {
-                    PopulateEmulatorFields(emulators.ElementAtOrDefault(0), Emulator1NameTextBox, Emulator1PathTextBox, Emulator1ParametersTextBox, ReceiveANotificationOnEmulatorError1);
-                    PopulateEmulatorFields(emulators.ElementAtOrDefault(1), Emulator2NameTextBox, Emulator2PathTextBox, Emulator2ParametersTextBox, ReceiveANotificationOnEmulatorError2);
-                    PopulateEmulatorFields(emulators.ElementAtOrDefault(2), Emulator3NameTextBox, Emulator3PathTextBox, Emulator3ParametersTextBox, ReceiveANotificationOnEmulatorError3);
-                    PopulateEmulatorFields(emulators.ElementAtOrDefault(3), Emulator4NameTextBox, Emulator4PathTextBox, Emulator4ParametersTextBox, ReceiveANotificationOnEmulatorError4);
-                    PopulateEmulatorFields(emulators.ElementAtOrDefault(4), Emulator5NameTextBox, Emulator5PathTextBox, Emulator5ParametersTextBox, ReceiveANotificationOnEmulatorError5);
+                    PopulateEmulatorFields(emulators.ElementAtOrDefault(0), Emulator1NameTextBox, Emulator1PathTextBox,
+                        Emulator1ParametersTextBox, ReceiveANotificationOnEmulatorError1);
+                    PopulateEmulatorFields(emulators.ElementAtOrDefault(1), Emulator2NameTextBox, Emulator2PathTextBox,
+                        Emulator2ParametersTextBox, ReceiveANotificationOnEmulatorError2);
+                    PopulateEmulatorFields(emulators.ElementAtOrDefault(2), Emulator3NameTextBox, Emulator3PathTextBox,
+                        Emulator3ParametersTextBox, ReceiveANotificationOnEmulatorError3);
+                    PopulateEmulatorFields(emulators.ElementAtOrDefault(3), Emulator4NameTextBox, Emulator4PathTextBox,
+                        Emulator4ParametersTextBox, ReceiveANotificationOnEmulatorError4);
+                    PopulateEmulatorFields(emulators.ElementAtOrDefault(4), Emulator5NameTextBox, Emulator5PathTextBox,
+                        Emulator5ParametersTextBox, ReceiveANotificationOnEmulatorError5);
                 }
 
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(SystemFolderTextBox.Text);
@@ -243,13 +251,27 @@ public partial class EditSystemWindow : Window
 
                 UpdateSystemImagePreview();
 
-                SetFieldValidationState(SystemFolderTextBox, CheckPath.IsValidPath(SystemFolderTextBox.Text) || string.IsNullOrWhiteSpace(SystemFolderTextBox.Text));
-                SetFieldValidationState(SystemImageFolderTextBox, CheckPath.IsValidPath(SystemImageFolderTextBox.Text) || string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text));
-                SetFieldValidationState(Emulator1PathTextBox, string.IsNullOrWhiteSpace(Emulator1PathTextBox.Text) || CheckPath.IsValidPath(Emulator1PathTextBox.Text));
-                SetFieldValidationState(Emulator2PathTextBox, string.IsNullOrWhiteSpace(Emulator2PathTextBox.Text) || CheckPath.IsValidPath(Emulator2PathTextBox.Text));
-                SetFieldValidationState(Emulator3PathTextBox, string.IsNullOrWhiteSpace(Emulator3PathTextBox.Text) || CheckPath.IsValidPath(Emulator3PathTextBox.Text));
-                SetFieldValidationState(Emulator4PathTextBox, string.IsNullOrWhiteSpace(Emulator4PathTextBox.Text) || CheckPath.IsValidPath(Emulator4PathTextBox.Text));
-                SetFieldValidationState(Emulator5PathTextBox, string.IsNullOrWhiteSpace(Emulator5PathTextBox.Text) || CheckPath.IsValidPath(Emulator5PathTextBox.Text));
+                SetFieldValidationState(SystemFolderTextBox,
+                    CheckPath.IsValidPath(SystemFolderTextBox.Text) ||
+                    string.IsNullOrWhiteSpace(SystemFolderTextBox.Text));
+                SetFieldValidationState(SystemImageFolderTextBox,
+                    CheckPath.IsValidPath(SystemImageFolderTextBox.Text) ||
+                    string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text));
+                SetFieldValidationState(Emulator1PathTextBox,
+                    string.IsNullOrWhiteSpace(Emulator1PathTextBox.Text) ||
+                    CheckPath.IsValidPath(Emulator1PathTextBox.Text));
+                SetFieldValidationState(Emulator2PathTextBox,
+                    string.IsNullOrWhiteSpace(Emulator2PathTextBox.Text) ||
+                    CheckPath.IsValidPath(Emulator2PathTextBox.Text));
+                SetFieldValidationState(Emulator3PathTextBox,
+                    string.IsNullOrWhiteSpace(Emulator3PathTextBox.Text) ||
+                    CheckPath.IsValidPath(Emulator3PathTextBox.Text));
+                SetFieldValidationState(Emulator4PathTextBox,
+                    string.IsNullOrWhiteSpace(Emulator4PathTextBox.Text) ||
+                    CheckPath.IsValidPath(Emulator4PathTextBox.Text));
+                SetFieldValidationState(Emulator5PathTextBox,
+                    string.IsNullOrWhiteSpace(Emulator5PathTextBox.Text) ||
+                    CheckPath.IsValidPath(Emulator5PathTextBox.Text));
 
                 // Update the System Help panel (WPF UpdateHelpUserTextBlock parity)
                 UpdateSystemHelp();
@@ -475,11 +497,16 @@ public partial class EditSystemWindow : Window
 
     private void ClearAllEmulatorFields()
     {
-        ClearEmulator(Emulator1NameTextBox, Emulator1PathTextBox, Emulator1ParametersTextBox, ReceiveANotificationOnEmulatorError1);
-        ClearEmulator(Emulator2NameTextBox, Emulator2PathTextBox, Emulator2ParametersTextBox, ReceiveANotificationOnEmulatorError2);
-        ClearEmulator(Emulator3NameTextBox, Emulator3PathTextBox, Emulator3ParametersTextBox, ReceiveANotificationOnEmulatorError3);
-        ClearEmulator(Emulator4NameTextBox, Emulator4PathTextBox, Emulator4ParametersTextBox, ReceiveANotificationOnEmulatorError4);
-        ClearEmulator(Emulator5NameTextBox, Emulator5PathTextBox, Emulator5ParametersTextBox, ReceiveANotificationOnEmulatorError5);
+        ClearEmulator(Emulator1NameTextBox, Emulator1PathTextBox, Emulator1ParametersTextBox,
+            ReceiveANotificationOnEmulatorError1);
+        ClearEmulator(Emulator2NameTextBox, Emulator2PathTextBox, Emulator2ParametersTextBox,
+            ReceiveANotificationOnEmulatorError2);
+        ClearEmulator(Emulator3NameTextBox, Emulator3PathTextBox, Emulator3ParametersTextBox,
+            ReceiveANotificationOnEmulatorError3);
+        ClearEmulator(Emulator4NameTextBox, Emulator4PathTextBox, Emulator4ParametersTextBox,
+            ReceiveANotificationOnEmulatorError4);
+        ClearEmulator(Emulator5NameTextBox, Emulator5PathTextBox, Emulator5ParametersTextBox,
+            ReceiveANotificationOnEmulatorError5);
     }
 
     private static void ClearEmulator(TextBox name, TextBox path, TextBox parameters, ComboBox notification)
@@ -773,7 +800,8 @@ public partial class EditSystemWindow : Window
     {
         try
         {
-            await SuggestParametersAsync(Emulator1NameTextBox.Text, Emulator1PathTextBox.Text, Emulator1ParametersTextBox.Text);
+            await SuggestParametersAsync(Emulator1NameTextBox.Text, Emulator1PathTextBox.Text,
+                Emulator1ParametersTextBox.Text);
         }
         catch (Exception ex)
         {
@@ -785,7 +813,8 @@ public partial class EditSystemWindow : Window
     {
         try
         {
-            await SuggestParametersAsync(Emulator2NameTextBox.Text, Emulator2PathTextBox.Text, Emulator2ParametersTextBox.Text);
+            await SuggestParametersAsync(Emulator2NameTextBox.Text, Emulator2PathTextBox.Text,
+                Emulator2ParametersTextBox.Text);
         }
         catch (Exception ex)
         {
@@ -797,7 +826,8 @@ public partial class EditSystemWindow : Window
     {
         try
         {
-            await SuggestParametersAsync(Emulator3NameTextBox.Text, Emulator3PathTextBox.Text, Emulator3ParametersTextBox.Text);
+            await SuggestParametersAsync(Emulator3NameTextBox.Text, Emulator3PathTextBox.Text,
+                Emulator3ParametersTextBox.Text);
         }
         catch (Exception ex)
         {
@@ -809,7 +839,8 @@ public partial class EditSystemWindow : Window
     {
         try
         {
-            await SuggestParametersAsync(Emulator4NameTextBox.Text, Emulator4PathTextBox.Text, Emulator4ParametersTextBox.Text);
+            await SuggestParametersAsync(Emulator4NameTextBox.Text, Emulator4PathTextBox.Text,
+                Emulator4ParametersTextBox.Text);
         }
         catch (Exception ex)
         {
@@ -821,7 +852,8 @@ public partial class EditSystemWindow : Window
     {
         try
         {
-            await SuggestParametersAsync(Emulator5NameTextBox.Text, Emulator5PathTextBox.Text, Emulator5ParametersTextBox.Text);
+            await SuggestParametersAsync(Emulator5NameTextBox.Text, Emulator5PathTextBox.Text,
+                Emulator5ParametersTextBox.Text);
         }
         catch (Exception ex)
         {
@@ -852,12 +884,15 @@ public partial class EditSystemWindow : Window
                 SystemFolder = SystemFolderTextBox.Text?.Trim() ?? "",
                 FileFormatsToSearch = SplitAndTrim(FormatToSearchTextBox.Text) ?? [],
                 ExtractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem is ComboBoxItem extractItem
-                                          && bool.TryParse(extractItem.Content?.ToString(), out var extractVal) && extractVal,
+                                          && bool.TryParse(extractItem.Content?.ToString(), out var extractVal) &&
+                                          extractVal,
                 FileFormatsToLaunch = SplitAndTrim(FormatToLaunchTextBox.Text) ?? [],
                 GroupByFolder = GroupByFolderComboBox.SelectedItem is ComboBoxItem groupItem
-                                && string.Equals(groupItem.Content?.ToString(), "true", StringComparison.OrdinalIgnoreCase),
+                                && string.Equals(groupItem.Content?.ToString(), "true",
+                                    StringComparison.OrdinalIgnoreCase),
                 DisableRecursiveSearch = DisableRecursiveSearchComboBox.SelectedItem is ComboBoxItem disableItem
-                                         && string.Equals(disableItem.Content?.ToString(), "true", StringComparison.OrdinalIgnoreCase),
+                                         && string.Equals(disableItem.Content?.ToString(), "true",
+                                             StringComparison.OrdinalIgnoreCase),
                 EmulatorName = emulatorName.Trim(),
                 EmulatorPath = emulatorPath?.Trim() ?? "",
                 CurrentParameters = currentParameters?.Trim() ?? ""
@@ -870,10 +905,12 @@ public partial class EditSystemWindow : Window
                 var suggestedParam = result.SuggestedParameter;
                 var explanation = result.Explanation;
 
-                if (!string.IsNullOrWhiteSpace(suggestedParam) && suggestedParam.StartsWith("Explanation:", StringComparison.OrdinalIgnoreCase))
+                if (!string.IsNullOrWhiteSpace(suggestedParam) &&
+                    suggestedParam.StartsWith("Explanation:", StringComparison.OrdinalIgnoreCase))
                 {
                     var explanationFromParam = suggestedParam["Explanation:".Length..].Trim();
-                    if (string.IsNullOrEmpty(explanation) || !explanation.Equals(explanationFromParam, StringComparison.OrdinalIgnoreCase))
+                    if (string.IsNullOrEmpty(explanation) ||
+                        !explanation.Equals(explanationFromParam, StringComparison.OrdinalIgnoreCase))
                     {
                         explanation = explanationFromParam;
                     }
@@ -916,11 +953,16 @@ public partial class EditSystemWindow : Window
 
     private TextBox? FindParametersTextBox(string emulatorName)
     {
-        if (string.Equals(emulatorName, Emulator1NameTextBox.Text, StringComparison.Ordinal)) return Emulator1ParametersTextBox;
-        if (string.Equals(emulatorName, Emulator2NameTextBox.Text, StringComparison.Ordinal)) return Emulator2ParametersTextBox;
-        if (string.Equals(emulatorName, Emulator3NameTextBox.Text, StringComparison.Ordinal)) return Emulator3ParametersTextBox;
-        if (string.Equals(emulatorName, Emulator4NameTextBox.Text, StringComparison.Ordinal)) return Emulator4ParametersTextBox;
-        if (string.Equals(emulatorName, Emulator5NameTextBox.Text, StringComparison.Ordinal)) return Emulator5ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator1NameTextBox.Text, StringComparison.Ordinal))
+            return Emulator1ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator2NameTextBox.Text, StringComparison.Ordinal))
+            return Emulator2ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator3NameTextBox.Text, StringComparison.Ordinal))
+            return Emulator3ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator4NameTextBox.Text, StringComparison.Ordinal))
+            return Emulator4ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator5NameTextBox.Text, StringComparison.Ordinal))
+            return Emulator5ParametersTextBox;
 
         return null;
     }
@@ -930,7 +972,8 @@ public partial class EditSystemWindow : Window
         if (string.IsNullOrWhiteSpace(text))
             return null;
 
-        return text.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+        return text.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .ToList();
     }
 
     // ── Save pipeline (ported from EditSystemWindow.SaveSystem.cs) ────
@@ -1024,12 +1067,15 @@ public partial class EditSystemWindow : Window
             systemImageFolderText = imageFolderResult.FolderText;
 
             var extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem is ComboBoxItem extractItem
-                                          && bool.TryParse(extractItem.Content?.ToString(), out var extractVal) && extractVal;
+                                          && bool.TryParse(extractItem.Content?.ToString(), out var extractVal) &&
+                                          extractVal;
 
             var groupByFolder = GroupByFolderComboBox.SelectedItem is ComboBoxItem groupItem
-                                && string.Equals(groupItem.Content?.ToString(), "true", StringComparison.OrdinalIgnoreCase);
+                                && string.Equals(groupItem.Content?.ToString(), "true",
+                                    StringComparison.OrdinalIgnoreCase);
             var disableRecursiveSearch = DisableRecursiveSearchComboBox.SelectedItem is ComboBoxItem disableItem
-                                         && string.Equals(disableItem.Content?.ToString(), "true", StringComparison.OrdinalIgnoreCase);
+                                         && string.Equals(disableItem.Content?.ToString(), "true",
+                                             StringComparison.OrdinalIgnoreCase);
 
             var formatSearchResult = await ValidateFormatToSearchAsync(formatToSearchText, extractFileBeforeLaunch);
             if (formatSearchResult.IsFailed)
@@ -1125,16 +1171,21 @@ public partial class EditSystemWindow : Window
                 emulator4LocationText, emulator5LocationText
             ];
 
-            var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1
-                                       || string.Equals(item1.Content.ToString(), "true", StringComparison.Ordinal);
-            var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is not ComboBoxItem { Content: not null } item2
-                                       || string.Equals(item2.Content.ToString(), "true", StringComparison.Ordinal);
-            var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is not ComboBoxItem { Content: not null } item3
-                                       || string.Equals(item3.Content.ToString(), "true", StringComparison.Ordinal);
-            var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is not ComboBoxItem { Content: not null } item4
-                                       || string.Equals(item4.Content.ToString(), "true", StringComparison.Ordinal);
-            var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5
-                                       || string.Equals(item5.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification1 =
+                ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1
+                || string.Equals(item1.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification2 =
+                ReceiveANotificationOnEmulatorError2.SelectedItem is not ComboBoxItem { Content: not null } item2
+                || string.Equals(item2.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification3 =
+                ReceiveANotificationOnEmulatorError3.SelectedItem is not ComboBoxItem { Content: not null } item3
+                || string.Equals(item3.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification4 =
+                ReceiveANotificationOnEmulatorError4.SelectedItem is not ComboBoxItem { Content: not null } item4
+                || string.Equals(item4.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification5 =
+                ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5
+                || string.Equals(item5.Content.ToString(), "true", StringComparison.Ordinal);
 
             var emulators = new List<Emulator>();
             var emulatorNames = new HashSet<string>(StringComparer.Ordinal);
@@ -1159,7 +1210,8 @@ public partial class EditSystemWindow : Window
 
             // Emulators 2–5 (name required only when location or parameters provided)
             string[] nameTexts = [emulator2NameText, emulator3NameText, emulator4NameText, emulator5NameText];
-            bool[] receiveNotifications = [receiveNotification2, receiveNotification3, receiveNotification4, receiveNotification5];
+            bool[] receiveNotifications =
+                [receiveNotification2, receiveNotification3, receiveNotification4, receiveNotification5];
 
             for (var i = 0; i < nameTexts.Length; i++)
             {
@@ -1196,7 +1248,8 @@ public partial class EditSystemWindow : Window
 
             var isUpdate = !string.IsNullOrEmpty(_originalSystemName)
                            && SystemNameDropdown.SelectedItem != null
-                           && _originalSystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase);
+                           && _originalSystemName.Equals(SystemNameDropdown.SelectedItem.ToString(),
+                               StringComparison.OrdinalIgnoreCase);
             var originalSystemNameToUse = isUpdate ? _originalSystemName : systemNameText;
 
             var systemToSave = new SystemManagerConfig
@@ -1235,11 +1288,14 @@ public partial class EditSystemWindow : Window
                     var oldSystemName = _originalSystemName!;
                     await _favoritesManager.RenameSystemAsync(oldSystemName, systemNameText);
                     await _playHistoryManager.RenameSystemAsync(oldSystemName, systemNameText);
-                    _logger.Information("System renamed from {OldSystemName} to {NewSystemName}. Favorites and play history migrated.", oldSystemName, systemNameText);
+                    _logger.Information(
+                        "System renamed from {OldSystemName} to {NewSystemName}. Favorites and play history migrated.",
+                        oldSystemName, systemNameText);
                 }
 
                 // Create folders based on the resolved paths
-                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");
+                var resolvedSystemFolder =
+                    PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderText);
                 if (resolvedSystemFolder != null && resolvedSystemImageFolder != null)
                 {
@@ -1272,7 +1328,8 @@ public partial class EditSystemWindow : Window
 
     // ── Validation helpers (ported from EditSystemWindow.ValidateFields.cs) ──
 
-    private void TrimInputValues(out string systemNameText, out string systemFolderText, out string systemImageFolderText,
+    private void TrimInputValues(out string systemNameText, out string systemFolderText,
+        out string systemImageFolderText,
         out string formatToSearchText, out string formatToLaunchText, out string emulator1NameText,
         out string emulator2NameText, out string emulator3NameText, out string emulator4NameText,
         out string emulator5NameText, out string emulator1LocationText, out string emulator2LocationText,
@@ -1311,12 +1368,18 @@ public partial class EditSystemWindow : Window
         out bool isEmulator5LocationValid)
     {
         isSystemFolderValid = string.IsNullOrWhiteSpace(systemFolderText) || CheckPath.IsValidPath(systemFolderText);
-        isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) || CheckPath.IsValidPath(systemImageFolderText);
-        isEmulator1LocationValid = string.IsNullOrWhiteSpace(emulator1LocationText) || CheckPath.IsValidEmulatorExecutablePath(emulator1LocationText);
-        isEmulator2LocationValid = string.IsNullOrWhiteSpace(emulator2LocationText) || CheckPath.IsValidEmulatorExecutablePath(emulator2LocationText);
-        isEmulator3LocationValid = string.IsNullOrWhiteSpace(emulator3LocationText) || CheckPath.IsValidEmulatorExecutablePath(emulator3LocationText);
-        isEmulator4LocationValid = string.IsNullOrWhiteSpace(emulator4LocationText) || CheckPath.IsValidEmulatorExecutablePath(emulator4LocationText);
-        isEmulator5LocationValid = string.IsNullOrWhiteSpace(emulator5LocationText) || CheckPath.IsValidEmulatorExecutablePath(emulator5LocationText);
+        isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) ||
+                                   CheckPath.IsValidPath(systemImageFolderText);
+        isEmulator1LocationValid = string.IsNullOrWhiteSpace(emulator1LocationText) ||
+                                   CheckPath.IsValidEmulatorExecutablePath(emulator1LocationText);
+        isEmulator2LocationValid = string.IsNullOrWhiteSpace(emulator2LocationText) ||
+                                   CheckPath.IsValidEmulatorExecutablePath(emulator2LocationText);
+        isEmulator3LocationValid = string.IsNullOrWhiteSpace(emulator3LocationText) ||
+                                   CheckPath.IsValidEmulatorExecutablePath(emulator3LocationText);
+        isEmulator4LocationValid = string.IsNullOrWhiteSpace(emulator4LocationText) ||
+                                   CheckPath.IsValidEmulatorExecutablePath(emulator4LocationText);
+        isEmulator5LocationValid = string.IsNullOrWhiteSpace(emulator5LocationText) ||
+                                   CheckPath.IsValidEmulatorExecutablePath(emulator5LocationText);
     }
 
     private void HandleValidationAlerts(bool isSystemFolderValid, bool isSystemImageFolderValid,
@@ -1372,7 +1435,8 @@ public partial class EditSystemWindow : Window
         return false;
     }
 
-    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToLaunchAsync(string formatToLaunchText, bool extractFileBeforeLaunch)
+    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToLaunchAsync(string formatToLaunchText,
+        bool extractFileBeforeLaunch)
     {
         var formatsToLaunch = formatToLaunchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
             .Select(static format => format.Trim())
@@ -1388,7 +1452,8 @@ public partial class EditSystemWindow : Window
         return (false, formatsToLaunch);
     }
 
-    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToSearchAsync(string formatToSearchText, bool extractFileBeforeLaunch)
+    private async Task<(bool IsFailed, List<string> Formats)> ValidateFormatToSearchAsync(string formatToSearchText,
+        bool extractFileBeforeLaunch)
     {
         var formatsToSearch = formatToSearchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
             .Select(static format => format.Trim())
@@ -1410,7 +1475,8 @@ public partial class EditSystemWindow : Window
         return (false, formatsToSearch);
     }
 
-    private async Task<(bool IsFailed, string FolderText)> ValidateSystemImageFolderAsync(string systemNameText, string systemImageFolderText)
+    private async Task<(bool IsFailed, string FolderText)> ValidateSystemImageFolderAsync(string systemNameText,
+        string systemImageFolderText)
     {
         var defaultPattern = Path.Combine(".", "images", systemNameText);
         var prefixedDefaultPattern = Path.Combine("%BASEFOLDER%", "images", systemNameText);
@@ -1454,7 +1520,8 @@ public partial class EditSystemWindow : Window
         return (false, systemImageFolderText);
     }
 
-    private async Task<(bool IsFailed, string FolderText)> ValidateSystemFolderAsync(string systemNameText, string systemFolderText)
+    private async Task<(bool IsFailed, string FolderText)> ValidateSystemFolderAsync(string systemNameText,
+        string systemFolderText)
     {
         var defaultPattern = Path.Combine(".", "roms", systemNameText);
         var prefixedDefaultPattern = Path.Combine("%BASEFOLDER%", "roms", systemNameText);
@@ -1514,7 +1581,8 @@ public partial class EditSystemWindow : Window
 
         var normalizedPath = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
 
-        if (Path.IsPathRooted(normalizedPath) || normalizedPath.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase)) return normalizedPath;
+        if (Path.IsPathRooted(normalizedPath) ||
+            normalizedPath.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase)) return normalizedPath;
 
         var trimmedPath = normalizedPath.TrimStart('.', Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Path.Combine("%BASEFOLDER%", trimmedPath);

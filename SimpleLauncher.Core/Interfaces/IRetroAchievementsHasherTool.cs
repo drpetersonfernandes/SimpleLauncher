@@ -23,5 +23,6 @@ public interface IRetroAchievementsHasherTool
     /// <param name="loadingState">The optional loading state to update during hash calculation.</param>
     /// <param name="logErrors">The logger instance for error logging.</param>
     /// <returns>A <see cref="RaHashResult"/> containing the hash, temp extraction path, and any error information.</returns>
-    Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName, IList<string> fileFormatsToLaunch, ILoadingState loadingState, ILogger logErrors);
+    Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName,
+        IList<string> fileFormatsToLaunch, ILoadingState loadingState, ILogger logErrors);
 }

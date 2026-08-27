@@ -27,7 +27,8 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logErrors">The logger instance.</param>
-    public InjectDaphneConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logErrors)
+    public InjectDaphneConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox,
+        ILogger logErrors)
     {
         _settings = settings;
         _messageBox = messageBox;

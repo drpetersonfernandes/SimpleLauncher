@@ -22,7 +22,8 @@ public static class ApplicationStats
         try
         {
             var apiKey = AppConstants.GetApiKey();
-            var statsUrl = configuration.GetValue<string>("StatsApiUrl2") ?? "https://www.purelogiccode.com/ApplicationStats/stats";
+            var statsUrl = configuration.GetValue<string>("StatsApiUrl2") ??
+                           "https://www.purelogiccode.com/ApplicationStats/stats";
             var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0";
 
             var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();

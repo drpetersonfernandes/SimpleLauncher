@@ -17,7 +17,8 @@ public class ScanUplayGames : IGamePlatformScanner
     /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
     /// <param name="windowsImagesPath">The directory where game images are stored.</param>
     /// <param name="ignoredGameNames">The set of game names to skip.</param>
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
+        string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {
@@ -59,7 +60,8 @@ public class ScanUplayGames : IGamePlatformScanner
                             fullExePath = gameExe;
                         }
 
-                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir, sanitizedGameName, windowsImagesPath, fullExePath);
+                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir,
+                            sanitizedGameName, windowsImagesPath, fullExePath);
                     }
                     catch (Exception ex)
                     {

@@ -15,7 +15,8 @@ public interface IGameBrowserService
     /// <param name="loadingHost">The host providing game file loading UI elements.</param>
     /// <param name="selectionHost">The host providing system selection UI elements.</param>
     /// <param name="renderHost">The host providing game item rendering UI elements.</param>
-    void Initialize(IGameFileLoadingHost loadingHost, ISystemSelectionHost selectionHost, IGameItemRenderHost renderHost);
+    void Initialize(IGameFileLoadingHost loadingHost, ISystemSelectionHost selectionHost,
+        IGameItemRenderHost renderHost);
 
     /// <summary>
     /// Loads or reloads the system manager configurations.
@@ -65,7 +66,8 @@ public interface IGameBrowserService
     /// <param name="selectedSystem">The currently selected system name, or null.</param>
     /// <param name="ct">A token to cancel the operation.</param>
     /// <returns>The search validation result.</returns>
-    Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string? selectedSystem, CancellationToken ct);
+    Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string? selectedSystem,
+        CancellationToken ct);
 
     /// <summary>
     /// Reloads the render factories for the specified system managers and MAME machines.
@@ -81,7 +83,8 @@ public interface IGameBrowserService
     /// <param name="systemName">The name of the system.</param>
     /// <param name="systemManager">The system manager service.</param>
     /// <param name="ct">A token to cancel the operation.</param>
-    Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManagerService systemManager, CancellationToken ct);
+    Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManagerService systemManager,
+        CancellationToken ct);
 
     /// <summary>
     /// Handles the selection change of a game list item.

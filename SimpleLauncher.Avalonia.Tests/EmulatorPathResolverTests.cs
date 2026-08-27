@@ -31,7 +31,8 @@ public class EmulatorPathResolverTests : IDisposable
 
         var config = new ConfigurationBuilder()
             .AddJsonStream(new MemoryStream(
-                System.Text.Encoding.UTF8.GetBytes($$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", @"\\")}}"}""")))
+                System.Text.Encoding.UTF8.GetBytes(
+                    $$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", @"\\")}}"}""")))
             .Build();
 
         _systemManager = new SystemManagerService(config);
@@ -58,16 +59,16 @@ public class EmulatorPathResolverTests : IDisposable
         var emulatorXml = string.Join("\n", emulators.Select(e =>
             $"        <Emulator><EmulatorName>{e.Name}</EmulatorName><EmulatorPath>{e.Path}</EmulatorPath></Emulator>"));
         File.WriteAllText(_systemXmlPath, $"""
-            <?xml version="1.0" encoding="utf-8"?>
-            <SystemConfigs>
-                <SystemConfig>
-                    <SystemName>GameCube</SystemName>
-                    <Emulators>
-            {emulatorXml}
-                    </Emulators>
-                </SystemConfig>
-            </SystemConfigs>
-            """);
+                                           <?xml version="1.0" encoding="utf-8"?>
+                                           <SystemConfigs>
+                                               <SystemConfig>
+                                                   <SystemName>GameCube</SystemName>
+                                                   <Emulators>
+                                           {emulatorXml}
+                                                   </Emulators>
+                                               </SystemConfig>
+                                           </SystemConfigs>
+                                           """);
     }
 
     [Theory]
@@ -171,22 +172,22 @@ public class EmulatorPathResolverTests : IDisposable
     {
         // Two systems: first with a non-matching emulator, second with the match.
         File.WriteAllText(_systemXmlPath, $"""
-            <?xml version="1.0" encoding="utf-8"?>
-            <SystemConfigs>
-                <SystemConfig>
-                    <SystemName>Switch</SystemName>
-                    <Emulators>
-                        <Emulator><EmulatorName>Yuzu</EmulatorName><EmulatorPath>{_fakeExePath}</EmulatorPath></Emulator>
-                    </Emulators>
-                </SystemConfig>
-                <SystemConfig>
-                    <SystemName>GameCube</SystemName>
-                    <Emulators>
-                        <Emulator><EmulatorName>Dolphin 5.0</EmulatorName><EmulatorPath>{_fakeExePath}</EmulatorPath></Emulator>
-                    </Emulators>
-                </SystemConfig>
-            </SystemConfigs>
-            """);
+                                           <?xml version="1.0" encoding="utf-8"?>
+                                           <SystemConfigs>
+                                               <SystemConfig>
+                                                   <SystemName>Switch</SystemName>
+                                                   <Emulators>
+                                                       <Emulator><EmulatorName>Yuzu</EmulatorName><EmulatorPath>{_fakeExePath}</EmulatorPath></Emulator>
+                                                   </Emulators>
+                                               </SystemConfig>
+                                               <SystemConfig>
+                                                   <SystemName>GameCube</SystemName>
+                                                   <Emulators>
+                                                       <Emulator><EmulatorName>Dolphin 5.0</EmulatorName><EmulatorPath>{_fakeExePath}</EmulatorPath></Emulator>
+                                                   </Emulators>
+                                               </SystemConfig>
+                                           </SystemConfigs>
+                                           """);
 
         var result = _resolver.TryFindEmulatorPath("Dolphin", _logger.Object);
 

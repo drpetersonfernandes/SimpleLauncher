@@ -25,7 +25,8 @@ public class ExternalToolLauncherService : IExternalToolLauncher
     /// <param name="configuration">The application configuration for reading settings like log paths.</param>
     /// <param name="messageBoxLibrary">The message box service for displaying user dialogs.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
-    public ExternalToolLauncherService(ILogger logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider)
+    public ExternalToolLauncherService(ILogger logErrors, IConfiguration configuration,
+        IMessageBoxLibraryService messageBoxLibrary, IResourceProvider resourceProvider)
     {
         _logger = logErrors;
         _configuration = configuration;
@@ -37,7 +38,8 @@ public class ExternalToolLauncherService : IExternalToolLauncher
     /// Launches an external executable with optional arguments and working directory.
     /// Handles basic file existence checks, PE validation, and generic launch exceptions.
     /// </summary>
-    private async Task LaunchExternalToolAsync(string toolPath, string? arguments = null, string? workingDirectory = null)
+    private async Task LaunchExternalToolAsync(string toolPath, string? arguments = null,
+        string? workingDirectory = null)
     {
         if (string.IsNullOrEmpty(toolPath))
         {
@@ -80,7 +82,8 @@ public class ExternalToolLauncherService : IExternalToolLauncher
 
             Process.Start(psi);
         }
-        catch (Win32Exception ex) when (ex.NativeErrorCode == 1223 || ex.NativeErrorCode == 5 || (uint)ex.HResult == 0x800704C7)
+        catch (Win32Exception ex) when (ex.NativeErrorCode == 1223 || ex.NativeErrorCode == 5 ||
+                                        (uint)ex.HResult == 0x800704C7)
         {
             // 1223 = User cancelled UAC.
             // 5 = Access Denied (sometimes returned if UAC is disabled but user lacks rights).
@@ -103,7 +106,9 @@ public class ExternalToolLauncherService : IExternalToolLauncher
                                  $"NativeErrorCode: {(ex is Win32Exception w32 ? w32.NativeErrorCode : -1)}, HResult: 0x{ex.HResult:X8}";
             _logger.Error(ex, contextMessage);
 
-            await _messageBoxLibrary.ErrorLaunchingToolMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBoxLibrary.ErrorLaunchingToolMessageBoxAsync(
+                PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ??
+                                                         "error_user.log"));
         }
     }
 
@@ -137,20 +142,25 @@ public class ExternalToolLauncherService : IExternalToolLauncher
         }
     }
 
-    private async Task<string?> GetToolExecutablePathAsync(string toolFolder, string baseName, bool useArchSubfolders = false)
+    private async Task<string?> GetToolExecutablePathAsync(string toolFolder, string baseName,
+        bool useArchSubfolders = false)
     {
         var architecture = RuntimeInformation.ProcessArchitecture;
         var archPath = architecture switch
         {
             Architecture.X64 => useArchSubfolders ? Path.Combine("x64", $"{baseName}.exe") : $"{baseName}.exe",
-            Architecture.Arm64 => useArchSubfolders ? Path.Combine("arm64", $"{baseName}.exe") : $"{baseName}_arm64.exe",
+            Architecture.Arm64 => useArchSubfolders
+                ? Path.Combine("arm64", $"{baseName}.exe")
+                : $"{baseName}_arm64.exe",
             _ => null
         };
 
         if (archPath == null)
         {
-            var msg = _resourceProvider.GetString("AppNotAvailableForArch", "This application is not available for {0}");
-            await _messageBoxLibrary.LaunchToolInformationMessageBoxAsync(string.Format(CultureInfo.InvariantCulture, msg, architecture));
+            var msg = _resourceProvider.GetString("AppNotAvailableForArch",
+                "This application is not available for {0}");
+            await _messageBoxLibrary.LaunchToolInformationMessageBoxAsync(string.Format(CultureInfo.InvariantCulture,
+                msg, architecture));
             return null;
         }
 
@@ -162,7 +172,8 @@ public class ExternalToolLauncherService : IExternalToolLauncher
     /// </summary>
     public async Task CreateBatchFilesForXbox360XblaGamesAsync()
     {
-        var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames");
+        var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForXbox360XBLAGames",
+            "CreateBatchFilesForXbox360XBLAGames");
         if (toolPath == null) return;
 
         await LaunchExternalToolAsync(toolPath);
@@ -173,7 +184,8 @@ public class ExternalToolLauncherService : IExternalToolLauncher
     /// </summary>
     public async Task CreateBatchFilesForWindowsGamesAsync()
     {
-        var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames");
+        var toolPath =
+            await GetToolExecutablePathAsync("CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames");
         if (toolPath == null) return;
 
         await LaunchExternalToolAsync(toolPath);
@@ -192,8 +204,12 @@ public class ExternalToolLauncherService : IExternalToolLauncher
         var arguments = "";
         var workingDirectory = Path.GetDirectoryName(toolPath);
 
-        var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder) : null;
-        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder) : null;
+        var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder)
+            ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder)
+            : null;
+        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder)
+            ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder)
+            : null;
 
         if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
         {
@@ -237,7 +253,9 @@ public class ExternalToolLauncherService : IExternalToolLauncher
         var arguments = "";
         var workingDirectory = Path.GetDirectoryName(toolPath);
 
-        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder) : null;
+        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder)
+            ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder)
+            : null;
 
         if (!string.IsNullOrEmpty(absoluteRomFolder))
         {
@@ -274,7 +292,8 @@ public class ExternalToolLauncherService : IExternalToolLauncher
     /// </summary>
     public async Task CreateBatchFilesForScummVmGamesAsync()
     {
-        var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames");
+        var toolPath =
+            await GetToolExecutablePathAsync("CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames");
         if (toolPath == null) return;
 
         await LaunchExternalToolAsync(toolPath);
@@ -304,8 +323,12 @@ public class ExternalToolLauncherService : IExternalToolLauncher
         var arguments = "";
         var workingDirectory = Path.GetDirectoryName(toolPath);
 
-        var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder) : null;
-        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder) ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder) : null;
+        var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder)
+            ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder)
+            : null;
+        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder)
+            ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder)
+            : null;
 
         if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
         {

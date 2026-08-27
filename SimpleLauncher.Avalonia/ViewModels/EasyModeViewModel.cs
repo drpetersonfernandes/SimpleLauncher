@@ -218,15 +218,25 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
         // Image packs: downloaded only when no download is offered
         SetDownloadState(EasyModeManager.DownloadType.ImagePack1,
-            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink)
+                ? DownloadButtonState.Downloaded
+                : DownloadButtonState.Idle);
         SetDownloadState(EasyModeManager.DownloadType.ImagePack2,
-            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink2) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink2)
+                ? DownloadButtonState.Downloaded
+                : DownloadButtonState.Idle);
         SetDownloadState(EasyModeManager.DownloadType.ImagePack3,
-            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink3) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink3)
+                ? DownloadButtonState.Downloaded
+                : DownloadButtonState.Idle);
         SetDownloadState(EasyModeManager.DownloadType.ImagePack4,
-            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink4) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink4)
+                ? DownloadButtonState.Downloaded
+                : DownloadButtonState.Idle);
         SetDownloadState(EasyModeManager.DownloadType.ImagePack5,
-            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink5) ? DownloadButtonState.Downloaded : DownloadButtonState.Idle);
+            string.IsNullOrEmpty(emulator?.ImagePackDownloadLink5)
+                ? DownloadButtonState.Downloaded
+                : DownloadButtonState.Idle);
 
         // Default folder for the textbox (resolved for display)
         SystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(value.SystemFolder) ?? "";
@@ -412,13 +422,20 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
             var (downloadUrl, easyModeExtractPath, componentName) = type switch
             {
-                EasyModeManager.DownloadType.Emulator => (emulatorConfig?.EmulatorDownloadLink, emulatorConfig?.EmulatorDownloadExtractPath, "Emulator"),
-                EasyModeManager.DownloadType.Core => (emulatorConfig?.CoreDownloadLink, emulatorConfig?.CoreDownloadExtractPath, "Core"),
-                EasyModeManager.DownloadType.ImagePack1 => (emulatorConfig?.ImagePackDownloadLink, emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 1"),
-                EasyModeManager.DownloadType.ImagePack2 => (emulatorConfig?.ImagePackDownloadLink2, emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 2"),
-                EasyModeManager.DownloadType.ImagePack3 => (emulatorConfig?.ImagePackDownloadLink3, emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 3"),
-                EasyModeManager.DownloadType.ImagePack4 => (emulatorConfig?.ImagePackDownloadLink4, emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 4"),
-                EasyModeManager.DownloadType.ImagePack5 => (emulatorConfig?.ImagePackDownloadLink5, emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 5"),
+                EasyModeManager.DownloadType.Emulator => (emulatorConfig?.EmulatorDownloadLink,
+                    emulatorConfig?.EmulatorDownloadExtractPath, "Emulator"),
+                EasyModeManager.DownloadType.Core => (emulatorConfig?.CoreDownloadLink,
+                    emulatorConfig?.CoreDownloadExtractPath, "Core"),
+                EasyModeManager.DownloadType.ImagePack1 => (emulatorConfig?.ImagePackDownloadLink,
+                    emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 1"),
+                EasyModeManager.DownloadType.ImagePack2 => (emulatorConfig?.ImagePackDownloadLink2,
+                    emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 2"),
+                EasyModeManager.DownloadType.ImagePack3 => (emulatorConfig?.ImagePackDownloadLink3,
+                    emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 3"),
+                EasyModeManager.DownloadType.ImagePack4 => (emulatorConfig?.ImagePackDownloadLink4,
+                    emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 4"),
+                EasyModeManager.DownloadType.ImagePack5 => (emulatorConfig?.ImagePackDownloadLink5,
+                    emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 5"),
                 _ => (null, null, type)
             };
 
@@ -444,7 +461,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
                 if (string.IsNullOrEmpty(destinationPath))
                 {
                     DownloadStatus = $"Error: Invalid destination path for {componentName}";
-                    _logger.Warning("[EasyMode] Invalid destination path for {Component}: {Path}", componentName, easyModeExtractPath);
+                    _logger.Warning("[EasyMode] Invalid destination path for {Component}: {Path}", componentName,
+                        easyModeExtractPath);
                     EndOperation();
                     SetDownloadState(type, DownloadButtonState.Idle);
                     return;
@@ -477,10 +495,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
                     success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
 
-                    await Dispatcher.UIThread.InvokeAsync(() =>
-                    {
-                        IsLoading = false;
-                    });
+                    await Dispatcher.UIThread.InvokeAsync(() => { IsLoading = false; });
                 }
 
                 if (success)
@@ -589,11 +604,13 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
     {
         return type switch
         {
-            EasyModeManager.DownloadType.Emulator => _messageBox.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem),
+            EasyModeManager.DownloadType.Emulator => _messageBox.ShowEmulatorDownloadErrorMessageBoxAsync(
+                selectedSystem),
             EasyModeManager.DownloadType.Core => _messageBox.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem),
             EasyModeManager.DownloadType.ImagePack1 or EasyModeManager.DownloadType.ImagePack2
                 or EasyModeManager.DownloadType.ImagePack3 or EasyModeManager.DownloadType.ImagePack4
-                or EasyModeManager.DownloadType.ImagePack5 => _messageBox.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem),
+                or EasyModeManager.DownloadType.ImagePack5 => _messageBox.ShowImagePackDownloadErrorMessageBoxAsync(
+                    selectedSystem),
             _ => _messageBox.DownloadExtractionFailedMessageBoxAsync()
         };
     }

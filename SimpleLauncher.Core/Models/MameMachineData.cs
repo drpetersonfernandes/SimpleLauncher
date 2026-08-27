@@ -30,7 +30,8 @@ public class MameMachineData
     /// <param name="datPath">An optional path to the mame.dat file; defaults to the application folder.</param>
     /// <param name="messageBox">An optional message box service used to notify the user when the file is missing or corrupted.</param>
     /// <returns>The list of MAME machines, or an empty list if the file could not be loaded.</returns>
-    public static IList<MameMachineData> LoadFromDat(ILogger logErrors, string? datPath = null, IMessageBoxLibraryService? messageBox = null)
+    public static IList<MameMachineData> LoadFromDat(ILogger logErrors, string? datPath = null,
+        IMessageBoxLibraryService? messageBox = null)
     {
         datPath ??= DefaultDatPath;
 

@@ -22,7 +22,10 @@ public partial class AvaloniaCheckForUpdatesService
 {
     private const string RepoName = "SimpleLauncher";
     private static readonly string[] RepoOwners = ["drpetersonfernandes", "purelogiccode"];
-    private const string SecondaryServerBaseUrl = "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
+
+    private const string SecondaryServerBaseUrl =
+        "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
+
     private const string UpdaterFileName = "SimpleLauncher.Avalonia.Updater";
     private readonly string _updaterDirectory;
     private readonly HttpClient _httpClient;
@@ -37,7 +40,8 @@ public partial class AvaloniaCheckForUpdatesService
     /// <param name="messageBoxLibrary">The message box service used to prompt the user about updates.</param>
     /// <param name="logger">The logger instance.</param>
     /// <param name="applicationLifetime">The application lifetime used to shut down the app after launching the updater.</param>
-    public AvaloniaCheckForUpdatesService(IHttpClientFactory httpClientFactory, IMessageBoxLibraryService messageBoxLibrary, ILogger logger, IApplicationLifetime applicationLifetime)
+    public AvaloniaCheckForUpdatesService(IHttpClientFactory httpClientFactory,
+        IMessageBoxLibraryService messageBoxLibrary, ILogger logger, IApplicationLifetime applicationLifetime)
         : this(httpClientFactory, messageBoxLibrary, logger, applicationLifetime, AppDomain.CurrentDomain.BaseDirectory)
     {
     }
@@ -46,7 +50,9 @@ public partial class AvaloniaCheckForUpdatesService
     /// Test seam: resolves the updater against an isolated directory so tests never
     /// touch (or launch) the real updater shipped in the application output.
     /// </summary>
-    internal AvaloniaCheckForUpdatesService(IHttpClientFactory httpClientFactory, IMessageBoxLibraryService messageBoxLibrary, ILogger logger, IApplicationLifetime applicationLifetime, string updaterDirectory)
+    internal AvaloniaCheckForUpdatesService(IHttpClientFactory httpClientFactory,
+        IMessageBoxLibraryService messageBoxLibrary, ILogger logger, IApplicationLifetime applicationLifetime,
+        string updaterDirectory)
     {
         ArgumentNullException.ThrowIfNull(httpClientFactory);
         _httpClient = httpClientFactory.CreateClient("UpdateCheckerClient");
@@ -110,23 +116,28 @@ public partial class AvaloniaCheckForUpdatesService
 
             if (latestVersion == null)
             {
-                _logger.Information("Silent update check: could not determine the latest version (GitHub and the secondary server are unreachable).");
+                _logger.Information(
+                    "Silent update check: could not determine the latest version (GitHub and the secondary server are unreachable).");
                 return;
             }
 
             if (!IsNewVersionAvailable(CurrentVersion, latestVersion))
             {
-                _logger.Information("Silent update check: no update available (current {CurrentVersion}, latest {LatestVersion}).", CurrentVersion, latestVersion);
+                _logger.Information(
+                    "Silent update check: no update available (current {CurrentVersion}, latest {LatestVersion}).",
+                    CurrentVersion, latestVersion);
                 return;
             }
 
-            _logger.Information("Silent update check: update {LatestVersion} available (current {CurrentVersion}).", latestVersion, CurrentVersion);
+            _logger.Information("Silent update check: update {LatestVersion} available (current {CurrentVersion}).",
+                latestVersion, CurrentVersion);
 
             // WPF parity: prompt the user directly instead of just raising an event
             var result = await _messageBoxLibrary.DoYouWantToUpdateMessageBoxAsync(CurrentVersion, latestVersion);
             if (result == CoreMessageBoxResult.Yes)
             {
-                _logger.Information("Update to {LatestVersion} confirmed by user; launching the updater.", latestVersion);
+                _logger.Information("Update to {LatestVersion} confirmed by user; launching the updater.",
+                    latestVersion);
                 await LaunchUpdaterAndShutdownAsync(updaterZipAssetUrl);
             }
         }
@@ -151,7 +162,8 @@ public partial class AvaloniaCheckForUpdatesService
             {
                 // Expected condition (both sources unreachable / offline); the user is
                 // already notified via the message box below — not a bug report.
-                _logger.Information("Could not determine the latest version (GitHub and the secondary server are unreachable).");
+                _logger.Information(
+                    "Could not determine the latest version (GitHub and the secondary server are unreachable).");
                 await _messageBoxLibrary.ErrorCheckingForUpdatesMessageBoxAsync();
                 return;
             }
@@ -161,7 +173,8 @@ public partial class AvaloniaCheckForUpdatesService
                 var result = await _messageBoxLibrary.DoYouWantToUpdateMessageBoxAsync(CurrentVersion, latestVersion);
                 if (result == CoreMessageBoxResult.Yes)
                 {
-                    _logger.Information("Update to {LatestVersion} confirmed by user; launching the updater.", latestVersion);
+                    _logger.Information("Update to {LatestVersion} confirmed by user; launching the updater.",
+                        latestVersion);
                     await LaunchUpdaterAndShutdownAsync(updaterZipAssetUrl);
                 }
             }
@@ -212,7 +225,8 @@ public partial class AvaloniaCheckForUpdatesService
         {
             if (!File.Exists(updaterPath))
             {
-                _logger.Information("Updater not found next to the application; downloading it from the release assets.");
+                _logger.Information(
+                    "Updater not found next to the application; downloading it from the release assets.");
                 if (string.IsNullOrWhiteSpace(updaterZipAssetUrl) ||
                     !await DownloadAndExtractUpdaterAsync(updaterZipAssetUrl, _updaterDirectory) ||
                     !File.Exists(updaterPath))
@@ -235,7 +249,8 @@ public partial class AvaloniaCheckForUpdatesService
                 };
                 Process.Start(startInfo);
 
-                _logger.Information("Updater launched (PID {ProcessId}); shutting down for the update.", Environment.ProcessId);
+                _logger.Information("Updater launched (PID {ProcessId}); shutting down for the update.",
+                    Environment.ProcessId);
                 _applicationLifetime.Shutdown();
             }
             catch (Exception ex)
@@ -281,7 +296,9 @@ public partial class AvaloniaCheckForUpdatesService
                 var destinationFileFullPath = Path.GetFullPath(Path.Combine(fullDestinationPath, entry.FullName));
                 if (!destinationFileFullPath.StartsWith(fullDestinationPath, StringComparison.OrdinalIgnoreCase))
                 {
-                    _logger.Information("Security warning: path traversal attempt in updater package entry '{Entry}'. Aborting.", entry.FullName);
+                    _logger.Information(
+                        "Security warning: path traversal attempt in updater package entry '{Entry}'. Aborting.",
+                        entry.FullName);
                     return false;
                 }
 
@@ -309,7 +326,9 @@ public partial class AvaloniaCheckForUpdatesService
     /// unreachable.
     /// </summary>
     /// <returns>A tuple with the latest version, release package URL, updater zip URL, and whether the fallback was used.</returns>
-    private async Task<(string? latestVersion, string? releasePackageUrl, string? updaterZipAssetUrl, bool fromFallback)> GetLatestReleaseInfoAsync()
+    private async
+        Task<(string? latestVersion, string? releasePackageUrl, string? updaterZipAssetUrl, bool fromFallback)>
+        GetLatestReleaseInfoAsync()
     {
         _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
 
@@ -317,22 +336,26 @@ public partial class AvaloniaCheckForUpdatesService
         {
             try
             {
-                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{repoOwner}/{RepoName}/releases/latest");
+                var response =
+                    await _httpClient.GetAsync($"https://api.github.com/repos/{repoOwner}/{RepoName}/releases/latest");
                 if (!response.IsSuccessStatusCode)
                 {
-                    _logger.Debug($"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed with status {response.StatusCode}; trying the next source.");
+                    _logger.Debug(
+                        $"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed with status {response.StatusCode}; trying the next source.");
                     continue;
                 }
 
                 _logger.Debug("Check for Updates Success");
 
                 var content = await response.Content.ReadAsStringAsync();
-                var (latestVersion, releasePackageUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
+                var (latestVersion, releasePackageUrl, updaterZipAssetUrl) =
+                    ParseVersionAndAssetUrlsFromResponse(content);
                 return (latestVersion, releasePackageUrl, updaterZipAssetUrl, false);
             }
             catch (Exception ex)
             {
-                _logger.Debug($"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed: {ex.Message}; trying the next source.");
+                _logger.Debug(
+                    $"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed: {ex.Message}; trying the next source.");
             }
         }
 
@@ -342,7 +365,8 @@ public partial class AvaloniaCheckForUpdatesService
             var versionResponse = await _httpClient.GetAsync(SecondaryServerBaseUrl + "version.txt");
             if (!versionResponse.IsSuccessStatusCode)
             {
-                _logger.Debug($"[UpdateChecker] Secondary server check failed with status {versionResponse.StatusCode}.");
+                _logger.Debug(
+                    $"[UpdateChecker] Secondary server check failed with status {versionResponse.StatusCode}.");
                 return (null, null, null, false);
             }
 
@@ -359,7 +383,8 @@ public partial class AvaloniaCheckForUpdatesService
             var releasePackageUrl = SecondaryServerBaseUrl + $"release_{rawVersion}_{CurrentRuntimeIdentifier}.zip";
             var updaterZipAssetUrl = SecondaryServerBaseUrl + $"updater_{CurrentRuntimeIdentifier}.zip";
 
-            _logger.Information("GitHub API unavailable. Using the secondary server: version {LatestVersion}.", latestVersion);
+            _logger.Information("GitHub API unavailable. Using the secondary server: version {LatestVersion}.",
+                latestVersion);
             return (latestVersion, releasePackageUrl, updaterZipAssetUrl, true);
         }
         catch (Exception ex)
@@ -375,7 +400,9 @@ public partial class AvaloniaCheckForUpdatesService
         {
             if (string.IsNullOrEmpty(currentVersion) || string.IsNullOrEmpty(latestVersion))
             {
-                _logger.Error(new ArgumentException("Current or latest version string is null or empty.", nameof(currentVersion)), "Invalid version string for comparison.");
+                _logger.Error(
+                    new ArgumentException("Current or latest version string is null or empty.", nameof(currentVersion)),
+                    "Invalid version string for comparison.");
                 return false;
             }
 
@@ -384,7 +411,9 @@ public partial class AvaloniaCheckForUpdatesService
 
             if (string.IsNullOrEmpty(currentNormalized) || string.IsNullOrEmpty(latestNormalized))
             {
-                _logger.Error(new ArgumentException("Normalized version string is null or empty after regex replace.", nameof(latestVersion)), "Invalid version string after normalization.");
+                _logger.Error(
+                    new ArgumentException("Normalized version string is null or empty after regex replace.",
+                        nameof(latestVersion)), "Invalid version string after normalization.");
                 return false;
             }
 
@@ -398,7 +427,8 @@ public partial class AvaloniaCheckForUpdatesService
 
             if (latestVersion != null)
             {
-                _logger.Error(ex, $"Invalid version number format after normalization. Current: '{currentVersion}', Latest: '{latestVersion}'.");
+                _logger.Error(ex,
+                    $"Invalid version number format after normalization. Current: '{currentVersion}', Latest: '{latestVersion}'.");
             }
 
             return false;
@@ -410,7 +440,8 @@ public partial class AvaloniaCheckForUpdatesService
         }
     }
 
-    private (string? version, string? releasePackageUrl, string? updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(string jsonResponse)
+    private (string? version, string? releasePackageUrl, string? updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(
+        string jsonResponse)
     {
         try
         {
@@ -419,7 +450,8 @@ public partial class AvaloniaCheckForUpdatesService
 
             if (!root.TryGetProperty("tag_name", out var tagNameElement))
             {
-                _logger.Error(new KeyNotFoundException("'tag_name' not found in GitHub API response."), "GitHub API Response Error");
+                _logger.Error(new KeyNotFoundException("'tag_name' not found in GitHub API response."),
+                    "GitHub API Response Error");
                 return (null, null, null);
             }
 
@@ -439,7 +471,10 @@ public partial class AvaloniaCheckForUpdatesService
 
             if (extractedNormalizedVersion == null)
             {
-                _logger.Error(new FormatException($"Could not extract or normalize a valid version from tag_name: '{versionTag}'."), "GitHub API Response Error");
+                _logger.Error(
+                    new FormatException(
+                        $"Could not extract or normalize a valid version from tag_name: '{versionTag}'."),
+                    "GitHub API Response Error");
                 return (null, null, null);
             }
 
@@ -478,18 +513,25 @@ public partial class AvaloniaCheckForUpdatesService
 
                 if (foundUpdaterZipUrl == null)
                 {
-                    _logger.Error(new FileNotFoundException($"'{expectedUpdaterFileName}' asset not found in release '{versionTag}'.", expectedUpdaterFileName), "GitHub API Asset Info");
+                    _logger.Error(
+                        new FileNotFoundException(
+                            $"'{expectedUpdaterFileName}' asset not found in release '{versionTag}'.",
+                            expectedUpdaterFileName), "GitHub API Asset Info");
                 }
 
                 if (foundReleasePackageUrl == null)
                 {
-                    _logger.Error(new FileNotFoundException($"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.", expectedReleaseFileName), "GitHub API Asset Info");
+                    _logger.Error(
+                        new FileNotFoundException(
+                            $"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.",
+                            expectedReleaseFileName), "GitHub API Asset Info");
                 }
 
                 return (extractedNormalizedVersion, foundReleasePackageUrl, foundUpdaterZipUrl);
             }
 
-            _logger.Error(new KeyNotFoundException("'assets' array not found or invalid in GitHub API response."), "GitHub API Response Error");
+            _logger.Error(new KeyNotFoundException("'assets' array not found or invalid in GitHub API response."),
+                "GitHub API Response Error");
         }
         catch (JsonException jsonEx)
         {
@@ -529,7 +571,8 @@ public partial class AvaloniaCheckForUpdatesService
     [GeneratedRegex(@"[^\d\.]", RegexOptions.None, 1000)]
     private static partial Regex NonNumericRegex();
 
-    [GeneratedRegex(@"(\d+(\.\d+){1,3})", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, 1000)]
+    [GeneratedRegex(@"(\d+(\.\d+){1,3})",
+        RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex VersionRegex();
 
     [GeneratedRegex(@"\.{2,}", RegexOptions.None, 1000)]

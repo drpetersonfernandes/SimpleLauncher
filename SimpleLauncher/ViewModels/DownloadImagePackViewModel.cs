@@ -44,7 +44,9 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     /// <param name="messageBox">The message box service for user notifications.</param>
     /// <param name="scopeFactory">The service scope factory for dependency resolution.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
-    public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogger logger, EasyModeManager easyModeManager, IMessageBoxLibraryService messageBox, IServiceScopeFactory scopeFactory, IResourceProvider resourceProvider)
+    public DownloadImagePackViewModel(PlaySoundEffects playSoundEffects, ILogger logger,
+        EasyModeManager easyModeManager, IMessageBoxLibraryService messageBox, IServiceScopeFactory scopeFactory,
+        IResourceProvider resourceProvider)
     {
         _playSoundEffects = playSoundEffects;
         _logger = logger;
@@ -236,15 +238,20 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         var selectedSystem = GetSelectedSystem();
         if (selectedSystem == null) return;
 
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink,
+            selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
             _resourceProvider.GetString("ImagePack1", "Image Pack 1"));
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2,
+            selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
             _resourceProvider.GetString("ImagePack2", "Image Pack 2"));
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3,
+            selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
             _resourceProvider.GetString("ImagePack3", "Image Pack 3"));
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4,
+            selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
             _resourceProvider.GetString("ImagePack4", "Image Pack 4"));
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5,
+            selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
             _resourceProvider.GetString("ImagePack5", "Image Pack 5"));
     }
 
@@ -333,7 +340,8 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
         if (string.IsNullOrEmpty(downloadUrl))
         {
-            var errorNodownloadUrLfor = _resourceProvider.GetString("ErrorNodownloadURLfor", "Error: No download URL for");
+            var errorNodownloadUrLfor =
+                _resourceProvider.GetString("ErrorNodownloadURLfor", "Error: No download URL for");
             if (_disposed) return;
 
             StatusMessage = $"{errorNodownloadUrLfor} {componentName}";
@@ -344,12 +352,14 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
         if (string.IsNullOrEmpty(destinationPath))
         {
-            var errorInvalidDestinationPath = _resourceProvider.GetString("ErrorInvalidDestinationPath", "Error: Invalid destination path for");
+            var errorInvalidDestinationPath =
+                _resourceProvider.GetString("ErrorInvalidDestinationPath", "Error: Invalid destination path for");
             if (_disposed) return;
 
             StatusMessage = $"{errorInvalidDestinationPath} {componentName}";
 
-            _logger.Warning($"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
+            _logger.Warning(
+                $"[HandleDownloadAndExtractComponentAsync] Invalid destination path for {componentName}: {easyModeExtractPath}");
             EndOperation();
             item.State = DownloadButtonState.Failed;
             return;
@@ -398,7 +408,8 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
             if (success)
             {
-                var hasbeensuccessfullydownloadedandinstalled = _resourceProvider.GetString("hasbeensuccessfullydownloadedandinstalled", "has been successfully downloaded and installed.");
+                var hasbeensuccessfullydownloadedandinstalled = _resourceProvider.GetString(
+                    "hasbeensuccessfullydownloadedandinstalled", "has been successfully downloaded and installed.");
                 StatusMessage = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
 
                 await _messageBox.DownloadAndExtractionWereSuccessfulMessageBoxAsync();
@@ -420,13 +431,15 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 }
                 else if (_downloadManager.IsDownloadCompleted)
                 {
-                    var errorFailedtoextract = _resourceProvider.GetString("ErrorFailedtoextract", "Error: Failed to extract");
+                    var errorFailedtoextract =
+                        _resourceProvider.GetString("ErrorFailedtoextract", "Error: Failed to extract");
                     StatusMessage = $"{errorFailedtoextract} {componentName}.";
                     await _messageBox.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
                 }
                 else
                 {
-                    var errorFailedtoextract = _resourceProvider.GetString("ErrorFailedtoextract", "Error: Failed to extract");
+                    var errorFailedtoextract =
+                        _resourceProvider.GetString("ErrorFailedtoextract", "Error: Failed to extract");
                     StatusMessage = $"{errorFailedtoextract} {componentName}.";
 
                     await _messageBox.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
@@ -447,7 +460,9 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
             var downloadprocess2 = _resourceProvider.GetString("downloadprocess", "download process.");
             StatusMessage = $"{errorduring2} {componentName} {downloadprocess2}";
 
-            if (!(ex is IOException ioEx && (ioEx.Message.Contains("Insufficient disk space", StringComparison.Ordinal) || ioEx.Message.Contains("Cannot check disk space", StringComparison.Ordinal))))
+            if (!(ex is IOException ioEx &&
+                  (ioEx.Message.Contains("Insufficient disk space", StringComparison.Ordinal) ||
+                   ioEx.Message.Contains("Cannot check disk space", StringComparison.Ordinal))))
             {
                 var contextMessage = $"Error downloading {componentName}.\n" +
                                      $"URL: {downloadUrl}";
@@ -475,7 +490,8 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private EasyModeSystemConfig? GetSelectedSystem()
     {
         return !string.IsNullOrEmpty(SelectedSystemName)
-            ? _manager?.Systems?.FirstOrDefault(system => system.SystemName.Equals(SelectedSystemName, StringComparison.OrdinalIgnoreCase))
+            ? _manager?.Systems?.FirstOrDefault(system =>
+                system.SystemName.Equals(SelectedSystemName, StringComparison.OrdinalIgnoreCase))
             : null;
     }
 
@@ -548,7 +564,8 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         IsLoading = false;
 
         _logger.Debug("[Emergency] User forced overlay dismissal in DownloadImagePackWindow.");
-        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
+            "Emergency reset performed.");
     }
 
     /// <summary>

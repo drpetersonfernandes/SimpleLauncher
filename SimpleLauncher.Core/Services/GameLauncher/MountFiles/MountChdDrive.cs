@@ -30,7 +30,8 @@ public class MountChdDrive : IAsyncDisposable
     /// <summary>
     /// Constructor for a successful mount.
     /// </summary>
-    public MountChdDrive(Process mountProcess, string mountedPath, string mountedDriveLetter, ILogger logErrors, ILogger logger)
+    public MountChdDrive(Process mountProcess, string mountedPath, string mountedDriveLetter, ILogger logErrors,
+        ILogger logger)
     {
         _mountProcess = mountProcess;
         _mountProcessId = mountProcess?.Id ?? -1;
@@ -72,17 +73,20 @@ public class MountChdDrive : IAsyncDisposable
             catch (InvalidOperationException)
             {
                 processExitedBeforeKill = true;
-                _logger.Debug($"[MountChdDrive.DisposeAsync] CHDMounter (ID: {_mountProcessId}) had already exited before Kill could complete.");
+                _logger.Debug(
+                    $"[MountChdDrive.DisposeAsync] CHDMounter (ID: {_mountProcessId}) had already exited before Kill could complete.");
             }
             catch (ArgumentException)
             {
                 processExitedBeforeKill = true;
-                _logger.Debug($"[MountChdDrive.DisposeAsync] CHDMounter (ID: {_mountProcessId}) had already exited before explicit unmount was needed.");
+                _logger.Debug(
+                    $"[MountChdDrive.DisposeAsync] CHDMounter (ID: {_mountProcessId}) had already exited before explicit unmount was needed.");
             }
 
             if (!processExitedBeforeKill)
             {
-                _logger.Debug($"[MountChdDrive.DisposeAsync] Waiting for CHDMounter (ID: {_mountProcessId}) to exit (up to 20s).");
+                _logger.Debug(
+                    $"[MountChdDrive.DisposeAsync] Waiting for CHDMounter (ID: {_mountProcessId}) to exit (up to 20s).");
 
                 using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(20));
                 try
@@ -91,22 +95,26 @@ public class MountChdDrive : IAsyncDisposable
                 }
                 catch (TaskCanceledException)
                 {
-                    _logger.Debug($"[MountChdDrive.DisposeAsync] Timeout (10s) waiting for CHDMounter (ID: {_mountProcessId}) to exit after Kill.");
+                    _logger.Debug(
+                        $"[MountChdDrive.DisposeAsync] Timeout (10s) waiting for CHDMounter (ID: {_mountProcessId}) to exit after Kill.");
                 }
 
                 if (_mountProcess.HasExited)
                 {
-                    _logger.Debug($"[MountChdDrive.DisposeAsync] CHDMounter (ID: {_mountProcessId}) terminated. Exit code: {_mountProcess.ExitCode}.");
+                    _logger.Debug(
+                        $"[MountChdDrive.DisposeAsync] CHDMounter (ID: {_mountProcessId}) terminated. Exit code: {_mountProcess.ExitCode}.");
                 }
                 else
                 {
-                    _logger.Debug($"[MountChdDrive.DisposeAsync] CHDMounter (ID: {_mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                    _logger.Debug(
+                        $"[MountChdDrive.DisposeAsync] CHDMounter (ID: {_mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
                 }
             }
         }
         catch (Exception termEx)
         {
-            _logger.Debug($"[MountChdDrive.DisposeAsync] Exception while terminating CHDMounter (ID: {_mountProcessId}): {termEx}");
+            _logger.Debug(
+                $"[MountChdDrive.DisposeAsync] Exception while terminating CHDMounter (ID: {_mountProcessId}): {termEx}");
             _logger.Error(termEx, $"Failed to terminate CHDMounter (ID: {_mountProcessId}) for unmounting.");
         }
         finally
@@ -120,7 +128,8 @@ public class MountChdDrive : IAsyncDisposable
             await Task.Delay(1000);
             if (Directory.Exists(driveRoot))
             {
-                _logger.Debug($"[MountChdDrive.DisposeAsync] WARNING: Drive {driveRoot} still exists after attempting to unmount.");
+                _logger.Debug(
+                    $"[MountChdDrive.DisposeAsync] WARNING: Drive {driveRoot} still exists after attempting to unmount.");
             }
             else
             {

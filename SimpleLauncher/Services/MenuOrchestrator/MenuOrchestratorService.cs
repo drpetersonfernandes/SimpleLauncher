@@ -42,7 +42,8 @@ public class MenuOrchestratorService : IMenuOrchestrator
     /// <param name="checkMarkHost">The host providing menu check mark controls.</param>
     /// <param name="themeHost">The host providing theme selection controls.</param>
     /// <param name="languageHost">The host providing language selection controls.</param>
-    public void Initialize(IMenuActionHost actionHost, IMenuCheckMarkHost checkMarkHost, IThemeMenuHost themeHost, ILanguageMenuHost languageHost)
+    public void Initialize(IMenuActionHost actionHost, IMenuCheckMarkHost checkMarkHost, IThemeMenuHost themeHost,
+        ILanguageMenuHost languageHost)
     {
         _menuActionHandler.Initialize(actionHost);
         _menuCheckMark.Initialize(checkMarkHost);

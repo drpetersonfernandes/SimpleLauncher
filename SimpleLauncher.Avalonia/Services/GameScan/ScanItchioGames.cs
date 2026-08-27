@@ -17,7 +17,8 @@ public class ScanItchioGames : IGamePlatformScanner
     /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
     /// <param name="windowsImagesPath">The directory where game images are stored.</param>
     /// <param name="ignoredGameNames">The set of game names to skip.</param>
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
+        string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         if (!OperatingSystem.IsWindows()) return;
 
@@ -101,7 +102,9 @@ public class ScanItchioGames : IGamePlatformScanner
                     if (string.IsNullOrEmpty(prettyName))
                     {
                         // Capitalize slug
-                        prettyName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(gameName.Replace("-", " "));
+                        prettyName =
+                            System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
+                                gameName.Replace("-", " "));
                     }
 
                     if (ignoredGameNames.Contains(prettyName)) continue;
@@ -112,10 +115,12 @@ public class ScanItchioGames : IGamePlatformScanner
                     if (!string.IsNullOrEmpty(launchExe) && File.Exists(launchExe))
                     {
                         var batPath = Path.Combine(windowsRomsPath, $"{sanitizedGameName}.bat");
-                        var batContent = $"@echo off\r\ncd /d \"{Path.GetDirectoryName(launchExe)}\"\r\nstart \"\" \"{Path.GetFileName(launchExe)}\"";
+                        var batContent =
+                            $"@echo off\r\ncd /d \"{Path.GetDirectoryName(launchExe)}\"\r\nstart \"\" \"{Path.GetFileName(launchExe)}\"";
                         await File.WriteAllTextAsync(batPath, batContent);
 
-                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, prettyName, gameDir, sanitizedGameName, windowsImagesPath, launchExe);
+                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, prettyName, gameDir,
+                            sanitizedGameName, windowsImagesPath, launchExe);
                     }
                 }
                 catch (Exception ex)

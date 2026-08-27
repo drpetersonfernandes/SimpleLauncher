@@ -172,7 +172,8 @@ public partial class HelpUserManager
                 .Select(static line => line.TrimStart()));
     }
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the system name")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the system name")]
     [GeneratedRegex(@"^##\s+(.+)$", RegexOptions.Multiline | RegexOptions.Compiled, 1000)]
     private static partial Regex MyRegex();
 }

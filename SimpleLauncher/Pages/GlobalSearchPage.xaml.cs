@@ -164,7 +164,8 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
 
                 // Update UI after search
                 ResultsDataGrid.ItemsSource = _viewModel.SearchResults;
-                NoResultsMessageOverlay.Visibility = _viewModel.NoResultsVisible ? Visibility.Visible : Visibility.Collapsed;
+                NoResultsMessageOverlay.Visibility =
+                    _viewModel.NoResultsVisible ? Visibility.Visible : Visibility.Collapsed;
             }
             finally
             {
@@ -190,10 +191,12 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult && !string.IsNullOrEmpty(selectedResult.FilePath))
+            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult &&
+                !string.IsNullOrEmpty(selectedResult.FilePath))
             {
                 _playSoundEffects.PlayNotificationSound();
-                await LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
+                await LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName,
+                    selectedResult.EmulatorManager);
             }
             else
             {
@@ -208,13 +211,16 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         }
     }
 
-    private async Task LaunchGameFromSearchResultAsync(string filePath, string selectedSystemName, Emulator? selectedEmulatorManager)
+    private async Task LaunchGameFromSearchResultAsync(string filePath, string selectedSystemName,
+        Emulator? selectedEmulatorManager)
     {
         try
         {
-            if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(selectedSystemName) || selectedEmulatorManager == null)
+            if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(selectedSystemName) ||
+                selectedEmulatorManager == null)
             {
-                _logger.Warning("[LaunchGameFromSearchResultAsync] filePath or selectedSystemName or selectedEmulatorManager is null.");
+                _logger.Warning(
+                    "[LaunchGameFromSearchResultAsync] filePath or selectedSystemName or selectedEmulatorManager is null.");
                 await _messageBox.ErrorLaunchingGameMessageBoxAsync(
                     PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
                 return;
@@ -229,12 +235,15 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
                 return;
             }
 
-            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorManager.EmulatorName, selectedSystemName,
-                selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, this);
+            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorManager.EmulatorName,
+                selectedSystemName,
+                selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController,
+                this);
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, $"[LaunchGameFromSearchResultAsync] Error launching: {filePath}, System: {selectedSystemName}");
+            _logger.Error(ex,
+                $"[LaunchGameFromSearchResultAsync] Error launching: {filePath}, System: {selectedSystemName}");
             await _messageBox.ErrorLaunchingGameMessageBoxAsync(
                 PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
         }
@@ -244,7 +253,8 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult || string.IsNullOrEmpty(selectedResult.FilePath))
+            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult ||
+                string.IsNullOrEmpty(selectedResult.FilePath))
                 return;
 
             var systemManager = _viewModel.GetSystemManager(selectedResult.SystemName);
@@ -256,7 +266,8 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
                 return;
             }
 
-            if (string.IsNullOrEmpty(selectedResult.FilePath) || string.IsNullOrEmpty(selectedResult.SystemName) || selectedResult.EmulatorManager == null)
+            if (string.IsNullOrEmpty(selectedResult.FilePath) || string.IsNullOrEmpty(selectedResult.SystemName) ||
+                selectedResult.EmulatorManager == null)
             {
                 _logger.Warning("FilePath, SystemName, or EmulatorManager is null.");
                 await _messageBox.ErrorLaunchingGameMessageBoxAsync(
@@ -286,7 +297,8 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
                 this
             );
 
-            var contextMenu = _contextMenuService.AddRightClickReturnContextMenu(context, _findCoverImage, _contextMenuFunctions);
+            var contextMenu =
+                _contextMenuService.AddRightClickReturnContextMenu(context, _findCoverImage, _contextMenuFunctions);
             if (contextMenu != null)
             {
                 ResultsDataGrid.ContextMenu = contextMenu;
@@ -304,10 +316,12 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult || string.IsNullOrEmpty(selectedResult.FilePath)) return;
+            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult ||
+                string.IsNullOrEmpty(selectedResult.FilePath)) return;
 
             _playSoundEffects.PlayNotificationSound();
-            await LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
+            await LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName,
+                selectedResult.EmulatorManager);
         }
         catch (Exception ex)
         {
@@ -321,7 +335,8 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult && !string.IsNullOrEmpty(selectedResult.FilePath))
+            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult &&
+                !string.IsNullOrEmpty(selectedResult.FilePath))
             {
                 LaunchButton.IsEnabled = true;
                 await _viewModel.UpdatePreviewImageAsync(selectedResult.CoverImage);

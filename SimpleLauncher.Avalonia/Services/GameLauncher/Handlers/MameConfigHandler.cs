@@ -20,7 +20,8 @@ public class MameConfigHandler : IEmulatorConfigHandler
     /// <summary>
     /// Initializes a new instance of the <see cref="MameConfigHandler"/> class.
     /// </summary>
-    public MameConfigHandler(ILogger logger, IMessageBoxLibraryService messageBoxLibrary, IServiceScopeFactory scopeFactory)
+    public MameConfigHandler(ILogger logger, IMessageBoxLibraryService messageBoxLibrary,
+        IServiceScopeFactory scopeFactory)
     {
         _logger = logger;
         _messageBoxLibrary = messageBoxLibrary;
@@ -43,7 +44,8 @@ public class MameConfigHandler : IEmulatorConfigHandler
             var resolvedExe = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
             if (context.SystemManagerService != null)
             {
-                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(context.SystemManagerService.PrimarySystemFolder);
+                var resolvedSystemFolder =
+                    PathHelper.ResolveRelativeToAppDirectory(context.SystemManagerService.PrimarySystemFolder);
                 var listOfSecondarySystemFolders = context.SystemManagerService.SystemFolders.ToArray();
 
                 var shouldRun = true;
@@ -52,7 +54,8 @@ public class MameConfigHandler : IEmulatorConfigHandler
                     if (context.WindowContext != null)
                         await context.WindowContext.Dispatcher.InvokeAsync(async () =>
                         {
-                            var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectMameConfigWindow>();
+                            var win = _scopeFactory.CreateScope().ServiceProvider
+                                .GetRequiredService<InjectMameConfigWindow>();
                             win.Initialize(resolvedExe, true, resolvedSystemFolder, listOfSecondarySystemFolders);
                             await win.ShowDialog((Window)context.WindowContext.PlatformWindow);
                             shouldRun = win.ShouldRun;
@@ -62,12 +65,14 @@ public class MameConfigHandler : IEmulatorConfigHandler
                 {
                     try
                     {
-                        MameConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger, resolvedSystemFolder, listOfSecondarySystemFolders);
+                        MameConfigurationService.InjectSettings(resolvedExe!, context.Settings!, _logger,
+                            resolvedSystemFolder, listOfSecondarySystemFolders);
                     }
                     catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
                     {
                         _logger.Debug($"[MameConfigHandler] Failed to inject MAME configuration: {ex.Message}");
-                        _logger.Error(ex, "[MameConfigHandler] Failed to inject MAME configuration. The game will launch with existing MAME settings.");
+                        _logger.Error(ex,
+                            "[MameConfigHandler] Failed to inject MAME configuration. The game will launch with existing MAME settings.");
                         await _messageBoxLibrary.FailedToInjectMameConfigurationMessageBoxAsync();
                     }
                 }

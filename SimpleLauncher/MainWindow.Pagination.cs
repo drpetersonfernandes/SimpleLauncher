@@ -30,7 +30,8 @@ public partial class MainWindow
             CancelAndRecreateToken();
             UiOrchestratorService.GoToPreviousPage();
 
-            SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingPrevPage") ?? "Loading previous page...");
+            SetLoadingState(true,
+                (string)Application.Current.TryFindResource("LoadingPrevPage") ?? "Loading previous page...");
             _audioInput.PlayNotificationSound();
 
             var (sl, sq) = GetLoadGameFilesParams();
@@ -64,7 +65,8 @@ public partial class MainWindow
             CancelAndRecreateToken();
             UiOrchestratorService.GoToNextPage();
 
-            SetLoadingState(true, (string)Application.Current.TryFindResource("LoadingNextPage") ?? "Loading next page...");
+            SetLoadingState(true,
+                (string)Application.Current.TryFindResource("LoadingNextPage") ?? "Loading next page...");
             _audioInput.PlayNotificationSound();
 
             var (sl, sq) = GetLoadGameFilesParams();

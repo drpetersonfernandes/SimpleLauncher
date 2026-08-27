@@ -38,7 +38,9 @@ public partial class DetectMissingResourceProviderKeysTests
             Assert.Fail($"English resource file not found: {stringsEnPath}");
 
         var existingEntries = ExtractEntriesFromXaml(stringsEnPath);
-        var appKeys = File.Exists(appXamlPath) ? ExtractKeysFromXaml(appXamlPath) : new HashSet<string>(StringComparer.Ordinal);
+        var appKeys = File.Exists(appXamlPath)
+            ? ExtractKeysFromXaml(appXamlPath)
+            : new HashSet<string>(StringComparer.Ordinal);
 
         // Step 1: Detect and report duplicate keys in strings.en.xaml.
         var duplicateKeys = DetectDuplicateKeys(stringsEnPath);
@@ -86,7 +88,8 @@ public partial class DetectMissingResourceProviderKeysTests
 
         if (duplicateKeys.Count > 0)
         {
-            message.AppendLine("DUPLICATE KEYS detected in strings.en.xaml (duplicates were automatically removed, keeping first occurrence):");
+            message.AppendLine(
+                "DUPLICATE KEYS detected in strings.en.xaml (duplicates were automatically removed, keeping first occurrence):");
             message.AppendLine();
             foreach (var kvp in duplicateKeys.OrderBy(static x => x.Key, StringComparer.OrdinalIgnoreCase))
             {
@@ -98,7 +101,8 @@ public partial class DetectMissingResourceProviderKeysTests
 
         if (keysWithDefaults.Count > 0)
         {
-            message.AppendLine(CultureInfo.InvariantCulture, $"The following {keysWithDefaults.Count} key(s) were automatically added to strings.en.xaml:");
+            message.AppendLine(CultureInfo.InvariantCulture,
+                $"The following {keysWithDefaults.Count} key(s) were automatically added to strings.en.xaml:");
             message.AppendLine();
             foreach (var key in keysWithDefaults.Keys.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
             {
@@ -110,7 +114,8 @@ public partial class DetectMissingResourceProviderKeysTests
 
         if (keysWithoutDefaults.Count > 0)
         {
-            message.AppendLine(CultureInfo.InvariantCulture, $"The following {keysWithoutDefaults.Count} key(s) could not be automatically added because no default value was provided. Please add them manually to strings.en.xaml:");
+            message.AppendLine(CultureInfo.InvariantCulture,
+                $"The following {keysWithoutDefaults.Count} key(s) could not be automatically added because no default value was provided. Please add them manually to strings.en.xaml:");
             message.AppendLine();
             foreach (var key in keysWithoutDefaults.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
             {
@@ -392,7 +397,9 @@ public partial class DetectMissingResourceProviderKeysTests
     /// Matches: _resourceProvider.GetString("KEY") or _resourceProvider.GetString("KEY", "DEFAULT")
     /// Group 1 = key, Group 2 = optional default value
     /// </summary>
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing groups are needed to extract key and default value")]
-    [GeneratedRegex("""_resourceProvider\.GetString\(\s*"([^"]+)"(?:\s*,\s*"([^"]*)")?\s*\)""", RegexOptions.Compiled, 1000)]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing groups are needed to extract key and default value")]
+    [GeneratedRegex("""_resourceProvider\.GetString\(\s*"([^"]+)"(?:\s*,\s*"([^"]*)")?\s*\)""", RegexOptions.Compiled,
+        1000)]
     private static partial Regex MyRegex();
 }

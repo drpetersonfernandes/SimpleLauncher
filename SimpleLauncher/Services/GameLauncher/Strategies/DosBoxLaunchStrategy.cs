@@ -27,7 +27,9 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     /// <summary>
     /// Initializes a new instance of the <see cref="DosBoxLaunchStrategy"/> class.
     /// </summary>
-    public DosBoxLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, IMountIsoFiles mountIsoFiles, ILogger logger)
+    public DosBoxLaunchStrategy(IExtractionService extractionService, IConfiguration configuration,
+        IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, IMountIsoFiles mountIsoFiles,
+        ILogger logger)
     {
         _extractionService = extractionService;
         _configuration = configuration;
@@ -151,7 +153,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                 catch (Exception ex)
                 {
                     _logger.Error(ex, $"[DosBoxLaunchStrategy] Error launching DOS game: {context.ResolvedFilePath}");
-                    await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                        PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 }
                 finally
                 {
@@ -253,7 +256,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         try
         {
             // 1. Mount ISO via PowerShell to scan for executables
-            var driveLetter = await _mountIsoFiles.ExecutePowerShellMountCommandAsync(context.ResolvedFilePath, _logger, _messageBox);
+            var driveLetter =
+                await _mountIsoFiles.ExecutePowerShellMountCommandAsync(context.ResolvedFilePath, _logger, _messageBox);
             if (string.IsNullOrEmpty(driveLetter))
             {
                 _logger.Debug("[DosBoxLaunchStrategy] Failed to mount ISO via PowerShell.");
@@ -275,13 +279,15 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             switch (gameFiles.Count)
             {
                 case 0:
-                    _logger.Debug($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted ISO at {mountPath}");
+                    _logger.Debug(
+                        $"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted ISO at {mountPath}");
                     _logger.Warning($"No DOS game executable found in ISO: {context.ResolvedFilePath}");
                     await _messageBox.CouldNotFindAFileMessageBoxAsync();
                     return;
                 case 1:
                     selectedFile = gameFiles[0];
-                    _logger.Debug($"[DosBoxLaunchStrategy] Single game file found on ISO, auto-selecting: {selectedFile}");
+                    _logger.Debug(
+                        $"[DosBoxLaunchStrategy] Single game file found on ISO, auto-selecting: {selectedFile}");
                     break;
                 default:
                 {
@@ -304,7 +310,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         catch (Exception ex)
         {
             _logger.Error(ex, $"[DosBoxLaunchStrategy] Error scanning ISO: {context.ResolvedFilePath}");
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
             return;
         }
         finally
@@ -312,8 +319,10 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             // 2. Dismount PowerShell ISO — no longer needed after scanning
             if (!string.IsNullOrEmpty(context.ResolvedFilePath))
             {
-                _logger.Debug($"[DosBoxLaunchStrategy] Dismounting PowerShell ISO mount after scanning: {context.ResolvedFilePath}");
-                await _mountIsoFiles.ExecutePowerShellDismountCommandAsync(context.ResolvedFilePath, _logger, _messageBox);
+                _logger.Debug(
+                    $"[DosBoxLaunchStrategy] Dismounting PowerShell ISO mount after scanning: {context.ResolvedFilePath}");
+                await _mountIsoFiles.ExecutePowerShellDismountCommandAsync(context.ResolvedFilePath, _logger,
+                    _messageBox);
             }
         }
 
@@ -396,7 +405,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     {
         try
         {
-            await using var mountedDrive = await _mountChdFiles.MountAsync(context.ResolvedFilePath, "iso9660", _logger, _messageBox);
+            await using var mountedDrive =
+                await _mountChdFiles.MountAsync(context.ResolvedFilePath, "iso9660", _logger, _messageBox);
 
             if (!mountedDrive.IsMounted)
             {
@@ -410,7 +420,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             var gameFiles = FindAllGameFiles(mountPath);
             if (gameFiles.Count == 0)
             {
-                _logger.Debug($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted CHD at {mountPath}");
+                _logger.Debug(
+                    $"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted CHD at {mountPath}");
                 _logger.Warning($"No DOS game executable found in CHD: {context.ResolvedFilePath}");
                 await _messageBox.CouldNotFindAFileMessageBoxAsync();
                 return;
@@ -454,7 +465,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         catch (Exception ex)
         {
             _logger.Error(ex, $"[DosBoxLaunchStrategy] Error launching CHD: {context.ResolvedFilePath}");
-            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
         }
     }
 

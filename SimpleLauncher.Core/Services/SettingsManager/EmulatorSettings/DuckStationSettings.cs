@@ -107,7 +107,8 @@ public class DuckStationSettings : IEmulatorSettings
         Vsync = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Vsync), false);
         OutputVolume = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(OutputVolume), 100);
         OutputMuted = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(OutputMuted), false);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

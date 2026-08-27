@@ -64,10 +64,7 @@ public class GameListUiService
             }
         });
 
-        await _host.Dispatcher.InvokeAsync(() =>
-        {
-            _host.SetPaginationButtonsVisible(true);
-        });
+        await _host.Dispatcher.InvokeAsync(() => { _host.SetPaginationButtonsVisible(true); });
     }
 
     /// <summary>
@@ -76,8 +73,11 @@ public class GameListUiService
     public void AddNoFilesMessage()
     {
         var noGamesMatched = Application.Current.Dispatcher.CheckAccess()
-            ? (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button."
-            : Application.Current.Dispatcher.Invoke(static () => (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button.");
+            ? (string)Application.Current.TryFindResource("nogamesmatched") ??
+              "Unfortunately, no games matched your search query or the selected button."
+            : Application.Current.Dispatcher.Invoke(static () =>
+                (string)Application.Current.TryFindResource("nogamesmatched") ??
+                "Unfortunately, no games matched your search query or the selected button.");
 
         if (string.Equals(_settings.ViewMode, "GridView", StringComparison.Ordinal))
         {

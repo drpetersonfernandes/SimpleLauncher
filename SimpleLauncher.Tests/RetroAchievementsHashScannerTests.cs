@@ -497,7 +497,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
             CancellationToken cancellationToken = default)
         {
             var files = Directory
-                .EnumerateFiles(directoryPath, "*", disableRecursiveSearch ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories)
+                .EnumerateFiles(directoryPath, "*",
+                    disableRecursiveSearch ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories)
                 .Where(f => fileExtensions.Contains(Path.GetExtension(f), StringComparer.OrdinalIgnoreCase))
                 .ToList();
 
@@ -511,7 +512,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
     /// </summary>
     private sealed class FakeExtractionService : IExtractionService
     {
-        private readonly string _fakeTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncherHashScannerTests", "FakeTemp");
+        private readonly string _fakeTempFolder =
+            Path.Combine(Path.GetTempPath(), "SimpleLauncherHashScannerTests", "FakeTemp");
 
         /// <summary>
         /// Gets the archive paths that were extracted.
@@ -526,7 +528,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
 
             Directory.CreateDirectory(_fakeTempFolder);
             var extension = fileFormatsToLaunch.FirstOrDefault() ?? ".rom";
-            var extractedPath = Path.Combine(_fakeTempFolder, Path.GetFileNameWithoutExtension(archivePath) + extension);
+            var extractedPath =
+                Path.Combine(_fakeTempFolder, Path.GetFileNameWithoutExtension(archivePath) + extension);
             File.WriteAllText(extractedPath, "extracted");
 
             return Task.FromResult<(string?, string?)>((extractedPath, _fakeTempFolder));

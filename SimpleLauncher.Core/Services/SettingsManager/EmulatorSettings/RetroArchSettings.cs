@@ -168,18 +168,21 @@ public class RetroArchSettings : IEmulatorSettings
         Rewind = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Rewind), false);
         ThreadedVideo = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ThreadedVideo), false);
         Bilinear = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Bilinear), false);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
         AspectRatioIndex = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(AspectRatioIndex), "22");
         ScaleInteger = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ScaleInteger), false);
         ShaderEnable = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShaderEnable), true);
         HardSync = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(HardSync), false);
         RunAhead = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(RunAhead), false);
-        ShowAdvancedSettings = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowAdvancedSettings), true);
+        ShowAdvancedSettings =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowAdvancedSettings), true);
         DiscordAllow = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(DiscordAllow), false);
         OverrideSystemDir = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(OverrideSystemDir), false);
         OverrideSaveDir = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(OverrideSaveDir), false);
         OverrideStateDir = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(OverrideStateDir), false);
-        OverrideScreenshotDir = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(OverrideScreenshotDir), false);
+        OverrideScreenshotDir =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(OverrideScreenshotDir), false);
     }
 
 

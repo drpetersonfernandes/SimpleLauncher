@@ -57,7 +57,8 @@ public static class ResourceAnalyzer
     /// <param name="resourcesPath">The path to the resources directory.</param>
     /// <param name="englishKeys">The dictionary of English translation keys.</param>
     /// <returns>A list of missing key batches for each language.</returns>
-    public static IList<MissingKeyBatch> AnalyzeAllLanguages(string resourcesPath, IDictionary<string, string> englishKeys)
+    public static IList<MissingKeyBatch> AnalyzeAllLanguages(string resourcesPath,
+        IDictionary<string, string> englishKeys)
     {
         var batches = new List<MissingKeyBatch>();
 

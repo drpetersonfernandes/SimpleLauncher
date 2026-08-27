@@ -13,7 +13,8 @@ namespace SimpleLauncher.Avalonia.Tests;
 /// </summary>
 public class LaunchStrategyTests
 {
-    private static LaunchContext Context(string filePath, string emulatorName, string? emulatorLocation = null, string systemName = "System")
+    private static LaunchContext Context(string filePath, string emulatorName, string? emulatorLocation = null,
+        string systemName = "System")
     {
         return new LaunchContext
         {
@@ -248,11 +249,13 @@ public class LaunchStrategyTests
         // .chd + RetroArch → ChdMount/ChdToCue/DosBox all exclude it → Default
         Assert.IsType<DefaultLaunchStrategy>(strategies.First(s => s.IsMatch(Context(@"C:\g.chd", "RetroArch"))));
         // .zip + Commander Genius → CommanderGenius (20 beats ZipMount 30)
-        Assert.IsType<CommanderGeniusLaunchStrategy>(strategies.First(s => s.IsMatch(Context(@"C:\g.zip", "Commander Genius"))));
+        Assert.IsType<CommanderGeniusLaunchStrategy>(strategies.First(s =>
+            s.IsMatch(Context(@"C:\g.zip", "Commander Genius"))));
         // .zip + DOSBox → DosBox (25 beats ZipMount 30)
         Assert.IsType<DosBoxLaunchStrategy>(strategies.First(s => s.IsMatch(Context(@"C:\g.zip", "DOSBox"))));
         // .zip + ScummVM system → ZipMount (30; DosBox excludes non-DOSBox emulators)
-        Assert.IsType<ZipMountStrategy>(strategies.First(s => s.IsMatch(Context(@"C:\g.zip", "RetroArch", systemName: "ScummVM"))));
+        Assert.IsType<ZipMountStrategy>(strategies.First(s =>
+            s.IsMatch(Context(@"C:\g.zip", "RetroArch", systemName: "ScummVM"))));
         // .iso + Cxbx → XisoMount (20)
         Assert.IsType<XisoMountStrategy>(strategies.First(s => s.IsMatch(Context(@"C:\g.iso", "Cxbx-Reloaded"))));
         // .cue + DuckStation → Default (no strategy matches)
@@ -261,7 +264,8 @@ public class LaunchStrategyTests
 
     private sealed class TempDirectory : IDisposable
     {
-        public string Path { get; } = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "sl_av_dos_" + Guid.NewGuid().ToString("N"));
+        public string Path { get; } =
+            System.IO.Path.Combine(System.IO.Path.GetTempPath(), "sl_av_dos_" + Guid.NewGuid().ToString("N"));
 
         public TempDirectory()
         {

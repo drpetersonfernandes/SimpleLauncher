@@ -23,7 +23,8 @@ public class DisplaySystemInformation : IDisplaySystemInformation
     /// <param name="gameFileGrid">The wrap panel to populate with system information UI elements.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
     /// <returns>A <see cref="SystemValidationResult"/> indicating the validity of the system configuration.</returns>
-    public async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManager.SystemManagerService selectedManager, WrapPanel gameFileGrid, CancellationToken cancellationToken = default)
+    public async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManager.SystemManagerService selectedManager,
+        WrapPanel gameFileGrid, CancellationToken cancellationToken = default)
     {
         // Clear image sources first to prevent memory leaks from BitmapImage references
         ClearGameButtonImages(gameFileGrid);
@@ -36,19 +37,33 @@ public class DisplaySystemInformation : IDisplaySystemInformation
         };
 
         // --- UI Text Resources ---
-        var clickontheletterbuttonsabove2 = (string)Application.Current.TryFindResource("Clickontheletterbuttonsabove") ?? "Click on the letter buttons above to see the games";
+        var clickontheletterbuttonsabove2 =
+            (string)Application.Current.TryFindResource("Clickontheletterbuttonsabove") ??
+            "Click on the letter buttons above to see the games";
         var systemFolder2 = (string)Application.Current.TryFindResource("SystemFolder") ?? "System Folder";
-        var systemImageFolder2 = (string)Application.Current.TryFindResource("SystemImageFolder") ?? "System Image Folder";
-        var defaultImageFolder2 = (string)Application.Current.TryFindResource("DefaultImageFolder") ?? "Using default image folder";
-        var extensiontoSearchintheSystemFolder2 = (string)Application.Current.TryFindResource("ExtensiontoSearchintheSystemFolder2") ?? "Extension to Search in the System Folder";
-        var extractFileBeforeLaunch2 = (string)Application.Current.TryFindResource("ExtractFileBeforeLaunch") ?? "Extract File Before Launch?";
-        var extensiontoLaunchAfterExtraction2 = (string)Application.Current.TryFindResource("ExtensiontoLaunchAfterExtraction2") ?? "Extension to Launch After Extraction";
-        var groupFilesByFolder2 = (string)Application.Current.TryFindResource("GroupFilesByFolder") ?? "Group Files by Folder?";
-        var disableRecursiveSearch2 = (string)Application.Current.TryFindResource("DisableRecursiveSearch") ?? "Disable Recursive Search?";
+        var systemImageFolder2 =
+            (string)Application.Current.TryFindResource("SystemImageFolder") ?? "System Image Folder";
+        var defaultImageFolder2 = (string)Application.Current.TryFindResource("DefaultImageFolder") ??
+                                  "Using default image folder";
+        var extensiontoSearchintheSystemFolder2 =
+            (string)Application.Current.TryFindResource("ExtensiontoSearchintheSystemFolder2") ??
+            "Extension to Search in the System Folder";
+        var extractFileBeforeLaunch2 = (string)Application.Current.TryFindResource("ExtractFileBeforeLaunch") ??
+                                       "Extract File Before Launch?";
+        var extensiontoLaunchAfterExtraction2 =
+            (string)Application.Current.TryFindResource("ExtensiontoLaunchAfterExtraction2") ??
+            "Extension to Launch After Extraction";
+        var groupFilesByFolder2 = (string)Application.Current.TryFindResource("GroupFilesByFolder") ??
+                                  "Group Files by Folder?";
+        var disableRecursiveSearch2 = (string)Application.Current.TryFindResource("DisableRecursiveSearch") ??
+                                      "Disable Recursive Search?";
         var emulatorName2 = (string)Application.Current.TryFindResource("EmulatorName") ?? "Emulator Name";
         var emulatorLocation2 = (string)Application.Current.TryFindResource("EmulatorPath") ?? "Emulator Path";
-        var emulatorParameters2 = (string)Application.Current.TryFindResource("EmulatorParameters") ?? "Emulator Parameters";
-        var receiveNotificationEmulatorError2 = (string)Application.Current.TryFindResource("receiveNotificationEmulatorError") ?? "Receive a Notification on Emulator Error?";
+        var emulatorParameters2 =
+            (string)Application.Current.TryFindResource("EmulatorParameters") ?? "Emulator Parameters";
+        var receiveNotificationEmulatorError2 =
+            (string)Application.Current.TryFindResource("receiveNotificationEmulatorError") ??
+            "Receive a Notification on Emulator Error?";
 
         // --- Validate Configuration ---
         // Offload path validation to a background thread to prevent UI freezing
@@ -69,7 +84,8 @@ public class DisplaySystemInformation : IDisplaySystemInformation
         systemInfoTextBlock.Inlines.Add(systemFoldersRun);
         systemInfoTextBlock.Inlines.Add(new LineBreak());
 
-        var systemImageFolderRun = new Run($"{systemImageFolder2}: {selectedManager.SystemImageFolder ?? defaultImageFolder2}");
+        var systemImageFolderRun =
+            new Run($"{systemImageFolder2}: {selectedManager.SystemImageFolder ?? defaultImageFolder2}");
         if (!validationResult.IsSystemImageFolderValid)
         {
             systemImageFolderRun.Foreground = Brushes.Red;
@@ -77,15 +93,19 @@ public class DisplaySystemInformation : IDisplaySystemInformation
 
         systemInfoTextBlock.Inlines.Add(systemImageFolderRun);
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoSearchintheSystemFolder2}: {string.Join(", ", selectedManager.FileFormatsToSearch)}"));
+        systemInfoTextBlock.Inlines.Add(new Run(
+            $"{extensiontoSearchintheSystemFolder2}: {string.Join(", ", selectedManager.FileFormatsToSearch)}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{extractFileBeforeLaunch2}: {selectedManager.ExtractFileBeforeLaunch}"));
+        systemInfoTextBlock.Inlines.Add(
+            new Run($"{extractFileBeforeLaunch2}: {selectedManager.ExtractFileBeforeLaunch}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoLaunchAfterExtraction2}: {string.Join(", ", selectedManager.FileFormatsToLaunch)}"));
+        systemInfoTextBlock.Inlines.Add(new Run(
+            $"{extensiontoLaunchAfterExtraction2}: {string.Join(", ", selectedManager.FileFormatsToLaunch)}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{groupFilesByFolder2}: {selectedManager.GroupByFolder}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{disableRecursiveSearch2}: {selectedManager.DisableRecursiveSearch}"));
+        systemInfoTextBlock.Inlines.Add(
+            new Run($"{disableRecursiveSearch2}: {selectedManager.DisableRecursiveSearch}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
 
         verticalStackPanel.Children.Add(systemInfoTextBlock);
@@ -109,7 +129,8 @@ public class DisplaySystemInformation : IDisplaySystemInformation
             emulatorInfoTextBlock.Inlines.Add(new LineBreak());
             emulatorInfoTextBlock.Inlines.Add(new Run($"{emulatorParameters2}: {emulator.EmulatorParameters}"));
             emulatorInfoTextBlock.Inlines.Add(new LineBreak());
-            emulatorInfoTextBlock.Inlines.Add(new Run($"{receiveNotificationEmulatorError2}: {emulator.ReceiveANotificationOnEmulatorError}"));
+            emulatorInfoTextBlock.Inlines.Add(
+                new Run($"{receiveNotificationEmulatorError2}: {emulator.ReceiveANotificationOnEmulatorError}"));
             verticalStackPanel.Children.Add(emulatorInfoTextBlock);
         }
 
@@ -138,8 +159,11 @@ public class DisplaySystemInformation : IDisplaySystemInformation
         {
             result.IsValid = false;
             result.AreSystemFoldersValid = false;
-            var systemFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemFolderpathisnotvalid") ?? "System Folder path is not valid or does not exist:";
-            result.ErrorMessages.Add($"{systemFolderpathisnotvalid2} '{string.Join(";", selectedManager.SystemFolders)}'\n\n");
+            var systemFolderpathisnotvalid2 =
+                (string)Application.Current.TryFindResource("SystemFolderpathisnotvalid") ??
+                "System Folder path is not valid or does not exist:";
+            result.ErrorMessages.Add(
+                $"{systemFolderpathisnotvalid2} '{string.Join(";", selectedManager.SystemFolders)}'\n\n");
         }
 
         // Validate image folder
@@ -150,20 +174,26 @@ public class DisplaySystemInformation : IDisplaySystemInformation
             {
                 result.IsValid = false;
                 result.IsSystemImageFolderValid = false;
-                var systemImageFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemImageFolderpathisnotvalid") ?? "System Image Folder path is not valid or does not exist:";
-                result.ErrorMessages.Add($"{systemImageFolderpathisnotvalid2} '{selectedManager.SystemImageFolder}'\n\n");
+                var systemImageFolderpathisnotvalid2 =
+                    (string)Application.Current.TryFindResource("SystemImageFolderpathisnotvalid") ??
+                    "System Image Folder path is not valid or does not exist:";
+                result.ErrorMessages.Add(
+                    $"{systemImageFolderpathisnotvalid2} '{selectedManager.SystemImageFolder}'\n\n");
             }
         }
 
         // Validate emulators
         foreach (var emulator in selectedManager.Emulators)
         {
-            if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) || CheckPath.IsValidEmulatorExecutablePath(emulator.EmulatorLocation)) continue;
+            if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) ||
+                CheckPath.IsValidEmulatorExecutablePath(emulator.EmulatorLocation)) continue;
 
             result.IsValid = false;
             result.InvalidEmulatorLocations.Add(emulator.EmulatorLocation);
-            var emulatorpathisnotvalidfor2 = (string)Application.Current.TryFindResource("Emulatorpathisnotvalidfor") ?? "Emulator path is not valid for";
-            result.ErrorMessages.Add($"{emulatorpathisnotvalidfor2} {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");
+            var emulatorpathisnotvalidfor2 = (string)Application.Current.TryFindResource("Emulatorpathisnotvalidfor") ??
+                                             "Emulator path is not valid for";
+            result.ErrorMessages.Add(
+                $"{emulatorpathisnotvalidfor2} {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");
         }
 
         return result;

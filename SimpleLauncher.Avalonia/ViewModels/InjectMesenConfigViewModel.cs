@@ -36,7 +36,8 @@ public partial class InjectMesenConfigViewModel : ObservableObject
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
     /// <param name="logger">The logger instance.</param>
-    public InjectMesenConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, EmulatorPathResolver emulatorPathResolver, ILogger logger)
+    public InjectMesenConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox,
+        EmulatorPathResolver emulatorPathResolver, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -196,7 +197,8 @@ public partial class InjectMesenConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectMesenConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+                _messageBox);
         }
     }
 
@@ -225,7 +227,8 @@ public partial class InjectMesenConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectMesenConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+                _messageBox);
         }
     }
 }

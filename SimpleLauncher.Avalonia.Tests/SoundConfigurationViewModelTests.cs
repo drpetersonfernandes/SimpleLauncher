@@ -11,13 +11,15 @@ namespace SimpleLauncher.Avalonia.Tests;
 /// </summary>
 public class SoundConfigurationViewModelTests
 {
-    private static SoundConfigurationViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox, out SettingsManagerService settings)
+    private static SoundConfigurationViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox,
+        out SettingsManagerService settings)
     {
         messageBox = TestDependencies.MessageBox();
         settings = TestDependencies.Settings(messageBox: messageBox);
         settings.EnableNotificationSound = false;
         var playSound = TestDependencies.PlaySound(settings);
-        var vm = new SoundConfigurationViewModel(settings, playSound, TestDependencies.Logger().Object, messageBox.Object, TestDependencies.ResourceProvider().Object);
+        var vm = new SoundConfigurationViewModel(settings, playSound, TestDependencies.Logger().Object,
+            messageBox.Object, TestDependencies.ResourceProvider().Object);
         return vm;
     }
 

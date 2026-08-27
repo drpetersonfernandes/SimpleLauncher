@@ -41,7 +41,8 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
-    public InjectRaineConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, ILogger logger)
+    public InjectRaineConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox,
+        ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -55,7 +56,8 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     /// <param name="gameFilePath">Optional path to the game file.</param>
     /// <param name="systemRomPath">Optional path to the system ROM.</param>
-    public void Initialize(string? emulatorPath, bool isLauncherMode, string? gameFilePath = null, string? systemRomPath = null)
+    public void Initialize(string? emulatorPath, bool isLauncherMode, string? gameFilePath = null,
+        string? systemRomPath = null)
     {
         _emulatorPath = emulatorPath ?? throw new ArgumentNullException(nameof(emulatorPath));
         _gameFilePath = gameFilePath ?? "";
@@ -192,7 +194,8 @@ public partial class InjectRaineConfigViewModel : ObservableObject
 
         try
         {
-            RaineConfigurationService.InjectSettings(path, _settings, _logger, _gameFilePath, _systemRomPath, _settings.Raine.RomDirectory);
+            RaineConfigurationService.InjectSettings(path, _settings, _logger, _gameFilePath, _systemRomPath,
+                _settings.Raine.RomDirectory);
             return true;
         }
         catch (InvalidOperationException ex)
@@ -276,7 +279,8 @@ public partial class InjectRaineConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRaineConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
+                _messageBox);
         }
     }
 }

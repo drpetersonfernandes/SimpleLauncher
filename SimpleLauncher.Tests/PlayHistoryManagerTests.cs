@@ -141,9 +141,12 @@ public class PlayHistoryManagerTests : IDisposable
         {
             PlayHistoryList =
             [
-                new PlayHistoryItem { FileName = "game1.zip", SystemName = "Arcade", TotalPlayTime = 100, TimesPlayed = 1 },
-                new PlayHistoryItem { FileName = "game2.nes", SystemName = "NES", TotalPlayTime = 200, TimesPlayed = 2 },
-                new PlayHistoryItem { FileName = "game3.smc", SystemName = "SNES", TotalPlayTime = 300, TimesPlayed = 3 }
+                new PlayHistoryItem
+                    { FileName = "game1.zip", SystemName = "Arcade", TotalPlayTime = 100, TimesPlayed = 1 },
+                new PlayHistoryItem
+                    { FileName = "game2.nes", SystemName = "NES", TotalPlayTime = 200, TimesPlayed = 2 },
+                new PlayHistoryItem
+                    { FileName = "game3.smc", SystemName = "SNES", TotalPlayTime = 300, TimesPlayed = 3 }
             ]
         };
 
@@ -258,8 +261,12 @@ public class PlayHistoryManagerTests : IDisposable
         {
             PlayHistoryList =
             [
-                new PlayHistoryItem { FileName = "C:\\roms\\[BIOS] Test.zip", SystemName = "PS1", TotalPlayTime = 100, TimesPlayed = 1 },
-                new PlayHistoryItem { FileName = "C:\\roms\\game (v2.0).zip", SystemName = "NES", TotalPlayTime = 200, TimesPlayed = 2 }
+                new PlayHistoryItem
+                {
+                    FileName = "C:\\roms\\[BIOS] Test.zip", SystemName = "PS1", TotalPlayTime = 100, TimesPlayed = 1
+                },
+                new PlayHistoryItem
+                    { FileName = "C:\\roms\\game (v2.0).zip", SystemName = "NES", TotalPlayTime = 200, TimesPlayed = 2 }
             ],
             Version = 1
         };
@@ -282,7 +289,8 @@ public class PlayHistoryManagerTests : IDisposable
         {
             PlayHistoryList =
             [
-                new PlayHistoryItem { FileName = "C:\\roms\\ポケモン.zip", SystemName = "GBA", TotalPlayTime = 300, TimesPlayed = 5 }
+                new PlayHistoryItem
+                    { FileName = "C:\\roms\\ポケモン.zip", SystemName = "GBA", TotalPlayTime = 300, TimesPlayed = 5 }
             ],
             Version = 1
         };
@@ -349,7 +357,8 @@ public class PlayHistoryManagerTests : IDisposable
     [Fact]
     public void PlayHistoryItemZeroTimesPlayed()
     {
-        var item = new PlayHistoryItem { FileName = "game.zip", SystemName = "NES", TotalPlayTime = 0, TimesPlayed = 0 };
+        var item = new PlayHistoryItem
+            { FileName = "game.zip", SystemName = "NES", TotalPlayTime = 0, TimesPlayed = 0 };
         Assert.Equal(0, item.TimesPlayed);
         Assert.Equal(0, item.TotalPlayTime);
     }
@@ -360,7 +369,8 @@ public class PlayHistoryManagerTests : IDisposable
     [Fact]
     public void PlayHistoryItemEmptyDateAndTime()
     {
-        var item = new PlayHistoryItem { FileName = "game.zip", SystemName = "NES", LastPlayDate = "", LastPlayTime = "" };
+        var item = new PlayHistoryItem
+            { FileName = "game.zip", SystemName = "NES", LastPlayDate = "", LastPlayTime = "" };
         Assert.Equal("", item.LastPlayDate);
         Assert.Equal("", item.LastPlayTime);
     }

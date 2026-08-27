@@ -89,7 +89,8 @@ public class XeniaSettings : IEmulatorSettings
         DiscordPresence = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(DiscordPresence), true);
         UserLanguage = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(UserLanguage), 1);
         Hid = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(Hid), "xinput");
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

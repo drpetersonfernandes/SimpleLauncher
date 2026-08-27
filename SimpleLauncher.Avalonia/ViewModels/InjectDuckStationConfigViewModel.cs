@@ -69,7 +69,8 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     /// <summary>
     /// Available renderer options for DuckStation.
     /// </summary>
-    public IList<string> RendererOptions { get; } = ["Automatic", "Vulkan", "Direct3D 11", "Direct3D 12", "OpenGL", "Software"];
+    public IList<string> RendererOptions { get; } =
+        ["Automatic", "Vulkan", "Direct3D 11", "Direct3D 12", "OpenGL", "Software"];
 
     /// <summary>
     /// Available resolution scale options for DuckStation.
@@ -232,9 +233,11 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectDuckStationConfigWindow));
+            var emulatorName =
+                InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectDuckStationConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+                _messageBox);
         }
     }
 
@@ -261,9 +264,11 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectDuckStationConfigWindow));
+            var emulatorName =
+                InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectDuckStationConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+                _messageBox);
         }
     }
 }

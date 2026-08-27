@@ -140,7 +140,8 @@ public class ConverterTests
     {
         var converter = new BooleanToFavoriteStatusConverter();
         BooleanToFavoriteStatusConverter.SetLocalizationService(new LocalizationService());
-        Assert.Equal("Unknown Favorite Status", converter.Convert(value, typeof(string), null, CultureInfo.InvariantCulture));
+        Assert.Equal("Unknown Favorite Status",
+            converter.Convert(value, typeof(string), null, CultureInfo.InvariantCulture));
     }
 
     [Fact]
@@ -151,7 +152,8 @@ public class ConverterTests
         // LocalizationTests reads in parallel).
         var tempDir = Path.Combine(Path.GetTempPath(), "SimpleLauncherConverterTests", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(tempDir);
-        File.WriteAllText(Path.Combine(tempDir, "strings.en.json"), """{"FavoriteStatusLabel": "Favorite FR", "NotFavoriteStatusLabel": "Not Favorite FR", "UnknownFavoriteStatusLabel": "Unknown FR"}""");
+        File.WriteAllText(Path.Combine(tempDir, "strings.en.json"),
+            """{"FavoriteStatusLabel": "Favorite FR", "NotFavoriteStatusLabel": "Not Favorite FR", "UnknownFavoriteStatusLabel": "Unknown FR"}""");
 
         try
         {
@@ -161,7 +163,8 @@ public class ConverterTests
             BooleanToFavoriteStatusConverter.SetLocalizationService(localization);
 
             Assert.Equal("Favorite FR", converter.Convert(true, typeof(string), null, CultureInfo.InvariantCulture));
-            Assert.Equal("Not Favorite FR", converter.Convert(false, typeof(string), null, CultureInfo.InvariantCulture));
+            Assert.Equal("Not Favorite FR",
+                converter.Convert(false, typeof(string), null, CultureInfo.InvariantCulture));
             Assert.Equal("Unknown FR", converter.Convert("?", typeof(string), null, CultureInfo.InvariantCulture));
         }
         finally
@@ -218,7 +221,8 @@ public class ConverterTests
     public void ConsoleToCardHeight_UnknownSystem_UsesSquareRatio()
     {
         var converter = CreateHeightConverter();
-        var result = converter.Convert([200.0, "Completely Unknown System"], typeof(double), null, CultureInfo.InvariantCulture);
+        var result = converter.Convert([200.0, "Completely Unknown System"], typeof(double), null,
+            CultureInfo.InvariantCulture);
         Assert.Equal(200.0 + 48.0, (double)result!, 3);
     }
 

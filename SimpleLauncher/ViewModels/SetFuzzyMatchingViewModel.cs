@@ -34,7 +34,8 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
-    public SetFuzzyMatchingViewModel(SettingsManagerService settings, ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
+    public SetFuzzyMatchingViewModel(SettingsManagerService settings, ILogger logErrors,
+        IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _logger = logErrors;

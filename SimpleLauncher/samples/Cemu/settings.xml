@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <content>
     <logflag>0</logflag>
     <advanced_ppc_logging>false</advanced_ppc_logging>
@@ -67,7 +68,7 @@
         <Entry>H:/Nintendo WiiU Roms/Star Fox Guard (USA).wua</Entry>
         <Entry>H:/Nintendo WiiU Roms/Sonic &amp; All-Stars Racing Transformed (USA).wua</Entry>
     </RecentLaunchFiles>
-    <RecentNFCFiles/>
+    <RecentNFCFiles />
     <GamePaths>
         <Entry>G:\Nintendo WiiU</Entry>
     </GamePaths>
@@ -302,7 +303,8 @@
         </Entry>
     </GameCache>
     <GraphicPack>
-        <Entry filename="graphicPacks/downloadedGraphicPacks/SkylandersSwapForce/Workarounds/PortalStabilityFix/rules.txt"/>
+        <Entry
+            filename="graphicPacks/downloadedGraphicPacks/SkylandersSwapForce/Workarounds/PortalStabilityFix/rules.txt" />
     </GraphicPack>
     <Graphic>
         <api>1</api>
@@ -354,13 +356,13 @@
         <OnlineEnabled>true</OnlineEnabled>
         <ActiveService>0</ActiveService>
     </Account>
-    <AccountService/>
+    <AccountService />
     <Debug>
         <CrashDumpWindows>0</CrashDumpWindows>
         <GDBPort>1337</GDBPort>
     </Debug>
     <Input>
-        <DSUC host="127.0.0.1" port="26760"/>
+        <DSUC host="127.0.0.1" port="26760" />
     </Input>
     <EmulatedUsbDevices>
         <EmulateSkylanderPortal>false</EmulateSkylanderPortal>

@@ -29,9 +29,6 @@ public partial class UpdateLogWindow : Window
     /// <param name="message">The message to append.</param>
     public void Log(string message)
     {
-        Dispatcher.UIThread.InvokeAsync(() =>
-        {
-            _viewModel.AppendLog(message);
-        });
+        Dispatcher.UIThread.InvokeAsync(() => { _viewModel.AppendLog(message); });
     }
 }

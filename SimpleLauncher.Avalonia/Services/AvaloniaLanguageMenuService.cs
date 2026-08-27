@@ -11,27 +11,28 @@ public class AvaloniaLanguageMenuService
     /// <summary>
     /// Maps menu item x:Name to the canonical language code.
     /// </summary>
-    public static readonly IReadOnlyDictionary<string, string> NameToCode = new Dictionary<string, string>(StringComparer.Ordinal)
-    {
-        ["LanguageArabic"] = "ar",
-        ["LanguageBengali"] = "bn",
-        ["LanguageGerman"] = "de",
-        ["LanguageEnglish"] = "en",
-        ["LanguageSpanish"] = "es",
-        ["LanguageFrench"] = "fr",
-        ["LanguageHindi"] = "hi",
-        ["LanguageIndonesianMalay"] = "id",
-        ["LanguageItalian"] = "it",
-        ["LanguageJapanese"] = "ja",
-        ["LanguageKorean"] = "ko",
-        ["LanguageDutch"] = "nl",
-        ["LanguagePortugueseBr"] = "pt-BR",
-        ["LanguageRussian"] = "ru",
-        ["LanguageTurkish"] = "tr",
-        ["LanguageUrdu"] = "ur",
-        ["LanguageVietnamese"] = "vi",
-        ["LanguageChineseSimplified"] = "zh-Hans"
-    };
+    public static readonly IReadOnlyDictionary<string, string> NameToCode =
+        new Dictionary<string, string>(StringComparer.Ordinal)
+        {
+            ["LanguageArabic"] = "ar",
+            ["LanguageBengali"] = "bn",
+            ["LanguageGerman"] = "de",
+            ["LanguageEnglish"] = "en",
+            ["LanguageSpanish"] = "es",
+            ["LanguageFrench"] = "fr",
+            ["LanguageHindi"] = "hi",
+            ["LanguageIndonesianMalay"] = "id",
+            ["LanguageItalian"] = "it",
+            ["LanguageJapanese"] = "ja",
+            ["LanguageKorean"] = "ko",
+            ["LanguageDutch"] = "nl",
+            ["LanguagePortugueseBr"] = "pt-BR",
+            ["LanguageRussian"] = "ru",
+            ["LanguageTurkish"] = "tr",
+            ["LanguageUrdu"] = "ur",
+            ["LanguageVietnamese"] = "vi",
+            ["LanguageChineseSimplified"] = "zh-Hans"
+        };
 
     /// <summary>
     /// Looks up the language code for a menu item name, or null when the name is not a language item.

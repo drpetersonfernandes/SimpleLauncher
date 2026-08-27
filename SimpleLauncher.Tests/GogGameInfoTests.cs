@@ -128,7 +128,8 @@ public class GogGameInfoTests
             RootGameId = "67890"
         };
 
-        var isDlc = !string.IsNullOrEmpty(info.RootGameId) && !string.Equals(info.RootGameId, info.GameId, StringComparison.Ordinal);
+        var isDlc = !string.IsNullOrEmpty(info.RootGameId) &&
+                    !string.Equals(info.RootGameId, info.GameId, StringComparison.Ordinal);
         Assert.True(isDlc);
     }
 
@@ -144,7 +145,8 @@ public class GogGameInfoTests
             RootGameId = "12345"
         };
 
-        var isDlc = !string.IsNullOrEmpty(info.RootGameId) && !string.Equals(info.RootGameId, info.GameId, StringComparison.Ordinal);
+        var isDlc = !string.IsNullOrEmpty(info.RootGameId) &&
+                    !string.Equals(info.RootGameId, info.GameId, StringComparison.Ordinal);
         Assert.False(isDlc);
     }
 
@@ -160,7 +162,8 @@ public class GogGameInfoTests
             RootGameId = ""
         };
 
-        var isDlc = !string.IsNullOrEmpty(info.RootGameId) && !string.Equals(info.RootGameId, info.GameId, StringComparison.Ordinal);
+        var isDlc = !string.IsNullOrEmpty(info.RootGameId) &&
+                    !string.Equals(info.RootGameId, info.GameId, StringComparison.Ordinal);
         Assert.False(isDlc);
     }
 
@@ -176,7 +179,8 @@ public class GogGameInfoTests
             RootGameId = null!
         };
 
-        var isDlc = !string.IsNullOrEmpty(info.RootGameId) && !string.Equals(info.RootGameId, info.GameId, StringComparison.Ordinal);
+        var isDlc = !string.IsNullOrEmpty(info.RootGameId) &&
+                    !string.Equals(info.RootGameId, info.GameId, StringComparison.Ordinal);
         Assert.False(isDlc);
     }
 

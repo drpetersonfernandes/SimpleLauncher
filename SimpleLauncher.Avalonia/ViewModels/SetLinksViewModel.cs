@@ -23,7 +23,8 @@ public partial class SetLinksViewModel : ObservableObject
     /// <param name="configuration">The application configuration for default URL values.</param>
     /// <param name="messageBox">The message box service for displaying dialogs.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
-    public SetLinksViewModel(SettingsManagerService settingsManager, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
+    public SetLinksViewModel(SettingsManagerService settingsManager, IConfiguration configuration,
+        IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
     {
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
         _configuration = configuration;
@@ -76,8 +77,10 @@ public partial class SetLinksViewModel : ObservableObject
     [RelayCommand]
     private async Task RevertAsync()
     {
-        _settingsManager.VideoUrl = _configuration.GetValue<string>("Urls:YouTubeSearch") ?? "https://www.youtube.com/results?search_query=";
-        _settingsManager.InfoUrl = _configuration.GetValue<string>("Urls:IgdbSearch") ?? "https://www.igdb.com/search?q=";
+        _settingsManager.VideoUrl = _configuration.GetValue<string>("Urls:YouTubeSearch") ??
+                                    "https://www.youtube.com/results?search_query=";
+        _settingsManager.InfoUrl =
+            _configuration.GetValue<string>("Urls:IgdbSearch") ?? "https://www.igdb.com/search?q=";
 
         VideoUrl = _settingsManager.VideoUrl;
         InfoUrl = _settingsManager.InfoUrl;

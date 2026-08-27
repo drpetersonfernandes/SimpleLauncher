@@ -240,7 +240,8 @@ public partial class PlayHistorySectionViewModel : ObservableObject
             DefaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown",
             CoverImage = systemManager is null
                 ? ""
-                : _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, source.SystemName, systemManager.SystemImageFolder)
+                : _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, source.SystemName,
+                    systemManager.SystemImageFolder)
         };
     }
 
@@ -269,7 +270,8 @@ public partial class PlayHistorySectionViewModel : ObservableObject
                 }
             }
 
-            return DateTime.TryParse($"{dateStr} {timeStr}", CultureInfo.InvariantCulture, DateTimeStyles.None, out result)
+            return DateTime.TryParse($"{dateStr} {timeStr}", CultureInfo.InvariantCulture, DateTimeStyles.None,
+                out result)
                 ? result
                 : DateTime.MinValue;
         }

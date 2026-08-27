@@ -198,16 +198,16 @@ public class CheckForUpdatesTests : IDisposable
     public void ParseResponseWithBothAssetsReturnsAllUrls()
     {
         const string json = """
-        {
-          "tag_name": "release5.6.0",
-          "assets": [
-            { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater-x64.zip" },
-            { "name": "release_5.6.0_win-x64.zip", "browser_download_url": "https://example.com/release-x64.zip" },
-            { "name": "updater_win-arm64.zip", "browser_download_url": "https://example.com/updater-arm64.zip" },
-            { "name": "release_5.6.0_win-arm64.zip", "browser_download_url": "https://example.com/release-arm64.zip" }
-          ]
-        }
-        """;
+                            {
+                              "tag_name": "release5.6.0",
+                              "assets": [
+                                { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater-x64.zip" },
+                                { "name": "release_5.6.0_win-x64.zip", "browser_download_url": "https://example.com/release-x64.zip" },
+                                { "name": "updater_win-arm64.zip", "browser_download_url": "https://example.com/updater-arm64.zip" },
+                                { "name": "release_5.6.0_win-arm64.zip", "browser_download_url": "https://example.com/release-arm64.zip" }
+                              ]
+                            }
+                            """;
 
         var (version, releaseUrl, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
 
@@ -226,11 +226,11 @@ public class CheckForUpdatesTests : IDisposable
     public void ParseResponseWithEmptyAssetsArrayReturnsVersionOnly()
     {
         const string json = """
-        {
-          "tag_name": "release5.6.0",
-          "assets": []
-        }
-        """;
+                            {
+                              "tag_name": "release5.6.0",
+                              "assets": []
+                            }
+                            """;
 
         var (version, releaseUrl, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
 
@@ -246,14 +246,14 @@ public class CheckForUpdatesTests : IDisposable
     public void ParseResponseWithUnrelatedAssetsReturnsNullsForUrls()
     {
         const string json = """
-        {
-          "tag_name": "release5.6.0",
-          "assets": [
-            { "name": "source.zip", "browser_download_url": "https://example.com/source.zip" },
-            { "name": "readme.txt", "browser_download_url": "https://example.com/readme.txt" }
-          ]
-        }
-        """;
+                            {
+                              "tag_name": "release5.6.0",
+                              "assets": [
+                                { "name": "source.zip", "browser_download_url": "https://example.com/source.zip" },
+                                { "name": "readme.txt", "browser_download_url": "https://example.com/readme.txt" }
+                              ]
+                            }
+                            """;
 
         var (version, releaseUrl, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
 
@@ -269,13 +269,13 @@ public class CheckForUpdatesTests : IDisposable
     public void ParseResponseWithMissingBrowserDownloadUrlReturnsNull()
     {
         const string json = """
-        {
-          "tag_name": "release5.6.0",
-          "assets": [
-            { "name": "updater_win-x64.zip" }
-          ]
-        }
-        """;
+                            {
+                              "tag_name": "release5.6.0",
+                              "assets": [
+                                { "name": "updater_win-x64.zip" }
+                              ]
+                            }
+                            """;
 
         var (version, _, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
 
@@ -290,13 +290,13 @@ public class CheckForUpdatesTests : IDisposable
     public void ParseResponseWithEmptyTagNameReturnsNulls()
     {
         const string json = """
-        {
-          "tag_name": "",
-          "assets": [
-            { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater.zip" }
-          ]
-        }
-        """;
+                            {
+                              "tag_name": "",
+                              "assets": [
+                                { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater.zip" }
+                              ]
+                            }
+                            """;
 
         var (version, releaseUrl, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
 
@@ -312,11 +312,11 @@ public class CheckForUpdatesTests : IDisposable
     public void ParseResponseWithAssetsNotArrayReturnsNulls()
     {
         const string json = """
-        {
-          "tag_name": "release5.6.0",
-          "assets": "not an array"
-        }
-        """;
+                            {
+                              "tag_name": "release5.6.0",
+                              "assets": "not an array"
+                            }
+                            """;
 
         var (version, releaseUrl, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
 
@@ -332,13 +332,13 @@ public class CheckForUpdatesTests : IDisposable
     public void ParseResponseWithUpdaterOnlyReturnsNullForRelease()
     {
         const string json = """
-        {
-          "tag_name": "release5.6.0",
-          "assets": [
-            { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater.zip" }
-          ]
-        }
-        """;
+                            {
+                              "tag_name": "release5.6.0",
+                              "assets": [
+                                { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater.zip" }
+                              ]
+                            }
+                            """;
 
         var (version, releaseUrl, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
 
@@ -354,13 +354,13 @@ public class CheckForUpdatesTests : IDisposable
     public void ParseResponseWithReleaseOnlyReturnsNullForUpdater()
     {
         const string json = """
-        {
-          "tag_name": "release5.6.0",
-          "assets": [
-            { "name": "release_5.6.0_win-x64.zip", "browser_download_url": "https://example.com/release.zip" }
-          ]
-        }
-        """;
+                            {
+                              "tag_name": "release5.6.0",
+                              "assets": [
+                                { "name": "release_5.6.0_win-x64.zip", "browser_download_url": "https://example.com/release.zip" }
+                              ]
+                            }
+                            """;
 
         var (version, releaseUrl, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
 
@@ -376,13 +376,13 @@ public class CheckForUpdatesTests : IDisposable
     public void ParseResponseWithVersionOnlyPrefixReturnsNulls()
     {
         const string json = """
-        {
-          "tag_name": "release",
-          "assets": [
-            { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater.zip" }
-          ]
-        }
-        """;
+                            {
+                              "tag_name": "release",
+                              "assets": [
+                                { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater.zip" }
+                              ]
+                            }
+                            """;
 
         var (version, releaseUrl, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
 
@@ -607,12 +607,14 @@ public class CheckForUpdatesTests : IDisposable
         var method = typeof(CheckForUpdatesService).GetMethod("ParseVersionAndAssetUrlsFromResponse",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         var result = method?.Invoke(checker, [json]);
-        return ((string?, string?, string?))(result ?? throw new InvalidOperationException("Reflection invoke returned null."));
+        return ((string?, string?, string?))(result ??
+                                             throw new InvalidOperationException("Reflection invoke returned null."));
     }
 
     private static CheckForUpdatesService CreateCheckerInstance()
     {
-        var constructor = typeof(CheckForUpdatesService).GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
+        var constructor = typeof(CheckForUpdatesService)
+            .GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
         var factory = new RealHttpClientFactory();
         var logErrors = new NoOpLogger();
         return (CheckForUpdatesService)constructor.Invoke([factory, null, null, logErrors, null, null]);

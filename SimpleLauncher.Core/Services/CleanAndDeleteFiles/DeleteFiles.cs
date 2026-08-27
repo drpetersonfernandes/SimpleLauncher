@@ -46,7 +46,8 @@ public static class DeleteFiles
                 {
                     // Log final failure after retries
                     // Notify developer
-                    Log.Debug($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries: {ex.Message}");
+                    Log.Debug(
+                        $"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries: {ex.Message}");
 
                     return; // Exit after logging final failure
                 }
@@ -76,7 +77,8 @@ public static class DeleteFiles
                 // If this is the last attempt, log final failure
                 if (i == MaxDeleteRetries - 1)
                 {
-                    Log.Debug($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions): {ex.Message}");
+                    Log.Debug(
+                        $"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions): {ex.Message}");
 
                     return;
                 }
@@ -86,7 +88,8 @@ public static class DeleteFiles
             }
             catch (Exception ex)
             {
-                Log.Debug($"[DeleteFiles] Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}': {ex.Message}");
+                Log.Debug(
+                    $"[DeleteFiles] Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}': {ex.Message}");
 
                 return;
             }
@@ -126,7 +129,8 @@ public static class DeleteFiles
                 // If this is the last attempt, re-throw or log final failure
                 if (i == MaxDeleteRetries - 1)
                 {
-                    Log.Debug($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries: {ex.Message}");
+                    Log.Debug(
+                        $"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries: {ex.Message}");
 
                     return; // Exit after logging final failure
                 }
@@ -156,7 +160,8 @@ public static class DeleteFiles
                 // If this is the last attempt, log final failure
                 if (i == MaxDeleteRetries - 1)
                 {
-                    Log.Debug($"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions): {ex.Message}");
+                    Log.Debug(
+                        $"[DeleteFiles] Failed to delete file '{longPath}' after {MaxDeleteRetries} retries (permissions): {ex.Message}");
 
                     return;
                 }
@@ -166,7 +171,8 @@ public static class DeleteFiles
             }
             catch (Exception ex)
             {
-                Log.Debug($"[DeleteFiles] Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}': {ex.Message}");
+                Log.Debug(
+                    $"[DeleteFiles] Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}': {ex.Message}");
 
                 return;
             }

@@ -235,7 +235,10 @@ public class PlayHistoryManager
                 try
                 {
                     // Notify user
-                    Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history..."));
+                    Application.Current.Dispatcher.Invoke(static () =>
+                        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
+                            (string)Application.Current.TryFindResource("SavingPlayHistory") ??
+                            "Saving play history..."));
 
                     byte[] bytes;
                     lock (_historyLock)
@@ -352,7 +355,9 @@ public class PlayHistoryManager
                 return;
 
             // Notify user
-            Application.Current.Dispatcher.Invoke(static () => (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("UpdatingPlayHistory") ?? "Updating play history..."));
+            Application.Current.Dispatcher.Invoke(static () =>
+                (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
+                    (string)Application.Current.TryFindResource("UpdatingPlayHistory") ?? "Updating play history..."));
 
             // Get the current date and time in a culture-invariant format
             // This ensures it can be parsed regardless of the UI language
@@ -365,7 +370,9 @@ public class PlayHistoryManager
             lock (_historyLock)
             {
                 // Check if the game already exists in play history
-                var existingItem = PlayHistoryList.FirstOrDefault(item => item.FileName.Equals(fullPath, StringComparison.OrdinalIgnoreCase) && item.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+                var existingItem = PlayHistoryList.FirstOrDefault(item =>
+                    item.FileName.Equals(fullPath, StringComparison.OrdinalIgnoreCase) &&
+                    item.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
                 if (existingItem != null)
                 {
@@ -420,7 +427,8 @@ public class PlayHistoryManager
                 // If the path is not rooted, it's an old "filename only" record
                 if (!Path.IsPathRooted(item.FileName))
                 {
-                    var system = systemManagers.FirstOrDefault(s => s.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+                    var system = systemManagers.FirstOrDefault(s =>
+                        s.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
                     if (system != null)
                     {
                         var resolvedPath = PathHelper.FindFileInSystemFolders(system.SystemFolders, item.FileName);

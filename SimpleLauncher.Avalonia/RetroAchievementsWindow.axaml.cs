@@ -28,7 +28,8 @@ public partial class RetroAchievementsWindow : Window
     /// <param name="logger">The error logging service.</param>
     /// <param name="settings">The application settings manager.</param>
     /// <param name="raService">The RetroAchievements API service.</param>
-    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogger logger, SettingsManagerService settings, RetroAchievementsService raService)
+    public RetroAchievementsWindow(PlaySoundEffects playSoundEffects, ILogger logger, SettingsManagerService settings,
+        RetroAchievementsService raService)
     {
         InitializeComponent();
 

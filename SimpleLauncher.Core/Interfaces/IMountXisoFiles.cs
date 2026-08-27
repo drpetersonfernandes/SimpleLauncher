@@ -15,5 +15,6 @@ public interface IMountXisoFiles
     /// <param name="logErrors">The error logger.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
     /// <returns>A task representing the asynchronous operation, resulting in a <see cref="MountXisoDrive"/> with the mounted default.xbe path.</returns>
-    Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string? logPath, ILogger logErrors, IMessageBoxLibraryService messageBox);
+    Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string? logPath, ILogger logErrors,
+        IMessageBoxLibraryService messageBox);
 }

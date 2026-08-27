@@ -41,7 +41,8 @@ public class RetroAchievementsManager
             catch (Exception ex)
             {
                 // Notify developer
-                const string contextMessage = "Error loading RetroAchievements.dat. The file might be corrupted or invalid. A new empty file will be created.";
+                const string contextMessage =
+                    "Error loading RetroAchievements.dat. The file might be corrupted or invalid. A new empty file will be created.";
                 logErrors.Error(ex, contextMessage);
 
                 logger.Debug($"[RA Manager] Failed to load RetroAchievements.dat: {ex.Message}");
@@ -96,7 +97,8 @@ public class RetroAchievementsManager
             return null;
         }
 
-        _hashToGameInfoLookup ??= new Dictionary<string, RaGameInfo>(StringComparer.OrdinalIgnoreCase); // Ensure initialized
+        _hashToGameInfoLookup ??=
+            new Dictionary<string, RaGameInfo>(StringComparer.OrdinalIgnoreCase); // Ensure initialized
         _hashToGameInfoLookup.TryGetValue(hash, out var gameInfo);
         return gameInfo;
     }

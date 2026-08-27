@@ -94,10 +94,7 @@ public class DebugViewModelTests
     [Fact]
     public void ClearLogCommandCannotExecuteWhenLogIsEmpty()
     {
-        RunTest(viewModel =>
-        {
-            Assert.False(viewModel.ClearLogCommand.CanExecute(null));
-        });
+        RunTest(viewModel => { Assert.False(viewModel.ClearLogCommand.CanExecute(null)); });
     }
 
     /// <summary>
@@ -137,10 +134,7 @@ public class DebugViewModelTests
     [Fact]
     public void CopyLogCommandCannotExecuteWhenLogIsEmpty()
     {
-        RunTest(viewModel =>
-        {
-            Assert.False(viewModel.CopyLogCommand.CanExecute(null));
-        });
+        RunTest(viewModel => { Assert.False(viewModel.CopyLogCommand.CanExecute(null)); });
     }
 
     /// <summary>

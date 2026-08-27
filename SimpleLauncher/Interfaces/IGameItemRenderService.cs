@@ -29,7 +29,8 @@ public interface IGameItemRenderService
     /// <param name="systemName">The name of the system.</param>
     /// <param name="systemManager">The system manager service.</param>
     /// <param name="ct">A token to cancel the operation.</param>
-    Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManagerService systemManager, CancellationToken ct);
+    Task RenderGameItemsAsync(IList<string> files, string systemName, SystemManagerService systemManager,
+        CancellationToken ct);
 
     /// <summary>
     /// Handles the selection change of a game list item, such as updating the preview.

@@ -52,7 +52,8 @@ internal class DownloadService
             if (!response.IsSuccessStatusCode)
             {
                 response.Dispose();
-                throw new HttpRequestException($"Failed to download the update file. Status Code: {response.StatusCode}");
+                throw new HttpRequestException(
+                    $"Failed to download the update file. Status Code: {response.StatusCode}");
             }
         }
         catch (Exception ex)

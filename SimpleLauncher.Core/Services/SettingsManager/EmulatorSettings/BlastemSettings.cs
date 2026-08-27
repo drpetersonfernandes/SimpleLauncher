@@ -65,7 +65,8 @@ public class BlastemSettings : IEmulatorSettings
         Scanlines = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Scanlines), false);
         AudioRate = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(AudioRate), 48000);
         SyncSource = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(SyncSource), "audio");
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

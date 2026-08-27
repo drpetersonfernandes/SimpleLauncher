@@ -15,7 +15,8 @@ public static class SupermodelConfigurationService
     /// <param name="emulatorPath">The full path to the Supermodel emulator executable.</param>
     /// <param name="settings">The settings manager containing Supermodel configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
@@ -35,12 +36,15 @@ public static class SupermodelConfigurationService
         // Backup logic: Create from your sample if missing
         if (!File.Exists(configPath))
         {
-            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Supermodel", "Supermodel.ini");
+            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Supermodel",
+                "Supermodel.ini");
             if (File.Exists(samplePath))
             {
                 try
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(configPath) ?? throw new InvalidOperationException("Could not create directory for Supermodel.ini"));
+                    Directory.CreateDirectory(Path.GetDirectoryName(configPath) ??
+                                              throw new InvalidOperationException(
+                                                  "Could not create directory for Supermodel.ini"));
                     File.Copy(samplePath, configPath);
                     logger.Debug($"[SupermodelConfig] Created Supermodel.ini from sample: {configPath}");
                 }

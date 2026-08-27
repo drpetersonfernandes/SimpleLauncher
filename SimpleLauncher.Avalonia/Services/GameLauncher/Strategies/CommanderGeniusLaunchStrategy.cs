@@ -34,7 +34,8 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     /// <summary>
     /// Initializes a new instance of the <see cref="CommanderGeniusLaunchStrategy"/> class.
     /// </summary>
-    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration, IMessageBoxLibraryService messageBox, ILogger logger)
+    public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration,
+        IMessageBoxLibraryService messageBox, ILogger logger)
     {
         _extractionService = extractionService;
         _configuration = configuration;
@@ -96,13 +97,15 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
             if (context.EmulatorManager?.EmulatorLocation != null)
             {
-                var emulatorLocation = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager?.EmulatorLocation);
+                var emulatorLocation =
+                    PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager?.EmulatorLocation);
 
                 if (string.IsNullOrEmpty(emulatorLocation) || !File.Exists(PathHelper.GetLongPath(emulatorLocation)))
                 {
                     _logger.Debug("[CommanderGeniusLaunchStrategy] Emulator executable not found.");
                     LogErrorAsync($"Emulator executable not found: {emulatorLocation}");
-                    await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                        PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     return;
                 }
 
@@ -181,7 +184,9 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
                     if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
                     {
-                        await _messageBox.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                        await _messageBox.CouldNotLaunchGameMessageBoxAsync(
+                            PathHelper.ResolveLogFilePath(
+                                _configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     }
                 }
                 catch (Exception ex)
@@ -199,7 +204,8 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                     if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
                     {
                         await _messageBox.CouldNotLaunchGameMessageBoxAsync(
-                            PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                            PathHelper.ResolveLogFilePath(
+                                _configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                     }
                 }
             }
@@ -238,7 +244,8 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                     return resolved;
                 }
 
-                _logger.Debug($"[CommanderGenius] SearchPath1 '{searchPath1}' resolved to '{resolved}' but directory does not exist. Falling back to default.");
+                _logger.Debug(
+                    $"[CommanderGenius] SearchPath1 '{searchPath1}' resolved to '{resolved}' but directory does not exist. Falling back to default.");
             }
             else
             {
@@ -247,7 +254,8 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
         else
         {
-            _logger.Debug($"[CommanderGenius] Config file not found at {configPath}. Commander Genius may not be properly installed.");
+            _logger.Debug(
+                $"[CommanderGenius] Config file not found at {configPath}. Commander Genius may not be properly installed.");
         }
 
         if (Directory.Exists(cgDataDir)) return cgDataDir;
@@ -377,7 +385,8 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         if (dirScores.Count > 0)
         {
             bestDir = dirScores.OrderByDescending(static kvp => kvp.Value).First().Key;
-            _logger.Debug($"[CommanderGenius] Game root identified by Keen files: {bestDir} (score: {dirScores[bestDir]})");
+            _logger.Debug(
+                $"[CommanderGenius] Game root identified by Keen files: {bestDir} (score: {dirScores[bestDir]})");
         }
         else
         {
@@ -493,7 +502,8 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     {
         try
         {
-            return $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}";
+            return
+                $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}";
         }
         catch
         {
@@ -507,7 +517,8 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         _logger.Warning(fullMessage);
     }
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the SearchPath1 value")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the SearchPath1 value")]
     [GeneratedRegex(@"^SearchPath1\s*=\s*(.+)$", RegexOptions.IgnoreCase, "pt-BR")]
     private static partial Regex MyRegex();
 }

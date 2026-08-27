@@ -13,7 +13,8 @@ public class MountZipFilesTests
 {
     private static void InvokeValidateZipForPathTraversal(string zipPath)
     {
-        var method = typeof(MountZipFiles).GetMethod("ValidateZipForPathTraversal", BindingFlags.NonPublic | BindingFlags.Instance);
+        var method = typeof(MountZipFiles).GetMethod("ValidateZipForPathTraversal",
+            BindingFlags.NonPublic | BindingFlags.Instance);
         Assert.NotNull(method);
         var instance = CreateMountZipFilesInstance();
         method.Invoke(instance, [zipPath]);

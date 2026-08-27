@@ -69,7 +69,8 @@ internal partial class EditSystemWindow
             // Validate paths (now using potentially prefixed paths)
             // The ValidatePaths method itself doesn't need to understand %BASEFOLDER%
             // because CheckPath.IsValidPath can handle it.
-            ValidatePaths(systemNameText, allSystemFolders.FirstOrDefault() ?? "", varSystemImageFolderText, emulator1LocationText,
+            ValidatePaths(systemNameText, allSystemFolders.FirstOrDefault() ?? "", varSystemImageFolderText,
+                emulator1LocationText,
                 emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText,
                 out var isSystemFolderValid, out var isSystemImageFolderValid, out var isEmulator1LocationValid,
                 out var isEmulator2LocationValid, out var isEmulator3LocationValid, out var isEmulator4LocationValid,
@@ -113,7 +114,8 @@ internal partial class EditSystemWindow
 
             var groupByFolder = (GroupByFolderComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString()
                 ?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
-            var disableRecursiveSearch = (DisableRecursiveSearchComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString()
+            var disableRecursiveSearch = (DisableRecursiveSearchComboBox.SelectedItem as ComboBoxItem)?.Content
+                ?.ToString()
                 ?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
 
             var formatSearchResult = await ValidateFormatToSearchAsync(formatToSearchText, extractFileBeforeLaunch);
@@ -216,14 +218,25 @@ internal partial class EditSystemWindow
             ];
             string[] allEmulatorLocationTexts = // Used for validating parameters
             [
-                emulator1LocationText, emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText
+                emulator1LocationText, emulator2LocationText, emulator3LocationText, emulator4LocationText,
+                emulator5LocationText
             ];
 
-            var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1 || string.Equals(item1.Content.ToString(), "true", StringComparison.Ordinal);
-            var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is not ComboBoxItem { Content: not null } item2 || string.Equals(item2.Content.ToString(), "true", StringComparison.Ordinal);
-            var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is not ComboBoxItem { Content: not null } item3 || string.Equals(item3.Content.ToString(), "true", StringComparison.Ordinal);
-            var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is not ComboBoxItem { Content: not null } item4 || string.Equals(item4.Content.ToString(), "true", StringComparison.Ordinal);
-            var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5 || string.Equals(item5.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification1 =
+                ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1 ||
+                string.Equals(item1.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification2 =
+                ReceiveANotificationOnEmulatorError2.SelectedItem is not ComboBoxItem { Content: not null } item2 ||
+                string.Equals(item2.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification3 =
+                ReceiveANotificationOnEmulatorError3.SelectedItem is not ComboBoxItem { Content: not null } item3 ||
+                string.Equals(item3.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification4 =
+                ReceiveANotificationOnEmulatorError4.SelectedItem is not ComboBoxItem { Content: not null } item4 ||
+                string.Equals(item4.Content.ToString(), "true", StringComparison.Ordinal);
+            var receiveNotification5 =
+                ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5 ||
+                string.Equals(item5.Content.ToString(), "true", StringComparison.Ordinal);
 
             var emulators = new List<Emulator>();
             var emulatorNames = new HashSet<string>(StringComparer.Ordinal);
@@ -248,12 +261,14 @@ internal partial class EditSystemWindow
 
             string[] nameTexts = [emulator2NameText, emulator3NameText, emulator4NameText, emulator5NameText];
             // locationTexts are already defined as allEmulatorLocationTexts
-            bool[] receiveNotifications = [receiveNotification2, receiveNotification3, receiveNotification4, receiveNotification5];
+            bool[] receiveNotifications =
+                [receiveNotification2, receiveNotification3, receiveNotification4, receiveNotification5];
 
             for (var i = 0; i < nameTexts.Length; i++)
             {
                 var currentEmulatorName = nameTexts[i];
-                var currentEmulatorLocation = allEmulatorLocationTexts[i + 1]; // Use potentially prefixed location (index i+1 for emulators 2-5)
+                var currentEmulatorLocation =
+                    allEmulatorLocationTexts[i + 1]; // Use potentially prefixed location (index i+1 for emulators 2-5)
                 var currentEmulatorParameters = parameterTexts[i + 1]; // Use original parameter text
                 var currentReceiveNotification = receiveNotifications[i];
 
@@ -283,7 +298,9 @@ internal partial class EditSystemWindow
                 });
             }
 
-            var isUpdate = !string.IsNullOrEmpty(_originalSystemName) && SystemNameDropdown.SelectedItem != null && _originalSystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase);
+            var isUpdate = !string.IsNullOrEmpty(_originalSystemName) && SystemNameDropdown.SelectedItem != null &&
+                           _originalSystemName.Equals(SystemNameDropdown.SelectedItem.ToString(),
+                               StringComparison.OrdinalIgnoreCase);
             var originalSystemNameToUse = isUpdate ? _originalSystemName : systemNameText;
 
             var systemToSave = new SystemManagerService
@@ -306,7 +323,8 @@ internal partial class EditSystemWindow
 
                 await LoadSystemsAsync();
                 SystemNameDropdown.SelectedItem = systemNameText;
-                LoadSystemDetailsAsync(systemNameText); // This will load the saved values (including %BASEFOLDER%) back into UI
+                LoadSystemDetailsAsync(
+                    systemNameText); // This will load the saved values (including %BASEFOLDER%) back into UI
 
                 // Notify user
                 await _messageBox.SystemSavedSuccessfullyMessageBoxAsync();
@@ -319,15 +337,18 @@ internal partial class EditSystemWindow
                     var oldSystemName = _originalSystemName!;
                     await _favoritesManager.RenameSystemAsync(oldSystemName, systemNameText);
                     await _playHistoryManager.RenameSystemAsync(oldSystemName, systemNameText);
-                    _logger.Information($"System renamed from '{oldSystemName}' to '{systemNameText}'. Favorites and play history migrated.");
+                    _logger.Information(
+                        $"System renamed from '{oldSystemName}' to '{systemNameText}'. Favorites and play history migrated.");
                 }
 
                 // Create folders based on the resolved paths
-                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");
+                var resolvedSystemFolder =
+                    PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(varSystemImageFolderText);
                 if (resolvedSystemFolder != null && resolvedSystemImageFolder != null)
                 {
-                    await CreateDefaultSystemFoldersService.CreateFoldersAsync(systemNameText, resolvedSystemFolder, resolvedSystemImageFolder, _configuration, _logger, _messageBox);
+                    await CreateDefaultSystemFoldersService.CreateFoldersAsync(systemNameText, resolvedSystemFolder,
+                        resolvedSystemImageFolder, _configuration, _logger, _messageBox);
                 }
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh

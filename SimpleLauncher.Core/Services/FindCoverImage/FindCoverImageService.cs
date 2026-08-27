@@ -14,7 +14,9 @@ public class FindCoverImageService : IFindCoverImageService
     private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
     private readonly SettingsManager.SettingsManagerService _settings;
-    private static readonly string GlobalDefaultImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
+
+    private static readonly string GlobalDefaultImagePath =
+        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
 
     private const double PrefixScale = 0.1;
     private const int MaxPrefixLength = 4;
@@ -25,7 +27,8 @@ public class FindCoverImageService : IFindCoverImageService
     /// <param name="configuration">The configuration.</param>
     /// <param name="logErrors">The log errors.</param>
     /// <param name="settings">The settings manager for reading dynamic matching preferences.</param>
-    public FindCoverImageService(IConfiguration configuration, ILogger logErrors, SettingsManager.SettingsManagerService settings)
+    public FindCoverImageService(IConfiguration configuration, ILogger logErrors,
+        SettingsManager.SettingsManagerService settings)
     {
         _configuration = configuration;
         _logger = logErrors;
@@ -51,7 +54,8 @@ public class FindCoverImageService : IFindCoverImageService
         }
         else
         {
-            resolvedImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder) ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName ?? "");
+            resolvedImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder) ??
+                                  Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName ?? "");
         }
 
         if (!string.IsNullOrEmpty(resolvedImageFolder) && Directory.Exists(resolvedImageFolder))
@@ -80,12 +84,14 @@ public class FindCoverImageService : IFindCoverImageService
 
                     // Try stripping annotations from image filenames too
                     foreach (var fileInFolder in Directory.EnumerateFiles(resolvedImageFolder)
-                                 .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase))))
+                                 .Where(f => imageExtensions.Any(ext =>
+                                     f.EndsWith(ext, StringComparison.OrdinalIgnoreCase))))
                     {
                         var fileWithoutExt = Path.GetFileNameWithoutExtension(fileInFolder);
                         if (string.IsNullOrEmpty(fileWithoutExt)) continue;
 
-                        if (string.Equals(strippedRomName, StripAnnotations(fileWithoutExt), StringComparison.OrdinalIgnoreCase))
+                        if (string.Equals(strippedRomName, StripAnnotations(fileWithoutExt),
+                                StringComparison.OrdinalIgnoreCase))
                             return fileInFolder;
                     }
                 }
@@ -265,7 +271,8 @@ public class FindCoverImageService : IFindCoverImageService
             k++;
         }
 
-        var jaroDistance = ((double)matches / len1 + (double)matches / len2 + (matches - transpositions / 2.0) / matches) / 3.0;
+        var jaroDistance =
+            ((double)matches / len1 + (double)matches / len2 + (matches - transpositions / 2.0) / matches) / 3.0;
 
         var prefix = 0;
         for (var i = 0; i < Math.Min(MaxPrefixLength, Math.Min(len1, len2)); i++)

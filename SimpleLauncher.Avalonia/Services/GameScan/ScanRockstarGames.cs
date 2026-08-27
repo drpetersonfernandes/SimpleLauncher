@@ -27,9 +27,20 @@ public partial class ScanRockstarGames : IGamePlatformScanner
         new() { TitleId = "gtavc", Name = "Grand Theft Auto Vice City", Exe = "gta-vc.exe" },
         new() { TitleId = "bully", Name = "Bully Scholarship Edition", Exe = "Bully.exe" },
         new() { TitleId = "gta4", Name = "Grand Theft Auto IV", Exe = "GTAIV.exe" },
-        new() { TitleId = "gta3unreal", Name = "GTA III Definitive Edition", Exe = "Gameface/Binaries/Win64/LibertyCity.exe" },
-        new() { TitleId = "gtavcunreal", Name = "GTA Vice City Definitive Edition", Exe = "Gameface/Binaries/Win64/ViceCity.exe" },
-        new() { TitleId = "gtasaunreal", Name = "GTA San Andreas Definitive Edition", Exe = "Gameface/Binaries/Win64/SanAndreas.exe" }
+        new()
+        {
+            TitleId = "gta3unreal", Name = "GTA III Definitive Edition", Exe = "Gameface/Binaries/Win64/LibertyCity.exe"
+        },
+        new()
+        {
+            TitleId = "gtavcunreal", Name = "GTA Vice City Definitive Edition",
+            Exe = "Gameface/Binaries/Win64/ViceCity.exe"
+        },
+        new()
+        {
+            TitleId = "gtasaunreal", Name = "GTA San Andreas Definitive Edition",
+            Exe = "Gameface/Binaries/Win64/SanAndreas.exe"
+        }
     ];
 
     /// <summary>
@@ -40,7 +51,8 @@ public partial class ScanRockstarGames : IGamePlatformScanner
     /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
     /// <param name="windowsImagesPath">The directory where game images are stored.</param>
     /// <param name="ignoredGameNames">The set of game names to skip.</param>
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
+        string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         if (!OperatingSystem.IsWindows()) return;
 
@@ -74,7 +86,8 @@ public partial class ScanRockstarGames : IGamePlatformScanner
                         if (match.Success)
                         {
                             var titleId = match.Groups[1].Value.Trim();
-                            var gameDef = Games.FirstOrDefault(g => g.TitleId.Equals(titleId, StringComparison.OrdinalIgnoreCase));
+                            var gameDef = Games.FirstOrDefault(g =>
+                                g.TitleId.Equals(titleId, StringComparison.OrdinalIgnoreCase));
 
                             if (gameDef != null)
                             {
@@ -92,7 +105,8 @@ public partial class ScanRockstarGames : IGamePlatformScanner
                                 if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
                                 {
                                     var exePath = Path.Combine(installLocation, gameDef.Exe);
-                                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameDef.Name, installLocation, sanitizedGameName, windowsImagesPath, exePath);
+                                    await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameDef.Name,
+                                        installLocation, sanitizedGameName, windowsImagesPath, exePath);
                                 }
                             }
                         }
@@ -110,7 +124,8 @@ public partial class ScanRockstarGames : IGamePlatformScanner
         }
     }
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the Rockstar title id")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the Rockstar title id")]
     [GeneratedRegex(@"(?:Launcher|uninstall)\.exe.+uninstall=(.+)$", RegexOptions.IgnoreCase, "pt-BR")]
     private static partial Regex MyRegex();
 }

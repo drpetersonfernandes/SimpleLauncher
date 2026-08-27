@@ -11,8 +11,11 @@ namespace SimpleLauncher.Updater.Services;
 /// </summary>
 internal class DokanService
 {
-    private const string DokanX64Url = "https://github.com/dokan-dev/dokany/releases/download/v2.3.1.1000/Dokan_x64.msi";
-    private const string DokanArm64Url = "https://github.com/dokan-dev/dokany/releases/download/v2.3.1.1000/Dokan_ARM64.msi";
+    private const string DokanX64Url =
+        "https://github.com/dokan-dev/dokany/releases/download/v2.3.1.1000/Dokan_x64.msi";
+
+    private const string DokanArm64Url =
+        "https://github.com/dokan-dev/dokany/releases/download/v2.3.1.1000/Dokan_ARM64.msi";
 
     private readonly DownloadService _downloadService;
 
@@ -113,7 +116,8 @@ internal class DokanService
             if (process != null)
             {
                 process.Dispose();
-                LogMessage?.Invoke(this, new EventArgs<string>("Dokan installer launched. Please follow the installation wizard."));
+                LogMessage?.Invoke(this,
+                    new EventArgs<string>("Dokan installer launched. Please follow the installation wizard."));
 
                 // Schedule cleanup of the MSI file after a delay (installer may lock it)
                 _ = Task.Run(async () =>

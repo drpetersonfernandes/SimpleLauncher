@@ -53,7 +53,8 @@ public class LanguageMenuService
     /// <param name="messageBox">The message box service for displaying dialogs.</param>
     /// <param name="logErrors">The logger instance for error logging.</param>
     /// <param name="quitSimpleLauncher">The service for restarting the application.</param>
-    public LanguageMenuService(PlaySoundEffects playSoundEffects, Settings settings, IMessageBoxLibraryService messageBox, ILogger logErrors, QuitSimpleLauncher quitSimpleLauncher)
+    public LanguageMenuService(PlaySoundEffects playSoundEffects, Settings settings,
+        IMessageBoxLibraryService messageBox, ILogger logErrors, QuitSimpleLauncher quitSimpleLauncher)
     {
         _playSoundEffects = playSoundEffects;
         _settings = settings;
@@ -95,7 +96,8 @@ public class LanguageMenuService
             _playSoundEffects.PlayNotificationSound();
             _settings.Language = languageCode;
             SetLanguageCheckMarks(languageCode);
-            _host.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...");
+            _host.UpdateStatusBarService.UpdateContent(
+                (string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...");
             await _settings.SaveAsync();
             await _quitSimpleLauncher.RestartApplicationAsync(_messageBox);
         }

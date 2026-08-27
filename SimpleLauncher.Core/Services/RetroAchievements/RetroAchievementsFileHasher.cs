@@ -51,14 +51,16 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
         var systemId = _systemMatcher.GetSystemId(systemName);
         if (systemId <= 0)
         {
-            _logger.Information($"[RA File Hasher] No RetroAchievements console ID found for system '{systemName}'. Skipping hashing.");
+            _logger.Information(
+                $"[RA File Hasher] No RetroAchievements console ID found for system '{systemName}'. Skipping hashing.");
             return null;
         }
 
         var toolPath = GetToolExecutablePath();
         if (toolPath == null)
         {
-            _logger.Warning($"[RA File Hasher] The RetroAchievementsSharp CLI tool could not be found. Skipping hashing of {filePath}.");
+            _logger.Warning(
+                $"[RA File Hasher] The RetroAchievementsSharp CLI tool could not be found. Skipping hashing of {filePath}.");
             return null;
         }
 
@@ -92,22 +94,26 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
 
             if (hash != null)
             {
-                _logger.Debug($"[RA File Hasher] Calculated hash '{hash}' for '{Path.GetFileName(filePath)}' (System: '{systemName}', ID: {systemId}).");
+                _logger.Debug(
+                    $"[RA File Hasher] Calculated hash '{hash}' for '{Path.GetFileName(filePath)}' (System: '{systemName}', ID: {systemId}).");
                 return hash;
             }
 
-            _logger.Information($"[RA File Hasher] Could not hash '{filePath}' for system '{systemName}' (ID: {systemId}). The file format may be unsupported, or 3DS decryption keys may be missing.");
+            _logger.Information(
+                $"[RA File Hasher] Could not hash '{filePath}' for system '{systemName}' (ID: {systemId}). The file format may be unsupported, or 3DS decryption keys may be missing.");
             return null;
         }
         catch (OperationCanceledException)
         {
-            _logger.Warning($"[RA File Hasher] Hashing of '{filePath}' timed out after {SingleFileTimeout.TotalMinutes:0} minute(s).");
+            _logger.Warning(
+                $"[RA File Hasher] Hashing of '{filePath}' timed out after {SingleFileTimeout.TotalMinutes:0} minute(s).");
             TryKillProcess(process);
             return null;
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, $"[RA File Hasher] An exception occurred while hashing {filePath} for system '{systemName}' (ID: {systemId}).");
+            _logger.Error(ex,
+                $"[RA File Hasher] An exception occurred while hashing {filePath} for system '{systemName}' (ID: {systemId}).");
             TryKillProcess(process);
             return null;
         }
@@ -132,14 +138,16 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
         var systemId = _systemMatcher.GetSystemId(systemName);
         if (systemId <= 0)
         {
-            _logger.Information($"[RA File Hasher] No RetroAchievements console ID found for system '{systemName}'. Skipping hashing.");
+            _logger.Information(
+                $"[RA File Hasher] No RetroAchievements console ID found for system '{systemName}'. Skipping hashing.");
             return result;
         }
 
         var toolPath = GetToolExecutablePath();
         if (toolPath == null)
         {
-            _logger.Warning($"[RA File Hasher] The RetroAchievementsSharp CLI tool could not be found. Skipping hashing of {filePaths.Count} file(s).");
+            _logger.Warning(
+                $"[RA File Hasher] The RetroAchievementsSharp CLI tool could not be found. Skipping hashing of {filePaths.Count} file(s).");
             return result;
         }
 
@@ -199,12 +207,14 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
                     }
                     catch (OperationCanceledException)
                     {
-                        _logger.Warning($"[RA File Hasher] Batch hashing for system '{systemName}' timed out after {BatchTimeout.TotalMinutes:0} minute(s).");
+                        _logger.Warning(
+                            $"[RA File Hasher] Batch hashing for system '{systemName}' timed out after {BatchTimeout.TotalMinutes:0} minute(s).");
                         TryKillProcess(process);
                     }
                     catch (Exception ex)
                     {
-                        _logger.Error(ex, $"[RA File Hasher] An exception occurred while batch hashing for system '{systemName}' (ID: {systemId}).");
+                        _logger.Error(ex,
+                            $"[RA File Hasher] An exception occurred while batch hashing for system '{systemName}' (ID: {systemId}).");
                         TryKillProcess(process);
                     }
                     finally
@@ -223,7 +233,8 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
             TryDeleteFile(outputFile);
         }
 
-        _logger.Debug($"[RA File Hasher] Batch hashing complete: {result.Count}/{filePaths.Count} files hashed for '{systemName}' (ID: {systemId}).");
+        _logger.Debug(
+            $"[RA File Hasher] Batch hashing complete: {result.Count}/{filePaths.Count} files hashed for '{systemName}' (ID: {systemId}).");
         return result;
     }
 
@@ -340,7 +351,8 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
         }
 
         var extension = OperatingSystem.IsWindows() ? ".exe" : "";
-        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", ToolFolderName, $"{ToolBaseName}{suffix}{extension}");
+        var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", ToolFolderName,
+            $"{ToolBaseName}{suffix}{extension}");
         return File.Exists(path) ? path : null;
     }
 

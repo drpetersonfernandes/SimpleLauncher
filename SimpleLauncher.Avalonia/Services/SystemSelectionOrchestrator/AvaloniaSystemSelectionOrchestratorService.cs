@@ -99,6 +99,7 @@ public class AvaloniaSystemSelectionOrchestratorService
                 {
                     await invalidConfigMessageBox.InvalidSystemConfigMessageBoxAsync();
                 }
+
                 _host.IsPlayTimeVisible = false;
                 _host.PlayTime = "00:00:00";
                 return;
@@ -126,9 +127,9 @@ public class AvaloniaSystemSelectionOrchestratorService
 
             // Hide the play-time display for url/lnk systems (WPF IsPlayTimeVisible parity).
             _host.IsPlayTimeVisible = selectedManager.FileFormatsToSearch == null
-                || !selectedManager.FileFormatsToSearch.Any(static f =>
-                    f.Equals("url", StringComparison.OrdinalIgnoreCase) ||
-                    f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+                                      || !selectedManager.FileFormatsToSearch.Any(static f =>
+                                          f.Equals("url", StringComparison.OrdinalIgnoreCase) ||
+                                          f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
 
             if (_settings is { } settings)
             {
@@ -148,7 +149,7 @@ public class AvaloniaSystemSelectionOrchestratorService
             _host.RestartFileWatcher();
 
             var emulatorNames = selectedManager.Emulators
-                                    .Select(static e => e.EmulatorName).ToList();
+                .Select(static e => e.EmulatorName).ToList();
             _host.SetEmulatorComboBoxItems(emulatorNames);
         }
         catch (Exception ex)

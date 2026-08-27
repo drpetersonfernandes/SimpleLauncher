@@ -14,7 +14,8 @@ public static class DolphinConfigurationService
     /// <param name="emulatorPath">Path to the Dolphin executable.</param>
     /// <param name="settings">The settings manager containing Dolphin configuration.</param>
     /// <param name="logger">The logger instance.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -54,7 +55,8 @@ public static class DolphinConfigurationService
         }
     }
 
-    private static void InjectIntoConfigFile(string configPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    private static void InjectIntoConfigFile(string configPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var configDir = Path.GetDirectoryName(configPath);
 
@@ -189,7 +191,8 @@ public static class DolphinConfigurationService
         }
     }
 
-    private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates)
+    private static void ApplyUpdatesToSection(List<string> lines, string sectionName,
+        Dictionary<string, string> updates)
     {
         var sectionIndex = lines.FindIndex(l => l.Trim().Equals(sectionName, StringComparison.OrdinalIgnoreCase));
         if (sectionIndex == -1)

@@ -15,7 +15,8 @@ public static class Pcsx2ConfigurationService
     /// <param name="emulatorPath">The full path to the PCSX2 emulator executable.</param>
     /// <param name="settings">The settings manager containing PCSX2 configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -30,15 +31,19 @@ public static class Pcsx2ConfigurationService
             {
                 try
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(configPath) ?? throw new InvalidOperationException("Could not create directory for PCSX2.ini"));
+                    Directory.CreateDirectory(Path.GetDirectoryName(configPath) ??
+                                              throw new InvalidOperationException(
+                                                  "Could not create directory for PCSX2.ini"));
                     File.Copy(samplePath, configPath);
                     logger.Debug($"[PCSX2Config] Created new PCSX2.ini from sample: {configPath}");
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    logger.Debug($"[PCSX2Config] Failed to create PCSX2.ini from sample due to permissions: {ex.Message}");
+                    logger.Debug(
+                        $"[PCSX2Config] Failed to create PCSX2.ini from sample due to permissions: {ex.Message}");
                     logger.Error(ex, $"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
-                    throw new Pcsx2PermissionException($"Cannot write to configuration directory: {Path.GetDirectoryName(configPath)}", ex);
+                    throw new Pcsx2PermissionException(
+                        $"Cannot write to configuration directory: {Path.GetDirectoryName(configPath)}", ex);
                 }
                 catch (Exception ex)
                 {
@@ -227,7 +232,8 @@ public static class Pcsx2ConfigurationService
         return documentsConfigPath;
     }
 
-    private static void ApplyUpdatesToSection(List<string> lines, string sectionName, Dictionary<string, string> updates, ref bool modified)
+    private static void ApplyUpdatesToSection(List<string> lines, string sectionName,
+        Dictionary<string, string> updates, ref bool modified)
     {
         var sectionIndex = lines.FindIndex(l => l.Trim().Equals(sectionName, StringComparison.OrdinalIgnoreCase));
 

@@ -13,17 +13,18 @@ public class RomHistoryViewModelTests
     private static RomHistoryViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox)
     {
         messageBox = TestDependencies.MessageBox();
-        return new RomHistoryViewModel(TestDependencies.Logger().Object, messageBox.Object, TestDependencies.ResourceProvider().Object);
+        return new RomHistoryViewModel(TestDependencies.Logger().Object, messageBox.Object,
+            TestDependencies.ResourceProvider().Object);
     }
 
     private const string HistoryXml = """
-        <history>
-          <entry>
-            <systems><system name="Super Mario Bros (World)" game="Super Mario Bros (World)" /></systems>
-            <text>The classic platformer released in 1985.</text>
-          </entry>
-        </history>
-        """;
+                                      <history>
+                                        <entry>
+                                          <systems><system name="Super Mario Bros (World)" game="Super Mario Bros (World)" /></systems>
+                                          <text>The classic platformer released in 1985.</text>
+                                        </entry>
+                                      </history>
+                                      """;
 
     [Fact]
     public void Initialize_SetsRomTexts()

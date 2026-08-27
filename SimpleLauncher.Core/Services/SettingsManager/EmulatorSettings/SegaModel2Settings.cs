@@ -67,7 +67,8 @@ public class SegaModel2Settings : IEmulatorSettings
         EnableFf = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(EnableFf), false);
         HoldGears = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(HoldGears), false);
         UseRawInput = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(UseRawInput), false);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

@@ -170,7 +170,8 @@ public class FindCoverImageJaroWinklerTests
     [Fact]
     public void JaroWinklerGameNames()
     {
-        var result = FindCoverImageService.CalculateJaroWinklerSimilarity("street fighter ii", "street fighter ii turbo");
+        var result =
+            FindCoverImageService.CalculateJaroWinklerSimilarity("street fighter ii", "street fighter ii turbo");
         Assert.True(result > 0.85);
     }
 

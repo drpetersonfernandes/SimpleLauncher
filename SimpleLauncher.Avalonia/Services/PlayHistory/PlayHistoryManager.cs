@@ -19,11 +19,9 @@ public class PlayHistoryManager
     [IgnoreMember] private ILogger? _logger;
     [IgnoreMember] private static readonly DataFileLocation FileLocation = new("playhistory.dat");
 
-    [Key(0)]
-    public ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
+    [Key(0)] public ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
 
-    [Key(1)]
-    public int Version { get; set; } = 1;
+    [Key(1)] public int Version { get; set; } = 1;
 
     private static string FilePath => FileLocation.FilePath;
     private static string TempFilePath => FileLocation.TempFilePath;

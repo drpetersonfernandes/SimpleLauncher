@@ -75,7 +75,8 @@ public partial class SupportWindow : ILoadingState
     {
         if (string.Equals(e.PropertyName, nameof(SupportViewModel.IsLoading), StringComparison.Ordinal))
         {
-            var loadingMessage = (string)Application.Current.TryFindResource("SendingSupportRequest") ?? "Sending support request...";
+            var loadingMessage = (string)Application.Current.TryFindResource("SendingSupportRequest") ??
+                                 "Sending support request...";
             SetLoadingState(_viewModel.IsLoading, loadingMessage);
         }
     }
@@ -95,7 +96,8 @@ public partial class SupportWindow : ILoadingState
 
             if (isLoading)
             {
-                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+                LoadingOverlay.Content =
+                    message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
             }
         });
     }
@@ -106,6 +108,7 @@ public partial class SupportWindow : ILoadingState
         MainContentGrid?.IsEnabled = true;
 
         _logger.Debug("[Emergency] User forced overlay dismissal in SupportWindow.");
-        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
+            "Emergency reset performed.");
     }
 }

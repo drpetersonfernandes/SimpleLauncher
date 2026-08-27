@@ -16,7 +16,8 @@ public class AboutViewModelTests : IDisposable
     private static string AssetsJson(string versionTag)
     {
         var version = versionTag.TrimStart('v');
-        return $$"""{"tag_name": "{{versionTag}}", "assets": [{"name": "release_{{version}}_{{Rid}}.zip", "browser_download_url": "https://example.com/x.zip"}, {"name": "updater_{{Rid}}.zip", "browser_download_url": "https://example.com/u.zip"}]}""";
+        return
+            $$"""{"tag_name": "{{versionTag}}", "assets": [{"name": "release_{{version}}_{{Rid}}.zip", "browser_download_url": "https://example.com/x.zip"}, {"name": "updater_{{Rid}}.zip", "browser_download_url": "https://example.com/u.zip"}]}""";
     }
 
     private readonly string _updaterDir = Path.Combine(
@@ -31,7 +32,8 @@ public class AboutViewModelTests : IDisposable
         var messageBox = TestDependencies.MessageBox();
         var logger = TestDependencies.Logger();
         Directory.CreateDirectory(_updaterDir);
-        var updateChecker = new AvaloniaCheckForUpdatesService(factory.Object, messageBox.Object, logger.Object, new Mock<IApplicationLifetime>().Object, _updaterDir);
+        var updateChecker = new AvaloniaCheckForUpdatesService(factory.Object, messageBox.Object, logger.Object,
+            new Mock<IApplicationLifetime>().Object, _updaterDir);
         var vm = new AboutViewModel(logger.Object, messageBox.Object, updateChecker);
         return (vm, messageBox);
     }
@@ -104,16 +106,18 @@ public class AboutViewModelTests : IDisposable
     {
         // The responder delays, leaving a real async gap so IsCheckingForUpdates
         // (and therefore the command's CanExecute) is observable mid-flight.
-        var handler = new DelayedHandler(TimeSpan.FromMilliseconds(300), new HttpResponseMessage(System.Net.HttpStatusCode.OK)
-        {
-            Content = new StringContent(AssetsJson("v9.9.9"), System.Text.Encoding.UTF8, "application/json")
-        });
+        var handler = new DelayedHandler(TimeSpan.FromMilliseconds(300),
+            new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+            {
+                Content = new StringContent(AssetsJson("v9.9.9"), System.Text.Encoding.UTF8, "application/json")
+            });
         var client = new HttpClient(handler);
         var factory = TestDependencies.HttpFactory(client);
         var messageBox = TestDependencies.MessageBox();
         var logger = TestDependencies.Logger();
         Directory.CreateDirectory(_updaterDir);
-        var updateChecker = new AvaloniaCheckForUpdatesService(factory.Object, messageBox.Object, logger.Object, new Mock<IApplicationLifetime>().Object, _updaterDir);
+        var updateChecker = new AvaloniaCheckForUpdatesService(factory.Object, messageBox.Object, logger.Object,
+            new Mock<IApplicationLifetime>().Object, _updaterDir);
         var vm = new AboutViewModel(logger.Object, messageBox.Object, updateChecker);
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), It.IsAny<string>()))
             .ReturnsAsync(CoreMessageBoxResult.No);
@@ -136,7 +140,8 @@ public class AboutViewModelTests : IDisposable
             _response = response;
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
             await Task.Delay(_delay, cancellationToken);
             return _response;

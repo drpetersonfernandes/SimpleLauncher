@@ -83,7 +83,8 @@ public partial class MainWindow : Window
         var processService = new ProcessService();
         var dokanService = new DokanService(downloadService);
 
-        return new UpdateService(gitHubService, downloadService, zipService, processService, dokanService, AppDirectory);
+        return new UpdateService(gitHubService, downloadService, zipService, processService, dokanService,
+            AppDirectory);
     }
 
     /// <summary>
@@ -154,7 +155,8 @@ public partial class MainWindow : Window
         {
             // Parse process ID from command line arguments
             int? processId = null;
-            if (_args.Length > 0 && int.TryParse(_args[0], System.Globalization.CultureInfo.InvariantCulture, out var pid) && pid > 0)
+            if (_args.Length > 0 &&
+                int.TryParse(_args[0], System.Globalization.CultureInfo.InvariantCulture, out var pid) && pid > 0)
             {
                 processId = pid;
             }
@@ -179,7 +181,8 @@ public partial class MainWindow : Window
             }
             else if (result.RequiresManualUpdate)
             {
-                await RedirectToDownloadPage(result.ErrorMessage ?? "Automatic update failed.\n\nWould you like to update manually?");
+                await RedirectToDownloadPage(result.ErrorMessage ??
+                                             "Automatic update failed.\n\nWould you like to update manually?");
             }
         }
         catch (OperationCanceledException)

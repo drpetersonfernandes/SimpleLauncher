@@ -217,7 +217,8 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
                 this
             );
 
-            var contextMenu = _contextMenuService.AddRightClickReturnContextMenu(context, _findCoverImage, _contextMenuFunctions);
+            var contextMenu =
+                _contextMenuService.AddRightClickReturnContextMenu(context, _findCoverImage, _contextMenuFunctions);
             if (contextMenu != null)
             {
                 PlayHistoryDataGrid.ContextMenu = contextMenu;
@@ -247,8 +248,9 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
             var result = await _messageBox.GameFileDoesNotExistAskToDeleteMessageBoxAsync(fileName);
             if (result == CoreMessageBoxResult.Yes)
             {
-                var itemToRemove = _viewModel.PlayHistoryList.FirstOrDefault(item => item.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
-                                                                                     && item.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+                var itemToRemove = _viewModel.PlayHistoryList.FirstOrDefault(item =>
+                    item.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
+                    && item.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
                 if (itemToRemove != null)
                 {
                     _viewModel.RemoveItem(itemToRemove);
@@ -273,7 +275,8 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
             : (FileName: null, SystemName: null);
 
         var selectedEmulatorName = emulatorManager.EmulatorName;
-        await _gameLauncher.HandleButtonClickAsync(fileName, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, this);
+        await _gameLauncher.HandleButtonClickAsync(fileName, selectedEmulatorName, selectedSystemName,
+            selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, this);
 
         // Refresh data and restore selection
         _viewModel.RefreshAfterGameLaunch();
@@ -397,7 +400,8 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
 
     private void SortByDate_Click(object sender, RoutedEventArgs e)
     {
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
+        _mainWindow.UpdateStatusBarService.UpdateContent(
+            (string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
         var identifier = GetSelectedIdentifier();
 
         _playSoundEffects.PlayNotificationSound();
@@ -409,7 +413,8 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
 
     private void SortByTotalPlayTime_Click(object sender, RoutedEventArgs e)
     {
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
+        _mainWindow.UpdateStatusBarService.UpdateContent(
+            (string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
         var identifier = GetSelectedIdentifier();
 
         _playSoundEffects.PlayNotificationSound();
@@ -421,7 +426,8 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
 
     private void SortByTimesPlayed_Click(object sender, RoutedEventArgs e)
     {
-        _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
+        _mainWindow.UpdateStatusBarService.UpdateContent(
+            (string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...");
         var identifier = GetSelectedIdentifier();
 
         _playSoundEffects.PlayNotificationSound();
@@ -438,7 +444,8 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
             var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
             if (selectedItems.Count > 0)
             {
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingHistoryItem") ?? "Removing history item...");
+                _mainWindow.UpdateStatusBarService.UpdateContent(
+                    (string)Application.Current.TryFindResource("RemovingHistoryItem") ?? "Removing history item...");
                 _playSoundEffects.PlayTrashSound();
                 _viewModel.RemoveItems(selectedItems);
                 PreviewImage.Source = null;
@@ -460,7 +467,9 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
     {
         try
         {
-            _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("RemovingAllHistoryItems") ?? "Removing all history items...");
+            _mainWindow.UpdateStatusBarService.UpdateContent(
+                (string)Application.Current.TryFindResource("RemovingAllHistoryItems") ??
+                "Removing all history items...");
             await _viewModel.RemoveAllCommand.ExecuteAsync(null);
             PreviewImage.Source = null;
         }
@@ -481,7 +490,9 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
             }
             else
             {
-                _mainWindow.UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LaunchingGameFromHistory") ?? "Launching game from history...");
+                _mainWindow.UpdateStatusBarService.UpdateContent(
+                    (string)Application.Current.TryFindResource("LaunchingGameFromHistory") ??
+                    "Launching game from history...");
                 await _messageBox.SelectAGameToLaunchMessageBoxAsync();
             }
         }

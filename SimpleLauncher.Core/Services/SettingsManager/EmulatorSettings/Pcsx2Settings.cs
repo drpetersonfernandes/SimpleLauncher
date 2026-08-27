@@ -79,11 +79,14 @@ public class Pcsx2Settings : IEmulatorSettings
         UpscaleMultiplier = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(UpscaleMultiplier), 2);
         Vsync = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Vsync), false);
         EnableCheats = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(EnableCheats), false);
-        EnableWidescreenPatches = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(EnableWidescreenPatches), false);
+        EnableWidescreenPatches =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(EnableWidescreenPatches), false);
         Volume = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(Volume), 100);
         AchievementsEnabled = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(AchievementsEnabled), false);
-        AchievementsHardcore = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(AchievementsHardcore), true);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        AchievementsHardcore =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(AchievementsHardcore), true);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

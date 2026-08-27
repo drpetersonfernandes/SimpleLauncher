@@ -72,7 +72,8 @@ public sealed class AvaloniaGameCacheService
     /// </summary>
     /// <param name="system">The system configuration.</param>
     /// <param name="enumerateFiles">The file enumeration function (called under the cache lock).</param>
-    public List<string> GetCachedOrScan(SystemManagerConfig system, Func<SystemManagerConfig, IEnumerable<string>> enumerateFiles)
+    public List<string> GetCachedOrScan(SystemManagerConfig system,
+        Func<SystemManagerConfig, IEnumerable<string>> enumerateFiles)
     {
         lock (_lock)
         {

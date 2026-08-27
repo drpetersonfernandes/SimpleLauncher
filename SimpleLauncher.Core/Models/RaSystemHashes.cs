@@ -32,5 +32,6 @@ public class RaSystemHashes
     /// <summary>
     /// Gets or sets the map of full game file paths to their RetroAchievements hash values.
     /// </summary>
-    public IDictionary<string, string> Hashes { get; set; } = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+    public IDictionary<string, string> Hashes { get; set; } =
+        new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 }

@@ -62,7 +62,8 @@ public class StellaSettings : IEmulatorSettings
         AudioVolume = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(AudioVolume), 80);
         TimeMachine = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(TimeMachine), true);
         ConfirmExit = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ConfirmExit), false);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

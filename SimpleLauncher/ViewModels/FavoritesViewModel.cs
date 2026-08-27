@@ -118,7 +118,8 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
                 foreach (var favoriteConfigItem in favoritesSnapshot)
                 {
                     var machine = machinesSnapshot.FirstOrDefault(m =>
-                        m.MachineName.Equals(Path.GetFileNameWithoutExtension(favoriteConfigItem.FileName), StringComparison.OrdinalIgnoreCase));
+                        m.MachineName.Equals(Path.GetFileNameWithoutExtension(favoriteConfigItem.FileName),
+                            StringComparison.OrdinalIgnoreCase));
 
                     var machineDescription = machine?.Description ?? "";
 
@@ -208,11 +209,13 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
     /// <param name="selectedSystemName">The system name associated with the game.</param>
     /// <param name="loadingStateProvider">Optional loading state provider.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    public async Task LaunchGameFromFavoriteAsync(string fileName, string selectedSystemName, ILoadingState? loadingStateProvider = null)
+    public async Task LaunchGameFromFavoriteAsync(string fileName, string selectedSystemName,
+        ILoadingState? loadingStateProvider = null)
     {
         try
         {
-            var selectedSystemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+            var selectedSystemManager = _systemManagers.FirstOrDefault(manager =>
+                manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
             if (selectedSystemManager == null)
             {
                 // Expected condition (favorite references a removed system; user is notified below):
@@ -229,8 +232,9 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
                 var result = await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(filePath ?? fileName);
                 if (result == CoreMessageBoxResult.Yes)
                 {
-                    var favoriteToRemove = Favorites.FirstOrDefault(fav => fav.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
-                                                                           && fav.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+                    var favoriteToRemove = Favorites.FirstOrDefault(fav =>
+                        fav.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
+                        && fav.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
                     if (favoriteToRemove != null)
                     {
                         RemoveFavoriteFromCollection(favoriteToRemove);
@@ -306,7 +310,8 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-        var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        var systemManager = _systemManagers.FirstOrDefault(manager =>
+            manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         var defaultImagePath = Path.Combine(baseDirectory, "images", "default.png");
 
         if (systemManager == null)
@@ -314,7 +319,8 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             return defaultImagePath;
         }
 
-        return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager.SystemImageFolder);
+        return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName,
+            systemManager.SystemImageFolder);
     }
 
     /// <summary>Gets the system manager for the specified system name.</summary>
@@ -322,7 +328,8 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
     /// <returns>The matching <see cref="SystemManager"/>, or <c>null</c> if not found.</returns>
     public SystemManager? GetSystemManager(string systemName)
     {
-        return _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        return _systemManagers.FirstOrDefault(manager =>
+            manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>Releases resources used by this ViewModel.</summary>

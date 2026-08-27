@@ -25,7 +25,8 @@ public class DaphneConfigHandler : IEmulatorConfigHandler
     /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
-        return emulatorName.Contains("Daphne", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("daphne.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+        return emulatorName.Contains("Daphne", StringComparison.OrdinalIgnoreCase) ||
+               (emulatorPath?.Contains("daphne.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
     /// <inheritdoc />

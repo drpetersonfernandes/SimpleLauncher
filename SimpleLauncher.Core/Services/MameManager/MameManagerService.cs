@@ -30,7 +30,8 @@ public class MameManagerService
     /// <param name="datPath">The full path to the mame.dat file; defaults to the application folder.</param>
     /// <param name="messageBox">Optional message box service used to notify the user when the file is missing or corrupted.</param>
     /// <returns>A list of <see cref="MameManagerService"/> entries, or an empty list if the file cannot be loaded.</returns>
-    public static IList<MameManagerService> LoadFromDat(ILogger logErrors, string? datPath = null, IMessageBoxLibraryService? messageBox = null)
+    public static IList<MameManagerService> LoadFromDat(ILogger logErrors, string? datPath = null,
+        IMessageBoxLibraryService? messageBox = null)
     {
         datPath ??= DefaultDatPath;
 

@@ -31,7 +31,8 @@ public class SystemPlayTime
         {
             var timeSpan = TimeSpan.FromSeconds(PlayTimeSeconds);
             var totalHours = (int)timeSpan.TotalHours;
-            return string.Format(CultureInfo.InvariantCulture, "{0}:{1:D2}:{2:D2}", totalHours, timeSpan.Minutes, timeSpan.Seconds);
+            return string.Format(CultureInfo.InvariantCulture, "{0}:{1:D2}:{2:D2}", totalHours, timeSpan.Minutes,
+                timeSpan.Seconds);
         }
     }
 }

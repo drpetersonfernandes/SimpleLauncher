@@ -16,7 +16,8 @@ public class UpdateHistoryViewModelTests
             File.Delete(whatsNew);
         }
 
-        var vm = new UpdateHistoryViewModel(TestDependencies.Logger().Object, TestDependencies.ResourceProvider().Object);
+        var vm = new UpdateHistoryViewModel(TestDependencies.Logger().Object,
+            TestDependencies.ResourceProvider().Object);
         await vm.InitializeAsync();
 
         Assert.Contains("whatsnew.md", vm.MarkdownContent);
@@ -29,7 +30,8 @@ public class UpdateHistoryViewModelTests
         File.WriteAllText(whatsNew, "# Release 5.6.1\n- Fixed a bug");
         try
         {
-            var vm = new UpdateHistoryViewModel(TestDependencies.Logger().Object, TestDependencies.ResourceProvider().Object);
+            var vm = new UpdateHistoryViewModel(TestDependencies.Logger().Object,
+                TestDependencies.ResourceProvider().Object);
             await vm.InitializeAsync();
 
             Assert.Contains("Release 5.6.1", vm.MarkdownContent);

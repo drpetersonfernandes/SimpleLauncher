@@ -12,7 +12,8 @@ public class EncryptDuckStationToken
     /// <summary>
     /// Encrypts a RetroAchievements token using DuckStation's AES-128-CBC scheme with a user-derived key.
     /// </summary>
-    public static string EncryptDuckStationTokenMethod(string token, string username, bool isPortable, ILogger logErrors)
+    public static string EncryptDuckStationTokenMethod(string token, string username, bool isPortable,
+        ILogger logErrors)
     {
         if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(username)) return "";
 

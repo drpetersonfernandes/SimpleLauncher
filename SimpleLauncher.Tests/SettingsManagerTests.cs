@@ -438,7 +438,12 @@ public class SettingsManagerTests : IDisposable
     {
         using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
 
-        var validColors = new[] { "Amber", "Blue", "Brown", "Cobalt", "Crimson", "Cyan", "Emerald", "Green", "Indigo", "Lime", "Magenta", "Maroon", "Mauve", "Olive", "OliveDrab", "Orange", "Pink", "Plum", "Purple", "Red", "Sienna", "SkyBlue", "Steel", "Taupe", "Teal", "Violet", "Yellow" };
+        var validColors = new[]
+        {
+            "Amber", "Blue", "Brown", "Cobalt", "Crimson", "Cyan", "Emerald", "Green", "Indigo", "Lime", "Magenta",
+            "Maroon", "Mauve", "Olive", "OliveDrab", "Orange", "Pink", "Plum", "Purple", "Red", "Sienna", "SkyBlue",
+            "Steel", "Taupe", "Teal", "Violet", "Yellow"
+        };
 
         foreach (var color in validColors)
         {

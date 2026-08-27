@@ -8,7 +8,11 @@ namespace SimpleLauncher.Core.Services.SanitizeInputString;
 public static class SanitizeInputSystemName
 {
     // Windows reserved device names (case-insensitive)
-    private static readonly string[] ReservedNames = ["CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"];
+    private static readonly string[] ReservedNames =
+    [
+        "CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1",
+        "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
+    ];
 
     /// <summary>
     /// Validates a system name for invalid characters.

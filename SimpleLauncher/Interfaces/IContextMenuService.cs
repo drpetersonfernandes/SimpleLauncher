@@ -16,7 +16,8 @@ public interface IContextMenuService
     /// <param name="findCoverImage">The service used to locate cover images.</param>
     /// <param name="contextMenuFunctions">The functions available in the context menu.</param>
     /// <returns>The constructed context menu.</returns>
-    ContextMenu AddRightClickReturnContextMenu(RightClickContext context, IFindCoverImageService findCoverImage, IContextMenuFunctions contextMenuFunctions);
+    ContextMenu AddRightClickReturnContextMenu(RightClickContext context, IFindCoverImageService findCoverImage,
+        IContextMenuFunctions contextMenuFunctions);
 
     /// <summary>
     /// Creates and returns a button that triggers a right-click context menu for a game item.
@@ -25,5 +26,6 @@ public interface IContextMenuService
     /// <param name="findCoverImage">The service used to locate cover images.</param>
     /// <param name="contextMenuFunctions">The functions available in the context menu.</param>
     /// <returns>The constructed button.</returns>
-    Button AddRightClickReturnButton(RightClickContext context, IFindCoverImageService findCoverImage, IContextMenuFunctions contextMenuFunctions);
+    Button AddRightClickReturnButton(RightClickContext context, IFindCoverImageService findCoverImage,
+        IContextMenuFunctions contextMenuFunctions);
 }

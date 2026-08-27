@@ -199,7 +199,8 @@ public class SearchOrchestratorServiceTests
         /// <param name="hasActiveFilter">Whether a filter is currently applied.</param>
         /// <param name="ct">A token to observe for cancellation.</param>
         /// <returns>A task producing empty game and search result lists.</returns>
-        public Task<(List<string> allGames, List<string> searchResults)> GetResortSourceAsync(bool hasActiveFilter, CancellationToken ct)
+        public Task<(List<string> allGames, List<string> searchResults)> GetResortSourceAsync(bool hasActiveFilter,
+            CancellationToken ct)
         {
             return Task.FromResult((new List<string>(), new List<string>()));
         }
@@ -211,7 +212,8 @@ public class SearchOrchestratorServiceTests
         /// <param name="fileService">The service that would enumerate the files on disk.</param>
         /// <param name="ct">A token to observe for cancellation.</param>
         /// <returns>A completed <see cref="Task"/>.</returns>
-        public Task PopulateFromDiskAsync(Services.SystemManager.SystemManagerService config, IGetListOfFilesService fileService, CancellationToken ct)
+        public Task PopulateFromDiskAsync(Services.SystemManager.SystemManagerService config,
+            IGetListOfFilesService fileService, CancellationToken ct)
         {
             return Task.CompletedTask;
         }

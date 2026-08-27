@@ -36,19 +36,22 @@ public class AvaloniaRightClickContext(
     public string SelectedSystemName { get; } = selectedSystemName ?? "";
 
     /// <summary>Gets the system manager instance for the selected system.</summary>
-    public SystemManagerService SelectedSystemManager { get; } = selectedSystemManager ?? throw new ArgumentNullException(nameof(selectedSystemManager));
+    public SystemManagerService SelectedSystemManager { get; } =
+        selectedSystemManager ?? throw new ArgumentNullException(nameof(selectedSystemManager));
 
     /// <summary>Gets the application settings manager.</summary>
     public SettingsManagerService Settings { get; } = settings ?? throw new ArgumentNullException(nameof(settings));
 
     /// <summary>Gets the favorites manager instance.</summary>
-    public FavoritesManager FavoritesManager { get; } = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
+    public FavoritesManager FavoritesManager { get; } =
+        favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
 
     /// <summary>Gets the window that owns dialogs opened from the menu.</summary>
     public Window OwnerWindow { get; } = ownerWindow ?? throw new ArgumentNullException(nameof(ownerWindow));
 
     /// <summary>Gets the main view model (status text, launching, refreshing).</summary>
-    public MainViewModel MainViewModel { get; } = mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
+    public MainViewModel MainViewModel { get; } =
+        mainViewModel ?? throw new ArgumentNullException(nameof(mainViewModel));
 
     /// <summary>Gets the game card the menu was opened from, when available (for live favorite-star updates).</summary>
     public GameCardViewModel? SourceCard { get; } = sourceCard;

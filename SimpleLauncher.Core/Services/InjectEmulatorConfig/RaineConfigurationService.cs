@@ -54,7 +54,9 @@ public static class RaineConfigurationService
                     throw;
                 }
             }
-            else throw new FileNotFoundException("Raine configuration file not found and sample is missing.", samplePath);
+            else
+                throw new FileNotFoundException("Raine configuration file not found and sample is missing.",
+                    samplePath);
         }
 
         // Determine if we are in NeoGeo CD mode
@@ -104,7 +106,9 @@ public static class RaineConfigurationService
 
         if (!string.IsNullOrEmpty(effectiveRomDir))
         {
-            updates["Directories"]["rom_dir_0"] = effectiveRomDir.EndsWith(Path.DirectorySeparatorChar) ? effectiveRomDir : effectiveRomDir + Path.DirectorySeparatorChar;
+            updates["Directories"]["rom_dir_0"] = effectiveRomDir.EndsWith(Path.DirectorySeparatorChar)
+                ? effectiveRomDir
+                : effectiveRomDir + Path.DirectorySeparatorChar;
         }
 
         // Inject NeoGeo CD specific settings
@@ -112,7 +116,9 @@ public static class RaineConfigurationService
         {
             if (!string.IsNullOrEmpty(gameDir))
             {
-                updates["neocd"]["neocd_dir"] = gameDir.EndsWith(Path.DirectorySeparatorChar) ? gameDir : gameDir + Path.DirectorySeparatorChar;
+                updates["neocd"]["neocd_dir"] = gameDir.EndsWith(Path.DirectorySeparatorChar)
+                    ? gameDir
+                    : gameDir + Path.DirectorySeparatorChar;
             }
 
             updates["neocd"]["neocd_bios"] = settings.Raine.NeoCdBios;
@@ -165,7 +171,8 @@ public static class RaineConfigurationService
                     if (sectionUpdates.TryGetValue(key, out var newValue))
                     {
                         var newLine = $"{key} = {newValue}";
-                        if (!string.Equals(lines[i].Trim(), newLine, StringComparison.Ordinal)) // Compare trimmed to avoid false positives on indentation
+                        if (!string.Equals(lines[i].Trim(), newLine,
+                                StringComparison.Ordinal)) // Compare trimmed to avoid false positives on indentation
                         {
                             lines[i] = newLine;
                             modified = true;
@@ -184,7 +191,8 @@ public static class RaineConfigurationService
             {
                 modified = true;
                 var sectionHeader = $"[{section.Key}]";
-                var sectionIndex = lines.FindIndex(l => l.Trim().Equals(sectionHeader, StringComparison.OrdinalIgnoreCase));
+                var sectionIndex =
+                    lines.FindIndex(l => l.Trim().Equals(sectionHeader, StringComparison.OrdinalIgnoreCase));
                 if (sectionIndex == -1)
                 {
                     lines.Add("");

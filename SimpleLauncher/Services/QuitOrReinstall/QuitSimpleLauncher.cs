@@ -19,7 +19,8 @@ public class QuitSimpleLauncher
     /// <summary>
     /// Initializes a new instance of the <see cref="QuitSimpleLauncher"/> class.
     /// </summary>
-    public QuitSimpleLauncher(ILogger logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, IServiceProvider serviceProvider)
+    public QuitSimpleLauncher(ILogger logErrors, IApplicationLifetime applicationLifetime,
+        IDispatcherService dispatcherService, IServiceProvider serviceProvider)
     {
         _logger = logErrors;
         _applicationLifetime = applicationLifetime;

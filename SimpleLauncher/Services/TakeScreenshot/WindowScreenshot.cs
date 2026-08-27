@@ -18,11 +18,13 @@ public static partial class WindowScreenshot
     /// <summary>Gets the bounding rectangle of a window including its borders.</summary>
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    public static partial bool GetWindowRect(IntPtr hWnd, out SimpleLauncher.Models.WindowScreenshot.Rectangle lpRectangle);
+    public static partial bool GetWindowRect(IntPtr hWnd,
+        out SimpleLauncher.Models.WindowScreenshot.Rectangle lpRectangle);
 
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool GetClientRect(IntPtr hWnd, out SimpleLauncher.Models.WindowScreenshot.Rectangle lpRectangle);
+    private static partial bool GetClientRect(IntPtr hWnd,
+        out SimpleLauncher.Models.WindowScreenshot.Rectangle lpRectangle);
 
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
@@ -38,7 +40,8 @@ public static partial class WindowScreenshot
     /// <param name="hWnd">Handle to the window.</param>
     /// <param name="clientRectangle">The rectangle of the client area in screen coordinates.</param>
     /// <returns>True if the client area was successfully retrieved, false otherwise.</returns>
-    public static bool GetClientAreaRect(IntPtr hWnd, out SimpleLauncher.Models.WindowScreenshot.Rectangle clientRectangle)
+    public static bool GetClientAreaRect(IntPtr hWnd,
+        out SimpleLauncher.Models.WindowScreenshot.Rectangle clientRectangle)
     {
         clientRectangle = new SimpleLauncher.Models.WindowScreenshot.Rectangle();
 
@@ -56,7 +59,8 @@ public static partial class WindowScreenshot
         }
 
         // Get the top-left corner of the client area in screen coordinates
-        var clientTopLeft = new SimpleLauncher.Models.WindowScreenshot.Point { X = localClientRect.Left, Y = localClientRect.Top };
+        var clientTopLeft = new SimpleLauncher.Models.WindowScreenshot.Point
+            { X = localClientRect.Left, Y = localClientRect.Top };
         if (!ClientToScreen(hWnd, ref clientTopLeft))
         {
             _logger.Debug($"[WindowScreenshot] ClientToScreen failed for window {hWnd}.");

@@ -14,5 +14,6 @@ public interface IGetListOfFilesService
     /// <param name="groupByFolder">If true, groups results by containing folder.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A list of matching file paths.</returns>
-    Task<IList<string>> GetFilesAsync(string directoryPath, IList<string> fileExtensions, bool disableRecursiveSearch, bool groupByFolder, CancellationToken cancellationToken = default);
+    Task<IList<string>> GetFilesAsync(string directoryPath, IList<string> fileExtensions, bool disableRecursiveSearch,
+        bool groupByFolder, CancellationToken cancellationToken = default);
 }

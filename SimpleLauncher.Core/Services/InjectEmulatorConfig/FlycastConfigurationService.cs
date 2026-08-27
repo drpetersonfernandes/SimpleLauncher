@@ -15,7 +15,8 @@ public static class FlycastConfigurationService
     /// <param name="emulatorPath">Path to the Flycast executable.</param>
     /// <param name="settings">The settings manager containing Flycast configuration.</param>
     /// <param name="logger">The logger instance.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -110,11 +111,13 @@ public static class FlycastConfigurationService
         if (windowUpdates.Count > 0)
         {
             modified = true;
-            var windowIndex = lines.FindIndex(static l => l.Trim().Equals("[window]", StringComparison.OrdinalIgnoreCase));
+            var windowIndex =
+                lines.FindIndex(static l => l.Trim().Equals("[window]", StringComparison.OrdinalIgnoreCase));
             if (windowIndex != -1)
             {
                 var insertIndex = windowIndex + 1;
-                while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) && !lines[insertIndex].Trim().StartsWith('['))
+                while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
+                       !lines[insertIndex].Trim().StartsWith('['))
                 {
                     insertIndex++;
                 }

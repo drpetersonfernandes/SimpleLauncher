@@ -55,7 +55,8 @@ public interface IGameCacheService
     /// <param name="config">The system manager configuration to use.</param>
     /// <param name="fileService">The file listing service to scan directories.</param>
     /// <param name="ct">A token to cancel the operation.</param>
-    Task PopulateFromDiskAsync(Services.SystemManager.SystemManagerService config, IGetListOfFilesService fileService, CancellationToken ct);
+    Task PopulateFromDiskAsync(Services.SystemManager.SystemManagerService config, IGetListOfFilesService fileService,
+        CancellationToken ct);
 
     /// <summary>
     /// Asynchronously retrieves the source lists needed for re-sorting cached games.

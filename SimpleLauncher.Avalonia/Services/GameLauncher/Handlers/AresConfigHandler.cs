@@ -37,7 +37,8 @@ public class AresConfigHandler : IEmulatorConfigHandler
     {
         if (context.EmulatorManager != null)
         {
-            var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
+            var resolvedEmulatorExePath =
+                PathHelper.ResolveRelativeToAppDirectory(context.EmulatorManager.EmulatorLocation);
             var shouldRun = false;
 
             if (context.Settings is { Ares.ShowSettingsBeforeLaunch: true })
@@ -45,7 +46,8 @@ public class AresConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(async () =>
                     {
-                        var aresWindow = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectAresConfigWindow>();
+                        var aresWindow = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectAresConfigWindow>();
                         aresWindow.Initialize(resolvedEmulatorExePath);
                         await aresWindow.ShowDialog((Window)context.WindowContext.PlatformWindow);
                         shouldRun = aresWindow.ShouldRun;

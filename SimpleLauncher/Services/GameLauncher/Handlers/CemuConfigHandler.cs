@@ -28,7 +28,8 @@ public class CemuConfigHandler : IEmulatorConfigHandler
     /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
-        return emulatorName.Contains("Cemu", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("Cemu.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+        return emulatorName.Contains("Cemu", StringComparison.OrdinalIgnoreCase) ||
+               (emulatorPath?.Contains("Cemu.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
     /// <inheritdoc />
@@ -44,7 +45,8 @@ public class CemuConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectCemuConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectCemuConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();

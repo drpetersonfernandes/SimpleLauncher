@@ -28,7 +28,8 @@ public class DolphinConfigHandler : IEmulatorConfigHandler
     /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
-        return emulatorName.Contains("Dolphin", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("Dolphin.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+        return emulatorName.Contains("Dolphin", StringComparison.OrdinalIgnoreCase) ||
+               (emulatorPath?.Contains("Dolphin.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
     /// <inheritdoc />
@@ -44,7 +45,8 @@ public class DolphinConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(async () =>
                     {
-                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectDolphinConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectDolphinConfigWindow>();
                         win.Initialize(resolvedExe);
                         await win.ShowDialog((Window)context.WindowContext.PlatformWindow);
                         shouldRun = win.ShouldRun;

@@ -242,10 +242,10 @@ public class ValidateBatchFileTests : IDisposable
     {
         var batchFile = Path.Combine(_testDirectory, "nonpath.bat");
         File.WriteAllText(batchFile, """
-                                    @echo off
-                                    set "NAME=hello"
-                                    echo "this is not a path"
-                                    """);
+                                     @echo off
+                                     set "NAME=hello"
+                                     echo "this is not a path"
+                                     """);
 
         var result = ValidateBatchFile.FindInvalidQuotedPathsSimple(batchFile);
         Assert.Empty(result);

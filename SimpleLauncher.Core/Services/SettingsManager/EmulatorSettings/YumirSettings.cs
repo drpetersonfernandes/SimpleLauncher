@@ -55,10 +55,12 @@ public class YumirSettings : IEmulatorSettings
         VideoStandard = EmulatorXmlHelpers.ReadString(s, SectionName, settings, nameof(VideoStandard), "PAL");
         AutoDetectRegion = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(AutoDetectRegion), true);
         PauseWhenUnfocused = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(PauseWhenUnfocused), false);
-        ForcedAspect = EmulatorXmlHelpers.ReadDouble(s, SectionName, settings, nameof(ForcedAspect), 1.7777777777777777);
+        ForcedAspect =
+            EmulatorXmlHelpers.ReadDouble(s, SectionName, settings, nameof(ForcedAspect), 1.7777777777777777);
         ForceAspectRatio = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ForceAspectRatio), false);
         ReduceLatency = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ReduceLatency), true);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

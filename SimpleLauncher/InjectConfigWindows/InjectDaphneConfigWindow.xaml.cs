@@ -21,10 +21,7 @@ public partial class InjectDaphneConfigWindow
         _viewModel = viewModel;
         _viewModel.CloseRequested += OnCloseRequested;
 
-        Closing += (_, _) =>
-        {
-            _viewModel.CloseRequested -= OnCloseRequested;
-        };
+        Closing += (_, _) => { _viewModel.CloseRequested -= OnCloseRequested; };
 
         DataContext = _viewModel;
     }

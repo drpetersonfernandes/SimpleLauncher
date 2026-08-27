@@ -136,7 +136,8 @@ public class GameCacheService : IGameCacheService, IDisposable
     /// Populates the cache from disk by scanning the system's configured folders,
     /// skipping if the cache is already populated for the same system.
     /// </summary>
-    public async Task PopulateFromDiskAsync(SystemManager.SystemManagerService config, IGetListOfFilesService fileService, CancellationToken ct)
+    public async Task PopulateFromDiskAsync(SystemManager.SystemManagerService config,
+        IGetListOfFilesService fileService, CancellationToken ct)
     {
         await _lock.WaitAsync(ct);
         try
@@ -144,7 +145,8 @@ public class GameCacheService : IGameCacheService, IDisposable
             if (_allGamesForCurrentSystem.Count > 0 &&
                 string.Equals(SelectedSystem, config.SystemName, StringComparison.OrdinalIgnoreCase))
             {
-                _logger.Debug($"[GameCacheService] Using cached list for '{config.SystemName}'. Count: {_allGamesForCurrentSystem.Count}");
+                _logger.Debug(
+                    $"[GameCacheService] Using cached list for '{config.SystemName}'. Count: {_allGamesForCurrentSystem.Count}");
                 return;
             }
 
@@ -160,7 +162,8 @@ public class GameCacheService : IGameCacheService, IDisposable
                     !Directory.Exists(resolvedPath) ||
                     config.FileFormatsToSearch == null) continue;
 
-                var filesInFolder = await fileService.GetFilesAsync(resolvedPath, config.FileFormatsToSearch, config.DisableRecursiveSearch, config.GroupByFolder, ct);
+                var filesInFolder = await fileService.GetFilesAsync(resolvedPath, config.FileFormatsToSearch,
+                    config.DisableRecursiveSearch, config.GroupByFolder, ct);
                 foreach (var file in filesInFolder)
                 {
                     uniqueFiles.TryAdd(Path.GetFileName(file), file);

@@ -26,15 +26,9 @@ public partial class RetroAchievementsSettingsWindow : Window
 
         _viewModel = viewModel;
 
-        _saveCompletedHandler = (_, _) =>
-        {
-            Close();
-        };
+        _saveCompletedHandler = (_, _) => { Close(); };
 
-        _closeRequestedHandler = (_, _) =>
-        {
-            Close();
-        };
+        _closeRequestedHandler = (_, _) => { Close(); };
 
         _viewModel.SaveCompleted += _saveCompletedHandler;
         _viewModel.CloseRequested += _closeRequestedHandler;
@@ -69,7 +63,8 @@ public partial class RetroAchievementsSettingsWindow : Window
     {
         try
         {
-            Process.Start(new ProcessStartInfo("https://retroachievements.org/controlpanel.php") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo("https://retroachievements.org/controlpanel.php")
+                { UseShellExecute = true });
         }
         catch (Exception ex)
         {

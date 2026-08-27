@@ -21,7 +21,8 @@ public class ScanAmazonGames : IGamePlatformScanner
     }
 
     /// <inheritdoc />
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
+        string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {
@@ -61,7 +62,8 @@ public class ScanAmazonGames : IGamePlatformScanner
                         var shortcutContent = $"[InternetShortcut]\nURL=amazon-games://play/{gameId}";
                         await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, title, installDir, sanitizedGameName, windowsImagesPath);
+                        await gameScannerService.FindAndSaveGameImageAsync(logErrors, title, installDir,
+                            sanitizedGameName, windowsImagesPath);
                     }
                 }
                 catch (Exception ex)

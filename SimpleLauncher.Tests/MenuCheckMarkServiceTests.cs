@@ -82,7 +82,12 @@ public class MenuCheckMarkServiceTests
 
             service.UpdateThumbnailSizeCheckMarks(300);
 
-            var sizes = new[] { host.Size50, host.Size100, host.Size150, host.Size200, host.Size250, host.Size300, host.Size350, host.Size400, host.Size450, host.Size500, host.Size550, host.Size600, host.Size650, host.Size700, host.Size750, host.Size800 };
+            var sizes = new[]
+            {
+                host.Size50, host.Size100, host.Size150, host.Size200, host.Size250, host.Size300, host.Size350,
+                host.Size400, host.Size450, host.Size500, host.Size550, host.Size600, host.Size650, host.Size700,
+                host.Size750, host.Size800
+            };
             Assert.Equal(1, CountChecked(sizes));
             Assert.True(host.Size300.IsChecked);
         });
@@ -102,7 +107,11 @@ public class MenuCheckMarkServiceTests
 
             service.UpdateNumberOfGamesPerPageCheckMarks(selected);
 
-            var pages = new[] { host.Page100, host.Page200, host.Page300, host.Page400, host.Page500, host.Page1000, host.Page10000, host.Page1000000 };
+            var pages = new[]
+            {
+                host.Page100, host.Page200, host.Page300, host.Page400, host.Page500, host.Page1000, host.Page10000,
+                host.Page1000000
+            };
             Assert.Equal(1, CountChecked(pages));
             var expected = selected switch
             {
@@ -164,7 +173,11 @@ public class MenuCheckMarkServiceTests
 
             service.UpdateButtonAspectRatioCheckMarks(selected);
 
-            var items = new[] { host.Square, host.Wider, host.SuperWider, host.SuperWider2, host.Taller, host.SuperTaller, host.SuperTaller2 };
+            var items = new[]
+            {
+                host.Square, host.Wider, host.SuperWider, host.SuperWider2, host.Taller, host.SuperTaller,
+                host.SuperTaller2
+            };
             Assert.Equal(1, CountChecked(items));
         });
     }
@@ -183,7 +196,8 @@ public class MenuCheckMarkServiceTests
 
             service.UpdateFilenameDisplayModeCheckMarks(selected);
 
-            var items = new[] { host.FilenameDisplayOriginal, host.FilenameDisplayCleanUp, host.FilenameDisplayNoFilename };
+            var items = new[]
+                { host.FilenameDisplayOriginal, host.FilenameDisplayCleanUp, host.FilenameDisplayNoFilename };
             Assert.Equal(1, CountChecked(items));
         });
     }
@@ -221,7 +235,8 @@ public class MenuCheckMarkServiceTests
 
             service.UpdateMachineNameFontSizeCheckMarks(selected);
 
-            var items = new[] { host.MachineNameFontSizeSmall, host.MachineNameFontSizeNormal, host.MachineNameFontSizeBig };
+            var items = new[]
+                { host.MachineNameFontSizeSmall, host.MachineNameFontSizeNormal, host.MachineNameFontSizeBig };
             Assert.Equal(1, CountChecked(items));
         });
     }

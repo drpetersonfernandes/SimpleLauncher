@@ -51,7 +51,8 @@ public partial class InjectMameConfigWindow
     /// <param name="isLauncherMode">If true, the window operates in launcher mode.</param>
     /// <param name="systemRomPath">Optional path to the system ROM.</param>
     /// <param name="listOfSecondaryRomPaths">Optional array of secondary ROM paths.</param>
-    public void Initialize(string? emulatorPath = null, bool isLauncherMode = true, string? systemRomPath = null, string[]? listOfSecondaryRomPaths = null)
+    public void Initialize(string? emulatorPath = null, bool isLauncherMode = true, string? systemRomPath = null,
+        string[]? listOfSecondaryRomPaths = null)
     {
         _viewModel.Initialize(emulatorPath, isLauncherMode, systemRomPath, listOfSecondaryRomPaths);
 

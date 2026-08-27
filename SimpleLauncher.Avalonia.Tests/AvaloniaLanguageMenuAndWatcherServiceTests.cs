@@ -213,7 +213,8 @@ public class AvaloniaLanguageMenuAndWatcherServiceTests
 
     private sealed class TempDirectory : IDisposable
     {
-        public string Path { get; } = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "sl_av_watcher_" + Guid.NewGuid().ToString("N"));
+        public string Path { get; } = System.IO.Path.Combine(System.IO.Path.GetTempPath(),
+            "sl_av_watcher_" + Guid.NewGuid().ToString("N"));
 
         public TempDirectory()
         {

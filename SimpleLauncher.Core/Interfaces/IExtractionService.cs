@@ -11,7 +11,8 @@ public interface IExtractionService
     /// <param name="archivePath">The path to the archive file to extract.</param>
     /// <param name="fileFormatsToLaunch">A list of file extensions to search for within the archive.</param>
     /// <returns>A tuple containing the path to the game file and the temporary directory path, or null values if no matching file was found.</returns>
-    Task<(string? gameFilePath, string? tempDirectoryPath)> ExtractToTempAndGetLaunchFileAsync(string archivePath, IList<string> fileFormatsToLaunch);
+    Task<(string? gameFilePath, string? tempDirectoryPath)> ExtractToTempAndGetLaunchFileAsync(string archivePath,
+        IList<string> fileFormatsToLaunch);
 
     /// <summary>
     /// Asynchronously extracts an archive to the specified destination folder.

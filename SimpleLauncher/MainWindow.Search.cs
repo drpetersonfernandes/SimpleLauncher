@@ -17,7 +17,8 @@ public partial class MainWindow
 
             try
             {
-                UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Searching") ?? "Searching...");
+                UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("Searching") ??
+                                                     "Searching...");
                 _audioInput.PlayNotificationSound();
                 await ExecuteSearchAsync();
             }
@@ -62,8 +63,10 @@ public partial class MainWindow
     {
         if (_isLoadingGames) return;
 
-        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ExecutingSearch") ?? "Executing search...");
-        var searchingMsg = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching... Please wait.";
+        UpdateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("ExecutingSearch") ??
+                                             "Executing search...");
+        var searchingMsg = (string)Application.Current.TryFindResource("Searchingpleasewait") ??
+                           "Searching... Please wait.";
         SetLoadingState(true, searchingMsg);
 
         try
@@ -75,7 +78,8 @@ public partial class MainWindow
             ((IUiResetHost)this).ActiveSearchQueryOrMode = searchQuery;
 
             var selectedSystem = SystemComboBox.SelectedItem?.ToString();
-            var result = await _gameBrowser.ValidateAndPrepareAsync(searchQuery, selectedSystem, _cancellationSource.Token);
+            var result =
+                await _gameBrowser.ValidateAndPrepareAsync(searchQuery, selectedSystem, _cancellationSource.Token);
 
             if (!result.IsValid)
             {

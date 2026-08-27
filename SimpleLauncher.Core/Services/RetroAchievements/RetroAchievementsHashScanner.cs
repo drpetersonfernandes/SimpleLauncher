@@ -168,7 +168,8 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
         var systemId = _systemMatcher.GetSystemId(matchedSystemName);
         if (systemId is <= 0 or > RetroAchievementsConstants.MaxConsoleId)
         {
-            _logger.Information($"[RA Hash Scanner] System '{target.SystemName}' is not supported for RetroAchievements hashing. Skipping.");
+            _logger.Information(
+                $"[RA Hash Scanner] System '{target.SystemName}' is not supported for RetroAchievements hashing. Skipping.");
             return HashScanResult.NotScannable;
         }
 
@@ -184,7 +185,8 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
                 target.FileFormatsToSearch == null) continue;
 
             var filesInFolder = await _getListOfFiles.GetFilesAsync(
-                resolvedPath, target.FileFormatsToSearch, target.DisableRecursiveSearch, target.GroupByFolder, cancellationToken);
+                resolvedPath, target.FileFormatsToSearch, target.DisableRecursiveSearch, target.GroupByFolder,
+                cancellationToken);
 
             foreach (var file in filesInFolder)
             {
@@ -198,11 +200,13 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
         var existing = _hashStore.LoadSystemHashes(target.SystemName);
         if (existing != null && existing.FileCount == uniqueFiles.Count && existing.HashVersion == CurrentHashVersion)
         {
-            _logger.Information($"[RA Hash Scanner] Hash scan is up to date for '{target.SystemName}' ({uniqueFiles.Count} files). Skipping re-hashing.");
+            _logger.Information(
+                $"[RA Hash Scanner] Hash scan is up to date for '{target.SystemName}' ({uniqueFiles.Count} files). Skipping re-hashing.");
             return HashScanResult.UpToDate;
         }
 
-        _logger.Debug($"[RA Hash Scanner] Calculating hashes for '{target.SystemName}' ({uniqueFiles.Count} files, system id {systemId}).");
+        _logger.Debug(
+            $"[RA Hash Scanner] Calculating hashes for '{target.SystemName}' ({uniqueFiles.Count} files, system id {systemId}).");
 
         // Arcade games are hashed by file name; every other system hashes file content.
         var isFileNameHashSystem = matchedSystemName.Equals("arcade", StringComparison.OrdinalIgnoreCase);
@@ -260,7 +264,8 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
 
         _hashStore.SaveSystemHashes(result);
 
-        _logger.Information($"[RA Hash Scanner] Completed hash scan for '{target.SystemName}': {hashes.Count}/{uniqueFiles.Count} files hashed.");
+        _logger.Information(
+            $"[RA Hash Scanner] Completed hash scan for '{target.SystemName}': {hashes.Count}/{uniqueFiles.Count} files hashed.");
 
         return HashScanResult.Completed;
     }
@@ -275,7 +280,8 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     /// <param name="matchedSystemName">The resolved RetroAchievements system name.</param>
     /// <param name="fileFormatsToLaunch">The extensions to look for inside the archive.</param>
     /// <returns>The 32-character hash, or null if the file could not be hashed.</returns>
-    private async Task<string?> HashExtractedArchiveAsync(string archivePath, string matchedSystemName, IList<string> fileFormatsToLaunch)
+    private async Task<string?> HashExtractedArchiveAsync(string archivePath, string matchedSystemName,
+        IList<string> fileFormatsToLaunch)
     {
         string? tempExtractionPath = null;
 
@@ -283,16 +289,19 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
         {
             if (fileFormatsToLaunch is not { Count: > 0 })
             {
-                _logger.Information($"[RA Hash Scanner] No launchable formats configured; skipping archive '{archivePath}'.");
+                _logger.Information(
+                    $"[RA Hash Scanner] No launchable formats configured; skipping archive '{archivePath}'.");
                 return null;
             }
 
-            var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(archivePath, fileFormatsToLaunch);
+            var (extractedGameFilePath, extractedTempDirPath) =
+                await _extractionService.ExtractToTempAndGetLaunchFileAsync(archivePath, fileFormatsToLaunch);
             tempExtractionPath = extractedTempDirPath;
 
             if (string.IsNullOrEmpty(extractedGameFilePath))
             {
-                _logger.Information($"[RA Hash Scanner] Failed to extract a suitable file from archive for hashing: {archivePath}.");
+                _logger.Information(
+                    $"[RA Hash Scanner] Failed to extract a suitable file from archive for hashing: {archivePath}.");
                 return null;
             }
 
@@ -316,7 +325,8 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
                 }
                 catch (Exception ex)
                 {
-                    _logger.Debug($"[RA Hash Scanner] Failed to clean up temporary extraction folder '{tempExtractionPath}': {ex.Message}");
+                    _logger.Debug(
+                        $"[RA Hash Scanner] Failed to clean up temporary extraction folder '{tempExtractionPath}': {ex.Message}");
                 }
             }
         }

@@ -38,7 +38,8 @@ public partial class MainWindow
         aboutWindow.ShowDialog();
     }
 
-    private void ConversionTypeComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    private void ConversionTypeComboBox_SelectionChanged(object sender,
+        System.Windows.Controls.SelectionChangedEventArgs e)
     {
         // Check if the controls are initialized yet
         if (InputFilePathTextBox == null || OutputFilePathTextBox == null || StatusMessageTextBlock == null)
@@ -53,7 +54,8 @@ public partial class MainWindow
     private void BrowseInput_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new OpenFileDialog();
-        var conversionType = (ConversionTypeComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content.ToString();
+        var conversionType = (ConversionTypeComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content
+            .ToString();
 
         if (string.Equals(conversionType, "XML to Binary", StringComparison.Ordinal))
         {
@@ -82,7 +84,8 @@ public partial class MainWindow
     private void BrowseOutput_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new SaveFileDialog();
-        var conversionType = (ConversionTypeComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content.ToString();
+        var conversionType = (ConversionTypeComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content
+            .ToString();
 
         if (string.Equals(conversionType, "XML to Binary", StringComparison.Ordinal))
         {
@@ -100,7 +103,9 @@ public partial class MainWindow
         {
             dialog.InitialDirectory = Path.GetDirectoryName(InputFilePathTextBox.Text);
             dialog.FileName = Path.GetFileNameWithoutExtension(InputFilePathTextBox.Text) +
-                              (string.Equals(conversionType, "XML to Binary", StringComparison.Ordinal) ? ".dat" : ".xml");
+                              (string.Equals(conversionType, "XML to Binary", StringComparison.Ordinal)
+                                  ? ".dat"
+                                  : ".xml");
         }
 
         if (dialog.ShowDialog() == true)
@@ -119,7 +124,8 @@ public partial class MainWindow
                 string.IsNullOrEmpty(OutputFilePathTextBox.Text) ||
                 !File.Exists(InputFilePathTextBox.Text))
             {
-                MessageBox.Show("Please select valid input and output files.", "Invalid Files", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Please select valid input and output files.", "Invalid Files", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
                 return;
             }
 
@@ -132,7 +138,8 @@ public partial class MainWindow
 
                 StatusMessageTextBlock.Text = "Reading XML file...";
 
-                var conversionType = (ConversionTypeComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Content.ToString();
+                var conversionType = (ConversionTypeComboBox.SelectedItem as System.Windows.Controls.ComboBoxItem)
+                    ?.Content.ToString();
 
                 // Create a progress reporter to update status
                 var progress = new Progress<string>(status => { StatusMessageTextBlock.Text = status; });
@@ -140,11 +147,13 @@ public partial class MainWindow
                 // Start the conversion based on the type
                 if (string.Equals(conversionType, "XML to Binary", StringComparison.Ordinal))
                 {
-                    await _converterService.ConvertXmlToBinaryAsync(InputFilePathTextBox.Text, OutputFilePathTextBox.Text, progress);
+                    await _converterService.ConvertXmlToBinaryAsync(InputFilePathTextBox.Text,
+                        OutputFilePathTextBox.Text, progress);
                 }
                 else
                 {
-                    await _converterService.ConvertBinaryToXmlAsync(InputFilePathTextBox.Text, OutputFilePathTextBox.Text, progress);
+                    await _converterService.ConvertBinaryToXmlAsync(InputFilePathTextBox.Text,
+                        OutputFilePathTextBox.Text, progress);
                 }
 
                 // Show success message
@@ -159,7 +168,8 @@ public partial class MainWindow
                 await _logError.LogAsync(ex);
 
                 // Ask user if they want to see the error details
-                var result = MessageBox.Show($"An error occurred during conversion:\n{ex.Message}\n\nWould you like to view the detailed error log?",
+                var result = MessageBox.Show(
+                    $"An error occurred during conversion:\n{ex.Message}\n\nWould you like to view the detailed error log?",
                     "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
 
                 if (result == MessageBoxResult.Yes)

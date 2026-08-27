@@ -27,7 +27,8 @@ public partial class MainWindow
         _logger = new WpfLogger(LogTextBox, LogScrollViewer);
 
         _logger.Info("Welcome to MAME DAT Creator Utility.");
-        _logger.Info("This tool will merge the MAME full driver list with software lists to create a unified DAT file.");
+        _logger.Info(
+            "This tool will merge the MAME full driver list with software lists to create a unified DAT file.");
         _logger.Info("Please select the required files and folder to begin.\n");
     }
 

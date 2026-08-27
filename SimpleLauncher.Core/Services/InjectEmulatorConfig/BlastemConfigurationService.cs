@@ -18,7 +18,8 @@ public static partial class BlastemConfigurationService
     /// <param name="emulatorPath">Path to the Blastem executable.</param>
     /// <param name="settings">The settings manager containing Blastem configuration.</param>
     /// <param name="logger">The logger instance.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -132,7 +133,8 @@ public static partial class BlastemConfigurationService
 
             // Validate scope: only update keys when inside their expected block
             var currentBlock = blockStack.Count > 0 ? blockStack.Peek() : "";
-            if (keyBlocks.TryGetValue(key, out var expectedBlock) && !string.Equals(currentBlock, expectedBlock, StringComparison.Ordinal))
+            if (keyBlocks.TryGetValue(key, out var expectedBlock) &&
+                !string.Equals(currentBlock, expectedBlock, StringComparison.Ordinal))
                 continue; // Key found in wrong scope (e.g., comment or user custom section), skip it
 
             // Preserve original indentation and trailing comments

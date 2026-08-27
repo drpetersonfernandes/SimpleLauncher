@@ -7,7 +7,8 @@ namespace SimpleLauncher.Core.Services.WpfServices;
 /// <summary>
 /// WPF implementation of IImageLoader, loading images from the filesystem with fallback to a default image.
 /// </summary>
-public class WpfImageLoader(ILogger logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBox) : IImageLoader
+public class WpfImageLoader(ILogger logErrors, IConfiguration configuration, IMessageBoxLibraryService messageBox)
+    : IImageLoader
 {
     private readonly ILogger _logger = logErrors;
     private readonly IMessageBoxLibraryService _messageBox = messageBox;
@@ -88,7 +89,8 @@ public class WpfImageLoader(ILogger logErrors, IConfiguration configuration, IMe
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            _logger.Error(ex, $"Failed to read image file '{filePath}'. It might be locked or permissions are insufficient.");
+            _logger.Error(ex,
+                $"Failed to read image file '{filePath}'. It might be locked or permissions are insufficient.");
             return null;
         }
         catch (Exception ex)

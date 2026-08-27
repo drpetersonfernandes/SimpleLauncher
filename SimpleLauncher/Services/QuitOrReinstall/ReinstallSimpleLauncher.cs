@@ -19,7 +19,8 @@ public class ReinstallSimpleLauncher
     /// <summary>
     /// Initializes a new instance of the <see cref="ReinstallSimpleLauncher"/> class.
     /// </summary>
-    public ReinstallSimpleLauncher(ILogger logErrors, IApplicationLifetime applicationLifetime, IDispatcherService dispatcherService, IServiceProvider serviceProvider)
+    public ReinstallSimpleLauncher(ILogger logErrors, IApplicationLifetime applicationLifetime,
+        IDispatcherService dispatcherService, IServiceProvider serviceProvider)
     {
         _logger = logErrors;
         _applicationLifetime = applicationLifetime;
@@ -82,7 +83,8 @@ public class ReinstallSimpleLauncher
                         await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
 
                         // 3. Extract the contents to the application directory
-                        var extractionSuccess = CheckForUpdatesService.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null, _logger);
+                        var extractionSuccess = CheckForUpdatesService.ExtractAllFromZip(memoryStream,
+                            AppDomain.CurrentDomain.BaseDirectory, null, _logger);
 
                         if (!extractionSuccess)
                         {

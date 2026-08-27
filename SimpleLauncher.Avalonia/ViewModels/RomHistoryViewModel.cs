@@ -29,7 +29,8 @@ public partial class RomHistoryViewModel : ObservableObject
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
-    public RomHistoryViewModel(ILogger logErrors, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider)
+    public RomHistoryViewModel(ILogger logErrors, IMessageBoxLibraryService messageBox,
+        IResourceProvider resourceProvider)
     {
         _logger = logErrors;
         _messageBox = messageBox;
@@ -68,7 +69,8 @@ public partial class RomHistoryViewModel : ObservableObject
                 const string contextMessage = "'history.dat' and 'history.xml' are both missing.";
                 _logger.Warning(contextMessage);
 
-                var nohistoryxmlfilefound2 = _resourceProvider.GetString("Nohistoryxmlfilefound2", "No 'history.dat' or 'history.xml' file found in the application folder.");
+                var nohistoryxmlfilefound2 = _resourceProvider.GetString("Nohistoryxmlfilefound2",
+                    "No 'history.dat' or 'history.xml' file found in the application folder.");
                 HistoryText = nohistoryxmlfilefound2;
 
                 await _messageBox.NoHistoryXmlOrDatFoundMessageBoxAsync();
@@ -107,7 +109,8 @@ public partial class RomHistoryViewModel : ObservableObject
         RomDescriptionText = _searchTerm;
         IsDescriptionVisible = true;
 
-        var noRoMhistoryfoundinthelocal2 = _resourceProvider.GetString("NoROMhistoryfoundinthelocal", "No ROM history found in the local database for the selected file.");
+        var noRoMhistoryfoundinthelocal2 = _resourceProvider.GetString("NoROMhistoryfoundinthelocal",
+            "No ROM history found in the local database for the selected file.");
         HistoryText = noRoMhistoryfoundinthelocal2;
 
         var result = await _messageBox.SearchOnlineForRomHistoryMessageBoxAsync();
@@ -120,7 +123,9 @@ public partial class RomHistoryViewModel : ObservableObject
     [RelayCommand]
     private async Task OpenGoogleSearchAsync()
     {
-        var query = !string.IsNullOrEmpty(_searchTerm) ? $"\"{_systemName}\" \"{_searchTerm}\" history" : $"\"{_systemName}\" \"{_romName}\" history";
+        var query = !string.IsNullOrEmpty(_searchTerm)
+            ? $"\"{_systemName}\" \"{_searchTerm}\" history"
+            : $"\"{_systemName}\" \"{_romName}\" history";
         var googleSearchUrl = $"https://www.google.com/search?q={Uri.EscapeDataString(query)}";
 
         try

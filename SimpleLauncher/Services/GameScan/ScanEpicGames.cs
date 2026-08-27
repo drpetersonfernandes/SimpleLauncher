@@ -19,12 +19,14 @@ public class ScanEpicGames : IGamePlatformScanner
     /// <param name="windowsRomsPath">The directory where game shortcuts are created.</param>
     /// <param name="windowsImagesPath">The directory where game images are stored.</param>
     /// <param name="ignoredGameNames">The set of game names to skip.</param>
-    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath, string windowsImagesPath, ISet<string> ignoredGameNames)
+    public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
+        string windowsImagesPath, ISet<string> ignoredGameNames)
     {
         try
         {
             // Method 1: LauncherInstalled.dat (Preferred/Faster)
-            var allUsersPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Epic");
+            var allUsersPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                "Epic");
             var installedDatPath = Path.Combine(allUsersPath, "UnrealEngineLauncher", "LauncherInstalled.dat");
 
             if (File.Exists(installedDatPath))
@@ -39,7 +41,9 @@ public class ScanEpicGames : IGamePlatformScanner
                         foreach (var app in installedApps.InstallationList)
                         {
                             // Filter out Unreal Engine tools (UE_...) and other non-games
-                            if (string.IsNullOrEmpty(app.AppName) || app.AppName.StartsWith("UE_", StringComparison.Ordinal) || app.AppName.StartsWith("Falcon", StringComparison.Ordinal))
+                            if (string.IsNullOrEmpty(app.AppName) ||
+                                app.AppName.StartsWith("UE_", StringComparison.Ordinal) ||
+                                app.AppName.StartsWith("Falcon", StringComparison.Ordinal))
                                 continue;
 
                             // We need the display name. LauncherInstalled.dat usually has AppName as the ID (e.g., "Codename").
@@ -83,7 +87,8 @@ public class ScanEpicGames : IGamePlatformScanner
 
                             if (ignoredGameNames.Contains(displayName)) continue;
 
-                            await CreateEpicShortcutAsync(gameScannerService, logErrors, displayName, app.AppName, app.InstallLocation, launchExe, windowsRomsPath, windowsImagesPath);
+                            await CreateEpicShortcutAsync(gameScannerService, logErrors, displayName, app.AppName,
+                                app.InstallLocation, launchExe, windowsRomsPath, windowsImagesPath);
                         }
 
                         return; // Successfully processed via DAT file
@@ -115,12 +120,16 @@ public class ScanEpicGames : IGamePlatformScanner
                         var appName = appNameProp.GetString();
 
                         // Filter UE stuff and ignored games
-                        if (string.IsNullOrEmpty(appName) || string.IsNullOrEmpty(displayName) || appName.StartsWith("UE_", StringComparison.InvariantCulture) || ignoredGameNames.Contains(displayName)) continue;
+                        if (string.IsNullOrEmpty(appName) || string.IsNullOrEmpty(displayName) ||
+                            appName.StartsWith("UE_", StringComparison.InvariantCulture) ||
+                            ignoredGameNames.Contains(displayName)) continue;
 
                         // Filter DLCs: If MainGameAppName exists and is different from AppName, it's likely a DLC
-                        if (root.TryGetProperty("MainGameAppName", out var mainGameAppName) && !string.IsNullOrEmpty(mainGameAppName.GetString()))
+                        if (root.TryGetProperty("MainGameAppName", out var mainGameAppName) &&
+                            !string.IsNullOrEmpty(mainGameAppName.GetString()))
                         {
-                            if (!string.Equals(appName, mainGameAppName.GetString(), StringComparison.Ordinal)) continue;
+                            if (!string.Equals(appName, mainGameAppName.GetString(), StringComparison.Ordinal))
+                                continue;
                         }
 
                         // Filter by Category (exclude plugins, editors, etc.)
@@ -148,7 +157,8 @@ public class ScanEpicGames : IGamePlatformScanner
                         var installLoc = root.TryGetProperty("InstallLocation", out var il) ? il.GetString() : "";
                         var launchExe = root.TryGetProperty("LaunchExecutable", out var le) ? le.GetString() : "";
 
-                        await CreateEpicShortcutAsync(gameScannerService, logErrors, displayName, appName, installLoc, launchExe, windowsRomsPath, windowsImagesPath);
+                        await CreateEpicShortcutAsync(gameScannerService, logErrors, displayName, appName, installLoc,
+                            launchExe, windowsRomsPath, windowsImagesPath);
                     }
                     catch (Exception ex)
                     {
@@ -163,12 +173,15 @@ public class ScanEpicGames : IGamePlatformScanner
         }
     }
 
-    private static async Task CreateEpicShortcutAsync(GameScannerService gameScannerService, ILogger logErrors, string displayName, string? appName, string? installLocation, string? launchExecutable, string? windowsRomsPath, string? windowsImagesPath)
+    private static async Task CreateEpicShortcutAsync(GameScannerService gameScannerService, ILogger logErrors,
+        string displayName, string? appName, string? installLocation, string? launchExecutable, string? windowsRomsPath,
+        string? windowsImagesPath)
     {
         var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(displayName);
         var shortcutPath = Path.Combine(windowsRomsPath!, $"{sanitizedGameName}.url");
 
-        var shortcutContent = $"[InternetShortcut]\nURL=com.epicgames.launcher://apps/{appName}?action=launch&silent=true";
+        var shortcutContent =
+            $"[InternetShortcut]\nURL=com.epicgames.launcher://apps/{appName}?action=launch&silent=true";
         await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
         switch (string.IsNullOrEmpty(installLocation))
@@ -177,11 +190,13 @@ public class ScanEpicGames : IGamePlatformScanner
             case false when !string.IsNullOrEmpty(launchExecutable):
             {
                 var fullExePath = Path.Combine(installLocation!, launchExecutable);
-                await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation!, sanitizedGameName, windowsImagesPath!, fullExePath);
+                await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation!,
+                    sanitizedGameName, windowsImagesPath!, fullExePath);
                 break;
             }
             case false:
-                await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation!, sanitizedGameName, windowsImagesPath!);
+                await gameScannerService.FindAndSaveGameImageAsync(logErrors, displayName, installLocation!,
+                    sanitizedGameName, windowsImagesPath!);
                 break;
         }
     }

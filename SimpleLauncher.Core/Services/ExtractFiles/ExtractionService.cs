@@ -38,13 +38,15 @@ public class ExtractionService : IExtractionService
     /// <param name="archivePath">The full path to the archive file.</param>
     /// <param name="fileFormatsToLaunch">The list of file formats to look for after extraction.</param>
     /// <returns>A tuple containing the path of the game file to launch and the temporary extraction directory, or null values on failure.</returns>
-    public async Task<(string? gameFilePath, string? tempDirectoryPath)> ExtractToTempAndGetLaunchFileAsync(string archivePath, IList<string> fileFormatsToLaunch)
+    public async Task<(string? gameFilePath, string? tempDirectoryPath)> ExtractToTempAndGetLaunchFileAsync(
+        string archivePath, IList<string> fileFormatsToLaunch)
     {
         var pathToExtractionDirectory = await ExtractToTempAsync(archivePath);
 
         if (string.IsNullOrEmpty(pathToExtractionDirectory) || !Directory.Exists(pathToExtractionDirectory))
         {
-            _logger.Debug($"[ExtractionService] Extraction failed for {archivePath}. No temp directory created or invalid path returned.");
+            _logger.Debug(
+                $"[ExtractionService] Extraction failed for {archivePath}. No temp directory created or invalid path returned.");
             return (null, null);
         }
 
@@ -55,7 +57,8 @@ public class ExtractionService : IExtractionService
         }
         else
         {
-            _logger.Debug($"[ExtractionService] No suitable game file found in extracted directory {pathToExtractionDirectory}.");
+            _logger.Debug(
+                $"[ExtractionService] No suitable game file found in extracted directory {pathToExtractionDirectory}.");
             return (null, pathToExtractionDirectory);
         }
     }
@@ -110,7 +113,8 @@ public class ExtractionService : IExtractionService
             {
                 // Last attempt failed
                 // Notify developer
-                var contextMessage = $"The downloaded file appears to be locked after {maxRetries} retries: {archivePath}";
+                var contextMessage =
+                    $"The downloaded file appears to be locked after {maxRetries} retries: {archivePath}";
                 _logger.Warning(contextMessage);
 
                 // Notify user, passing the directory of the locked archive
@@ -123,10 +127,13 @@ public class ExtractionService : IExtractionService
         }
 
         var extension = Path.GetExtension(archivePath).ToLowerInvariant();
-        if (!string.Equals(extension, ".7z", StringComparison.Ordinal) && !string.Equals(extension, ".zip", StringComparison.Ordinal) && !string.Equals(extension, ".rar", StringComparison.Ordinal))
+        if (!string.Equals(extension, ".7z", StringComparison.Ordinal) &&
+            !string.Equals(extension, ".zip", StringComparison.Ordinal) &&
+            !string.Equals(extension, ".rar", StringComparison.Ordinal))
         {
             // Notify developer
-            var contextMessage = $"Only 7z, ZIP, and RAR files are supported by this extraction method.\n" + $"File type: {extension}";
+            var contextMessage = $"Only 7z, ZIP, and RAR files are supported by this extraction method.\n" +
+                                 $"File type: {extension}";
             _logger.Warning(contextMessage);
 
             // Notify user
@@ -174,7 +181,8 @@ public class ExtractionService : IExtractionService
                         if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
                         {
                             // Notify developer
-                            var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
+                            var contextMessage =
+                                $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
                             _logger.Warning(contextMessage);
 
                             // Notify user
@@ -186,7 +194,8 @@ public class ExtractionService : IExtractionService
                     catch (ArgumentException ex)
                     {
                         // Notify developer
-                        _logger.Error(ex, $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
+                        _logger.Error(ex,
+                            $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
 
                         // Notify user
                         await _messageBoxLibrary.CouldNotCheckForDiskSpaceMessageBoxAsync();
@@ -197,7 +206,8 @@ public class ExtractionService : IExtractionService
 
                 // Path traversal check
                 var fullResolvedDestFolder = PathHelper.ResolveRelativeToAppDirectory(resolvedDestinationFolder);
-                if (fullResolvedDestFolder != null && !fullResolvedDestFolder.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+                if (fullResolvedDestFolder != null &&
+                    !fullResolvedDestFolder.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
                 {
                     fullResolvedDestFolder += Path.DirectorySeparatorChar;
                 }
@@ -209,7 +219,8 @@ public class ExtractionService : IExtractionService
                         var entryDestinationPath = Path.GetFullPath(Path.Combine(resolvedDestinationFolder, entry.Key));
                         var fullDestPath = PathHelper.ResolveRelativeToAppDirectory(entryDestinationPath);
 
-                        if (fullDestPath != null && fullResolvedDestFolder != null && !fullDestPath.StartsWith(fullResolvedDestFolder, StringComparison.OrdinalIgnoreCase))
+                        if (fullDestPath != null && fullResolvedDestFolder != null &&
+                            !fullDestPath.StartsWith(fullResolvedDestFolder, StringComparison.OrdinalIgnoreCase))
                         {
                             // Notify user
                             await _messageBoxLibrary.PotentialPathManipulationDetectedMessageBoxAsync(archivePath);
@@ -260,9 +271,11 @@ public class ExtractionService : IExtractionService
         catch (Exception ex)
         {
             // For .7z files, try fallback extraction with 7za executable
-            if (string.Equals(extension, ".7z", StringComparison.Ordinal) && !string.IsNullOrEmpty(resolvedDestinationFolder))
+            if (string.Equals(extension, ".7z", StringComparison.Ordinal) &&
+                !string.IsNullOrEmpty(resolvedDestinationFolder))
             {
-                _logger.Debug($"[ExtractionService] SharpCompress failed for .7z file, trying 7za fallback: {archivePath}");
+                _logger.Debug(
+                    $"[ExtractionService] SharpCompress failed for .7z file, trying 7za fallback: {archivePath}");
                 var fallbackSuccess = await ExtractWith7ZipAsync(archivePath, resolvedDestinationFolder);
                 if (fallbackSuccess)
                 {
@@ -323,7 +336,9 @@ public class ExtractionService : IExtractionService
         }
 
         var extension = Path.GetExtension(archivePath).ToLowerInvariant();
-        if (!string.Equals(extension, ".7z", StringComparison.Ordinal) && !string.Equals(extension, ".zip", StringComparison.Ordinal) && !string.Equals(extension, ".rar", StringComparison.Ordinal))
+        if (!string.Equals(extension, ".7z", StringComparison.Ordinal) &&
+            !string.Equals(extension, ".zip", StringComparison.Ordinal) &&
+            !string.Equals(extension, ".rar", StringComparison.Ordinal))
         {
             // Notify user
             await _messageBoxLibrary.FileNeedToBeCompressedMessageBoxAsync();
@@ -348,7 +363,8 @@ public class ExtractionService : IExtractionService
             }
 
             var randomName = Path.GetRandomFileName();
-            if (randomName.Contains("..", StringComparison.Ordinal) || randomName.Contains('/') || randomName.Contains('\\'))
+            if (randomName.Contains("..", StringComparison.Ordinal) || randomName.Contains('/') ||
+                randomName.Contains('\\'))
             {
                 randomName = Guid.NewGuid().ToString("N");
             }
@@ -376,7 +392,8 @@ public class ExtractionService : IExtractionService
                         var fullDestPath = Path.GetFullPath(Path.Combine(fullTempDir, entry.Key));
                         if (!fullDestPath.StartsWith(fullTempDir, StringComparison.OrdinalIgnoreCase))
                         {
-                            throw new SecurityException($"Potential path traversal detected in archive entry: {entry.Key}");
+                            throw new SecurityException(
+                                $"Potential path traversal detected in archive entry: {entry.Key}");
                         }
                     }
                 }
@@ -417,7 +434,8 @@ public class ExtractionService : IExtractionService
             // For .7z files, try fallback extraction with 7za executable
             if (string.Equals(extension, ".7z", StringComparison.Ordinal) && !string.IsNullOrEmpty(tempDirectory))
             {
-                _logger.Debug($"[ExtractionService] SharpCompress failed for .7z file, trying 7za fallback: {archivePath}");
+                _logger.Debug(
+                    $"[ExtractionService] SharpCompress failed for .7z file, trying 7za fallback: {archivePath}");
                 var fallbackSuccess = await ExtractWith7ZipAsync(archivePath, tempDirectory);
                 if (fallbackSuccess)
                 {
@@ -431,7 +449,8 @@ public class ExtractionService : IExtractionService
             await CleanTempFolder.CleanupTempDirectoryAsync(tempDirectory);
 
             // Notify developer
-            const string contextMessage = "Extraction of the compressed file failed. The file may be corrupted or a security issue was detected.";
+            const string contextMessage =
+                "Extraction of the compressed file failed. The file may be corrupted or a security issue was detected.";
             _logger.Error(ex, contextMessage);
 
             // Notify user
@@ -508,7 +527,8 @@ public class ExtractionService : IExtractionService
                 return true;
             }
 
-            _logger.Debug($"[ExtractionService] 7za extraction failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
+            _logger.Debug(
+                $"[ExtractionService] 7za extraction failed. ExitCode: {process.ExitCode}. Error: {errorBuilder}");
             return false;
         }
         catch (Exception ex)
@@ -529,7 +549,8 @@ public class ExtractionService : IExtractionService
         while (currentEx != null)
         {
             // Corrected the ambiguous invocation by using FormattableString.Invariant
-            sb.AppendLine(FormattableString.Invariant($"[Level {level}] {currentEx.GetType().Name}: {currentEx.Message}"));
+            sb.AppendLine(
+                FormattableString.Invariant($"[Level {level}] {currentEx.GetType().Name}: {currentEx.Message}"));
             level++;
             currentEx = currentEx.InnerException;
         }
@@ -537,7 +558,8 @@ public class ExtractionService : IExtractionService
         return sb.ToString();
     }
 
-    private async Task<string?> ValidateAndFindGameFileAsync(string tempExtractLocation, IList<string> fileFormatsToLaunch)
+    private async Task<string?> ValidateAndFindGameFileAsync(string tempExtractLocation,
+        IList<string> fileFormatsToLaunch)
     {
         _logger.Debug($"[ValidateAndFindGameFileAsync] Validating extracted path: {tempExtractLocation}");
         if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
@@ -558,7 +580,8 @@ public class ExtractionService : IExtractionService
         // First, try to find a file matching the specified formats, if any are provided.
         if (fileFormatsToLaunch is { Count: > 0 })
         {
-            _logger.Debug($"[ValidateAndFindGameFileAsync] Searching for formats: {string.Join(", ", fileFormatsToLaunch)} in {tempExtractLocation}");
+            _logger.Debug(
+                $"[ValidateAndFindGameFileAsync] Searching for formats: {string.Join(", ", fileFormatsToLaunch)} in {tempExtractLocation}");
             foreach (var formatToLaunch in fileFormatsToLaunch)
             {
                 try
@@ -573,21 +596,25 @@ public class ExtractionService : IExtractionService
                     if (files.Length > 0)
                     {
                         foundFile = files[0]; // Take the first match
-                        _logger.Debug($"[ValidateAndFindGameFileAsync] Found file matching format '{formatToLaunch}': {foundFile}");
+                        _logger.Debug(
+                            $"[ValidateAndFindGameFileAsync] Found file matching format '{formatToLaunch}': {foundFile}");
                         return foundFile;
                     }
                 }
                 catch (Exception ex)
                 {
-                    _logger.Error(ex, $"Error searching for file format '{formatToLaunch}' in '{tempExtractLocation}'.");
-                    _logger.Debug($"[ValidateAndFindGameFileAsync] Exception searching for {formatToLaunch}: {ex.Message}");
+                    _logger.Error(ex,
+                        $"Error searching for file format '{formatToLaunch}' in '{tempExtractLocation}'.");
+                    _logger.Debug(
+                        $"[ValidateAndFindGameFileAsync] Exception searching for {formatToLaunch}: {ex.Message}");
                     // Continue to next format or fallback if this one fails
                 }
             }
         }
         else
         {
-            _logger.Debug($"[ValidateAndFindGameFileAsync] fileFormatsToLaunch is null or empty. Attempting to find any file in {tempExtractLocation}.");
+            _logger.Debug(
+                $"[ValidateAndFindGameFileAsync] fileFormatsToLaunch is null or empty. Attempting to find any file in {tempExtractLocation}.");
         }
 
         // If no specific format was found, or no formats were specified, try to find any file.
@@ -595,11 +622,13 @@ public class ExtractionService : IExtractionService
         {
             try
             {
-                var allFiles = Directory.EnumerateFiles(tempExtractLocation, "*", SearchOption.AllDirectories).OrderBy(static f => f, StringComparer.Ordinal).ToList();
+                var allFiles = Directory.EnumerateFiles(tempExtractLocation, "*", SearchOption.AllDirectories)
+                    .OrderBy(static f => f, StringComparer.Ordinal).ToList();
                 if (allFiles.Count > 0)
                 {
                     foundFile = allFiles.First();
-                    _logger.Debug($"[ValidateAndFindGameFileAsync] No specific format found/specified, picked first file: {foundFile}");
+                    _logger.Debug(
+                        $"[ValidateAndFindGameFileAsync] No specific format found/specified, picked first file: {foundFile}");
                     return foundFile;
                 }
             }
@@ -611,7 +640,8 @@ public class ExtractionService : IExtractionService
         }
 
         // If still no file found after all attempts
-        const string notFoundContext = "Could not find a file with any of the specified extensions (or any file at all) after extraction.";
+        const string notFoundContext =
+            "Could not find a file with any of the specified extensions (or any file at all) after extraction.";
         _logger.Error(new FileNotFoundException(notFoundContext), notFoundContext);
         _logger.Debug($"[ValidateAndFindGameFileAsync] Error: {notFoundContext}");
 

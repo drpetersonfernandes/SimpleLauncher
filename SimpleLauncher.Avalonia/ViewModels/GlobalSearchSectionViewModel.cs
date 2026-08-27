@@ -231,7 +231,8 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
                                         MatchesSearchQuery(fileNameWithoutExtension.ToLowerInvariant(), searchTerms);
 
                     var mameDescriptionMatch = searchMameDescription &&
-                                               _mameData.Lookup.TryGetValue(fileNameWithoutExtension, out var description) &&
+                                               _mameData.Lookup.TryGetValue(fileNameWithoutExtension,
+                                                   out var description) &&
                                                MatchesSearchQuery(description.ToLowerInvariant(), searchTerms);
 
                     var folderNameMatch = false;
@@ -257,7 +258,8 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
                     {
                         FileName = fileNameWithoutExtension,
                         FileNameWithExtension = Path.GetFileName(filePath),
-                        FolderName = Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault() ?? "",
+                        FolderName =
+                            Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault() ?? "",
                         FilePath = filePath,
                         MachineName = machine?.Description ?? "",
                         SystemName = systemManager.SystemName,

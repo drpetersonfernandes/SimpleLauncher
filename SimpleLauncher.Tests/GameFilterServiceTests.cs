@@ -171,7 +171,8 @@ public class GameFilterServiceTests
         var service = CreateService();
         var files = new List<string> { @"C:\roms\zzz.zip", @"C:\roms\aaa.zip" };
 
-        var result = service.SortByMameDescription(files, AppConstants.MameSortOrderFileName, new Dictionary<string, string>(StringComparer.Ordinal));
+        var result = service.SortByMameDescription(files, AppConstants.MameSortOrderFileName,
+            new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Equal("aaa.zip", Path.GetFileName(result[0]));
     }
 
@@ -184,7 +185,9 @@ public class GameFilterServiceTests
         var service = CreateService();
         var files = new List<string> { @"C:\roms\super mario.zip", @"C:\roms\zelda.zip" };
 
-        var result = await service.FilterBySearchQueryAsync(files, "mario", new Dictionary<string, string>(StringComparer.Ordinal));
+        var result =
+            await service.FilterBySearchQueryAsync(files, "mario",
+                new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Single(result);
         Assert.Contains("mario", Path.GetFileNameWithoutExtension(result[0]), StringComparison.Ordinal);
     }
@@ -216,7 +219,9 @@ public class GameFilterServiceTests
         var service = CreateService();
         var files = new List<string> { @"C:\roms\Mario.zip" };
 
-        var result = await service.FilterBySearchQueryAsync(files, "MARIO", new Dictionary<string, string>(StringComparer.Ordinal));
+        var result =
+            await service.FilterBySearchQueryAsync(files, "MARIO",
+                new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Single(result);
     }
 
@@ -229,7 +234,9 @@ public class GameFilterServiceTests
         var service = CreateService();
         var files = new List<string> { @"C:\roms\mario.zip" };
 
-        var result = await service.FilterBySearchQueryAsync(files, "zelda", new Dictionary<string, string>(StringComparer.Ordinal));
+        var result =
+            await service.FilterBySearchQueryAsync(files, "zelda",
+                new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Empty(result);
     }
 

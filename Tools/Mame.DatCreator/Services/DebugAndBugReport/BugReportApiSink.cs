@@ -148,8 +148,10 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         var sb = new StringBuilder();
         sb.AppendLine("=== Environment Details ===");
         sb.AppendLine(CultureInfo.InvariantCulture, $"Date: {DateTime.Now}");
-        sb.AppendLine(CultureInfo.InvariantCulture, $"Application: {Assembly.GetExecutingAssembly().GetName().Name ?? "Mame.DatCreator"}");
-        sb.AppendLine(CultureInfo.InvariantCulture, $"Version: {Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Unknown"}");
+        sb.AppendLine(CultureInfo.InvariantCulture,
+            $"Application: {Assembly.GetExecutingAssembly().GetName().Name ?? "Mame.DatCreator"}");
+        sb.AppendLine(CultureInfo.InvariantCulture,
+            $"Version: {Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "Unknown"}");
         sb.AppendLine(CultureInfo.InvariantCulture, $"OS: {RuntimeInformation.OSDescription}");
         sb.AppendLine();
         sb.AppendLine("=== Error Details ===");

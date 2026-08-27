@@ -28,7 +28,8 @@ public class Rpcs3ConfigHandler : IEmulatorConfigHandler
     /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
-        return emulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("rpcs3.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+        return emulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
+               (emulatorPath?.Contains("rpcs3.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
     /// <inheritdoc />
@@ -44,7 +45,8 @@ public class Rpcs3ConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(async () =>
                     {
-                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectRpcs3ConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectRpcs3ConfigWindow>();
                         win.Initialize(resolvedExe);
                         await win.ShowDialog((Window)context.WindowContext.PlatformWindow);
                         shouldRun = win.ShouldRun;

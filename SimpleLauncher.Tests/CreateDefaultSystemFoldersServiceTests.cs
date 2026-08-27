@@ -125,7 +125,8 @@ public class CreateDefaultSystemFoldersServiceTests : IDisposable
         File.WriteAllText(blockedPath, "I am a file, not a folder");
 
         await CreateDefaultSystemFoldersService.CreateFoldersAsync(
-            "Test System", blockedPath, Path.Combine(_testRoot, "images"), ConfigWithAdditionalFolders(), _logger, _messageBoxMock.Object);
+            "Test System", blockedPath, Path.Combine(_testRoot, "images"), ConfigWithAdditionalFolders(), _logger,
+            _messageBoxMock.Object);
 
         _messageBoxMock.Verify(x => x.FolderCreationFailedMessageBoxAsync(), Times.Once);
     }
@@ -137,7 +138,8 @@ public class CreateDefaultSystemFoldersServiceTests : IDisposable
         File.WriteAllText(blockedPath, "I am a file, not a folder");
 
         await CreateDefaultSystemFoldersService.CreateFoldersAsync(
-            "Test System", Path.Combine(_testRoot, "system"), blockedPath, ConfigWithAdditionalFolders(), _logger, _messageBoxMock.Object);
+            "Test System", Path.Combine(_testRoot, "system"), blockedPath, ConfigWithAdditionalFolders(), _logger,
+            _messageBoxMock.Object);
 
         _messageBoxMock.Verify(x => x.FolderCreationFailedMessageBoxAsync(), Times.Once);
     }

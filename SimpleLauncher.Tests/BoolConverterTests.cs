@@ -12,11 +12,9 @@ public class BoolConverterTests
 {
     private sealed class Payload
     {
-        [JsonConverter(typeof(BoolConverter))]
-        public bool Flag { get; set; }
+        [JsonConverter(typeof(BoolConverter))] public bool Flag { get; set; }
 
-        [JsonConverter(typeof(BoolConverter))]
-        public bool Other { get; set; }
+        [JsonConverter(typeof(BoolConverter))] public bool Other { get; set; }
     }
 
     private static Payload Deserialize(string json)

@@ -162,7 +162,8 @@ public class AskAiToFixParameters
                 // Invalidate the app's system cache so the next launch uses the new parameters
                 _systemManager.InvalidateCache();
 
-                _logger.Debug("[AskAiToFixParameters] Parameter updated for emulator '{Emulator}' in system '{System}'.",
+                _logger.Debug(
+                    "[AskAiToFixParameters] Parameter updated for emulator '{Emulator}' in system '{System}'.",
                     emulatorManager.EmulatorName, systemManager.SystemName);
 
                 await _messageBox.CustomInfoMessageBoxAsync(

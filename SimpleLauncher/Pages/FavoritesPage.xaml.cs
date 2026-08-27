@@ -198,7 +198,9 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
             var filePath = PathHelper.FindFileInSystemFolders(systemManager.SystemFolders, selectedFavorite.FileName);
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
-                var result = await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(filePath ?? selectedFavorite.FileName);
+                var result =
+                    await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(filePath ??
+                        selectedFavorite.FileName);
                 if (result == CoreMessageBoxResult.Yes)
                 {
                     _viewModel.RemoveFavoriteFromCollection(selectedFavorite);
@@ -244,7 +246,8 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
                 this
             );
 
-            var contextMenu = _contextMenuService.AddRightClickReturnContextMenu(context, _findCoverImage, _contextMenuFunctions);
+            var contextMenu =
+                _contextMenuService.AddRightClickReturnContextMenu(context, _findCoverImage, _contextMenuFunctions);
             if (contextMenu != null)
             {
                 // Close the previous context menu before assigning a new one to prevent leaks.
@@ -303,8 +306,9 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
                 var result = await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(filePath ?? fileName);
                 if (result == CoreMessageBoxResult.Yes)
                 {
-                    var favoriteToRemove = _viewModel.Favorites.FirstOrDefault(fav => fav.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
-                                                                                      && fav.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+                    var favoriteToRemove = _viewModel.Favorites.FirstOrDefault(fav =>
+                        fav.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
+                        && fav.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
                     if (favoriteToRemove != null)
                     {
                         _viewModel.RemoveFavoriteFromCollection(favoriteToRemove);
@@ -325,7 +329,9 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
             }
 
             var selectedEmulatorName = emulatorManager.EmulatorName;
-            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController, this);
+            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName,
+                selectedSystemManager, _settings, WpfWindowContext.FromMainWindow(_mainWindow), _gamePadController,
+                this);
         }
         catch (Exception ex)
         {

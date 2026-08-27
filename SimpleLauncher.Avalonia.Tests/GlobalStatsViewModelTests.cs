@@ -74,7 +74,8 @@ public class GlobalStatsViewModelTests
 
             var vm = CreateVm(out var messageBox, out var getFiles);
             messageBox.Setup(m => m.WouldYouLikeToSaveAReportMessageBoxAsync()).ReturnsAsync(CoreMessageBoxResult.No);
-            getFiles.Setup(f => f.GetFilesAsync(It.IsAny<string>(), It.IsAny<IList<string>>(), It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()))
+            getFiles.Setup(f => f.GetFilesAsync(It.IsAny<string>(), It.IsAny<IList<string>>(), It.IsAny<bool>(),
+                    It.IsAny<bool>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new List<string> { fileA, fileB });
 
             vm.Initialize(new List<SystemManagerConfig> { System("NES", tempDir) });
@@ -113,7 +114,8 @@ public class GlobalStatsViewModelTests
 
             var vm = CreateVm(out var messageBox, out var getFiles, filePicker);
             messageBox.Setup(m => m.WouldYouLikeToSaveAReportMessageBoxAsync()).ReturnsAsync(CoreMessageBoxResult.No);
-            getFiles.Setup(f => f.GetFilesAsync(It.IsAny<string>(), It.IsAny<IList<string>>(), It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()))
+            getFiles.Setup(f => f.GetFilesAsync(It.IsAny<string>(), It.IsAny<IList<string>>(), It.IsAny<bool>(),
+                    It.IsAny<bool>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new List<string> { fileA });
 
             vm.Initialize(new List<SystemManagerConfig> { System("NES", tempDir) });
@@ -146,7 +148,8 @@ public class GlobalStatsViewModelTests
         var gate = new TaskCompletionSource<IList<string>>(TaskCreationOptions.RunContinuationsAsynchronously);
         var vm = CreateVm(out var messageBox, out var getFiles);
         messageBox.Setup(m => m.DoYouWantToCancelAndCloseMessageBoxAsync()).ReturnsAsync(CoreMessageBoxResult.Yes);
-        getFiles.Setup(f => f.GetFilesAsync(It.IsAny<string>(), It.IsAny<IList<string>>(), It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<CancellationToken>()))
+        getFiles.Setup(f => f.GetFilesAsync(It.IsAny<string>(), It.IsAny<IList<string>>(), It.IsAny<bool>(),
+                It.IsAny<bool>(), It.IsAny<CancellationToken>()))
             .Returns(gate.Task);
 
         vm.Initialize(new List<SystemManagerConfig> { System("NES", "C:\\roms") });

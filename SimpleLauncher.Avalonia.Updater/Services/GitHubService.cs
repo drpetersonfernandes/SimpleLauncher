@@ -12,7 +12,10 @@ internal partial class GitHubService
 {
     private const string RepoName = "SimpleLauncher";
     private static readonly string[] RepoOwners = ["drpetersonfernandes", "purelogiccode"];
-    private const string SecondaryServerBaseUrl = "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
+
+    private const string SecondaryServerBaseUrl =
+        "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
+
     private const int GitHubTimeoutSeconds = 5;
 
     private readonly HttpClient _httpClient;
@@ -58,7 +61,8 @@ internal partial class GitHubService
     /// <exception cref="HttpRequestException">Thrown when both GitHub and fallback requests fail.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the release data is invalid or the asset is not found.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
-    public async Task<(string version, string assetUrl, string? fallbackAssetUrl)> GetLatestReleaseAssetUrlAsync(CancellationToken cancellationToken = default)
+    public async Task<(string version, string assetUrl, string? fallbackAssetUrl)> GetLatestReleaseAssetUrlAsync(
+        CancellationToken cancellationToken = default)
     {
         // Try each GitHub repository in order (primary, then the transferred organization)
         foreach (var repoOwner in RepoOwners)
@@ -70,11 +74,15 @@ internal partial class GitHubService
                 return gitHubResult.Value;
             }
 
-            LogMessage?.Invoke(this, new EventArgs<string>($"GitHub repository '{repoOwner}/{RepoName}' not responding. Trying the next source..."));
+            LogMessage?.Invoke(this,
+                new EventArgs<string>(
+                    $"GitHub repository '{repoOwner}/{RepoName}' not responding. Trying the next source..."));
         }
 
         // If GitHub failed, fall back to secondary server
-        LogMessage?.Invoke(this, new EventArgs<string>($"GitHub not responding after {GitHubTimeoutSeconds} seconds. Using secondary server..."));
+        LogMessage?.Invoke(this,
+            new EventArgs<string>(
+                $"GitHub not responding after {GitHubTimeoutSeconds} seconds. Using secondary server..."));
         return await GetFallbackReleaseAsync(cancellationToken);
     }
 
@@ -84,11 +92,13 @@ internal partial class GitHubService
     /// <param name="repoOwner">The GitHub repository owner (organization or user) to query.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>The version and asset URL if successful, null if timed out or failed.</returns>
-    private async Task<(string version, string assetUrl, string? fallbackAssetUrl)?> TryGetGitHubReleaseAsync(string repoOwner, CancellationToken cancellationToken = default)
+    private async Task<(string version, string assetUrl, string? fallbackAssetUrl)?> TryGetGitHubReleaseAsync(
+        string repoOwner, CancellationToken cancellationToken = default)
     {
         try
         {
-            LogMessage?.Invoke(this, new EventArgs<string>($"Fetching the latest release from GitHub ({repoOwner}/{RepoName})..."));
+            LogMessage?.Invoke(this,
+                new EventArgs<string>($"Fetching the latest release from GitHub ({repoOwner}/{RepoName})..."));
 
             // Create a cancellation token that expires after 5 seconds, linked to the external token
             using var timeoutCts = new CancellationTokenSource(TimeSpan.FromSeconds(GitHubTimeoutSeconds));
@@ -99,7 +109,8 @@ internal partial class GitHubService
 
             if (!response.IsSuccessStatusCode)
             {
-                LogMessage?.Invoke(this, new EventArgs<string>($"GitHub API returned status code: {response.StatusCode}"));
+                LogMessage?.Invoke(this,
+                    new EventArgs<string>($"GitHub API returned status code: {response.StatusCode}"));
                 return null;
             }
 
@@ -128,7 +139,9 @@ internal partial class GitHubService
             var versionParts = rawVersionString.Split('.');
             if (versionParts.Length < 2)
             {
-                LogMessage?.Invoke(this, new EventArgs<string>($"Invalid version format: '{rawVersionString}'. Version must have at least major.minor components."));
+                LogMessage?.Invoke(this,
+                    new EventArgs<string>(
+                        $"Invalid version format: '{rawVersionString}'. Version must have at least major.minor components."));
                 return null;
             }
 
@@ -147,23 +160,28 @@ internal partial class GitHubService
                         var assetUrl = asset.GetProperty("browser_download_url").GetString();
                         if (!string.IsNullOrEmpty(assetUrl))
                         {
-                            LogMessage?.Invoke(this, new EventArgs<string>($"Latest version found: {normalizedVersion}"));
+                            LogMessage?.Invoke(this,
+                                new EventArgs<string>($"Latest version found: {normalizedVersion}"));
                             LogMessage?.Invoke(this, new EventArgs<string>($"Release package URL: {assetUrl}"));
-                            var fallbackAssetUrl = SecondaryServerBaseUrl + $"release_{rawVersionString}_{CurrentRuntimeIdentifier}.zip";
+                            var fallbackAssetUrl = SecondaryServerBaseUrl +
+                                                   $"release_{rawVersionString}_{CurrentRuntimeIdentifier}.zip";
                             return (normalizedVersion, assetUrl, fallbackAssetUrl);
                         }
                     }
                 }
             }
 
-            LogMessage?.Invoke(this, new EventArgs<string>($"Could not find the required asset '{expectedAssetName}' in the latest release."));
+            LogMessage?.Invoke(this,
+                new EventArgs<string>(
+                    $"Could not find the required asset '{expectedAssetName}' in the latest release."));
             return null;
         }
         catch (OperationCanceledException)
         {
             // Expected condition (network timeout): not a bug, keep it out of the bug report service.
             Log.Information("GitHub request timed out after {Timeout} seconds", GitHubTimeoutSeconds);
-            LogMessage?.Invoke(this, new EventArgs<string>($"GitHub request timed out after {GitHubTimeoutSeconds} seconds."));
+            LogMessage?.Invoke(this,
+                new EventArgs<string>($"GitHub request timed out after {GitHubTimeoutSeconds} seconds."));
             return null;
         }
         catch (Exception ex)
@@ -183,7 +201,8 @@ internal partial class GitHubService
     /// <exception cref="HttpRequestException">Thrown when the request fails.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the version file is invalid.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
-    private async Task<(string version, string assetUrl, string? fallbackAssetUrl)> GetFallbackReleaseAsync(CancellationToken cancellationToken = default)
+    private async Task<(string version, string assetUrl, string? fallbackAssetUrl)> GetFallbackReleaseAsync(
+        CancellationToken cancellationToken = default)
     {
         try
         {
@@ -195,7 +214,8 @@ internal partial class GitHubService
             var versionResponse = await _httpClient.GetAsync(versionUrl, cancellationToken);
             if (!versionResponse.IsSuccessStatusCode)
             {
-                throw new HttpRequestException($"Failed to fetch version from secondary server. Status Code: {versionResponse.StatusCode}");
+                throw new HttpRequestException(
+                    $"Failed to fetch version from secondary server. Status Code: {versionResponse.StatusCode}");
             }
 
             var versionText = (await versionResponse.Content.ReadAsStringAsync(cancellationToken)).Trim();
@@ -211,7 +231,8 @@ internal partial class GitHubService
             var versionParts = rawVersionString.Split('.');
             if (versionParts.Length < 2)
             {
-                throw new InvalidOperationException($"Invalid version format: '{rawVersionString}'. Version must have at least major.minor components.");
+                throw new InvalidOperationException(
+                    $"Invalid version format: '{rawVersionString}'. Version must have at least major.minor components.");
             }
 
             var normalizedVersion = NormalizeVersion(rawVersionString);

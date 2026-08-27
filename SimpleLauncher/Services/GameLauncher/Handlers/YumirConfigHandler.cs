@@ -28,7 +28,9 @@ public class YumirConfigHandler : IEmulatorConfigHandler
     /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
-        return emulatorName.Contains("Yumir", StringComparison.OrdinalIgnoreCase) || emulatorName.Contains("Ymir", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("ymir.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+        return emulatorName.Contains("Yumir", StringComparison.OrdinalIgnoreCase) ||
+               emulatorName.Contains("Ymir", StringComparison.OrdinalIgnoreCase) ||
+               (emulatorPath?.Contains("ymir.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
     /// <inheritdoc />
@@ -44,7 +46,8 @@ public class YumirConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectYumirConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectYumirConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();
@@ -54,7 +57,8 @@ public class YumirConfigHandler : IEmulatorConfigHandler
             else
             {
                 shouldRun = true;
-                if (File.Exists(resolvedExe)) YumirConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
+                if (File.Exists(resolvedExe))
+                    YumirConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
             }
 
             return shouldRun;

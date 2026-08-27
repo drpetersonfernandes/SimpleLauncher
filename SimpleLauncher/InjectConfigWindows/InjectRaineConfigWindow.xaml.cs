@@ -59,7 +59,8 @@ public partial class InjectRaineConfigWindow
     /// <param name="isLauncherMode">If true, the window operates in launcher mode.</param>
     /// <param name="gameFilePath">Optional path to the game file.</param>
     /// <param name="systemRomPath">Optional path to the system ROM.</param>
-    public void Initialize(string? emulatorPath = null, bool isLauncherMode = true, string? gameFilePath = null, string? systemRomPath = null)
+    public void Initialize(string? emulatorPath = null, bool isLauncherMode = true, string? gameFilePath = null,
+        string? systemRomPath = null)
     {
         _viewModel.Initialize(emulatorPath, isLauncherMode, gameFilePath, systemRomPath);
 
@@ -90,7 +91,8 @@ public partial class InjectRaineConfigWindow
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
             Filter = "NeoGeo CD BIOS (neocd.bin)|neocd.bin|All Files (*.*)|*.*",
-            Title = (string)Application.Current.TryFindResource("RaineConfig_SelectNeoCdBios") ?? "Select NeoGeo CD BIOS File"
+            Title = (string)Application.Current.TryFindResource("RaineConfig_SelectNeoCdBios") ??
+                    "Select NeoGeo CD BIOS File"
         };
 
         return dialog.ShowDialog() == true ? dialog.FileName : null;
@@ -100,7 +102,8 @@ public partial class InjectRaineConfigWindow
     {
         var dialog = new Microsoft.Win32.OpenFolderDialog
         {
-            Title = (string)Application.Current.TryFindResource("RaineConfig_SelectRomDirectory") ?? "Select Raine ROM Directory"
+            Title = (string)Application.Current.TryFindResource("RaineConfig_SelectRomDirectory") ??
+                    "Select Raine ROM Directory"
         };
 
         return dialog.ShowDialog() == true ? dialog.FolderName : null;

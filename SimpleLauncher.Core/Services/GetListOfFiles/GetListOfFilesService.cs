@@ -28,7 +28,8 @@ public class GetListOfFilesService : IGetListOfFilesService
     /// <param name="groupByFolder">Whether the system groups games by folder.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>The list of matching file paths.</returns>
-    public Task<IList<string>> GetFilesAsync(string directoryPath, IList<string> fileExtensions, bool disableRecursiveSearch, bool groupByFolder, CancellationToken cancellationToken = default)
+    public Task<IList<string>> GetFilesAsync(string directoryPath, IList<string> fileExtensions,
+        bool disableRecursiveSearch, bool groupByFolder, CancellationToken cancellationToken = default)
     {
         return Task.Run<IList<string>>(() =>
         {
@@ -47,7 +48,8 @@ public class GetListOfFilesService : IGetListOfFilesService
                 var restrictedFolders = new List<string>();
 
                 var doRecurse = !(disableRecursiveSearch && !groupByFolder);
-                EnumerateFilesRecursive(directoryPath, extensionsSet, foundFiles, restrictedFolders, doRecurse, cancellationToken);
+                EnumerateFilesRecursive(directoryPath, extensionsSet, foundFiles, restrictedFolders, doRecurse,
+                    cancellationToken);
 
                 if (restrictedFolders.Count > 0)
                 {
@@ -70,7 +72,8 @@ public class GetListOfFilesService : IGetListOfFilesService
         }, cancellationToken);
     }
 
-    private void EnumerateFilesRecursive(string path, HashSet<string> extensions, List<string> results, List<string> restrictedFolders, bool doRecurse, CancellationToken token)
+    private void EnumerateFilesRecursive(string path, HashSet<string> extensions, List<string> results,
+        List<string> restrictedFolders, bool doRecurse, CancellationToken token)
     {
         token.ThrowIfCancellationRequested();
 

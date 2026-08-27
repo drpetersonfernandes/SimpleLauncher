@@ -14,7 +14,8 @@ public interface IMenuOrchestrator
     /// <param name="checkMarkHost">The host providing check mark menu items.</param>
     /// <param name="themeHost">The host providing theme menu access.</param>
     /// <param name="languageHost">The host providing language menu access.</param>
-    void Initialize(IMenuActionHost actionHost, IMenuCheckMarkHost checkMarkHost, IThemeMenuHost themeHost, ILanguageMenuHost languageHost);
+    void Initialize(IMenuActionHost actionHost, IMenuCheckMarkHost checkMarkHost, IThemeMenuHost themeHost,
+        ILanguageMenuHost languageHost);
 
     /// <summary>
     /// Shows the emulator configuration window for the specified emulator.

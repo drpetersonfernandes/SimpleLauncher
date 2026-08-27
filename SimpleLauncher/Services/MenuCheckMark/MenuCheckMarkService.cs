@@ -89,7 +89,8 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     {
         _host.FilenameDisplayOriginal.IsChecked = string.Equals(selectedValue, "Original", StringComparison.Ordinal);
         _host.FilenameDisplayCleanUp.IsChecked = string.Equals(selectedValue, "CleanUp", StringComparison.Ordinal);
-        _host.FilenameDisplayNoFilename.IsChecked = string.Equals(selectedValue, "NoFilename", StringComparison.Ordinal);
+        _host.FilenameDisplayNoFilename.IsChecked =
+            string.Equals(selectedValue, "NoFilename", StringComparison.Ordinal);
     }
 
     /// <summary>

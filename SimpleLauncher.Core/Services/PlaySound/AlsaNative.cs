@@ -12,10 +12,12 @@ internal static class AlsaNative
     internal const int SndPcmAccessRwInterleaved = 3;
 
     [DllImport("libasound.so.2")]
-    internal static extern int snd_pcm_open(out IntPtr pcm, [MarshalAs(UnmanagedType.LPUTF8Str)] string name, int stream, int mode);
+    internal static extern int snd_pcm_open(out IntPtr pcm, [MarshalAs(UnmanagedType.LPUTF8Str)] string name,
+        int stream, int mode);
 
     [DllImport("libasound.so.2")]
-    internal static extern int snd_pcm_set_params(IntPtr pcm, int format, int access, int channels, int rate, int softResample, int latency);
+    internal static extern int snd_pcm_set_params(IntPtr pcm, int format, int access, int channels, int rate,
+        int softResample, int latency);
 
     [DllImport("libasound.so.2")]
     internal static extern long snd_pcm_writei(IntPtr pcm, byte[] buffer, long size);

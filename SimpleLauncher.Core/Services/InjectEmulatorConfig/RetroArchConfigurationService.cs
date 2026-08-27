@@ -14,7 +14,8 @@ public static class RetroArchConfigurationService
     /// <param name="emulatorPath">The full path to the RetroArch emulator executable.</param>
     /// <param name="settings">The settings manager containing RetroArch configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))
@@ -25,7 +26,8 @@ public static class RetroArchConfigurationService
         // Backup logic: Create from sample if missing
         if (!File.Exists(configPath))
         {
-            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Retroarch", "retroarch.cfg");
+            var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Retroarch",
+                "retroarch.cfg");
             if (File.Exists(samplePath))
             {
                 try
@@ -42,7 +44,8 @@ public static class RetroArchConfigurationService
             }
             else
             {
-                throw new FileNotFoundException($"retroarch.cfg not found in {emuDir} and sample not available at {samplePath}");
+                throw new FileNotFoundException(
+                    $"retroarch.cfg not found in {emuDir} and sample not available at {samplePath}");
             }
         }
 

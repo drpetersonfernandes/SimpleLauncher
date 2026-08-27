@@ -128,7 +128,8 @@ public partial class SystemManagerService : ISystemManager
                 var doc = XDocument.Load(reader, LoadOptions.None);
 
                 return doc.Root?.Elements("SystemConfig")
-                    .Any(el => el.Element("SystemName")?.Value.Equals(systemName, StringComparison.OrdinalIgnoreCase) ?? false) ?? false;
+                    .Any(el => el.Element("SystemName")?.Value.Equals(systemName, StringComparison.OrdinalIgnoreCase) ??
+                               false) ?? false;
             }
             catch (Exception ex) // Catch XmlException, IOException, etc.
             {
@@ -142,7 +143,8 @@ public partial class SystemManagerService : ISystemManager
     /// <summary>
     /// Loads all system manager configurations from system.xml, validating and cleaning invalid entries.
     /// </summary>
-    public static IList<SystemManagerService> LoadSystemManagers(IConfiguration configuration, ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
+    public static IList<SystemManagerService> LoadSystemManagers(IConfiguration configuration,
+        ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
     {
         // Synchronous facade (used by non-async callers such as MainWindow ctor, EmulatorPathResolver and tests).
         // The lambda is executed on the thread pool so that any internal awaits never capture the UI
@@ -156,12 +158,14 @@ public partial class SystemManagerService : ISystemManager
     /// <summary>
     /// Asynchronously loads all system manager configurations from system.xml, validating and cleaning invalid entries.
     /// </summary>
-    public static Task<IList<SystemManagerService>> LoadSystemManagersAsync(IConfiguration configuration, ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
+    public static Task<IList<SystemManagerService>> LoadSystemManagersAsync(IConfiguration configuration,
+        ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
     {
         return LoadSystemManagersInternalAsync(configuration, logErrors, messageBoxLibrary);
     }
 
-    private static async Task<IList<SystemManagerService>> LoadSystemManagersInternalAsync(IConfiguration configuration, ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
+    private static async Task<IList<SystemManagerService>> LoadSystemManagersInternalAsync(IConfiguration configuration,
+        ILogger? logErrors = null, IMessageBoxLibraryService? messageBoxLibrary = null)
     {
         var systemXmlPath = GetSystemXmlPath(configuration);
 
@@ -193,7 +197,9 @@ public partial class SystemManagerService : ISystemManager
                     // Notify user
                     if (messageBoxLibrary != null)
                     {
-                        _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                        _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(
+                            PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ??
+                                                          "error_user.log"));
                     }
 
                     return []; // Return an empty list
@@ -233,7 +239,8 @@ public partial class SystemManagerService : ISystemManager
                                 var systemName = sysConfigElement.Element("SystemName")?.Value ?? "Unnamed System";
                                 if (!invalidManagers.ContainsKey(sysConfigElement))
                                 {
-                                    invalidManagers[sysConfigElement] = $"The system '{systemName}' was removed due to the following error(s):\n";
+                                    invalidManagers[sysConfigElement] =
+                                        $"The system '{systemName}' was removed due to the following error(s):\n";
                                 }
 
                                 invalidManagers[sysConfigElement] += $"- {ex.Message}\n";
@@ -265,7 +272,8 @@ public partial class SystemManagerService : ISystemManager
                                 var nameMatch = MyRegex1().Match(match.Value);
                                 var sysName = nameMatch.Success ? nameMatch.Groups[1].Value : "Unknown";
 
-                                invalidManagers.TryAdd(structuralErrorKey, "The following systems were removed due to structural corruption in the XML:\n");
+                                invalidManagers.TryAdd(structuralErrorKey,
+                                    "The following systems were removed due to structural corruption in the XML:\n");
 
                                 invalidManagers[structuralErrorKey] += $"- {sysName} (Unrecoverable XML block)\n";
 
@@ -283,11 +291,14 @@ public partial class SystemManagerService : ISystemManager
                     // If no systems could be recovered, the file is completely corrupted
                     if (systemManagers.Count == 0 && invalidManagers.Count == 0)
                     {
-                        logErrors?.Error(ex, "No systems could be recovered from 'system.xml'. The file is completely corrupted.");
+                        logErrors?.Error(ex,
+                            "No systems could be recovered from 'system.xml'. The file is completely corrupted.");
 
                         if (messageBoxLibrary != null)
                         {
-                            _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                            _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(
+                                PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ??
+                                                              "error_user.log"));
                         }
 
                         return [];
@@ -309,29 +320,46 @@ public partial class SystemManagerService : ISystemManager
 
                 // Rebuild the XML document from the valid, in-memory configurations
                 var newRoot = new XElement("SystemConfigs");
-                foreach (var config in systemManagers.OrderBy(static c => c.SystemName, StringComparer.OrdinalIgnoreCase))
+                foreach (var config in systemManagers.OrderBy(static c => c.SystemName,
+                             StringComparer.OrdinalIgnoreCase))
                 {
                     newRoot.Add(new XElement("SystemConfig",
                         new XElement("SystemName", config.SystemName),
-                        new XElement("SystemFolders", config.SystemFolders.Select(static f => new XElement("SystemFolder", f))),
+                        new XElement("SystemFolders",
+                            config.SystemFolders.Select(static f => new XElement("SystemFolder", f))),
                         new XElement("SystemImageFolder", config.SystemImageFolder),
-                        new XElement("FileFormatsToSearch", config.FileFormatsToSearch.Select(static f => new XElement("FormatToSearch", f))),
+                        new XElement("FileFormatsToSearch",
+                            config.FileFormatsToSearch.Select(static f => new XElement("FormatToSearch", f))),
                         new XElement("GroupByFolder", config.GroupByFolder),
                         new XElement("DisableRecursiveSearch", config.DisableRecursiveSearch),
                         config.ExtractFileBeforeLaunch ? new XElement("ExtractFileBeforeLaunch", true) : null,
-                        new XElement("FileFormatsToLaunch", config.FileFormatsToLaunch.Select(static f => new XElement("FormatToLaunch", f))),
+                        new XElement("FileFormatsToLaunch",
+                            config.FileFormatsToLaunch.Select(static f => new XElement("FormatToLaunch", f))),
                         new XElement("Emulators", config.Emulators.Select(static e =>
                             new XElement("Emulator",
                                 new XElement("EmulatorName", e.EmulatorName),
                                 new XElement("EmulatorLocation", e.EmulatorLocation),
                                 new XElement("EmulatorParameters", e.EmulatorParameters),
-                                new XElement("ReceiveANotificationOnEmulatorError", e.ReceiveANotificationOnEmulatorError),
-                                string.IsNullOrEmpty(e.ImagePackDownloadLink) ? null : new XElement("ImagePackDownloadLink", e.ImagePackDownloadLink),
-                                string.IsNullOrEmpty(e.ImagePackDownloadLink2) ? null : new XElement("ImagePackDownloadLink2", e.ImagePackDownloadLink2),
-                                string.IsNullOrEmpty(e.ImagePackDownloadLink3) ? null : new XElement("ImagePackDownloadLink3", e.ImagePackDownloadLink3),
-                                string.IsNullOrEmpty(e.ImagePackDownloadLink4) ? null : new XElement("ImagePackDownloadLink4", e.ImagePackDownloadLink4),
-                                string.IsNullOrEmpty(e.ImagePackDownloadLink5) ? null : new XElement("ImagePackDownloadLink5", e.ImagePackDownloadLink5),
-                                string.IsNullOrEmpty(e.ImagePackDownloadExtractPath) ? null : new XElement("ImagePackDownloadExtractPath", e.ImagePackDownloadExtractPath)
+                                new XElement("ReceiveANotificationOnEmulatorError",
+                                    e.ReceiveANotificationOnEmulatorError),
+                                string.IsNullOrEmpty(e.ImagePackDownloadLink)
+                                    ? null
+                                    : new XElement("ImagePackDownloadLink", e.ImagePackDownloadLink),
+                                string.IsNullOrEmpty(e.ImagePackDownloadLink2)
+                                    ? null
+                                    : new XElement("ImagePackDownloadLink2", e.ImagePackDownloadLink2),
+                                string.IsNullOrEmpty(e.ImagePackDownloadLink3)
+                                    ? null
+                                    : new XElement("ImagePackDownloadLink3", e.ImagePackDownloadLink3),
+                                string.IsNullOrEmpty(e.ImagePackDownloadLink4)
+                                    ? null
+                                    : new XElement("ImagePackDownloadLink4", e.ImagePackDownloadLink4),
+                                string.IsNullOrEmpty(e.ImagePackDownloadLink5)
+                                    ? null
+                                    : new XElement("ImagePackDownloadLink5", e.ImagePackDownloadLink5),
+                                string.IsNullOrEmpty(e.ImagePackDownloadExtractPath)
+                                    ? null
+                                    : new XElement("ImagePackDownloadExtractPath", e.ImagePackDownloadExtractPath)
                             )
                         ))
                     ));
@@ -380,7 +408,8 @@ public partial class SystemManagerService : ISystemManager
                 // Notify user
                 if (messageBoxLibrary != null)
                 {
-                    _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(
+                        PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 }
 
                 return []; // Return an empty list
@@ -411,11 +440,13 @@ public partial class SystemManagerService : ISystemManager
             }
 
             if (systemFolders.Count == 0)
-                throw new InvalidOperationException($"System '{systemName}': At least one 'System Folder' is required in XML.");
+                throw new InvalidOperationException(
+                    $"System '{systemName}': At least one 'System Folder' is required in XML.");
 
             var systemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value;
             if (string.IsNullOrEmpty(systemImageFolder))
-                throw new InvalidOperationException($"System '{systemName}': Missing or empty 'System Image Folder' in XML.");
+                throw new InvalidOperationException(
+                    $"System '{systemName}': Missing or empty 'System Image Folder' in XML.");
 
             // Validate FileFormatsToSearch
             var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")
@@ -425,7 +456,8 @@ public partial class SystemManagerService : ISystemManager
                     !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
                 .ToList();
             if (formatsToSearch == null || formatsToSearch.Count == 0)
-                throw new InvalidOperationException($"System '{systemName}': 'File Extension To Search' should have at least one value.");
+                throw new InvalidOperationException(
+                    $"System '{systemName}': 'File Extension To Search' should have at least one value.");
 
             // Validate ExtractFileBeforeLaunch
             var extractFileBeforeLaunch = false;
@@ -440,11 +472,13 @@ public partial class SystemManagerService : ISystemManager
                 }
             }
 
-            if (extractFileBeforeLaunch && (formatsToSearch == null || !formatsToSearch.All(static f => f.Equals("zip", StringComparison.OrdinalIgnoreCase) ||
-                                                                                                        f.Equals("7z", StringComparison.OrdinalIgnoreCase) ||
-                                                                                                        f.Equals("rar", StringComparison.OrdinalIgnoreCase))))
+            if (extractFileBeforeLaunch && (formatsToSearch == null || !formatsToSearch.All(static f =>
+                    f.Equals("zip", StringComparison.OrdinalIgnoreCase) ||
+                    f.Equals("7z", StringComparison.OrdinalIgnoreCase) ||
+                    f.Equals("rar", StringComparison.OrdinalIgnoreCase))))
             {
-                throw new InvalidOperationException($"System '{systemName}': When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must ONLY contain 'zip', '7z', or 'rar'.");
+                throw new InvalidOperationException(
+                    $"System '{systemName}': When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must ONLY contain 'zip', '7z', or 'rar'.");
             }
 
             // Validate FileFormatsToLaunch
@@ -456,7 +490,8 @@ public partial class SystemManagerService : ISystemManager
                 .ToList();
             // If ExtractFileBeforeLaunch is true, FileFormatsToLaunch must have values.
             if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
-                throw new InvalidOperationException($"System '{systemName}': 'File Extension To Launch' should have at least one value when 'Extract File Before Launch' is set to true.");
+                throw new InvalidOperationException(
+                    $"System '{systemName}': 'File Extension To Launch' should have at least one value when 'Extract File Before Launch' is set to true.");
 
             // Parse GroupByFolder
             if (!bool.TryParse(sysConfigElement.Element("GroupByFolder")?.Value, out var groupByFolder))
@@ -465,7 +500,8 @@ public partial class SystemManagerService : ISystemManager
             }
 
             // Parse DisableRecursiveSearch
-            if (!bool.TryParse(sysConfigElement.Element("DisableRecursiveSearch")?.Value, out var disableRecursiveSearch))
+            if (!bool.TryParse(sysConfigElement.Element("DisableRecursiveSearch")?.Value,
+                    out var disableRecursiveSearch))
             {
                 disableRecursiveSearch = false;
             }
@@ -475,13 +511,15 @@ public partial class SystemManagerService : ISystemManager
             var emulatorElements = sysConfigElement.Element("Emulators")?.Elements("Emulator").ToList();
 
             if (emulatorElements == null || emulatorElements.Count == 0)
-                throw new InvalidOperationException($"System '{systemName}': Emulators list should not be empty or null."); // Need at least one EmulatorName element
+                throw new InvalidOperationException(
+                    $"System '{systemName}': Emulators list should not be empty or null."); // Need at least one EmulatorName element
 
             foreach (var emulatorElement in emulatorElements)
             {
                 var emulatorName = emulatorElement.Element("EmulatorName")?.Value;
                 if (string.IsNullOrEmpty(emulatorName))
-                    throw new InvalidOperationException($"System '{systemName}': An 'Emulator Name' should not be empty or null.");
+                    throw new InvalidOperationException(
+                        $"System '{systemName}': An 'Emulator Name' should not be empty or null.");
 
                 var emulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value ?? ""; // can be empty
                 var emulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value ?? ""; // can be empty
@@ -491,7 +529,8 @@ public partial class SystemManagerService : ISystemManager
                 var receiveNotification = true; // Default value
                 if (emulatorElement.Element("ReceiveANotificationOnEmulatorError") != null)
                 {
-                    if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value, out receiveNotification))
+                    if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value,
+                            out receiveNotification))
                     {
                         receiveNotification = true; // Reset to default if parsing fails
                     }
@@ -527,7 +566,8 @@ public partial class SystemManagerService : ISystemManager
         }
     }
 
-    private static async Task RestoreBackupFileAsync(string directoryPath, string systemXmlPath, ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary)
+    private static async Task RestoreBackupFileAsync(string directoryPath, string systemXmlPath, ILogger logErrors,
+        IMessageBoxLibraryService messageBoxLibrary)
     {
         try
         {
@@ -614,7 +654,8 @@ public partial class SystemManagerService : ISystemManager
     /// <summary>
     /// Asynchronously saves a system configuration to system.xml, creating or updating the entry with retry logic.
     /// </summary>
-    public static async Task SaveSystemConfigurationAsync(SystemManagerService systemConfig, string? originalSystemName = null, ILogger? logErrors = null, IConfiguration? configuration = null)
+    public static async Task SaveSystemConfigurationAsync(SystemManagerService systemConfig,
+        string? originalSystemName = null, ILogger? logErrors = null, IConfiguration? configuration = null)
     {
         try
         {
@@ -622,14 +663,17 @@ public partial class SystemManagerService : ISystemManager
             {
                 lock (XmlLock)
                 {
-                    var systemXmlPath = GetSystemXmlPath(configuration ?? App.ServiceProvider.GetRequiredService<IConfiguration>());
+                    var systemXmlPath =
+                        GetSystemXmlPath(configuration ?? App.ServiceProvider.GetRequiredService<IConfiguration>());
                     XDocument xmlDoc;
                     try
                     {
                         if (File.Exists(systemXmlPath))
                         {
                             var xmlContent = File.ReadAllText(systemXmlPath);
-                            xmlDoc = string.IsNullOrWhiteSpace(xmlContent) ? new XDocument(new XElement("SystemConfigs")) : XDocument.Parse(xmlContent);
+                            xmlDoc = string.IsNullOrWhiteSpace(xmlContent)
+                                ? new XDocument(new XElement("SystemConfigs"))
+                                : XDocument.Parse(xmlContent);
                             if (xmlDoc.Root == null || xmlDoc.Root.Name != "SystemConfigs")
                             {
                                 xmlDoc = new XDocument(new XElement("SystemConfigs"));
@@ -648,7 +692,9 @@ public partial class SystemManagerService : ISystemManager
                             try
                             {
                                 var xmlContent = File.ReadAllText(fallbackPath);
-                                xmlDoc = string.IsNullOrWhiteSpace(xmlContent) ? new XDocument(new XElement("SystemConfigs")) : XDocument.Parse(xmlContent);
+                                xmlDoc = string.IsNullOrWhiteSpace(xmlContent)
+                                    ? new XDocument(new XElement("SystemConfigs"))
+                                    : XDocument.Parse(xmlContent);
                                 if (xmlDoc.Root == null || xmlDoc.Root.Name != "SystemConfigs")
                                 {
                                     xmlDoc = new XDocument(new XElement("SystemConfigs"));
@@ -678,7 +724,8 @@ public partial class SystemManagerService : ISystemManager
                     if (root != null)
                     {
                         var existingSystem = root.Elements("SystemConfig")
-                            .FirstOrDefault(el => string.Equals(el.Element("SystemName")?.Value, systemIdentifier, StringComparison.Ordinal));
+                            .FirstOrDefault(el => string.Equals(el.Element("SystemName")?.Value, systemIdentifier,
+                                StringComparison.Ordinal));
 
                         if (existingSystem != null)
                         {
@@ -693,7 +740,8 @@ public partial class SystemManagerService : ISystemManager
                     if (root != null)
                     {
                         var sortedSystems = root.Elements("SystemConfig")
-                            .OrderBy(static system => system.Element("SystemName")?.Value, StringComparer.OrdinalIgnoreCase)
+                            .OrderBy(static system => system.Element("SystemName")?.Value,
+                                StringComparer.OrdinalIgnoreCase)
                             .ToList();
                         root.RemoveNodes();
                         root.Add(sortedSystems);
@@ -708,7 +756,11 @@ public partial class SystemManagerService : ISystemManager
                         try
                         {
                             var tempPath = systemXmlPath + ".tmp";
-                            var settings = new XmlWriterSettings { Indent = true, IndentChars = "  ", NewLineHandling = NewLineHandling.Replace, Encoding = System.Text.Encoding.UTF8 };
+                            var settings = new XmlWriterSettings
+                            {
+                                Indent = true, IndentChars = "  ", NewLineHandling = NewLineHandling.Replace,
+                                Encoding = System.Text.Encoding.UTF8
+                            };
 
                             // Serialize to memory first to ensure we have valid data before touching the disk.
                             // This prevents creating a 0-byte file if serialization fails or the process crashes mid-save.
@@ -763,7 +815,8 @@ public partial class SystemManagerService : ISystemManager
                                 }
                                 catch (Exception fallbackEx)
                                 {
-                                    Log.Debug($"[SystemManagerService] FallbackToLocalAppData failed: {fallbackEx.Message}");
+                                    Log.Debug(
+                                        $"[SystemManagerService] FallbackToLocalAppData failed: {fallbackEx.Message}");
                                 }
                             }
 
@@ -825,7 +878,8 @@ public partial class SystemManagerService : ISystemManager
     /// <summary>
     /// Asynchronously deletes a system configuration entry by name from system.xml.
     /// </summary>
-    public static async Task DeleteSystemAsync(string systemNameToDelete, ILogger? logErrors = null, IConfiguration? configuration = null)
+    public static async Task DeleteSystemAsync(string systemNameToDelete, ILogger? logErrors = null,
+        IConfiguration? configuration = null)
     {
         try
         {
@@ -833,7 +887,8 @@ public partial class SystemManagerService : ISystemManager
             {
                 lock (XmlLock)
                 {
-                    var systemXmlPath = GetSystemXmlPath(configuration ?? App.ServiceProvider.GetRequiredService<IConfiguration>());
+                    var systemXmlPath =
+                        GetSystemXmlPath(configuration ?? App.ServiceProvider.GetRequiredService<IConfiguration>());
                     if (!File.Exists(systemXmlPath)) return;
 
                     XDocument xmlDoc;
@@ -854,7 +909,8 @@ public partial class SystemManagerService : ISystemManager
                     }
 
                     var systemNode = xmlDoc.Root?.Descendants("SystemConfig")
-                        .FirstOrDefault(element => string.Equals(element.Element("SystemName")?.Value, systemNameToDelete, StringComparison.Ordinal));
+                        .FirstOrDefault(element => string.Equals(element.Element("SystemName")?.Value,
+                            systemNameToDelete, StringComparison.Ordinal));
 
                     if (systemNode != null)
                     {
@@ -877,12 +933,15 @@ public partial class SystemManagerService : ISystemManager
     {
         var element = new XElement("SystemConfig",
             new XElement("SystemName", config.SystemName),
-            new XElement("SystemFolders", config.SystemFolders.Select(static folder => new XElement("SystemFolder", folder))),
+            new XElement("SystemFolders",
+                config.SystemFolders.Select(static folder => new XElement("SystemFolder", folder))),
             new XElement("SystemImageFolder", config.SystemImageFolder),
-            new XElement("FileFormatsToSearch", config.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
+            new XElement("FileFormatsToSearch",
+                config.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
             new XElement("GroupByFolder", config.GroupByFolder),
             config.ExtractFileBeforeLaunch ? new XElement("ExtractFileBeforeLaunch", true) : null,
-            new XElement("FileFormatsToLaunch", config.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
+            new XElement("FileFormatsToLaunch",
+                config.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
             new XElement("Emulators", config.Emulators.Select(CreateEmulatorXElement))
         );
         return element;
@@ -902,11 +961,13 @@ public partial class SystemManagerService : ISystemManager
         foldersElement.ReplaceNodes(config.SystemFolders.Select(static folder => new XElement("SystemFolder", folder)));
 
         existingSystem.SetElementValue("SystemImageFolder", config.SystemImageFolder);
-        existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(config.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
+        existingSystem.Element("FileFormatsToSearch")
+            ?.ReplaceNodes(config.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
         existingSystem.SetElementValue("GroupByFolder", config.GroupByFolder);
         existingSystem.SetElementValue("DisableRecursiveSearch", config.DisableRecursiveSearch);
         existingSystem.SetElementValue("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch ? true : null);
-        existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(config.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
+        existingSystem.Element("FileFormatsToLaunch")
+            ?.ReplaceNodes(config.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
 
         existingSystem.Element("Emulators")?.Remove();
         existingSystem.Add(new XElement("Emulators", config.Emulators.Select(CreateEmulatorXElement)));
@@ -932,7 +993,8 @@ public partial class SystemManagerService : ISystemManager
         if (!string.IsNullOrEmpty(emulatorConfig.ImagePackDownloadLink5))
             emulatorElement.Add(new XElement("ImagePackDownloadLink5", emulatorConfig.ImagePackDownloadLink5));
         if (!string.IsNullOrEmpty(emulatorConfig.ImagePackDownloadExtractPath))
-            emulatorElement.Add(new XElement("ImagePackDownloadExtractPath", emulatorConfig.ImagePackDownloadExtractPath));
+            emulatorElement.Add(new XElement("ImagePackDownloadExtractPath",
+                emulatorConfig.ImagePackDownloadExtractPath));
 
         return emulatorElement;
     }
@@ -940,7 +1002,8 @@ public partial class SystemManagerService : ISystemManager
     [GeneratedRegex(@"<SystemConfig[^>]*>[\s\S]*?<\/SystemConfig>", RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the system name")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the system name")]
     [GeneratedRegex(@"<SystemName>(.*?)<\/SystemName>", RegexOptions.None, 1000)]
     private static partial Regex MyRegex1();
 }

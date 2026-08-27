@@ -57,14 +57,17 @@ public static class FindEbootBin
         }
         catch (UnauthorizedAccessException uaEx)
         {
-            logger.Debug($"[FindEbootBin.FindEbootBinRecursive] UnauthorizedAccessException searching for {targetFileName} in {directoryPath}: {uaEx.Message}");
+            logger.Debug(
+                $"[FindEbootBin.FindEbootBinRecursive] UnauthorizedAccessException searching for {targetFileName} in {directoryPath}: {uaEx.Message}");
 
             // Notify developer
-            logErrors.Error(uaEx, $"Unauthorized access while searching for EBOOT.BIN in directory at {directoryPath}.");
+            logErrors.Error(uaEx,
+                $"Unauthorized access while searching for EBOOT.BIN in directory at {directoryPath}.");
         }
         catch (Exception ex)
         {
-            logger.Debug($"[FindEbootBin.FindEbootBinRecursive] Error searching for {targetFileName} in {directoryPath}: {ex.Message}");
+            logger.Debug(
+                $"[FindEbootBin.FindEbootBinRecursive] Error searching for {targetFileName} in {directoryPath}: {ex.Message}");
 
             // Notify developer
             logErrors.Error(ex, $"Error while searching for EBOOT.BIN in directory at {directoryPath}.");

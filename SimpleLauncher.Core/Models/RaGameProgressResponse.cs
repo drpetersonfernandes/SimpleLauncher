@@ -53,7 +53,8 @@ public record RaGameProgressResponse
     /// Gets the collection of achievements for the game, keyed by achievement ID.
     /// </summary>
     [JsonPropertyName("Achievements")]
-    public IReadOnlyDictionary<string, RaApiAchievement> Achievements { get; init; } = new Dictionary<string, RaApiAchievement>(StringComparer.Ordinal);
+    public IReadOnlyDictionary<string, RaApiAchievement> Achievements { get; init; } =
+        new Dictionary<string, RaApiAchievement>(StringComparer.Ordinal);
 
     /// <summary>
     /// Gets the forum topic identifier for the game.

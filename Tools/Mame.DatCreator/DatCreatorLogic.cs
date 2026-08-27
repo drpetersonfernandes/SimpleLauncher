@@ -76,7 +76,8 @@ public class DatCreatorLogic
                 }
             }
 
-            _logger.Info($"Software list processing: {addedCount} new entries added, {skippedCount} duplicates skipped (full list has priority).");
+            _logger.Info(
+                $"Software list processing: {addedCount} new entries added, {skippedCount} duplicates skipped (full list has priority).");
             _logger.Info($"After merging software list, there are {uniqueMachines.Count} total unique machines.");
 
             _logger.Info("--- Starting Process 4: Sorting and Saving Output Files ---");

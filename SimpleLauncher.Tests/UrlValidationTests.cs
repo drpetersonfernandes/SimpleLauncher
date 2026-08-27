@@ -109,7 +109,8 @@ public partial class UrlValidationTests
     [InlineData("easymode_arm64.xml")]
     public async Task EasyModeSampleLocalXmlContainsValidUrls(string xmlFileName)
     {
-        var filePath = GetProjectFilePath(Path.Combine("SimpleLauncher", "Services", "EasyMode", "Samples", xmlFileName));
+        var filePath =
+            GetProjectFilePath(Path.Combine("SimpleLauncher", "Services", "EasyMode", "Samples", xmlFileName));
         Assert.True(File.Exists(filePath), $"File not found: {filePath}");
 
         var xmlContent = await File.ReadAllTextAsync(filePath);
@@ -182,7 +183,8 @@ public partial class UrlValidationTests
         if (brokenUrls.Count != 0)
         {
             var message = string.Join(Environment.NewLine, brokenUrls);
-            Assert.Fail($"The following URLs inside the local EasyMode XML sample are broken:{Environment.NewLine}{message}");
+            Assert.Fail(
+                $"The following URLs inside the local EasyMode XML sample are broken:{Environment.NewLine}{message}");
         }
     }
 
@@ -288,7 +290,8 @@ public partial class UrlValidationTests
                 // Some servers block HEAD or return non-success codes for it.
                 // Fall back to GET (headers only) for a more accurate check.
                 using var getRequest = new HttpRequestMessage(HttpMethod.Get, url);
-                using var getResponse = await HttpClient.SendAsync(getRequest, HttpCompletionOption.ResponseHeadersRead);
+                using var getResponse =
+                    await HttpClient.SendAsync(getRequest, HttpCompletionOption.ResponseHeadersRead);
                 if (getResponse.IsSuccessStatusCode)
                     return null;
 
@@ -318,7 +321,8 @@ public partial class UrlValidationTests
         return null;
     }
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the URL")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the URL")]
     [GeneratedRegex(@"\((https?://[^)\s]+)\)", RegexOptions.IgnoreCase, "pt-BR")]
     private static partial Regex MyRegex();
 }

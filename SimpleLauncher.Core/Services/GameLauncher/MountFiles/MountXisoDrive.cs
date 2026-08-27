@@ -65,13 +65,15 @@ public class MountXisoDrive : IAsyncDisposable
             try
             {
                 _mountProcess.Kill(true);
-                _logger.Debug($"[MountXisoDrive.DisposeAsync] Kill signal sent to mounting tool (ID: {_mountProcessId}).");
+                _logger.Debug(
+                    $"[MountXisoDrive.DisposeAsync] Kill signal sent to mounting tool (ID: {_mountProcessId}).");
             }
             catch (InvalidOperationException)
             {
                 // Thrown when the process has already exited before Kill() was invoked
                 processExitedBeforeKill = true;
-                _logger.Debug($"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) had already exited before Kill could complete (race condition handled).");
+                _logger.Debug(
+                    $"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) had already exited before Kill could complete (race condition handled).");
             }
             catch (ArgumentException)
             {

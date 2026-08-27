@@ -56,7 +56,8 @@ public partial class SoundConfigurationWindow
         var openFileDialog = new OpenFileDialog
         {
             Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*",
-            Title = (string)Application.Current.TryFindResource("SelectNotificationSoundFile") ?? "Select Notification Sound File"
+            Title = (string)Application.Current.TryFindResource("SelectNotificationSoundFile") ??
+                    "Select Notification Sound File"
         };
 
         return openFileDialog.ShowDialog() == true ? openFileDialog.FileName : null;

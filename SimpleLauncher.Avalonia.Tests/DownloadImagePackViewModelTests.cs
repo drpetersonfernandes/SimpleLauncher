@@ -17,29 +17,29 @@ namespace SimpleLauncher.Avalonia.Tests;
 public class DownloadImagePackViewModelTests
 {
     private const string EasyModeJson = """
-        [
-          {
-            "systemName": "NES",
-            "systemFolder": "roms/nes",
-            "systemImageFolder": "images/nes",
-            "fileFormatsToSearch": [".nes"],
-            "fileFormatsToLaunch": [".nes"],
-            "emulators": {
-              "emulator": {
-                "emulatorName": "Mesen",
-                "imagePackDownloadLink": "https://example.com/pack1.zip",
-                "imagePackDownloadLink2": "https://example.com/pack2.zip",
-                "imagePackDownloadExtractPath": "images/nes"
-              }
-            }
-          },
-          {
-            "systemName": "NoPackSystem",
-            "systemFolder": "roms/nopack",
-            "emulators": { "emulator": { "emulatorName": "NoPacker" } }
-          }
-        ]
-        """;
+                                        [
+                                          {
+                                            "systemName": "NES",
+                                            "systemFolder": "roms/nes",
+                                            "systemImageFolder": "images/nes",
+                                            "fileFormatsToSearch": [".nes"],
+                                            "fileFormatsToLaunch": [".nes"],
+                                            "emulators": {
+                                              "emulator": {
+                                                "emulatorName": "Mesen",
+                                                "imagePackDownloadLink": "https://example.com/pack1.zip",
+                                                "imagePackDownloadLink2": "https://example.com/pack2.zip",
+                                                "imagePackDownloadExtractPath": "images/nes"
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "systemName": "NoPackSystem",
+                                            "systemFolder": "roms/nopack",
+                                            "emulators": { "emulator": { "emulatorName": "NoPacker" } }
+                                          }
+                                        ]
+                                        """;
 
     private static DownloadImagePackViewModel CreateVm()
     {
@@ -55,7 +55,8 @@ public class DownloadImagePackViewModelTests
         File.Delete(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "easymode_arm64.xml"));
 
         var config = TestEnvironment.ConfigurationFromJson("""{"EasyModeCacheDurationMinutes": "0"}""");
-        var httpClient = new HttpClient(new JsonHandler(EasyModeJson)) { BaseAddress = new Uri("https://example.com/") };
+        var httpClient = new HttpClient(new JsonHandler(EasyModeJson))
+            { BaseAddress = new Uri("https://example.com/") };
         var httpFactory = TestDependencies.HttpFactory(httpClient);
 
         var easyModeManager = new EasyModeManager(logger.Object, config, httpFactory.Object, logger.Object);
@@ -72,7 +73,8 @@ public class DownloadImagePackViewModelTests
         services.AddSingleton(downloadManager);
         var scopeFactory = services.BuildServiceProvider().GetRequiredService<IServiceScopeFactory>();
 
-        return new DownloadImagePackViewModel(playSound, logger.Object, easyModeManager, messageBox.Object, scopeFactory, resourceProvider);
+        return new DownloadImagePackViewModel(playSound, logger.Object, easyModeManager, messageBox.Object,
+            scopeFactory, resourceProvider);
     }
 
     [Fact]
@@ -211,7 +213,8 @@ public class DownloadImagePackViewModelTests
             _json = json;
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
             return Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
             {

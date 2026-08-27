@@ -58,7 +58,8 @@ public class ImageUrlConverter : IValueConverter
         try
         {
             // Try to load the noimage.png from resources
-            return new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/noimage.png", UriKind.Absolute));
+            return new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/images/noimage.png",
+                UriKind.Absolute));
         }
         catch
         {
@@ -67,8 +68,10 @@ public class ImageUrlConverter : IValueConverter
             using (var drawingContext = drawingVisual.RenderOpen())
             {
                 drawingContext.DrawRectangle(Brushes.LightGray, null, new System.Windows.Rect(0, 0, 32, 32));
-                drawingContext.DrawLine(new Pen(Brushes.Gray, 1), new System.Windows.Point(0, 0), new System.Windows.Point(32, 32));
-                drawingContext.DrawLine(new Pen(Brushes.Gray, 1), new System.Windows.Point(32, 0), new System.Windows.Point(0, 32));
+                drawingContext.DrawLine(new Pen(Brushes.Gray, 1), new System.Windows.Point(0, 0),
+                    new System.Windows.Point(32, 32));
+                drawingContext.DrawLine(new Pen(Brushes.Gray, 1), new System.Windows.Point(32, 0),
+                    new System.Windows.Point(0, 32));
             }
 
             var renderTarget = new RenderTargetBitmap(32, 32, 96, 96, PixelFormats.Pbgra32);

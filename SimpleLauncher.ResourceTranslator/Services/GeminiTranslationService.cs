@@ -122,10 +122,12 @@ public class GeminiTranslationService
     {
         try
         {
-            var apiUrl = $"https://generativelanguage.googleapis.com/{_apiVersion}/models/{_modelId}:generateContent?key={_apiKey}";
+            var apiUrl =
+                $"https://generativelanguage.googleapis.com/{_apiVersion}/models/{_modelId}:generateContent?key={_apiKey}";
 
             var sb = new StringBuilder();
-            sb.AppendLine(CultureInfo.InvariantCulture, $"You are a professional UI translator. Translate each English string into {targetLanguageName}.");
+            sb.AppendLine(CultureInfo.InvariantCulture,
+                $"You are a professional UI translator. Translate each English string into {targetLanguageName}.");
             sb.AppendLine("Preserve UI context, keep placeholders like {0}, {1}, etc. intact.");
             sb.AppendLine("Do NOT add explanations, markdown, or any extra text.");
             sb.AppendLine("Return EXACTLY one line per item in this strict format:");

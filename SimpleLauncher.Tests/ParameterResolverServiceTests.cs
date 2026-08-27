@@ -22,7 +22,8 @@ public class ParameterResolverServiceTests
             _responder = responder;
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
             return Task.FromResult(_responder(request));
         }
@@ -62,7 +63,9 @@ public class ParameterResolverServiceTests
     {
         var handler = new FakeHttpMessageHandler(_ => new HttpResponseMessage(HttpStatusCode.OK)
         {
-            Content = new StringContent("""{"suggestedParameter":"-fullscreen","explanation":"Fullscreen is recommended"}""", Encoding.UTF8, "application/json")
+            Content = new StringContent(
+                """{"suggestedParameter":"-fullscreen","explanation":"Fullscreen is recommended"}""", Encoding.UTF8,
+                "application/json")
         });
         var service = CreateService(handler);
 
@@ -112,7 +115,8 @@ public class ParameterResolverServiceTests
             requestBody = request.Content!.ReadAsStringAsync().GetAwaiter().GetResult();
             return new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent("""{"suggestedParameter":"-x","explanation":""}""", Encoding.UTF8, "application/json")
+                Content = new StringContent("""{"suggestedParameter":"-x","explanation":""}""", Encoding.UTF8,
+                    "application/json")
             };
         });
         var service = CreateService(handler);
@@ -145,7 +149,8 @@ public class ParameterResolverServiceTests
     {
         var handler = new FakeHttpMessageHandler(_ => new HttpResponseMessage(HttpStatusCode.OK)
         {
-            Content = new StringContent("""{"suggestedParameter":"-x","explanation":""}""", Encoding.UTF8, "application/json")
+            Content = new StringContent("""{"suggestedParameter":"-x","explanation":""}""", Encoding.UTF8,
+                "application/json")
         });
         var service = new ParameterResolverService(new FakeHttpClientFactory(handler), null!);
 

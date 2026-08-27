@@ -80,7 +80,8 @@ public class SystemConfigurationWriterServiceTests : IDisposable
         return mock;
     }
 
-    private static Mock<IEmulator> CreateEmulatorMock(string name, string location = "emu.exe", string parameters = "-fullscreen")
+    private static Mock<IEmulator> CreateEmulatorMock(string name, string location = "emu.exe",
+        string parameters = "-fullscreen")
     {
         var mock = new Mock<IEmulator>();
         mock.SetupGet(x => x.EmulatorName).Returns(name);
@@ -194,7 +195,8 @@ public class SystemConfigurationWriterServiceTests : IDisposable
         CreateService();
         await File.WriteAllTextAsync(_systemXmlPath, "<SystemConfigs><broken>");
 
-        await Assert.ThrowsAsync<InvalidOperationException>(() => _service.SaveSystemAsync(CreateSystemMock("NES").Object));
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            _service.SaveSystemAsync(CreateSystemMock("NES").Object));
     }
 
     [Fact]

@@ -35,7 +35,9 @@ public partial class SupportViewModel : ObservableObject
     /// <param name="messageBox">The message box service for displaying dialogs.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
     /// <param name="logger">The logger for recording errors and debug information.</param>
-    public SupportViewModel(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory, IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider, ILogger logger)
+    public SupportViewModel(PlaySoundEffects playSoundEffects, IHttpClientFactory httpClientFactory,
+        IConfiguration configuration, IMessageBoxLibraryService messageBox, IResourceProvider resourceProvider,
+        ILogger logger)
     {
         _playSoundEffects = playSoundEffects;
         _httpClientFactory = httpClientFactory;
@@ -77,7 +79,8 @@ public partial class SupportViewModel : ObservableObject
             return;
         }
 
-        _logger.Debug($"[Support] Validation passed. Name='{Name}', Email='{Email}', MessageLength={SupportRequest.Length}");
+        _logger.Debug(
+            $"[Support] Validation passed. Name='{Name}', Email='{Email}', MessageLength={SupportRequest.Length}");
         IsLoading = true;
 
         try
@@ -114,12 +117,14 @@ public partial class SupportViewModel : ObservableObject
 
     private async Task SendSupportRequestToApiAsync(string fullMessage)
     {
-        var apiBaseUrl = _configuration.GetValue<string>("EmailApiBaseUrl") ?? "https://www.purelogiccode.com/customeremailservice/api/send-customer-email/";
+        var apiBaseUrl = _configuration.GetValue<string>("EmailApiBaseUrl") ??
+                         "https://www.purelogiccode.com/customeremailservice/api/send-customer-email/";
         var apiKey = AppConstants.GetApiKey();
         var supportEmailTo = _configuration.GetValue<string>("SupportEmailTo") ?? "contact@purelogiccode.com";
 
         _logger.Debug($"[Support] EmailApiBaseUrl from config: '{apiBaseUrl}'");
-        _logger.Debug($"[Support] ApiKey: '{apiKey.Substring(0, Math.Min(10, apiKey.Length))}...' (length={apiKey.Length})");
+        _logger.Debug(
+            $"[Support] ApiKey: '{apiKey.Substring(0, Math.Min(10, apiKey.Length))}...' (length={apiKey.Length})");
         _logger.Debug($"[Support] SupportEmailTo from config: '{supportEmailTo}'");
         _logger.Debug($"[Support] Message body length: {fullMessage.Length} chars");
 
@@ -141,11 +146,13 @@ public partial class SupportViewModel : ObservableObject
             var httpClient = _httpClientFactory?.CreateClient("SupportWindowClient");
             if (httpClient == null)
             {
-                _logger.Debug("[Support] ERROR: httpClient is null. IHttpClientFactory returned null for 'SupportWindowClient'.");
+                _logger.Debug(
+                    "[Support] ERROR: httpClient is null. IHttpClientFactory returned null for 'SupportWindowClient'.");
                 return;
             }
 
-            _logger.Debug($"[Support] HttpClient created. BaseAddress: '{httpClient.BaseAddress}', Timeout: {httpClient.Timeout}");
+            _logger.Debug(
+                $"[Support] HttpClient created. BaseAddress: '{httpClient.BaseAddress}', Timeout: {httpClient.Timeout}");
 
             var apiUrl = apiBaseUrl.TrimEnd('/');
             _logger.Debug($"[Support] Final API URL: '{apiUrl}'");
@@ -197,9 +204,11 @@ public partial class SupportViewModel : ObservableObject
                 }
                 else
                 {
-                    _logger.Debug($"[Support] FAILURE: API returned error. Status={response.StatusCode}, Body='{responseContent}'");
+                    _logger.Debug(
+                        $"[Support] FAILURE: API returned error. Status={response.StatusCode}, Body='{responseContent}'");
 
-                    var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {responseContent}";
+                    var contextMessage =
+                        $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {responseContent}";
                     _logger.Warning(contextMessage);
 
                     await _messageBox.SupportRequestSendErrorMessageBoxAsync();
@@ -209,7 +218,8 @@ public partial class SupportViewModel : ObservableObject
         catch (OperationCanceledException)
         {
             _logger.Debug("[Support] TIMEOUT: Request timed out after 20 seconds.");
-            _logger.Warning("The support request timed out after 20 seconds. Please check your internet connection and try again.");
+            _logger.Warning(
+                "The support request timed out after 20 seconds. Please check your internet connection and try again.");
 
             await _messageBox.SupportRequestSendErrorMessageBoxAsync();
         }

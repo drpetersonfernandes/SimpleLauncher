@@ -92,7 +92,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-windows'">
-      <PackageReference Include="NAudio.WinMM" Version="3.0.1" />
+        <PackageReference Include="NAudio.WinMM" Version="3.0.1" />
     </ItemGroup>
 
     <!-- net10.0 is the Linux TFM; the WINDOWS symbol is defined only for

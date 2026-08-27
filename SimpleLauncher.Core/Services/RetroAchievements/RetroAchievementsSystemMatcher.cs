@@ -53,27 +53,67 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
     {
         // Nintendo systems
         ["nintendo 64"] = new RaSystemInfo(2, ["nintendo 64", "n64", "nintendo64", "Nintendo 64DD", "Nintendo N64"]),
-        ["super nintendo entertainment system"] = new RaSystemInfo(3, ["super nintendo entertainment system", "snes", "super nintendo", "super famicom", "Nintendo SNES", "Nintendo SFC", "Nintendo Super Famicom", "NintendoSNES", "Nintendo Satellaview"]),
+        ["super nintendo entertainment system"] = new RaSystemInfo(3,
+        [
+            "super nintendo entertainment system", "snes", "super nintendo", "super famicom", "Nintendo SNES",
+            "Nintendo SFC", "Nintendo Super Famicom", "NintendoSNES", "Nintendo Satellaview"
+        ]),
         ["game boy"] = new RaSystemInfo(4, ["game boy", "gb", "gameboy", "Nintendo Gameboy", "Nintendo Game Boy"]),
-        ["game boy advance"] = new RaSystemInfo(5, ["game boy advance", "gba", "gameboy advance", "nintendo gameboy advance", "Nintendo GBA", "Nintendo Game Boy Advance", "Nintendo - Game Boy Advance"]),
-        ["game boy color"] = new RaSystemInfo(6, ["game boy color", "gbc", "gameboy color", "nintendo gameboy color", "Nintendo - Game Boy Color", "Nintendo Game Boy Color"]),
-        ["nintendo entertainment system"] = new RaSystemInfo(7, ["nintendo entertainment system", "nes", "famicom", "nintendo nes", "Nintendo Famicom"]),
-        ["gamecube"] = new RaSystemInfo(16, ["gamecube", "game cube", "game-cube", "gc", "nintendo gamecube", "nintendo game cube", "nintendo game-cube", "nintendo gc", "Nintndo Gamecube"]),
-        ["nintendo ds"] = new RaSystemInfo(18, ["nintendo ds", "nintendo-ds", "nintendods", "nds", "ds", "nintendo ds"]),
-        ["virtual boy"] = new RaSystemInfo(28, ["virtual boy", "virtualboy", "vb", "nintendo virtual boy", "nintendo virtualboy", "nintendo vb"]),
+        ["game boy advance"] = new RaSystemInfo(5,
+        [
+            "game boy advance", "gba", "gameboy advance", "nintendo gameboy advance", "Nintendo GBA",
+            "Nintendo Game Boy Advance", "Nintendo - Game Boy Advance"
+        ]),
+        ["game boy color"] = new RaSystemInfo(6,
+        [
+            "game boy color", "gbc", "gameboy color", "nintendo gameboy color", "Nintendo - Game Boy Color",
+            "Nintendo Game Boy Color"
+        ]),
+        ["nintendo entertainment system"] = new RaSystemInfo(7,
+            ["nintendo entertainment system", "nes", "famicom", "nintendo nes", "Nintendo Famicom"]),
+        ["gamecube"] = new RaSystemInfo(16,
+        [
+            "gamecube", "game cube", "game-cube", "gc", "nintendo gamecube", "nintendo game cube", "nintendo game-cube",
+            "nintendo gc", "Nintndo Gamecube"
+        ]),
+        ["nintendo ds"] =
+            new RaSystemInfo(18, ["nintendo ds", "nintendo-ds", "nintendods", "nds", "ds", "nintendo ds"]),
+        ["virtual boy"] = new RaSystemInfo(28,
+            ["virtual boy", "virtualboy", "vb", "nintendo virtual boy", "nintendo virtualboy", "nintendo vb"]),
         ["pokemon mini"] = new RaSystemInfo(24, ["pokemon mini", "pokémon mini"]),
-        ["nintendo dsi"] = new RaSystemInfo(78, ["nintendo dsi", "nintendo ds-i", "ndsi", "dsi", "nintendo ndsi", "nintendo dsi"]),
-        ["famicom disk system"] = new RaSystemInfo(81, ["famicom disk system", "fds", "nintendo famicom disk system", "nintendo fds", "Nintendo Family Computer", "Nintendo Family Computer Disk System", "Nintendo - Family Computer", "Nintendo Famicom Disc System"]),
+        ["nintendo dsi"] = new RaSystemInfo(78,
+            ["nintendo dsi", "nintendo ds-i", "ndsi", "dsi", "nintendo ndsi", "nintendo dsi"]),
+        ["famicom disk system"] = new RaSystemInfo(81,
+        [
+            "famicom disk system", "fds", "nintendo famicom disk system", "nintendo fds", "Nintendo Family Computer",
+            "Nintendo Family Computer Disk System", "Nintendo - Family Computer", "Nintendo Famicom Disc System"
+        ]),
         ["wii"] = new RaSystemInfo(19, ["wii", "nintendo wii", "Nintendo Wiiware", "Wiiware"]),
-        ["wii u"] = new RaSystemInfo(20, ["wii u", "wiiu", "wii-u", "nintendo wii u", "nintendo wiiu", "nintendo wii-u"]),
-        ["nintendo 3ds"] = new RaSystemInfo(62, ["nintendo 3ds", "3ds", "nintendo3ds", "nintendo 3ds", "Nintendo - Nintendo 3DS"]),
+        ["wii u"] = new RaSystemInfo(20,
+            ["wii u", "wiiu", "wii-u", "nintendo wii u", "nintendo wiiu", "nintendo wii-u"]),
+        ["nintendo 3ds"] = new RaSystemInfo(62,
+            ["nintendo 3ds", "3ds", "nintendo3ds", "nintendo 3ds", "Nintendo - Nintendo 3DS"]),
 
         // Sega systems
-        ["genesis/mega drive"] = new RaSystemInfo(1, ["genesis/mega drive", "genesis", "mega drive", "megadrive", "sega genesis", "sega megadrive", "sega mega drive"]),
-        ["sega cd"] = new RaSystemInfo(9, ["sega cd", "segacd", "sega genesis cd", "genesis cd", "sega megadrive cd", "megadrive cd", "sega mega drive cd", "mega drive cd", "SEGA MEGA-CD"]),
-        ["32x"] = new RaSystemInfo(10, ["32x", "sega 32x", "sega genesis 32x", "genesis 32x", "megadrive 32x", "mega drive 32x", "sega megadrive 32x", "mega drive 32x", "sega mega drive 32x"]),
-        ["master system"] = new RaSystemInfo(11, ["master system", "mastersystem", "mark3", "Sega Master System", "Sega - Master System - Mark III"]),
-        ["game gear"] = new RaSystemInfo(15, ["game gear", "gamegear", "sega game gear", "sega gamegear", "Sega - Game Gear"]),
+        ["genesis/mega drive"] = new RaSystemInfo(1,
+        [
+            "genesis/mega drive", "genesis", "mega drive", "megadrive", "sega genesis", "sega megadrive",
+            "sega mega drive"
+        ]),
+        ["sega cd"] = new RaSystemInfo(9,
+        [
+            "sega cd", "segacd", "sega genesis cd", "genesis cd", "sega megadrive cd", "megadrive cd",
+            "sega mega drive cd", "mega drive cd", "SEGA MEGA-CD"
+        ]),
+        ["32x"] = new RaSystemInfo(10,
+        [
+            "32x", "sega 32x", "sega genesis 32x", "genesis 32x", "megadrive 32x", "mega drive 32x",
+            "sega megadrive 32x", "mega drive 32x", "sega mega drive 32x"
+        ]),
+        ["master system"] = new RaSystemInfo(11,
+            ["master system", "mastersystem", "mark3", "Sega Master System", "Sega - Master System - Mark III"]),
+        ["game gear"] = new RaSystemInfo(15,
+            ["game gear", "gamegear", "sega game gear", "sega gamegear", "Sega - Game Gear"]),
         ["saturn"] = new RaSystemInfo(39, ["saturn", "sega saturn"]),
         ["dreamcast"] = new RaSystemInfo(40, ["dreamcast", "sega dreamcast", "DREAMCAST NAOMI"]),
         ["naomi"] = new RaSystemInfo(27, ["naomi", "sega naomi"]),
@@ -82,17 +122,29 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
 
         // Sony systems
         ["playstation"] = new RaSystemInfo(12, [
-            "playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation", "SONY PlayStation", "Sony Play Station",
+            "playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation", "SONY PlayStation",
+            "Sony Play Station",
             "Sony Play Station 1", "Sony - PlayStation", "Sony - PlayStation 1", "Sony PlayStation x1"
         ]),
-        ["playstation 2"] = new RaSystemInfo(21, ["playstation 2", "ps2", "sony playstation 2", "Sony Play Station 2", "Sony - PlayStation 2", "Sony Playstation2"]),
-        ["playstation portable"] = new RaSystemInfo(41, ["playstation portable", "psp", "Sony PSP", "SONY PlayStation Portable"]),
+        ["playstation 2"] = new RaSystemInfo(21,
+        [
+            "playstation 2", "ps2", "sony playstation 2", "Sony Play Station 2", "Sony - PlayStation 2",
+            "Sony Playstation2"
+        ]),
+        ["playstation portable"] =
+            new RaSystemInfo(41, ["playstation portable", "psp", "Sony PSP", "SONY PlayStation Portable"]),
 
         // NEC systems
-        ["pc engine/turbografx-16"] = new RaSystemInfo(8, ["pc engine/turbografx-16", "pc engine", "pcengine", "pc-engine", "turbografx-16", "turbografx 16", "turbografx", "turbografx16", "pce", "tg16", "NEC PC Engine", "NEC TurboGrafx 16"]),
+        ["pc engine/turbografx-16"] = new RaSystemInfo(8,
+        [
+            "pc engine/turbografx-16", "pc engine", "pcengine", "pc-engine", "turbografx-16", "turbografx 16",
+            "turbografx", "turbografx16", "pce", "tg16", "NEC PC Engine", "NEC TurboGrafx 16"
+        ]),
         ["pc engine cd/turbografx-cd"] = new RaSystemInfo(76, [
-            "pc engine cd/turbografx-cd", "pc engine cd", "pcengine cd", "pcenginecd", "pcecd", "pce-cd", "pc-engine cd", "turbografx-cd", "turbografx cd",
-            "nec pc engine cd", "nec pcengine cd", "nec pcenginecd", "nec pcecd", "nec pce-cd", "nec pc-engine cd", "nec turbografx-cd", "nec turbografx cd", "NEC TurboGrafx 16 CD"
+            "pc engine cd/turbografx-cd", "pc engine cd", "pcengine cd", "pcenginecd", "pcecd", "pce-cd",
+            "pc-engine cd", "turbografx-cd", "turbografx cd",
+            "nec pc engine cd", "nec pcengine cd", "nec pcenginecd", "nec pcecd", "nec pce-cd", "nec pc-engine cd",
+            "nec turbografx-cd", "nec turbografx cd", "NEC TurboGrafx 16 CD"
         ]),
         ["supergrafx"] = new RaSystemInfo(8, ["supergrafx", "sgx", "NEC SuperGrafx"]),
 
@@ -107,20 +159,33 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         // Other systems
         ["arcade"] = new RaSystemInfo(27, [
             "arcade", "mame", "m.a.m.e.", "arcade games", "arcade classics", "fliperama",
-            "neogeo", "neo geo", "neo-geo", "snk neo geo", "snk neogeo", "ARCADE GAME", "ARCADE - Multiple Arcade Machine Emulator", "sega model",
+            "neogeo", "neo geo", "neo-geo", "snk neo geo", "snk neogeo", "ARCADE GAME",
+            "ARCADE - Multiple Arcade Machine Emulator", "sega model",
             "sega_Model 2", "@sega_Model 2", "@sega model", "CPS 1", "CPS2", "CPS3", "CPS1"
         ]),
-        ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc", "SNK Neo Geo Pocket Color", "SNK Neo Geo Pocket"]),
-        ["magnavox odyssey 2"] = new RaSystemInfo(23, ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"]),
-        ["msx"] = new RaSystemInfo(29, ["msx", "msx1", "msx2", "Microsoft MSX", "Microsoft MSX2", "Microsoft MSX 2+", "Microsoft MSX 2", "Microsoft MSX Turbo-R"]),
-        ["amstrad cpc"] = new RaSystemInfo(37, ["amstrad cpc", "cpc", "amstrad", "Amstrad PCW", "Amstrad CPC6128", "Amstrad CPC 6128"]),
+        ["neo geo pocket"] = new RaSystemInfo(14,
+        [
+            "neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc",
+            "SNK Neo Geo Pocket Color", "SNK Neo Geo Pocket"
+        ]),
+        ["magnavox odyssey 2"] =
+            new RaSystemInfo(23, ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"]),
+        ["msx"] = new RaSystemInfo(29,
+        [
+            "msx", "msx1", "msx2", "Microsoft MSX", "Microsoft MSX2", "Microsoft MSX 2+", "Microsoft MSX 2",
+            "Microsoft MSX Turbo-R"
+        ]),
+        ["amstrad cpc"] = new RaSystemInfo(37,
+            ["amstrad cpc", "cpc", "amstrad", "Amstrad PCW", "Amstrad CPC6128", "Amstrad CPC 6128"]),
         ["apple ii"] = new RaSystemInfo(38, ["apple ii", "apple 2", "apple2", "Apple IIGS"]),
-        ["3do interactive multiplayer"] = new RaSystemInfo(43, ["3do interactive multiplayer", "3do", "3DO real", "Panasonic 3DO"]),
+        ["3do interactive multiplayer"] =
+            new RaSystemInfo(43, ["3do interactive multiplayer", "3do", "3DO real", "Panasonic 3DO"]),
         ["colecovision"] = new RaSystemInfo(44, ["colecovision"]),
         ["intellivision"] = new RaSystemInfo(45, ["intellivision", "intv", "Mattel Intellivision"]),
         ["vectrex"] = new RaSystemInfo(46, ["vectrex", "GCE Vectrex"]),
         ["pc-fx"] = new RaSystemInfo(49, ["pc-fx", "pcfx"]),
-        ["wonderswan"] = new RaSystemInfo(53, ["wonderswan", "wonderswan color", "BANDAI WonderSwan", "Bandai WonderSwan Color"]),
+        ["wonderswan"] = new RaSystemInfo(53,
+            ["wonderswan", "wonderswan color", "BANDAI WonderSwan", "Bandai WonderSwan Color"]),
         ["neo geo cd"] = new RaSystemInfo(56, ["neo geo cd", "neogeo cd", "neo geo compact disc", "SNK Neo Geo CD"]),
         ["watara supervision"] = new RaSystemInfo(63, ["watara supervision", "supervision"]),
         ["mega duck"] = new RaSystemInfo(69, ["mega duck", "creativision"]),
@@ -129,7 +194,8 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         ["pc-8000/8800"] = new RaSystemInfo(47, ["pc-8000/8800", "pc-8000", "pc-8800", "pc8000", "pc8800"]),
         ["commodore 64"] = new RaSystemInfo(30, [
             "commodore 64", "c64", "Commodore Max", "C64 - Tapes [My Originals]", "C64 - OneLoad64 Collection",
-            "C64 - Tapes [Pytronik Collection]", "C64 - Tapes [My Compilations]", "C64 - Ultimate Tape Archive", "C64 - Floppy [Scene Collection]"
+            "C64 - Tapes [Pytronik Collection]", "C64 - Tapes [My Compilations]", "C64 - Ultimate Tape Archive",
+            "C64 - Floppy [Scene Collection]"
         ]),
         ["amiga"] = new RaSystemInfo(35, ["amiga", "commodore amiga"]),
         ["zx spectrum"] = new RaSystemInfo(59, ["zx spectrum", "zxspectrum", "spectrum"]),
@@ -161,10 +227,12 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
             "playstation vita", "vita", "sony playstation vita", "xbox 360", "xbox360", "x-box 360",
             "microsoft xbox 360", "Microsoft Xbox 360 XBLA", "xbox one", "xboxone", "x-box one", "microsoft xbox one",
             "xbox series x", "xbox series s", "xbox series x/s", "nintendo switch", "switch", "Nintendo - Switch",
-            "sega model 2", "model 2", "sega model 3", "sega_model 3", "model 3", "sega naomi 2", "naomi 2", "atomiswave",
+            "sega model 2", "model 2", "sega model 3", "sega_model 3", "model 3", "sega naomi 2", "naomi 2",
+            "atomiswave",
             "microsoft windows", "windows", "amstrad gx4000", "gx4000", "scummvm", "scumm vm", "scumm-vm",
             "pinball arcade", "pinballarcade", "Arcade - Raine", "Commander Genius", "Matra Alice32", "DVD",
-            "NEC PC-FX", "Nintendo SNES MSU1", "Visual Pinball", "PC Arcade", "Atari 5200", "Super ACan", "Mattel Aquarius",
+            "NEC PC-FX", "Nintendo SNES MSU1", "Visual Pinball", "PC Arcade", "Atari 5200", "Super ACan",
+            "Mattel Aquarius",
             "LaserDisk", "Adobe Flash", "Emulators", "Bit Corporation Gamate", "Gamate", "Bandai RX-78", "Apple Mac",
             "Apple III", "Acorn Electron", "Acorn Atom", "Acorn Archimedes", "Acorn BBC Micro", "Archimedes",
             "Casio CFX-9850", "Commodore 128", "Casio PV-1000", "Casio PV-2000", "Casio FP-1000", "Sega MSU MD",
@@ -176,11 +244,16 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
             "Mitsubishi Multi-8", "Memotech MTX", "Matsushita JR-100", "M&D Monon Color", "Jupiter Ace", "Java",
             "Sord M5", "Sinclair QL", "Vector06c", "Sharp MZ-2200", "Sega Super Control Station", "Sega SC-3000",
             "Sega SC3000", "Sega SC 3000", "Sam Coupé", "RM Nimbus", "RCA Chip-8", "Philips VG5000", "RCA Studio II",
-            "Philips P2000", "SEGA_action", "ReflectionHLE", "Spectravideo", "Symbian", "Tandy TRS80", "Tangerine Microtan 65",
-            "Tatung Einstein TC-01", "SEGA_fighting", "SEGA_arcade", "SEGA_SPORTS", "Metroid Saga", "Sega Chihiro", "ReflectionHLE",
-            "Technosys Aamber Pegasus", "TI-99", "TI-73", "TI-80", "@sega_model 3", "sega model 3m", "FBNeo", "EACA Colour Genie",
-            "NEC PC9801", "NEC PC9821", "Metroid Saga", "PC_Shooter_1998-2002", "super a'can", "NEC PC98", "MAMEICHON", "Videoton TVC",
-            "Tiger GameCom", "Tiger Game.com", "Game.com", "Systema1", "Tomy Pyuta", "C64 - Cartridge [EasyFlash Collection]",
+            "Philips P2000", "SEGA_action", "ReflectionHLE", "Spectravideo", "Symbian", "Tandy TRS80",
+            "Tangerine Microtan 65",
+            "Tatung Einstein TC-01", "SEGA_fighting", "SEGA_arcade", "SEGA_SPORTS", "Metroid Saga", "Sega Chihiro",
+            "ReflectionHLE",
+            "Technosys Aamber Pegasus", "TI-99", "TI-73", "TI-80", "@sega_model 3", "sega model 3m", "FBNeo",
+            "EACA Colour Genie",
+            "NEC PC9801", "NEC PC9821", "Metroid Saga", "PC_Shooter_1998-2002", "super a'can", "NEC PC98", "MAMEICHON",
+            "Videoton TVC",
+            "Tiger GameCom", "Tiger Game.com", "Game.com", "Systema1", "Tomy Pyuta",
+            "C64 - Cartridge [EasyFlash Collection]",
             "Luxor ABC 80", "90er_PC_Spiele_und_die_frühen_2000"
         ]),
         ["Xbox"] = new RaSystemInfo(22, ["xbox", "x-box", "Microsoft Xbox"]),
@@ -213,8 +286,10 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         // No match found, log it once per unique system name for future improvement
         if (_loggedUnmatchedSystems.Add(inputSystemName))
         {
-            _logger?.Debug($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
-            _logger?.Warning($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+            _logger?.Debug(
+                $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+            _logger?.Warning(
+                $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
         }
 
         return normalizedInput;

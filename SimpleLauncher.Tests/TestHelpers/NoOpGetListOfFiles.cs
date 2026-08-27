@@ -17,7 +17,8 @@ public class NoOpGetListOfFiles : IGetListOfFilesService
     /// <param name="groupByFolder">Whether to group results by folder.</param>
     /// <param name="cancellationToken">A cancellation token.</param>
     /// <returns>An empty <see cref="List{T}"/>.</returns>
-    public Task<IList<string>> GetFilesAsync(string directoryPath, IList<string> fileExtensions, bool disableRecursiveSearch, bool groupByFolder, CancellationToken cancellationToken = default)
+    public Task<IList<string>> GetFilesAsync(string directoryPath, IList<string> fileExtensions,
+        bool disableRecursiveSearch, bool groupByFolder, CancellationToken cancellationToken = default)
     {
         return Task.FromResult<IList<string>>([]);
     }

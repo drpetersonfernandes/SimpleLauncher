@@ -70,7 +70,8 @@ public class CleanTempFolderServiceTests : IDisposable
     {
         Directory.CreateDirectory(_tempDir);
         // Simulate a locked directory that cannot be deleted
-        await using (File.Open(Path.Combine(_tempDir, "locked.bin"), FileMode.Create, FileAccess.ReadWrite, FileShare.None))
+        await using (File.Open(Path.Combine(_tempDir, "locked.bin"), FileMode.Create, FileAccess.ReadWrite,
+                         FileShare.None))
         {
             await _service.CleanupTempDirectoryAsync(_tempDir);
         }
@@ -93,7 +94,8 @@ public class CleanTempFolderServiceTests : IDisposable
 
         await _service.CleanupPartialExtractionAsync(_tempDir);
 
-        _deleteFilesMock.Verify(x => x.TryDeleteFileAsync(trackingFile), Times.Exactly(2)); // explicit call + the file loop
+        _deleteFilesMock.Verify(x => x.TryDeleteFileAsync(trackingFile),
+            Times.Exactly(2)); // explicit call + the file loop
         _deleteFilesMock.Verify(x => x.TryDeleteFileAsync(file1), Times.Once);
         _deleteFilesMock.Verify(x => x.TryDeleteFileAsync(file2), Times.Once);
         Assert.False(Directory.Exists(subDir));
@@ -108,7 +110,9 @@ public class CleanTempFolderServiceTests : IDisposable
 
         await _service.CleanupPartialExtractionAsync(_tempDir);
 
-        _deleteFilesMock.Verify(x => x.TryDeleteFileAsync(It.Is<string>(p => p.EndsWith(".extraction_in_progress", StringComparison.Ordinal))), Times.Never);
+        _deleteFilesMock.Verify(
+            x => x.TryDeleteFileAsync(
+                It.Is<string>(p => p.EndsWith(".extraction_in_progress", StringComparison.Ordinal))), Times.Never);
         _deleteFilesMock.Verify(x => x.TryDeleteFileAsync(file), Times.Once);
     }
 

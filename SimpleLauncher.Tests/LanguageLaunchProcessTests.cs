@@ -82,7 +82,8 @@ public class LanguageLaunchProcessTests
     /// or has been running stably for <paramref name="settleTime"/> with no markers
     /// (success) — whichever comes first.
     /// </summary>
-    private static async Task<Outcome> WaitForOutcomeAsync(Process process, int failedBefore, int fallbackBefore, TimeSpan settleTime)
+    private static async Task<Outcome> WaitForOutcomeAsync(Process process, int failedBefore, int fallbackBefore,
+        TimeSpan settleTime)
     {
         var started = DateTime.UtcNow;
         var deadline = started.AddSeconds(40);

@@ -138,7 +138,8 @@ public class PathHelperTests
                 SystemFolders = [primaryFolder]
             };
 
-            var result = PathHelper.FindContainingSystemFolder(systemManager.SystemFolders, systemManager.PrimarySystemFolder, gameFile);
+            var result = PathHelper.FindContainingSystemFolder(systemManager.SystemFolders,
+                systemManager.PrimarySystemFolder, gameFile);
             Assert.Equal(primaryFolder, result);
         }
         finally
@@ -170,7 +171,8 @@ public class PathHelperTests
                 SystemFolders = [primaryFolder, additionalFolder]
             };
 
-            var result = PathHelper.FindContainingSystemFolder(systemManager.SystemFolders, systemManager.PrimarySystemFolder, gameFile);
+            var result = PathHelper.FindContainingSystemFolder(systemManager.SystemFolders,
+                systemManager.PrimarySystemFolder, gameFile);
             Assert.Equal(additionalFolder, result);
         }
         finally
@@ -203,7 +205,8 @@ public class PathHelperTests
                 SystemFolders = [primaryFolder, otherFolder]
             };
 
-            var result = PathHelper.FindContainingSystemFolder(systemManager.SystemFolders, systemManager.PrimarySystemFolder, gameFile);
+            var result = PathHelper.FindContainingSystemFolder(systemManager.SystemFolders,
+                systemManager.PrimarySystemFolder, gameFile);
             Assert.Equal(primaryFolder, result);
         }
         finally
@@ -234,7 +237,8 @@ public class PathHelperTests
                 SystemFolders = [primaryFolder]
             };
 
-            var result = PathHelper.FindContainingSystemFolder(systemManager.SystemFolders, systemManager.PrimarySystemFolder, gameFile);
+            var result = PathHelper.FindContainingSystemFolder(systemManager.SystemFolders,
+                systemManager.PrimarySystemFolder, gameFile);
             Assert.Equal(primaryFolder, result);
         }
         finally
@@ -265,7 +269,8 @@ public class PathHelperTests
             SystemFolders = ["C:\\roms\\Arcade"]
         };
 
-        var result = PathHelper.FindContainingSystemFolder(systemManager.SystemFolders, systemManager.PrimarySystemFolder, null);
+        var result =
+            PathHelper.FindContainingSystemFolder(systemManager.SystemFolders, systemManager.PrimarySystemFolder, null);
         Assert.Equal("C:\\roms\\Arcade", result);
     }
 
@@ -537,7 +542,8 @@ public class PathHelperTests
             SystemFolders = []
         };
 
-        var result = PathHelper.FindContainingSystemFolder(systemManager.SystemFolders, systemManager.PrimarySystemFolder, "C:\\game.zip");
+        var result = PathHelper.FindContainingSystemFolder(systemManager.SystemFolders,
+            systemManager.PrimarySystemFolder, "C:\\game.zip");
         Assert.Null(result);
     }
 

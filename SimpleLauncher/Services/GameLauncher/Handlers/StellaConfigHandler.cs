@@ -28,7 +28,8 @@ public class StellaConfigHandler : IEmulatorConfigHandler
     /// <inheritdoc />
     public bool IsMatch(string emulatorName, string emulatorPath)
     {
-        return emulatorName.Contains("Stella", StringComparison.OrdinalIgnoreCase) || (emulatorPath?.Contains("stella.exe", StringComparison.OrdinalIgnoreCase) ?? false);
+        return emulatorName.Contains("Stella", StringComparison.OrdinalIgnoreCase) ||
+               (emulatorPath?.Contains("stella.exe", StringComparison.OrdinalIgnoreCase) ?? false);
     }
 
     /// <inheritdoc />
@@ -44,7 +45,8 @@ public class StellaConfigHandler : IEmulatorConfigHandler
                 if (context.WindowContext != null)
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
-                        var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectStellaConfigWindow>();
+                        var win = _scopeFactory.CreateScope().ServiceProvider
+                            .GetRequiredService<InjectStellaConfigWindow>();
                         win.Owner = (Window)context.WindowContext.PlatformWindow;
                         win.Initialize(resolvedExe);
                         win.ShowDialog();
@@ -54,7 +56,8 @@ public class StellaConfigHandler : IEmulatorConfigHandler
             else
             {
                 shouldRun = true;
-                if (File.Exists(resolvedExe)) StellaConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
+                if (File.Exists(resolvedExe))
+                    StellaConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
             }
 
             return shouldRun;

@@ -133,7 +133,8 @@ public class GamePadController : IDisposable
             // Once disposed, a new instance must be created. This prevents resource leaks and undefined behavior.
             if (_isDisposed)
             {
-                throw new ObjectDisposedException(nameof(GamePadController), "Cannot start a disposed GamePadController. A new instance must be created.");
+                throw new ObjectDisposedException(nameof(GamePadController),
+                    "Cannot start a disposed GamePadController. A new instance must be created.");
             }
 
             try
@@ -154,7 +155,8 @@ public class GamePadController : IDisposable
         // Notify user (outside lock to allow async/await)
         if (startException != null)
         {
-            return _messageBoxLibrary.GamePadErrorMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            return _messageBoxLibrary.GamePadErrorMessageBoxAsync(
+                PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
 
         return Task.CompletedTask;
@@ -188,7 +190,8 @@ public class GamePadController : IDisposable
         // Notify user (outside lock to allow async/await)
         if (stopException != null)
         {
-            return _messageBoxLibrary.GamePadErrorMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+            return _messageBoxLibrary.GamePadErrorMessageBoxAsync(
+                PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
         }
 
         return Task.CompletedTask;
@@ -333,7 +336,8 @@ public class GamePadController : IDisposable
                             }
                         }
                         // If XInput is not connected, try DirectInput
-                        else if (_directInputController is { IsDisposed: false }) // Check if DirectInput controller exists and is not disposed
+                        else if (_directInputController is
+                                 { IsDisposed: false }) // Check if DirectInput controller exists and is not disposed
                         {
                             try
                             {
@@ -343,7 +347,8 @@ public class GamePadController : IDisposable
                                 HandleDirectInputButtons(state);
                                 HandleDirectInputScroll(state);
                             }
-                            catch (SharpDXException ex) when (ex.HResult == unchecked((int)0x8007001E)) // DIERR_INPUTLOST
+                            catch (SharpDXException ex) when
+                                (ex.HResult == unchecked((int)0x8007001E)) // DIERR_INPUTLOST
                             {
                                 // DirectInput device lost, attempt reconnection
                                 _directInputController?.Unacquire();
@@ -352,11 +357,13 @@ public class GamePadController : IDisposable
                                 _playStationControllerGuid = Guid.Empty;
                                 CheckAndReconnectControllers(); // Attempt reconnection immediately
                             }
-                            catch (SharpDXException ex) when (ex.HResult == unchecked((int)0x8007000C)) // DIERR_NOTACQUIRED
+                            catch (SharpDXException ex) when
+                                (ex.HResult == unchecked((int)0x8007000C)) // DIERR_NOTACQUIRED
                             {
                                 // DirectInput device not acquired, attempt re-acquisition or reconnection
                                 // Notify developer
-                                ErrorLogger?.Invoke(ex, "DirectInput device not acquired (DIERR_NOTACQUIRED). Attempting re-acquisition/reconnection.");
+                                ErrorLogger?.Invoke(ex,
+                                    "DirectInput device not acquired (DIERR_NOTACQUIRED). Attempting re-acquisition/reconnection.");
                                 try
                                 {
                                     _directInputController?.Acquire(); // Try acquiring again
@@ -364,7 +371,8 @@ public class GamePadController : IDisposable
                                 catch (Exception acquireEx)
                                 {
                                     // Notify developer
-                                    ErrorLogger?.Invoke(acquireEx, "Failed to re-acquire DirectInput device. Attempting full reconnection.");
+                                    ErrorLogger?.Invoke(acquireEx,
+                                        "Failed to re-acquire DirectInput device. Attempting full reconnection.");
 
                                     _directInputController?.Unacquire();
                                     _directInputController?.Dispose();
@@ -386,7 +394,8 @@ public class GamePadController : IDisposable
                         // If neither XInput nor DirectInput controller is active, attempt reconnection after delay
                         else
                         {
-                            if (!((DateTime.Now - _lastReconnectAttempt).TotalMilliseconds > ReconnectDelayMilliseconds)) return;
+                            if (!((DateTime.Now - _lastReconnectAttempt).TotalMilliseconds >
+                                  ReconnectDelayMilliseconds)) return;
 
                             CheckAndReconnectControllers();
                             _lastReconnectAttempt = DateTime.Now;
@@ -397,7 +406,8 @@ public class GamePadController : IDisposable
                         // Check for the specific UIPI exception from InputSimulatorCore.
                         // This is a known limitation when trying to send input to a higher-privilege window.
                         // We will log it for debugging but not report it as a critical error to the user or developer.
-                        if (ex.Message.Contains("User Interface Privacy Isolation (UIPI)", StringComparison.OrdinalIgnoreCase))
+                        if (ex.Message.Contains("User Interface Privacy Isolation (UIPI)",
+                                StringComparison.OrdinalIgnoreCase))
                         {
                             _logger.Debug($"[GamePadController] UIPI blocked input simulation: {ex.Message}");
                             // Do not call ErrorLogger or show a message box. This is an expected OS behavior.
@@ -410,11 +420,14 @@ public class GamePadController : IDisposable
                                                     $"Exception details: {ex.Message}");
 
                             // Notify user (fire-and-forget inside lock; exception observed via continuation)
-                            _ = _messageBoxLibrary.GamePadErrorMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")))
+                            _ = _messageBoxLibrary.GamePadErrorMessageBoxAsync(
+                                    PathHelper.ResolveRelativeToAppDirectory(
+                                        _configuration.GetValue("LogPath", "error_user.log")))
                                 .ContinueWith(static (t, state) =>
                                 {
                                     if (t.IsFaulted)
-                                        (state as ILogger)?.Error(t.Exception, "Error showing GamePadErrorMessageBoxAsync");
+                                        (state as ILogger)?.Error(t.Exception,
+                                            "Error showing GamePadErrorMessageBoxAsync");
                                 }, _logger, TaskContinuationOptions.OnlyOnFaulted);
                         }
 
@@ -493,14 +506,16 @@ public class GamePadController : IDisposable
                         _directInput = new DirectInput();
 
                         // Notify developer
-                        ErrorLogger?.Invoke(null, "Recreated DirectInput object during reconnection."); // Log successful recreation
+                        ErrorLogger?.Invoke(null,
+                            "Recreated DirectInput object during reconnection."); // Log successful recreation
                     }
                     catch (Exception diEx)
                     {
                         // Notify developer
-                        ErrorLogger?.Invoke(diEx, $"Failed to recreate DirectInput object during reconnection attempt.\n\n" +
-                                                  $"Exception type: {diEx.GetType().Name}\n" +
-                                                  $"Exception details: {diEx.Message}");
+                        ErrorLogger?.Invoke(diEx,
+                            $"Failed to recreate DirectInput object during reconnection attempt.\n\n" +
+                            $"Exception type: {diEx.GetType().Name}\n" +
+                            $"Exception details: {diEx.Message}");
 
                         _directInput = null; // Ensure it's null if creation failed
                         return; // Cannot proceed without a valid DirectInput object
@@ -569,9 +584,10 @@ public class GamePadController : IDisposable
                     {
                         // Failed to acquire the found device
                         // Notify developer
-                        ErrorLogger?.Invoke(acquireEx, $"Failed to acquire DirectInput device during reconnection attempt: {foundDevice.InstanceName}.\n\n" +
-                                                       $"Exception type: {acquireEx.GetType().Name}\n" +
-                                                       $"Exception details: {acquireEx.Message}");
+                        ErrorLogger?.Invoke(acquireEx,
+                            $"Failed to acquire DirectInput device during reconnection attempt: {foundDevice.InstanceName}.\n\n" +
+                            $"Exception type: {acquireEx.GetType().Name}\n" +
+                            $"Exception details: {acquireEx.Message}");
 
                         _directInputController?.Unacquire();
                         _directInputController?.Dispose();
@@ -599,9 +615,10 @@ public class GamePadController : IDisposable
             }
             catch (Exception ex)
             {
-                ErrorLogger?.Invoke(ex, $"Error during controller reconnection. The service will continue to retry.\n\n" +
-                                        $"Exception type: {ex.GetType().Name}\n" +
-                                        $"Exception details: {ex.Message}");
+                ErrorLogger?.Invoke(ex,
+                    $"Error during controller reconnection. The service will continue to retry.\n\n" +
+                    $"Exception type: {ex.GetType().Name}\n" +
+                    $"Exception details: {ex.Message}");
 
                 // Clean up potentially invalid state to ensure a clean slate for the next attempt.
                 _directInputController?.Unacquire();
@@ -654,7 +671,8 @@ public class GamePadController : IDisposable
 
     private void HandleXInputScroll(State state)
     {
-        var (x, y) = ProcessThumbStickXInput(state.Gamepad.RightThumbX, state.Gamepad.RightThumbY, DeadZoneX, DeadZoneY);
+        var (x, y) =
+            ProcessThumbStickXInput(state.Gamepad.RightThumbX, state.Gamepad.RightThumbY, DeadZoneX, DeadZoneY);
         _mouseSimulator.HorizontalScroll((int)x);
         _mouseSimulator.VerticalScroll((int)y);
     }
@@ -722,7 +740,8 @@ public class GamePadController : IDisposable
         {
             // Notify developer
             // Log a warning or handle controllers with fewer buttons if necessary
-            ErrorLogger?.Invoke(null, $"DirectInput controller has fewer than {Math.Max(crossButtonIndex, circleButtonIndex) + 1} buttons.");
+            ErrorLogger?.Invoke(null,
+                $"DirectInput controller has fewer than {Math.Max(crossButtonIndex, circleButtonIndex) + 1} buttons.");
         }
     }
 

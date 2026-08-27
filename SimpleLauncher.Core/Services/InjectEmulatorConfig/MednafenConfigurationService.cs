@@ -24,7 +24,8 @@ public static class MednafenConfigurationService
     /// <param name="emulatorPath">The full path to the Mednafen emulator executable.</param>
     /// <param name="settings">The settings manager containing Mednafen configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))

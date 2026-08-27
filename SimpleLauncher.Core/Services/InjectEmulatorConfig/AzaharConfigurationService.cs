@@ -16,7 +16,8 @@ public static class AzaharConfigurationService
     /// <param name="logger"></param>
     /// <exception cref="InvalidOperationException">Thrown when emulator directory is not found.</exception>
     /// <exception cref="FileNotFoundException">Thrown when config file and sample are both missing.</exception>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory not found.");
@@ -44,7 +45,8 @@ public static class AzaharConfigurationService
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    logger.Debug($"[AzaharConfig] Failed to create qt-config.ini from sample due to permissions: {ex.Message}");
+                    logger.Debug(
+                        $"[AzaharConfig] Failed to create qt-config.ini from sample due to permissions: {ex.Message}");
                     logger.Error(ex, $"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
                     throw new AzaharPermissionException($"Cannot write to emulator directory: {emuDir}", ex);
                 }
@@ -114,7 +116,8 @@ public static class AzaharConfigurationService
             var sectionHeader = $"[{sectionName}]";
 
             // 1. Find or Create Section
-            var sectionStartIndex = lines.FindIndex(l => l.Trim().Equals(sectionHeader, StringComparison.OrdinalIgnoreCase));
+            var sectionStartIndex =
+                lines.FindIndex(l => l.Trim().Equals(sectionHeader, StringComparison.OrdinalIgnoreCase));
             if (sectionStartIndex == -1)
             {
                 if (lines.Count > 0 && !string.IsNullOrWhiteSpace(lines[^1])) lines.Add("");

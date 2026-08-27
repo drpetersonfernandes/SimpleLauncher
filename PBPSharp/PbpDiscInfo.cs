@@ -157,7 +157,8 @@ public sealed class PbpDiscInfo
         try
         {
             ReadBlock(1, outBuffer, out _);
-            return (uint)((outBuffer[104] | (outBuffer[105] << 8) | (outBuffer[106] << 16) | (outBuffer[107] << 24)) * IsoBlockSize);
+            return (uint)((outBuffer[104] | (outBuffer[105] << 8) | (outBuffer[106] << 16) | (outBuffer[107] << 24)) *
+                          IsoBlockSize);
         }
         finally
         {
@@ -206,7 +207,8 @@ public sealed class PbpDiscInfo
     /// <param name="outputStream">The stream to write the ISO data to.</param>
     /// <param name="progress">Optional callback with bytes written so far.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void ExtractTo(Stream outputStream, Action<uint>? progress = null, CancellationToken cancellationToken = default)
+    public void ExtractTo(Stream outputStream, Action<uint>? progress = null,
+        CancellationToken cancellationToken = default)
     {
         var outBuffer = ArrayPool<byte>.Shared.Rent(16 * IsoBlockSize);
         try
@@ -244,7 +246,8 @@ public sealed class PbpDiscInfo
     /// <param name="progress">Optional callback with bytes written so far.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>A <see cref="PbpError"/> indicating the result.</returns>
-    public PbpError ExtractToBinCue(string binPath, string? cuePath = null, Action<uint>? progress = null, CancellationToken cancellationToken = default)
+    public PbpError ExtractToBinCue(string binPath, string? cuePath = null, Action<uint>? progress = null,
+        CancellationToken cancellationToken = default)
     {
         cuePath ??= Path.ChangeExtension(binPath, ".cue");
 

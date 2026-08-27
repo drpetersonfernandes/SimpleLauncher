@@ -179,7 +179,8 @@ file static class Program
         for (var i = 0; i < consoles.Count; i++)
         {
             var console = consoles[i];
-            Log.Information("[{Index}/{Total}] Fetching games for '{ConsoleName}' (ID: {ConsoleId})...", i + 1, consoles.Count, console.Name, console.Id);
+            Log.Information("[{Index}/{Total}] Fetching games for '{ConsoleName}' (ID: {ConsoleId})...", i + 1,
+                consoles.Count, console.Name, console.Id);
 
             try
             {
@@ -188,7 +189,8 @@ file static class Program
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    Log.Warning("Failed to fetch games for console {ConsoleName}: HTTP {StatusCode}", console.Name, response.StatusCode);
+                    Log.Warning("Failed to fetch games for console {ConsoleName}: HTTP {StatusCode}", console.Name,
+                        response.StatusCode);
                     continue;
                 }
 
@@ -273,7 +275,8 @@ file static class Program
             Console.Write("Update credentials? (y/n): ");
             var response = Console.ReadLine()?.Trim().ToLowerInvariant();
 
-            if (!string.Equals(response, "y", StringComparison.Ordinal) && !string.Equals(response, "yes", StringComparison.Ordinal))
+            if (!string.Equals(response, "y", StringComparison.Ordinal) &&
+                !string.Equals(response, "yes", StringComparison.Ordinal))
             {
                 return Task.FromResult(settings);
             }
@@ -321,7 +324,8 @@ file static class Program
         {
             var lines = consoles.Select(static c => $"{c.Id:D3}: {c.Name}");
             await File.WriteAllLinesAsync(ConsoleListFilePath, lines);
-            Log.Information("Console list saved to '{FilePath}' ({Count} entries)", ConsoleListFilePath, consoles.Count);
+            Log.Information("Console list saved to '{FilePath}' ({Count} entries)", ConsoleListFilePath,
+                consoles.Count);
         }
         catch (Exception ex)
         {

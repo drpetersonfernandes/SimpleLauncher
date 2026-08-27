@@ -47,7 +47,8 @@ public class FlycastSettings : IEmulatorSettings
         Width = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(Width), 640);
         Height = EmulatorXmlHelpers.ReadInt(s, SectionName, settings, nameof(Height), 480);
         Maximized = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(Maximized), false);
-        ShowSettingsBeforeLaunch = EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
+        ShowSettingsBeforeLaunch =
+            EmulatorXmlHelpers.ReadBool(s, SectionName, settings, nameof(ShowSettingsBeforeLaunch), false);
     }
 
 

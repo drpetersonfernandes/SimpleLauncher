@@ -26,7 +26,8 @@ public class BooleanToFavoriteStatusConverter : IValueConverter
                 : (Application.Current?.TryFindResource("NotFavoriteStatusLabel") as string ?? "Not Favorite");
         }
 
-        return Application.Current?.TryFindResource("UnknownFavoriteStatusLabel") as string ?? "Unknown Favorite Status";
+        return Application.Current?.TryFindResource("UnknownFavoriteStatusLabel") as string ??
+               "Unknown Favorite Status";
     }
 
     /// <summary>

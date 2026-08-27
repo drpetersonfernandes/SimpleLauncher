@@ -56,7 +56,8 @@ public class UiResetService : IUiResetService
                 _host.SetEmulatorComboBoxSelectedItem(null);
                 _host.MameSortOrder = AppConstants.MameSortOrderFileName;
 
-                var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+                var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ??
+                                       "No system selected";
                 _host.SelectedSystem = nosystemselected;
                 _host.PlayTime = "00:00:00";
 

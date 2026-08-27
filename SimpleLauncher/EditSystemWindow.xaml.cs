@@ -59,7 +59,11 @@ internal partial class EditSystemWindow : ILoadingState
     /// <param name="preSelectedSystemName">Optional system name to pre-select in the dropdown.</param>
     /// <param name="favoritesManager">The favorites manager, kept in sync when a system is renamed.</param>
     /// <param name="playHistoryManager">The play history manager, kept in sync when a system is renamed.</param>
-    public EditSystemWindow(SettingsManagerService settings, PlaySoundEffects playSoundEffects, IConfiguration configuration, IHelpUserService helpUserService, IImageLoader imageLoader, IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, ILogger logger, IParameterResolverService parameterResolverService, string? preSelectedSystemName = null, FavoritesManager? favoritesManager = null, PlayHistoryManager? playHistoryManager = null)
+    public EditSystemWindow(SettingsManagerService settings, PlaySoundEffects playSoundEffects,
+        IConfiguration configuration, IHelpUserService helpUserService, IImageLoader imageLoader,
+        IMessageBoxLibraryService messageBox, QuitSimpleLauncher quitSimpleLauncher, ILogger logger,
+        IParameterResolverService parameterResolverService, string? preSelectedSystemName = null,
+        FavoritesManager? favoritesManager = null, PlayHistoryManager? playHistoryManager = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -110,7 +114,8 @@ internal partial class EditSystemWindow : ILoadingState
             MainContentGrid.IsEnabled = !isLoading;
             if (isLoading)
             {
-                LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+                LoadingOverlay.Content =
+                    message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
             }
         });
     }
@@ -129,7 +134,8 @@ internal partial class EditSystemWindow : ILoadingState
     {
         try
         {
-            SetLoadingState(true, (string)Application.Current.TryFindResource("Loadingsystems") ?? "Loading systems...");
+            SetLoadingState(true,
+                (string)Application.Current.TryFindResource("Loadingsystems") ?? "Loading systems...");
             var systems = await Task.Run(() => SystemManagerService.LoadSystemManagers(_configuration));
 
             if (systems == null)
@@ -162,7 +168,8 @@ internal partial class EditSystemWindow : ILoadingState
 
     private void ChooseSystemFolder(object sender, RoutedEventArgs e)
     {
-        var pleaseselecttheSystemFolder2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemFolder") ?? "Please select the System Folder";
+        var pleaseselecttheSystemFolder2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemFolder") ??
+                                           "Please select the System Folder";
 
         // Create new OpenFolderDialog
         var openFolderDialog = new OpenFolderDialog
@@ -181,7 +188,8 @@ internal partial class EditSystemWindow : ILoadingState
 
     private void ChooseSystemImageFolder(object sender, RoutedEventArgs e)
     {
-        var pleaseselecttheSystemImage2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemImage") ?? "Please select the System Image Folder";
+        var pleaseselecttheSystemImage2 = (string)Application.Current.TryFindResource("PleaseselecttheSystemImage") ??
+                                          "Please select the System Image Folder";
 
         // Create new OpenFolderDialog
         var openFolderDialog = new OpenFolderDialog
@@ -226,7 +234,8 @@ internal partial class EditSystemWindow : ILoadingState
 
     private void ChooseEmulatorPath(int emulatorNumber, TextBox pathTextBox)
     {
-        var selectEmulator = (string)Application.Current.TryFindResource($"SelectEmulator{emulatorNumber}") ?? $"Select Emulator {emulatorNumber}";
+        var selectEmulator = (string)Application.Current.TryFindResource($"SelectEmulator{emulatorNumber}") ??
+                             $"Select Emulator {emulatorNumber}";
         var dialog = new OpenFileDialog
         {
             DefaultExt = ".exe",
@@ -503,7 +512,8 @@ internal partial class EditSystemWindow : ILoadingState
         try
         {
             _playSoundEffects.PlayNotificationSound();
-            var searchUrl = _configuration.GetValue<string>("WikiParametersUrl") ?? "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters/";
+            var searchUrl = _configuration.GetValue<string>("WikiParametersUrl") ??
+                            "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters/";
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -548,7 +558,8 @@ internal partial class EditSystemWindow : ILoadingState
 
     private void AddFolderButton_Click(object sender, RoutedEventArgs e)
     {
-        var title = (string)Application.Current.TryFindResource("SelectAdditionalSystemFolder") ?? "Select an additional system folder";
+        var title = (string)Application.Current.TryFindResource("SelectAdditionalSystemFolder") ??
+                    "Select an additional system folder";
         var openFolderDialog = new OpenFolderDialog { Title = title };
         if (openFolderDialog.ShowDialog() == true)
         {
@@ -572,7 +583,8 @@ internal partial class EditSystemWindow : ILoadingState
         MainContentGrid?.IsEnabled = true;
 
         _logger.Debug("[Emergency] User forced overlay dismissal in EditSystemWindow.");
-        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
+        (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
+            "Emergency reset performed.");
     }
 
     private async void ChooseSystemImageButton_ClickAsync(object sender, RoutedEventArgs e)
@@ -597,7 +609,9 @@ internal partial class EditSystemWindow : ILoadingState
 
             var sourceFilePath = dialog.FileName;
             var extension = Path.GetExtension(sourceFilePath).ToLowerInvariant();
-            if (!string.Equals(extension, ".png", StringComparison.Ordinal) && !string.Equals(extension, ".jpg", StringComparison.Ordinal) && !string.Equals(extension, ".jpeg", StringComparison.Ordinal))
+            if (!string.Equals(extension, ".png", StringComparison.Ordinal) &&
+                !string.Equals(extension, ".jpg", StringComparison.Ordinal) &&
+                !string.Equals(extension, ".jpeg", StringComparison.Ordinal))
             {
                 await _messageBox.InvalidImageFormatMessageBoxAsync();
                 return;
@@ -764,16 +778,22 @@ internal partial class EditSystemWindow : ILoadingState
         }
     }
 
-    private async Task SuggestParametersAsync(string emulatorName, string emulatorPath, string currentParameters, Button suggestButton)
+    private async Task SuggestParametersAsync(string emulatorName, string emulatorPath, string currentParameters,
+        Button suggestButton)
     {
-        var successTitle = (string)Application.Current.TryFindResource("ParameterResolverSuccess") ?? "Parameter Suggestion";
+        var successTitle = (string)Application.Current.TryFindResource("ParameterResolverSuccess") ??
+                           "Parameter Suggestion";
         var errorTitle = (string)Application.Current.TryFindResource("ParameterResolverError") ?? "Error";
-        var errorMessage = (string)Application.Current.TryFindResource("ErrorProcessingRequest") ?? "There was an error processing your request.";
-        var confirmMessage = (string)Application.Current.TryFindResource("ParameterResolverConfirmApply") ?? "Do you want to apply this parameter?";
+        var errorMessage = (string)Application.Current.TryFindResource("ErrorProcessingRequest") ??
+                           "There was an error processing your request.";
+        var confirmMessage = (string)Application.Current.TryFindResource("ParameterResolverConfirmApply") ??
+                             "Do you want to apply this parameter?";
 
         if (string.IsNullOrWhiteSpace(emulatorName))
         {
-            var enterEmulatorNameMsg = (string)Application.Current.TryFindResource("ParameterResolverEnterEmulatorName") ?? "Please enter an emulator name first.";
+            var enterEmulatorNameMsg =
+                (string)Application.Current.TryFindResource("ParameterResolverEnterEmulatorName") ??
+                "Please enter an emulator name first.";
             await _messageBox.WarningMessageBoxAsync(enterEmulatorNameMsg);
             return;
         }
@@ -781,7 +801,8 @@ internal partial class EditSystemWindow : ILoadingState
         suggestButton.IsEnabled = false;
         Mouse.OverrideCursor = Cursors.Wait;
 
-        var loadingMessage = (string)Application.Current.TryFindResource("ParameterResolverLoading") ?? "Resolving parameters, please wait...";
+        var loadingMessage = (string)Application.Current.TryFindResource("ParameterResolverLoading") ??
+                             "Resolving parameters, please wait...";
         LoadingOverlay.Content = loadingMessage;
         LoadingOverlay.Visibility = Visibility.Visible;
 
@@ -792,10 +813,13 @@ internal partial class EditSystemWindow : ILoadingState
                 SystemName = SystemNameTextBox.Text.Trim(),
                 SystemFolder = SystemFolderTextBox.Text.Trim(),
                 FileFormatsToSearch = SplitAndTrim(FormatToSearchTextBox.Text) ?? [],
-                ExtractFileBeforeLaunch = string.Equals(ExtractFileBeforeLaunchComboBox.SelectedItem?.ToString(), "true", StringComparison.Ordinal),
+                ExtractFileBeforeLaunch = string.Equals(ExtractFileBeforeLaunchComboBox.SelectedItem?.ToString(),
+                    "true", StringComparison.Ordinal),
                 FileFormatsToLaunch = SplitAndTrim(FormatToLaunchTextBox.Text) ?? [],
-                GroupByFolder = string.Equals(GroupByFolderComboBox.SelectedItem?.ToString(), "true", StringComparison.Ordinal),
-                DisableRecursiveSearch = string.Equals(DisableRecursiveSearchComboBox.SelectedItem?.ToString(), "true", StringComparison.Ordinal),
+                GroupByFolder = string.Equals(GroupByFolderComboBox.SelectedItem?.ToString(), "true",
+                    StringComparison.Ordinal),
+                DisableRecursiveSearch = string.Equals(DisableRecursiveSearchComboBox.SelectedItem?.ToString(), "true",
+                    StringComparison.Ordinal),
                 EmulatorName = emulatorName.Trim(),
                 EmulatorPath = emulatorPath?.Trim() ?? "",
                 CurrentParameters = currentParameters?.Trim() ?? ""
@@ -808,10 +832,12 @@ internal partial class EditSystemWindow : ILoadingState
                 var suggestedParam = result.SuggestedParameter;
                 var explanation = result.Explanation;
 
-                if (!string.IsNullOrWhiteSpace(suggestedParam) && suggestedParam.StartsWith("Explanation:", StringComparison.OrdinalIgnoreCase))
+                if (!string.IsNullOrWhiteSpace(suggestedParam) &&
+                    suggestedParam.StartsWith("Explanation:", StringComparison.OrdinalIgnoreCase))
                 {
                     var explanationFromParam = suggestedParam["Explanation:".Length..].Trim();
-                    if (string.IsNullOrEmpty(explanation) || !explanation.Equals(explanationFromParam, StringComparison.OrdinalIgnoreCase))
+                    if (string.IsNullOrEmpty(explanation) ||
+                        !explanation.Equals(explanationFromParam, StringComparison.OrdinalIgnoreCase))
                     {
                         explanation = explanationFromParam;
                     }
@@ -853,11 +879,16 @@ internal partial class EditSystemWindow : ILoadingState
 
     private TextBox? FindParametersTextBox(string emulatorName)
     {
-        if (string.Equals(emulatorName, Emulator1NameTextBox.Text, StringComparison.Ordinal)) return Emulator1ParametersTextBox;
-        if (string.Equals(emulatorName, Emulator2NameTextBox.Text, StringComparison.Ordinal)) return Emulator2ParametersTextBox;
-        if (string.Equals(emulatorName, Emulator3NameTextBox.Text, StringComparison.Ordinal)) return Emulator3ParametersTextBox;
-        if (string.Equals(emulatorName, Emulator4NameTextBox.Text, StringComparison.Ordinal)) return Emulator4ParametersTextBox;
-        if (string.Equals(emulatorName, Emulator5NameTextBox.Text, StringComparison.Ordinal)) return Emulator5ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator1NameTextBox.Text, StringComparison.Ordinal))
+            return Emulator1ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator2NameTextBox.Text, StringComparison.Ordinal))
+            return Emulator2ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator3NameTextBox.Text, StringComparison.Ordinal))
+            return Emulator3ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator4NameTextBox.Text, StringComparison.Ordinal))
+            return Emulator4ParametersTextBox;
+        if (string.Equals(emulatorName, Emulator5NameTextBox.Text, StringComparison.Ordinal))
+            return Emulator5ParametersTextBox;
 
         return null;
     }
@@ -867,6 +898,7 @@ internal partial class EditSystemWindow : ILoadingState
         if (string.IsNullOrWhiteSpace(text))
             return null;
 
-        return text.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
+        return text.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .ToList();
     }
 }

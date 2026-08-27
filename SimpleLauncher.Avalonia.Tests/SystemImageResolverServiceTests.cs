@@ -94,7 +94,8 @@ public class SystemImageResolverServiceTests : IDisposable
     public async Task ResolveSystemIcon_ExactJpgMatch_ReturnsPath()
     {
         // Use a unique name so the .jpg is the only match (no .png counterpart)
-        PlantFile(Path.Combine(AppContext.BaseDirectory, "images", "systems"), "UniqueJpgOnly_System.jpg", "unique-jpg-icon");
+        PlantFile(Path.Combine(AppContext.BaseDirectory, "images", "systems"), "UniqueJpgOnly_System.jpg",
+            "unique-jpg-icon");
 
         var config = SystemConfig("UniqueJpgOnly_System");
         var result = await _service.ResolveDisplayImageAsync(config);

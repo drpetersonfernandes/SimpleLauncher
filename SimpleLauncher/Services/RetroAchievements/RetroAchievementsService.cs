@@ -34,14 +34,17 @@ public class RetroAchievementsService
         IConfiguration configuration,
         ILogger logger)
     {
-        _httpClient = httpClientFactory?.CreateClient("RetroAchievementsClient") ?? throw new ArgumentNullException(nameof(httpClientFactory));
+        _httpClient = httpClientFactory?.CreateClient("RetroAchievementsClient") ??
+                      throw new ArgumentNullException(nameof(httpClientFactory));
         _logger = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         RaManager = raManager ?? throw new ArgumentNullException(nameof(raManager));
 
         // Load URLs from appsettings.json
-        _apiBaseUrl = configuration.GetValue<string>("Urls:RetroAchievementsApi") ?? "https://retroachievements.org/API/";
-        _requestBaseUrl = configuration.GetValue<string>("Urls:RetroAchievementsRequest") ?? "https://retroachievements.org/dorequest.php";
+        _apiBaseUrl = configuration.GetValue<string>("Urls:RetroAchievementsApi") ??
+                      "https://retroachievements.org/API/";
+        _requestBaseUrl = configuration.GetValue<string>("Urls:RetroAchievementsRequest") ??
+                          "https://retroachievements.org/dorequest.php";
         _siteBaseUrl = configuration.GetValue<string>("Urls:RetroAchievementsSite") ?? "https://retroachievements.org/";
     }
 
@@ -71,7 +74,10 @@ public class RetroAchievementsService
             using var doc = JsonDocument.Parse(jsonString);
             var root = doc.RootElement;
 
-            return root.TryGetProperty("Success", out var success) && success.GetBoolean() && root.TryGetProperty("Token", out var token) ? token.GetString() : null;
+            return root.TryGetProperty("Success", out var success) && success.GetBoolean() &&
+                   root.TryGetProperty("Token", out var token)
+                ? token.GetString()
+                : null;
         }
         catch (Exception ex)
         {
@@ -83,7 +89,8 @@ public class RetroAchievementsService
     /// <summary>
     /// Fetches the user's progress and achievement list for a specific game ID.
     /// </summary>
-    public async Task<(RaUserGameProgress? Progress, List<RaAchievement>? Achievements)> GetGameInfoAndUserProgressAsync(int gameId, string username, string apiKey)
+    public async Task<(RaUserGameProgress? Progress, List<RaAchievement>? Achievements)>
+        GetGameInfoAndUserProgressAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey))
         {
@@ -95,17 +102,20 @@ public class RetroAchievementsService
         {
             _logger.Debug($"[RA Service] Fetching user progress for GameID {gameId}...");
 
-            var url = $"{_apiBaseUrl}API_GetGameInfoAndUserProgress.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
+            var url =
+                $"{_apiBaseUrl}API_GetGameInfoAndUserProgress.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
 
             var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                _logger.Warning($"[RA Service] API_GetGameInfoAndUserProgress failed with status {response.StatusCode} for gameId {gameId}: {error}");
+                _logger.Warning(
+                    $"[RA Service] API_GetGameInfoAndUserProgress failed with status {response.StatusCode} for gameId {gameId}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized. Check username and API key.");
+                    throw new RaUnauthorizedException(
+                        "RetroAchievements API returned Unauthorized. Check username and API key.");
                 }
 
                 return (null, null);
@@ -187,11 +197,13 @@ public class RetroAchievementsService
 
         try
         {
-            var url = $"{_apiBaseUrl}API_GetGameExtended.php?u={Uri.EscapeDataString(username)}&i={gameId}&y={Uri.EscapeDataString(apiKey)}";
+            var url =
+                $"{_apiBaseUrl}API_GetGameExtended.php?u={Uri.EscapeDataString(username)}&i={gameId}&y={Uri.EscapeDataString(apiKey)}";
             var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                if (response.StatusCode == HttpStatusCode.Unauthorized) throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
 
                 return null;
             }
@@ -219,11 +231,13 @@ public class RetroAchievementsService
 
         try
         {
-            var url = $"{_apiBaseUrl}API_GetUserGameRankAndScore.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
+            var url =
+                $"{_apiBaseUrl}API_GetUserGameRankAndScore.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
             var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                if (response.StatusCode == HttpStatusCode.Unauthorized) throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
 
                 return null;
             }
@@ -245,18 +259,21 @@ public class RetroAchievementsService
     /// <summary>
     /// Retrieves the global leaderboard rank and score data for a specific game.
     /// </summary>
-    public async Task<IList<RaGameRankAndScore>?> GetGameRankAndScoreAsync(int gameId, string username, string apiKey, bool latestMasters = false)
+    public async Task<IList<RaGameRankAndScore>?> GetGameRankAndScoreAsync(int gameId, string username, string apiKey,
+        bool latestMasters = false)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
         var typeParam = latestMasters ? "1" : "0";
         try
         {
-            var url = $"{_apiBaseUrl}API_GetGameRankAndScore.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}&t={typeParam}";
+            var url =
+                $"{_apiBaseUrl}API_GetGameRankAndScore.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}&t={typeParam}";
             var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                if (response.StatusCode == HttpStatusCode.Unauthorized) throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
 
                 return null;
             }
@@ -284,11 +301,13 @@ public class RetroAchievementsService
 
         try
         {
-            var url = $"{_apiBaseUrl}API_GetUserProfile.php?u={Uri.EscapeDataString(username)}&y={Uri.EscapeDataString(apiKey)}";
+            var url =
+                $"{_apiBaseUrl}API_GetUserProfile.php?u={Uri.EscapeDataString(username)}&y={Uri.EscapeDataString(apiKey)}";
             var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                if (response.StatusCode == HttpStatusCode.Unauthorized) throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
 
                 return null;
             }
@@ -310,17 +329,20 @@ public class RetroAchievementsService
     /// <summary>
     /// Retrieves the user's recently played games with achievement progress.
     /// </summary>
-    public async Task<IList<RaRecentlyPlayedGame>?> GetUserRecentlyPlayedGamesAsync(string username, string apiKey, int count = 10, int offset = 0)
+    public async Task<IList<RaRecentlyPlayedGame>?> GetUserRecentlyPlayedGamesAsync(string username, string apiKey,
+        int count = 10, int offset = 0)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
         try
         {
-            var url = $"{_apiBaseUrl}API_GetUserRecentlyPlayedGames.php?u={Uri.EscapeDataString(username)}&y={Uri.EscapeDataString(apiKey)}&c={count}&o={offset}";
+            var url =
+                $"{_apiBaseUrl}API_GetUserRecentlyPlayedGames.php?u={Uri.EscapeDataString(username)}&y={Uri.EscapeDataString(apiKey)}&c={count}&o={offset}";
             var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                if (response.StatusCode == HttpStatusCode.Unauthorized) throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
 
                 return null;
             }
@@ -342,7 +364,8 @@ public class RetroAchievementsService
     /// <summary>
     /// Retrieves achievements earned by the user within a specified date range.
     /// </summary>
-    public async Task<IList<RaEarnedAchievement>?> GetAchievementsEarnedBetweenAsync(string username, string apiKey, DateTime fromDate, DateTime toDate)
+    public async Task<IList<RaEarnedAchievement>?> GetAchievementsEarnedBetweenAsync(string username, string apiKey,
+        DateTime fromDate, DateTime toDate)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
@@ -351,11 +374,13 @@ public class RetroAchievementsService
 
         try
         {
-            var url = $"{_apiBaseUrl}API_GetAchievementsEarnedBetween.php?u={Uri.EscapeDataString(username)}&f={epochFrom}&t={epochTo}&y={Uri.EscapeDataString(apiKey)}";
+            var url =
+                $"{_apiBaseUrl}API_GetAchievementsEarnedBetween.php?u={Uri.EscapeDataString(username)}&f={epochFrom}&t={epochTo}&y={Uri.EscapeDataString(apiKey)}";
             var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                if (response.StatusCode == HttpStatusCode.Unauthorized) throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
 
                 return null;
             }
@@ -377,17 +402,20 @@ public class RetroAchievementsService
     /// <summary>
     /// Retrieves the user's game completion progress with award information.
     /// </summary>
-    public async Task<IList<RaUserCompletionGame>?> GetUserCompletionProgressAsync(string username, string apiKey, int count = 100, int offset = 0)
+    public async Task<IList<RaUserCompletionGame>?> GetUserCompletionProgressAsync(string username, string apiKey,
+        int count = 100, int offset = 0)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
         try
         {
-            var url = $"{_apiBaseUrl}API_GetUserCompletionProgress.php?u={Uri.EscapeDataString(username)}&y={Uri.EscapeDataString(apiKey)}&c={count}&o={offset}";
+            var url =
+                $"{_apiBaseUrl}API_GetUserCompletionProgress.php?u={Uri.EscapeDataString(username)}&y={Uri.EscapeDataString(apiKey)}&c={count}&o={offset}";
             var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                if (response.StatusCode == HttpStatusCode.Unauthorized) throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    throw new RaUnauthorizedException("RetroAchievements API returned Unauthorized.");
 
                 return null;
             }
@@ -399,7 +427,8 @@ public class RetroAchievementsService
 
             foreach (var game in apiResponse.Results)
             {
-                if (!string.IsNullOrEmpty(game.ImageIcon) && !game.ImageIcon.StartsWith(_siteBaseUrl, StringComparison.OrdinalIgnoreCase))
+                if (!string.IsNullOrEmpty(game.ImageIcon) &&
+                    !game.ImageIcon.StartsWith(_siteBaseUrl, StringComparison.OrdinalIgnoreCase))
                 {
                     game.ImageIcon = $"{_siteBaseUrl}{game.ImageIcon}";
                 }

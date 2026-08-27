@@ -41,11 +41,7 @@ public class GameListViewItem : INotifyPropertyChanged
     /// <summary>
     /// Gets the file name of the game ROM (set once at creation).
     /// </summary>
-    public string FileName
-    {
-        get;
-        init;
-    } = "";
+    public string FileName { get; init; } = "";
 
     /// <summary>
     /// Gets or sets the machine description from the ROM database.

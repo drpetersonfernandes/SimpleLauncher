@@ -66,5 +66,3 @@ public class NullToVisibilityConverter : IValueConverter
         throw new NotSupportedException();
     }
 }
-
-

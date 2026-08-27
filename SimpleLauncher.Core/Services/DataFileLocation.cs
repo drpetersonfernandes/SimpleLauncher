@@ -46,7 +46,8 @@ public sealed class DataFileLocation
     {
         _fileName = defaultFileName;
         var configuredPath = configuration.GetValue<string>(configKey) ?? defaultFileName;
-        var portablePath = PathHelper.ResolveRelativeToAppDirectory(configuredPath) ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultFileName);
+        var portablePath = PathHelper.ResolveRelativeToAppDirectory(configuredPath) ??
+                           Path.Combine(AppDomain.CurrentDomain.BaseDirectory, defaultFileName);
         Initialize(portablePath);
     }
 

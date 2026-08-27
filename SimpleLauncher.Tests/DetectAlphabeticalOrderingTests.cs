@@ -84,7 +84,8 @@ public partial class DetectAlphabeticalOrderingTests
             return;
 
         var message = new StringBuilder();
-        message.AppendLine("The following resource files were not sorted alphabetically by key and have been auto-sorted:");
+        message.AppendLine(
+            "The following resource files were not sorted alphabetically by key and have been auto-sorted:");
         message.AppendLine();
         foreach (var fileName in unsortedFiles)
         {
@@ -94,7 +95,8 @@ public partial class DetectAlphabeticalOrderingTests
         Assert.Fail(message.ToString());
     }
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the key")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the key")]
     [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.None, 1000)]
     private static partial Regex MyRegex();
 }

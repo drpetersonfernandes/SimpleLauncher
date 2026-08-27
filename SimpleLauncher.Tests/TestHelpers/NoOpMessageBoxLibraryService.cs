@@ -811,7 +811,8 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// <param name="systemName">The system name.</param>
     /// <param name="resolvedSystemFolder">The resolved system folder path.</param>
     /// <param name="resolvedSystemImageFolder">The resolved system image folder path.</param>
-    public Task SystemAddedMessageBoxAsync(string systemName, string resolvedSystemFolder, string resolvedSystemImageFolder)
+    public Task SystemAddedMessageBoxAsync(string systemName, string resolvedSystemFolder,
+        string resolvedSystemImageFolder)
     {
         return Task.CompletedTask;
     }
@@ -1093,7 +1094,8 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     /// <param name="errorDetail">The error detail.</param>
     /// <param name="logPath">The path to the log file.</param>
     /// <param name="exitCode">The optional exit code.</param>
-    public Task BatchFileFailedMessageBoxAsync(string batchFilePath, string errorDetail, string? logPath, int? exitCode = null)
+    public Task BatchFileFailedMessageBoxAsync(string batchFilePath, string errorDetail, string? logPath,
+        int? exitCode = null)
     {
         return Task.CompletedTask;
     }

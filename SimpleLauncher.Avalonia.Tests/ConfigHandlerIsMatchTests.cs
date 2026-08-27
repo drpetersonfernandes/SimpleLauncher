@@ -48,7 +48,8 @@ public class ConfigHandlerIsMatchTests
     {
         var handler = HandlerFactory.CreateFromType(handlerType);
 
-        Assert.True(handler.IsMatch("Some Emulator", emulatorPath), $"{handlerType.Name} should match path '{emulatorPath}'");
+        Assert.True(handler.IsMatch("Some Emulator", emulatorPath),
+            $"{handlerType.Name} should match path '{emulatorPath}'");
     }
 
     [Theory]

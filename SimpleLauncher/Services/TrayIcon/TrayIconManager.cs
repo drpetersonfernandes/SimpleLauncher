@@ -30,12 +30,14 @@ public class TrayIconManager : IDisposable
     /// <param name="applicationLifetime">The application lifetime service for shutdown control.</param>
     /// <param name="logger">The logger instance.</param>
     /// <param name="toastNotificationService">The toast notification service.</param>
-    public TrayIconManager(Window mainWindow, IApplicationLifetime applicationLifetime, ILogger logger, IToastNotificationService toastNotificationService)
+    public TrayIconManager(Window mainWindow, IApplicationLifetime applicationLifetime, ILogger logger,
+        IToastNotificationService toastNotificationService)
     {
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
         _applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _toastNotificationService = toastNotificationService ?? throw new ArgumentNullException(nameof(toastNotificationService));
+        _toastNotificationService = toastNotificationService ??
+                                    throw new ArgumentNullException(nameof(toastNotificationService));
 
         _onOpenHandler = OnOpen;
         _onMinimizeToTrayHandler = OnMinimizeToTray;

@@ -131,7 +131,8 @@ public class PaginationService : IPaginationService
 
     private static string BuildStatusLabel(int startIndex, int endIndex, int total)
     {
-        var displayingfiles0To = Application.Current?.TryFindResource("Displayingfiles0to") as string ?? "Displaying files 0 to";
+        var displayingfiles0To = Application.Current?.TryFindResource("Displayingfiles0to") as string ??
+                                 "Displaying files 0 to";
         var outOf = Application.Current?.TryFindResource("outof") as string ?? "out of";
         var totalText = Application.Current?.TryFindResource("total") as string ?? "total";
         var displayingfiles = Application.Current?.TryFindResource("Displayingfiles") as string ?? "Displaying files";

@@ -37,7 +37,8 @@ public class EasyModeManager : IDisposable
     /// <summary>
     /// Initializes a new instance of <see cref="EasyModeManager"/> with the specified dependencies for API loading and error logging.
     /// </summary>
-    public EasyModeManager(ILogger logErrors, IConfiguration configuration, IHttpClientFactory httpClientFactory, ILogger logger)
+    public EasyModeManager(ILogger logErrors, IConfiguration configuration, IHttpClientFactory httpClientFactory,
+        ILogger logger)
     {
         _configuration = configuration;
         _httpClientFactory = httpClientFactory;
@@ -150,13 +151,15 @@ public class EasyModeManager : IDisposable
         try
         {
             // Get cache duration from configuration (default to 60 minutes)
-            var cacheDurationMinutes = _configuration.GetValue("EasyModeCacheDurationMinutes", DefaultCacheDurationMinutes);
+            var cacheDurationMinutes =
+                _configuration.GetValue("EasyModeCacheDurationMinutes", DefaultCacheDurationMinutes);
 
             // Check if we have valid cached data
             if (_apiCache.Manager != null &&
                 DateTime.UtcNow - _apiCache.Timestamp < TimeSpan.FromMinutes(cacheDurationMinutes))
             {
-                _logger.Debug($"Returning EasyMode configuration from session cache (valid for {cacheDurationMinutes} minutes).");
+                _logger.Debug(
+                    $"Returning EasyMode configuration from session cache (valid for {cacheDurationMinutes} minutes).");
                 return _apiCache.Manager;
             }
 
@@ -198,7 +201,8 @@ public class EasyModeManager : IDisposable
             response.EnsureSuccessStatusCode();
 
             var stream = await response.Content.ReadAsStreamAsync(cts.Token);
-            var systems = await JsonSerializer.DeserializeAsync<List<EasyModeSystemConfig>>(stream, JsonOptions, cts.Token);
+            var systems =
+                await JsonSerializer.DeserializeAsync<List<EasyModeSystemConfig>>(stream, JsonOptions, cts.Token);
 
             if (systems == null || systems.Count == 0)
             {

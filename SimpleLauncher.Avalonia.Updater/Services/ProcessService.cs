@@ -30,7 +30,8 @@ internal class ProcessService
             try
             {
                 using var mainAppProcess = Process.GetProcessById(processId.Value);
-                LogMessage?.Invoke(this, new EventArgs<string>($"Waiting for Simple Launcher (PID: {processId}) to exit..."));
+                LogMessage?.Invoke(this,
+                    new EventArgs<string>($"Waiting for Simple Launcher (PID: {processId}) to exit..."));
 
                 var stopwatch = Stopwatch.StartNew();
                 while (!mainAppProcess.HasExited && stopwatch.ElapsedMilliseconds < ProcessExitTimeoutMs)
@@ -56,13 +57,17 @@ internal class ProcessService
             {
                 // Expected condition: Simple Launcher already exited before the poll started —
                 // log at Information level, not a bug report.
-                Log.Information("Simple Launcher process not found (PID: {ProcessId}). Assuming it has already exited.", processId);
-                LogMessage?.Invoke(this, new EventArgs<string>("Simple Launcher process not found. Assuming it has already exited."));
+                Log.Information("Simple Launcher process not found (PID: {ProcessId}). Assuming it has already exited.",
+                    processId);
+                LogMessage?.Invoke(this,
+                    new EventArgs<string>("Simple Launcher process not found. Assuming it has already exited."));
             }
         }
         else
         {
-            LogMessage?.Invoke(this, new EventArgs<string>("No PID provided by Simple Launcher. Searching for SimpleLauncher.Avalonia process by name..."));
+            LogMessage?.Invoke(this,
+                new EventArgs<string>(
+                    "No PID provided by Simple Launcher. Searching for SimpleLauncher.Avalonia process by name..."));
 
             var processes = Process.GetProcessesByName("SimpleLauncher.Avalonia");
             if (processes.Length > 0)
@@ -70,7 +75,9 @@ internal class ProcessService
                 try
                 {
                     var process = processes[0];
-                    LogMessage?.Invoke(this, new EventArgs<string>($"Found SimpleLauncher.Avalonia process (PID: {process.Id}). Waiting for it to exit..."));
+                    LogMessage?.Invoke(this,
+                        new EventArgs<string>(
+                            $"Found SimpleLauncher.Avalonia process (PID: {process.Id}). Waiting for it to exit..."));
 
                     var stopwatch = Stopwatch.StartNew();
                     while (!process.HasExited && stopwatch.ElapsedMilliseconds < ProcessExitTimeoutMs)
@@ -85,7 +92,9 @@ internal class ProcessService
 
                     if (!hasExited)
                     {
-                        LogMessage?.Invoke(this, new EventArgs<string>($"SimpleLauncher process did not exit within {ProcessExitTimeoutMs / 1000} seconds. Proceeding anyway."));
+                        LogMessage?.Invoke(this,
+                            new EventArgs<string>(
+                                $"SimpleLauncher process did not exit within {ProcessExitTimeoutMs / 1000} seconds. Proceeding anyway."));
                     }
                     else
                     {
@@ -102,7 +111,8 @@ internal class ProcessService
             }
             else
             {
-                LogMessage?.Invoke(this, new EventArgs<string>("SimpleLauncher process not found. Proceeding immediately."));
+                LogMessage?.Invoke(this,
+                    new EventArgs<string>("SimpleLauncher process not found. Proceeding immediately."));
             }
 
             // Small delay to ensure file handles are released
@@ -126,7 +136,8 @@ internal class ProcessService
             // Check if the executable exists before attempting to start it
             if (!File.Exists(exePath))
             {
-                LogMessage?.Invoke(this, new EventArgs<string>($"{executableName}.exe not found. Cannot restart automatically."));
+                LogMessage?.Invoke(this,
+                    new EventArgs<string>($"{executableName}.exe not found. Cannot restart automatically."));
                 return false;
             }
 

@@ -39,19 +39,23 @@ public class Stats
                 _isApiEnabled = false;
 
                 // Notify developer
-                _logger.Error(new InvalidOperationException("API Key is missing or empty in the configuration file."), "Stats API Key missing.");
+                _logger.Error(new InvalidOperationException("API Key is missing or empty in the configuration file."),
+                    "Stats API Key missing.");
 
                 return;
             }
 
-            _statsApiUrl = configuration.GetValue<string>("StatsApiUrl") ?? "https://www.purelogiccode.com/simplelauncher/stats/stats/";
+            _statsApiUrl = configuration.GetValue<string>("StatsApiUrl") ??
+                           "https://www.purelogiccode.com/simplelauncher/stats/stats/";
 
             if (string.IsNullOrEmpty(_statsApiUrl))
             {
                 _isApiEnabled = false;
 
                 // Notify developer
-                _logger.Error(new InvalidOperationException("Stats API URL is missing or empty in the configuration file."), "Stats API URL missing.");
+                _logger.Error(
+                    new InvalidOperationException("Stats API URL is missing or empty in the configuration file."),
+                    "Stats API URL missing.");
 
                 return;
             }
@@ -87,7 +91,9 @@ public class Stats
 
         // Determine which payload to send based on whether emulator info is provided.
         var callType = string.IsNullOrWhiteSpace(emulatorName) ? "usage" : "emulator";
-        var payloadEmulatorName = string.Equals(callType, "emulator", StringComparison.Ordinal) ? NormalizeEmulatorName(emulatorName) : null;
+        var payloadEmulatorName = string.Equals(callType, "emulator", StringComparison.Ordinal)
+            ? NormalizeEmulatorName(emulatorName)
+            : null;
 
         // Use the loaded API URL
         if (await TryApiAsync(callType, payloadEmulatorName))
@@ -104,7 +110,8 @@ public class Stats
         {
             // Notify developer
             // This indicates a logic error if _isApiEnabled is true but _httpClient is null
-            _logger.Error(new InvalidOperationException("HttpClient is null when attempting Stats API call."), "Stats API call failed: HttpClient not initialized.");
+            _logger.Error(new InvalidOperationException("HttpClient is null when attempting Stats API call."),
+                "Stats API call failed: HttpClient not initialized.");
 
             return false;
         }
@@ -150,7 +157,9 @@ public class Stats
                                      $"Status Code: '{response.StatusCode}'.\n" +
                                      $"Response Body: '{errorContent}'\n" +
                                      $"CallType: {callType}" +
-                                     (string.Equals(callType, "emulator", StringComparison.Ordinal) ? $", EmulatorName: {emulatorName}" : "");
+                                     (string.Equals(callType, "emulator", StringComparison.Ordinal)
+                                         ? $", EmulatorName: {emulatorName}"
+                                         : "");
                 _logger.Error(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
             }
 
@@ -162,7 +171,9 @@ public class Stats
             var contextMessage = $"Stats API request timed out after 20 seconds.\n" +
                                  $"Stats API URL: '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
-                                 (string.Equals(callType, "emulator", StringComparison.Ordinal) ? $", EmulatorName: {emulatorName}" : "");
+                                 (string.Equals(callType, "emulator", StringComparison.Ordinal)
+                                     ? $", EmulatorName: {emulatorName}"
+                                     : "");
             _logger.Information(contextMessage);
 
             return false;
@@ -172,7 +183,9 @@ public class Stats
             // Expected condition (DNS/connection/network failure): not a bug, keep it out of the bug report service.
             var contextMessage = $"Error communicating with the Stats API at '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
-                                 (string.Equals(callType, "emulator", StringComparison.Ordinal) ? $", EmulatorName: {emulatorName}" : "");
+                                 (string.Equals(callType, "emulator", StringComparison.Ordinal)
+                                     ? $", EmulatorName: {emulatorName}"
+                                     : "");
             _logger.Information(ex, contextMessage);
 
             return false;
@@ -183,7 +196,9 @@ public class Stats
             // Log any other unexpected errors
             var contextMessage = $"Unexpected error while using Stats API at '{_statsApiUrl}'.\n" +
                                  $"CallType: {callType}" +
-                                 (string.Equals(callType, "emulator", StringComparison.Ordinal) ? $", EmulatorName: {emulatorName}" : "");
+                                 (string.Equals(callType, "emulator", StringComparison.Ordinal)
+                                     ? $", EmulatorName: {emulatorName}"
+                                     : "");
             _logger.Error(ex, contextMessage);
 
             return false;

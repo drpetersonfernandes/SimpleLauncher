@@ -45,7 +45,8 @@ public class ConverterService
                 }
                 catch (InvalidOperationException ex) when (ex.InnerException != null)
                 {
-                    throw new InvalidOperationException($"Failed to deserialize XML content. Inner exception: {ex.InnerException.Message}", ex);
+                    throw new InvalidOperationException(
+                        $"Failed to deserialize XML content. Inner exception: {ex.InnerException.Message}", ex);
                 }
             }
 

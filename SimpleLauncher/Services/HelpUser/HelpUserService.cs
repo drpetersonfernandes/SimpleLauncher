@@ -39,12 +39,14 @@ public partial class HelpUserService : IHelpUserService
     }
 
     // Renamed for clarity: Matches **bold text**
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the bold text")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the bold text")]
     [GeneratedRegex(@"\*\*(.*?)\*\*", RegexOptions.Compiled, 1000)]
     private static partial Regex BoldRegex();
 
     // Renamed for clarity: Matches ## headings
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the heading text")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the heading text")]
     [GeneratedRegex(@"^##\s*(.*?)$", RegexOptions.Multiline, 1000)]
     private static partial Regex HeadingRegex();
 
@@ -356,7 +358,9 @@ public partial class HelpUserService : IHelpUserService
         }
         else
         {
-            var noinformationavailableforsystem2 = (string)Application.Current.TryFindResource("Noinformationavailableforsystem") ?? "No information available for system:";
+            var noinformationavailableforsystem2 =
+                (string)Application.Current.TryFindResource("Noinformationavailableforsystem") ??
+                "No information available for system:";
             return $"{noinformationavailableforsystem2} {systemName}";
         }
     }
@@ -799,9 +803,11 @@ public partial class HelpUserService : IHelpUserService
     private string GetSystemDetails(string systemName)
     {
         // Fetch the system details from the configuration
-        var system = _manager.Systems.FirstOrDefault(s => s.SystemName.Contains(systemName, StringComparison.OrdinalIgnoreCase));
+        var system =
+            _manager.Systems.FirstOrDefault(s => s.SystemName.Contains(systemName, StringComparison.OrdinalIgnoreCase));
 
-        var nodetailsavailablefor2 = (string)Application.Current.TryFindResource("Nodetailsavailablefor") ?? "No details available for";
+        var nodetailsavailablefor2 = (string)Application.Current.TryFindResource("Nodetailsavailablefor") ??
+                                     "No details available for";
         return system?.SystemHelperText ?? $"{nodetailsavailablefor2} '{systemName}'.";
     }
 

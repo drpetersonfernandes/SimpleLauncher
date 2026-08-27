@@ -20,13 +20,17 @@ public class SupportViewModelTests
         settings.EnableNotificationSound = false;
         var playSound = TestDependencies.PlaySound(settings);
 
-        var config = TestEnvironment.ConfigurationFromJson("""{"EmailApiBaseUrl": "https://example.com/api", "SupportEmailTo": "support@example.com"}""");
+        var config =
+            TestEnvironment.ConfigurationFromJson(
+                """{"EmailApiBaseUrl": "https://example.com/api", "SupportEmailTo": "support@example.com"}""");
 
         var factory = TestDependencies.HttpFactory(httpClient ?? TestDependencies.HttpClientWith(_ =>
-            new HttpResponseMessage(System.Net.HttpStatusCode.OK) { Content = new StringContent("{}", Encoding.UTF8, "application/json") }));
+            new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+                { Content = new StringContent("{}", Encoding.UTF8, "application/json") }));
 
         var resourceProvider = TestDependencies.ResourceProvider();
-        return new SupportViewModel(playSound, factory.Object, config, messageBox.Object, resourceProvider.Object, (logger ?? TestDependencies.Logger()).Object);
+        return new SupportViewModel(playSound, factory.Object, config, messageBox.Object, resourceProvider.Object,
+            (logger ?? TestDependencies.Logger()).Object);
     }
 
     [Fact]

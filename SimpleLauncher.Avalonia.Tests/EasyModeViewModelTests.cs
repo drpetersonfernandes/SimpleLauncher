@@ -18,34 +18,34 @@ namespace SimpleLauncher.Avalonia.Tests;
 public class EasyModeViewModelTests
 {
     private const string EasyModeJson = """
-        [
-          {
-            "systemName": "NES",
-            "systemFolder": "roms/nes",
-            "systemImageFolder": "images/nes",
-            "fileFormatsToSearch": [".nes"],
-            "fileFormatsToLaunch": [".nes"],
-            "emulators": {
-              "emulator": {
-                "emulatorName": "Mesen",
-                "emulatorDownloadLink": "https://example.com/emulator.zip",
-                "emulatorDownloadExtractPath": "emulators/nes",
-                "imagePackDownloadLink": "https://example.com/pack1.zip",
-                "imagePackDownloadLink2": "https://example.com/pack2.zip",
-                "imagePackDownloadExtractPath": "images/nes"
-              }
-            }
-          },
-          {
-            "systemName": "NoPackSystem",
-            "systemFolder": "roms/nopack",
-            "systemImageFolder": "images/nopack",
-            "fileFormatsToSearch": [".xyz"],
-            "fileFormatsToLaunch": [".xyz"],
-            "emulators": { "emulator": { "emulatorName": "NoPacker" } }
-          }
-        ]
-        """;
+                                        [
+                                          {
+                                            "systemName": "NES",
+                                            "systemFolder": "roms/nes",
+                                            "systemImageFolder": "images/nes",
+                                            "fileFormatsToSearch": [".nes"],
+                                            "fileFormatsToLaunch": [".nes"],
+                                            "emulators": {
+                                              "emulator": {
+                                                "emulatorName": "Mesen",
+                                                "emulatorDownloadLink": "https://example.com/emulator.zip",
+                                                "emulatorDownloadExtractPath": "emulators/nes",
+                                                "imagePackDownloadLink": "https://example.com/pack1.zip",
+                                                "imagePackDownloadLink2": "https://example.com/pack2.zip",
+                                                "imagePackDownloadExtractPath": "images/nes"
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "systemName": "NoPackSystem",
+                                            "systemFolder": "roms/nopack",
+                                            "systemImageFolder": "images/nopack",
+                                            "fileFormatsToSearch": [".xyz"],
+                                            "fileFormatsToLaunch": [".xyz"],
+                                            "emulators": { "emulator": { "emulatorName": "NoPacker" } }
+                                          }
+                                        ]
+                                        """;
 
     private static EasyModeViewModel CreateVm(Mock<IExtractionService>? extraction = null)
     {
@@ -63,7 +63,8 @@ public class EasyModeViewModelTests
         File.Delete(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "easymode_arm64.xml"));
 
         var config = TestEnvironment.ConfigurationFromJson("""{"EasyModeCacheDurationMinutes": "0"}""");
-        var httpClient = new HttpClient(new EasyModeHandler(EasyModeJson)) { BaseAddress = new Uri("https://example.com/") };
+        var httpClient = new HttpClient(new EasyModeHandler(EasyModeJson))
+            { BaseAddress = new Uri("https://example.com/") };
         var httpFactory = TestDependencies.HttpFactory(httpClient);
 
         var easyModeManager = new EasyModeManager(logger.Object, config, httpFactory.Object, logger.Object);
@@ -76,7 +77,8 @@ public class EasyModeViewModelTests
             resourceProvider,
             new AvaloniaDispatcherService());
 
-        return new EasyModeViewModel(easyModeManager, downloadManager, messageBox.Object, logger.Object, config, playSound);
+        return new EasyModeViewModel(easyModeManager, downloadManager, messageBox.Object, logger.Object, config,
+            playSound);
     }
 
     [Fact]
@@ -205,7 +207,8 @@ public class EasyModeViewModelTests
             _json = json;
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
         {
             var url = request.RequestUri?.AbsoluteUri ?? "";
             if (url.Contains("api/Systems", StringComparison.Ordinal))

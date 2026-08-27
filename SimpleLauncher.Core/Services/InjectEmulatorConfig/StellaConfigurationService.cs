@@ -15,7 +15,8 @@ public static class StellaConfigurationService
     /// <param name="emulatorPath">The full path to the Stella emulator executable.</param>
     /// <param name="settings">The settings manager containing Stella configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings, ILogger logger)
+    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+        ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
         if (string.IsNullOrEmpty(emuDir))

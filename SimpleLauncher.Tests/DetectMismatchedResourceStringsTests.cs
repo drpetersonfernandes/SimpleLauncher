@@ -82,7 +82,8 @@ public partial class DetectMismatchedResourceStringsTests
                || path.Contains("\\References\\", StringComparison.OrdinalIgnoreCase);
     }
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing groups are needed to extract key and fallback value")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing groups are needed to extract key and fallback value")]
     [GeneratedRegex("""
                     TryFindResource\(\s*"([^"]+)"\s*\)\s*\?\?\s*"([^"]+)"
                     """, RegexOptions.Compiled, 1000)]

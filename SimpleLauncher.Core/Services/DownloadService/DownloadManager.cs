@@ -39,7 +39,8 @@ public class DownloadManager : IDisposable
     /// <summary>
     /// Initializes a new instance of the DownloadManager.
     /// </summary>
-    public DownloadManager(IHttpClientFactory httpClientFactory, IExtractionService extractionService, ILogger logErrors, IResourceProvider resourceProvider, IDispatcherService dispatcherService)
+    public DownloadManager(IHttpClientFactory httpClientFactory, IExtractionService extractionService,
+        ILogger logErrors, IResourceProvider resourceProvider, IDispatcherService dispatcherService)
     {
         _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
         _extractionService = extractionService ?? throw new ArgumentNullException(nameof(extractionService));
@@ -62,7 +63,8 @@ public class DownloadManager : IDisposable
 
         // Get HttpClient from the factory
         _httpClient = _httpClientFactory.CreateClient("DownloadClient")
-                      ?? throw new InvalidOperationException("IHttpClientFactory.CreateClient returned null for 'DownloadClient'.");
+                      ?? throw new InvalidOperationException(
+                          "IHttpClientFactory.CreateClient returned null for 'DownloadClient'.");
 
         // Initialize cancellation token source
         _cancellationTokenSource = new CancellationTokenSource();
@@ -208,16 +210,19 @@ public class DownloadManager : IDisposable
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
                     ProgressPercentage = 0,
-                    StatusMessage = GetResourceString("InsufficientdiskspaceinSimpleLauncherHDD", "Insufficient disk space.")
+                    StatusMessage = GetResourceString("InsufficientdiskspaceinSimpleLauncherHDD",
+                        "Insufficient disk space.")
                 });
                 throw new IOException("Insufficient disk space in 'Simple Launcher' HDD.");
             case null:
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
                     ProgressPercentage = 0,
-                    StatusMessage = GetResourceString("CannotCheckDiskSpace", "Cannot check available disk space. The path may be inaccessible or you may lack permissions.")
+                    StatusMessage = GetResourceString("CannotCheckDiskSpace",
+                        "Cannot check available disk space. The path may be inaccessible or you may lack permissions.")
                 });
-                throw new IOException("Cannot check disk space for 'Simple Launcher' HDD. The path may be inaccessible or you may lack permissions.");
+                throw new IOException(
+                    "Cannot check disk space for 'Simple Launcher' HDD. The path may be inaccessible or you may lack permissions.");
         }
 
         CancellationToken token;
@@ -357,12 +362,14 @@ public class DownloadManager : IDisposable
         }
     }
 
-    private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
+    private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath,
+        CancellationToken cancellationToken)
     {
         // Create request
         using var request = new HttpRequestMessage(HttpMethod.Get, downloadUrl);
 
-        using var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        using var response =
+            await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
 
         response.EnsureSuccessStatusCode();
 
@@ -375,7 +382,8 @@ public class DownloadManager : IDisposable
         Directory.CreateDirectory(TempFolder);
 
         // Open stream: always start fresh (retries are handled by the resilience pipeline)
-        await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite, 8192, true);
+        await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write,
+            FileShare.ReadWrite, 8192, true);
         await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
 
         var buffer = new byte[8192];
@@ -403,7 +411,8 @@ public class DownloadManager : IDisposable
                     BytesReceived = totalBytesRead,
                     TotalBytesToReceive = totalBytes,
                     ProgressPercentage = progressPercentage,
-                    StatusMessage = $"{GetResourceString("Downloading", "Downloading")}: {sizeStatus} ({progressPercentage:F1}%)"
+                    StatusMessage =
+                        $"{GetResourceString("Downloading", "Downloading")}: {sizeStatus} ({progressPercentage:F1}%)"
                 });
                 lastProgressUpdate = DateTime.Now;
             }
@@ -418,7 +427,8 @@ public class DownloadManager : IDisposable
                 BytesReceived = totalBytesRead,
                 TotalBytesToReceive = totalBytes,
                 ProgressPercentage = 100,
-                StatusMessage = $"{GetResourceString("Downloadcomplete2", "Download complete")}: {FormatFileSize.FormatToHumanReadable(totalBytesRead)}"
+                StatusMessage =
+                    $"{GetResourceString("Downloadcomplete2", "Download complete")}: {FormatFileSize.FormatToHumanReadable(totalBytesRead)}"
             });
         }
     }
@@ -434,7 +444,8 @@ public class DownloadManager : IDisposable
         try
         {
             folderPath = Path.GetFullPath(folderPath);
-            var driveInfo = new DriveInfo(Path.GetPathRoot(folderPath) ?? throw new InvalidOperationException("Could not get the drive info"));
+            var driveInfo = new DriveInfo(Path.GetPathRoot(folderPath) ??
+                                          throw new InvalidOperationException("Could not get the drive info"));
             return driveInfo.AvailableFreeSpace > requiredSpace;
         }
         catch

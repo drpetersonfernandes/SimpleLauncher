@@ -154,14 +154,14 @@ public class UpdateSimulationTests : IDisposable
     {
         // Arrange
         const string json = """
-        {
-          "tag_name": "release5.3.2",
-          "assets": [
-            { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater.zip" },
-            { "name": "release_5.3.2_win-x64.zip", "browser_download_url": "https://example.com/release.zip" }
-          ]
-        }
-        """;
+                            {
+                              "tag_name": "release5.3.2",
+                              "assets": [
+                                { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater.zip" },
+                                { "name": "release_5.3.2_win-x64.zip", "browser_download_url": "https://example.com/release.zip" }
+                              ]
+                            }
+                            """;
 
         // Act
         var (version, releaseUrl, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
@@ -194,12 +194,12 @@ public class UpdateSimulationTests : IDisposable
     public void ParseVersionAndAssetUrlsFromResponseMissingTagNameReturnsNulls()
     {
         const string json = """
-        {
-          "assets": [
-            { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater.zip" }
-          ]
-        }
-        """;
+                            {
+                              "assets": [
+                                { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater.zip" }
+                              ]
+                            }
+                            """;
 
         var (version, _, _) = InvokeParseVersionAndAssetUrls(json);
 
@@ -213,10 +213,10 @@ public class UpdateSimulationTests : IDisposable
     public void ParseVersionAndAssetUrlsFromResponseMissingAssetsArrayReturnsNulls()
     {
         const string json = """
-        {
-          "tag_name": "release5.3.2"
-        }
-        """;
+                            {
+                              "tag_name": "release5.3.2"
+                            }
+                            """;
 
         var (version, releaseUrl, updaterUrl) = InvokeParseVersionAndAssetUrls(json);
 
@@ -308,12 +308,15 @@ public class UpdateSimulationTests : IDisposable
         var method = typeof(CheckForUpdatesService).GetMethod("ParseVersionAndAssetUrlsFromResponse",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         var result = method?.Invoke(checker, [json]);
-        return (ValueTuple<string, string, string>)(result ?? throw new InvalidOperationException("Reflection invoke returned null."));
+        return (ValueTuple<string, string, string>)(result ??
+                                                    throw new InvalidOperationException(
+                                                        "Reflection invoke returned null."));
     }
 
     private static CheckForUpdatesService CreateCheckerInstance()
     {
-        var constructor = typeof(CheckForUpdatesService).GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
+        var constructor = typeof(CheckForUpdatesService)
+            .GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
         var factory = new MockHttpClientFactory();
         var logErrors = new NoOpLogger();
         return (CheckForUpdatesService)constructor.Invoke([factory, null, null, logErrors, null, null]);

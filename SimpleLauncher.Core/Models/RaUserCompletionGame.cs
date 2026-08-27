@@ -87,14 +87,16 @@ public record RaUserCompletionGame
     /// <summary>
     /// Gets a formatted display of the most recent award date in local time.
     /// </summary>
-    public string MostRecentAwardedDateDisplay => DateTime.TryParse(MostRecentAwardedDate, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var dt)
+    public string MostRecentAwardedDateDisplay => DateTime.TryParse(MostRecentAwardedDate, CultureInfo.InvariantCulture,
+        DateTimeStyles.AdjustToUniversal, out var dt)
         ? dt.ToLocalTime().ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)
         : "N/A";
 
     /// <summary>
     /// Gets a formatted display of the highest award date in local time.
     /// </summary>
-    public string HighestAwardDateDisplay => DateTime.TryParse(HighestAwardDate, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var dt)
+    public string HighestAwardDateDisplay => DateTime.TryParse(HighestAwardDate, CultureInfo.InvariantCulture,
+        DateTimeStyles.AdjustToUniversal, out var dt)
         ? dt.ToLocalTime().ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)
         : "N/A";
 

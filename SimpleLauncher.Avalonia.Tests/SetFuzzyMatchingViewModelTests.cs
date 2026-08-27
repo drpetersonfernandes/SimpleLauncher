@@ -9,11 +9,13 @@ namespace SimpleLauncher.Avalonia.Tests;
 /// </summary>
 public class SetFuzzyMatchingViewModelTests
 {
-    private static SetFuzzyMatchingViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox, out SimpleLauncher.Core.Services.SettingsManager.SettingsManagerService settings)
+    private static SetFuzzyMatchingViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox,
+        out SimpleLauncher.Core.Services.SettingsManager.SettingsManagerService settings)
     {
         messageBox = TestDependencies.MessageBox();
         settings = TestDependencies.Settings(messageBox: messageBox);
-        var vm = new SetFuzzyMatchingViewModel(settings, TestDependencies.Logger().Object, messageBox.Object, TestDependencies.ResourceProvider().Object);
+        var vm = new SetFuzzyMatchingViewModel(settings, TestDependencies.Logger().Object, messageBox.Object,
+            TestDependencies.ResourceProvider().Object);
         return vm;
     }
 
@@ -24,11 +26,13 @@ public class SetFuzzyMatchingViewModelTests
         var settings = TestDependencies.Settings(messageBox: messageBox);
         settings.FuzzyMatchingThreshold = 0.99;
 
-        var high = new SetFuzzyMatchingViewModel(settings, TestDependencies.Logger().Object, messageBox.Object, TestDependencies.ResourceProvider().Object);
+        var high = new SetFuzzyMatchingViewModel(settings, TestDependencies.Logger().Object, messageBox.Object,
+            TestDependencies.ResourceProvider().Object);
         Assert.Equal(SetFuzzyMatchingViewModel.MaximumThreshold, high.ThresholdValue);
 
         settings.FuzzyMatchingThreshold = 0.5;
-        var low = new SetFuzzyMatchingViewModel(settings, TestDependencies.Logger().Object, messageBox.Object, TestDependencies.ResourceProvider().Object);
+        var low = new SetFuzzyMatchingViewModel(settings, TestDependencies.Logger().Object, messageBox.Object,
+            TestDependencies.ResourceProvider().Object);
         Assert.Equal(SetFuzzyMatchingViewModel.MinimumThreshold, low.ThresholdValue);
     }
 

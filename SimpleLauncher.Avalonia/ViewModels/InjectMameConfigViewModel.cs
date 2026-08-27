@@ -43,7 +43,8 @@ public partial class InjectMameConfigViewModel : ObservableObject
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
     /// <param name="logger">The logger instance.</param>
-    public InjectMameConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox, EmulatorPathResolver emulatorPathResolver, ILogger logger)
+    public InjectMameConfigViewModel(SettingsManagerService settings, IMessageBoxLibraryService messageBox,
+        EmulatorPathResolver emulatorPathResolver, ILogger logger)
     {
         _settings = settings;
         _logger = logger;
@@ -58,7 +59,8 @@ public partial class InjectMameConfigViewModel : ObservableObject
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     /// <param name="systemRomPath">Optional path to the system ROM directory.</param>
     /// <param name="listOfSecondaryRomPaths">Optional list of secondary ROM folder paths.</param>
-    public void Initialize(string? emulatorPath, bool isLauncherMode, string? systemRomPath = null, string[]? listOfSecondaryRomPaths = null)
+    public void Initialize(string? emulatorPath, bool isLauncherMode, string? systemRomPath = null,
+        string[]? listOfSecondaryRomPaths = null)
     {
         _emulatorPath = emulatorPath!;
         IsLauncherMode = isLauncherMode;
@@ -187,7 +189,8 @@ public partial class InjectMameConfigViewModel : ObservableObject
 
         try
         {
-            MameConfigurationService.InjectSettings(path, _settings, _logger, _systemRomPath, _listOfSecondarySystemFolders);
+            MameConfigurationService.InjectSettings(path, _settings, _logger, _systemRomPath,
+                _listOfSecondarySystemFolders);
             return true;
         }
         catch (InvalidOperationException ex)
@@ -222,7 +225,8 @@ public partial class InjectMameConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectMameConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+                _messageBox);
         }
     }
 
@@ -251,7 +255,8 @@ public partial class InjectMameConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectMameConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!, _messageBox);
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+                _messageBox);
         }
     }
 }

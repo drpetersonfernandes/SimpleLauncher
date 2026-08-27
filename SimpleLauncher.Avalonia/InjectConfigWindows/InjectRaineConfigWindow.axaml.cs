@@ -62,7 +62,8 @@ public partial class InjectRaineConfigWindow : Window
     /// <param name="isLauncherMode">If true, the window operates in launcher mode.</param>
     /// <param name="gameFilePath">Optional path to the game file.</param>
     /// <param name="systemRomPath">Optional path to the system ROM.</param>
-    public void Initialize(string? emulatorPath = null, bool isLauncherMode = true, string? gameFilePath = null, string? systemRomPath = null)
+    public void Initialize(string? emulatorPath = null, bool isLauncherMode = true, string? gameFilePath = null,
+        string? systemRomPath = null)
     {
         _viewModel.Initialize(emulatorPath, isLauncherMode, gameFilePath, systemRomPath);
 

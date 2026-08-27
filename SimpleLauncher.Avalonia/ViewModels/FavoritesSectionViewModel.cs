@@ -98,7 +98,8 @@ public partial class FavoritesSectionViewModel : ObservableObject
                     var removedCount = await _favoritesManager.RemoveFavoritesForMissingSystemsAsync(validSystemNames);
                     if (removedCount > 0)
                     {
-                        _logErrors.Information($"Removed {removedCount} favorite(s) referencing systems that no longer exist.");
+                        _logErrors.Information(
+                            $"Removed {removedCount} favorite(s) referencing systems that no longer exist.");
                     }
                 }
             }
@@ -136,9 +137,10 @@ public partial class FavoritesSectionViewModel : ObservableObject
                             StoredFileName = storedName,
                             FilePath = filePath,
                             SystemName = systemName,
-                            MachineDescription = _mameData.Lookup.TryGetValue(fileNameWithoutExtension, out var description)
-                                ? description
-                                : "",
+                            MachineDescription =
+                                _mameData.Lookup.TryGetValue(fileNameWithoutExtension, out var description)
+                                    ? description
+                                    : "",
                             DefaultEmulator = system?.Emulators.FirstOrDefault()?.EmulatorName ?? "No Default Emulator",
                             CoverImage = system is null
                                 ? ""
@@ -150,7 +152,8 @@ public partial class FavoritesSectionViewModel : ObservableObject
                     {
                         // A single corrupt favorite must not blank the whole list (the
                         // previous behavior). Log it and keep the healthy entries.
-                        _logErrors.Error(ex, "Error processing a favorite entry; skipping it. FileName={FileName}, System={System}",
+                        _logErrors.Error(ex,
+                            "Error processing a favorite entry; skipping it. FileName={FileName}, System={System}",
                             favorite.FileName, favorite.SystemName);
                     }
                 }
@@ -272,7 +275,9 @@ public partial class FavoritesSectionViewModel : ObservableObject
             var filePath = ResolveFavoritePath(favorite);
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
-                var result = await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(filePath ?? favorite.DisplayName);
+                var result =
+                    await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(filePath ??
+                        favorite.DisplayName);
                 if (result == Core.Models.MessageBoxResult.Yes)
                 {
                     await RemoveFavoritesAsync([favorite]);

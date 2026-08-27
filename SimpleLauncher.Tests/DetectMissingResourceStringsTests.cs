@@ -66,12 +66,14 @@ public partial class DetectMissingResourceStringsTests
 
         // Always fail when there are missing keys so the developer knows what happened.
         var message = new StringBuilder();
-        message.AppendLine(CultureInfo.InvariantCulture, $"Found {missingKeys.Count} resource key(s) referenced in source code but missing from strings.en.xaml.");
+        message.AppendLine(CultureInfo.InvariantCulture,
+            $"Found {missingKeys.Count} resource key(s) referenced in source code but missing from strings.en.xaml.");
         message.AppendLine();
 
         if (keysWithValues.Count > 0)
         {
-            message.AppendLine(CultureInfo.InvariantCulture, $"The following {keysWithValues.Count} key(s) were automatically added to strings.en.xaml:");
+            message.AppendLine(CultureInfo.InvariantCulture,
+                $"The following {keysWithValues.Count} key(s) were automatically added to strings.en.xaml:");
             message.AppendLine();
             foreach (var key in keysWithValues.Keys.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
             {
@@ -83,7 +85,8 @@ public partial class DetectMissingResourceStringsTests
 
         if (keysWithoutValues.Count > 0)
         {
-            message.AppendLine(CultureInfo.InvariantCulture, $"The following {keysWithoutValues.Count} key(s) could not be automatically added because no fallback value is known. Please add them manually to strings.en.xaml:");
+            message.AppendLine(CultureInfo.InvariantCulture,
+                $"The following {keysWithoutValues.Count} key(s) could not be automatically added because no fallback value is known. Please add them manually to strings.en.xaml:");
             message.AppendLine();
             foreach (var key in keysWithoutValues.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
             {
@@ -219,17 +222,20 @@ public partial class DetectMissingResourceStringsTests
                || path.Contains("\\References\\", StringComparison.OrdinalIgnoreCase);
     }
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing groups are needed to extract key and fallback value")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing groups are needed to extract key and fallback value")]
     [GeneratedRegex("""TryFindResource\(\s*"([^"]+)"\s*\)(?:\s*\?\?\s*"([^"]+)")?""", RegexOptions.Compiled, 1000)]
     private static partial Regex MyRegex();
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing group is needed to extract the key")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the key")]
     [GeneratedRegex("""
                     x:Key="([^"]+)"
                     """, RegexOptions.Compiled, 1000)]
     private static partial Regex MyRegex2();
 
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture", Justification = "Capturing groups are needed to extract key and value")]
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing groups are needed to extract key and value")]
     [GeneratedRegex("""^\s*<system:String x:Key="([^"]+)">(.*)</system:String>\s*$""", RegexOptions.None, 1000)]
     private static partial Regex MyRegex3();
 }

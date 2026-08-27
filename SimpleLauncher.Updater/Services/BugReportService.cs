@@ -24,7 +24,8 @@ internal static class BugReportService
         return Encoding.UTF8.GetString(Convert.FromBase64String(decoded));
     }
 
-    private static readonly string LogFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bugreport_failures.log");
+    private static readonly string LogFilePath =
+        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bugreport_failures.log");
 
     private static int _isReporting;
 
@@ -66,7 +67,8 @@ internal static class BugReportService
                 // Log failure to local file as fallback - don't throw to avoid infinite loops
                 var responseContent = await response.Content.ReadAsStringAsync(cts.Token);
                 var errorMessage = $"Failed to report bug: {response.StatusCode} - {responseContent}";
-                Log.Warning("Bug report API returned non-success status: {StatusCode} - {ResponseContent}", response.StatusCode, responseContent);
+                Log.Warning("Bug report API returned non-success status: {StatusCode} - {ResponseContent}",
+                    response.StatusCode, responseContent);
                 await LogToLocalFileAsync(errorMessage, bugReport);
             }
         }
@@ -120,8 +122,10 @@ internal static class BugReportService
                 logEntry.AppendLine("Bug Report Details:");
                 logEntry.AppendLine(CultureInfo.InvariantCulture, $"  Application: {bugReport.ApplicationName}");
                 logEntry.AppendLine(CultureInfo.InvariantCulture, $"  Version: {bugReport.Version}");
-                logEntry.AppendLine(CultureInfo.InvariantCulture, $"  Message: {bugReport.Message?.Replace(Environment.NewLine, " ")}");
-                logEntry.AppendLine(CultureInfo.InvariantCulture, $"  StackTrace: {bugReport.StackTrace?.Replace(Environment.NewLine, " ")}");
+                logEntry.AppendLine(CultureInfo.InvariantCulture,
+                    $"  Message: {bugReport.Message?.Replace(Environment.NewLine, " ")}");
+                logEntry.AppendLine(CultureInfo.InvariantCulture,
+                    $"  StackTrace: {bugReport.StackTrace?.Replace(Environment.NewLine, " ")}");
             }
 
             logEntry.AppendLine(new string('-', 80));

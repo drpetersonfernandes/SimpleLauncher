@@ -45,13 +45,13 @@ public class SteamVdfParserTests : IDisposable
     public void ParseSimpleKeyValuePairsReturnsCorrectDictionary()
     {
         var filePath = CreateVdfFile("""
-            "AppState"
-            {
-                "appid"		"228980"
-                "name"		"Steamworks Common Redistributables"
-                "installdir"	"Steamworks Shared"
-            }
-            """);
+                                     "AppState"
+                                     {
+                                         "appid"		"228980"
+                                         "name"		"Steamworks Common Redistributables"
+                                         "installdir"	"Steamworks Shared"
+                                     }
+                                     """);
 
         var result = _parser.Parse(filePath);
 
@@ -71,14 +71,14 @@ public class SteamVdfParserTests : IDisposable
     public void ParseNestedDictionariesReturnsCorrectStructure()
     {
         var filePath = CreateVdfFile("""
-            "root"
-            {
-                "level1"
-                {
-                    "key"		"value"
-                }
-            }
-            """);
+                                     "root"
+                                     {
+                                         "level1"
+                                         {
+                                             "key"		"value"
+                                         }
+                                     }
+                                     """);
 
         var result = _parser.Parse(filePath);
 
@@ -94,8 +94,8 @@ public class SteamVdfParserTests : IDisposable
     public void ParseEscapedQuotesInValuesUnescapesCorrectly()
     {
         var filePath = CreateVdfFile("""
-            "key"		"some \"quoted\" value"
-            """);
+                                     "key"		"some \"quoted\" value"
+                                     """);
 
         var result = _parser.Parse(filePath);
 
@@ -110,8 +110,8 @@ public class SteamVdfParserTests : IDisposable
     {
         // Use a path without \t to avoid the tab replacement in UnescapeVdfValue
         var filePath = CreateVdfFile("""
-            "key"		"path\\of\\file"
-            """);
+                                     "key"		"path\\of\\file"
+                                     """);
 
         var result = _parser.Parse(filePath);
 
@@ -125,8 +125,8 @@ public class SteamVdfParserTests : IDisposable
     public void ParseWindowsBackslashPathsPreservesBackslashes()
     {
         var filePath = CreateVdfFile("""
-            "installdir"		"C:\\games\\Steam"
-            """);
+                                     "installdir"		"C:\\games\\Steam"
+                                     """);
 
         var result = _parser.Parse(filePath);
 
@@ -169,11 +169,11 @@ public class SteamVdfParserTests : IDisposable
     public void ParseCommentsAreIgnored()
     {
         var filePath = CreateVdfFile("""
-            // This is a comment
-            "key1"		"value1"
-            // Another comment
-            "key2"		"value2"
-            """);
+                                     // This is a comment
+                                     "key1"		"value1"
+                                     // Another comment
+                                     "key2"		"value2"
+                                     """);
 
         var result = _parser.Parse(filePath);
 
@@ -189,11 +189,11 @@ public class SteamVdfParserTests : IDisposable
     public void ParseIsCaseInsensitiveForKeys()
     {
         var filePath = CreateVdfFile("""
-            "AppState"
-            {
-                "AppID"		"12345"
-            }
-            """);
+                                     "AppState"
+                                     {
+                                         "AppID"		"12345"
+                                     }
+                                     """);
 
         var result = _parser.Parse(filePath);
 
@@ -210,8 +210,8 @@ public class SteamVdfParserTests : IDisposable
     public void ParseNewlineEscapesInValuesUnescapesCorrectly()
     {
         var filePath = CreateVdfFile("""
-            "key"		"line1\\nline2"
-            """);
+                                     "key"		"line1\\nline2"
+                                     """);
 
         var result = _parser.Parse(filePath);
 
@@ -225,8 +225,8 @@ public class SteamVdfParserTests : IDisposable
     public void ParseTabEscapesInValuesUnescapesCorrectly()
     {
         var filePath = CreateVdfFile("""
-            "key"		"col1\\tcol2"
-            """);
+                                     "key"		"col1\\tcol2"
+                                     """);
 
         var result = _parser.Parse(filePath);
 

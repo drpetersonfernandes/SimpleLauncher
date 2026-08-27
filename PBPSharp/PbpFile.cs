@@ -153,7 +153,8 @@ public sealed class PbpFile : IDisposable
         var dataPspOffset = BitConverter.ToInt32(headerBytes[32..36]);
         var dataPsarOffset = BitConverter.ToInt32(headerBytes[36..40]);
 
-        header = new PbpHeader(version, sfoOffset, icon0Offset, icon1Offset, pic0Offset, pic1Offset, snd0Offset, dataPspOffset, dataPsarOffset);
+        header = new PbpHeader(version, sfoOffset, icon0Offset, icon1Offset, pic0Offset, pic1Offset, snd0Offset,
+            dataPspOffset, dataPsarOffset);
         return PbpError.None;
     }
 
