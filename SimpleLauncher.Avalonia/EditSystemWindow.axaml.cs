@@ -622,7 +622,7 @@ public partial class EditSystemWindow : Window
     private void UpdateSystemHelp()
     {
         var systemName = SystemNameTextBox.Text?.Trim() ?? string.Empty;
-        SystemHelpMarkdownViewer.Markdown = _helpUserService.GetHelpText(systemName);
+        _helpUserService.UpdateHelpTextBlock(SystemHelpTextBlock, systemName);
     }
 
     /// <summary>
@@ -630,7 +630,7 @@ public partial class EditSystemWindow : Window
     /// </summary>
     private void ClearSystemHelp()
     {
-        SystemHelpMarkdownViewer.Markdown = string.Empty;
+        SystemHelpTextBlock.Inlines?.Clear();
     }
 
     private void SystemNameTextBox_LostFocus(object? sender, RoutedEventArgs e)

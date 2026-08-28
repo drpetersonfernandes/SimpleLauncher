@@ -62,13 +62,14 @@
 
         <!-- Row 1: form (left) + splitter + System Help (right) — WPF EditSystemWindow 3-column parity -->
         <Grid Grid.Row="1" ColumnDefinitions="1.5*,5,*">
-            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Padding="16,12">
-                <StackPanel>
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Padding="16,12"
+                          HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <StackPanel HorizontalAlignment="Stretch">
                 <!-- ═══ SYSTEM ═══ -->
                 <Border Background="{DynamicResource BgSecondaryBrush}"
                         BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1"
                         CornerRadius="6" Padding="16" Margin="0,0,0,14">
-                    <StackPanel>
+                    <StackPanel HorizontalAlignment="Stretch">
                         <TextBlock Text="{ext:Translate RedreamConfig_System_Header}" FontWeight="SemiBold" FontSize="14"
                                    Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12" />
 
@@ -88,6 +89,7 @@
                                            FontSize="11" Foreground="{DynamicResource TextMutedBrush}"
                                            TextWrapping="Wrap" MaxWidth="260" Margin="0,4,0,8" />
                                 <Button Content="{ext:Translate EditSystemWindow_Choose_Image}" Classes="secondary" Padding="12,6"
+                                        ToolTip.Tip="{ext:Translate TooltipChooseSystemImage}"
                                         Click="ChooseSystemImageButton_ClickAsync" />
                             </StackPanel>
                         </StackPanel>
@@ -110,8 +112,9 @@
                                      Background="{DynamicResource BgTertiaryBrush}"
                                      Foreground="{DynamicResource TextPrimaryBrush}"
                                      BorderBrush="{DynamicResource BorderNormalBrush}" />
-                            <Button Grid.Column="1" Content="..." Width="40" Height="40" Margin="6,0,0,0"
+                            <Button Grid.Column="1" Content="{ext:Translate SetSystemFolder}" MinWidth="110" Height="40" Padding="12,6" Margin="6,0,0,0"
                                     Classes="secondary"
+                                    ToolTip.Tip="{ext:Translate TooltipChooseSystemFolder}"
                                     Click="ChooseSystemFolder" />
                         </Grid>
 
@@ -141,8 +144,9 @@
                                      Background="{DynamicResource BgTertiaryBrush}"
                                      Foreground="{DynamicResource TextPrimaryBrush}"
                                      BorderBrush="{DynamicResource BorderNormalBrush}" />
-                            <Button Grid.Column="1" Content="..." Width="40" Height="40" Margin="6,0,0,0"
+                            <Button Grid.Column="1" Content="{ext:Translate SetSystemImageFolder}" MinWidth="130" Height="40" Padding="12,6" Margin="6,0,0,0"
                                     Classes="secondary"
+                                    ToolTip.Tip="{ext:Translate TooltipChooseSystemImageFolder2}"
                                     Click="ChooseSystemImageFolder" />
                         </Grid>
 
@@ -209,14 +213,15 @@
                 <Border Background="{DynamicResource BgSecondaryBrush}"
                         BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1"
                         CornerRadius="6" Padding="16" Margin="0,0,0,14">
-                    <StackPanel>
+                    <StackPanel HorizontalAlignment="Stretch">
                         <TextBlock Text="{ext:Translate Preferences.Emulators}" FontWeight="SemiBold" FontSize="14"
                                    Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12" />
 
                         <Expander x:Name="Emulator1Expander" Header="{ext:Translate Emulator1}" IsExpanded="True"
-                                  Foreground="{DynamicResource TextPrimaryBrush}">
-                            <StackPanel Margin="0,8,0,0">
-                                <Grid ColumnDefinitions="*,*">
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                            <StackPanel Margin="0,8,0,0" HorizontalAlignment="Stretch">
+                                <Grid ColumnDefinitions="*,*" HorizontalAlignment="Stretch">
                                     <StackPanel Margin="0,0,8,0">
                                         <TextBlock Text="{ext:Translate Name}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator1NameTextBox" Height="40" Margin="0,4,0,8"
@@ -241,8 +246,9 @@
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="..." Width="36" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate SetEmulator1Path}" MinWidth="130" Height="40" Padding="12,6" Margin="6,0,0,0"
                                             Classes="secondary"
+                                            ToolTip.Tip="{ext:Translate TooltipChooseEmulator1Path}"
                                             Click="ChooseEmulator1Path" />
                                 </Grid>
                                 <TextBlock Text="{ext:Translate EditSystemWindow_Parameters}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
@@ -251,17 +257,19 @@
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="{ext:Translate EditSystemWindow_Suggest}" Width="90" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate SuggestParameters}" MinWidth="90" Height="40" Padding="12,6" Margin="6,0,0,0"
                                             Classes="secondary"
+                                            ToolTip.Tip="{ext:Translate TooltipSuggestParameters}"
                                             Click="SuggestEmulator1Parameters_ClickAsync" />
                                 </Grid>
                             </StackPanel>
                         </Expander>
 
                         <Expander x:Name="Emulator2Expander" Header="{ext:Translate Emulator2}"
-                                  Foreground="{DynamicResource TextPrimaryBrush}">
-                            <StackPanel Margin="0,8,0,0">
-                                <Grid ColumnDefinitions="*,*">
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                            <StackPanel Margin="0,8,0,0" HorizontalAlignment="Stretch">
+                                <Grid ColumnDefinitions="*,*" HorizontalAlignment="Stretch">
                                     <StackPanel Margin="0,0,8,0">
                                         <TextBlock Text="{ext:Translate Name}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator2NameTextBox" Height="40" Margin="0,4,0,8"
@@ -286,8 +294,9 @@
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="..." Width="36" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate SetEmulator2Path}" MinWidth="130" Height="40" Padding="12,6" Margin="6,0,0,0"
                                             Classes="secondary"
+                                            ToolTip.Tip="{ext:Translate TooltipChooseEmulator2Path}"
                                             Click="ChooseEmulator2Path" />
                                 </Grid>
                                 <TextBlock Text="{ext:Translate EditSystemWindow_Parameters}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
@@ -296,17 +305,19 @@
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="{ext:Translate EditSystemWindow_Suggest}" Width="90" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate SuggestParameters}" MinWidth="90" Height="40" Padding="12,6" Margin="6,0,0,0"
                                             Classes="secondary"
+                                            ToolTip.Tip="{ext:Translate TooltipSuggestParameters}"
                                             Click="SuggestEmulator2Parameters_ClickAsync" />
                                 </Grid>
                             </StackPanel>
                         </Expander>
 
                         <Expander x:Name="Emulator3Expander" Header="{ext:Translate Emulator3}"
-                                  Foreground="{DynamicResource TextPrimaryBrush}">
-                            <StackPanel Margin="0,8,0,0">
-                                <Grid ColumnDefinitions="*,*">
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                            <StackPanel Margin="0,8,0,0" HorizontalAlignment="Stretch">
+                                <Grid ColumnDefinitions="*,*" HorizontalAlignment="Stretch">
                                     <StackPanel Margin="0,0,8,0">
                                         <TextBlock Text="{ext:Translate Name}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator3NameTextBox" Height="40" Margin="0,4,0,8"
@@ -331,8 +342,9 @@
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="..." Width="36" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate SetEmulator3Path}" MinWidth="130" Height="40" Padding="12,6" Margin="6,0,0,0"
                                             Classes="secondary"
+                                            ToolTip.Tip="{ext:Translate TooltipChooseEmulator3Path}"
                                             Click="ChooseEmulator3Path" />
                                 </Grid>
                                 <TextBlock Text="{ext:Translate EditSystemWindow_Parameters}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
@@ -341,17 +353,19 @@
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="{ext:Translate EditSystemWindow_Suggest}" Width="90" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate SuggestParameters}" MinWidth="90" Height="40" Padding="12,6" Margin="6,0,0,0"
                                             Classes="secondary"
+                                            ToolTip.Tip="{ext:Translate TooltipSuggestParameters}"
                                             Click="SuggestEmulator3Parameters_ClickAsync" />
                                 </Grid>
                             </StackPanel>
                         </Expander>
 
                         <Expander x:Name="Emulator4Expander" Header="{ext:Translate Emulator4}"
-                                  Foreground="{DynamicResource TextPrimaryBrush}">
-                            <StackPanel Margin="0,8,0,0">
-                                <Grid ColumnDefinitions="*,*">
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                            <StackPanel Margin="0,8,0,0" HorizontalAlignment="Stretch">
+                                <Grid ColumnDefinitions="*,*" HorizontalAlignment="Stretch">
                                     <StackPanel Margin="0,0,8,0">
                                         <TextBlock Text="{ext:Translate Name}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator4NameTextBox" Height="40" Margin="0,4,0,8"
@@ -376,8 +390,9 @@
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="..." Width="36" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate SetEmulator4Path}" MinWidth="130" Height="40" Padding="12,6" Margin="6,0,0,0"
                                             Classes="secondary"
+                                            ToolTip.Tip="{ext:Translate TooltipChooseEmulator4Path}"
                                             Click="ChooseEmulator4Path" />
                                 </Grid>
                                 <TextBlock Text="{ext:Translate EditSystemWindow_Parameters}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
@@ -386,17 +401,19 @@
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="{ext:Translate EditSystemWindow_Suggest}" Width="90" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate SuggestParameters}" MinWidth="90" Height="40" Padding="12,6" Margin="6,0,0,0"
                                             Classes="secondary"
+                                            ToolTip.Tip="{ext:Translate TooltipSuggestParameters}"
                                             Click="SuggestEmulator4Parameters_ClickAsync" />
                                 </Grid>
                             </StackPanel>
                         </Expander>
 
                         <Expander x:Name="Emulator5Expander" Header="{ext:Translate Emulator5}"
-                                  Foreground="{DynamicResource TextPrimaryBrush}">
-                            <StackPanel Margin="0,8,0,0">
-                                <Grid ColumnDefinitions="*,*">
+                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                   HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                            <StackPanel Margin="0,8,0,0" HorizontalAlignment="Stretch">
+                                <Grid ColumnDefinitions="*,*" HorizontalAlignment="Stretch">
                                     <StackPanel Margin="0,0,8,0">
                                         <TextBlock Text="{ext:Translate Name}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator5NameTextBox" Height="40" Margin="0,4,0,8"
@@ -421,8 +438,9 @@
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="..." Width="36" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate SetEmulator5Path}" MinWidth="130" Height="40" Padding="12,6" Margin="6,0,0,0"
                                             Classes="secondary"
+                                            ToolTip.Tip="{ext:Translate TooltipChooseEmulator5Path}"
                                             Click="ChooseEmulator5Path" />
                                 </Grid>
                                 <TextBlock Text="{ext:Translate EditSystemWindow_Parameters}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
@@ -431,8 +449,9 @@
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="{ext:Translate EditSystemWindow_Suggest}" Width="90" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate SuggestParameters}" MinWidth="90" Height="40" Padding="12,6" Margin="6,0,0,0"
                                             Classes="secondary"
+                                            ToolTip.Tip="{ext:Translate TooltipSuggestParameters}"
                                             Click="SuggestEmulator5Parameters_ClickAsync" />
                                 </Grid>
                             </StackPanel>
@@ -457,14 +476,16 @@
                            FontWeight="Bold"
                            FontSize="14"
                            Foreground="{DynamicResource TextPrimaryBrush}" />
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                    <Border Background="{DynamicResource BgSecondaryBrush}"
-                            BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1"
-                            CornerRadius="6" Padding="10">
-                        <md:MarkdownScrollViewer x:Name="SystemHelpMarkdownViewer"
-                                                 doc:TextElement.Foreground="{DynamicResource TextPrimaryBrush}" />
-                    </Border>
-                </ScrollViewer>
+                <Border Grid.Row="1" Background="{DynamicResource BgSecondaryBrush}"
+                        BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1"
+                        CornerRadius="6" Padding="10">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <SelectableTextBlock x:Name="SystemHelpTextBlock"
+                                             TextWrapping="Wrap"
+                                             Foreground="{DynamicResource TextPrimaryBrush}"
+                                             FontSize="12" />
+                    </ScrollViewer>
+                </Border>
             </Grid>
         </Grid>
 

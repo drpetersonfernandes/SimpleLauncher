@@ -1,3 +1,9 @@
+using System.Text.RegularExpressions;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.Documents;
+using Avalonia.Layout;
+using Avalonia.Media;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.HelpUser;
 
@@ -326,6 +332,11 @@ public class AvaloniaHelpUserService
         }
     }
 
+    private static readonly Regex HeadingRegex = new(@"^##\s*(.*?)$", RegexOptions.Multiline | RegexOptions.Compiled, TimeSpan.FromMilliseconds(1000));
+    private static readonly Regex BoldRegex = new(@"\*\*(.*?)\*\*", RegexOptions.Compiled, TimeSpan.FromMilliseconds(1000));
+    private static readonly Regex MarkdownLinkRegex = new(@"\[(?<text>[^\]]+?)\]\((?<url>https?://\S+?)\)", RegexOptions.Compiled, TimeSpan.FromMilliseconds(1000));
+    private static readonly Regex RawUrlRegex = new(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled, TimeSpan.FromMilliseconds(1000));
+
     /// <summary>
     /// Gets the help text for the given system name (alias-aware), falling back to
     /// a message when no information is available for the system.
@@ -340,8 +351,157 @@ public class AvaloniaHelpUserService
         }
 
         var canonicalName = AliasToCanonicalName.GetValueOrDefault(systemName, systemName);
-        // parameters.md uses <br> tags; strip them like the WPF renderer does
-        return GetSystemDetails(canonicalName).Replace("<br>", string.Empty);
+        // parameters.md uses <br> tags; strip them like the WPF renderer does and convert
+        // "## Heading" to "**Heading**" so Markdown.Avalonia renders it as bold like WPF's
+        // FlowDocument (WPF HeadingRegex -> **bold**). Keeps **bold**, [text](url) and raw URLs intact.
+        var text = GetSystemDetails(canonicalName).Replace("<br>", string.Empty, StringComparison.Ordinal);
+        text = HeadingRegex.Replace(text, static m => $"**{m.Groups[1].Value.Trim()}**");
+        return text;
+    }
+
+    /// <summary>
+    /// Updates a <see cref="SelectableTextBlock"/> with WPF-parity formatted help text.
+    /// Uses the same regex pipeline as WPF HelpUserService.SetTextWithMarkdownInternal:
+    /// headings→bold, **bold**, [text](url) links, and raw URLs become clickable hyperlinks.
+    /// </summary>
+    public void UpdateHelpTextBlock(SelectableTextBlock textBlock, string systemName)
+    {
+        var text = GetHelpText(systemName);
+        SetTextWithMarkdown(textBlock, text);
+    }
+
+    private static void SetTextWithMarkdown(SelectableTextBlock textBlock, string text)
+    {
+        if (textBlock.Inlines == null)
+        {
+            textBlock.Inlines = new InlineCollection();
+        }
+        else
+        {
+            textBlock.Inlines.Clear();
+        }
+
+        textBlock.TextWrapping = TextWrapping.Wrap;
+
+        // WPF parity: strip <br> already done in GetHelpText, but keep for direct calls
+        text = text.Replace("<br>", string.Empty, StringComparison.Ordinal);
+        text = HeadingRegex.Replace(text, static m => $"**{m.Groups[1].Value.Trim()}**");
+
+        var matches = new List<(Match Match, string Type)>();
+        foreach (Match m in BoldRegex.Matches(text))
+        {
+            matches.Add((m, "bold"));
+        }
+
+        foreach (Match m in MarkdownLinkRegex.Matches(text))
+        {
+            matches.Add((m, "markdownLink"));
+        }
+
+        matches.Sort(static (a, b) => a.Match.Index.CompareTo(b.Match.Index));
+
+        var inlines = textBlock.Inlines;
+        var lastIndex = 0;
+
+        foreach (var (match, type) in matches)
+        {
+            if (match.Index > lastIndex)
+            {
+                var plain = text.Substring(lastIndex, match.Index - lastIndex);
+                AddRawUrlsToInlines(inlines, plain);
+            }
+
+            if (type == "bold")
+            {
+                var bold = new Bold();
+                bold.Inlines.Add(new Run(match.Groups[1].Value));
+                inlines.Add(bold);
+            }
+            else if (type == "markdownLink")
+            {
+                var linkText = match.Groups["text"].Value;
+                var url = match.Groups["url"].Value;
+                inlines.Add(CreateHyperlinkInline(linkText, url));
+            }
+
+            lastIndex = match.Index + match.Length;
+        }
+
+        if (lastIndex < text.Length)
+        {
+            var remaining = text.Substring(lastIndex);
+            AddRawUrlsToInlines(inlines, remaining);
+        }
+    }
+
+    private static void AddRawUrlsToInlines(InlineCollection inlines, string text)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return;
+        }
+
+        // Preserve line breaks like WPF's FlowDocument: split on \n and insert LineBreak between lines
+        var lines = text.Split('\n');
+        for (var lineIdx = 0; lineIdx < lines.Length; lineIdx++)
+        {
+            var line = lines[lineIdx];
+            if (lineIdx > 0)
+            {
+                inlines.Add(new LineBreak());
+            }
+
+            if (string.IsNullOrEmpty(line))
+            {
+                continue;
+            }
+
+            var parts = RawUrlRegex.Split(line);
+            var matches = RawUrlRegex.Matches(line);
+            var matchIndex = 0;
+
+            foreach (var part in parts)
+            {
+                if (!string.IsNullOrEmpty(part))
+                {
+                    inlines.Add(new Run(part));
+                }
+
+                if (matchIndex < matches.Count)
+                {
+                    var rawUrl = matches[matchIndex].Value;
+                    var navigateUrl = rawUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? rawUrl : "http://" + rawUrl;
+                    inlines.Add(CreateHyperlinkInline(rawUrl, navigateUrl));
+                    matchIndex++;
+                }
+            }
+        }
+    }
+
+    private static Inline CreateHyperlinkInline(string linkText, string url)
+    {
+        if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
+        {
+            return new Run(linkText);
+        }
+
+        var linkButton = new HyperlinkButton
+        {
+            Content = linkText,
+            NavigateUri = uri,
+            Padding = new Thickness(0),
+            Margin = new Thickness(0),
+            Background = Brushes.Transparent,
+            BorderThickness = new Thickness(0),
+            Foreground = new SolidColorBrush(Color.Parse("#4FC3F7")),
+            FontSize = 12,
+            VerticalAlignment = VerticalAlignment.Center,
+        };
+
+        // Remove default button chrome for inline appearance
+        linkButton.Classes.Add("hyperlink");
+
+        return new InlineUIContainer(linkButton);
     }
 
     /// <summary>
