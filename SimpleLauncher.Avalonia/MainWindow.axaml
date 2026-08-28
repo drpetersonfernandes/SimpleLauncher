@@ -50,7 +50,13 @@
                     <MenuItem x:Name="LanguageChineseSimplified" GroupName="LanguageGroup" Header="简体中文" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
                 </MenuItem>
                 <MenuItem Header="{ext:Translate Theme}" ToolTip.Tip="{ext:Translate TooltipThemeMenu}">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/theme.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
                     <MenuItem x:Name="BaseThemeMenu" Header="{ext:Translate BaseTheme}">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/darkmode.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
                         <MenuItem x:Name="ThemeLight" GroupName="BaseThemeGroup" Header="{ext:Translate Light}" Tag="Light" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipBaseThemeMenu}" />
                         <MenuItem x:Name="ThemeDark" GroupName="BaseThemeGroup" Header="{ext:Translate Dark}" Tag="Dark" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipBaseThemeMenu}" />
                         <MenuItem x:Name="ThemeAdaptive" GroupName="BaseThemeGroup" Header="{ext:Translate Adaptive}" Tag="Adaptive" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipAdaptiveMenu}" />
@@ -58,6 +64,9 @@
                         <MenuItem x:Name="ThemeMidnight" GroupName="BaseThemeGroup" Header="{ext:Translate Midnight}" Tag="Midnight" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipMidnightMenu}" />
                     </MenuItem>
                     <MenuItem x:Name="AccentColorMenu" Header="{ext:Translate AccentColors}" ToolTip.Tip="{ext:Translate TooltipAccentColorsMenu}">
+                        <MenuItem.Icon>
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/theme.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
                         <!-- Accent color items are populated at runtime from AvaloniaThemeService.AccentColorNames -->
                     </MenuItem>
                 </MenuItem>
@@ -65,47 +74,47 @@
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/buttonsize.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="{ext:Translate 50pixels}" Tag="50" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 100pixels}" Tag="100" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 150pixels}" Tag="150" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 200pixels}" Tag="200" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 250pixels}" Tag="250" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 300pixels}" Tag="300" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 350pixels}" Tag="350" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 400pixels}" Tag="400" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 450pixels}" Tag="450" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 500pixels}" Tag="500" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 550pixels}" Tag="550" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 600pixels}" Tag="600" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 650pixels}" Tag="650" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 700pixels}" Tag="700" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 750pixels}" Tag="750" Click="ButtonSizeClickAsync" />
-                    <MenuItem Header="{ext:Translate 800pixels}" Tag="800" Click="ButtonSizeClickAsync" />
+                    <MenuItem Header="{ext:Translate 50pixels}" Tag="50" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 100pixels}" Tag="100" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 150pixels}" Tag="150" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 200pixels}" Tag="200" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 250pixels}" Tag="250" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 300pixels}" Tag="300" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 350pixels}" Tag="350" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 400pixels}" Tag="400" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 450pixels}" Tag="450" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 500pixels}" Tag="500" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 550pixels}" Tag="550" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 600pixels}" Tag="600" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 650pixels}" Tag="650" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 700pixels}" Tag="700" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 750pixels}" Tag="750" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 800pixels}" Tag="800" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
                 </MenuItem>
                 <MenuItem x:Name="AspectRatioMenu" Header="{ext:Translate SetButtonAspectRatio}" ToolTip.Tip="{ext:Translate TooltipAspectRatioMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/aspectratio.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="Square" Header="{ext:Translate Square}" Click="ButtonAspectRatioClickAsync" />
-                    <MenuItem x:Name="Wider" Header="{ext:Translate Wider}" Click="ButtonAspectRatioClickAsync" />
-                    <MenuItem x:Name="SuperWider" Header="{ext:Translate SuperWider}" Click="ButtonAspectRatioClickAsync" />
-                    <MenuItem x:Name="SuperWider2" Header="{ext:Translate SuperWider2}" Click="ButtonAspectRatioClickAsync" />
-                    <MenuItem x:Name="Taller" Header="{ext:Translate Taller}" Click="ButtonAspectRatioClickAsync" />
-                    <MenuItem x:Name="SuperTaller" Header="{ext:Translate SuperTaller}" Click="ButtonAspectRatioClickAsync" />
-                    <MenuItem x:Name="SuperTaller2" Header="{ext:Translate SuperTaller2}" Click="ButtonAspectRatioClickAsync" />
+                    <MenuItem x:Name="Square" Header="{ext:Translate Square}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="Wider" Header="{ext:Translate Wider}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="SuperWider" Header="{ext:Translate SuperWider}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="SuperWider2" Header="{ext:Translate SuperWider2}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="Taller" Header="{ext:Translate Taller}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="SuperTaller" Header="{ext:Translate SuperTaller}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="SuperTaller2" Header="{ext:Translate SuperTaller2}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
                 </MenuItem>
                 <MenuItem x:Name="GamesPerPageMenu" Header="{ext:Translate SetNumberOfGamesPerPage}" ToolTip.Tip="{ext:Translate TooltipGamesPerPageMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/setnumber.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="{ext:Translate 100games}" Tag="100" Click="GamesPerPageClickAsync" />
-                    <MenuItem Header="{ext:Translate 200games}" Tag="200" Click="GamesPerPageClickAsync" />
-                    <MenuItem Header="{ext:Translate 300games}" Tag="300" Click="GamesPerPageClickAsync" />
-                    <MenuItem Header="{ext:Translate 400games}" Tag="400" Click="GamesPerPageClickAsync" />
-                    <MenuItem Header="{ext:Translate 500games}" Tag="500" Click="GamesPerPageClickAsync" />
-                    <MenuItem Header="{ext:Translate 1000games}" Tag="1000" Click="GamesPerPageClickAsync" />
-                    <MenuItem Header="{ext:Translate 10000games}" Tag="10000" Click="GamesPerPageClickAsync" />
-                    <MenuItem Header="{ext:Translate 1000000games}" Tag="1000000" Click="GamesPerPageClickAsync" />
+                    <MenuItem Header="{ext:Translate 100games}" Tag="100" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 200games}" Tag="200" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 300games}" Tag="300" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 400games}" Tag="400" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 500games}" Tag="500" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 1000games}" Tag="1000" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 10000games}" Tag="10000" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 1000000games}" Tag="1000000" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
                 </MenuItem>
                 <MenuItem Header="{ext:Translate ViewMode}" ToolTip.Tip="{ext:Translate TooltipViewModeMenu}">
                     <MenuItem.Icon>

@@ -50,18 +50,31 @@ public class AvaloniaMenuCheckMarkService
 
     /// <summary>
     /// Updates the filename display mode check marks (Original / CleanUp / NoFilename).
+    /// WPF stores "Original"/"CleanUp"/"NoFilename" while the Avalonia menu items are named
+    /// "FilenameDisplayOriginal" etc., so the check must map the value to the prefixed name
+    /// (mirrors WPF MenuCheckMarkService.UpdateFilenameDisplayModeCheckMarks).
     /// </summary>
     public void UpdateFilenameDisplayModeCheckMarks(IEnumerable<MenuItem> menuItems, string? selectedValue)
     {
-        UpdateCheckedByName(menuItems, selectedValue);
+        var targetName = selectedValue is null ? null : "FilenameDisplay" + selectedValue;
+        foreach (var item in menuItems)
+        {
+            item.IsChecked = string.Equals(item.Name, targetName, StringComparison.Ordinal);
+        }
     }
 
     /// <summary>
     /// Updates the filename font size check marks (Small / Normal / Big).
+    /// WPF value is "Small"/"Normal"/"Big" while the Avalonia items are named
+    /// "FilenameFontSizeSmall" etc., so map to the prefixed name.
     /// </summary>
     public void UpdateFilenameFontSizeCheckMarks(IEnumerable<MenuItem> menuItems, string? selectedValue)
     {
-        UpdateCheckedByName(menuItems, selectedValue);
+        var targetName = selectedValue is null ? null : "FilenameFontSize" + selectedValue;
+        foreach (var item in menuItems)
+        {
+            item.IsChecked = string.Equals(item.Name, targetName, StringComparison.Ordinal);
+        }
     }
 
     /// <summary>
@@ -69,7 +82,11 @@ public class AvaloniaMenuCheckMarkService
     /// </summary>
     public void UpdateMachineNameFontSizeCheckMarks(IEnumerable<MenuItem> menuItems, string? selectedValue)
     {
-        UpdateCheckedByName(menuItems, selectedValue);
+        var targetName = selectedValue is null ? null : "MachineNameFontSize" + selectedValue;
+        foreach (var item in menuItems)
+        {
+            item.IsChecked = string.Equals(item.Name, targetName, StringComparison.Ordinal);
+        }
     }
 
     /// <summary>
