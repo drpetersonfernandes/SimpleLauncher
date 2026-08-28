@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.GameDetailWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Game Details"
         Width="500" Height="450"
@@ -18,7 +19,7 @@
                 <Border Grid.Column="0" CornerRadius="4" ClipToBounds="True"
                         Width="120" Height="168" Background="{DynamicResource BgTertiaryBrush}"
                         Cursor="Hand"
-                        ToolTip.Tip="Click to view full size"
+                        ToolTip.Tip="{ext:Translate ClickToViewFullSize}"
                         PointerPressed="CoverImage_PointerPressed">
                     <Image x:Name="CoverImage"
                            Source="{Binding CoverPath, Converter={StaticResource PathToImage}}"
@@ -44,14 +45,14 @@
                                TextTrimming="CharacterEllipsis"
                                ToolTip.Tip="{Binding FilePath}" />
                     <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
-                        <TextBlock Text="Played: " Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                        <TextBlock Text="{ext:Translate GameDetailWindow_Played}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
                         <TextBlock Text="{Binding PlayCount}" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="12" FontWeight="SemiBold" />
-                        <TextBlock Text=" times" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                        <TextBlock Text="{ext:Translate GameDetailWindow_times}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
                     </StackPanel>
                     <TextBlock x:Name="LastPlayedText"
                                Foreground="{DynamicResource TextMutedBrush}"
                                FontSize="11" Margin="0,2,0,0">
-                        <Run Text="Last played: " />
+                        <Run Text="{ext:Translate GameDetailWindow_Last_played}" />
                         <Run Text="{Binding LastPlayed}" />
                     </TextBlock>
                 </StackPanel>
@@ -62,12 +63,12 @@
         <Border Grid.Row="1" Background="{DynamicResource BgSecondaryBrush}"
                 CornerRadius="6" Padding="14" Margin="0,12,0,0">
             <Grid RowDefinitions="Auto,*">
-                <TextBlock Text="Description"
+                <TextBlock Text="{ext:Translate HeaderDescription}"
                            Foreground="{DynamicResource TextMutedBrush}"
                            FontSize="11" FontWeight="SemiBold" Margin="0,0,0,8" />
                 <TextBlock Grid.Row="1"
                            x:Name="DescriptionBlock"
-                           Text="No additional information available for this game."
+                           Text="{ext:Translate GameDetailWindow_No_additional_information_available_for_}"
                            Foreground="{DynamicResource TextSecondaryBrush}"
                            FontSize="13" TextWrapping="Wrap"
                            VerticalAlignment="Top" />
@@ -78,17 +79,17 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right"
                     Margin="0,16,0,0">
             <Button x:Name="RemoveButton"
-                    Content="Remove"
+                    Content="{ext:Translate Remove}"
                     Classes="secondary"
                     Padding="14,8" Margin="0,0,8,0"
                     Click="RemoveButton_Click" />
             <Button x:Name="FavoriteButton"
-                    Content="♡ Favorite"
+                    Content="{ext:Translate GameDetailWindow_Favorite}"
                     Classes="secondary"
                     Padding="14,8" Margin="0,0,8,0"
                     Click="FavoriteButton_Click" />
             <Button x:Name="PlayButton"
-                    Content="▶ Play"
+                    Content="{ext:Translate GameDetailWindow_Play}"
                     Classes="primary"
                     Padding="20,8"
                     Click="PlayButton_Click" />

@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectRedreamConfigWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Redream Configuration"
         Height="850" Width="700"
@@ -11,66 +12,66 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Video Section -->
-                <GroupBox Header="Video" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate StellaConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="Cable:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RedreamConfig_Cable_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding CableOptions}"
                                       SelectedItem="{Binding RedreamCable}"
-                                      ToolTip.Tip="Video cable type." />
+                                      ToolTip.Tip="{ext:Translate RedreamConfig_Cable_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="Broadcast:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RedreamConfig_Broadcast_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding BroadcastOptions}"
                                       SelectedItem="{Binding RedreamBroadcast}"
-                                      ToolTip.Tip="Video broadcast standard." />
+                                      ToolTip.Tip="{ext:Translate RedreamConfig_Broadcast_Tooltip}" />
                         </Grid>
                         <CheckBox IsChecked="{Binding RedreamVsync}"
-                                  Content="Vertical Sync"
+                                  Content="{ext:Translate RedreamConfig_Vertical_Sync}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enable vertical sync." />
+                                  ToolTip.Tip="{ext:Translate RedreamConfig_Vertical_Sync_Tooltip}" />
                         <CheckBox IsChecked="{Binding RedreamFrameskip}"
-                                  Content="Frame Skip"
+                                  Content="{ext:Translate RedreamConfig_Frame_Skip}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enable frame skip." />
+                                  ToolTip.Tip="{ext:Translate RedreamConfig_Frame_Skip_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Aspect Ratio:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_AspectRatio_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AspectOptions}"
                                       SelectedItem="{Binding RedreamAspect}"
-                                      ToolTip.Tip="Screen aspect ratio." />
+                                      ToolTip.Tip="{ext:Translate RedreamConfig_Aspect_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Resolution Scale:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_ResolutionScale_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ResOptions}"
                                       SelectedItem="{Binding RedreamRes}"
-                                      ToolTip.Tip="Internal resolution scaling factor (e.g., 2 for 2x)." />
+                                      ToolTip.Tip="{ext:Translate RedreamConfig_ResolutionScale_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Renderer:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_Renderer_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding RendererOptions}"
                                       SelectedItem="{Binding RedreamRenderer}"
-                                      ToolTip.Tip="Graphics renderer to use." />
+                                      ToolTip.Tip="{ext:Translate RedreamConfig_Renderer_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Fullscreen Mode:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RedreamConfig_FullscreenMode_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding FullmodeOptions}"
                                       SelectedItem="{Binding RedreamFullmode}"
-                                      ToolTip.Tip="How the game is displayed in fullscreen." />
+                                      ToolTip.Tip="{ext:Translate RedreamConfig_FullscreenMode_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- System Section -->
-                <GroupBox Header="System" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate RedreamConfig_System_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Volume" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RedreamConfig_Volume}" Classes="form-label" />
                             <DockPanel Grid.Column="1">
                                 <TextBlock Text="{Binding ElementName=SldVolume, Path=Value, StringFormat={}{0}%}"
                                            Width="40" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5,0,0,0" />
@@ -81,10 +82,10 @@
                             </DockPanel>
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Latency (ms)" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RedreamConfig_Latency_ms}" Classes="form-label" />
                             <ComboBox Grid.Column="1" IsEditable="True"
                                       Text="{Binding RedreamLatency}"
-                                      ToolTip.Tip="Set the audio latency.">
+                                      ToolTip.Tip="{ext:Translate RedreamConfig_Latency_Tooltip}">
                                 <ComboBoxItem Content="8" />
                                 <ComboBoxItem Content="16" />
                                 <ComboBoxItem Content="32" />
@@ -93,22 +94,22 @@
                             </ComboBox>
                         </Grid>
                         <CheckBox IsChecked="{Binding RedreamFramerate}"
-                                  Content="Frame Rate Counter"
+                                  Content="{ext:Translate RedreamConfig_Frame_Rate_Counter}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Show the frame rate counter." />
+                                  ToolTip.Tip="{ext:Translate RedreamConfig_Frame_Rate_Counter_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Language:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RedreamConfig_Language_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding LanguageOptions}"
                                       SelectedItem="{Binding RedreamLanguage}"
-                                      ToolTip.Tip="System language." />
+                                      ToolTip.Tip="{ext:Translate RedreamConfig_Language_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Region:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RedreamConfig_Region_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding RegionOptions}"
                                       SelectedItem="{Binding RedreamRegion}"
-                                      ToolTip.Tip="System region." />
+                                      ToolTip.Tip="{ext:Translate RedreamConfig_Region_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -116,10 +117,10 @@
                 <!-- CRITICAL SETTING -->
                 <Border Classes="important-setting">
                     <StackPanel>
-                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding RedreamShowSettingsBeforeLaunch}"
-                                  Content="Show this window before launching a game"
-                                  ToolTip.Tip="Show this window before launching a game." />
+                                  Content="{ext:Translate SupermodelConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -128,20 +129,20 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave"
-                    Content="Save"
+                    Content="{ext:Translate YumirConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="Save the configuration and close this window." />
-            <Button Content="Save &amp; Run"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="Save the configuration and run the game." />
-            <Button Content="Cancel"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="Cancel and close this window without saving changes." />
+                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

@@ -1,7 +1,6 @@
 using System.Reflection;
-using System.Runtime.Serialization;
+using System.Runtime.CompilerServices;
 using Avalonia.Controls;
-using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using SimpleLauncher.Avalonia.InjectConfigWindows;
 
@@ -24,10 +23,13 @@ public class AvaloniaViewSmokeTests
         if (type.IsValueType) return Activator.CreateInstance(type)!;
 
         // Special-case services that require real initialization for window ctor to succeed
-        if (type == typeof(SimpleLauncher.Avalonia.Services.LocalizationService))
+        if (type == typeof(Services.LocalizationService))
         {
-            try { return new SimpleLauncher.Avalonia.Services.LocalizationService(); }
-            catch { }
+            try { return new Services.LocalizationService(); }
+            catch
+            {
+                // ignored
+            }
         }
 
         // Interface / abstract -> Moq (use base Mock to avoid ambiguous Object property)
@@ -35,19 +37,19 @@ public class AvaloniaViewSmokeTests
         {
             var mockType = typeof(Mock<>).MakeGenericType(type);
             var mock = (Mock)Activator.CreateInstance(mockType)!;
-            return mock.Object!;
+            return mock.Object;
         }
 
         // For concrete types: try uninitialized object (no ctor), fallback to Mock
         try
         {
-            return FormatterServices.GetUninitializedObject(type);
+            return RuntimeHelpers.GetUninitializedObject(type);
         }
         catch
         {
             var mockType = typeof(Mock<>).MakeGenericType(type);
             var mock = (Mock)Activator.CreateInstance(mockType)!;
-            return mock.Object!;
+            return mock.Object;
         }
     }
 
@@ -56,32 +58,33 @@ public class AvaloniaViewSmokeTests
         var app = global::Avalonia.Application.Current;
         if (app == null) return;
 
-        void AddIfMissing(string key, object value)
-        {
-            if (!app.Resources.ContainsKey(key))
-            {
-                app.Resources[key] = value;
-            }
-        }
-
         // Converters used via {StaticResource ...} in Inject windows and others
-        AddIfMissing("BoolToVisibility", new SimpleLauncher.Avalonia.Converters.BoolToVisibilityConverter());
-        AddIfMissing("InverseBoolToVisibility", new SimpleLauncher.Avalonia.Converters.InverseBoolToVisibilityConverter());
-        AddIfMissing("NullToVisibility", new SimpleLauncher.Avalonia.Converters.NullToVisibilityConverter());
-        AddIfMissing("PathToImage", new SimpleLauncher.Avalonia.Converters.PathToImageConverter());
-        AddIfMissing("SmartTitleCase", new SimpleLauncher.Avalonia.Converters.SmartTitleCaseConverter());
+        AddIfMissing("BoolToVisibility", new Converters.BoolToVisibilityConverter());
+        AddIfMissing("InverseBoolToVisibility", new Converters.InverseBoolToVisibilityConverter());
+        AddIfMissing("NullToVisibility", new Converters.NullToVisibilityConverter());
+        AddIfMissing("PathToImage", new Converters.PathToImageConverter());
+        AddIfMissing("SmartTitleCase", new Converters.SmartTitleCaseConverter());
         // CardHeightConverter requires a SystemArtRatioService; provide a dummy via uninitialized
         try
         {
             if (!app.Resources.ContainsKey("CardHeightConverter"))
             {
-                var converter = (SimpleLauncher.Avalonia.Converters.ConsoleToCardHeightConverter)FormatterServices.GetUninitializedObject(typeof(SimpleLauncher.Avalonia.Converters.ConsoleToCardHeightConverter));
+                var converter = (Converters.ConsoleToCardHeightConverter)RuntimeHelpers.GetUninitializedObject(typeof(Converters.ConsoleToCardHeightConverter));
                 app.Resources["CardHeightConverter"] = converter;
             }
         }
-        catch { }
+        catch
+        {
+            // ignored
+        }
 
-        AddIfMissing("FavoriteStatusConverter", new SimpleLauncher.Avalonia.Converters.BooleanToFavoriteStatusConverter());
+        AddIfMissing("FavoriteStatusConverter", new Converters.BooleanToFavoriteStatusConverter());
+        return;
+
+        void AddIfMissing(string key, object value)
+        {
+            app.Resources.TryAdd(key, value);
+        }
     }
 
     private sealed class FakeSmokeServiceProvider : IServiceProvider
@@ -149,7 +152,7 @@ public class AvaloniaViewSmokeTests
             // Fallback: parameterless via uninitialized + InitializeComponent via ctor-less attempt
             try
             {
-                var win = (Window)FormatterServices.GetUninitializedObject(windowType);
+                var win = (Window)RuntimeHelpers.GetUninitializedObject(windowType);
                 // Try to call InitializeComponent reflectively if present
                 var init = windowType.GetMethod("InitializeComponent", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                 init?.Invoke(win, null);

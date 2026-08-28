@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.SoundConfigurationWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Sound Configuration"
         Width="500" Height="300"
@@ -8,13 +9,13 @@
     <Grid Margin="15" ColumnDefinitions="Auto,*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,*,Auto">
 
         <CheckBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                  Content="Enable notification sound"
+                  Content="{ext:Translate EnableNotificationSound}"
                   Margin="0,0,0,10"
                   IsChecked="{Binding EnableNotificationSound}" />
 
         <TextBlock Grid.Row="1" Grid.Column="0"
                    Classes="form-label"
-                   Text="Notification sound file" />
+                   Text="{ext:Translate SoundConfigurationWindow_Notification_sound_file}" />
         <TextBox Grid.Row="1" Grid.Column="1"
                  IsReadOnly="True"
                  Text="{Binding NotificationSoundFile}"
@@ -22,14 +23,14 @@
                  VerticalAlignment="Center"
                  IsEnabled="{Binding IsSoundControlsEnabled}" />
         <Button Grid.Row="1" Grid.Column="2"
-                Content="Choose File"
+                Content="{ext:Translate ChooseFile}"
                 Command="{Binding ChooseSoundFileCommand}"
                 VerticalAlignment="Center"
                 Width="100"
                 IsEnabled="{Binding IsSoundControlsEnabled}" />
 
         <Button Grid.Row="2" Grid.Column="1"
-                Content="Play Current Sound"
+                Content="{ext:Translate PlayCurrentSound}"
                 Command="{Binding PlayCurrentSoundCommand}"
                 Margin="5,10,5,0"
                 HorizontalAlignment="Left"
@@ -37,7 +38,7 @@
                 IsEnabled="{Binding IsSoundControlsEnabled}" />
 
         <Button Grid.Row="3" Grid.Column="1"
-                Content="Reset to Default"
+                Content="{ext:Translate ResetToDefault}"
                 Command="{Binding ResetToDefaultCommand}"
                 Margin="5,10,5,0"
                 HorizontalAlignment="Left"
@@ -48,12 +49,12 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Classes="primary"
-                    Content="Save"
+                    Content="{ext:Translate YumirConfig_Save_Button}"
                     Command="{Binding SaveCommand}"
                     IsDefault="True"
                     Width="100" Margin="0,0,10,0" />
             <Button Classes="secondary"
-                    Content="Cancel"
+                    Content="{ext:Translate YumirConfig_Cancel_Button}"
                     Command="{Binding CancelCommand}"
                     IsCancel="True"
                     Width="100" />

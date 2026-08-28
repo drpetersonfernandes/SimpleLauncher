@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.SupportWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Support"
         Width="600" Height="450"
@@ -9,18 +10,18 @@
         <Grid x:Name="MainContentGrid" RowDefinitions="Auto,Auto,Auto,*,Auto">
 
             <TextBlock Grid.Row="0" Margin="10,10,10,20"
-                       Text="Use the form below to get support."
+                       Text="{ext:Translate UsetheformbelowToGetSupport}"
                        TextWrapping="Wrap" />
 
             <StackPanel Grid.Row="1" Margin="10,0,10,10" Orientation="Horizontal">
-                <TextBlock Width="95" VerticalAlignment="Center" Text="Name"
+                <TextBlock Width="95" VerticalAlignment="Center" Text="{ext:Translate Name}"
                            Classes="form-label" />
                 <TextBox x:Name="NameTextBox" Width="270"
                          Text="{Binding Name}" />
             </StackPanel>
 
             <StackPanel Grid.Row="2" Margin="10,0,10,20" Orientation="Horizontal">
-                <TextBlock Width="95" VerticalAlignment="Center" Text="Email"
+                <TextBlock Width="95" VerticalAlignment="Center" Text="{ext:Translate Email}"
                            Classes="form-label" />
                 <TextBox x:Name="EmailTextBox" Width="270"
                          Text="{Binding Email}" />
@@ -40,12 +41,12 @@
                 <Button Classes="primary"
                         IsDefault="True"
                         Command="{Binding SendSupportRequestCommand}"
-                        Content="Send Support Request" />
+                        Content="{ext:Translate SendSupportRequest}" />
                 <Button Classes="secondary"
                         IsCancel="True"
                         Margin="10,0,0,0"
                         Command="{Binding CloseCommand}"
-                        Content="Close" />
+                        Content="{ext:Translate Close}" />
             </StackPanel>
         </Grid>
 
@@ -57,13 +58,13 @@
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressBar IsIndeterminate="True" Width="220" />
                 <TextBlock x:Name="LoadingOverlayMessage"
-                           Text="Sending support request..."
+                           Text="{ext:Translate SendingSupportRequest}"
                            Foreground="{DynamicResource TextPrimaryBrush}"
                            FontSize="14"
                            HorizontalAlignment="Center"
                            Margin="0,12,0,0" />
                 <Button x:Name="EmergencyButton"
-                        Content="Cancel" Width="100" Margin="0,16,0,0"
+                        Content="{ext:Translate YumirConfig_Cancel_Button}" Width="100" Margin="0,16,0,0"
                         Classes="secondary"
                         Click="EmergencyOverlayRelease_Click"
                         HorizontalAlignment="Center" />

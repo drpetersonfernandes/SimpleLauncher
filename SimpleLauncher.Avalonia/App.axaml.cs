@@ -28,6 +28,7 @@ using SimpleLauncher.Avalonia.Services.UIReset;
 using SimpleLauncher.Avalonia.Services.GameFilter;
 using SimpleLauncher.Avalonia.Services.UpdateStatusBar;
 using SimpleLauncher.Avalonia.Services.SearchOrchestrator;
+// ReSharper disable once RedundantUsingDirective
 using SimpleLauncher.Avalonia.Views;
 using SimpleLauncher.Avalonia.Services.ContextMenus;
 using SimpleLauncher.Avalonia.Services.DisplaySystemInfo;

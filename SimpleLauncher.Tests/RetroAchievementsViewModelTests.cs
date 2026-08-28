@@ -1,15 +1,12 @@
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.RetroAchievements;
-using SimpleLauncher.Tests.TestHelpers;
 using SimpleLauncher.ViewModels;
 using Xunit;
 
@@ -133,7 +130,7 @@ public class RetroAchievementsViewModelTests
         Mock<IResourceProvider>? resourceProvider = null,
         Mock<IMessageBoxLibraryService>? messageBox = null)
     {
-        var logger = new Mock<Serilog.ILogger>();
+        var logger = new Mock<ILogger>();
         var credProtector = new Mock<ICredentialProtector>();
         credProtector.Setup(p => p.Protect(It.IsAny<string>())).Returns<string>(s => s);
         credProtector.Setup(p => p.Unprotect(It.IsAny<string>())).Returns<string>(s => s);

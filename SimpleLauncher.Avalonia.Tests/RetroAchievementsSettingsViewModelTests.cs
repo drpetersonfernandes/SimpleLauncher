@@ -6,7 +6,6 @@ using Moq;
 using SimpleLauncher.Avalonia.Services.RetroAchievements;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SettingsManager;
 
@@ -131,18 +130,20 @@ public class RetroAchievementsSettingsViewModelTests
         vm.Username = "user";
         vm.Password = "pass";
         configurator.Setup(c => c.ConfigureRetroArch(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
-        vm.RequestExePath = () => Task.FromResult<string?>("C:\\emu\\retroarch.exe");
+        vm.RequestExePath = () => Task.FromResult<string?>(@"C:\emu\retroarch.exe");
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("RetroArch");
 
-        configurator.Verify(c => c.ConfigureRetroArch("C:\\emu\\retroarch.exe", "user", "pass"), Times.Once);
+        configurator.Verify(c => c.ConfigureRetroArch(@"C:\emu\retroarch.exe", "user", "pass"), Times.Once);
         messageBox.Verify(m => m.EmulatorConfiguredSuccessfullyMessageBoxAsync(), Times.Once);
     }
 
     [Fact]
     public async Task ConfigureEmulator_NonRetroArch_MissingToken_FetchesTokenAndSucceeds()
     {
+        // ReSharper disable once NotAccessedVariable
         var callCount = 0;
+        // ReSharper disable once UnusedParameter.Local
         var (vm, settings, messageBox, configurator, _) = CreateVm(req =>
         {
             callCount++;
@@ -151,12 +152,12 @@ public class RetroAchievementsSettingsViewModelTests
         vm.Username = "user";
         vm.Password = "pass";
         configurator.Setup(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
-        vm.RequestExePath = () => Task.FromResult<string?>("C:\\emu\\pcsx2.exe");
+        vm.RequestExePath = () => Task.FromResult<string?>(@"C:\emu\pcsx2.exe");
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("PCSX2");
 
         Assert.Equal("newToken", settings.RaToken);
-        configurator.Verify(c => c.ConfigurePcsx2("C:\\emu\\pcsx2.exe", "user", "newToken"), Times.Once);
+        configurator.Verify(c => c.ConfigurePcsx2(@"C:\emu\pcsx2.exe", "user", "newToken"), Times.Once);
         messageBox.Verify(m => m.EmulatorConfiguredSuccessfullyMessageBoxAsync(), Times.Once);
     }
 
@@ -166,7 +167,7 @@ public class RetroAchievementsSettingsViewModelTests
         var (vm, _, messageBox, _, _) = CreateVm(_ => LoginFailure(), initialToken: "", initialApiKey: "");
         vm.Username = "user";
         vm.Password = "pass";
-        vm.RequestExePath = () => Task.FromResult<string?>("C:\\emu\\pcsx2.exe");
+        vm.RequestExePath = () => Task.FromResult<string?>(@"C:\emu\pcsx2.exe");
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("PCSX2");
 
@@ -186,7 +187,7 @@ public class RetroAchievementsSettingsViewModelTests
         vm.Username = "user";
         vm.Password = "pass";
         configurator.Setup(c => c.ConfigureDuckStation(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
-        vm.RequestExePath = () => Task.FromResult<string?>("C:\\duck\\exe");
+        vm.RequestExePath = () => Task.FromResult<string?>(@"C:\duck\exe");
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("DuckStation");
 

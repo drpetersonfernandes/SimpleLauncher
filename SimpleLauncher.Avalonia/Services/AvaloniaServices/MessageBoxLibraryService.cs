@@ -3,7 +3,6 @@ using System.Text;
 using Avalonia.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.QuitOrReinstall;
 using SimpleLauncher.Avalonia.Views;
 using SimpleLauncher.Core.Interfaces;
@@ -967,7 +966,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     {
         if (O == null) return Task.CompletedTask;
         return ShowAsync(O,
-            $"Please reinstall 'Simple Launcher' manually to fix the issue.\n\nThe application will shutdown.",
+            "Please reinstall 'Simple Launcher' manually to fix the issue.\n\nThe application will shutdown.",
             "Missing Required Files", MessageButtons.Ok, MessageIcon.Error);
     }
 
@@ -1747,7 +1746,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     {
         if (O == null) return Task.CompletedTask;
         return ShowAsync(O,
-            $"The Dokan file system driver (dokan2.dll) is required to mount archives as virtual drives. It does not appear to be installed on this system.\n\nDo you want to open your browser to download Dokan?",
+            "The Dokan file system driver (dokan2.dll) is required to mount archives as virtual drives. It does not appear to be installed on this system.\n\nDo you want to open your browser to download Dokan?",
             "Error", MessageButtons.YesNo, MessageIcon.Question);
     }
 
@@ -1853,7 +1852,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     {
         if (O == null) return Task.CompletedTask;
         return ShowAsync(O,
-            $"The download could not be completed because the temporary file is locked by another process (e.g., antivirus software).\n\nWould you like to open the temporary folder to inspect the file?",
+            "The download could not be completed because the temporary file is locked by another process (e.g., antivirus software).\n\nWould you like to open the temporary folder to inspect the file?",
             "Download Failed", MessageButtons.YesNo, MessageIcon.Question);
     }
 
@@ -1926,7 +1925,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     {
         if (O == null) return Task.CompletedTask;
         return ShowAsync(O,
-            $"No PDF viewer is installed on your system.\n\nPlease install a PDF viewer (such as Adobe Acrobat Reader, Sumatra PDF, or Microsoft Edge) to open this file.",
+            "No PDF viewer is installed on your system.\n\nPlease install a PDF viewer (such as Adobe Acrobat Reader, Sumatra PDF, or Microsoft Edge) to open this file.",
             "Error", MessageButtons.Ok, MessageIcon.Error);
     }
 
@@ -2358,7 +2357,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     {
         if (O == null) return Task.CompletedTask;
         return ShowAsync(O,
-            $"Error opening the download link.\n\nThe error was reported to the developer who will try to fix the issue.",
+            "Error opening the download link.\n\nThe error was reported to the developer who will try to fix the issue.",
             "Error", MessageButtons.Ok, MessageIcon.Error);
     }
 
@@ -2434,7 +2433,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     {
         if (O == null) return Task.CompletedTask;
         return ShowAsync(O,
-            $"Could not open the achievements window.\n\nThe error was reported to the developer who will try to fix the issue.",
+            "Could not open the achievements window.\n\nThe error was reported to the developer who will try to fix the issue.",
             "Error", MessageButtons.Ok, MessageIcon.Error);
     }
 
@@ -2468,7 +2467,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     {
         if (O == null) return Task.CompletedTask;
         return ShowAsync(O,
-            $"The file was downloaded successfully, but automatic extraction failed. This can happen if an antivirus program is scanning or locking the file.\n\nWould you like to open the temporary folder to inspect the file?",
+            "The file was downloaded successfully, but automatic extraction failed. This can happen if an antivirus program is scanning or locking the file.\n\nWould you like to open the temporary folder to inspect the file?",
             "Extraction Failed", MessageButtons.YesNo, MessageIcon.Question);
     }
 

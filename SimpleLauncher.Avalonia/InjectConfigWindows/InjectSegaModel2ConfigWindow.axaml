@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectSegaModel2ConfigWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SEGA Model 2 Configuration"
         Height="700" Width="700"
@@ -11,89 +12,89 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Renderer Section -->
-                <GroupBox Header="Renderer" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate SegaModel2Config_Renderer_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <TextBlock Text="Fullscreen Resolution:" Classes="form-label"
+                        <TextBlock Text="{ext:Translate SegaModel2Config_Resolution_Label}" Classes="form-label"
                                    Margin="0,5,0,0"
-                                   ToolTip.Tip="Sets the width and height for fullscreen mode." />
+                                   ToolTip.Tip="{ext:Translate SegaModel2Config_Resolution_Tooltip}" />
                         <Grid ColumnDefinitions="*,Auto,*">
                             <NumericUpDown Grid.Column="0" Minimum="640" Maximum="7680" Increment="1"
                                            Value="{Binding ResX}"
-                                           ToolTip.Tip="Set the horizontal resolution." />
+                                           ToolTip.Tip="{ext:Translate SupermodelConfig_ResolutionX_Tooltip}" />
                             <TextBlock Grid.Column="1" Text="x" VerticalAlignment="Center" Margin="10,0" />
                             <NumericUpDown Grid.Column="2" Minimum="480" Maximum="4320" Increment="1"
                                            Value="{Binding ResY}"
-                                           ToolTip.Tip="Set the vertical resolution." />
+                                           ToolTip.Tip="{ext:Translate SupermodelConfig_ResolutionY_Tooltip}" />
                         </Grid>
 
                         <Grid ColumnDefinitions="*,*" Margin="0,5">
-                            <TextBlock Text="Widescreen (Windowed):" Classes="form-label"
+                            <TextBlock Text="{ext:Translate SegaModel2Config_Widescreen_Label}" Classes="form-label"
                                        VerticalAlignment="Center"
-                                       ToolTip.Tip="Sets the aspect ratio for windowed mode." />
+                                       ToolTip.Tip="{ext:Translate SegaModel2Config_Widescreen_Tooltip}" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding WideScreenOptions}"
                                       SelectedItem="{Binding WideScreen}"
-                                      ToolTip.Tip="Sets the aspect ratio for windowed mode." />
+                                      ToolTip.Tip="{ext:Translate SegaModel2Config_Widescreen_Tooltip}" />
                         </Grid>
 
                         <Grid ColumnDefinitions="*,*" Margin="0,5">
-                            <TextBlock Text="Fullscreen Anti-Aliasing (FSAA):" Classes="form-label"
+                            <TextBlock Text="{ext:Translate SegaModel2Config_FSAA_Label}" Classes="form-label"
                                        VerticalAlignment="Center"
-                                       ToolTip.Tip="Enables full screen antialiasing in Direct3D. Requires restart of the emulator." />
+                                       ToolTip.Tip="{ext:Translate SegaModel2Config_FSAA_Tooltip}" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding FsaaOptions}"
                                       SelectedItem="{Binding Fsaa}"
-                                      ToolTip.Tip="Enables full screen antialiasing in Direct3D. Requires restart of the emulator." />
+                                      ToolTip.Tip="{ext:Translate SegaModel2Config_FSAA_Tooltip}" />
                         </Grid>
 
                         <CheckBox IsChecked="{Binding Bilinear}"
-                                  Content="Bilinear Filtering"
+                                  Content="{ext:Translate SegaModel2Config_Bilinear_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enables bilinear filtering of textures." />
+                                  ToolTip.Tip="{ext:Translate SegaModel2Config_Bilinear_Tooltip}" />
                         <CheckBox IsChecked="{Binding Trilinear}"
-                                  Content="Trilinear Filtering"
+                                  Content="{ext:Translate SegaModel2Config_Trilinear_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enables mipmap usage and trilinear filtering. Doesn't work with all games." />
+                                  ToolTip.Tip="{ext:Translate SegaModel2Config_Trilinear_Tooltip}" />
                         <CheckBox IsChecked="{Binding FilterTilemaps}"
-                                  Content="Filter Tilemaps"
+                                  Content="{ext:Translate SegaModel2Config_FilterTilemaps_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enables bilinear filtering on tilemaps. Can cause some artifacts." />
+                                  ToolTip.Tip="{ext:Translate SegaModel2Config_FilterTilemaps_Tooltip}" />
                         <CheckBox IsChecked="{Binding DrawCross}"
-                                  Content="Show Crosshair"
+                                  Content="{ext:Translate SegaModel2Config_DrawCross_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Shows a crosshair in gun games." />
+                                  ToolTip.Tip="{ext:Translate SegaModel2Config_DrawCross_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Input Section -->
-                <GroupBox Header="Input" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate SegaModel2Config_Input_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding XInput}"
-                                  Content="Enable XInput"
+                                  Content="{ext:Translate SegaModel2Config_XInput_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enable support for Xbox 360 compatible devices." />
+                                  ToolTip.Tip="{ext:Translate SegaModel2Config_XInput_Tooltip}" />
                         <CheckBox IsChecked="{Binding EnableFf}"
-                                  Content="Enable Force Feedback"
+                                  Content="{ext:Translate SegaModel2Config_EnableFF_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enables Force Feedback effects for supported controllers." />
+                                  ToolTip.Tip="{ext:Translate SegaModel2Config_EnableFF_Tooltip}" />
                         <CheckBox IsChecked="{Binding HoldGears}"
-                                  Content="Hold Gears"
+                                  Content="{ext:Translate SegaModel2Config_HoldGears_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="When enabled, gear shifts in driving games return to Neutral when the key is released." />
+                                  ToolTip.Tip="{ext:Translate SegaModel2Config_HoldGears_Tooltip}" />
                         <CheckBox IsChecked="{Binding UseRawInput}"
-                                  Content="Use RawInput for Mouse"
+                                  Content="{ext:Translate SegaModel2Config_UseRawInput_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Allows using two mice simultaneously by reading mouse input through RawInput." />
+                                  ToolTip.Tip="{ext:Translate SegaModel2Config_UseRawInput_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Classes="important-setting">
                     <StackPanel>
-                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
-                                  Content="Show this window before launching a game"
-                                  ToolTip.Tip="Show this window before launching a game." />
+                                  Content="{ext:Translate SupermodelConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -101,20 +102,20 @@
 
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button x:Name="BtnSave" Content="Save"
+            <Button x:Name="BtnSave" Content="{ext:Translate YumirConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="Save the configuration and close this window." />
-            <Button Content="Save &amp; Run"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="Save the configuration and run the game." />
-            <Button Content="Cancel"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="Cancel and close this window without saving changes." />
+                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

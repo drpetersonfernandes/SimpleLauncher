@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.SetGamepadDeadZoneWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Set Gamepad Dead Zone"
         Width="600" Height="480"
@@ -9,23 +10,23 @@
         <!-- Explanation -->
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                    Margin="10,20,10,10"
-                   Text="You can define custom gamepad dead zone values for the analog sticks."
+                   Text="{ext:Translate SetGamepadDeadZoneWindow_You_can_define_custom_gamepad_dead_zone_}"
                    TextWrapping="Wrap" />
 
         <!-- Dead Zone Explanation -->
         <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                   Margin="10,0,10,10"
-                  Header="Dead Zone Explanation">
+                  Header="{ext:Translate SetGamepadDeadZoneWindow_Dead_Zone_Explanation}">
             <StackPanel>
-                <TextBlock Text="The dead zone is the amount of stick movement that is ignored before the game receives input."
+                <TextBlock Text="{ext:Translate SetGamepadDeadZoneWindow_The_dead_zone_is_the_amount_of_stick_mov}"
                            TextWrapping="Wrap" Margin="5" />
-                <TextBlock Text="Higher values = larger dead zone (more stick travel ignored)."
+                <TextBlock Text="{ext:Translate SetGamepadDeadZoneWindow_Higher_values_larger_dead_zone_more_stic}"
                            TextWrapping="Wrap" Margin="5" />
-                <TextBlock Text="Lower values = smaller dead zone (stick responds sooner)."
+                <TextBlock Text="{ext:Translate SetGamepadDeadZoneWindow_Lower_values_smaller_dead_zone_stick_res}"
                            TextWrapping="Wrap" Margin="5" />
-                <TextBlock Text="Setting it too low may cause stick drift to register as movement."
+                <TextBlock Text="{ext:Translate SetGamepadDeadZoneWindow_Setting_it_too_low_may_cause_stick_drift}"
                            TextWrapping="Wrap" Margin="5" />
-                <TextBlock Text="Setting it too high may make aiming and fine movement difficult."
+                <TextBlock Text="{ext:Translate SetGamepadDeadZoneWindow_Setting_it_too_high_may_make_aiming_and_}"
                            TextWrapping="Wrap" Margin="5" />
             </StackPanel>
         </GroupBox>
@@ -33,7 +34,7 @@
         <!-- DeadZoneX -->
         <TextBlock Grid.Row="2" Grid.Column="0"
                    Classes="form-label" Margin="10"
-                   Text="Dead Zone X" />
+                   Text="{ext:Translate SetGamepadDeadZoneWindow_Dead_Zone_X}" />
         <Slider Grid.Row="2" Grid.Column="1"
                 Margin="10"
                 Width="150"
@@ -54,7 +55,7 @@
         <!-- DeadZoneY -->
         <TextBlock Grid.Row="3" Grid.Column="0"
                    Classes="form-label" Margin="10"
-                   Text="Dead Zone Y" />
+                   Text="{ext:Translate SetGamepadDeadZoneWindow_Dead_Zone_Y}" />
         <Slider Grid.Row="3" Grid.Column="1"
                 Margin="10"
                 Width="150"
@@ -79,18 +80,18 @@
                         Margin="0,20,5,10"
                         Padding="10"
                         Command="{Binding SaveCommand}"
-                        Content="Save Dead Zone" />
+                        Content="{ext:Translate SetGamepadDeadZoneWindow_Save_Dead_Zone}" />
                 <!-- Revert Button -->
                 <Button Classes="secondary"
                         Margin="5,20,0,10"
                         Padding="10"
                         Command="{Binding RevertCommand}"
-                        Content="Revert to Default Values" />
+                        Content="{ext:Translate ReverttoDefaultValues}" />
                 <!-- Cancel Button -->
                 <Button Classes="secondary"
                         Margin="5,20,0,10"
                         Command="{Binding CancelCommand}"
-                        Content="Cancel" IsCancel="True" />
+                        Content="{ext:Translate YumirConfig_Cancel_Button}" IsCancel="True" />
             </StackPanel>
         </Grid>
     </Grid>

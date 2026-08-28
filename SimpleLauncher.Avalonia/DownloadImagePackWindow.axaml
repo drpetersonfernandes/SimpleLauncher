@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.DownloadImagePackWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:models="using:SimpleLauncher.Core.Models"
         Title="Download Image Pack"
@@ -10,8 +11,8 @@
 
         <!-- 1. Header Section -->
         <StackPanel Grid.Row="0" Margin="20,20,20,10">
-            <TextBlock Text="Download Image Pack" FontSize="24" FontWeight="Light" Margin="0,0,0,10" />
-            <TextBlock Text="Download high-quality artwork for your games."
+            <TextBlock Text="{ext:Translate DownloadImagePack}" FontSize="24" FontWeight="Light" Margin="0,0,0,10" />
+            <TextBlock Text="{ext:Translate DownloadImagePackWindow_Download_high_quality_artwork_for_your_g}"
                        TextWrapping="Wrap" FontSize="12" Opacity="0.6" />
         </StackPanel>
 
@@ -22,7 +23,7 @@
 
             <!-- Left Column: Selection & Info -->
             <StackPanel Grid.Column="0">
-                <TextBlock Text="Please select an image pack" FontWeight="SemiBold" Margin="0,0,0,10" />
+                <TextBlock Text="{ext:Translate PleaseselectanImagePack}" FontWeight="SemiBold" Margin="0,0,0,10" />
                 <ComboBox HorizontalAlignment="Stretch"
                           Margin="0,5,0,0"
                           ItemsSource="{Binding SystemNames}"
@@ -31,8 +32,8 @@
 
                 <!-- Resources Links -->
                 <StackPanel Margin="0,20,0,0">
-                    <TextBlock Text="Resources" FontWeight="SemiBold" Margin="0,0,0,10" />
-                    <TextBlock Text="In case the image pack is not available for your system, you can find it here:"
+                    <TextBlock Text="{ext:Translate Resources}" FontWeight="SemiBold" Margin="0,0,0,10" />
+                    <TextBlock Text="{ext:Translate DownloadImagePackWindow_In_case_the_image_pack_is_not_available_}"
                                TextWrapping="Wrap" FontSize="12" Opacity="0.6" Margin="0,0,0,5" />
                     <Button Margin="0,0,0,5" Padding="0"
                             Background="Transparent" BorderThickness="0"
@@ -40,21 +41,21 @@
                             HorizontalAlignment="Left"
                             Command="{Binding HyperlinkNavigateCommand}"
                             CommandParameter="https://github.com/libretro-thumbnails/libretro-thumbnails"
-                            Content="Libretro Thumbnails (GitHub)" />
+                            Content="{ext:Translate DownloadImagePackWindow_Libretro_Thumbnails_GitHub}" />
                     <Button Padding="0"
                             Background="Transparent" BorderThickness="0"
                             Foreground="{DynamicResource LinkBrush}"
                             HorizontalAlignment="Left"
                             Command="{Binding HyperlinkNavigateCommand}"
                             CommandParameter="https://emumovies.com/files/"
-                            Content="EmuMovies Files" />
+                            Content="{ext:Translate DownloadImagePackWindow_EmuMovies_Files}" />
                 </StackPanel>
             </StackPanel>
 
             <!-- Right Column: Download Actions -->
             <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
                 <StackPanel>
-                    <TextBlock Text="Install Image Pack" FontWeight="SemiBold" Margin="0,0,0,10" />
+                    <TextBlock Text="{ext:Translate InstallImagePack}" FontWeight="SemiBold" Margin="0,0,0,10" />
 
                     <Border BorderBrush="{DynamicResource BorderNormalBrush}" BorderThickness="1" CornerRadius="3" Padding="10">
                         <ItemsControl ItemsSource="{Binding ImagePacksToDisplay}">
@@ -77,7 +78,7 @@
                         </ItemsControl>
                     </Border>
 
-                    <TextBlock Text="Image packs are downloaded and installed into the system's image folder."
+                    <TextBlock Text="{ext:Translate DownloadImagePackWindow_Image_packs_are_downloaded_and_installed}"
                                TextWrapping="Wrap" FontSize="11" Opacity="0.6" Margin="5,10,5,0" FontStyle="Italic" />
                 </StackPanel>
             </ScrollViewer>
@@ -92,7 +93,7 @@
                 <Grid Grid.Column="0" Margin="0,0,20,0" RowDefinitions="Auto,Auto">
                     <Grid>
                         <ProgressBar Value="{Binding ProgressPercentage, Mode=OneWay}" Height="20" Minimum="0" Maximum="100" />
-                        <TextBlock Text="Download Progress"
+                        <TextBlock Text="{ext:Translate DownloadProgress}"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextPrimaryBrush}"
                                    FontSize="10" />
@@ -107,7 +108,7 @@
 
                 <!-- Stop Button -->
                 <Button Grid.Column="1"
-                        Content="Stop Download"
+                        Content="{ext:Translate StopDownload}"
                         Command="{Binding StopDownloadCommand}"
                         IsEnabled="{Binding IsStopEnabled}"
                         Classes="secondary"
@@ -128,7 +129,7 @@
                            FontSize="14"
                            HorizontalAlignment="Center"
                            Margin="0,12,0,0" />
-                <Button x:Name="EmergencyButton" Content="Return" Width="100" Margin="0,16,0,0"
+                <Button x:Name="EmergencyButton" Content="{ext:Translate EditSystemWindow_Return}" Width="100" Margin="0,16,0,0"
                         Classes="secondary"
                         Click="EmergencyOverlayRelease_Click"
                         HorizontalAlignment="Center" />

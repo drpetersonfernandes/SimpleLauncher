@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectBlastemConfigWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Blastem Configuration"
         Height="600" Width="700"
@@ -11,59 +12,59 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Video Section -->
-                <GroupBox Header="Video Display" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate BlastemConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding Fullscreen}"
-                                  Content="Run in Fullscreen"
+                                  Content="{ext:Translate SupermodelConfig_Fullscreen_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Toggles between windowed and fullscreen mode." />
+                                  ToolTip.Tip="{ext:Translate BlastemConfig_Fullscreen_Tooltip}" />
                         <CheckBox IsChecked="{Binding Vsync}"
-                                  Content="Enable V-Sync"
+                                  Content="{ext:Translate SupermodelConfig_Vsync_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Synchronize framerate with monitor refresh rate to prevent screen tearing." />
+                                  ToolTip.Tip="{ext:Translate BlastemConfig_Vsync_Tooltip}" />
                         <CheckBox IsChecked="{Binding Scanlines}"
-                                  Content="Enable Scanlines"
+                                  Content="{ext:Translate BlastemConfig_Scanlines_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Simulates the look of a CRT screen by adding horizontal lines." />
+                                  ToolTip.Tip="{ext:Translate BlastemConfig_Scanlines_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Aspect Ratio:" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_AspectRatio_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AspectOptions}"
                                       SelectedItem="{Binding Aspect}"
-                                      ToolTip.Tip="Sets the display aspect ratio. 'stretch' will fill the window." />
+                                      ToolTip.Tip="{ext:Translate BlastemConfig_Aspect_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Scaling Filter:" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate BlastemConfig_Scaling_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ScalingOptions}"
                                       SelectedItem="{Binding Scaling}"
-                                      ToolTip.Tip="'linear' provides smooth scaling (bilinear filtering). 'nearest' provides sharp, blocky scaling (nearest neighbor)." />
+                                      ToolTip.Tip="{ext:Translate BlastemConfig_Scaling_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
-                <GroupBox Header="Audio" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate SupermodelConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Audio Sample Rate:" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate BlastemConfig_AudioRate_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AudioRateOptions}"
                                       SelectedItem="{Binding AudioRate}"
-                                      ToolTip.Tip="Sets the output audio sample rate in Hz. Higher values provide better quality." />
+                                      ToolTip.Tip="{ext:Translate BlastemConfig_AudioRate_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- System Section -->
-                <GroupBox Header="System" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate RedreamConfig_System_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Sync Source:" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate BlastemConfig_SyncSource_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding SyncSourceOptions}"
                                       SelectedItem="{Binding SyncSource}"
-                                      ToolTip.Tip="'video' provides the smoothest experience when refresh rates match. 'audio' provides lower audio latency." />
+                                      ToolTip.Tip="{ext:Translate BlastemConfig_SyncSource_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -71,10 +72,10 @@
                 <!-- CRITICAL SETTING -->
                 <Border Classes="important-setting">
                     <StackPanel>
-                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
-                                  Content="Show this window before launching a game"
-                                  ToolTip.Tip="Show this window before launching a game." />
+                                  Content="{ext:Translate SupermodelConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -83,20 +84,20 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave"
-                    Content="Save"
+                    Content="{ext:Translate YumirConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="Save the configuration and close this window." />
-            <Button Content="Save &amp; Run"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="Save the configuration and run the game." />
-            <Button Content="Cancel"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="Cancel and close this window without saving changes." />
+                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

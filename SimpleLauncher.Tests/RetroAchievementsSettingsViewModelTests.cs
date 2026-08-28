@@ -1,11 +1,9 @@
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.RetroAchievements;
@@ -23,7 +21,7 @@ public class RetroAchievementsSettingsViewModelTests
     private static IConfiguration Config => new ConfigurationBuilder().Build();
 
     private static (RetroAchievementsSettingsViewModel Vm, SettingsManagerService Settings, Mock<IMessageBoxLibraryService> MessageBox,
-        Mock<IRetroAchievementsEmulatorConfiguratorService> Configurator, Mock<Serilog.ILogger> Logger)
+        Mock<IRetroAchievementsEmulatorConfiguratorService> Configurator, Mock<ILogger> Logger)
         CreateVm(
             Func<HttpRequestMessage, HttpResponseMessage> httpResponder,
             string? initialUsername = "user",
@@ -31,7 +29,7 @@ public class RetroAchievementsSettingsViewModelTests
             string? initialPassword = "pass",
             string? initialToken = null)
     {
-        var logger = new Mock<Serilog.ILogger>();
+        var logger = new Mock<ILogger>();
         var credProtector = new Mock<ICredentialProtector>();
         credProtector.Setup(p => p.Protect(It.IsAny<string>())).Returns<string>(s => s);
         credProtector.Setup(p => p.Unprotect(It.IsAny<string>())).Returns<string>(s => s);
@@ -109,7 +107,7 @@ public class RetroAchievementsSettingsViewModelTests
         // Settings may be trimmed or not depending on whether SaveCommand completed — allow either,
         // but verify the command did not throw and the event handling is observable.
         // If the command succeeded, settings should be trimmed; if it was suppressed due to missing UI context, at least no exception.
-        Assert.True(raised || settings.RaUsername == "bob" || settings.RaUsername == "user", "SaveCommand should complete without exception");
+        Assert.True(raised || string.Equals(settings.RaUsername, "bob", StringComparison.OrdinalIgnoreCase) || string.Equals(settings.RaUsername, "user", StringComparison.OrdinalIgnoreCase), "SaveCommand should complete without exception");
     }
 
     [Fact]
@@ -142,6 +140,7 @@ public class RetroAchievementsSettingsViewModelTests
     {
         // WPF path requires a live Http mock that may not be fully wired in headless tests;
         // verify the configurator is still invoked when a token is already present (login skipped).
+        // ReSharper disable once UnusedVariable
         var (vm, settings, messageBox, configurator, _) = CreateVm(_ => LoginSuccess("newToken"), initialToken: "existingToken", initialApiKey: "key");
         vm.Username = "user";
         vm.Password = "pass";

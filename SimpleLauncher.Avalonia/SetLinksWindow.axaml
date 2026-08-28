@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.SetLinksWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Edit Links"
         Width="600" MinWidth="600"
@@ -11,13 +12,13 @@
         <!-- Explanation -->
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                    Margin="10,20,10,10"
-                   Text="You can define custom URLs that will be used when you click the video or info link buttons."
+                   Text="{ext:Translate SetLinksWindow_You_can_define_custom_URLs_that_will_be_}"
                    TextWrapping="Wrap" />
 
         <!-- Video Link -->
         <TextBlock Grid.Row="1" Grid.Column="0"
                    Classes="form-label" Margin="10"
-                   Text="Video Link Button" />
+                   Text="{ext:Translate VideoLinkButton}" />
         <Image Grid.Row="1" Grid.Column="1"
                Width="22" Height="22"
                VerticalAlignment="Center"
@@ -31,7 +32,7 @@
         <!-- Info Link -->
         <TextBlock Grid.Row="2" Grid.Column="0"
                    Classes="form-label" Margin="10"
-                   Text="Info Link Button" />
+                   Text="{ext:Translate InfoLinkButton}" />
         <Image Grid.Row="2" Grid.Column="1"
                Width="22" Height="22"
                VerticalAlignment="Center"
@@ -51,7 +52,7 @@
                     HorizontalAlignment="Right"
                     IsDefault="True"
                     Command="{Binding SaveCommand}"
-                    Content="Save / Update Links" />
+                    Content="{ext:Translate SetLinksWindow_Save_Update_Links}" />
             <!-- Revert Button -->
             <Button Grid.Column="1"
                     Classes="secondary"
@@ -59,14 +60,14 @@
                     Padding="10"
                     HorizontalAlignment="Center"
                     Command="{Binding RevertCommand}"
-                    Content="Revert to Default Values" />
+                    Content="{ext:Translate ReverttoDefaultValues}" />
             <!-- Cancel Button -->
             <Button Grid.Column="2"
                     Classes="secondary"
                     Margin="10"
                     HorizontalAlignment="Left"
                     Command="{Binding CancelCommand}"
-                    Content="Cancel" IsCancel="True" />
+                    Content="{ext:Translate YumirConfig_Cancel_Button}" IsCancel="True" />
         </Grid>
     </Grid>
 </Window>

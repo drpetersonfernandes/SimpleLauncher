@@ -762,7 +762,7 @@
                                                             Padding="4,2">
                                                         <TextBlock Text="🏆"
                                                                    FontSize="12"
-                                                                   ToolTip.Tip="RetroAchievements supported" />
+                                                                   ToolTip.Tip="{ext:Translate ViewAchievements}" />
                                                     </Border>
                                                 </Grid>
                                             </Border>

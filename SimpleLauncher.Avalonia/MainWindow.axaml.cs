@@ -675,15 +675,6 @@ public partial class MainWindow : Window, IPaginationHost
     private string _lastSortColumn = "";
     private bool _sortAscending = true;
 
-    private void ListHeader_Click(object? sender, PointerPressedEventArgs e)
-    {
-        // Legacy shim — DataGrid headers now sort via GameDataGrid_Sorting, but keep this
-        // for any residual header TextBlocks that may still exist.
-        if (sender is not TextBlock { Tag: string columnName })
-            return;
-        SortGamesByColumn(columnName);
-    }
-
     private void GameDataGrid_Sorting(object? sender, DataGridColumnEventArgs e)
     {
         // Intercept DataGrid's built-in sort and apply it to the underlying Games collection
@@ -820,28 +811,6 @@ public partial class MainWindow : Window, IPaginationHost
         GameGridView.SelectedItem = game;
         ShowGameContextMenu(game, GameGridView);
         e.Handled = true;
-    }
-
-    // Legacy handlers kept for binary compat (not wired in new axaml but may be referenced)
-    private void GameListView_DoubleClick(object? sender, TappedEventArgs e)
-    {
-        if (sender is DataGrid { SelectedItem: GameCardViewModel g })
-            _viewModel.PlayGameCommand.Execute(g);
-        else if (GameDataGrid.SelectedItem is GameCardViewModel game)
-            _viewModel.PlayGameCommand.Execute(game);
-    }
-
-    private void GameListItem_Click(object? sender, PointerPressedEventArgs e)
-    {
-        if (sender is Control { DataContext: GameCardViewModel game } item)
-        {
-            var properties = e.GetCurrentPoint(item).Properties;
-            if (properties.IsRightButtonPressed)
-            {
-                ShowGameContextMenu(game, item);
-                e.Handled = true;
-            }
-        }
     }
 
     #endregion
@@ -2520,7 +2489,7 @@ public partial class MainWindow : Window, IPaginationHost
             // Avalonia Button handles pointer events internally which can prevent the automatic
             // ContextMenu opening on right-click. Explicitly open on right PointerPressed (WPF
             // shows the menu automatically via Button.ContextMenu).
-            systemButton.PointerPressed += (s, e) =>
+            systemButton.PointerPressed += (_, e) =>
             {
                 if (e.GetCurrentPoint(systemButton).Properties.IsRightButtonPressed)
                 {

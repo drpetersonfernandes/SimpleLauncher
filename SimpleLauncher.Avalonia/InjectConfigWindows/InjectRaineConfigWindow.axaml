@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectRaineConfigWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Raine Configuration"
         Height="600" Width="650"
@@ -11,100 +12,100 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Video Section -->
-                <GroupBox Header="Video Settings" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate YumirConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding RaineFullscreen}"
-                                  Content="Fullscreen"
+                                  Content="{ext:Translate XeniaConfig_Fullscreen_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enable fullscreen mode." />
+                                  ToolTip.Tip="{ext:Translate RaineConfig_Fullscreen_Tooltip}" />
                         <CheckBox IsChecked="{Binding RaineFixAspectRatio}"
-                                  Content="Fix Aspect Ratio"
+                                  Content="{ext:Translate RaineConfig_FixAspect}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Fix the aspect ratio." />
+                                  ToolTip.Tip="{ext:Translate RaineConfig_FixAspect_Tooltip}" />
                         <CheckBox IsChecked="{Binding RaineVsync}"
-                                  Content="Enable VSync (Double Buffering)"
+                                  Content="{ext:Translate RaineConfig_Vsync}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enable vertical sync." />
+                                  ToolTip.Tip="{ext:Translate RedreamConfig_Vertical_Sync_Tooltip}" />
 
-                        <TextBlock Text="Resolution (Width x Height):" Classes="form-label"
+                        <TextBlock Text="{ext:Translate SupermodelConfig_Resolution_Label}" Classes="form-label"
                                    Margin="0,5,0,0" />
                         <Grid ColumnDefinitions="*,Auto,*">
                             <NumericUpDown Grid.Column="0" Minimum="320" Maximum="7680" Increment="1"
                                            Value="{Binding RaineResX}"
-                                           ToolTip.Tip="Set the horizontal resolution." />
+                                           ToolTip.Tip="{ext:Translate SupermodelConfig_ResolutionX_Tooltip}" />
                             <TextBlock Grid.Column="1" Text="x" VerticalAlignment="Center" Margin="10,0" />
                             <NumericUpDown Grid.Column="2" Minimum="240" Maximum="4320" Increment="1"
                                            Value="{Binding RaineResY}"
-                                           ToolTip.Tip="Set the vertical resolution." />
+                                           ToolTip.Tip="{ext:Translate SupermodelConfig_ResolutionY_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
-                <GroupBox Header="Audio Settings" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate YumirConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <TextBlock Text="Sound Driver:" Classes="form-label" />
+                        <TextBlock Text="{ext:Translate RaineConfig_AudioDriver}" Classes="form-label" />
                         <ComboBox ItemsSource="{Binding SoundDriverOptions}"
                                   SelectedItem="{Binding RaineSoundDriver}"
-                                  ToolTip.Tip="Select the audio driver." />
+                                  ToolTip.Tip="{ext:Translate RaineConfig_AudioDriver_Tooltip}" />
 
-                        <TextBlock Text="Sample Rate (Hz):" Classes="form-label" Margin="0,5,0,0" />
+                        <TextBlock Text="{ext:Translate RaineConfig_SampleRate}" Classes="form-label" Margin="0,5,0,0" />
                         <ComboBox ItemsSource="{Binding SampleRateOptions}"
                                   SelectedValue="{Binding RaineSampleRate}"
-                                  ToolTip.Tip="Select the audio sample rate." />
+                                  ToolTip.Tip="{ext:Translate RaineConfig_SampleRate_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- General Section -->
-                <GroupBox Header="General" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate RaineConfig_General_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding RaineShowFps}" Content="Show FPS" Margin="0,5" ToolTip.Tip="Show frames per second." />
-                        <TextBlock Text="Frame Skip" Classes="form-label" />
+                        <CheckBox IsChecked="{Binding RaineShowFps}" Content="{ext:Translate RaineConfig_ShowFps}" Margin="0,5" ToolTip.Tip="{ext:Translate RaineConfig_ShowFps_Tooltip}" />
+                        <TextBlock Text="{ext:Translate RedreamConfig_Frame_Skip}" Classes="form-label" />
                         <ComboBox ItemsSource="{Binding FrameSkipOptions}"
                                   SelectedValue="{Binding RaineFrameSkip}"
-                                  ToolTip.Tip="Set the frame skip value." />
+                                  ToolTip.Tip="{ext:Translate RaineConfig_FrameSkip_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- NeoGeo CD Section -->
-                <GroupBox Header="NeoGeo CD Section" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate RaineConfig_NeoCd_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <TextBlock Text="NeoGeo CD BIOS" Classes="form-label" />
+                        <TextBlock Text="{ext:Translate RaineConfig_NeoCdBios}" Classes="form-label" />
                         <Grid ColumnDefinitions="*,Auto">
                             <TextBox Grid.Column="0" Margin="0,0,5,10"
                                      Text="{Binding RaineNeoCdBios}"
-                                     ToolTip.Tip="Select the NeoCD BIOS." />
+                                     ToolTip.Tip="{ext:Translate RaineConfig_NeoCdBios_Tooltip}" />
                             <Button Grid.Column="1" Content="..." Width="30" Height="25" VerticalAlignment="Bottom" Margin="0,0,0,10"
                                     Command="{Binding SelectNeoCdBiosCommand}"
-                                    ToolTip.Tip="Choose the NeoCD BIOS file." />
+                                    ToolTip.Tip="{ext:Translate RaineConfig_SelectNeoCdBios_Tooltip}" />
                         </Grid>
 
-                        <TextBlock Text="Music Volume" Classes="form-label" />
+                        <TextBlock Text="{ext:Translate RaineConfig_MusicVolume}" Classes="form-label" />
                         <NumericUpDown Minimum="0" Maximum="200" Increment="1" Margin="0,0,0,5"
                                        Value="{Binding RaineMusicVolume}"
-                                       ToolTip.Tip="Adjust the music volume." />
+                                       ToolTip.Tip="{ext:Translate RaineConfig_MusicVolume_Tooltip}" />
 
-                        <TextBlock Text="SFX Volume" Classes="form-label" />
+                        <TextBlock Text="{ext:Translate RaineConfig_SfxVolume}" Classes="form-label" />
                         <NumericUpDown Minimum="0" Maximum="200" Increment="1" Margin="0,0,0,5"
                                        Value="{Binding RaineSfxVolume}"
-                                       ToolTip.Tip="Adjust the sound effects volume." />
+                                       ToolTip.Tip="{ext:Translate RaineConfig_SfxVolume_Tooltip}" />
 
-                        <CheckBox IsChecked="{Binding RaineMuteSfx}" Content="Mute SFX" Margin="0,5" ToolTip.Tip="Mute sound effects." />
-                        <CheckBox IsChecked="{Binding RaineMuteMusic}" Content="Mute Music" Margin="0,5" ToolTip.Tip="Mute music." />
+                        <CheckBox IsChecked="{Binding RaineMuteSfx}" Content="{ext:Translate RaineConfig_MuteSfx}" Margin="0,5" ToolTip.Tip="{ext:Translate RaineConfig_MuteSfx_Tooltip}" />
+                        <CheckBox IsChecked="{Binding RaineMuteMusic}" Content="{ext:Translate RaineConfig_MuteMusic}" Margin="0,5" ToolTip.Tip="{ext:Translate RaineConfig_MuteMusic_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Directories Section -->
-                <GroupBox Header="Directories" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate RaineConfig_Directories_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <TextBlock Text="ROM Directory" Classes="form-label" />
+                        <TextBlock Text="{ext:Translate RaineConfig_RomDirectory}" Classes="form-label" />
                         <Grid ColumnDefinitions="*,Auto">
                             <TextBox Grid.Column="0" Margin="0,0,5,0"
                                      Text="{Binding RaineRomDirectory}"
-                                     ToolTip.Tip="Select the ROM directory." />
+                                     ToolTip.Tip="{ext:Translate RaineConfig_RomDirectory_Tooltip}" />
                             <Button Grid.Column="1" Content="..." Width="30" Height="25"
                                     Command="{Binding SelectRaineRomDirectoryCommand}"
-                                    ToolTip.Tip="Choose the ROM directory folder." />
+                                    ToolTip.Tip="{ext:Translate RaineConfig_SelectRomDirectory_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -112,10 +113,10 @@
                 <!-- CRITICAL SETTING -->
                 <Border Classes="important-setting">
                     <StackPanel>
-                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding RaineShowSettingsBeforeLaunch}"
-                                  Content="Show this window before launching Raine"
-                                  ToolTip.Tip="Show this window before launching a game." />
+                                  Content="{ext:Translate RaineConfig_ShowBeforeLaunch}"
+                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -123,20 +124,20 @@
 
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button x:Name="BtnSave" Content="Save"
+            <Button x:Name="BtnSave" Content="{ext:Translate YumirConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="Save the configuration and close this window." />
-            <Button Content="Save &amp; Run"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="Save the configuration and run the game." />
-            <Button Content="Cancel"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="Cancel and close this window without saving changes." />
+                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

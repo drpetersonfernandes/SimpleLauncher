@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Avalonia.Services.SystemManager;
-using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SystemConfiguration;
 
 namespace SimpleLauncher.Avalonia.Tests;
@@ -62,7 +61,11 @@ public class DeleteSystemIntegrationTests : IDisposable
         {
             if (Directory.Exists(_tempRoot)) Directory.Delete(_tempRoot, true);
         }
-        catch { }
+        catch
+        {
+            // ignored
+        }
+
         GC.SuppressFinalize(this);
     }
 

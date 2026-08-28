@@ -773,7 +773,7 @@
                 <ProgressBar IsIndeterminate="True" Width="220" />
                 <TextBlock x:Name="LoadingOverlayMessage" Text="{ext:Translate Loading}" Margin="0,12,0,0"
                            HorizontalAlignment="Center" Foreground="{DynamicResource TextPrimaryBrush}" />
-                <Button x:Name="EmergencyReturnButton" Content="Return" Margin="0,15,0,0"
+                <Button x:Name="EmergencyReturnButton" Content="{ext:Translate EditSystemWindow_Return}" Margin="0,15,0,0"
                         Classes="secondary" Click="EmergencyOverlayRelease_Click" />
             </StackPanel>
         </Border>

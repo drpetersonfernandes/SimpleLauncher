@@ -40,6 +40,7 @@ public partial class FavoritesSectionViewModel : ObservableObject
     /// SetPreviewImageOnSelectionChangedAsync parity). When the selection is cleared,
     /// the preview resets to the placeholder.
     /// </summary>
+    // ReSharper disable once UnusedParameterInPartialMethod
     partial void OnSelectedFavoriteChanged(FavoriteRowViewModel? oldValue, FavoriteRowViewModel? newValue)
     {
         PreviewImagePath = newValue?.CoverImage ?? "";

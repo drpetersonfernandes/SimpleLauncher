@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectDolphinConfigWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Dolphin Configuration"
         Height="500" Width="700"
@@ -11,43 +12,43 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Core Section -->
-                <GroupBox Header="Core &amp; Graphics">
+                <GroupBox Header="{ext:Translate DolphinConfig_Core_Header}">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="Graphics Backend:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate DolphinConfig_GfxBackend_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding GfxBackendOptions}"
                                       SelectedItem="{Binding GfxBackend}"
-                                      ToolTip.Tip="Select the graphics API. Vulkan is generally recommended for modern GPUs." />
+                                      ToolTip.Tip="{ext:Translate DolphinConfig_GfxBackend_Tooltip}" />
                         </Grid>
                         <CheckBox IsChecked="{Binding DspThread}"
-                                  Content="Enable DSP Thread"
+                                  Content="{ext:Translate DolphinConfig_DspThread_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Runs DSP emulation on a separate thread. Improves performance on most multi-core CPUs." />
+                                  ToolTip.Tip="{ext:Translate DolphinConfig_DspThread_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Wiimote Section -->
-                <GroupBox Header="Wiimote">
+                <GroupBox Header="{ext:Translate InjectDolphinConfigWindow_Wiimote}">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding WiimoteContinuousScanning}"
-                                  Content="Continuous Scanning"
+                                  Content="{ext:Translate DolphinConfig_WiimoteContinuousScanning_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Continuously look for real Wiimotes to connect via Bluetooth." />
+                                  ToolTip.Tip="{ext:Translate DolphinConfig_WiimoteContinuousScanning_Tooltip}" />
                         <CheckBox IsChecked="{Binding WiimoteEnableSpeaker}"
-                                  Content="Enable Wiimote Speaker"
+                                  Content="{ext:Translate DolphinConfig_WiimoteEnableSpeaker_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enables sound output through the physical Wiimote controller speaker." />
+                                  ToolTip.Tip="{ext:Translate DolphinConfig_WiimoteEnableSpeaker_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Classes="important-setting">
                     <StackPanel>
-                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
-                                  Content="Show these settings before launching Dolphin"
-                                  ToolTip.Tip="Show this window before launching a game." />
+                                  Content="{ext:Translate DolphinConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -55,20 +56,20 @@
 
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button Content="Save"
+            <Button Content="{ext:Translate YumirConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="Save the configuration and close this window." />
-            <Button Content="Save &amp; Run"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="Save the configuration and run the game." />
-            <Button Content="Cancel"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="Cancel and close this window without saving changes." />
+                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

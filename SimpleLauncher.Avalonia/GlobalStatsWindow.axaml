@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.GlobalStatsWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Global Stats"
         Width="1000" Height="700"
@@ -14,7 +15,7 @@
                     IsVisible="{Binding IsStartButtonVisible}">
             <Button Width="110"
                     Command="{Binding StartCommand}"
-                    Content="Start Process" />
+                    Content="{ext:Translate StartProcess}" />
         </StackPanel>
 
         <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
@@ -25,9 +26,9 @@
                       GridLinesVisibility="All"
                       BorderThickness="1">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="System Name" Binding="{Binding SystemName}" Width="*" />
-                    <DataGridTextColumn Header="ROM Count" Binding="{Binding NumberOfFiles}" Width="Auto" />
-                    <DataGridTextColumn Header="Matched Images" Binding="{Binding NumberOfImages}" Width="Auto" />
+                    <DataGridTextColumn Header="{ext:Translate SystemNameHeader}" Binding="{Binding SystemName}" Width="*" />
+                    <DataGridTextColumn Header="{ext:Translate GlobalStatsWindow_ROM_Count}" Binding="{Binding NumberOfFiles}" Width="Auto" />
+                    <DataGridTextColumn Header="{ext:Translate GlobalStatsWindow_Matched_Images}" Binding="{Binding NumberOfImages}" Width="Auto" />
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
@@ -38,7 +39,7 @@
                     IsVisible="{Binding IsSaveButtonVisible}">
             <Button Width="110"
                     Command="{Binding SaveReportCommand}"
-                    Content="Save Report" />
+                    Content="{ext:Translate SaveReport}" />
         </StackPanel>
 
         <!-- BUSY OVERLAY -->
@@ -54,7 +55,7 @@
                            HorizontalAlignment="Center"
                            TextAlignment="Center"
                            Margin="0,12,0,0" />
-                <Button Content="Cancel"
+                <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
                         Width="110" Margin="0,16,0,0"
                         Classes="secondary"
                         Command="{Binding CancelCommand}"

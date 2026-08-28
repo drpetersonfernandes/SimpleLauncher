@@ -12,6 +12,7 @@ using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Avalonia.Services.TakeScreenshot;
 using AvaloniaWindowScreenshot = SimpleLauncher.Avalonia.Services.TakeScreenshot.WindowScreenshot;
 #endif
+// ReSharper disable once RedundantUsingDirective
 using CoreWindowManager = SimpleLauncher.Core.Services.TakeScreenshot.WindowManager;
 using ILogger = Serilog.ILogger;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;

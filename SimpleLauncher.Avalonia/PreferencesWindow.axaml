@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.PreferencesWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Preferences"
         Width="800" Height="550"
@@ -15,11 +16,11 @@
                 Padding="12,10">
             <Grid ColumnDefinitions="*,Auto">
 
-                <TextBlock Text="Preferences" FontSize="14" FontWeight="SemiBold"
+                <TextBlock Text="{ext:Translate Sidebar.Preferences}" FontSize="14" FontWeight="SemiBold"
                            VerticalAlignment="Center"
                            Foreground="{DynamicResource TextPrimaryBrush}" />
 
-                <Button Grid.Column="1" Content="Close"
+                <Button Grid.Column="1" Content="{ext:Translate Close}"
                         Classes="secondary"
                         Padding="14,6" Margin="4,0"
                         Click="CloseButton_Click" />
@@ -37,49 +38,49 @@
                     <ListBoxItem Tag="general" IsSelected="True">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="⚙  " FontSize="14" />
-                            <TextBlock Text="General" FontSize="13" />
+                            <TextBlock Text="{ext:Translate RaineConfig_General_Header}" FontSize="13" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Tag="systems">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="🎮  " FontSize="14" />
-                            <TextBlock Text="Systems" FontSize="13" />
+                            <TextBlock Text="{ext:Translate Preferences.Systems}" FontSize="13" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Tag="emulators">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="🖥  " FontSize="14" />
-                            <TextBlock Text="Emulators" FontSize="13" />
+                            <TextBlock Text="{ext:Translate Preferences.Emulators}" FontSize="13" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Tag="images">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="🖼  " FontSize="14" />
-                            <TextBlock Text="Images" FontSize="13" />
+                            <TextBlock Text="{ext:Translate Images}" FontSize="13" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Tag="view">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="👁  " FontSize="14" />
-                            <TextBlock Text="View" FontSize="13" />
+                            <TextBlock Text="{ext:Translate Preferences.View}" FontSize="13" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Tag="sound">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="🔊  " FontSize="14" />
-                            <TextBlock Text="Sound" FontSize="13" />
+                            <TextBlock Text="{ext:Translate SoundIcon}" FontSize="13" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Tag="retroachievements">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="🏆  " FontSize="14" />
-                            <TextBlock Text="RetroAchievements" FontSize="13" />
+                            <TextBlock Text="{ext:Translate RetroArchConfig_RetroAchievements_Header}" FontSize="13" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Tag="updates">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="↓  " FontSize="14" />
-                            <TextBlock Text="Updates" FontSize="13" />
+                            <TextBlock Text="{ext:Translate Preferences.Updates}" FontSize="13" />
                         </StackPanel>
                     </ListBoxItem>
                 </ListBox>
@@ -95,10 +96,10 @@
 
                         <!-- GENERAL -->
                         <StackPanel x:Name="GeneralPanel" IsVisible="True">
-                            <TextBlock Text="General" FontSize="18" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate RaineConfig_General_Header}" FontSize="18" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,16" />
 
-                            <TextBlock Text="Language" FontSize="13" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate LanguageIcon}" FontSize="13" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
                             <ComboBox x:Name="LanguageCombo" Width="200" Margin="0,0,0,20"
                                       SelectionChanged="LanguageCombo_SelectionChanged">
@@ -113,16 +114,16 @@
 
                         <!-- SYSTEMS -->
                         <StackPanel x:Name="SystemsPanel" IsVisible="False">
-                            <TextBlock Text="Systems" FontSize="18" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate Preferences.Systems}" FontSize="18" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
-                            <TextBlock Text="Add, edit, and delete systems in system.xml."
+                            <TextBlock Text="{ext:Translate PreferencesWindow_Add_edit_and_delete_systems_in_system_xm}"
                                        FontSize="12" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,16" />
-                            <Button Content="Add / Edit Systems (Expert Mode)"
+                            <Button Content="{ext:Translate PreferencesWindow_Add_Edit_Systems_Expert_Mode}"
                                     Classes="primary"
                                     HorizontalAlignment="Left"
                                     Padding="20,10"
                                     Click="OpenEditSystem_Click" />
-                            <Button Content="Easy Mode — Download a Ready-Made System"
+                            <Button Content="{ext:Translate PreferencesWindow_Easy_Mode_Download_a_Ready_Made_System}"
                                     Classes="secondary"
                                     HorizontalAlignment="Left"
                                     Padding="20,10"
@@ -132,28 +133,28 @@
 
                         <!-- EMULATORS -->
                         <StackPanel x:Name="EmulatorsPanel" IsVisible="False">
-                            <TextBlock Text="Emulators" FontSize="18" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate Preferences.Emulators}" FontSize="18" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
-                            <TextBlock Text="Configure emulator paths and parameters per system."
+                            <TextBlock Text="{ext:Translate PreferencesWindow_Configure_emulator_paths_and_parameters_}"
                                        FontSize="12" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,16" />
-                            <Button Content="Open Edit System (Expert Mode)"
+                            <Button Content="{ext:Translate PreferencesWindow_Open_Edit_System_Expert_Mode}"
                                     Classes="primary"
                                     HorizontalAlignment="Left"
                                     Padding="20,10"
                                     Click="OpenEditSystem_Click" />
-                            <TextBlock Text="Emulator 1-5 paths, launch parameters, and suggest-parameter support are configured per system in the Edit System window."
+                            <TextBlock Text="{ext:Translate PreferencesWindow_Emulator_1_5_paths_launch_parameters_and}"
                                        FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}"
                                        TextWrapping="Wrap" Margin="0,12,0,0" />
                         </StackPanel>
 
                         <!-- IMAGES -->
                         <StackPanel x:Name="ImagesPanel" IsVisible="False">
-                            <TextBlock Text="Images" FontSize="18" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate Images}" FontSize="18" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
-                            <TextBlock Text="Cover art is matched to games by filename. Use the image pack downloader to fetch covers for a system, or drop images into the system's image folder."
+                            <TextBlock Text="{ext:Translate PreferencesWindow_Cover_art_is_matched_to_games_by_filenam}"
                                        FontSize="12" Foreground="{DynamicResource TextMutedBrush}"
                                        TextWrapping="Wrap" Margin="0,0,0,16" />
-                            <Button Content="Download Image Pack"
+                            <Button Content="{ext:Translate DownloadImagePack}"
                                     Classes="primary"
                                     HorizontalAlignment="Left"
                                     Padding="20,10"
@@ -162,76 +163,76 @@
 
                         <!-- VIEW -->
                         <StackPanel x:Name="ViewPanel" IsVisible="False">
-                            <TextBlock Text="View" FontSize="18" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate Preferences.View}" FontSize="18" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,16" />
 
-                            <TextBlock Text="Default View" FontSize="13" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate PreferencesWindow_Default_View}" FontSize="13" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
                             <ComboBox x:Name="DefaultViewCombo" Width="200" Margin="0,0,0,20">
                                 <ComboBoxItem Content="Grid View" Tag="GridView" />
                                 <ComboBoxItem Content="List View" Tag="ListView" />
                             </ComboBox>
 
-                            <TextBlock Text="Default Card Width" FontSize="13" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate PreferencesWindow_Default_Card_Width}" FontSize="13" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
                                 <TextBox x:Name="CardWidthBox" Width="60" Text="168" />
-                                <TextBlock Text=" pixels (148–280)"
+                                <TextBlock Text="{ext:Translate PreferencesWindow_pixels_148_280}"
                                            Foreground="{DynamicResource TextMutedBrush}"
                                            FontSize="11" VerticalAlignment="Center" Margin="8,0,0,0" />
                             </StackPanel>
-                            <TextBlock Text="Default width for game cards in grid view."
+                            <TextBlock Text="{ext:Translate PreferencesWindow_Default_width_for_game_cards_in_grid_vie}"
                                        FontSize="11" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,20" />
 
-                            <TextBlock Text="Gamepad Navigation" FontSize="13" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate PreferencesWindow_Gamepad_Navigation}" FontSize="13" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
-                            <CheckBox x:Name="GamepadNavCheck" Content="Enable gamepad navigation"
+                            <CheckBox x:Name="GamepadNavCheck" Content="{ext:Translate PreferencesWindow_Enable_gamepad_navigation}"
                                       Margin="0,0,0,8" />
-                            <CheckBox x:Name="DisplayMachineNameCheck" Content="Show machine/ROM names"
+                            <CheckBox x:Name="DisplayMachineNameCheck" Content="{ext:Translate PreferencesWindow_Show_machine_ROM_names}"
                                       Margin="0,0,0,20" />
                         </StackPanel>
 
                         <!-- SOUND -->
                         <StackPanel x:Name="SoundPanel" IsVisible="False">
-                            <TextBlock Text="Sound" FontSize="18" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate SoundIcon}" FontSize="18" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,16" />
 
                             <CheckBox x:Name="NotificationSoundCheck"
-                                      Content="Enable notification sounds"
+                                      Content="{ext:Translate PreferencesWindow_Enable_notification_sounds}"
                                       Margin="0,0,0,8" />
-                            <TextBlock Text="Custom sounds and per-system sound files are configured in the Sound Configuration window."
+                            <TextBlock Text="{ext:Translate PreferencesWindow_Custom_sounds_and_per_system_sound_files}"
                                        FontSize="11" Foreground="{DynamicResource TextMutedBrush}"
                                        TextWrapping="Wrap" />
                         </StackPanel>
 
                         <!-- RETROACHIEVEMENTS -->
                         <StackPanel x:Name="RetroAchievementsPanel" IsVisible="False">
-                            <TextBlock Text="RetroAchievements" FontSize="18" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate RetroArchConfig_RetroAchievements_Header}" FontSize="18" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
-                            <TextBlock Text="Connect to RetroAchievements for achievement tracking."
+                            <TextBlock Text="{ext:Translate PreferencesWindow_Connect_to_RetroAchievements_for_achieve}"
                                        FontSize="12" Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,16" />
 
-                            <TextBlock Text="Username" FontSize="13" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate Username}" FontSize="13" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
                             <TextBox x:Name="RaUsernameBox" Width="250" Margin="0,0,0,12" />
 
-                            <TextBlock Text="API Key" FontSize="13" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate PreferencesWindow_API_Key}" FontSize="13" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
                             <TextBox x:Name="RaApiKeyBox" Width="350" Margin="0,0,0,20" />
 
-                            <Button x:Name="RaTestButton" Content="Test Connection"
+                            <Button x:Name="RaTestButton" Content="{ext:Translate PreferencesWindow_Test_Connection}"
                                     Classes="secondary"
                                     Width="140" Click="RaTestButton_Click" />
                         </StackPanel>
 
                         <!-- UPDATES -->
                         <StackPanel x:Name="UpdatesPanel" IsVisible="False">
-                            <TextBlock Text="Updates" FontSize="18" FontWeight="SemiBold"
+                            <TextBlock Text="{ext:Translate Preferences.Updates}" FontSize="18" FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
-                            <TextBlock Text="Updates are checked on demand. When a new release is found, you are guided to the releases page to download it."
+                            <TextBlock Text="{ext:Translate PreferencesWindow_Updates_are_checked_on_demand_When_a_new}"
                                        FontSize="12" Foreground="{DynamicResource TextMutedBrush}"
                                        TextWrapping="Wrap" Margin="0,0,0,16" />
-                            <Button x:Name="CheckUpdatesButton" Content="Check for Updates Now"
+                            <Button x:Name="CheckUpdatesButton" Content="{ext:Translate PreferencesWindow_Check_for_Updates_Now}"
                                     Classes="primary"
                                     HorizontalAlignment="Left"
                                     Padding="20,10"

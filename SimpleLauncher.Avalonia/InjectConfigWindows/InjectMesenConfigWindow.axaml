@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectMesenConfigWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Mesen Configuration"
         Height="700" Width="700"
@@ -11,82 +12,82 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Video Section -->
-                <GroupBox Header="Video" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate StellaConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding Fullscreen}"
-                                  Content="Run in Fullscreen"
+                                  Content="{ext:Translate SupermodelConfig_Fullscreen_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="If checked, the emulator will start in fullscreen mode." />
+                                  ToolTip.Tip="{ext:Translate StellaConfig_Fullscreen_Tooltip}" />
                         <CheckBox IsChecked="{Binding Vsync}"
-                                  Content="Enable V-Sync"
+                                  Content="{ext:Translate SupermodelConfig_Vsync_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Synchronizes the frame rate with your monitor's refresh rate to prevent screen tearing." />
+                                  ToolTip.Tip="{ext:Translate SupermodelConfig_Vsync_Tooltip}" />
                         <CheckBox IsChecked="{Binding Bilinear}"
-                                  Content="Enable Bilinear Filtering"
+                                  Content="{ext:Translate MesenConfig_Bilinear_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Smooths the image, which can reduce pixelation." />
+                                  ToolTip.Tip="{ext:Translate MesenConfig_Bilinear_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Aspect Ratio" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate MesenConfig_AspectRatio_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AspectRatioOptions}"
                                       SelectedItem="{Binding AspectRatio}"
-                                      ToolTip.Tip="Determines the display aspect ratio of the game." />
+                                      ToolTip.Tip="{ext:Translate MesenConfig_AspectRatio_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Video Filter" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate MesenConfig_VideoFilter_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding VideoFilterOptions}"
                                       SelectedItem="{Binding VideoFilter}"
-                                      ToolTip.Tip="Applies a visual filter to the game output (e.g., NTSC)." />
+                                      ToolTip.Tip="{ext:Translate MesenConfig_VideoFilter_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
-                <GroupBox Header="Audio" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate SupermodelConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding EnableAudio}"
-                                  Content="Enable Audio"
+                                  Content="{ext:Translate StellaConfig_AudioEnabled_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enables or disables all sound output." />
-                        <TextBlock Text="Master Volume" Classes="form-label" VerticalAlignment="Center" />
+                                  ToolTip.Tip="{ext:Translate MesenConfig_EnableAudio_Tooltip}" />
+                        <TextBlock Text="{ext:Translate MesenConfig_MasterVolume_Label}" Classes="form-label" VerticalAlignment="Center" />
                         <Slider Value="{Binding MasterVolume}"
                                 Minimum="0"
                                 Maximum="100"
                                 IsSnapToTickEnabled="True"
                                 TickFrequency="1"
-                                ToolTip.Tip="Adjusts the overall sound volume." />
+                                ToolTip.Tip="{ext:Translate MesenConfig_MasterVolume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Performance & Features Section -->
-                <GroupBox Header="Performance &amp; Features" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate MesenConfig_Performance_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding Rewind}"
-                                  Content="Enable Rewind"
+                                  Content="{ext:Translate RetroArchConfig_Rewind_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Allows you to rewind gameplay. May impact performance." />
+                                  ToolTip.Tip="{ext:Translate StellaConfig_TimeMachine_Tooltip}" />
                         <CheckBox IsChecked="{Binding PauseInBackground}"
-                                  Content="Pause When in Background"
+                                  Content="{ext:Translate MesenConfig_PauseInBackground_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Pauses the emulation when the window is not in focus." />
-                        <TextBlock Text="Run-Ahead Frames" Classes="form-label" VerticalAlignment="Center" />
+                                  ToolTip.Tip="{ext:Translate MesenConfig_PauseInBackground_Tooltip}" />
+                        <TextBlock Text="{ext:Translate MesenConfig_RunAhead_Label}" Classes="form-label" VerticalAlignment="Center" />
                         <Slider Value="{Binding RunAhead}"
                                 Minimum="0"
                                 Maximum="8"
                                 IsSnapToTickEnabled="True"
                                 TickFrequency="1"
-                                ToolTip.Tip="Reduces input lag by running frames ahead and rolling back. Use with caution (0-8)." />
+                                ToolTip.Tip="{ext:Translate MesenConfig_RunAhead_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Classes="important-setting">
                     <StackPanel>
-                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
-                                  Content="Show this window before launching a game"
-                                  ToolTip.Tip="Show this window before launching a game." />
+                                  Content="{ext:Translate SupermodelConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -95,20 +96,20 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave"
-                    Content="Save"
+                    Content="{ext:Translate YumirConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="Save the configuration and close this window." />
-            <Button Content="Save &amp; Run"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="Save the configuration and run the game." />
-            <Button Content="Cancel"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="Cancel and close this window without saving changes." />
+                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectRpcs3ConfigWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="RPCS3 Configuration"
         Height="750" Width="700"
@@ -11,104 +12,104 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Video Section -->
-                <GroupBox Header="Video Settings" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate YumirConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="Renderer:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_Renderer_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding RendererOptions}"
                                       SelectedItem="{Binding Rpcs3Renderer}"
-                                      ToolTip.Tip="Select the graphics API. Vulkan is recommended for most hardware." />
+                                      ToolTip.Tip="{ext:Translate RPCS3Config_Renderer_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Resolution:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_Resolution_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1" IsEditable="True"
                                       ItemsSource="{Binding ResolutionOptions}"
                                       Text="{Binding Rpcs3Resolution}"
-                                      ToolTip.Tip="Set the output resolution of the emulator window." />
+                                      ToolTip.Tip="{ext:Translate RPCS3Config_Resolution_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Aspect Ratio:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_AspectRatio_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AspectRatioOptions}"
                                       SelectedItem="{Binding Rpcs3AspectRatio}"
-                                      ToolTip.Tip="Set the display aspect ratio." />
+                                      ToolTip.Tip="{ext:Translate RPCS3Config_AspectRatio_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Resolution Scale:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_ResolutionScale_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ResolutionScaleOptions}"
                                       SelectedItem="{Binding Rpcs3ResolutionScale}"
-                                      ToolTip.Tip="Upscale the internal resolution for sharper graphics. 100% is native 720p." />
+                                      ToolTip.Tip="{ext:Translate RPCS3Config_ResolutionScale_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Anisotropic Filter:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_AnisotropicFilter_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AnisotropicFilterOptions}"
                                       SelectedItem="{Binding Rpcs3AnisotropicFilter}"
-                                      ToolTip.Tip="Improves texture quality on surfaces viewed at an angle. 0 is disabled." />
+                                      ToolTip.Tip="{ext:Translate RPCS3Config_AnisotropicFilter_Tooltip}" />
                         </Grid>
                         <CheckBox IsChecked="{Binding Rpcs3Vsync}"
-                                  Content="Enable VSync"
+                                  Content="{ext:Translate RPCS3Config_Vsync_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Synchronize framerate with your monitor's refresh rate to prevent screen tearing." />
+                                  ToolTip.Tip="{ext:Translate RPCS3Config_Vsync_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Core Section -->
-                <GroupBox Header="Core Settings" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate RPCS3Config_Core_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="PPU Decoder:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_PpuDecoder_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding PpuDecoderOptions}"
                                       SelectedItem="{Binding Rpcs3PpuDecoder}"
-                                      ToolTip.Tip="Selects the decoder for the PPU. Recompiler (LLVM) offers the best performance." />
+                                      ToolTip.Tip="{ext:Translate RPCS3Config_PpuDecoder_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="SPU Decoder:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_SpuDecoder_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding SpuDecoderOptions}"
                                       SelectedItem="{Binding Rpcs3SpuDecoder}"
-                                      ToolTip.Tip="Selects the decoder for the SPU. Recompiler (LLVM) offers the best performance." />
+                                      ToolTip.Tip="{ext:Translate RPCS3Config_SpuDecoder_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
-                <GroupBox Header="Audio Settings" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate YumirConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="Audio Renderer:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_AudioRenderer_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AudioRendererOptions}"
                                       SelectedItem="{Binding Rpcs3AudioRenderer}"
-                                      ToolTip.Tip="Select the audio backend. Cubeb is generally recommended." />
+                                      ToolTip.Tip="{ext:Translate RPCS3Config_AudioRenderer_Tooltip}" />
                         </Grid>
                         <CheckBox IsChecked="{Binding Rpcs3AudioBuffering}"
-                                  Content="Enable Audio Buffering"
+                                  Content="{ext:Translate RPCS3Config_AudioBuffering_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Helps prevent audio stuttering at the cost of a small amount of latency." />
+                                  ToolTip.Tip="{ext:Translate RPCS3Config_AudioBuffering_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Miscellaneous Section -->
-                <GroupBox Header="Miscellaneous" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate RPCS3Config_Misc_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding Rpcs3StartFullscreen}"
-                                  Content="Start Games in Fullscreen"
+                                  Content="{ext:Translate RPCS3Config_StartFullscreen_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="If checked, games will automatically launch in fullscreen mode." />
+                                  ToolTip.Tip="{ext:Translate RPCS3Config_StartFullscreen_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Classes="important-setting">
                     <StackPanel>
-                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding Rpcs3ShowSettingsBeforeLaunch}"
-                                  Content="Show this window before launching a game"
-                                  ToolTip.Tip="Show this window before launching a game." />
+                                  Content="{ext:Translate SupermodelConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -117,20 +118,20 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave"
-                    Content="Save"
+                    Content="{ext:Translate YumirConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="Save the configuration and close this window." />
-            <Button Content="Save &amp; Run"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="Save the configuration and run the game." />
-            <Button Content="Cancel"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="Cancel and close this window without saving changes." />
+                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

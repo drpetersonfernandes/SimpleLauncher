@@ -126,7 +126,7 @@ public class LocalizationService
     /// </summary>
     public string GetString(string key, string fallback)
     {
-        return _strings.TryGetValue(key, out var value) ? value : fallback;
+        return _strings.GetValueOrDefault(key, fallback);
     }
 
     /// <summary>

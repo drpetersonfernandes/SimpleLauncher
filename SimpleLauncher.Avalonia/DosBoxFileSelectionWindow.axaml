@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.DosBoxFileSelectionWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:models="using:SimpleLauncher.Core.Models"
         Title="Select File"
@@ -9,7 +10,7 @@
     <Grid Margin="10" RowDefinitions="Auto,*,Auto">
 
         <TextBlock Grid.Row="0"
-                   Text="Select the file to launch:"
+                   Text="{ext:Translate DosBoxFileSelectionWindow_Select_the_file_to_launch}"
                    Margin="10,5,10,10"
                    FontSize="14"
                    TextWrapping="Wrap" />
@@ -41,12 +42,12 @@
         </ListBox>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,15,10,5">
-            <Button Content="Cancel"
+            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
                     Margin="5,0"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
                     MinWidth="75" IsCancel="True" />
-            <Button Content="Launch"
+            <Button Content="{ext:Translate DosBoxFileSelectionWindow_Launch}"
                     Margin="5,0"
                     Classes="primary"
                     Command="{Binding LaunchCommand}"

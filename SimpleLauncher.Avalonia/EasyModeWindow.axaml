@@ -1,9 +1,10 @@
 <Window x:Class="SimpleLauncher.Avalonia.EasyModeWindow"
-        xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
-        xmlns:models="using:SimpleLauncher.Core.Models"
-        Title="Add New System"
+         xmlns="https://github.com/avaloniaui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+         xmlns:models="using:SimpleLauncher.Core.Models"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+         Title="{ext:Translate AddNewSystem}"
         Width="900" MinWidth="700"
         Height="610" MinHeight="550"
         WindowStartupLocation="CenterOwner"
@@ -21,17 +22,17 @@
         <Grid Grid.Row="0" Margin="24,20,24,12" ColumnDefinitions="*,Auto">
 
             <StackPanel>
-                <TextBlock Text="Add New System" FontSize="22" FontWeight="Light"
+                <TextBlock Text="{ext:Translate AddNewSystem}" FontSize="22" FontWeight="Light"
                            Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,8" />
-                <TextBlock Text="In this window you can download, configure and launch various retro gaming emulators."
+                <TextBlock Text="{ext:Translate InThisWindowYouCanDownload}"
                            TextWrapping="Wrap" FontSize="12"
                            Foreground="{DynamicResource TextMutedBrush}" />
-                <TextBlock Text="We also support systems not listed here. Open an issue or use the original Simple Launcher to add a custom system."
+                <TextBlock Text="{ext:Translate WeAlsoSupportSystems}"
                            TextWrapping="Wrap" FontSize="12"
                            Foreground="{DynamicResource TextMutedBrush}" Margin="0,6,0,0" />
             </StackPanel>
 
-            <Button Grid.Column="1" Content="Close"
+            <Button Grid.Column="1" Content="{ext:Translate Close}"
                     Classes="secondary"
                     Padding="14,6" Margin="4,0"
                     VerticalAlignment="Top"
@@ -45,7 +46,7 @@
 
             <!-- Left column: Configuration -->
             <StackPanel Grid.Column="0">
-                <TextBlock Text="Choose a System to Add" FontWeight="SemiBold" FontSize="13"
+                <TextBlock Text="{ext:Translate ChooseASystemToAdd}" FontWeight="SemiBold" FontSize="13"
                            Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
                 <ComboBox x:Name="SystemNameCombo"
                           ItemsSource="{Binding Systems}"
@@ -62,9 +63,9 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-                <TextBlock Text="Choose Folder with ROMs or ISOs" FontWeight="SemiBold" FontSize="13"
+                <TextBlock Text="{ext:Translate ChooseFolderWithROMsOrIsos}" FontWeight="SemiBold" FontSize="13"
                            Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
-                <TextBlock Text="If you leave it empty, a default folder will be created."
+                <TextBlock Text="{ext:Translate Ifyouleaveitempty}"
                            TextWrapping="Wrap" FontSize="12"
                            Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,6" />
                 <Grid ColumnDefinitions="*,Auto">
@@ -80,14 +81,14 @@
                             Margin="6,0,0,0"
                             Classes="secondary"
                             Click="BrowseFolder_Click"
-                            ToolTip.Tip="Browse for ROM folder" />
+                            ToolTip.Tip="{ext:Translate TooltipChooseFolder}" />
                 </Grid>
 
                 <!-- Links section -->
                 <StackPanel Margin="0,24,0,0">
-                    <TextBlock Text="Resources" FontWeight="SemiBold" FontSize="13"
+                    <TextBlock Text="{ext:Translate Resources}" FontWeight="SemiBold" FontSize="13"
                                Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,10" />
-                    <TextBlock Text="In case the image pack is not available, you can download covers manually:"
+                    <TextBlock Text="{ext:Translate IncasetheImagePackisnotavailable}"
                                TextWrapping="Wrap" FontSize="12"
                                Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,6" />
                     <HyperlinkButton NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails"
@@ -104,7 +105,7 @@
             <!-- Right column: Downloads -->
             <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
                 <StackPanel>
-                    <TextBlock Text="Install" FontWeight="SemiBold" FontSize="13"
+                    <TextBlock Text="{ext:Translate Install}" FontWeight="SemiBold" FontSize="13"
                                Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,10" />
 
                     <!-- Essential components -->
@@ -113,15 +114,15 @@
                             BorderThickness="1" CornerRadius="6"
                             Padding="12" Margin="0,0,0,16">
                         <StackPanel>
-                            <TextBlock Text="Essentials" FontWeight="SemiBold" FontSize="12"
+                            <TextBlock Text="{ext:Translate EssentialsHeader}" FontWeight="SemiBold" FontSize="12"
                                        Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,8" />
                             <UniformGrid Columns="2" Rows="1">
-                                <Button Content="Download Emulator"
+                                <Button Content="{ext:Translate DownloadEmulator}"
                                         Command="{Binding DownloadEmulatorCommand}"
                                         IsEnabled="{Binding IsEmulatorDownloaded, Converter={StaticResource InverseBool}}"
                                         Height="38" Margin="4"
                                         Classes="primary" />
-                                <Button Content="Download Core"
+                                <Button Content="{ext:Translate DownloadCore}"
                                         Command="{Binding DownloadCoreCommand}"
                                         IsEnabled="{Binding IsCoreDownloaded, Converter={StaticResource InverseBool}}"
                                         Height="38" Margin="4"
@@ -136,34 +137,34 @@
                             BorderThickness="1" CornerRadius="6"
                             Padding="12">
                         <StackPanel>
-                            <TextBlock Text="Image Packs (Optional)" FontWeight="SemiBold" FontSize="12"
+                            <TextBlock Text="{ext:Translate ImagePacksOptionalHeader}" FontWeight="SemiBold" FontSize="12"
                                        Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,8" />
                             <UniformGrid Columns="2">
-                                <Button Content="Image Pack 1"
+                                <Button Content="{ext:Translate DownloadImagePack1}"
                                         Command="{Binding DownloadImagePack1Command}"
                                         IsEnabled="{Binding IsImagePack1Downloaded, Converter={StaticResource InverseBool}}"
                                         IsVisible="{Binding IsImagePack1Available, Converter={StaticResource BoolToVisibility}}"
                                         Height="38" Margin="4"
                                         Classes="primary" />
-                                <Button Content="Image Pack 2"
+                                <Button Content="{ext:Translate DownloadImagePack2}"
                                         Command="{Binding DownloadImagePack2Command}"
                                         IsEnabled="{Binding IsImagePack2Downloaded, Converter={StaticResource InverseBool}}"
                                         IsVisible="{Binding IsImagePack2Available, Converter={StaticResource BoolToVisibility}}"
                                         Height="38" Margin="4"
                                         Classes="primary" />
-                                <Button Content="Image Pack 3"
+                                <Button Content="{ext:Translate DownloadImagePack3}"
                                         Command="{Binding DownloadImagePack3Command}"
                                         IsEnabled="{Binding IsImagePack3Downloaded, Converter={StaticResource InverseBool}}"
                                         IsVisible="{Binding IsImagePack3Available, Converter={StaticResource BoolToVisibility}}"
                                         Height="38" Margin="4"
                                         Classes="primary" />
-                                <Button Content="Image Pack 4"
+                                <Button Content="{ext:Translate DownloadImagePack4}"
                                         Command="{Binding DownloadImagePack4Command}"
                                         IsEnabled="{Binding IsImagePack4Downloaded, Converter={StaticResource InverseBool}}"
                                         IsVisible="{Binding IsImagePack4Available, Converter={StaticResource BoolToVisibility}}"
                                         Height="38" Margin="4"
                                         Classes="primary" />
-                                <Button Content="Image Pack 5"
+                                <Button Content="{ext:Translate DownloadImagePack5}"
                                         Command="{Binding DownloadImagePack5Command}"
                                         IsEnabled="{Binding IsImagePack5Downloaded, Converter={StaticResource InverseBool}}"
                                         IsVisible="{Binding IsImagePack5Available, Converter={StaticResource BoolToVisibility}}"
@@ -189,7 +190,7 @@
                         <ProgressBar Height="20"
                                      Value="{Binding DownloadProgress, Mode=OneWay}"
                                      Minimum="0" Maximum="100" />
-                        <TextBlock Text="Download Progress"
+                        <TextBlock Text="{ext:Translate DownloadProgress}"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextPrimaryBrush}"
                                    FontSize="10" />
@@ -197,7 +198,7 @@
 
                     <DockPanel Grid.Row="1" Margin="0,6,0,0">
                         <Button DockPanel.Dock="Right"
-                                Content="Stop"
+                                Content="{ext:Translate StopDownload}"
                                 Margin="10,0,0,0" Padding="10,4"
                                 Command="{Binding StopDownloadCommand}"
                                 IsEnabled="{Binding CanStopDownload}"
@@ -212,7 +213,7 @@
 
                 <!-- Add System button -->
                 <Button Grid.Column="1"
-                        Content="Add System"
+                        Content="{ext:Translate AddSystem}"
                         Command="{Binding AddSystemCommand}"
                         IsEnabled="{Binding IsAddSystemEnabled}"
                         FontSize="16" FontWeight="Bold"
@@ -233,7 +234,7 @@
                            FontSize="14"
                            HorizontalAlignment="Center" />
                 <Button x:Name="EmergencyButton"
-                        Content="Cancel"
+                        Content="{ext:Translate Cancel}"
                         Width="100" Margin="0,16,0,0"
                         Classes="secondary"
                         Click="EmergencyOverlay_Click"

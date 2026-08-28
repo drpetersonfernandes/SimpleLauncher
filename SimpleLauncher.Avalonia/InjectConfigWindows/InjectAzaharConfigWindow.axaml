@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectAzaharConfigWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Azahar Configuration"
         Height="650" Width="700"
@@ -11,25 +12,25 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Video Section -->
-                <GroupBox Header="Video &amp; Renderer">
+                <GroupBox Header="{ext:Translate AzaharConfig_Video_Header}">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,5">
-                            <TextBlock Text="Graphics API:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate XeniaConfig_GpuApi_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       SelectedValue="{Binding GraphicsApi}"
                                       SelectedValueBinding="{Binding Tag}"
-                                      ToolTip.Tip="Choose between OpenGL (Legacy) or Vulkan (Modern/Faster).">
+                                      ToolTip.Tip="{ext:Translate AzaharConfig_GraphicsApi_Tooltip}">
                                 <ComboBoxItem Content="OpenGL" Tag="0" />
                                 <ComboBoxItem Content="Vulkan" Tag="2" />
                             </ComboBox>
                         </Grid>
 
                         <Grid ColumnDefinitions="*,*" Margin="0,5">
-                            <TextBlock Text="Resolution Factor:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate AzaharConfig_Resolution_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       SelectedValue="{Binding Resolution}"
                                       SelectedValueBinding="{Binding Tag}"
-                                      ToolTip.Tip="Internal resolution multiplier. Higher values look better but require more GPU power.">
+                                      ToolTip.Tip="{ext:Translate AzaharConfig_Resolution_Tooltip}">
                                 <ComboBoxItem Content="Auto" Tag="0" />
                                 <ComboBoxItem Content="1x Native" Tag="1" />
                                 <ComboBoxItem Content="2x (800x480)" Tag="2" />
@@ -39,33 +40,33 @@
                         </Grid>
 
                         <CheckBox IsChecked="{Binding Fullscreen}"
-                                  Content="Start in Fullscreen"
+                                  Content="{ext:Translate RetroArchConfig_Fullscreen_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Automatically switch to fullscreen mode when a game starts." />
+                                  ToolTip.Tip="{ext:Translate CemuConfig_Fullscreen_Tooltip}" />
                         <CheckBox IsChecked="{Binding Vsync}"
-                                  Content="Enable VSync"
+                                  Content="{ext:Translate RPCS3Config_Vsync_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Synchronizes frame rate with monitor refresh rate to prevent screen tearing." />
+                                  ToolTip.Tip="{ext:Translate CemuConfig_Vsync_Tooltip}" />
                         <CheckBox IsChecked="{Binding AsyncShader}"
-                                  Content="Use Async Shader Compilation"
+                                  Content="{ext:Translate AzaharConfig_AsyncShader_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Reduces stuttering during gameplay by compiling shaders in the background." />
+                                  ToolTip.Tip="{ext:Translate AzaharConfig_AsyncShader_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- System Section -->
-                <GroupBox Header="System Settings">
+                <GroupBox Header="{ext:Translate AzaharConfig_System_Header}">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding IsNew3Ds}"
-                                  Content="Emulate New 3DS"
+                                  Content="{ext:Translate AzaharConfig_New3DS_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enables New 3DS specific features and higher CPU clock for compatible games." />
+                                  ToolTip.Tip="{ext:Translate AzaharConfig_New3DS_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5">
-                            <TextBlock Text="Screen Layout:" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate AzaharConfig_Layout_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       SelectedValue="{Binding Layout}"
                                       SelectedValueBinding="{Binding Tag}"
-                                      ToolTip.Tip="How the top and bottom screens are arranged in the window.">
+                                      ToolTip.Tip="{ext:Translate AzaharConfig_Layout_Tooltip}">
                                 <ComboBoxItem Content="Default" Tag="0" />
                                 <ComboBoxItem Content="Single Screen" Tag="1" />
                                 <ComboBoxItem Content="Large Screen" Tag="2" />
@@ -76,29 +77,29 @@
                 </GroupBox>
 
                 <!-- Audio Section -->
-                <GroupBox Header="Audio">
+                <GroupBox Header="{ext:Translate SupermodelConfig_Audio_Header}">
                     <StackPanel Margin="5">
-                        <TextBlock Text="Master Volume:" Classes="form-label" />
+                        <TextBlock Text="{ext:Translate StellaConfig_AudioVolume_Label}" Classes="form-label" />
                         <Slider Value="{Binding Volume}"
                                 Minimum="0"
                                 Maximum="100"
                                 IsSnapToTickEnabled="True"
                                 TickFrequency="1"
-                                ToolTip.Tip="Adjust the overall output volume of the emulator." />
+                                ToolTip.Tip="{ext:Translate Pcsx2Config_Volume_Tooltip}" />
                         <CheckBox IsChecked="{Binding AudioStretching}"
-                                  Content="Enable Audio Stretching"
+                                  Content="{ext:Translate AzaharConfig_AudioStretching_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enable audio stretching to prevent audio crackling." />
+                                  ToolTip.Tip="{ext:Translate AzaharConfig_AudioStretching_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Classes="important-setting">
                     <StackPanel>
-                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
-                                  Content="Show this window before launching a game"
-                                  ToolTip.Tip="Show this window before launching a game." />
+                                  Content="{ext:Translate SupermodelConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -107,20 +108,20 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave"
-                    Content="Save"
+                    Content="{ext:Translate YumirConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="Save the configuration and close this window." />
-            <Button Content="Save &amp; Run"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="Save the configuration and run the game." />
-            <Button Content="Cancel"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="Cancel and close this window without saving changes." />
+                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

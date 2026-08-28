@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectMednafenConfigWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Mednafen Configuration"
         Height="750" Width="700"
@@ -11,81 +12,81 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Video Section -->
-                <GroupBox Header="Video" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate StellaConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="Video Driver:" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate StellaConfig_VideoDriver_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding VideoDriverOptions}"
                                       SelectedItem="{Binding MednafenVideoDriver}"
-                                      ToolTip.Tip="Select the video rendering driver. 'opengl' is recommended for performance and features." />
+                                      ToolTip.Tip="{ext:Translate MednafenConfig_VideoDriver_Tooltip}" />
                         </Grid>
                         <CheckBox IsChecked="{Binding MednafenFullscreen}"
-                                  Content="Run in Fullscreen"
+                                  Content="{ext:Translate SupermodelConfig_Fullscreen_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="If checked, the emulator will start in fullscreen mode." />
+                                  ToolTip.Tip="{ext:Translate StellaConfig_Fullscreen_Tooltip}" />
                         <CheckBox IsChecked="{Binding MednafenVsync}"
-                                  Content="Enable VSync"
+                                  Content="{ext:Translate RPCS3Config_Vsync_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Synchronizes the frame rate with your monitor's refresh rate to prevent screen tearing. Requires 'opengl' driver." />
+                                  ToolTip.Tip="{ext:Translate MednafenConfig_Vsync_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Aspect Ratio / Stretch:" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate MednafenConfig_Stretch_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding StretchOptions}"
                                       SelectedItem="{Binding MednafenStretch}"
-                                      ToolTip.Tip="How the game image is stretched to fit the screen. 'aspect' is recommended." />
+                                      ToolTip.Tip="{ext:Translate MednafenConfig_Stretch_Tooltip}" />
                         </Grid>
                         <CheckBox IsChecked="{Binding MednafenBilinear}"
-                                  Content="Bilinear Interpolation"
+                                  Content="{ext:Translate MednafenConfig_Bilinear_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Smooths pixels when scaling the image. Can make games look blurry." />
+                                  ToolTip.Tip="{ext:Translate MednafenConfig_Bilinear_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Effects Section -->
-                <GroupBox Header="Effects" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate MednafenConfig_Effects_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <TextBlock Text="Scanlines Opacity:" Classes="form-label" VerticalAlignment="Center" />
-                        <Slider Value="{Binding MednafenScanlines}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip.Tip="Adds horizontal lines to mimic an old CRT screen. 0 is off, 100 is fully opaque." />
+                        <TextBlock Text="{ext:Translate MednafenConfig_Scanlines_Label}" Classes="form-label" VerticalAlignment="Center" />
+                        <Slider Value="{Binding MednafenScanlines}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip.Tip="{ext:Translate MednafenConfig_Scanlines_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="Shader:" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate MednafenConfig_Shader_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ShaderOptions}"
                                       SelectedItem="{Binding MednafenShader}"
-                                      ToolTip.Tip="Applies a post-processing effect to the game image. Requires 'opengl' driver." />
+                                      ToolTip.Tip="{ext:Translate MednafenConfig_Shader_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Sound Section -->
-                <GroupBox Header="Sound" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate SoundIcon}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <TextBlock Text="Master Volume (%):" Classes="form-label" VerticalAlignment="Center" />
-                        <Slider Value="{Binding MednafenVolume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip.Tip="Adjusts the main sound volume. 100 is default." />
+                        <TextBlock Text="{ext:Translate MednafenConfig_Volume_Label}" Classes="form-label" VerticalAlignment="Center" />
+                        <Slider Value="{Binding MednafenVolume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip.Tip="{ext:Translate MednafenConfig_Volume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Features Section -->
-                <GroupBox Header="Features" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate StellaConfig_Features_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding MednafenCheats}"
-                                  Content="Enable Cheats"
+                                  Content="{ext:Translate Pcsx2Config_Cheats_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enables the cheat system within the emulator." />
+                                  ToolTip.Tip="{ext:Translate MednafenConfig_Cheats_Tooltip}" />
                         <CheckBox IsChecked="{Binding MednafenRewind}"
-                                  Content="Enable Rewind"
+                                  Content="{ext:Translate RetroArchConfig_Rewind_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Allows you to rewind gameplay. Can be performance-intensive." />
+                                  ToolTip.Tip="{ext:Translate MednafenConfig_Rewind_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Classes="important-setting">
                     <StackPanel>
-                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding MednafenShowSettingsBeforeLaunch}"
-                                  Content="Show this window before launching a game"
-                                  ToolTip.Tip="Show this window before launching a game." />
+                                  Content="{ext:Translate SupermodelConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -93,20 +94,20 @@
 
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button x:Name="BtnSave" Content="Save"
+            <Button x:Name="BtnSave" Content="{ext:Translate YumirConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="Save the configuration and close this window." />
-            <Button Content="Save &amp; Run"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="Save the configuration and run the game." />
-            <Button Content="Cancel"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="Cancel and close this window without saving changes." />
+                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

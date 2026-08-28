@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.EditSystemWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:doc="clr-namespace:Avalonia.Controls.Documents;assembly=Avalonia.Controls"
         xmlns:md="clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia"
@@ -20,7 +21,7 @@
             <Grid ColumnDefinitions="*,Auto">
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="System:" FontSize="13" VerticalAlignment="Center"
+                    <TextBlock Text="{ext:Translate System}" FontSize="13" VerticalAlignment="Center"
                                Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,8,0" />
                     <ComboBox x:Name="SystemNameDropdown"
                               MinWidth="220"
@@ -32,26 +33,26 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button x:Name="AddSystemButton" Content="＋ Add New"
+                    <Button x:Name="AddSystemButton" Content="{ext:Translate EditSystemWindow_Add_New}"
                             Classes="secondary"
                             Padding="14,6" Margin="4,0"
                             Click="AddSystemButton_ClickAsync" />
-                    <Button x:Name="SaveSystemButton" Content="Save"
+                    <Button x:Name="SaveSystemButton" Content="{ext:Translate YumirConfig_Save_Button}"
                             Classes="primary"
                             Padding="20,6" Margin="4,0"
                             IsEnabled="False"
                             Click="SaveSystemButton_ClickAsync" />
-                    <Button x:Name="DeleteSystemButton" Content="Delete"
+                    <Button x:Name="DeleteSystemButton" Content="{ext:Translate EditSystemWindow_Delete}"
                             Classes="secondary"
                             Padding="14,6" Margin="4,0"
                             IsEnabled="False"
                             Click="DeleteSystemButton_ClickAsync" />
-                    <Button Content="❓ Help"
+                    <Button Content="{ext:Translate EditSystemWindow_Help}"
                             Classes="secondary"
                             Padding="14,6" Margin="4,0"
-                            ToolTip.Tip="Open the parameters wiki"
+                            ToolTip.Tip="{ext:Translate EditSystemWindow_Open_the_parameters_wiki}"
                             Click="HelpLink_ClickAsync" />
-                    <Button Content="Close"
+                    <Button Content="{ext:Translate Close}"
                             Classes="secondary"
                             Padding="14,6" Margin="4,0"
                             Click="CloseButton_Click" />
@@ -68,7 +69,7 @@
                         BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1"
                         CornerRadius="6" Padding="16" Margin="0,0,0,14">
                     <StackPanel>
-                        <TextBlock Text="System" FontWeight="SemiBold" FontSize="14"
+                        <TextBlock Text="{ext:Translate RedreamConfig_System_Header}" FontWeight="SemiBold" FontSize="14"
                                    Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12" />
 
                         <!-- System image preview + picker (parity with WPF ChooseSystemImageButton) -->
@@ -81,18 +82,18 @@
                                        RenderOptions.BitmapInterpolationMode="HighQuality" />
                             </Border>
                             <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
-                                <TextBlock Text="System Image" FontSize="12"
+                                <TextBlock Text="{ext:Translate SystemImageLabel}" FontSize="12"
                                            Foreground="{DynamicResource TextSecondaryBrush}" />
-                                <TextBlock Text="Copied to images\systems as PNG/JPG."
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Copied_to_images_systems_as_PNG_JPG}"
                                            FontSize="11" Foreground="{DynamicResource TextMutedBrush}"
                                            TextWrapping="Wrap" MaxWidth="260" Margin="0,4,0,8" />
-                                <Button Content="Choose Image…" Classes="secondary" Padding="12,6"
+                                <Button Content="{ext:Translate EditSystemWindow_Choose_Image}" Classes="secondary" Padding="12,6"
                                         Click="ChooseSystemImageButton_ClickAsync" />
                             </StackPanel>
                         </StackPanel>
 
                         <!-- Name -->
-                        <TextBlock Text="System Name" FontSize="12"
+                        <TextBlock Text="{ext:Translate SystemNameHeader}" FontSize="12"
                                    Foreground="{DynamicResource TextSecondaryBrush}" />
                         <TextBox x:Name="SystemNameTextBox" Height="40" Margin="0,4,0,12"
                                  Background="{DynamicResource BgTertiaryBrush}"
@@ -101,7 +102,7 @@
                                  LostFocus="SystemNameTextBox_LostFocus" />
 
                         <!-- System folders -->
-                        <TextBlock Text="System Folder (ROMs)" FontSize="12"
+                        <TextBlock Text="{ext:Translate EditSystemWindow_System_Folder_ROMs}" FontSize="12"
                                    Foreground="{DynamicResource TextSecondaryBrush}" />
                         <Grid Margin="0,4,0,4" ColumnDefinitions="*,Auto">
                             <TextBox x:Name="SystemFolderTextBox" Height="40"
@@ -115,24 +116,24 @@
                         </Grid>
 
                         <!-- Additional folders -->
-                        <TextBlock Text="Additional Folders" FontSize="12" Margin="0,8,0,0"
+                        <TextBlock Text="{ext:Translate EditSystemWindow_Additional_Folders}" FontSize="12" Margin="0,8,0,0"
                                    Foreground="{DynamicResource TextSecondaryBrush}" />
                         <ListBox x:Name="AdditionalFoldersListBox" Height="90" Margin="0,4,0,4"
                                  Background="{DynamicResource BgTertiaryBrush}"
                                  Foreground="{DynamicResource TextPrimaryBrush}"
                                  BorderBrush="{DynamicResource BorderNormalBrush}" />
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                            <Button Content="＋ Add Folder" Padding="10,4"
+                            <Button Content="{ext:Translate EditSystemWindow_Add_Folder}" Padding="10,4"
                                     Classes="secondary"
                                     Margin="0,0,6,0"
                                     Click="AddAdditionalFolder_Click" />
-                            <Button Content="－ Remove Selected" Padding="10,4"
+                            <Button Content="{ext:Translate EditSystemWindow_Remove_Selected}" Padding="10,4"
                                     Classes="secondary"
                                     Click="RemoveAdditionalFolder_Click" />
                         </StackPanel>
 
                         <!-- Image folder -->
-                        <TextBlock Text="System Image Folder" FontSize="12"
+                        <TextBlock Text="{ext:Translate SystemImageFolder}" FontSize="12"
                                    Foreground="{DynamicResource TextSecondaryBrush}" />
                         <Grid Margin="0,4,0,12" ColumnDefinitions="*,Auto">
                             <TextBox x:Name="SystemImageFolderTextBox" Height="40"
@@ -148,7 +149,7 @@
                         <!-- Formats -->
                         <Grid ColumnDefinitions="*,*">
                             <StackPanel Margin="0,0,8,0">
-                                <TextBlock Text="Formats to Search (comma separated)" FontSize="12"
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Formats_to_Search_comma_separated}" FontSize="12"
                                            Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <TextBox x:Name="FormatToSearchTextBox" Height="40" Margin="0,4,0,12"
                                          Background="{DynamicResource BgTertiaryBrush}"
@@ -156,7 +157,7 @@
                                          BorderBrush="{DynamicResource BorderNormalBrush}" />
                             </StackPanel>
                             <StackPanel Grid.Column="1">
-                                <TextBlock Text="Formats to Launch (comma separated)" FontSize="12"
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Formats_to_Launch_comma_separated}" FontSize="12"
                                            Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <TextBox x:Name="FormatToLaunchTextBox" Height="40" Margin="0,4,0,12"
                                          Background="{DynamicResource BgTertiaryBrush}"
@@ -168,7 +169,7 @@
                         <!-- Options -->
                         <Grid ColumnDefinitions="*,*,*">
                             <StackPanel Margin="0,0,8,0">
-                                <TextBlock Text="Extract File Before Launch" FontSize="12"
+                                <TextBlock Text="{ext:Translate ExtractFileBeforeLaunch}" FontSize="12"
                                            Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <ComboBox x:Name="ExtractFileBeforeLaunchComboBox" Height="40" Margin="0,4,0,0"
                                           Background="{DynamicResource BgTertiaryBrush}"
@@ -179,7 +180,7 @@
                                 </ComboBox>
                             </StackPanel>
                             <StackPanel Grid.Column="1" Margin="0,0,8,0">
-                                <TextBlock Text="Group By Folder" FontSize="12"
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Group_By_Folder}" FontSize="12"
                                            Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <ComboBox x:Name="GroupByFolderComboBox" Height="40" Margin="0,4,0,0"
                                           Background="{DynamicResource BgTertiaryBrush}"
@@ -190,7 +191,7 @@
                                 </ComboBox>
                             </StackPanel>
                             <StackPanel Grid.Column="2">
-                                <TextBlock Text="Disable Recursive Search" FontSize="12"
+                                <TextBlock Text="{ext:Translate DisableRecursiveSearch}" FontSize="12"
                                            Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <ComboBox x:Name="DisableRecursiveSearchComboBox" Height="40" Margin="0,4,0,0"
                                           Background="{DynamicResource BgTertiaryBrush}"
@@ -209,22 +210,22 @@
                         BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1"
                         CornerRadius="6" Padding="16" Margin="0,0,0,14">
                     <StackPanel>
-                        <TextBlock Text="Emulators" FontWeight="SemiBold" FontSize="14"
+                        <TextBlock Text="{ext:Translate Preferences.Emulators}" FontWeight="SemiBold" FontSize="14"
                                    Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,12" />
 
-                        <Expander x:Name="Emulator1Expander" Header="Emulator 1" IsExpanded="True"
+                        <Expander x:Name="Emulator1Expander" Header="{ext:Translate Emulator1}" IsExpanded="True"
                                   Foreground="{DynamicResource TextPrimaryBrush}">
                             <StackPanel Margin="0,8,0,0">
                                 <Grid ColumnDefinitions="*,*">
                                     <StackPanel Margin="0,0,8,0">
-                                        <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBlock Text="{ext:Translate Name}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator1NameTextBox" Height="40" Margin="0,4,0,8"
                                                  Background="{DynamicResource BgTertiaryBrush}"
                                                  Foreground="{DynamicResource TextPrimaryBrush}"
                                                  BorderBrush="{DynamicResource BorderNormalBrush}" />
                                     </StackPanel>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Notify on Error" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBlock Text="{ext:Translate EditSystemWindow_Notify_on_Error}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <ComboBox x:Name="ReceiveANotificationOnEmulatorError1" Height="40" Margin="0,4,0,8"
                                                   Background="{DynamicResource BgTertiaryBrush}"
                                                   Foreground="{DynamicResource TextPrimaryBrush}"
@@ -234,7 +235,7 @@
                                         </ComboBox>
                                     </StackPanel>
                                 </Grid>
-                                <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Path_exe_bat}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <Grid Margin="0,4,0,8" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator1PathTextBox" Height="40" VerticalContentAlignment="Center"
                                              Background="{DynamicResource BgTertiaryBrush}"
@@ -244,32 +245,32 @@
                                             Classes="secondary"
                                             Click="ChooseEmulator1Path" />
                                 </Grid>
-                                <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Parameters}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <Grid Margin="0,4,0,0" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator1ParametersTextBox" Height="40"
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="Suggest" Width="90" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate EditSystemWindow_Suggest}" Width="90" Height="40" Margin="6,0,0,0"
                                             Classes="secondary"
                                             Click="SuggestEmulator1Parameters_ClickAsync" />
                                 </Grid>
                             </StackPanel>
                         </Expander>
 
-                        <Expander x:Name="Emulator2Expander" Header="Emulator 2"
+                        <Expander x:Name="Emulator2Expander" Header="{ext:Translate Emulator2}"
                                   Foreground="{DynamicResource TextPrimaryBrush}">
                             <StackPanel Margin="0,8,0,0">
                                 <Grid ColumnDefinitions="*,*">
                                     <StackPanel Margin="0,0,8,0">
-                                        <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBlock Text="{ext:Translate Name}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator2NameTextBox" Height="40" Margin="0,4,0,8"
                                                  Background="{DynamicResource BgTertiaryBrush}"
                                                  Foreground="{DynamicResource TextPrimaryBrush}"
                                                  BorderBrush="{DynamicResource BorderNormalBrush}" />
                                     </StackPanel>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Notify on Error" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBlock Text="{ext:Translate EditSystemWindow_Notify_on_Error}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <ComboBox x:Name="ReceiveANotificationOnEmulatorError2" Height="40" Margin="0,4,0,8"
                                                   Background="{DynamicResource BgTertiaryBrush}"
                                                   Foreground="{DynamicResource TextPrimaryBrush}"
@@ -279,7 +280,7 @@
                                         </ComboBox>
                                     </StackPanel>
                                 </Grid>
-                                <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Path_exe_bat}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <Grid Margin="0,4,0,8" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator2PathTextBox" Height="40" VerticalContentAlignment="Center"
                                              Background="{DynamicResource BgTertiaryBrush}"
@@ -289,32 +290,32 @@
                                             Classes="secondary"
                                             Click="ChooseEmulator2Path" />
                                 </Grid>
-                                <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Parameters}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <Grid Margin="0,4,0,0" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator2ParametersTextBox" Height="40"
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="Suggest" Width="90" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate EditSystemWindow_Suggest}" Width="90" Height="40" Margin="6,0,0,0"
                                             Classes="secondary"
                                             Click="SuggestEmulator2Parameters_ClickAsync" />
                                 </Grid>
                             </StackPanel>
                         </Expander>
 
-                        <Expander x:Name="Emulator3Expander" Header="Emulator 3"
+                        <Expander x:Name="Emulator3Expander" Header="{ext:Translate Emulator3}"
                                   Foreground="{DynamicResource TextPrimaryBrush}">
                             <StackPanel Margin="0,8,0,0">
                                 <Grid ColumnDefinitions="*,*">
                                     <StackPanel Margin="0,0,8,0">
-                                        <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBlock Text="{ext:Translate Name}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator3NameTextBox" Height="40" Margin="0,4,0,8"
                                                  Background="{DynamicResource BgTertiaryBrush}"
                                                  Foreground="{DynamicResource TextPrimaryBrush}"
                                                  BorderBrush="{DynamicResource BorderNormalBrush}" />
                                     </StackPanel>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Notify on Error" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBlock Text="{ext:Translate EditSystemWindow_Notify_on_Error}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <ComboBox x:Name="ReceiveANotificationOnEmulatorError3" Height="40" Margin="0,4,0,8"
                                                   Background="{DynamicResource BgTertiaryBrush}"
                                                   Foreground="{DynamicResource TextPrimaryBrush}"
@@ -324,7 +325,7 @@
                                         </ComboBox>
                                     </StackPanel>
                                 </Grid>
-                                <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Path_exe_bat}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <Grid Margin="0,4,0,8" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator3PathTextBox" Height="40" VerticalContentAlignment="Center"
                                              Background="{DynamicResource BgTertiaryBrush}"
@@ -334,32 +335,32 @@
                                             Classes="secondary"
                                             Click="ChooseEmulator3Path" />
                                 </Grid>
-                                <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Parameters}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <Grid Margin="0,4,0,0" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator3ParametersTextBox" Height="40"
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="Suggest" Width="90" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate EditSystemWindow_Suggest}" Width="90" Height="40" Margin="6,0,0,0"
                                             Classes="secondary"
                                             Click="SuggestEmulator3Parameters_ClickAsync" />
                                 </Grid>
                             </StackPanel>
                         </Expander>
 
-                        <Expander x:Name="Emulator4Expander" Header="Emulator 4"
+                        <Expander x:Name="Emulator4Expander" Header="{ext:Translate Emulator4}"
                                   Foreground="{DynamicResource TextPrimaryBrush}">
                             <StackPanel Margin="0,8,0,0">
                                 <Grid ColumnDefinitions="*,*">
                                     <StackPanel Margin="0,0,8,0">
-                                        <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBlock Text="{ext:Translate Name}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator4NameTextBox" Height="40" Margin="0,4,0,8"
                                                  Background="{DynamicResource BgTertiaryBrush}"
                                                  Foreground="{DynamicResource TextPrimaryBrush}"
                                                  BorderBrush="{DynamicResource BorderNormalBrush}" />
                                     </StackPanel>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Notify on Error" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBlock Text="{ext:Translate EditSystemWindow_Notify_on_Error}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <ComboBox x:Name="ReceiveANotificationOnEmulatorError4" Height="40" Margin="0,4,0,8"
                                                   Background="{DynamicResource BgTertiaryBrush}"
                                                   Foreground="{DynamicResource TextPrimaryBrush}"
@@ -369,7 +370,7 @@
                                         </ComboBox>
                                     </StackPanel>
                                 </Grid>
-                                <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Path_exe_bat}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <Grid Margin="0,4,0,8" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator4PathTextBox" Height="40" VerticalContentAlignment="Center"
                                              Background="{DynamicResource BgTertiaryBrush}"
@@ -379,32 +380,32 @@
                                             Classes="secondary"
                                             Click="ChooseEmulator4Path" />
                                 </Grid>
-                                <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Parameters}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <Grid Margin="0,4,0,0" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator4ParametersTextBox" Height="40"
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="Suggest" Width="90" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate EditSystemWindow_Suggest}" Width="90" Height="40" Margin="6,0,0,0"
                                             Classes="secondary"
                                             Click="SuggestEmulator4Parameters_ClickAsync" />
                                 </Grid>
                             </StackPanel>
                         </Expander>
 
-                        <Expander x:Name="Emulator5Expander" Header="Emulator 5"
+                        <Expander x:Name="Emulator5Expander" Header="{ext:Translate Emulator5}"
                                   Foreground="{DynamicResource TextPrimaryBrush}">
                             <StackPanel Margin="0,8,0,0">
                                 <Grid ColumnDefinitions="*,*">
                                     <StackPanel Margin="0,0,8,0">
-                                        <TextBlock Text="Name" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBlock Text="{ext:Translate Name}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <TextBox x:Name="Emulator5NameTextBox" Height="40" Margin="0,4,0,8"
                                                  Background="{DynamicResource BgTertiaryBrush}"
                                                  Foreground="{DynamicResource TextPrimaryBrush}"
                                                  BorderBrush="{DynamicResource BorderNormalBrush}" />
                                     </StackPanel>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="Notify on Error" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                        <TextBlock Text="{ext:Translate EditSystemWindow_Notify_on_Error}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                         <ComboBox x:Name="ReceiveANotificationOnEmulatorError5" Height="40" Margin="0,4,0,8"
                                                   Background="{DynamicResource BgTertiaryBrush}"
                                                   Foreground="{DynamicResource TextPrimaryBrush}"
@@ -414,7 +415,7 @@
                                         </ComboBox>
                                     </StackPanel>
                                 </Grid>
-                                <TextBlock Text="Path (.exe / .bat)" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Path_exe_bat}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <Grid Margin="0,4,0,8" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator5PathTextBox" Height="40" VerticalContentAlignment="Center"
                                              Background="{DynamicResource BgTertiaryBrush}"
@@ -424,13 +425,13 @@
                                             Classes="secondary"
                                             Click="ChooseEmulator5Path" />
                                 </Grid>
-                                <TextBlock Text="Parameters" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                <TextBlock Text="{ext:Translate EditSystemWindow_Parameters}" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
                                 <Grid Margin="0,4,0,0" ColumnDefinitions="*,Auto">
                                     <TextBox x:Name="Emulator5ParametersTextBox" Height="40"
                                              Background="{DynamicResource BgTertiaryBrush}"
                                              Foreground="{DynamicResource TextPrimaryBrush}"
                                              BorderBrush="{DynamicResource BorderNormalBrush}" />
-                                    <Button Grid.Column="1" Content="Suggest" Width="90" Height="40" Margin="6,0,0,0"
+                                    <Button Grid.Column="1" Content="{ext:Translate EditSystemWindow_Suggest}" Width="90" Height="40" Margin="6,0,0,0"
                                             Classes="secondary"
                                             Click="SuggestEmulator5Parameters_ClickAsync" />
                                 </Grid>
@@ -473,7 +474,7 @@
                 Padding="12,6">
             <TextBlock x:Name="StatusTextBlock" FontSize="12"
                        Foreground="{DynamicResource TextMutedBrush}"
-                       Text="Select a system to edit, or click Add New to create one." />
+                       Text="{ext:Translate EditSystemWindow_Select_a_system_to_edit_or_click_Add_New}" />
         </Border>
 
         <!-- Loading overlay -->
@@ -482,11 +483,11 @@
                 Background="#B31E1E1E"
                 IsVisible="False">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock x:Name="LoadingText" Text="Loading systems..." FontSize="14"
+                <TextBlock x:Name="LoadingText" Text="{ext:Translate Loadingsystems}" FontSize="14"
                            Foreground="{DynamicResource TextPrimaryBrush}"
                            HorizontalAlignment="Center" />
                 <Button x:Name="EmergencyButton"
-                        Content="Return"
+                        Content="{ext:Translate EditSystemWindow_Return}"
                         Width="100" Margin="0,16,0,0"
                         Classes="secondary"
                         Click="EmergencyOverlayRelease_Click"

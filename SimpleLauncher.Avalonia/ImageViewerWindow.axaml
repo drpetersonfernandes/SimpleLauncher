@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.ImageViewerWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Image Viewer"
         Width="800" Height="600"
@@ -8,7 +9,7 @@
     <Grid>
         <Image Source="{Binding ImageSource}" Stretch="Uniform"
                HorizontalAlignment="Center" VerticalAlignment="Center"
-               ToolTip.Tip="Image viewer window" />
+               ToolTip.Tip="{ext:Translate TooltipImageViewer}" />
         <TextBlock Text="{Binding ErrorMessage}"
                    IsVisible="{Binding ErrorMessage, Converter={StaticResource BoolToVisibility}}"
                    HorizontalAlignment="Center" VerticalAlignment="Center"

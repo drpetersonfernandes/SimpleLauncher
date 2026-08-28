@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectXeniaConfigWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:models="using:SimpleLauncher.Core.Models"
         Title="Xenia Configuration"
@@ -12,46 +13,46 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- GPU Section -->
-                <GroupBox Header="Graphics (GPU)" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate XeniaConfig_Gpu_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="Graphics API:" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate XeniaConfig_GpuApi_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding GpuOptions}"
                                       SelectedItem="{Binding XeniaGpu}"
-                                      ToolTip.Tip="The graphics API used for rendering (d3d12 is standard)." />
+                                      ToolTip.Tip="{ext:Translate XeniaConfig_GpuApi_Tooltip}" />
                         </Grid>
 
                         <CheckBox IsChecked="{Binding XeniaVsync}"
-                                  Content="VSync"
+                                  Content="{ext:Translate XeniaConfig_Vsync_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Synchronizes frame rate to prevent screen tearing." />
+                                  ToolTip.Tip="{ext:Translate XeniaConfig_Vsync_Tooltip}" />
                         <CheckBox IsChecked="{Binding XeniaFullscreen}"
-                                  Content="Fullscreen"
+                                  Content="{ext:Translate XeniaConfig_Fullscreen_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Starts Xenia in fullscreen mode." />
+                                  ToolTip.Tip="{ext:Translate XeniaConfig_Fullscreen_Tooltip}" />
 
-                        <TextBlock Text="Resolution Scale (X / Y):"
+                        <TextBlock Text="{ext:Translate XeniaConfig_ResolutionScale_Label}"
                                    Classes="form-label"
                                    Margin="0,5,0,0"
-                                   ToolTip.Tip="Internal rendering resolution scale (1=720p, 2=1440p)." />
+                                   ToolTip.Tip="{ext:Translate XeniaConfig_ResolutionScale_Tooltip}" />
                         <Grid ColumnDefinitions="*,Auto,*">
                             <ComboBox Grid.Column="0"
                                       ItemsSource="{Binding ResScaleOptions}"
                                       Text="{Binding XeniaResScaleX}"
-                                      ToolTip.Tip="Set the horizontal resolution scale." />
+                                      ToolTip.Tip="{ext:Translate XeniaConfig_ResolutionScaleX_Tooltip}" />
                             <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" />
                             <ComboBox Grid.Column="2"
                                       ItemsSource="{Binding ResScaleOptions}"
                                       Text="{Binding XeniaResScaleY}"
-                                      ToolTip.Tip="Set the vertical resolution scale." />
+                                      ToolTip.Tip="{ext:Translate XeniaConfig_ResolutionScaleY_Tooltip}" />
                         </Grid>
 
-                        <TextBlock Text="Post-Processing AA:" Classes="form-label" Margin="0,5,0,0" />
+                        <TextBlock Text="{ext:Translate XeniaConfig_PostProcessingAa_Label}" Classes="form-label" Margin="0,5,0,0" />
                         <ComboBox ItemsSource="{Binding AaOptions}"
                                   SelectedValue="{Binding XeniaAa}"
                                   SelectedValueBinding="{Binding Tag}"
-                                  ToolTip.Tip="Reduces jagged edges using FXAA.">
+                                  ToolTip.Tip="{ext:Translate XeniaConfig_PostProcessingAa_Tooltip}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate x:DataType="models:TagOption">
                                     <TextBlock Text="{Binding Display}" />
@@ -59,72 +60,72 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
 
-                        <TextBlock Text="Scaling And Sharpening:" Classes="form-label" Margin="0,5,0,0" />
+                        <TextBlock Text="{ext:Translate XeniaConfig_ScalingSharpening_Label}" Classes="form-label" Margin="0,5,0,0" />
                         <ComboBox ItemsSource="{Binding ScalingOptions}"
                                   SelectedItem="{Binding XeniaScaling}"
-                                  ToolTip.Tip="Upscaling method (FSR provides high-quality sharpening)." />
+                                  ToolTip.Tip="{ext:Translate XeniaConfig_ScalingSharpening_Tooltip}" />
 
-                        <TextBlock Text="Readback Resolve (Fixes Graphics):" Classes="form-label" Margin="0,5,0,0" />
+                        <TextBlock Text="{ext:Translate XeniaConfig_ReadbackResolve_Label}" Classes="form-label" Margin="0,5,0,0" />
                         <ComboBox ItemsSource="{Binding ReadbackOptions}"
                                   SelectedItem="{Binding XeniaReadbackResolve}"
-                                  ToolTip.Tip="Fixes certain graphical glitches at the cost of performance." />
+                                  ToolTip.Tip="{ext:Translate XeniaConfig_ReadbackResolve_Tooltip}" />
 
                         <CheckBox IsChecked="{Binding XeniaGammaSrgb}"
-                                  Content="Gamma Render Target as sRGB"
+                                  Content="{ext:Translate XeniaConfig_GammaSrgb_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Corrects colors in some games that appear too dark." />
+                                  ToolTip.Tip="{ext:Translate XeniaConfig_GammaSrgb_Tooltip}" />
 
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
-                <GroupBox Header="Audio (APU)" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate XeniaConfig_Apu_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="Audio Driver:" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate XeniaConfig_AudioDriver_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ApuOptions}"
                                       SelectedItem="{Binding XeniaApu}"
-                                      ToolTip.Tip="The audio processing driver." />
+                                      ToolTip.Tip="{ext:Translate XeniaConfig_AudioDriver_Tooltip}" />
                         </Grid>
                         <CheckBox IsChecked="{Binding XeniaMute}"
-                                  Content="Mute Audio"
+                                  Content="{ext:Translate YumirConfig_Mute_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Mutes all audio output." />
+                                  ToolTip.Tip="{ext:Translate XeniaConfig_MuteAudio_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- System Section -->
-                <GroupBox Header="System And Input" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate XeniaConfig_SystemInput_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding XeniaApplyPatches}"
-                                  Content="Apply Game Patches"
+                                  Content="{ext:Translate XeniaConfig_ApplyPatches_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enables game-specific patches (patch files required)." />
+                                  ToolTip.Tip="{ext:Translate XeniaConfig_ApplyPatches_Tooltip}" />
                         <CheckBox IsChecked="{Binding XeniaMountCache}"
-                                  Content="Mount Cache Partition"
+                                  Content="{ext:Translate XeniaConfig_MountCache_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Simulates an Xbox 360 hard drive cache (required for some games)." />
+                                  ToolTip.Tip="{ext:Translate XeniaConfig_MountCache_Tooltip}" />
                         <CheckBox IsChecked="{Binding XeniaVibration}"
-                                  Content="Enable Controller Vibration"
+                                  Content="{ext:Translate XeniaConfig_Vibration_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="Enables controller vibration." />
+                                  ToolTip.Tip="{ext:Translate XeniaConfig_Vibration_Tooltip}" />
 
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,0">
-                            <TextBlock Text="Input Driver (HID):" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate XeniaConfig_Hid_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding HidOptions}"
                                       SelectedItem="{Binding XeniaHid}"
-                                      ToolTip.Tip="The input driver (xinput is standard for Xbox controllers)." />
+                                      ToolTip.Tip="{ext:Translate XeniaConfig_Hid_Tooltip}" />
                         </Grid>
 
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,0">
-                            <TextBlock Text="User Language:" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate XeniaConfig_UserLanguage_Label}" Classes="form-label" VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding LangOptions}"
                                       SelectedValue="{Binding XeniaUserLanguage}"
                                       SelectedValueBinding="{Binding Tag}"
-                                      ToolTip.Tip="The system language reported to the game.">
+                                      ToolTip.Tip="{ext:Translate XeniaConfig_UserLanguage_Tooltip}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate x:DataType="models:TagOption">
                                         <TextBlock Text="{Binding Display}" />
@@ -138,10 +139,10 @@
                 <!-- CRITICAL SETTING -->
                 <Border Classes="important-setting">
                     <StackPanel>
-                        <TextBlock Text="⚠ IMPORTANT SETTING" Classes="important-setting-header" />
+                        <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding XeniaShowSettingsBeforeLaunch}"
-                                  Content="Open this window before launching an Xbox 360 game"
-                                  ToolTip.Tip="Show this window before launching a game." />
+                                  Content="{ext:Translate XeniaConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -150,20 +151,20 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave"
-                    Content="Save"
+                    Content="{ext:Translate YumirConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="Save the configuration and close this window." />
-            <Button Content="Save &amp; Run"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="Save the configuration and run the game." />
-            <Button Content="Cancel"
+                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="Cancel and close this window without saving changes." />
+                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

@@ -1,5 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.DebugWindow"
         xmlns="https://github.com/avaloniaui"
+         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Debugger"
         Height="400" Width="800"
@@ -18,11 +19,11 @@
                  Text="{Binding LogText, Mode=OneWay}" />
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-            <Button Content="Clear Log" Margin="5,0" Classes="secondary"
+            <Button Content="{ext:Translate ClearLog}" Margin="5,0" Classes="secondary"
                     Command="{Binding ClearLogCommand}" />
-            <Button Content="Copy Log" Margin="5,0" Classes="secondary"
+            <Button Content="{ext:Translate CopyLog}" Margin="5,0" Classes="secondary"
                     Command="{Binding CopyLogCommand}" />
-            <Button Content="Close" Margin="5,0" Classes="secondary"
+            <Button Content="{ext:Translate Close}" Margin="5,0" Classes="secondary"
                     Click="CloseButton_Click" />
         </StackPanel>
     </Grid>
