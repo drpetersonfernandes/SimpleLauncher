@@ -94,7 +94,7 @@
                                       ToolTip.Tip="{ext:Translate XeniaConfig_AudioDriver_Tooltip}" />
                         </Grid>
                         <CheckBox IsChecked="{Binding XeniaMute}"
-                                  Content="{ext:Translate YumirConfig_Mute_Checkbox}"
+                                  Content="{ext:Translate XeniaConfig_Mute_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate XeniaConfig_MuteAudio_Tooltip}" />
                     </StackPanel>
@@ -149,7 +149,7 @@
                         <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding XeniaShowSettingsBeforeLaunch}"
                                   Content="{ext:Translate XeniaConfig_ShowBeforeLaunch_Checkbox}"
-                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
+                                  ToolTip.Tip="{ext:Translate XeniaConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -158,20 +158,20 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave"
-                    Content="{ext:Translate YumirConfig_Save_Button}"
+                    Content="{ext:Translate XeniaConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
-            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
+                    ToolTip.Tip="{ext:Translate XeniaConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate XeniaConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
-            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
+                    ToolTip.Tip="{ext:Translate XeniaConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate XeniaConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
+                    ToolTip.Tip="{ext:Translate XeniaConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

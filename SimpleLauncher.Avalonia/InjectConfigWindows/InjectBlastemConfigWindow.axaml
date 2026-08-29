@@ -15,11 +15,11 @@
                 <GroupBox Header="{ext:Translate BlastemConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding Fullscreen}"
-                                  Content="{ext:Translate SupermodelConfig_Fullscreen_Checkbox}"
+                                  Content="{ext:Translate BlastemConfig_Fullscreen_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate BlastemConfig_Fullscreen_Tooltip}" />
                         <CheckBox IsChecked="{Binding Vsync}"
-                                  Content="{ext:Translate SupermodelConfig_Vsync_Checkbox}"
+                                  Content="{ext:Translate BlastemConfig_Vsync_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate BlastemConfig_Vsync_Tooltip}" />
                         <CheckBox IsChecked="{Binding Scanlines}"
@@ -27,7 +27,7 @@
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate BlastemConfig_Scanlines_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="{ext:Translate RPCS3Config_AspectRatio_Label}" Classes="form-label"
+                            <TextBlock Text="{ext:Translate BlastemConfig_AspectRatio_Label}" Classes="form-label"
                                        VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AspectOptions}"
@@ -46,7 +46,7 @@
                 </GroupBox>
 
                 <!-- Audio Section -->
-                <GroupBox Header="{ext:Translate SupermodelConfig_Audio_Header}" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate BlastemConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
                             <TextBlock Text="{ext:Translate BlastemConfig_AudioRate_Label}" Classes="form-label"
@@ -60,7 +60,7 @@
                 </GroupBox>
 
                 <!-- System Section -->
-                <GroupBox Header="{ext:Translate RedreamConfig_System_Header}" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate BlastemConfig_System_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
                             <TextBlock Text="{ext:Translate BlastemConfig_SyncSource_Label}" Classes="form-label"
@@ -78,8 +78,8 @@
                     <StackPanel>
                         <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
-                                  Content="{ext:Translate SupermodelConfig_ShowBeforeLaunch_Checkbox}"
-                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
+                                  Content="{ext:Translate BlastemConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate BlastemConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -88,20 +88,20 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave"
-                    Content="{ext:Translate YumirConfig_Save_Button}"
+                    Content="{ext:Translate BlastemConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
-            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
+                    ToolTip.Tip="{ext:Translate BlastemConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate BlastemConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
-            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
+                    ToolTip.Tip="{ext:Translate BlastemConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate BlastemConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
+                    ToolTip.Tip="{ext:Translate BlastemConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

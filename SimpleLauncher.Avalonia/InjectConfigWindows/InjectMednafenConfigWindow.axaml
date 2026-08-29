@@ -12,10 +12,10 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- Video Section -->
-                <GroupBox Header="{ext:Translate StellaConfig_Video_Header}" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate MednafenConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="{ext:Translate StellaConfig_VideoDriver_Label}" Classes="form-label"
+                            <TextBlock Text="{ext:Translate MednafenConfig_VideoDriver_Label}" Classes="form-label"
                                        VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding VideoDriverOptions}"
@@ -23,11 +23,11 @@
                                       ToolTip.Tip="{ext:Translate MednafenConfig_VideoDriver_Tooltip}" />
                         </Grid>
                         <CheckBox IsChecked="{Binding MednafenFullscreen}"
-                                  Content="{ext:Translate SupermodelConfig_Fullscreen_Checkbox}"
+                                  Content="{ext:Translate MednafenConfig_Fullscreen_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="{ext:Translate StellaConfig_Fullscreen_Tooltip}" />
+                                  ToolTip.Tip="{ext:Translate MednafenConfig_Fullscreen_Tooltip}" />
                         <CheckBox IsChecked="{Binding MednafenVsync}"
-                                  Content="{ext:Translate RPCS3Config_Vsync_Checkbox}"
+                                  Content="{ext:Translate MednafenConfig_Vsync_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate MednafenConfig_Vsync_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
@@ -75,14 +75,14 @@
                 </GroupBox>
 
                 <!-- Features Section -->
-                <GroupBox Header="{ext:Translate StellaConfig_Features_Header}" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate MednafenConfig_Features_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding MednafenCheats}"
-                                  Content="{ext:Translate Pcsx2Config_Cheats_Checkbox}"
+                                  Content="{ext:Translate MednafenConfig_Cheats_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate MednafenConfig_Cheats_Tooltip}" />
                         <CheckBox IsChecked="{Binding MednafenRewind}"
-                                  Content="{ext:Translate RetroArchConfig_Rewind_Checkbox}"
+                                  Content="{ext:Translate MednafenConfig_Rewind_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate MednafenConfig_Rewind_Tooltip}" />
                     </StackPanel>
@@ -93,8 +93,8 @@
                     <StackPanel>
                         <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding MednafenShowSettingsBeforeLaunch}"
-                                  Content="{ext:Translate SupermodelConfig_ShowBeforeLaunch_Checkbox}"
-                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
+                                  Content="{ext:Translate MednafenConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate MednafenConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -102,20 +102,20 @@
 
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button x:Name="BtnSave" Content="{ext:Translate YumirConfig_Save_Button}"
+            <Button x:Name="BtnSave" Content="{ext:Translate MednafenConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
-            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
+                    ToolTip.Tip="{ext:Translate MednafenConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate MednafenConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
-            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
+                    ToolTip.Tip="{ext:Translate MednafenConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate MednafenConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
+                    ToolTip.Tip="{ext:Translate MednafenConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

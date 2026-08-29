@@ -15,30 +15,30 @@
                 <GroupBox Header="{ext:Translate DaphneConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding DaphneFullscreen}"
-                                  Content="{ext:Translate SupermodelConfig_Fullscreen_Checkbox}"
+                                  Content="{ext:Translate DaphneConfig_Fullscreen_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate DaphneConfig_Fullscreen_Tooltip}" />
                         <CheckBox IsChecked="{Binding DaphneBilinear}"
-                                  Content="{ext:Translate MesenConfig_Bilinear_Checkbox}"
+                                  Content="{ext:Translate DaphneConfig_Bilinear_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate DaphneConfig_Bilinear_Tooltip}" />
-                        <TextBlock Text="{ext:Translate RPCS3Config_Resolution_Label}" Classes="form-label"
+                        <TextBlock Text="{ext:Translate DaphneConfig_Resolution_Label}" Classes="form-label"
                                    Margin="0,5,0,0"
                                    ToolTip.Tip="{ext:Translate DaphneConfig_Resolution_Tooltip}" />
                         <Grid ColumnDefinitions="*,Auto,*">
                             <NumericUpDown Grid.Column="0" Minimum="640" Maximum="7680" Increment="1"
                                            Value="{Binding DaphneResX}"
-                                           ToolTip.Tip="{ext:Translate SupermodelConfig_ResolutionX_Tooltip}" />
+                                           ToolTip.Tip="{ext:Translate DaphneConfig_ResolutionX_Tooltip}" />
                             <TextBlock Grid.Column="1" Text="x" VerticalAlignment="Center" Margin="10,0" />
                             <NumericUpDown Grid.Column="2" Minimum="480" Maximum="4320" Increment="1"
                                            Value="{Binding DaphneResY}"
-                                           ToolTip.Tip="{ext:Translate SupermodelConfig_ResolutionY_Tooltip}" />
+                                           ToolTip.Tip="{ext:Translate DaphneConfig_ResolutionY_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
-                <GroupBox Header="{ext:Translate SupermodelConfig_Audio_Header}" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate DaphneConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding DaphneEnableSound}"
                                   Content="{ext:Translate DaphneConfig_EnableSound_Checkbox}"
@@ -66,8 +66,8 @@
                     <StackPanel>
                         <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding DaphneShowSettingsBeforeLaunch}"
-                                  Content="{ext:Translate SupermodelConfig_ShowBeforeLaunch_Checkbox}"
-                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
+                                  Content="{ext:Translate DaphneConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate DaphneConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -75,20 +75,20 @@
 
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button x:Name="BtnSave" Content="{ext:Translate YumirConfig_Save_Button}"
+            <Button x:Name="BtnSave" Content="{ext:Translate DaphneConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
-            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
+                    ToolTip.Tip="{ext:Translate DaphneConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate DaphneConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
-            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
+                    ToolTip.Tip="{ext:Translate DaphneConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate DaphneConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
+                    ToolTip.Tip="{ext:Translate DaphneConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

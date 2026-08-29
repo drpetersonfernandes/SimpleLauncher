@@ -13,10 +13,10 @@
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <!-- General Section -->
-                <GroupBox Header="{ext:Translate Pcsx2Config_General_Header}" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate DuckStationConfig_General_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding DuckStationStartFullscreen}"
-                                  Content="{ext:Translate RetroArchConfig_Fullscreen_Checkbox}"
+                                  Content="{ext:Translate DuckStationConfig_Fullscreen_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate DuckStationConfig_Fullscreen_Tooltip}" />
                         <CheckBox IsChecked="{Binding DuckStationPauseOnFocusLoss}"
@@ -28,7 +28,7 @@
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate DuckStationConfig_SaveStateOnExit_Tooltip}" />
                         <CheckBox IsChecked="{Binding DuckStationRewindEnable}"
-                                  Content="{ext:Translate RetroArchConfig_Rewind_Checkbox}"
+                                  Content="{ext:Translate DuckStationConfig_Rewind_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate DuckStationConfig_RewindEnable_Tooltip}" />
                         <TextBlock Text="{ext:Translate DuckStationConfig_Runahead_Label}"
@@ -45,7 +45,7 @@
                 <GroupBox Header="{ext:Translate DuckStationConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="{ext:Translate SegaModel2Config_Renderer_Header}" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate DuckStationConfig_Renderer_Header}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding RendererOptions}"
                                       SelectedItem="{Binding DuckStationRenderer}"
@@ -75,7 +75,7 @@
                                       ToolTip.Tip="{ext:Translate DuckStationConfig_TextureFilter_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="{ext:Translate MesenConfig_AspectRatio_Label}" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate DuckStationConfig_AspectRatio_Label}" Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AspectRatioOptions}"
                                       SelectedItem="{Binding DuckStationAspectRatio}"
@@ -90,20 +90,20 @@
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate DuckStationConfig_PgxpEnable_Tooltip}" />
                         <CheckBox IsChecked="{Binding DuckStationVsync}"
-                                  Content="{ext:Translate RPCS3Config_Vsync_Checkbox}"
+                                  Content="{ext:Translate DuckStationConfig_Vsync_Checkbox}"
                                   Margin="0,5"
-                                  ToolTip.Tip="{ext:Translate SupermodelConfig_Vsync_Tooltip}" />
+                                  ToolTip.Tip="{ext:Translate DuckStationConfig_Vsync_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
-                <GroupBox Header="{ext:Translate YumirConfig_Audio_Header}" Margin="0,0,0,10">
+                <GroupBox Header="{ext:Translate DuckStationConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <CheckBox IsChecked="{Binding DuckStationOutputMuted}"
-                                  Content="{ext:Translate YumirConfig_Mute_Checkbox}"
+                                  Content="{ext:Translate DuckStationConfig_Mute_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate DuckStationConfig_Mute_Tooltip}" />
-                        <TextBlock Text="{ext:Translate MesenConfig_MasterVolume_Label}"
+                        <TextBlock Text="{ext:Translate DuckStationConfig_MasterVolume_Label}"
                                    Classes="form-label"
                                    ToolTip.Tip="{ext:Translate DuckStationConfig_Volume_Tooltip}" />
                         <Slider Value="{Binding DuckStationOutputVolume}"
@@ -118,8 +118,8 @@
                     <StackPanel>
                         <TextBlock Text="{ext:Translate IMPORTANTSETTING}" Classes="important-setting-header" />
                         <CheckBox IsChecked="{Binding DuckStationShowSettingsBeforeLaunch}"
-                                  Content="{ext:Translate SupermodelConfig_ShowBeforeLaunch_Checkbox}"
-                                  ToolTip.Tip="{ext:Translate YumirConfig_ShowBeforeLaunch_Tooltip}" />
+                                  Content="{ext:Translate DuckStationConfig_ShowBeforeLaunch_Checkbox}"
+                                  ToolTip.Tip="{ext:Translate DuckStationConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -128,20 +128,20 @@
         <!-- Action Buttons -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button x:Name="BtnSave"
-                    Content="{ext:Translate YumirConfig_Save_Button}"
+                    Content="{ext:Translate DuckStationConfig_Save_Button}"
                     Classes="secondary"
                     Command="{Binding SaveCommand}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Save_Tooltip}" />
-            <Button Content="{ext:Translate YumirConfig_Run_Button2}"
+                    ToolTip.Tip="{ext:Translate DuckStationConfig_Save_Tooltip}" />
+            <Button Content="{ext:Translate DuckStationConfig_Run_Button2}"
                     Classes="primary"
                     Command="{Binding RunCommand}"
                     IsDefault="True"
                     IsVisible="{Binding IsLauncherMode, Converter={StaticResource BoolToVisibility}}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Run_Tooltip}" />
-            <Button Content="{ext:Translate YumirConfig_Cancel_Button}"
+                    ToolTip.Tip="{ext:Translate DuckStationConfig_Run_Tooltip}" />
+            <Button Content="{ext:Translate DuckStationConfig_Cancel_Button}"
                     Classes="secondary"
                     Command="{Binding CancelCommand}"
-                    ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Tooltip}" />
+                    ToolTip.Tip="{ext:Translate DuckStationConfig_Cancel_Tooltip}" />
         </StackPanel>
     </Grid>
 </Window>

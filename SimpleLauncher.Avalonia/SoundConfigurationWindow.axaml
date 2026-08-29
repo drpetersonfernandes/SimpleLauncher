@@ -49,12 +49,12 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Classes="primary"
-                    Content="{ext:Translate YumirConfig_Save_Button}"
+                    Content="{ext:Translate Save}"
                     Command="{Binding SaveCommand}"
                     IsDefault="True"
                     Width="100" Margin="0,0,10,0" />
             <Button Classes="secondary"
-                    Content="{ext:Translate YumirConfig_Cancel_Button}"
+                    Content="{ext:Translate Cancel}"
                     Command="{Binding CancelCommand}"
                     IsCancel="True"
                     Width="100" />
