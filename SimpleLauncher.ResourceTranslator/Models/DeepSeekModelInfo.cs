@@ -1,9 +1,9 @@
 namespace SimpleLauncher.ResourceTranslator.Models;
 
 /// <summary>
-///     Represents information about an available Gemini AI model.
+///     Represents information about an available DeepSeek AI model.
 /// </summary>
-public class GeminiModelInfo
+public class DeepSeekModelInfo
 {
     /// <summary>
     ///     Gets or sets the model identifier.
@@ -24,9 +24,4 @@ public class GeminiModelInfo
     ///     Gets or sets the maximum context length in tokens.
     /// </summary>
     public int ContextLength { get; set; }
-
-    /// <summary>
-    ///     Gets or sets the API version to use for this model.
-    /// </summary>
-    public string ApiVersion { get; set; } = "v1beta";
 }
