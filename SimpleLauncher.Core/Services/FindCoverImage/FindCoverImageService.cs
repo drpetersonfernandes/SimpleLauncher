@@ -2,33 +2,34 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.CheckPaths;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.FindCoverImage;
 
 /// <summary>
-/// Locates cover image files for games using exact name matching and optional Jaro-Winkler fuzzy matching,
-/// falling back to a default image when no match is found.
+///     Locates cover image files for games using exact name matching and optional Jaro-Winkler fuzzy matching,
+///     falling back to a default image when no match is found.
 /// </summary>
 public class FindCoverImageService : IFindCoverImageService
 {
-    private readonly IConfiguration _configuration;
-    private readonly ILogger _logger;
-    private readonly SettingsManager.SettingsManagerService _settings;
+    private const double PrefixScale = 0.1;
+    private const int MaxPrefixLength = 4;
 
     private static readonly string GlobalDefaultImagePath =
         Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
 
-    private const double PrefixScale = 0.1;
-    private const int MaxPrefixLength = 4;
+    private readonly IConfiguration _configuration;
+    private readonly ILogger _logger;
+    private readonly SettingsManagerService _settings;
 
     /// <summary>
-    /// Initializes a new instance of the FindCoverImageService class.
+    ///     Initializes a new instance of the FindCoverImageService class.
     /// </summary>
     /// <param name="configuration">The configuration.</param>
     /// <param name="logErrors">The log errors.</param>
     /// <param name="settings">The settings manager for reading dynamic matching preferences.</param>
     public FindCoverImageService(IConfiguration configuration, ILogger logErrors,
-        SettingsManager.SettingsManagerService settings)
+        SettingsManagerService settings)
     {
         _configuration = configuration;
         _logger = logErrors;
@@ -36,8 +37,8 @@ public class FindCoverImageService : IFindCoverImageService
     }
 
     /// <summary>
-    /// Finds the cover image path for a game by exact filename match, then optional fuzzy matching,
-    /// and finally falls back to a system-specific or global default image.
+    ///     Finds the cover image path for a game by exact filename match, then optional fuzzy matching,
+    ///     and finally falls back to a system-specific or global default image.
     /// </summary>
     /// <param name="fileNameWithoutExtension">The game filename without its extension.</param>
     /// <param name="systemName">The system name used to resolve the image folder.</param>
@@ -49,14 +50,10 @@ public class FindCoverImageService : IFindCoverImageService
 
         string resolvedImageFolder;
         if (string.IsNullOrEmpty(systemImageFolder))
-        {
             resolvedImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName ?? "");
-        }
         else
-        {
             resolvedImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder) ??
                                   Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName ?? "");
-        }
 
         if (!string.IsNullOrEmpty(resolvedImageFolder) && Directory.Exists(resolvedImageFolder))
         {
@@ -131,9 +128,7 @@ public class FindCoverImageService : IFindCoverImageService
                 }
 
                 if (bestMatchPath != null && highestSimilarity >= _settings.FuzzyMatchingThreshold)
-                {
                     return bestMatchPath;
-                }
             }
         }
 
@@ -148,9 +143,9 @@ public class FindCoverImageService : IFindCoverImageService
     }
 
     /// <summary>
-    /// Strips parenthetical annotations (parentheses, square brackets, curly braces) from a filename,
-    /// removing region, language, version, and other metadata tags commonly found in ROM filenames.
-    /// Handles nested brackets and cross-type nesting correctly.
+    ///     Strips parenthetical annotations (parentheses, square brackets, curly braces) from a filename,
+    ///     removing region, language, version, and other metadata tags commonly found in ROM filenames.
+    ///     Handles nested brackets and cross-type nesting correctly.
     /// </summary>
     /// <param name="fileName">The filename to clean.</param>
     /// <returns>The filename with annotations removed and trailing whitespace/dots/underscores trimmed.</returns>
@@ -179,13 +174,8 @@ public class FindCoverImageService : IFindCoverImageService
                 while (j < input.Length && depth > 0)
                 {
                     if (input[j] == open)
-                    {
                         depth++;
-                    }
-                    else if (input[j] == close)
-                    {
-                        depth--;
-                    }
+                    else if (input[j] == close) depth--;
 
                     j++;
                 }
@@ -193,10 +183,7 @@ public class FindCoverImageService : IFindCoverImageService
                 if (depth == 0)
                 {
                     // Strip preceding whitespace before the bracket group
-                    while (result.Length > 0 && (result[^1] == ' ' || result[^1] == '\t'))
-                    {
-                        result.Length--;
-                    }
+                    while (result.Length > 0 && (result[^1] == ' ' || result[^1] == '\t')) result.Length--;
 
                     i = j;
                     continue;
@@ -211,7 +198,8 @@ public class FindCoverImageService : IFindCoverImageService
     }
 
     /// <summary>
-    /// Calculates the Jaro-Winkler similarity between two strings, returning a value from 0.0 (no match) to 1.0 (exact match).
+    ///     Calculates the Jaro-Winkler similarity between two strings, returning a value from 0.0 (no match) to 1.0 (exact
+    ///     match).
     /// </summary>
     /// <param name="s1">The first string to compare.</param>
     /// <param name="s2">The second string to compare.</param>
@@ -219,9 +207,7 @@ public class FindCoverImageService : IFindCoverImageService
     public static double CalculateJaroWinklerSimilarity(string s1, string s2)
     {
         if (string.IsNullOrEmpty(s1) || string.IsNullOrEmpty(s2))
-        {
             return string.IsNullOrEmpty(s1) == string.IsNullOrEmpty(s2) ? 1.0 : 0.0;
-        }
 
         s1 = s1.ToLowerInvariant();
         s2 = s2.ToLowerInvariant();
@@ -258,15 +244,9 @@ public class FindCoverImageService : IFindCoverImageService
         {
             if (!s1Matches[i]) continue;
 
-            while (!s2Matches[k])
-            {
-                k++;
-            }
+            while (!s2Matches[k]) k++;
 
-            if (s1[i] != s2[k])
-            {
-                transpositions++;
-            }
+            if (s1[i] != s2[k]) transpositions++;
 
             k++;
         }
@@ -276,13 +256,9 @@ public class FindCoverImageService : IFindCoverImageService
 
         var prefix = 0;
         for (var i = 0; i < Math.Min(MaxPrefixLength, Math.Min(len1, len2)); i++)
-        {
             if (s1[i] == s2[i])
-            {
                 prefix++;
-            }
             else break;
-        }
 
         return jaroDistance + prefix * PrefixScale * (1 - jaroDistance);
     }

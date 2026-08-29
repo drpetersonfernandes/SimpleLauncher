@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Mesen (NES/SNES) emulator before launching a game.
+///     Handles configuration injection for the Mesen (NES/SNES) emulator before launching a game.
 /// </summary>
 public class MesenConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class MesenConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MesenConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="MesenConfigHandler" /> class.
     /// </summary>
     public MesenConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {

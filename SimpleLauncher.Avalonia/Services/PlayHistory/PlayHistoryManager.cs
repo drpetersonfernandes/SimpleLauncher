@@ -9,15 +9,17 @@ using ILogger = Serilog.ILogger;
 namespace SimpleLauncher.Avalonia.Services.PlayHistory;
 
 /// <summary>
-/// Manages play history tracking, persistence, and date format migration using MessagePack serialization.
-/// Compatible with the existing playhistory.dat format from SimpleLauncher.
+///     Manages play history tracking, persistence, and date format migration using MessagePack serialization.
+///     Compatible with the existing playhistory.dat format from SimpleLauncher.
 /// </summary>
 [MessagePackObject(AllowPrivate = true)]
 public class PlayHistoryManager
 {
+    private const string IsoDateFormat = "yyyy-MM-dd";
+    private const string IsoTimeFormat = "HH:mm:ss";
+    [IgnoreMember] private static readonly DataFileLocation FileLocation = new("playhistory.dat");
     [IgnoreMember] private readonly Lock _historyLock = new();
     [IgnoreMember] private ILogger? _logger;
-    [IgnoreMember] private static readonly DataFileLocation FileLocation = new("playhistory.dat");
 
     [Key(0)] public ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
 
@@ -27,11 +29,8 @@ public class PlayHistoryManager
     private static string TempFilePath => FileLocation.TempFilePath;
     public static bool IsPortableMode => FileLocation.IsPortableMode;
 
-    private const string IsoDateFormat = "yyyy-MM-dd";
-    private const string IsoTimeFormat = "HH:mm:ss";
-
     /// <summary>
-    /// Loads play history from the MessagePack file. Creates new if doesn't exist.
+    ///     Loads play history from the MessagePack file. Creates new if doesn't exist.
     /// </summary>
     public static PlayHistoryManager LoadPlayHistory(ILogger? logErrors = null)
     {
@@ -63,14 +62,13 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Synchronous initial save (startup/recovery paths only). Mirrors
-    /// <see cref="SavePlayHistoryAsync"/> with retry logic, but never awaits —
-    /// safe to call on the UI thread.
+    ///     Synchronous initial save (startup/recovery paths only). Mirrors
+    ///     <see cref="SavePlayHistoryAsync" /> with retry logic, but never awaits —
+    ///     safe to call on the UI thread.
     /// </summary>
     private void SavePlayHistorySync()
     {
         for (var attempt = 0; attempt < 3; attempt++)
-        {
             try
             {
                 var bytes = MessagePackSerializer.Serialize(this);
@@ -83,16 +81,14 @@ public class PlayHistoryManager
                 _logger?.Error(ex, "Error saving playhistory.dat (attempt {Attempt})", attempt + 1);
                 if (attempt < 2) Thread.Sleep(100);
             }
-        }
     }
 
     /// <summary>
-    /// Saves play history atomically with retry logic.
+    ///     Saves play history atomically with retry logic.
     /// </summary>
     public async Task SavePlayHistoryAsync()
     {
         for (var attempt = 0; attempt < 3; attempt++)
-        {
             try
             {
                 var bytes = MessagePackSerializer.Serialize(this);
@@ -105,11 +101,10 @@ public class PlayHistoryManager
                 _logger?.Error(ex, "Error saving playhistory.dat (attempt {Attempt})", attempt + 1);
                 if (attempt < 2) await Task.Delay(100);
             }
-        }
     }
 
     /// <summary>
-    /// Renames the system in all play history entries (used when a system is renamed in Edit System).
+    ///     Renames the system in all play history entries (used when a system is renamed in Edit System).
     /// </summary>
     /// <param name="oldSystemName">The previous system name.</param>
     /// <param name="newSystemName">The new system name.</param>
@@ -120,23 +115,18 @@ public class PlayHistoryManager
         lock (_historyLock)
         {
             foreach (var item in PlayHistoryList)
-            {
                 if (item.SystemName.Equals(oldSystemName, StringComparison.OrdinalIgnoreCase))
                 {
                     item.SystemName = newSystemName;
                     changed = true;
                 }
-            }
         }
 
-        if (changed)
-        {
-            await SavePlayHistoryAsync();
-        }
+        if (changed) await SavePlayHistoryAsync();
     }
 
     /// <summary>
-    /// Records a play event for the given game. Increments play count and updates timestamps.
+    ///     Records a play event for the given game. Increments play count and updates timestamps.
     /// </summary>
     public Task RecordPlayAsync(string filePath, string systemName, long playTimeSeconds = 0)
     {
@@ -165,9 +155,9 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Migrates old records that only contain filenames to full absolute paths
-    /// (legacy WPF history entries written before full-path recording). Runs once
-    /// at startup with the current system configuration.
+    ///     Migrates old records that only contain filenames to full absolute paths
+    ///     (legacy WPF history entries written before full-path recording). Runs once
+    ///     at startup with the current system configuration.
     /// </summary>
     /// <param name="systemManagers">The configured systems used to resolve missing files.</param>
     /// <returns>A task representing the save operation (no-op when nothing changed).</returns>
@@ -194,15 +184,12 @@ public class PlayHistoryManager
             }
         }
 
-        if (needsSave)
-        {
-            await SavePlayHistoryAsync();
-        }
+        if (needsSave) await SavePlayHistoryAsync();
     }
 
     /// <summary>
-    /// Gets a dictionary of file path → PlayHistoryItem for quick lookup.
-    /// Safe against duplicate file names (e.g. corrupted playhistory.dat) — first entry wins.
+    ///     Gets a dictionary of file path → PlayHistoryItem for quick lookup.
+    ///     Safe against duplicate file names (e.g. corrupted playhistory.dat) — first entry wins.
     /// </summary>
     public Dictionary<string, PlayHistoryItem> GetHistoryLookup()
     {

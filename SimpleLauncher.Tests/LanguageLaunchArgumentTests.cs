@@ -12,13 +12,6 @@ public class LanguageLaunchArgumentTests
         { ["-debug", "--language", "pt-br"], "pt-br" } // mixed with other args
     };
 
-    [Theory]
-    [MemberData(nameof(ParsingCases))]
-    public void TryGetLanguageArg_ParsesKnownForms(string[] args, string expected)
-    {
-        Assert.Equal(expected, App.TryGetLanguageArg(args));
-    }
-
     public static TheoryData<string[]> AbsentCases => new()
     {
         Array.Empty<string>(),
@@ -26,13 +19,6 @@ public class LanguageLaunchArgumentTests
         { ["--language"] }, // missing value
         { ["--restarting"] }
     };
-
-    [Theory]
-    [MemberData(nameof(AbsentCases))]
-    public void TryGetLanguageArg_ReturnsNull_WhenAbsent(string[] args)
-    {
-        Assert.Null(App.TryGetLanguageArg(args));
-    }
 
     public static TheoryData<string[], string, string> ResolutionCases => new()
     {
@@ -42,6 +28,20 @@ public class LanguageLaunchArgumentTests
         { ["--language", "zz"], "fr", "en" }, // unsupported -> falls back to English directly
         { ["-debug"], "de", "de" } // unrelated args ignored
     };
+
+    [Theory]
+    [MemberData(nameof(ParsingCases))]
+    public void TryGetLanguageArg_ParsesKnownForms(string[] args, string expected)
+    {
+        Assert.Equal(expected, App.TryGetLanguageArg(args));
+    }
+
+    [Theory]
+    [MemberData(nameof(AbsentCases))]
+    public void TryGetLanguageArg_ReturnsNull_WhenAbsent(string[] args)
+    {
+        Assert.Null(App.TryGetLanguageArg(args));
+    }
 
     [Theory]
     [MemberData(nameof(ResolutionCases))]
@@ -54,8 +54,6 @@ public class LanguageLaunchArgumentTests
     public void ResolveStartupLanguage_AllSupportedCodes_AreAccepted()
     {
         foreach (var code in LanguageLaunchTestsBase.SupportedLanguageCodes)
-        {
             Assert.Equal(code, App.ResolveStartupLanguage(["--language", code.ToUpperInvariant()], "en"));
-        }
     }
 }

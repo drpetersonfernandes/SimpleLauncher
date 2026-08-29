@@ -6,7 +6,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="SearchResult"/> score change notification and default emulator fallback.
+///     Tests for <see cref="SearchResult" /> score change notification and default emulator fallback.
 /// </summary>
 public class SearchResultTests
 {

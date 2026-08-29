@@ -10,26 +10,26 @@ using SimpleLauncher.Services.InjectEmulatorConfig;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the Yumir emulator configuration injection window.
+///     ViewModel for the Yumir emulator configuration injection window.
 /// </summary>
 public partial class InjectYumirConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    [ObservableProperty] private bool _yumirFullscreen;
-    [ObservableProperty] private bool _yumirForceAspectRatio;
-    [ObservableProperty] private bool _yumirReduceLatency;
-    [ObservableProperty] private bool _yumirMute;
-    [ObservableProperty] private double _yumirVolume;
     [ObservableProperty] private bool _yumirAutoDetectRegion;
-    [ObservableProperty] private string _yumirVideoStandard = null!;
-    [ObservableProperty] private bool _yumirPauseWhenUnfocused;
+    [ObservableProperty] private bool _yumirForceAspectRatio;
     [ObservableProperty] private double _yumirForcedAspect;
+    [ObservableProperty] private bool _yumirFullscreen;
+    [ObservableProperty] private bool _yumirMute;
+    [ObservableProperty] private bool _yumirPauseWhenUnfocused;
+    [ObservableProperty] private bool _yumirReduceLatency;
     [ObservableProperty] private bool _yumirShowSettingsBeforeLaunch;
+    [ObservableProperty] private string _yumirVideoStandard = null!;
+    [ObservableProperty] private double _yumirVolume;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectYumirConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectYumirConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
@@ -42,7 +42,42 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Available video standard options for Yumir.
+    /// </summary>
+    public IList<string> VideoStandardOptions { get; } = ["PAL", "NTSC"];
+
+    /// <summary>
+    ///     Available forced aspect ratio display options for Yumir.
+    /// </summary>
+    public IList<string> ForcedAspectOptions { get; } = ["16:9", "4:3"];
+
+    /// <summary>
+    ///     Tags corresponding to the forced aspect ratio options for Yumir.
+    /// </summary>
+    public IList<string> ForcedAspectTags { get; } = ["1.7777777777777777", "1.3333333333333333"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<string?>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Yumir emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -54,32 +89,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available video standard options for Yumir.
-    /// </summary>
-    public IList<string> VideoStandardOptions { get; } = ["PAL", "NTSC"];
-
-    /// <summary>
-    /// Available forced aspect ratio display options for Yumir.
-    /// </summary>
-    public IList<string> ForcedAspectOptions { get; } = ["16:9", "4:3"];
-
-    /// <summary>
-    /// Tags corresponding to the forced aspect ratio options for Yumir.
-    /// </summary>
-    public IList<string> ForcedAspectTags { get; } = ["1.7777777777777777", "1.3333333333333333"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -88,16 +98,6 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<string?>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -130,10 +130,7 @@ public partial class InjectYumirConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = EmulatorPathResolver.TryFindEmulatorPath("Yumir", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

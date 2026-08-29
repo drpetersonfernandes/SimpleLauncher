@@ -4,20 +4,20 @@ using SimpleLauncher.Core.Services.CheckPaths;
 namespace SimpleLauncher.Core.Services.GameFileWatcher;
 
 /// <summary>
-/// Monitors ROM system folders for file changes (create, delete, rename, change)
-/// and raises an event when changes are detected. Uses debouncing to avoid
-/// rapid re-scans during batch file operations.
+///     Monitors ROM system folders for file changes (create, delete, rename, change)
+///     and raises an event when changes are detected. Uses debouncing to avoid
+///     rapid re-scans during batch file operations.
 /// </summary>
 public sealed class GameFileWatcherService : IDisposable
 {
-    private readonly Dictionary<FileSystemWatcher, WatcherTag> _watchers = new();
     private readonly Lock _lock = new();
     private readonly ILogger _logger;
+    private readonly Dictionary<FileSystemWatcher, WatcherTag> _watchers = new();
     private CancellationTokenSource? _debounceCts = new();
     private bool _disposed;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GameFileWatcherService"/>.
+    ///     Initializes a new instance of <see cref="GameFileWatcherService" />.
     /// </summary>
     /// <param name="logger">Debug logging service.</param>
     public GameFileWatcherService(ILogger logger)
@@ -26,25 +26,43 @@ public sealed class GameFileWatcherService : IDisposable
     }
 
     /// <summary>
-    /// Raised when a file change is detected in any monitored folder.
-    /// The string parameter is the system name that was being monitored.
-    /// </summary>
-    public event EventHandler<EventArgs<string>> GameFilesChanged = null!;
-
-    /// <summary>
-    /// The debounce delay before raising the GameFilesChanged event.
-    /// Prevents rapid re-scans during batch file operations (e.g., extracting archives).
+    ///     The debounce delay before raising the GameFilesChanged event.
+    ///     Prevents rapid re-scans during batch file operations (e.g., extracting archives).
     /// </summary>
     public TimeSpan DebounceDelay { get; set; } = TimeSpan.FromMilliseconds(500);
 
     /// <summary>
-    /// Starts monitoring the specified folders for file changes.
-    /// By default stops monitoring any previously monitored folders first.
+    ///     Releases all resources used by this instance.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        _disposed = true;
+
+        StopWatching();
+    }
+
+    /// <summary>
+    ///     Raised when a file change is detected in any monitored folder.
+    ///     The string parameter is the system name that was being monitored.
+    /// </summary>
+    public event EventHandler<EventArgs<string>> GameFilesChanged = null!;
+
+    /// <summary>
+    ///     Starts monitoring the specified folders for file changes.
+    ///     By default stops monitoring any previously monitored folders first.
     /// </summary>
     /// <param name="folders">The folder paths to monitor (can be relative or contain %BASEFOLDER%).</param>
     /// <param name="systemName">The system name associated with these folders.</param>
-    /// <param name="fileExtensions">Optional list of file extensions to filter (e.g., ["zip", "tap"]). If null, all files are monitored.</param>
-    /// <param name="reset">When true (default), any previously monitored folders are stopped first. When false, the new folders are added without clearing existing watchers (used to watch multiple systems at once).</param>
+    /// <param name="fileExtensions">
+    ///     Optional list of file extensions to filter (e.g., ["zip", "tap"]). If null, all files are
+    ///     monitored.
+    /// </param>
+    /// <param name="reset">
+    ///     When true (default), any previously monitored folders are stopped first. When false, the new
+    ///     folders are added without clearing existing watchers (used to watch multiple systems at once).
+    /// </param>
     public void StartWatching(IEnumerable<string> folders, string systemName,
         IEnumerable<string>? fileExtensions = null, bool reset = true)
     {
@@ -71,7 +89,6 @@ public sealed class GameFileWatcherService : IDisposable
         lock (_lock)
         {
             foreach (var folder in resolvedFolders)
-            {
                 try
                 {
                     if (folder != null)
@@ -98,7 +115,6 @@ public sealed class GameFileWatcherService : IDisposable
                 {
                     _logger.Debug($"[GameFileWatcherService] Failed to watch '{folder}': {ex.Message}");
                 }
-            }
         }
 
         lock (_lock)
@@ -109,14 +125,13 @@ public sealed class GameFileWatcherService : IDisposable
     }
 
     /// <summary>
-    /// Stops monitoring all currently monitored folders.
+    ///     Stops monitoring all currently monitored folders.
     /// </summary>
     public void StopWatching()
     {
         lock (_lock)
         {
             foreach (var (watcher, _) in _watchers)
-            {
                 try
                 {
                     watcher.EnableRaisingEvents = false;
@@ -130,7 +145,6 @@ public sealed class GameFileWatcherService : IDisposable
                 {
                     _logger.Debug($"[GameFileWatcherService] Error disposing watcher: {ex.Message}");
                 }
-            }
 
             _watchers.Clear();
         }
@@ -156,10 +170,8 @@ public sealed class GameFileWatcherService : IDisposable
         if (tag.Extensions is { Count: > 0 })
         {
             var ext = Path.GetExtension(e.Name)?.TrimStart('.').ToLowerInvariant();
-            if (!string.IsNullOrEmpty(ext) && !tag.Extensions.Contains(ext))
-            {
-                return; // Ignore files with non-matching extensions
-            }
+            if (!string.IsNullOrEmpty(ext) &&
+                !tag.Extensions.Contains(ext)) return; // Ignore files with non-matching extensions
         }
 
         _logger.Debug(
@@ -213,19 +225,7 @@ public sealed class GameFileWatcherService : IDisposable
     }
 
     /// <summary>
-    /// Releases all resources used by this instance.
-    /// </summary>
-    public void Dispose()
-    {
-        if (_disposed) return;
-
-        _disposed = true;
-
-        StopWatching();
-    }
-
-    /// <summary>
-    /// Stores the system name and optional extension filter for a FileSystemWatcher.
+    ///     Stores the system name and optional extension filter for a FileSystemWatcher.
     /// </summary>
     private sealed record WatcherTag(string SystemName, HashSet<string>? Extensions);
 }

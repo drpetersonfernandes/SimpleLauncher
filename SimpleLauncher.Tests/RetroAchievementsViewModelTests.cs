@@ -13,14 +13,16 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="RetroAchievementsViewModel"/> (WPF) — credentials, success, unauthorized, error, and utility paths.
-/// Mirrors the Avalonia suite; WPF service requires two ILogger parameters (both non-null, second overwrites first).
+///     Tests for <see cref="RetroAchievementsViewModel" /> (WPF) — credentials, success, unauthorized, error, and utility
+///     paths.
+///     Mirrors the Avalonia suite; WPF service requires two ILogger parameters (both non-null, second overwrites first).
 /// </summary>
 public class RetroAchievementsViewModelTests
 {
     private static IConfiguration Config => new ConfigurationBuilder().Build();
 
-    private static string ProfileJson(string user = "testuser", int permissions = 1, int untracked = 0, string rank = "123",
+    private static string ProfileJson(string user = "testuser", int permissions = 1, int untracked = 0,
+        string rank = "123",
         string motto = "Hello", string richPresence = "Playing", string memberSince = "2020-01-01 00:00:00")
     {
         return JsonSerializer.Serialize(new
@@ -41,7 +43,7 @@ public class RetroAchievementsViewModelTests
             ID = 42,
             UserWallActive = true,
             Motto = motto,
-            Rank = rank,
+            Rank = rank
         });
     }
 
@@ -159,22 +161,12 @@ public class RetroAchievementsViewModelTests
         return new HttpResponseMessage(status) { Content = new StringContent(json, Encoding.UTF8, "application/json") };
     }
 
-    private sealed class FakeHandler : HttpMessageHandler
-    {
-        private readonly Func<HttpRequestMessage, HttpResponseMessage> _responder;
-        public FakeHandler(Func<HttpRequestMessage, HttpResponseMessage> responder) => _responder = responder;
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(_responder(request));
-        }
-    }
-
     // ---- LoadUserProfileAsync ----
 
     [Fact]
     public async Task LoadUserProfile_CredentialsNotSet_ShowsNoProfile()
     {
-        var vm = CreateVm(_ => JsonResponse("[]"), raUsername: "", raApiKey: "");
+        var vm = CreateVm(_ => JsonResponse("[]"), "", "");
         await vm.LoadUserProfileAsync();
         Assert.True(vm.NoProfileVisible);
         Assert.False(vm.IsLoading);
@@ -189,7 +181,8 @@ public class RetroAchievementsViewModelTests
         {
             var uri = req.RequestUri!.ToString();
             if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal)) return JsonResponse(ProfileJson());
-            if (uri.Contains("API_GetUserRecentlyPlayedGames.php", StringComparison.Ordinal)) return JsonResponse(RecentlyPlayedJson());
+            if (uri.Contains("API_GetUserRecentlyPlayedGames.php", StringComparison.Ordinal))
+                return JsonResponse(RecentlyPlayedJson());
             return new HttpResponseMessage(HttpStatusCode.NotFound);
         });
 
@@ -250,7 +243,8 @@ public class RetroAchievementsViewModelTests
         var vm = CreateVm(req =>
         {
             var uri = req.RequestUri!.ToString();
-            if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal)) return JsonResponse(ProfileJson(motto: ""));
+            if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal))
+                return JsonResponse(ProfileJson(motto: ""));
             if (uri.Contains("API_GetUserRecentlyPlayedGames.php", StringComparison.Ordinal)) return JsonResponse("[]");
             return new HttpResponseMessage(HttpStatusCode.NotFound);
         });
@@ -265,7 +259,7 @@ public class RetroAchievementsViewModelTests
     [Fact]
     public async Task LoadUnlocks_CredentialsNotSet_ShowsNoUnlocks()
     {
-        var vm = CreateVm(_ => JsonResponse("[]"), raUsername: "", raApiKey: "");
+        var vm = CreateVm(_ => JsonResponse("[]"), "", "");
         await vm.LoadUnlocksByDateAsync();
         Assert.True(vm.NoUnlocksVisible);
         Assert.Null(vm.Unlocks);
@@ -276,7 +270,7 @@ public class RetroAchievementsViewModelTests
     [Fact]
     public async Task LoadUnlocks_Success_PopulatesUnlocksAndTotals()
     {
-        var vm = CreateVm(_ => JsonResponse(EarnedAchievementsJson(2)));
+        var vm = CreateVm(_ => JsonResponse(EarnedAchievementsJson()));
         await vm.LoadUnlocksByDateAsync();
         Assert.False(vm.NoUnlocksVisible);
         Assert.NotNull(vm.Unlocks);
@@ -331,7 +325,7 @@ public class RetroAchievementsViewModelTests
     [Fact]
     public async Task LoadUserProgress_CredentialsNotSet_ShowsNoProgress()
     {
-        var vm = CreateVm(_ => JsonResponse("{}"), raUsername: "", raApiKey: "");
+        var vm = CreateVm(_ => JsonResponse("{}"), "", "");
         await vm.LoadUserProgressAsync();
         Assert.True(vm.NoUserProgressVisible);
         Assert.Null(vm.UserProgress);
@@ -394,7 +388,7 @@ public class RetroAchievementsViewModelTests
     [InlineData("a/b", "https://retroachievements.org/user/a%2Fb")]
     public void GetProfileUrl_EncodesUsername(string username, string expected)
     {
-        var vm = CreateVm(_ => JsonResponse("{}"), raUsername: username);
+        var vm = CreateVm(_ => JsonResponse("{}"), username);
         Assert.Equal(expected, vm.GetProfileUrl());
     }
 
@@ -404,5 +398,21 @@ public class RetroAchievementsViewModelTests
         var vm = CreateVm(_ => JsonResponse("{}"));
         Assert.Equal(DateTime.Today.AddMonths(-1).Date, vm.FromDate!.Value.Date);
         Assert.Equal(DateTime.Today.Date, vm.ToDate!.Value.Date);
+    }
+
+    private sealed class FakeHandler : HttpMessageHandler
+    {
+        private readonly Func<HttpRequestMessage, HttpResponseMessage> _responder;
+
+        public FakeHandler(Func<HttpRequestMessage, HttpResponseMessage> responder)
+        {
+            _responder = responder;
+        }
+
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
+        {
+            return Task.FromResult(_responder(request));
+        }
     }
 }

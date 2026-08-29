@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectXeniaConfigWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:models="using:SimpleLauncher.Core.Models"
         Title="Xenia Configuration"
@@ -16,7 +16,8 @@
                 <GroupBox Header="{ext:Translate XeniaConfig_Gpu_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="{ext:Translate XeniaConfig_GpuApi_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate XeniaConfig_GpuApi_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding GpuOptions}"
                                       SelectedItem="{Binding XeniaGpu}"
@@ -48,7 +49,8 @@
                                       ToolTip.Tip="{ext:Translate XeniaConfig_ResolutionScaleY_Tooltip}" />
                         </Grid>
 
-                        <TextBlock Text="{ext:Translate XeniaConfig_PostProcessingAa_Label}" Classes="form-label" Margin="0,5,0,0" />
+                        <TextBlock Text="{ext:Translate XeniaConfig_PostProcessingAa_Label}" Classes="form-label"
+                                   Margin="0,5,0,0" />
                         <ComboBox ItemsSource="{Binding AaOptions}"
                                   SelectedValue="{Binding XeniaAa}"
                                   SelectedValueBinding="{Binding Tag}"
@@ -60,12 +62,14 @@
                             </ComboBox.ItemTemplate>
                         </ComboBox>
 
-                        <TextBlock Text="{ext:Translate XeniaConfig_ScalingSharpening_Label}" Classes="form-label" Margin="0,5,0,0" />
+                        <TextBlock Text="{ext:Translate XeniaConfig_ScalingSharpening_Label}" Classes="form-label"
+                                   Margin="0,5,0,0" />
                         <ComboBox ItemsSource="{Binding ScalingOptions}"
                                   SelectedItem="{Binding XeniaScaling}"
                                   ToolTip.Tip="{ext:Translate XeniaConfig_ScalingSharpening_Tooltip}" />
 
-                        <TextBlock Text="{ext:Translate XeniaConfig_ReadbackResolve_Label}" Classes="form-label" Margin="0,5,0,0" />
+                        <TextBlock Text="{ext:Translate XeniaConfig_ReadbackResolve_Label}" Classes="form-label"
+                                   Margin="0,5,0,0" />
                         <ComboBox ItemsSource="{Binding ReadbackOptions}"
                                   SelectedItem="{Binding XeniaReadbackResolve}"
                                   ToolTip.Tip="{ext:Translate XeniaConfig_ReadbackResolve_Tooltip}" />
@@ -82,7 +86,8 @@
                 <GroupBox Header="{ext:Translate XeniaConfig_Apu_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="{ext:Translate XeniaConfig_AudioDriver_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate XeniaConfig_AudioDriver_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ApuOptions}"
                                       SelectedItem="{Binding XeniaApu}"
@@ -112,7 +117,8 @@
                                   ToolTip.Tip="{ext:Translate XeniaConfig_Vibration_Tooltip}" />
 
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,0">
-                            <TextBlock Text="{ext:Translate XeniaConfig_Hid_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate XeniaConfig_Hid_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding HidOptions}"
                                       SelectedItem="{Binding XeniaHid}"
@@ -120,7 +126,8 @@
                         </Grid>
 
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,0">
-                            <TextBlock Text="{ext:Translate XeniaConfig_UserLanguage_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate XeniaConfig_UserLanguage_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding LangOptions}"
                                       SelectedValue="{Binding XeniaUserLanguage}"

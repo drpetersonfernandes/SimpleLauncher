@@ -4,19 +4,19 @@ using SimpleLauncher.Core.Services.GameFileWatcher;
 namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
-/// Avalonia-friendly wrapper around the Core <see cref="GameFileWatcherService"/>.
-/// Starts watching every configured system's ROM folders and re-raises the
-/// <see cref="GameFilesChanged"/> event (with the affected system name) so the
-/// main window can refresh the library live — no WPF dependencies.
+///     Avalonia-friendly wrapper around the Core <see cref="GameFileWatcherService" />.
+///     Starts watching every configured system's ROM folders and re-raises the
+///     <see cref="GameFilesChanged" /> event (with the affected system name) so the
+///     main window can refresh the library live — no WPF dependencies.
 /// </summary>
 public class AvaloniaGameFileWatcherService : IDisposable
 {
-    private readonly GameFileWatcherService _watcher;
     private readonly ILogger _logger;
+    private readonly GameFileWatcherService _watcher;
     private bool _disposed;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AvaloniaGameFileWatcherService"/> class.
+    ///     Initializes a new instance of the <see cref="AvaloniaGameFileWatcherService" /> class.
     /// </summary>
     /// <param name="watcher">The Core watcher service.</param>
     /// <param name="logger">The Serilog logger.</param>
@@ -28,13 +28,7 @@ public class AvaloniaGameFileWatcherService : IDisposable
     }
 
     /// <summary>
-    /// Raised (on a thread-pool thread) when a file change is detected in any watched
-    /// folder. The string parameter is the affected system name.
-    /// </summary>
-    public event EventHandler<EventArgs<string>>? GameFilesChanged;
-
-    /// <summary>
-    /// The debounce delay before <see cref="GameFilesChanged"/> is raised.
+    ///     The debounce delay before <see cref="GameFilesChanged" /> is raised.
     /// </summary>
     public TimeSpan DebounceDelay
     {
@@ -42,9 +36,25 @@ public class AvaloniaGameFileWatcherService : IDisposable
         set => _watcher.DebounceDelay = value;
     }
 
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        _disposed = true;
+        _watcher.GameFilesChanged -= OnGameFilesChanged;
+        _watcher.Dispose();
+    }
+
     /// <summary>
-    /// Starts watching the ROM folders of every configured system. Stops any
-    /// previously monitored folders first.
+    ///     Raised (on a thread-pool thread) when a file change is detected in any watched
+    ///     folder. The string parameter is the affected system name.
+    /// </summary>
+    public event EventHandler<EventArgs<string>>? GameFilesChanged;
+
+    /// <summary>
+    ///     Starts watching the ROM folders of every configured system. Stops any
+    ///     previously monitored folders first.
     /// </summary>
     /// <param name="systems">The system configurations to watch.</param>
     public void StartWatchingForSystems(IEnumerable<SystemManagerConfig> systems)
@@ -58,16 +68,14 @@ public class AvaloniaGameFileWatcherService : IDisposable
 
         var systemManagerConfigs = systems.ToList();
         foreach (var system in systemManagerConfigs)
-        {
-            _watcher.StartWatching(system.SystemFolders, system.SystemName, system.FileFormatsToSearch, reset: false);
-        }
+            _watcher.StartWatching(system.SystemFolders, system.SystemName, system.FileFormatsToSearch, false);
 
         _logger.Debug("[AvaloniaGameFileWatcherService] Started watching {Count} system(s).",
             systemManagerConfigs.Count);
     }
 
     /// <summary>
-    /// Stops watching all currently monitored folders.
+    ///     Stops watching all currently monitored folders.
     /// </summary>
     public void StopWatching()
     {
@@ -78,15 +86,5 @@ public class AvaloniaGameFileWatcherService : IDisposable
     private void OnGameFilesChanged(object? sender, EventArgs<string> e)
     {
         GameFilesChanged?.Invoke(this, e);
-    }
-
-    /// <inheritdoc />
-    public void Dispose()
-    {
-        if (_disposed) return;
-
-        _disposed = true;
-        _watcher.GameFilesChanged -= OnGameFilesChanged;
-        _watcher.Dispose();
     }
 }

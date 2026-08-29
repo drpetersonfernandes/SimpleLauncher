@@ -3,10 +3,10 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
-/// Manages file list pagination, handling page navigation, button states, and status labels.
-/// Avalonia port of the WPF <c>PaginationService</c> (implements the same Core
-/// <see cref="IPaginationService"/> contract; the label text comes from
-/// <see cref="IResourceProvider"/> instead of WPF resource dictionaries).
+///     Manages file list pagination, handling page navigation, button states, and status labels.
+///     Avalonia port of the WPF <c>PaginationService</c> (implements the same Core
+///     <see cref="IPaginationService" /> contract; the label text comes from
+///     <see cref="IResourceProvider" /> instead of WPF resource dictionaries).
 /// </summary>
 public class AvaloniaPaginationService : IPaginationService
 {
@@ -14,7 +14,7 @@ public class AvaloniaPaginationService : IPaginationService
     private IPaginationHost _host = null!;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AvaloniaPaginationService"/> class.
+    ///     Initializes a new instance of the <see cref="AvaloniaPaginationService" /> class.
     /// </summary>
     /// <param name="resourceProvider">The resource provider used to localize the status label.</param>
     public AvaloniaPaginationService(IResourceProvider resourceProvider)
@@ -66,19 +66,13 @@ public class AvaloniaPaginationService : IPaginationService
     /// <inheritdoc />
     public void GoToPreviousPage()
     {
-        if (CanGoPrev())
-        {
-            CurrentPage--;
-        }
+        if (CanGoPrev()) CurrentPage--;
     }
 
     /// <inheritdoc />
     public void GoToNextPage()
     {
-        if (CanGoNext())
-        {
-            CurrentPage++;
-        }
+        if (CanGoNext()) CurrentPage++;
     }
 
     /// <inheritdoc />

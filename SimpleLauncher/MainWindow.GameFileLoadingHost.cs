@@ -1,14 +1,13 @@
 using System.Windows.Controls;
 using System.Windows.Threading;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Interfaces;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 /// <summary>
-/// Partial MainWindow implementing <see cref="IGameFileLoadingHost"/> for game file loading operations.
+///     Partial MainWindow implementing <see cref="IGameFileLoadingHost" /> for game file loading operations.
 /// </summary>
 public partial class MainWindow : IGameFileLoadingHost
 {

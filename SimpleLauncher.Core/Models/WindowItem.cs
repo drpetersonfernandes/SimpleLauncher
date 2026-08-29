@@ -1,7 +1,7 @@
 namespace SimpleLauncher.Core.Models;
 
 /// <summary>
-/// Represents a visible window with its title and native handle, used for screenshot target selection.
+///     Represents a visible window with its title and native handle, used for screenshot target selection.
 /// </summary>
 public class WindowItem
 {

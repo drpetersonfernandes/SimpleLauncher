@@ -15,7 +15,8 @@
                     ToolTip.Tip="{ext:Translate RetroAchievementsTabControl}">
 
             <!-- Tab 1: My Profile -->
-            <TabItem Header="{ext:Translate MyProfileTab}" Tag="MyProfile" ToolTip.Tip="{ext:Translate MyProfileTabTooltip}">
+            <TabItem Header="{ext:Translate MyProfileTab}" Tag="MyProfile"
+                     ToolTip.Tip="{ext:Translate MyProfileTabTooltip}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
                     <Grid>
                         <StackPanel x:Name="UserProfilePanel">
@@ -29,7 +30,8 @@
                                     <TextBlock x:Name="UserProfileUser" FontSize="22" FontWeight="Bold"
                                                Foreground="{DynamicResource TextPrimaryBrush}" />
                                     <TextBlock x:Name="UserProfileMotto" FontStyle="Italic" TextWrapping="Wrap"
-                                               Margin="0,5,0,0" FontSize="14" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                               Margin="0,5,0,0" FontSize="14"
+                                               Foreground="{DynamicResource TextSecondaryBrush}" />
                                     <Button x:Name="ViewProfileOnRaButton" Content="{ext:Translate ViewProfileOnRA}"
                                             Classes="primary" Click="ViewProfileOnRaButton_Click" Margin="0,10,0,0"
                                             ToolTip.Tip="{ext:Translate ViewProfileOnRaButtonTooltip}" />
@@ -37,7 +39,8 @@
                             </StackPanel>
 
                             <!-- Current Activity -->
-                            <Border Background="{DynamicResource AccentBrush}" Margin="0,0,0,20" Padding="15" CornerRadius="5">
+                            <Border Background="{DynamicResource AccentBrush}" Margin="0,0,0,20" Padding="15"
+                                    CornerRadius="5">
                                 <StackPanel>
                                     <TextBlock Text="{ext:Translate CurrentlyPlaying}" FontWeight="Bold"
                                                Foreground="White" FontSize="16" />
@@ -52,7 +55,8 @@
                                         BorderThickness="1" Padding="10" Margin="0,0,5,0" CornerRadius="3">
                                     <StackPanel>
                                         <TextBlock x:Name="PointsValue" FontSize="18" FontWeight="Bold"
-                                                   HorizontalAlignment="Center" Foreground="{DynamicResource AccentBrush}" />
+                                                   HorizontalAlignment="Center"
+                                                   Foreground="{DynamicResource AccentBrush}" />
                                         <TextBlock Text="{ext:Translate Points}" HorizontalAlignment="Center"
                                                    Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
                                     </StackPanel>
@@ -61,7 +65,8 @@
                                         BorderThickness="1" Padding="10" Margin="5,0,5,0" CornerRadius="3">
                                     <StackPanel>
                                         <TextBlock x:Name="TruePointsValue" FontSize="18" FontWeight="Bold"
-                                                   HorizontalAlignment="Center" Foreground="{DynamicResource AccentBrush}" />
+                                                   HorizontalAlignment="Center"
+                                                   Foreground="{DynamicResource AccentBrush}" />
                                         <TextBlock Text="{ext:Translate TruePoints}" HorizontalAlignment="Center"
                                                    Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
                                     </StackPanel>
@@ -70,7 +75,8 @@
                                         BorderThickness="1" Padding="10" Margin="5,0,0,0" CornerRadius="3">
                                     <StackPanel>
                                         <TextBlock x:Name="RankValue" FontSize="18" FontWeight="Bold"
-                                                   HorizontalAlignment="Center" Foreground="{DynamicResource AccentBrush}" />
+                                                   HorizontalAlignment="Center"
+                                                   Foreground="{DynamicResource AccentBrush}" />
                                         <TextBlock Text="{ext:Translate Rank}" HorizontalAlignment="Center"
                                                    Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
                                     </StackPanel>
@@ -78,10 +84,13 @@
                             </Grid>
 
                             <!-- Detailed User Information -->
-                            <TextBlock Text="{ext:Translate UserDetails}" FontWeight="Bold" FontSize="18" Margin="0,0,0,15"
+                            <TextBlock Text="{ext:Translate UserDetails}" FontWeight="Bold" FontSize="18"
+                                       Margin="0,0,0,15"
                                        Foreground="{DynamicResource TextPrimaryBrush}" />
-                            <Grid Margin="0,0,0,25" ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{ext:Translate MemberSince}" FontWeight="Bold"
+                            <Grid Margin="0,0,0,25" ColumnDefinitions="Auto,*"
+                                  RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{ext:Translate MemberSince}"
+                                           FontWeight="Bold"
                                            Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
                                 <TextBlock Grid.Row="0" Grid.Column="1" x:Name="UserProfileMemberSince"
                                            Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
@@ -91,17 +100,20 @@
                                 <TextBlock Grid.Row="1" Grid.Column="1" x:Name="UserProfileId"
                                            Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
 
-                                <TextBlock Grid.Row="2" Grid.Column="0" Text="{ext:Translate Contributions}" FontWeight="Bold"
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="{ext:Translate Contributions}"
+                                           FontWeight="Bold"
                                            Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
                                 <TextBlock Grid.Row="2" Grid.Column="1" x:Name="UserProfileContributions"
                                            Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
 
-                                <TextBlock Grid.Row="3" Grid.Column="0" Text="{ext:Translate SoftcorePoints}" FontWeight="Bold"
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="{ext:Translate SoftcorePoints}"
+                                           FontWeight="Bold"
                                            Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
                                 <TextBlock Grid.Row="3" Grid.Column="1" x:Name="UserProfileSoftcorePoints"
                                            Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
 
-                                <TextBlock Grid.Row="4" Grid.Column="0" Text="{ext:Translate Permissions}" FontWeight="Bold"
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="{ext:Translate Permissions}"
+                                           FontWeight="Bold"
                                            Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
                                 <TextBlock Grid.Row="4" Grid.Column="1" x:Name="UserProfilePermissions"
                                            Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
@@ -111,12 +123,14 @@
                                 <TextBlock Grid.Row="5" Grid.Column="1" x:Name="UserProfileStatus"
                                            Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
 
-                                <TextBlock Grid.Row="6" Grid.Column="0" Text="{ext:Translate ProfileID}" FontWeight="Bold"
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="{ext:Translate ProfileID}"
+                                           FontWeight="Bold"
                                            Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
                                 <TextBlock Grid.Row="6" Grid.Column="1" x:Name="UserProfileProfileId"
                                            Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
 
-                                <TextBlock Grid.Row="7" Grid.Column="0" Text="{ext:Translate WallActive}" FontWeight="Bold"
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="{ext:Translate WallActive}"
+                                           FontWeight="Bold"
                                            Margin="0,0,10,8" Foreground="{DynamicResource TextPrimaryBrush}" />
                                 <TextBlock Grid.Row="7" Grid.Column="1" x:Name="UserProfileWallActive"
                                            Margin="0,0,0,8" Foreground="{DynamicResource TextPrimaryBrush}" />
@@ -137,7 +151,8 @@
                                                                   VerticalAlignment="Center" Margin="0,0,10,0" />
                                             <StackPanel VerticalAlignment="Center">
                                                 <TextBlock Text="{Binding Title}" FontWeight="SemiBold" FontSize="14"
-                                                           TextTrimming="CharacterEllipsis" ToolTip.Tip="{Binding Title}" />
+                                                           TextTrimming="CharacterEllipsis"
+                                                           ToolTip.Tip="{Binding Title}" />
                                                 <TextBlock Text="{Binding ConsoleName}" FontSize="12"
                                                            TextTrimming="CharacterEllipsis"
                                                            ToolTip.Tip="{Binding ConsoleName}" Margin="0,2,0,0" />
@@ -145,7 +160,8 @@
                                                     <TextBlock Text="{ext:Translate Casual}" FontSize="12" />
                                                     <TextBlock Text="{Binding ProgressDisplay}" FontSize="12"
                                                                ToolTip.Tip="{Binding ProgressDisplay}" />
-                                                    <TextBlock Text="{ext:Translate Hardcore}" FontSize="12" Margin="5,0,0,0" />
+                                                    <TextBlock Text="{ext:Translate Hardcore}" FontSize="12"
+                                                               Margin="5,0,0,0" />
                                                     <TextBlock Text="{Binding HardcoreProgressDisplay}" FontSize="12"
                                                                ToolTip.Tip="{Binding HardcoreProgressDisplay}" />
                                                 </StackPanel>
@@ -183,16 +199,20 @@
             <TabItem Header="{ext:Translate UnlocksTab}" Tag="Unlocks" ToolTip.Tip="{ext:Translate UnlocksTabTooltip}">
                 <Grid RowDefinitions="Auto,Auto,*">
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,15,10,15">
-                        <TextBlock Text="{ext:Translate FromDate}" VerticalAlignment="Center" Margin="0,0,5,0" FontSize="14"
+                        <TextBlock Text="{ext:Translate FromDate}" VerticalAlignment="Center" Margin="0,0,5,0"
+                                   FontSize="14"
                                    Foreground="{DynamicResource TextPrimaryBrush}" />
-                        <DatePicker x:Name="FromDatePicker" Width="140" ToolTip.Tip="{ext:Translate FromDatePickerTooltip}" />
-                        <TextBlock Text="{ext:Translate ToDate}" VerticalAlignment="Center" Margin="15,0,5,0" FontSize="14"
+                        <DatePicker x:Name="FromDatePicker" Width="140"
+                                    ToolTip.Tip="{ext:Translate FromDatePickerTooltip}" />
+                        <TextBlock Text="{ext:Translate ToDate}" VerticalAlignment="Center" Margin="15,0,5,0"
+                                   FontSize="14"
                                    Foreground="{DynamicResource TextPrimaryBrush}" />
                         <DatePicker x:Name="ToDatePicker" Width="140" ToolTip.Tip="{ext:Translate ToDatePickerTooltip}" />
                         <Button Content="{ext:Translate FetchUnlocks}" Click="FetchUnlocksClickAsync" Margin="15,0,0,0"
                                 Padding="10,5" x:Name="FetchUnlocksButton" Classes="primary"
                                 ToolTip.Tip="{ext:Translate FetchUnlocksButtonTooltip}" />
-                        <Button Content="{ext:Translate ResetDates}" Click="ResetDatesClickAsync" Margin="10,0,0,0" Padding="10,5"
+                        <Button Content="{ext:Translate ResetDates}" Click="ResetDatesClickAsync" Margin="10,0,0,0"
+                                Padding="10,5"
                                 Classes="secondary" ToolTip.Tip="{ext:Translate ResetDatesButtonTooltip}" />
                     </StackPanel>
 
@@ -206,7 +226,8 @@
                                            Foreground="{DynamicResource AccentBrush}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
-                                <TextBlock Text="{ext:Translate TotalPointsEarnedInRange}" FontWeight="Bold" FontSize="16"
+                                <TextBlock Text="{ext:Translate TotalPointsEarnedInRange}" FontWeight="Bold"
+                                           FontSize="16"
                                            Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,10,0" />
                                 <TextBlock x:Name="TotalPointsEarnedInRangeText" FontWeight="Bold" FontSize="16"
                                            Foreground="{DynamicResource AccentBrush}" />
@@ -223,37 +244,49 @@
                             <DataGridTemplateColumn Header="{ext:Translate HeaderGameIcon}" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate x:DataType="models:RaEarnedAchievement">
-                                        <controls:RemoteImage Url="{Binding GameIconFullUrl}" Width="32" Height="32" Margin="5" />
+                                        <controls:RemoteImage Url="{Binding GameIconFullUrl}" Width="32" Height="32"
+                                                              Margin="5" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="{ext:Translate HeaderGameTitle}" Binding="{Binding GameTitle}" Width="*" SortMemberPath="GameTitle" />
+                            <DataGridTextColumn Header="{ext:Translate HeaderGameTitle}" Binding="{Binding GameTitle}"
+                                                Width="*" SortMemberPath="GameTitle" />
                             <DataGridTemplateColumn Header="{ext:Translate HeaderBadge}" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate x:DataType="models:RaEarnedAchievement">
-                                        <controls:RemoteImage Url="{Binding BadgeFullUrl}" Width="32" Height="32" Margin="5" />
+                                        <controls:RemoteImage Url="{Binding BadgeFullUrl}" Width="32" Height="32"
+                                                              Margin="5" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="{ext:Translate HeaderAchievement}" Binding="{Binding Title}" Width="2*" SortMemberPath="Title" />
-                            <DataGridTextColumn Header="{ext:Translate HeaderPoints}" Binding="{Binding Points}" Width="Auto"
+                            <DataGridTextColumn Header="{ext:Translate HeaderAchievement}" Binding="{Binding Title}"
+                                                Width="2*" SortMemberPath="Title" />
+                            <DataGridTextColumn Header="{ext:Translate HeaderPoints}" Binding="{Binding Points}"
+                                                Width="Auto"
                                                 SortMemberPath="Points" />
-                            <DataGridTextColumn Header="{ext:Translate HeaderTrueRatio}" Binding="{Binding TrueRatio, StringFormat='{}{0}%'}"
+                            <DataGridTextColumn Header="{ext:Translate HeaderTrueRatio}"
+                                                Binding="{Binding TrueRatio, StringFormat='{}{0}%'}"
                                                 Width="Auto" SortMemberPath="TrueRatio" />
-                            <DataGridTextColumn Header="{ext:Translate HeaderUnlockedDate}" Binding="{Binding UnlockedDateDisplay}" Width="Auto"
+                            <DataGridTextColumn Header="{ext:Translate HeaderUnlockedDate}"
+                                                Binding="{Binding UnlockedDateDisplay}" Width="Auto"
                                                 SortMemberPath="UnlockedDate" />
-                            <DataGridTextColumn Header="{ext:Translate HeaderMode}" Binding="{Binding ModeDisplay}" Width="Auto"
+                            <DataGridTextColumn Header="{ext:Translate HeaderMode}" Binding="{Binding ModeDisplay}"
+                                                Width="Auto"
                                                 SortMemberPath="ModeDisplay" />
-                            <DataGridTextColumn Header="{ext:Translate HeaderConsole}" Binding="{Binding ConsoleName}" Width="Auto" SortMemberPath="ConsoleName" />
-                            <DataGridTextColumn Header="{ext:Translate HeaderAuthor}" Binding="{Binding Author}" Width="Auto" SortMemberPath="Author" />
+                            <DataGridTextColumn Header="{ext:Translate HeaderConsole}" Binding="{Binding ConsoleName}"
+                                                Width="Auto" SortMemberPath="ConsoleName" />
+                            <DataGridTextColumn Header="{ext:Translate HeaderAuthor}" Binding="{Binding Author}"
+                                                Width="Auto" SortMemberPath="Author" />
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Grid x:Name="NoUnlocksOverlay" Grid.Row="2" Background="{DynamicResource BgPrimaryBrush}" IsVisible="False">
+                    <Grid x:Name="NoUnlocksOverlay" Grid.Row="2" Background="{DynamicResource BgPrimaryBrush}"
+                          IsVisible="False">
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock x:Name="NoUnlocksMessage" Text="{ext:Translate NoUnlocksFound}"
                                        VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"
-                                       Foreground="{DynamicResource TextPrimaryBrush}" TextWrapping="Wrap" TextAlignment="Center" />
+                                       Foreground="{DynamicResource TextPrimaryBrush}" TextWrapping="Wrap"
+                                       TextAlignment="Center" />
                             <Button Content="{ext:Translate OpenRaSettings}" Margin="0,15,0,0"
                                     Classes="primary" Click="OpenRaSettings_Click"
                                     ToolTip.Tip="{ext:Translate OpenRaSettingsButtonTooltip}" />
@@ -263,7 +296,8 @@
             </TabItem>
 
             <!-- Tab 3: User Progress -->
-            <TabItem Header="{ext:Translate UserProgressTab}" Tag="UserProgress" ToolTip.Tip="{ext:Translate UserProgressTabTooltip}">
+            <TabItem Header="{ext:Translate UserProgressTab}" Tag="UserProgress"
+                     ToolTip.Tip="{ext:Translate UserProgressTabTooltip}">
                 <Grid>
                     <DataGrid x:Name="UserProgressDataGrid" AutoGenerateColumns="False" IsReadOnly="True"
                               Margin="10" HeadersVisibility="Column"
@@ -274,26 +308,35 @@
                             <DataGridTemplateColumn Header="{ext:Translate HeaderIcon}" Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate x:DataType="models:RaUserCompletionGame">
-                                        <controls:RemoteImage Url="{Binding ImageIcon}" Width="32" Height="32" Margin="5" />
+                                        <controls:RemoteImage Url="{Binding ImageIcon}" Width="32" Height="32"
+                                                              Margin="5" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="{ext:Translate HeaderGameTitle}" Binding="{Binding Title}" Width="2*" SortMemberPath="Title" />
-                            <DataGridTextColumn Header="{ext:Translate HeaderConsole}" Binding="{Binding ConsoleName}" Width="*" SortMemberPath="ConsoleName" />
-                            <DataGridTextColumn Header="{ext:Translate Casual}" Binding="{Binding CompletionDisplay}" Width="Auto"
+                            <DataGridTextColumn Header="{ext:Translate HeaderGameTitle}" Binding="{Binding Title}"
+                                                Width="2*" SortMemberPath="Title" />
+                            <DataGridTextColumn Header="{ext:Translate HeaderConsole}" Binding="{Binding ConsoleName}"
+                                                Width="*" SortMemberPath="ConsoleName" />
+                            <DataGridTextColumn Header="{ext:Translate Casual}" Binding="{Binding CompletionDisplay}"
+                                                Width="Auto"
                                                 SortMemberPath="NumAwarded" />
-                            <DataGridTextColumn Header="{ext:Translate Hardcore}" Binding="{Binding HardcoreCompletionDisplay}" Width="Auto"
+                            <DataGridTextColumn Header="{ext:Translate Hardcore}"
+                                                Binding="{Binding HardcoreCompletionDisplay}" Width="Auto"
                                                 SortMemberPath="NumAwardedHardcore" />
-                            <DataGridTextColumn Header="{ext:Translate MostRecentAward}" Binding="{Binding MostRecentAwardedDateDisplay}" Width="Auto"
+                            <DataGridTextColumn Header="{ext:Translate MostRecentAward}"
+                                                Binding="{Binding MostRecentAwardedDateDisplay}" Width="Auto"
                                                 SortMemberPath="MostRecentAwardedDate" />
-                            <DataGridTextColumn Header="{ext:Translate HeaderHighestAward}" Binding="{Binding HighestAwardKindDisplay}" Width="Auto"
+                            <DataGridTextColumn Header="{ext:Translate HeaderHighestAward}"
+                                                Binding="{Binding HighestAwardKindDisplay}" Width="Auto"
                                                 SortMemberPath="HighestAwardKind" />
-                            <DataGridTextColumn Header="{ext:Translate HighestAwardDate}" Binding="{Binding HighestAwardDateDisplay}" Width="Auto"
+                            <DataGridTextColumn Header="{ext:Translate HighestAwardDate}"
+                                                Binding="{Binding HighestAwardDateDisplay}" Width="Auto"
                                                 SortMemberPath="HighestAwardDate" />
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Grid x:Name="NoUserProgressOverlay" Background="{DynamicResource BgPrimaryBrush}" IsVisible="False">
+                    <Grid x:Name="NoUserProgressOverlay" Background="{DynamicResource BgPrimaryBrush}"
+                          IsVisible="False">
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock x:Name="NoUserProgressMainMessage" Text="{ext:Translate NoUserProgress}"
                                        VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"
@@ -314,12 +357,14 @@
         </TabControl>
 
         <!-- Loading Overlay -->
-        <Border x:Name="LoadingOverlay" Background="{DynamicResource OverlayProcessingBrush}" IsVisible="False" ZIndex="10">
+        <Border x:Name="LoadingOverlay" Background="{DynamicResource OverlayProcessingBrush}" IsVisible="False"
+                ZIndex="10">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" MinWidth="260">
                 <ProgressBar IsIndeterminate="True" Width="220" />
                 <TextBlock x:Name="LoadingOverlayMessage" Text="{ext:Translate Loading}" Margin="0,12,0,0"
                            HorizontalAlignment="Center" Foreground="{DynamicResource TextPrimaryBrush}" />
-                <Button x:Name="EmergencyReturnButton" Content="{ext:Translate EditSystemWindow_Return}" Margin="0,15,0,0"
+                <Button x:Name="EmergencyReturnButton" Content="{ext:Translate EditSystemWindow_Return}"
+                        Margin="0,15,0,0"
                         Classes="secondary" Click="EmergencyOverlayRelease_Click" />
             </StackPanel>
         </Border>

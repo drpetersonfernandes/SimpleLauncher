@@ -5,14 +5,14 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="ImageUrlConverter"/> class.
+///     Tests for the <see cref="ImageUrlConverter" /> class.
 /// </summary>
 public class ImageUrlConverterTests
 {
     private readonly ImageUrlConverter _converter = new();
 
     /// <summary>
-    /// Verifies that ConvertBack throws NotSupportedException.
+    ///     Verifies that ConvertBack throws NotSupportedException.
     /// </summary>
     [Fact]
     public void ConvertBackThrowsNotSupportedException()
@@ -22,7 +22,7 @@ public class ImageUrlConverterTests
     }
 
     /// <summary>
-    /// Verifies that Convert returns a placeholder image when the value is null.
+    ///     Verifies that Convert returns a placeholder image when the value is null.
     /// </summary>
     [Fact]
     public void ConvertNullValueReturnsPlaceholder()
@@ -32,7 +32,7 @@ public class ImageUrlConverterTests
     }
 
     /// <summary>
-    /// Verifies that Convert returns a placeholder image when the value is an empty string.
+    ///     Verifies that Convert returns a placeholder image when the value is an empty string.
     /// </summary>
     [Fact]
     public void ConvertEmptyStringReturnsPlaceholder()
@@ -42,7 +42,7 @@ public class ImageUrlConverterTests
     }
 
     /// <summary>
-    /// Verifies that Convert returns a placeholder image when the value is whitespace.
+    ///     Verifies that Convert returns a placeholder image when the value is whitespace.
     /// </summary>
     [Fact]
     public void ConvertWhitespaceStringReturnsPlaceholder()
@@ -52,7 +52,7 @@ public class ImageUrlConverterTests
     }
 
     /// <summary>
-    /// Verifies that Convert returns a placeholder image when the value is not a string.
+    ///     Verifies that Convert returns a placeholder image when the value is not a string.
     /// </summary>
     [Fact]
     public void ConvertNonStringValueReturnsPlaceholder()
@@ -62,7 +62,7 @@ public class ImageUrlConverterTests
     }
 
     /// <summary>
-    /// Verifies that Convert returns a placeholder image when the URL is invalid.
+    ///     Verifies that Convert returns a placeholder image when the URL is invalid.
     /// </summary>
     [Fact]
     public void ConvertInvalidUrlReturnsPlaceholder()
@@ -72,7 +72,7 @@ public class ImageUrlConverterTests
     }
 
     /// <summary>
-    /// Verifies that Convert returns the same placeholder instance for both null and empty inputs.
+    ///     Verifies that Convert returns the same placeholder instance for both null and empty inputs.
     /// </summary>
     [Fact]
     public void ConvertReturnsSamePlaceholderForNullAndEmpty()

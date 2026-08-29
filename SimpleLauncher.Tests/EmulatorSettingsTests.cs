@@ -6,12 +6,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for individual emulator settings classes covering defaults, XML round-trip, copy, and reset behavior.
+///     Tests for individual emulator settings classes covering defaults, XML round-trip, copy, and reset behavior.
 /// </summary>
 public class EmulatorSettingsTests
 {
     /// <summary>
-    /// Verifies that AresSettings properties have the expected default values.
+    ///     Verifies that AresSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void AresSettingsDefaults()
@@ -32,7 +32,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that AresSettings can be serialized to XElement and deserialized back correctly.
+    ///     Verifies that AresSettings can be serialized to XElement and deserialized back correctly.
     /// </summary>
     [Fact]
     public void AresSettingsToXElementRoundTrip()
@@ -48,7 +48,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that AresSettings.CopyFrom copies all properties from a source instance.
+    ///     Verifies that AresSettings.CopyFrom copies all properties from a source instance.
     /// </summary>
     [Fact]
     public void AresSettingsCopyFrom()
@@ -62,7 +62,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that AresSettings.CopyFrom with a wrong type does not modify the target.
+    ///     Verifies that AresSettings.CopyFrom with a wrong type does not modify the target.
     /// </summary>
     [Fact]
     public void AresSettingsCopyFromWrongTypeDoesNothing()
@@ -74,7 +74,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that AresSettings.ResetDefaults restores all properties to their default values.
+    ///     Verifies that AresSettings.ResetDefaults restores all properties to their default values.
     /// </summary>
     [Fact]
     public void AresSettingsResetDefaults()
@@ -86,7 +86,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that DuckStationSettings properties have the expected default values.
+    ///     Verifies that DuckStationSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void DuckStationSettingsDefaults()
@@ -103,7 +103,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that DuckStationSettings can be serialized to XElement and deserialized back correctly.
+    ///     Verifies that DuckStationSettings can be serialized to XElement and deserialized back correctly.
     /// </summary>
     [Fact]
     public void DuckStationSettingsToXElementRoundTrip()
@@ -118,7 +118,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that DuckStationSettings.ResetDefaults restores all properties to their default values.
+    ///     Verifies that DuckStationSettings.ResetDefaults restores all properties to their default values.
     /// </summary>
     [Fact]
     public void DuckStationSettingsResetDefaults()
@@ -130,7 +130,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that RetroArchSettings properties have the expected default values.
+    ///     Verifies that RetroArchSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void RetroArchSettingsDefaults()
@@ -145,7 +145,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that RetroArchSettings can be serialized to XElement and deserialized back correctly.
+    ///     Verifies that RetroArchSettings can be serialized to XElement and deserialized back correctly.
     /// </summary>
     [Fact]
     public void RetroArchSettingsToXElementRoundTrip()
@@ -160,7 +160,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that Pcsx2Settings properties have the expected default values.
+    ///     Verifies that Pcsx2Settings properties have the expected default values.
     /// </summary>
     [Fact]
     public void Pcsx2SettingsDefaults()
@@ -172,7 +172,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that Pcsx2Settings.ResetDefaults restores all properties to their default values.
+    ///     Verifies that Pcsx2Settings.ResetDefaults restores all properties to their default values.
     /// </summary>
     [Fact]
     public void Pcsx2SettingsResetDefaults()
@@ -184,7 +184,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that DolphinSettings properties have the expected default values.
+    ///     Verifies that DolphinSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void DolphinSettingsDefaults()
@@ -195,7 +195,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that DolphinSettings can be serialized to XElement and deserialized back correctly.
+    ///     Verifies that DolphinSettings can be serialized to XElement and deserialized back correctly.
     /// </summary>
     [Fact]
     public void DolphinSettingsToXElementRoundTrip()
@@ -208,7 +208,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that FlycastSettings properties have the expected default values.
+    ///     Verifies that FlycastSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void FlycastSettingsDefaults()
@@ -219,7 +219,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that MameSettings properties have the expected default values.
+    ///     Verifies that MameSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void MameSettingsDefaults()
@@ -231,7 +231,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that MednafenSettings properties have the expected default values.
+    ///     Verifies that MednafenSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void MednafenSettingsDefaults()
@@ -242,7 +242,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that MesenSettings properties have the expected default values.
+    ///     Verifies that MesenSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void MesenSettingsDefaults()
@@ -253,7 +253,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that RaineSettings properties have the expected default values.
+    ///     Verifies that RaineSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void RaineSettingsDefaults()
@@ -265,7 +265,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that RedreamSettings properties have the expected default values.
+    ///     Verifies that RedreamSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void RedreamSettingsDefaults()
@@ -277,7 +277,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that Rpcs3Settings properties have the expected default values.
+    ///     Verifies that Rpcs3Settings properties have the expected default values.
     /// </summary>
     [Fact]
     public void Rpcs3SettingsDefaults()
@@ -288,7 +288,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that BlastemSettings properties have the expected default values.
+    ///     Verifies that BlastemSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void BlastemSettingsDefaults()
@@ -299,7 +299,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that AzaharSettings properties have the expected default values.
+    ///     Verifies that AzaharSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void AzaharSettingsDefaults()
@@ -311,7 +311,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that CemuSettings properties have the expected default values.
+    ///     Verifies that CemuSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void CemuSettingsDefaults()
@@ -322,7 +322,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that DaphneSettings properties have the expected default values.
+    ///     Verifies that DaphneSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void DaphneSettingsDefaults()
@@ -334,7 +334,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that SegaModel2Settings properties have the expected default values.
+    ///     Verifies that SegaModel2Settings properties have the expected default values.
     /// </summary>
     [Fact]
     public void SegaModel2SettingsDefaults()
@@ -345,7 +345,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that StellaSettings properties have the expected default values.
+    ///     Verifies that StellaSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void StellaSettingsDefaults()
@@ -356,7 +356,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that SupermodelSettings properties have the expected default values.
+    ///     Verifies that SupermodelSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void SupermodelSettingsDefaults()
@@ -368,7 +368,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that XeniaSettings properties have the expected default values.
+    ///     Verifies that XeniaSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void XeniaSettingsDefaults()
@@ -379,7 +379,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that YumirSettings properties have the expected default values.
+    ///     Verifies that YumirSettings properties have the expected default values.
     /// </summary>
     [Fact]
     public void YumirSettingsDefaults()
@@ -392,7 +392,7 @@ public class EmulatorSettingsTests
     // Cross-cutting tests for all emulator settings
 
     /// <summary>
-    /// Verifies that all emulator settings classes implement the IEmulatorSettings interface.
+    ///     Verifies that all emulator settings classes implement the IEmulatorSettings interface.
     /// </summary>
     [Fact]
     public void AllEmulatorSettingsImplementIEmulatorSettings()
@@ -422,14 +422,11 @@ public class EmulatorSettingsTests
             new YumirSettings()
         ];
 
-        foreach (var settings in allSettings)
-        {
-            Assert.NotNull(settings);
-        }
+        foreach (var settings in allSettings) Assert.NotNull(settings);
     }
 
     /// <summary>
-    /// Verifies that ToXElement returns a non-null element for all emulator settings classes.
+    ///     Verifies that ToXElement returns a non-null element for all emulator settings classes.
     /// </summary>
     [Fact]
     public void AllEmulatorSettingsToXElementReturnsNonNull()
@@ -467,7 +464,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that ResetDefaults does not throw for any emulator settings class.
+    ///     Verifies that ResetDefaults does not throw for any emulator settings class.
     /// </summary>
     [Fact]
     public void AllEmulatorSettingsResetDefaultsDoesNotThrow()
@@ -508,7 +505,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that CopyFrom with self does not throw for any emulator settings class.
+    ///     Verifies that CopyFrom with self does not throw for any emulator settings class.
     /// </summary>
     [Fact]
     public void AllEmulatorSettingsCopyFromSelfDoesNotThrow()
@@ -546,7 +543,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that LoadFromXml with an empty XML element does not throw for any emulator settings class.
+    ///     Verifies that LoadFromXml with an empty XML element does not throw for any emulator settings class.
     /// </summary>
     [Fact]
     public void AllEmulatorSettingsLoadFromXmlWithEmptyXmlDoesNotThrow()
@@ -586,7 +583,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that Pcsx2Settings can be serialized to XElement and deserialized back with all properties preserved.
+    ///     Verifies that Pcsx2Settings can be serialized to XElement and deserialized back with all properties preserved.
     /// </summary>
     [Fact]
     public void Pcsx2SettingsFullRoundTrip()
@@ -602,7 +599,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that DolphinSettings can be serialized to XElement and deserialized back with all properties preserved.
+    ///     Verifies that DolphinSettings can be serialized to XElement and deserialized back with all properties preserved.
     /// </summary>
     [Fact]
     public void DolphinSettingsFullRoundTrip()
@@ -617,7 +614,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that LoadFromXml with missing elements preserves the default property values.
+    ///     Verifies that LoadFromXml with missing elements preserves the default property values.
     /// </summary>
     [Fact]
     public void LoadFromXmlWithMissingElementsKeepsDefaults()
@@ -631,7 +628,7 @@ public class EmulatorSettingsTests
     }
 
     /// <summary>
-    /// Verifies that CopyFrom preserves all properties from a source DuckStationSettings instance.
+    ///     Verifies that CopyFrom preserves all properties from a source DuckStationSettings instance.
     /// </summary>
     [Fact]
     public void CopyFromPreservesAllProperties()

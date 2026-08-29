@@ -1,21 +1,22 @@
 using System.Globalization;
 using System.Text;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Injects user settings into the Ares emulator's settings.bml configuration file.
+///     Injects user settings into the Ares emulator's settings.bml configuration file.
 /// </summary>
 public static class AresConfigurationService
 {
     /// <summary>
-    /// Applies the saved Ares settings to the emulator's settings.bml file,
-    /// creating the file from a bundled sample when it does not exist.
+    ///     Applies the saved Ares settings to the emulator's settings.bml file,
+    ///     creating the file from a bundled sample when it does not exist.
     /// </summary>
     /// <param name="emulatorPath">Path to the Ares executable.</param>
     /// <param name="settings">The settings manager containing Ares configuration.</param>
     /// <param name="logger">The logger instance.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -28,7 +29,6 @@ public static class AresConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Ares", "settings.bml");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -40,11 +40,8 @@ public static class AresConfigurationService
                     logger.Error(ex, $"[AresConfig] Failed to create settings.bml from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("settings.bml not found and sample is missing.", samplePath);
-            }
         }
 
         logger.Debug($"[AresConfig] Injecting configuration into: {configPath}");
@@ -137,7 +134,6 @@ public static class AresConfigurationService
         }
 
         if (modified)
-        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -149,10 +145,7 @@ public static class AresConfigurationService
                 logger.Error(ex, $"[AresConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
-        }
         else
-        {
             logger.Debug("[AresConfig] No changes needed.");
-        }
     }
 }

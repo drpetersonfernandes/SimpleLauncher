@@ -10,7 +10,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="CommanderGeniusLaunchStrategy"/> class.
+///     Tests for the <see cref="CommanderGeniusLaunchStrategy" /> class.
 /// </summary>
 public class CommanderGeniusLaunchStrategyTests
 {
@@ -33,7 +33,7 @@ public class CommanderGeniusLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that the strategy has a priority of 20.
+    ///     Verifies that the strategy has a priority of 20.
     /// </summary>
     [Fact]
     public void PriorityIs20()
@@ -43,7 +43,7 @@ public class CommanderGeniusLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns false when the emulator name is empty.
+    ///     Verifies that IsMatch returns false when the emulator name is empty.
     /// </summary>
     [Fact]
     public void IsMatchEmptyEmulatorNameReturnsFalse()
@@ -59,7 +59,7 @@ public class CommanderGeniusLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns false when the file path is empty.
+    ///     Verifies that IsMatch returns false when the file path is empty.
     /// </summary>
     [Fact]
     public void IsMatchEmptyFilePathReturnsFalse()
@@ -75,7 +75,7 @@ public class CommanderGeniusLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns false for a non-Commander Genius emulator.
+    ///     Verifies that IsMatch returns false for a non-Commander Genius emulator.
     /// </summary>
     [Fact]
     public void IsMatchNonCommanderGeniusEmulatorReturnsFalse()
@@ -91,7 +91,7 @@ public class CommanderGeniusLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns true for archive files paired with the Commander Genius emulator.
+    ///     Verifies that IsMatch returns true for archive files paired with the Commander Genius emulator.
     /// </summary>
     /// <param name="extension">The archive file extension to test.</param>
     [Theory]
@@ -111,7 +111,7 @@ public class CommanderGeniusLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns true for archive files with uppercase extensions.
+    ///     Verifies that IsMatch returns true for archive files with uppercase extensions.
     /// </summary>
     /// <param name="extension">The uppercase archive file extension to test.</param>
     [Theory]
@@ -131,7 +131,7 @@ public class CommanderGeniusLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns true for various Commander Genius name variants.
+    ///     Verifies that IsMatch returns true for various Commander Genius name variants.
     /// </summary>
     /// <param name="emulatorName">The Commander Genius emulator name variant to test.</param>
     [Theory]
@@ -152,7 +152,7 @@ public class CommanderGeniusLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns false for non-archive file extensions.
+    ///     Verifies that IsMatch returns false for non-archive file extensions.
     /// </summary>
     /// <param name="extension">The non-archive file extension to test.</param>
     [Theory]
@@ -175,7 +175,7 @@ public class CommanderGeniusLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns false for a directory path.
+    ///     Verifies that IsMatch returns false for a directory path.
     /// </summary>
     [Fact]
     public void IsMatchDirectoryReturnsFalse()

@@ -5,12 +5,12 @@ using SimpleLauncher.Core.Services.CheckPaths;
 namespace SimpleLauncher.Core.Services;
 
 /// <summary>
-/// Creates default system and image folders for a newly added system.
+///     Creates default system and image folders for a newly added system.
 /// </summary>
 public static class CreateDefaultSystemFoldersService
 {
     /// <summary>
-    /// Creates the system folder, image folder, and all additional default folders for the specified system.
+    ///     Creates the system folder, image folder, and all additional default folders for the specified system.
     /// </summary>
     /// <param name="systemName">The name of the system.</param>
     /// <param name="systemFolder">The path to the system's ROM folder.</param>
@@ -33,7 +33,6 @@ public static class CreateDefaultSystemFoldersService
         try
         {
             if (!string.IsNullOrEmpty(resolvedSystemFolder) && !Directory.Exists(resolvedSystemFolder))
-            {
                 try
                 {
                     Directory.CreateDirectory(resolvedSystemFolder);
@@ -46,10 +45,8 @@ public static class CreateDefaultSystemFoldersService
                     // Notify user
                     await messageBox.FolderCreationFailedMessageBoxAsync();
                 }
-            }
 
             if (!string.IsNullOrEmpty(resolvedSystemImageFolder) && !Directory.Exists(resolvedSystemImageFolder))
-            {
                 try
                 {
                     Directory.CreateDirectory(resolvedSystemImageFolder);
@@ -62,15 +59,11 @@ public static class CreateDefaultSystemFoldersService
                     // Notify user
                     await messageBox.FolderCreationFailedMessageBoxAsync();
                 }
-            }
 
             foreach (var folder in additionalFolders)
             {
                 var folderPath = Path.Combine(baseDirectory, folder, systemName);
-                if (Directory.Exists(folderPath))
-                {
-                    continue;
-                }
+                if (Directory.Exists(folderPath)) continue;
 
                 try
                 {

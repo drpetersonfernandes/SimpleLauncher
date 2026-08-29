@@ -6,15 +6,15 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Detects mismatched fallback strings for the same resource key in the source code.
-/// If the same key is used with different literal fallback values (e.g.
-/// TryFindResource("Key") ?? "Value1" vs TryFindResource("Key") ?? "Value2")
-/// the test fails and presents every inconsistency to the user.
+///     Detects mismatched fallback strings for the same resource key in the source code.
+///     If the same key is used with different literal fallback values (e.g.
+///     TryFindResource("Key") ?? "Value1" vs TryFindResource("Key") ?? "Value2")
+///     the test fails and presents every inconsistency to the user.
 /// </summary>
 public partial class DetectMismatchedResourceStringsTests
 {
     /// <summary>
-    /// Verifies that the same resource key is not used with different fallback string literals in source code.
+    ///     Verifies that the same resource key is not used with different fallback string literals in source code.
     /// </summary>
     [Fact]
     public void SourceCodeShouldHaveNoMismatchedResourceFallbacks()

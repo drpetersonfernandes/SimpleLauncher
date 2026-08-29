@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="GlobalStatsData"/> model.
+///     Tests for the <see cref="GlobalStatsData" /> model.
 /// </summary>
 public class GlobalStatsDataTests
 {
     /// <summary>
-    /// Verifies that a new GlobalStatsData can be created with init-only properties.
+    ///     Verifies that a new GlobalStatsData can be created with init-only properties.
     /// </summary>
     [Fact]
     public void CanCreateWithInitProperties()
@@ -33,7 +33,7 @@ public class GlobalStatsDataTests
     }
 
     /// <summary>
-    /// Verifies that default values are zero for all properties.
+    ///     Verifies that default values are zero for all properties.
     /// </summary>
     [Fact]
     public void DefaultValuesAreZero()
@@ -49,7 +49,7 @@ public class GlobalStatsDataTests
     }
 
     /// <summary>
-    /// Verifies that TotalDiskSize can hold large values.
+    ///     Verifies that TotalDiskSize can hold large values.
     /// </summary>
     [Fact]
     public void TotalDiskSizeSupportsLargeValues()
@@ -59,7 +59,7 @@ public class GlobalStatsDataTests
     }
 
     /// <summary>
-    /// Verifies that properties can be set independently.
+    ///     Verifies that properties can be set independently.
     /// </summary>
     [Fact]
     public void PropertiesCanBeSetIndependently()
@@ -71,7 +71,7 @@ public class GlobalStatsDataTests
     }
 
     /// <summary>
-    /// Verifies that GlobalStatsData is a sealed class.
+    ///     Verifies that GlobalStatsData is a sealed class.
     /// </summary>
     [Fact]
     public void ClassIsSealed()

@@ -8,28 +8,30 @@ using SimpleLauncher.Core.Services.MameManager;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlayHistory;
+using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.WpfServices;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameItemFactory;
 
 /// <summary>
-/// Factory that creates <see cref="GameListViewItem"/> instances for the list view,
-/// including play history, favorites status, and preview image loading.
+///     Factory that creates <see cref="GameListViewItem" /> instances for the list view,
+///     including play history, favorites status, and preview image loading.
 /// </summary>
 public class GameListFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
-    IList<SystemManager.SystemManagerService> systemManagers,
+    IList<SystemManagerService> systemManagers,
     IList<MameManagerService> machines,
     SettingsManagerService settings,
     FavoritesManager favoritesManager,
     PlayHistoryManager playHistoryManager,
     MainWindow mainWindow,
     GamePadController gamePadController,
-    GameLauncher.GameLauncherService gameLauncher,
+    GameLauncherService gameLauncher,
     PlaySoundEffects playSoundEffects,
     IConfiguration configuration,
     ILogger logErrors,
@@ -38,32 +40,32 @@ public class GameListFactory(
     IImageLoader imageLoader,
     IMessageBoxLibraryService messageBox)
 {
+    private readonly IConfiguration _configuration = configuration;
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
-    private readonly ComboBox _systemComboBox = systemComboBox;
-    private readonly IList<SystemManager.SystemManagerService> _systemManagers = systemManagers;
-    private readonly IList<MameManagerService> _machines = machines;
-    private readonly SettingsManagerService _settings = settings;
     private readonly FavoritesManager _favoritesManager = favoritesManager;
-    private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
-    private readonly MainWindow _mainWindow = mainWindow;
+    private readonly IFindCoverImageService _findCoverImage = findCoverImage;
+    private readonly GameLauncherService _gameLauncher = gameLauncher;
     private readonly GamePadController _gamePadController = gamePadController;
-    private readonly GameLauncher.GameLauncherService _gameLauncher = gameLauncher;
+    private readonly IGetListOfFilesService _getListOfFiles = getListOfFiles;
+    private readonly IImageLoader _imageLoader = imageLoader;
+    private readonly ILogger _logger = logErrors;
+    private readonly IList<MameManagerService> _machines = machines;
+    private readonly MainWindow _mainWindow = mainWindow;
+    private readonly IMessageBoxLibraryService _messageBox = messageBox;
+    private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
 
     // ReSharper disable once UnusedMember.Local
     private readonly PlaySoundEffects _playSoundEffects = playSoundEffects;
-    private readonly IConfiguration _configuration = configuration;
-    private readonly ILogger _logger = logErrors;
-    private readonly IGetListOfFilesService _getListOfFiles = getListOfFiles;
-    private readonly IFindCoverImageService _findCoverImage = findCoverImage;
-    private readonly IImageLoader _imageLoader = imageLoader;
-    private readonly IMessageBoxLibraryService _messageBox = messageBox;
+    private readonly SettingsManagerService _settings = settings;
+    private readonly ComboBox _systemComboBox = systemComboBox;
+    private readonly IList<SystemManagerService> _systemManagers = systemManagers;
 
     /// <summary>
-    /// Creates a <see cref="GameListViewItem"/> for the given game entity path,
-    /// populating it with favorites status, play history, and MAME description data.
+    ///     Creates a <see cref="GameListViewItem" /> for the given game entity path,
+    ///     populating it with favorites status, play history, and MAME description data.
     /// </summary>
     public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName,
-        SystemManager.SystemManagerService systemManager)
+        SystemManagerService systemManager)
     {
         var isDirectory = Directory.Exists(entityPath);
         string fileNameWithoutExtension;
@@ -121,7 +123,7 @@ public class GameListFactory(
     }
 
     /// <summary>
-    /// Updates the preview image in the main window when the selected game list item changes.
+    ///     Updates the preview image in the main window when the selected game list item changes.
     /// </summary>
     public async Task HandleSelectionChangedAsync(GameListViewItem selectedItem)
     {
@@ -214,9 +216,7 @@ public class GameListFactory(
                 var previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem,
                     systemManager.SystemImageFolder);
                 if (isDirectory) // GroupByFolder is true
-                {
                     // First, try to find an image with the same name as the folder name.
-
                     // If the found path is a default image, try the fallback logic.
                     if (previewImagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
                     {
@@ -232,15 +232,12 @@ public class GameListFactory(
                                 selectedSystem, systemManager.SystemImageFolder);
                         }
                     }
-                }
 
                 // This is the logic for non-grouped files, which remains the same.
                 _mainWindow.PreviewImage.Source = null; // Clear existing image before loading new one
 
                 if (!string.IsNullOrEmpty(previewImagePath))
-                {
                     previewImagePath = PathHelper.ResolveRelativeToAppDirectory(previewImagePath);
-                }
 
                 var (imageStream, _) =
                     await _imageLoader.LoadImageAsync(
@@ -250,9 +247,7 @@ public class GameListFactory(
                 {
                     // Race condition check: Only assign if the selected item hasn't changed
                     if (_mainWindow.GameDataGrid.SelectedItem == selectedItem)
-                    {
                         _mainWindow.PreviewImage.Source = imageStream.ToBitmapImage();
-                    }
                 });
             }
             catch (Exception ex)
@@ -269,9 +264,7 @@ public class GameListFactory(
                         // Race condition check: Only assign if the selected item hasn't changed (or is now null)
                         if (_mainWindow.GameDataGrid.SelectedItem == selectedItem ||
                             _mainWindow.GameDataGrid.SelectedItem == null)
-                        {
                             _mainWindow?.PreviewImage?.Source = defaultImageStream.ToBitmapImage();
-                        }
                     });
                 }
                 catch (Exception fallbackEx)
@@ -289,7 +282,7 @@ public class GameListFactory(
     }
 
     /// <summary>
-    /// get machine description.
+    ///     get machine description.
     /// </summary>
     /// <param name="fileName">The file name.</param>
     private string GetMachineDescription(string fileName)
@@ -299,7 +292,7 @@ public class GameListFactory(
     }
 
     /// <summary>
-    /// Launches the selected game using the currently chosen emulator and system configuration.
+    ///     Launches the selected game using the currently chosen emulator and system configuration.
     /// </summary>
     public async Task HandleDoubleClickAsync(GameListViewItem selectedItem)
     {

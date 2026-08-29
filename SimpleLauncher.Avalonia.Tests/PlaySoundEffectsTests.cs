@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.PlaySound;
@@ -6,23 +7,20 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for <see cref="PlaySoundEffects"/> (NAudio 3 playback: Media Foundation +
-/// WaveOut on Windows, libsndfile + ALSA on Linux). Actual device playback can only
-/// be attempted on a machine with an audio device, so the test asserts graceful
-/// (non-throwing) behavior — headless CI and WSL2 have no audio device.
+///     Tests for <see cref="PlaySoundEffects" /> (NAudio 3 playback: Media Foundation +
+///     WaveOut on Windows, libsndfile + ALSA on Linux). Actual device playback can only
+///     be attempted on a machine with an audio device, so the test asserts graceful
+///     (non-throwing) behavior — headless CI and WSL2 have no audio device.
 /// </summary>
 public class PlaySoundEffectsTests
 {
     [Fact]
     public async Task PlaySoundEffects_OnLinux_DoesNotThrow()
     {
-        if (OperatingSystem.IsWindows())
-        {
-            return; // Windows path is exercised by the desktop app, not CI
-        }
+        if (OperatingSystem.IsWindows()) return; // Windows path is exercised by the desktop app, not CI
 
         var settings = new SettingsManagerService(
-            new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build(),
+            new ConfigurationBuilder().Build(),
             new Mock<ILogger>().Object,
             new Mock<ICredentialProtector>().Object);
         settings.EnableNotificationSound = true;

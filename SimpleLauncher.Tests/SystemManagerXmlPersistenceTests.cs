@@ -9,17 +9,18 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests XML persistence of SystemManagerService configurations including loading, saving, updating, renaming, and deleting system entries.
+///     Tests XML persistence of SystemManagerService configurations including loading, saving, updating, renaming, and
+///     deleting system entries.
 /// </summary>
 public class SystemManagerXmlPersistenceTests : IDisposable
 {
-    private readonly string _testDirectory;
-    private readonly string _systemXmlPath;
     private readonly IConfiguration _configuration;
+    private readonly string _systemXmlPath;
+    private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SystemManagerXmlPersistenceTests"/> class,
-    /// creating a temporary test directory and configuration for XML persistence tests.
+    ///     Initializes a new instance of the <see cref="SystemManagerXmlPersistenceTests" /> class,
+    ///     creating a temporary test directory and configuration for XML persistence tests.
     /// </summary>
     public SystemManagerXmlPersistenceTests()
     {
@@ -39,7 +40,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory and restores the service provider mock.
+    ///     Cleans up the temporary test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
@@ -156,7 +157,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SystemExists returns false when no XML file exists.
+    ///     Verifies that SystemExists returns false when no XML file exists.
     /// </summary>
     [Fact]
     public void SystemExistsReturnsFalseWhenXmlFileDoesNotExist()
@@ -166,7 +167,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SystemExists returns true for a system present in the XML.
+    ///     Verifies that SystemExists returns true for a system present in the XML.
     /// </summary>
     [Fact]
     public void SystemExistsReturnsTrueWhenSystemIsInXml()
@@ -179,7 +180,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SystemExists returns false for a system not in the XML.
+    ///     Verifies that SystemExists returns false for a system not in the XML.
     /// </summary>
     [Fact]
     public void SystemExistsReturnsFalseWhenSystemIsNotInXml()
@@ -192,7 +193,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that system name lookup is case-insensitive.
+    ///     Verifies that system name lookup is case-insensitive.
     /// </summary>
     [Fact]
     public void SystemExistsIsCaseInsensitive()
@@ -205,7 +206,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that loading returns an empty list when no XML file exists.
+    ///     Verifies that loading returns an empty list when no XML file exists.
     /// </summary>
     [Fact]
     public void LoadSystemManagersReturnsEmptyListWhenXmlFileDoesNotExist()
@@ -216,7 +217,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that loading triggers creation of the XML file if it does not exist.
+    ///     Verifies that loading triggers creation of the XML file if it does not exist.
     /// </summary>
     [Fact]
     public void LoadSystemManagersCreatesXmlFileWhenFileDoesNotExist()
@@ -226,7 +227,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a single system configuration is loaded with all properties intact.
+    ///     Verifies that a single system configuration is loaded with all properties intact.
     /// </summary>
     [Fact]
     public void LoadSystemManagersLoadsSingleSystemCorrectly()
@@ -254,7 +255,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that multiple system configurations are loaded correctly with proper ordering.
+    ///     Verifies that multiple system configurations are loaded correctly with proper ordering.
     /// </summary>
     [Fact]
     public void LoadSystemManagersLoadsMultipleSystemsCorrectly()
@@ -283,7 +284,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that saving a new system creates the XML file and persists the configuration.
+    ///     Verifies that saving a new system creates the XML file and persists the configuration.
     /// </summary>
     [Fact]
     public async Task SaveSystemConfigurationAsyncAddsNewSystem()
@@ -327,7 +328,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a new system is added alongside existing systems in the XML.
+    ///     Verifies that a new system is added alongside existing systems in the XML.
     /// </summary>
     [Fact]
     public async Task SaveSystemConfigurationAsyncAddsSystemAlongsideExisting()
@@ -365,7 +366,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that saving with an existing system name updates the configuration.
+    ///     Verifies that saving with an existing system name updates the configuration.
     /// </summary>
     [Fact]
     public async Task SaveSystemConfigurationAsyncUpdatesExistingSystem()
@@ -407,7 +408,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that saving with an originalSystemName parameter renames the system in the XML.
+    ///     Verifies that saving with an originalSystemName parameter renames the system in the XML.
     /// </summary>
     [Fact]
     public async Task SaveSystemConfigurationAsyncRenamesSystem()
@@ -445,7 +446,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that deleting a system removes it from the XML while preserving others.
+    ///     Verifies that deleting a system removes it from the XML while preserving others.
     /// </summary>
     [Fact]
     public async Task DeleteSystemAsyncRemovesSystem()
@@ -463,7 +464,7 @@ public class SystemManagerXmlPersistenceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that deleting a non-existent system leaves the XML unchanged.
+    ///     Verifies that deleting a non-existent system leaves the XML unchanged.
     /// </summary>
     [Fact]
     public async Task DeleteSystemAsyncDoesNothingWhenSystemNotFound()

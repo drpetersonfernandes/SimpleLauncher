@@ -1,161 +1,132 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.UsageStats;
-using SimpleLauncher.Core.Services.RetroAchievements;
-using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.Favorites;
+using SimpleLauncher.Avalonia.Services.GameFilter;
 using SimpleLauncher.Avalonia.Services.GameLauncher;
+using SimpleLauncher.Avalonia.Services.LoadingOverlay;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
+using SimpleLauncher.Avalonia.Services.SearchOrchestrator;
 using SimpleLauncher.Avalonia.Services.SystemImageResolver;
 using SimpleLauncher.Avalonia.Services.SystemManager;
-using SimpleLauncher.Avalonia.Services;
-using SimpleLauncher.Avalonia.Services.GameFilter;
-using SimpleLauncher.Avalonia.Services.LoadingOverlay;
-using SimpleLauncher.Avalonia.Services.SearchOrchestrator;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.RetroAchievements;
+using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Core.Services.UsageStats;
+using SearchValidationResult = SimpleLauncher.Avalonia.Services.SearchOrchestrator.SearchValidationResult;
 
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// Main ViewModel for the game browser.
-/// Phase 6: Wired to real SystemManagerService, ILauncherService, and game scanning.
+///     Main ViewModel for the game browser.
+///     Phase 6: Wired to real SystemManagerService, ILauncherService, and game scanning.
 /// </summary>
 public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFeedback
 {
+    private const int MinThumbnailSize = 50;
+    private const int MaxThumbnailSize = 800;
+    private const int ZoomStep = 50;
     private readonly FavoritesManager _favoritesManager;
-    private readonly PlayHistoryManager _playHistoryManager;
-    private readonly SystemManagerService _systemManager;
-    private readonly LauncherService _launcher;
     private readonly IFindCoverImageService _findCoverImage;
-    private readonly Stats _stats;
-    private readonly SettingsManagerService _settings;
-    private readonly IPaginationService _pagination;
+    private readonly AvaloniaGameFilterService _gameFilter;
+    private readonly LauncherService _launcher;
     private readonly AvaloniaGameFileLoadingOrchestrator _loadingOrchestrator;
+    private readonly AvaloniaLoadingOverlayService _loadingOverlay;
+    private readonly IMameDataService _mameData;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IPaginationService _pagination;
+    private readonly PlayHistoryManager _playHistoryManager;
     private readonly IRetroAchievementsHashScanner _raHashScanner;
     private readonly IRetroAchievementsHashStore _raHashStore;
     private readonly RetroAchievementsManager _raManager;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IMameDataService _mameData;
-    private readonly ISystemImageResolverService? _systemImageResolver;
-    private readonly AvaloniaGameFilterService _gameFilter;
-    private readonly AvaloniaLoadingOverlayService _loadingOverlay;
     private readonly AvaloniaSearchOrchestratorService? _searchOrchestrator;
-
-    private CancellationTokenSource? _searchCts;
-    private HashSet<string> _favoritePaths;
+    private readonly SettingsManagerService _settings;
+    private readonly Stats _stats;
+    private readonly ISystemImageResolverService? _systemImageResolver;
+    private readonly SystemManagerService _systemManager;
     private List<SystemManagerConfig> _allSystems;
 
     /// <summary>
-    /// The full (un-paginated) game list of the current view. Pagination slices this
-    /// into <see cref="Games"/> when the total exceeds the configured page size.
+    ///     Font size for the game title caption on cards (from the Filename Font Size setting).
+    /// </summary>
+    [ObservableProperty] private double _captionFontSize = 13;
+
+    [ObservableProperty] private double _cardWidth = 168;
+
+    /// <summary>
+    ///     The full (un-paginated) game list of the current view. Pagination slices this
+    ///     into <see cref="Games" /> when the total exceeds the configured page size.
     /// </summary>
     private List<GameCardViewModel> _currentAllGames = [];
 
     /// <summary>
-    /// The unfiltered full game list of the current view (before the letter filter
-    /// is applied). Clearing the letter filter restores the games from this list.
+    ///     The unfiltered full game list of the current view (before the letter filter
+    ///     is applied). Clearing the letter filter restores the games from this list.
     /// </summary>
     private List<GameCardViewModel> _currentBaseGames = [];
 
-    /// <summary>
-    /// MAME sort order toggle state: "FileName" (default) or "MachineDescription".
-    /// Matches the WPF sort-order toggle button.
-    /// </summary>
-    private string _mameSortOrder = "FileName";
+    private HashSet<string> _favoritePaths;
 
-    /// <summary>
-    /// Gets the current MAME sort order ("FileName" or "MachineDescription").
-    /// </summary>
-    public string MameSortOrder => _mameSortOrder;
+    [ObservableProperty] private string _gameCountText = "0 games";
 
     [ObservableProperty] private ObservableCollection<GameCardViewModel> _games = new();
 
-    [ObservableProperty] private string _selectedSystem = "";
-
     [ObservableProperty] private bool _isGridView = true;
 
+    [ObservableProperty] private bool _isLoading;
+
     [ObservableProperty] private bool _isMixedView = true;
+
+    /// <summary>
+    ///     Whether the play-time display is visible for the selected system (hidden for
+    ///     url/lnk systems, matching WPF IsPlayTimeVisible).
+    /// </summary>
+    [ObservableProperty] private bool _isPlayTimeVisible = true;
 
     [ObservableProperty] private bool _isShowingFavorites;
 
     /// <summary>
-    /// True when the game list is filtered to RetroAchievements-compatible games
-    /// (hash-based match, same as the WPF "Show Games With RetroAchievements").
+    ///     True when the game list is filtered to RetroAchievements-compatible games
+    ///     (hash-based match, same as the WPF "Show Games With RetroAchievements").
     /// </summary>
     [ObservableProperty] private bool _isShowingRetroAchievements;
-
-    [ObservableProperty] private string _searchText = "";
-
-    [ObservableProperty] private string _gameCountText = "0 games";
-
-    [ObservableProperty] private string _statusText = "Ready";
-
-    [ObservableProperty] private string _toolbarTitle = "SimpleLauncher";
-
-    [ObservableProperty] private double _cardWidth = 168;
-
-    [ObservableProperty] private bool _isLoading;
 
     [ObservableProperty] private string _loadingMessage = "Loading…";
 
     /// <summary>
-    /// Font size for the game title caption on cards (from the Filename Font Size setting).
+    ///     MAME sort order toggle state: "FileName" (default) or "MachineDescription".
+    ///     Matches the WPF sort-order toggle button.
     /// </summary>
-    [ObservableProperty] private double _captionFontSize = 13;
+    private string _mameSortOrder = "FileName";
 
     /// <summary>
-    /// Play-time string shown for the selected system (WPF PlayTime parity, driven by
-    /// the system selection orchestrator from the user's play-time settings).
+    ///     Play-time string shown for the selected system (WPF PlayTime parity, driven by
+    ///     the system selection orchestrator from the user's play-time settings).
     /// </summary>
     [ObservableProperty] private string _playTime = "00:00:00";
 
-    /// <summary>
-    /// Whether the play-time display is visible for the selected system (hidden for
-    /// url/lnk systems, matching WPF IsPlayTimeVisible).
-    /// </summary>
-    [ObservableProperty] private bool _isPlayTimeVisible = true;
+    private CancellationTokenSource? _searchCts;
+
+    [ObservableProperty] private string _searchText = "";
+
+    [ObservableProperty] private string _selectedSystem = "";
+
+    [ObservableProperty] private string _statusText = "Ready";
 
     /// <summary>
-    /// The emulator selected in the top System Selection bar. When set, launches use
-    /// it instead of the system's first configured emulator (WPF EmulatorComboBox parity).
+    ///     Guards the programmatic <see cref="SearchText" /> reset inside
+    ///     <see cref="PickRandomGameAsync" /> so it does not start a debounced reload
+    ///     that would wipe the random-pick result.
     /// </summary>
-    public string? SelectedEmulatorName { get; set; }
+    private bool _suppressSearchReload;
 
-    /// <summary>
-    /// ILoadingState implementation for the launcher: delegates to the
-    /// <see cref="AvaloniaLoadingOverlayService"/> for thread-safe reference-counted
-    /// loading state management.
-    /// </summary>
-    public void SetLoadingState(bool isLoading, string? message = null)
-    {
-        _loadingOverlay.SetLoadingState(isLoading, message);
-    }
-
-    public bool IsEmpty => Games.Count == 0;
-
-    /// <summary>
-    /// Sidebar state (system groups, icons, live counts). Populated by the window after load.
-    /// </summary>
-    public SidebarViewModel Sidebar { get; }
-
-    /// <summary>
-    /// Rebuilds the sidebar from the given system configurations, passing the
-    /// image resolver (if registered) so sidebar icons use annotation-stripped
-    /// and fuzzy matching (WPF SystemImageResolverService parity).
-    /// </summary>
-    public void PopulateSidebar(IEnumerable<SystemManagerConfig> systems)
-    {
-        Sidebar.Populate(systems, _systemImageResolver);
-    }
-
-    /// <summary>
-    /// Gets the number of games per system name. Updated after each navigation/scan.
-    /// </summary>
-    public Dictionary<string, int> SystemGameCounts { get; private set; } = new(StringComparer.OrdinalIgnoreCase);
+    [ObservableProperty] private string _toolbarTitle = "SimpleLauncher";
 
     public MainViewModel(
         FavoritesManager favoritesManager,
@@ -202,10 +173,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
         // Apply the saved preferences (settings.xml): default view mode and card size
         IsGridView = !string.Equals(settings.ViewMode, "ListView", StringComparison.OrdinalIgnoreCase);
-        if (settings.ThumbnailSize is >= 50 and <= 800)
-        {
-            CardWidth = settings.ThumbnailSize;
-        }
+        if (settings.ThumbnailSize is >= 50 and <= 800) CardWidth = settings.ThumbnailSize;
 
         CaptionFontSize = settings.FilenameFontSize switch
         {
@@ -219,8 +187,73 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Reloads the current game list, reapplying the Show Games filter, filename
-    /// display mode, and card sizing (called after menu-driven setting changes).
+    ///     Gets the current MAME sort order ("FileName" or "MachineDescription").
+    /// </summary>
+    public string MameSortOrder => _mameSortOrder;
+
+    /// <summary>
+    ///     The emulator selected in the top System Selection bar. When set, launches use
+    ///     it instead of the system's first configured emulator (WPF EmulatorComboBox parity).
+    /// </summary>
+    public string? SelectedEmulatorName { get; set; }
+
+    public bool IsEmpty => Games.Count == 0;
+
+    /// <summary>
+    ///     Sidebar state (system groups, icons, live counts). Populated by the window after load.
+    /// </summary>
+    public SidebarViewModel Sidebar { get; }
+
+    /// <summary>
+    ///     Gets the number of games per system name. Updated after each navigation/scan.
+    /// </summary>
+    public Dictionary<string, int> SystemGameCounts { get; private set; } = new(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>
+    ///     Gets the current active letter filter (empty string = All).
+    ///     Used by the UI reset host to read and restore the filter state.
+    /// </summary>
+    public string LetterFilter { get; private set; } = "";
+
+    /// <summary>
+    ///     ILaunchFeedback implementation for the launcher: raises the toast event.
+    /// </summary>
+    public void ShowToast(string title, string message)
+    {
+        ToastRequested?.Invoke(title, message);
+    }
+
+    /// <summary>
+    ///     ILaunchFeedback implementation for the launcher: sets the status bar text.
+    /// </summary>
+    public void SetStatusText(string text)
+    {
+        StatusText = text;
+    }
+
+    /// <summary>
+    ///     ILoadingState implementation for the launcher: delegates to the
+    ///     <see cref="AvaloniaLoadingOverlayService" /> for thread-safe reference-counted
+    ///     loading state management.
+    /// </summary>
+    public void SetLoadingState(bool isLoading, string? message = null)
+    {
+        _loadingOverlay.SetLoadingState(isLoading, message);
+    }
+
+    /// <summary>
+    ///     Rebuilds the sidebar from the given system configurations, passing the
+    ///     image resolver (if registered) so sidebar icons use annotation-stripped
+    ///     and fuzzy matching (WPF SystemImageResolverService parity).
+    /// </summary>
+    public void PopulateSidebar(IEnumerable<SystemManagerConfig> systems)
+    {
+        Sidebar.Populate(systems, _systemImageResolver);
+    }
+
+    /// <summary>
+    ///     Reloads the current game list, reapplying the Show Games filter, filename
+    ///     display mode, and card sizing (called after menu-driven setting changes).
     /// </summary>
     public void ReloadGames()
     {
@@ -228,8 +261,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Applies the saved Games Per Page setting to the pagination service (called once
-    /// after the main window loads, and again whenever the setting changes via the menu).
+    ///     Applies the saved Games Per Page setting to the pagination service (called once
+    ///     after the main window loads, and again whenever the setting changes via the menu).
     /// </summary>
     public void ConfigurePagination(int filesPerPage)
     {
@@ -238,7 +271,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Navigates to the previous page of the current view (called by the status-bar button).
+    ///     Navigates to the previous page of the current view (called by the status-bar button).
     /// </summary>
     public void GoToPreviousPage()
     {
@@ -247,7 +280,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Navigates to the next page of the current view (called by the status-bar button).
+    ///     Navigates to the next page of the current view (called by the status-bar button).
     /// </summary>
     public void GoToNextPage()
     {
@@ -256,8 +289,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Re-applies pagination to <see cref="_currentAllGames"/> and updates the displayed
-    /// <see cref="Games"/> collection plus the game count label.
+    ///     Re-applies pagination to <see cref="_currentAllGames" /> and updates the displayed
+    ///     <see cref="Games" /> collection plus the game count label.
     /// </summary>
     private void ReapplyPagination()
     {
@@ -270,8 +303,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Stores the full list for the current view and displays it through pagination
-    /// (every navigation/search/refresh path routes through this method).
+    ///     Stores the full list for the current view and displays it through pagination
+    ///     (every navigation/search/refresh path routes through this method).
     /// </summary>
     private void ShowGames(List<GameCardViewModel> fullList)
     {
@@ -280,8 +313,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Re-applies the current letter filter to the base game list, then re-applies
-    /// pagination and updates the displayed collection.
+    ///     Re-applies the current letter filter to the base game list, then re-applies
+    ///     pagination and updates the displayed collection.
     /// </summary>
     private void ReapplyLetterFilterAndPagination()
     {
@@ -290,8 +323,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Filters the given game list by the active <see cref="LetterFilter"/> ("" = all).
-    /// Delegates to <see cref="AvaloniaGameFilterService.FilterByLetter"/>.
+    ///     Filters the given game list by the active <see cref="LetterFilter" /> ("" = all).
+    ///     Delegates to <see cref="AvaloniaGameFilterService.FilterByLetter" />.
     /// </summary>
     private List<GameCardViewModel> ApplyLetterFilter(List<GameCardViewModel> games)
     {
@@ -299,13 +332,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Gets the current active letter filter (empty string = All).
-    /// Used by the UI reset host to read and restore the filter state.
-    /// </summary>
-    public string LetterFilter { get; private set; } = "";
-
-    /// <summary>
-    /// Sets the active letter filter ("" = All) and re-applies it to the current view.
+    ///     Sets the active letter filter ("" = All) and re-applies it to the current view.
     /// </summary>
     public void SetLetterFilter(string letter)
     {
@@ -315,7 +342,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Clears the letter filter (equivalent to pressing the "All" letter button).
+    ///     Clears the letter filter (equivalent to pressing the "All" letter button).
     /// </summary>
     public void ClearLetterFilter()
     {
@@ -323,18 +350,11 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Guards the programmatic <see cref="SearchText"/> reset inside
-    /// <see cref="PickRandomGameAsync"/> so it does not start a debounced reload
-    /// that would wipe the random-pick result.
-    /// </summary>
-    private bool _suppressSearchReload;
-
-    /// <summary>
-    /// Feeling Lucky (WPF ShowSystemFeelingLuckyClickAsync parity): resets every view
-    /// filter, forces the Show Games setting back to "ShowAll" (so games without cover
-    /// art can be picked too), then picks ONE random game from the FULL library of the
-    /// currently selected system and replaces the displayed list with it.
-    /// Returns the picked game, or null when the system has no games.
+    ///     Feeling Lucky (WPF ShowSystemFeelingLuckyClickAsync parity): resets every view
+    ///     filter, forces the Show Games setting back to "ShowAll" (so games without cover
+    ///     art can be picked too), then picks ONE random game from the FULL library of the
+    ///     currently selected system and replaces the displayed list with it.
+    ///     Returns the picked game, or null when the system has no games.
     /// </summary>
     public async Task<GameCardViewModel?> PickRandomGameAsync()
     {
@@ -411,8 +431,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Cancels a pending debounced search (if any) so a queued reload cannot
-    /// overwrite the random-pick result.
+    ///     Cancels a pending debounced search (if any) so a queued reload cannot
+    ///     overwrite the random-pick result.
     /// </summary>
     private void CancelPendingSearch()
     {
@@ -422,8 +442,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Toggles the MAME sort order between file name and machine description
-    /// (WPF sort-order toggle), then re-sorts the current view.
+    ///     Toggles the MAME sort order between file name and machine description
+    ///     (WPF sort-order toggle), then re-sorts the current view.
     /// </summary>
     public void ToggleMameSortOrder()
     {
@@ -434,7 +454,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Sets the MAME sort order explicitly (used by the UI reset host) and re-sorts the current view.
+    ///     Sets the MAME sort order explicitly (used by the UI reset host) and re-sorts the current view.
     /// </summary>
     public void SetMameSortOrder(string sortOrder)
     {
@@ -447,8 +467,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Sorts the given game list by the current <see cref="_mameSortOrder"/>.
-    /// Delegates to <see cref="AvaloniaGameFilterService.SortByMameOrder"/>.
+    ///     Sorts the given game list by the current <see cref="_mameSortOrder" />.
+    ///     Delegates to <see cref="AvaloniaGameFilterService.SortByMameOrder" />.
     /// </summary>
     private List<GameCardViewModel> SortByMameOrder(List<GameCardViewModel> games)
     {
@@ -456,7 +476,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Increases the thumbnail/card width by one zoom step (saves the preference).
+    ///     Increases the thumbnail/card width by one zoom step (saves the preference).
     /// </summary>
     public void ZoomIn()
     {
@@ -464,20 +484,16 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Decreases the thumbnail/card width by one zoom step (saves the preference).
+    ///     Decreases the thumbnail/card width by one zoom step (saves the preference).
     /// </summary>
     public void ZoomOut()
     {
         AdjustZoomStep(-1);
     }
 
-    private const int MinThumbnailSize = 50;
-    private const int MaxThumbnailSize = 800;
-    private const int ZoomStep = 50;
-
     private void AdjustZoomStep(int direction)
     {
-        var newSize = Math.Clamp((int)CardWidth + (direction * ZoomStep), MinThumbnailSize, MaxThumbnailSize);
+        var newSize = Math.Clamp((int)CardWidth + direction * ZoomStep, MinThumbnailSize, MaxThumbnailSize);
         if (newSize == (int)CardWidth) return;
 
         CardWidth = newSize;
@@ -487,9 +503,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Reloads the current view (search / favorites / selected system / all games)
-    /// after the game file watcher detects changes on disk. Keeps the user where
-    /// they were instead of resetting to the All Games view.
+    ///     Reloads the current view (search / favorites / selected system / all games)
+    ///     after the game file watcher detects changes on disk. Keeps the user where
+    ///     they were instead of resetting to the All Games view.
     /// </summary>
     public void RefreshCurrentView()
     {
@@ -521,34 +537,18 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Requests a toast notification (surfaced by the main window). Raised on the
-    /// UI thread so subscribers can touch UI directly.
+    ///     Requests a toast notification (surfaced by the main window). Raised on the
+    ///     UI thread so subscribers can touch UI directly.
     /// </summary>
     public event Action<string, string>? ToastRequested;
-
-    /// <summary>
-    /// ILaunchFeedback implementation for the launcher: raises the toast event.
-    /// </summary>
-    public void ShowToast(string title, string message)
-    {
-        ToastRequested?.Invoke(title, message);
-    }
-
-    /// <summary>
-    /// ILaunchFeedback implementation for the launcher: sets the status bar text.
-    /// </summary>
-    public void SetStatusText(string text)
-    {
-        StatusText = text;
-    }
 
     // ---- RetroAchievements Filter ----
 
     /// <summary>
-    /// Filters the game list to show only games that have RetroAchievements support
-    /// (same hash-based flow as the WPF app): when no hash scan exists for the selected
-    /// system, the user is prompted to run one in the background first. With no system
-    /// selected, every system is filtered using its stored hash scan.
+    ///     Filters the game list to show only games that have RetroAchievements support
+    ///     (same hash-based flow as the WPF app): when no hash scan exists for the selected
+    ///     system, the user is prompted to run one in the background first. With no system
+    ///     selected, every system is filtered using its stored hash scan.
     /// </summary>
     [RelayCommand]
     private async Task ShowGamesWithRetroAchievements()
@@ -572,10 +572,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             }
 
             var system = _systemManager.GetSystem(SelectedSystem);
-            if (system == null)
-            {
-                return;
-            }
+            if (system == null) return;
 
             // If no valid hash scan result exists yet (missing or produced by older
             // hash logic), ask the user to scan the game path first
@@ -590,10 +587,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
                 var result = await _messageBox.ScanGamePathForRetroAchievementsMessageBoxAsync();
                 if (result != MessageBoxResult.Yes)
-                {
                     // User cancelled: do not filter the list of games
                     return;
-                }
 
                 // Non-blocking notification: the app stays fully responsive while
                 // the hash calculation runs in the background
@@ -604,7 +599,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
                     system.FileFormatsToLaunch,
                     system.DisableRecursiveSearch,
                     system.GroupByFolder,
-                    onCompleted: OnHashScanCompleted);
+                    OnHashScanCompleted);
 
                 ShowToast("RetroAchievements",
                     "The hash calculation will happen in the background. You can click the filter button again later to see if the hashing is complete.");
@@ -621,8 +616,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Re-applies the RetroAchievements filter to the current view without prompting
-    /// for a scan (called after the game file watcher detects changes on disk).
+    ///     Re-applies the RetroAchievements filter to the current view without prompting
+    ///     for a scan (called after the game file watcher detects changes on disk).
     /// </summary>
     private async Task RefreshRetroAchievementsViewAsync()
     {
@@ -642,9 +637,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Filters the given systems' games to those whose file hash exists in the local
-    /// RetroAchievements hash scan AND resolves to a known RA game (the exact same
-    /// hash-based matching used by the WPF app).
+    ///     Filters the given systems' games to those whose file hash exists in the local
+    ///     RetroAchievements hash scan AND resolves to a known RA game (the exact same
+    ///     hash-based matching used by the WPF app).
     /// </summary>
     private async Task ShowRetroAchievementsGamesAsync(List<SystemManagerConfig> systems)
     {
@@ -664,10 +659,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
                     systemHashesCache[game.SystemName] = systemHashes;
                 }
 
-                if (systemHashes == null || systemHashes.Hashes.Count == 0)
-                {
-                    return false;
-                }
+                if (systemHashes == null || systemHashes.Hashes.Count == 0) return false;
 
                 return systemHashes.Hashes.TryGetValue(game.FilePath, out var hash) &&
                        !string.IsNullOrEmpty(hash) &&
@@ -685,8 +677,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Shows a completion toast after a system hash scan finishes. Runs on a
-    /// background thread, so the toast is marshaled to the UI thread.
+    ///     Shows a completion toast after a system hash scan finishes. Runs on a
+    ///     background thread, so the toast is marshaled to the UI thread.
     /// </summary>
     private void OnHashScanCompleted(string systemName)
     {
@@ -695,8 +687,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Returns every game across all configured systems without applying any
-    /// visibility filter (used by "Calculate Hashes For All Game Paths").
+    ///     Returns every game across all configured systems without applying any
+    ///     visibility filter (used by "Calculate Hashes For All Game Paths").
     /// </summary>
     public List<GameCardViewModel> GetAllGamesForHashing()
     {
@@ -704,9 +696,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Loads all games asynchronously. Called once after the main window loads.
-    /// Heavy work (file enumeration + cover checks) runs on the thread pool;
-    /// UI-bound properties are updated on the captured UI context.
+    ///     Loads all games asynchronously. Called once after the main window loads.
+    ///     Heavy work (file enumeration + cover checks) runs on the thread pool;
+    ///     UI-bound properties are updated on the captured UI context.
     /// </summary>
     public async Task InitializeAsync()
     {
@@ -722,10 +714,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             if (validSystemNames.Any())
             {
                 var removedCount = await _favoritesManager.RemoveFavoritesForMissingSystemsAsync(validSystemNames);
-                if (removedCount > 0)
-                {
-                    _favoritePaths = _favoritesManager.GetFavoritePaths();
-                }
+                if (removedCount > 0) _favoritePaths = _favoritesManager.GetFavoritePaths();
             }
 
             // WPF parity: do not build the full cross-system game list at startup.
@@ -812,8 +801,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         // query, and clear prior search results so stale results never persist.
         var validation = _searchOrchestrator?.ValidateAndPrepare(query, SelectedSystem)
                          ?? (string.IsNullOrWhiteSpace(query)
-                             ? Services.SearchOrchestrator.SearchValidationResult.Failure()
-                             : Services.SearchOrchestrator.SearchValidationResult.Success(
+                             ? SearchValidationResult.Failure()
+                             : SearchValidationResult.Success(
                                  query.Trim()));
         if (!validation.IsValid)
         {
@@ -929,8 +918,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// WPF SelectedSystemFavoriteButton parity: shows only the favorites
-    /// for the currently selected system (all systems when none is selected).
+    ///     WPF SelectedSystemFavoriteButton parity: shows only the favorites
+    ///     for the currently selected system (all systems when none is selected).
     /// </summary>
     [RelayCommand]
     private void NavigateToSelectedSystemFavorites()
@@ -1088,9 +1077,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Launches a game by file path and system name (shared by the game grid and the
-    /// Favorites / Play History / Global Search sections). Records play history and
-    /// usage stats; returns the measured play time so callers can update their rows.
+    ///     Launches a game by file path and system name (shared by the game grid and the
+    ///     Favorites / Play History / Global Search sections). Records play history and
+    ///     usage stats; returns the measured play time so callers can update their rows.
     /// </summary>
     public async Task<TimeSpan> LaunchGameAtPathAsync(string filePath, string systemName)
     {
@@ -1141,8 +1130,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Re-applies favorites and play-history state to the currently displayed games
-    /// (called after the Favorites / Play History sections mutate their data).
+    ///     Re-applies favorites and play-history state to the currently displayed games
+    ///     (called after the Favorites / Play History sections mutate their data).
     /// </summary>
     public void RefreshFavoritesAndHistory()
     {
@@ -1151,9 +1140,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Removes a game from the currently displayed list without touching the file on
-    /// disk (the library is filesystem-derived, so the game reappears on the next
-    /// scan/navigation). Used by the Game Detail window's Remove button.
+    ///     Removes a game from the currently displayed list without touching the file on
+    ///     disk (the library is filesystem-derived, so the game reappears on the next
+    ///     scan/navigation). Used by the Game Detail window's Remove button.
     /// </summary>
     public void RemoveGameFromCurrentList(GameCardViewModel game)
     {
@@ -1166,51 +1155,49 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Scans ROM folders for games and returns card ViewModels with cover art resolved
-    /// from each system's image folder. Folder paths are resolved (%BASEFOLDER% / relative) first.
-    /// File enumeration goes through the loading orchestrator, which caches the file
-    /// list per system so repeat navigation does not re-enumerate the disk.
+    ///     Scans ROM folders for games and returns card ViewModels with cover art resolved
+    ///     from each system's image folder. Folder paths are resolved (%BASEFOLDER% / relative) first.
+    ///     File enumeration goes through the loading orchestrator, which caches the file
+    ///     list per system so repeat navigation does not re-enumerate the disk.
     /// </summary>
     private List<GameCardViewModel> ScanGames(List<SystemManagerConfig> systems)
     {
         var games = new List<GameCardViewModel>();
 
         foreach (var system in systems)
+        foreach (var file in _loadingOrchestrator.GetGameFiles(system))
         {
-            foreach (var file in _loadingOrchestrator.GetGameFiles(system))
+            var coverPath = _findCoverImage.FindCoverImagePath(
+                Path.GetFileNameWithoutExtension(file),
+                system.SystemName,
+                system.SystemImageFolder);
+
+            var fileNameWithoutExt = Path.GetFileNameWithoutExtension(file) ?? file;
+            var machineDescription = _mameData.Lookup.TryGetValue(fileNameWithoutExt, out var desc) ? desc : "";
+            var folderPath = Path.GetDirectoryName(file) ?? "";
+
+            games.Add(new GameCardViewModel
             {
-                var coverPath = _findCoverImage.FindCoverImagePath(
-                    Path.GetFileNameWithoutExtension(file),
-                    system.SystemName,
-                    system.SystemImageFolder);
-
-                var fileNameWithoutExt = Path.GetFileNameWithoutExtension(file) ?? file;
-                var machineDescription = _mameData.Lookup.TryGetValue(fileNameWithoutExt, out var desc) ? desc : "";
-                var folderPath = Path.GetDirectoryName(file) ?? "";
-
-                games.Add(new GameCardViewModel
-                {
-                    DisplayTitle = GetDisplayTitle(file),
-                    FileName = fileNameWithoutExt,
-                    FilePath = file,
-                    FolderPath = folderPath,
-                    MachineDescription = machineDescription,
-                    SystemName = system.SystemName,
-                    CoverPath = coverPath,
-                    // Show art only when the file actually exists (the service falls back
-                    // to default.png, which may itself be missing → placeholder instead)
-                    HasCover = File.Exists(coverPath),
-                    IsRaSupported = GameCardViewModel.IsSystemRaSupported(system.SystemName)
-                });
-            }
+                DisplayTitle = GetDisplayTitle(file),
+                FileName = fileNameWithoutExt,
+                FilePath = file,
+                FolderPath = folderPath,
+                MachineDescription = machineDescription,
+                SystemName = system.SystemName,
+                CoverPath = coverPath,
+                // Show art only when the file actually exists (the service falls back
+                // to default.png, which may itself be missing → placeholder instead)
+                HasCover = File.Exists(coverPath),
+                IsRaSupported = GameCardViewModel.IsSystemRaSupported(system.SystemName)
+            });
         }
 
         return games;
     }
 
     /// <summary>
-    /// Applies the Filename Preferences setting (Original / CleanUp / NoFilename)
-    /// to a game file path, mirroring the WPF game button titles.
+    ///     Applies the Filename Preferences setting (Original / CleanUp / NoFilename)
+    ///     to a game file path, mirroring the WPF game button titles.
     /// </summary>
     private string GetDisplayTitle(string filePath)
     {
@@ -1225,20 +1212,20 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Cleans a filename for display: strips bracketed/parenthesized annotations
-    /// (e.g. "[USA]", "(Rev 1)"), replaces separators with spaces, collapses whitespace.
+    ///     Cleans a filename for display: strips bracketed/parenthesized annotations
+    ///     (e.g. "[USA]", "(Rev 1)"), replaces separators with spaces, collapses whitespace.
     /// </summary>
     private static string CleanUpTitle(string name)
     {
-        var cleaned = System.Text.RegularExpressions.Regex.Replace(name, @"\s*[\[\(][^\]\)]*[\]\)]", "");
+        var cleaned = Regex.Replace(name, @"\s*[\[\(][^\]\)]*[\]\)]", "");
         cleaned = cleaned.Replace('_', ' ').Replace('.', ' ');
-        cleaned = System.Text.RegularExpressions.Regex.Replace(cleaned, @"\s+", " ").Trim();
+        cleaned = Regex.Replace(cleaned, @"\s+", " ").Trim();
         return cleaned;
     }
 
     /// <summary>
-    /// Invalidates the cached file list for one system (called when the game file
-    /// watcher detects changes on disk, so the next scan picks them up).
+    ///     Invalidates the cached file list for one system (called when the game file
+    ///     watcher detects changes on disk, so the next scan picks them up).
     /// </summary>
     /// <param name="systemName">The affected system name.</param>
     public void InvalidateGameFileCacheForSystem(string systemName)
@@ -1247,8 +1234,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Invalidates all cached file lists (called when the system configuration
-    /// changes, e.g. after adding a system in Easy Mode).
+    ///     Invalidates all cached file lists (called when the system configuration
+    ///     changes, e.g. after adding a system in Easy Mode).
     /// </summary>
     public void InvalidateAllGameFileCaches()
     {
@@ -1293,7 +1280,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             if (historyLookup.TryGetValue(game.FilePath, out var history))
             {
                 game.PlayCount = history.TimesPlayed;
-                game.TimesPlayed = history.TimesPlayed.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                game.TimesPlayed = history.TimesPlayed.ToString(CultureInfo.InvariantCulture);
                 var ts = TimeSpan.FromSeconds(history.TotalPlayTime);
                 game.PlayTime = ts.TotalHours >= 1
                     ? $"{(int)ts.TotalHours}h {ts.Minutes}m {ts.Seconds}s"
@@ -1323,8 +1310,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Recomputes per-system game counts from a full scan of all configured system folders
-    /// (resolving %BASEFOLDER% / relative paths), independent of the current view.
+    ///     Recomputes per-system game counts from a full scan of all configured system folders
+    ///     (resolving %BASEFOLDER% / relative paths), independent of the current view.
     /// </summary>
     private void RefreshSystemCounts()
     {
@@ -1339,8 +1326,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    /// Computes per-system game counts via the loading orchestrator (cached file lists).
-    /// Pure computation — safe on any thread.
+    ///     Computes per-system game counts via the loading orchestrator (cached file lists).
+    ///     Pure computation — safe on any thread.
     /// </summary>
     private Dictionary<string, int> ComputeSystemCounts(List<SystemManagerConfig> systems)
     {

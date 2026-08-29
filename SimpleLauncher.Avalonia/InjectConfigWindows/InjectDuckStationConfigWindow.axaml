@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectDuckStationConfigWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:models="using:SimpleLauncher.Core.Models"
         Title="DuckStation Configuration"
@@ -52,7 +52,8 @@
                                       ToolTip.Tip="{ext:Translate DuckStationConfig_Renderer_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="{ext:Translate DuckStationConfig_ResolutionScale_Label}" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate DuckStationConfig_ResolutionScale_Label}"
+                                       Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ResolutionScaleOptions}"
                                       SelectedValue="{Binding DuckStationResolutionScale}"
@@ -66,7 +67,8 @@
                             </ComboBox>
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="{ext:Translate DuckStationConfig_TextureFilter_Label}" Classes="form-label" />
+                            <TextBlock Text="{ext:Translate DuckStationConfig_TextureFilter_Label}"
+                                       Classes="form-label" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding TextureFilterOptions}"
                                       SelectedItem="{Binding DuckStationTextureFilter}"

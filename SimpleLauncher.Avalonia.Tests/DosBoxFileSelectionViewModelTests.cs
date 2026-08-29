@@ -3,7 +3,7 @@ using SimpleLauncher.Avalonia.ViewModels;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the DosBoxFileSelectionWindow ViewModel (Phase 4.1 port).
+///     Tests for the DosBoxFileSelectionWindow ViewModel (Phase 4.1 port).
 /// </summary>
 public class DosBoxFileSelectionViewModelTests
 {

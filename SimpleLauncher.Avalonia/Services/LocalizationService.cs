@@ -3,21 +3,13 @@ using System.Text.Json;
 namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
-/// JSON-based localization service. Loads strings from Resources/strings.{lang}.json.
-/// Falls back to English for missing keys.
+///     JSON-based localization service. Loads strings from Resources/strings.{lang}.json.
+///     Falls back to English for missing keys.
 /// </summary>
 public class LocalizationService
 {
-    private readonly string _resourcesDir;
-    private readonly Dictionary<string, string> _strings = new(StringComparer.OrdinalIgnoreCase);
-    private readonly Dictionary<string, string> _enFallback;
-
-    public string CurrentLanguage { get; private set; } = "en";
-
-    public IReadOnlyDictionary<string, string> AllStrings => _strings;
-
     /// <summary>
-    /// Available languages with display names (canonical set matches the WPF app).
+    ///     Available languages with display names (canonical set matches the WPF app).
     /// </summary>
     public static readonly Dictionary<string, string> AvailableLanguages = new()
     {
@@ -41,13 +33,17 @@ public class LocalizationService
         ["zh-Hans"] = "简体中文"
     };
 
+    private readonly Dictionary<string, string> _enFallback;
+    private readonly string _resourcesDir;
+    private readonly Dictionary<string, string> _strings = new(StringComparer.OrdinalIgnoreCase);
+
     public LocalizationService() : this(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources"))
     {
     }
 
     /// <summary>
-    /// Test seam: allows tests to load strings from an isolated directory instead of
-    /// mutating the shared output Resources folder (which races with LocalizationTests).
+    ///     Test seam: allows tests to load strings from an isolated directory instead of
+    ///     mutating the shared output Resources folder (which races with LocalizationTests).
     /// </summary>
     internal LocalizationService(string resourcesDir)
     {
@@ -56,8 +52,12 @@ public class LocalizationService
         _enFallback = new Dictionary<string, string>(_strings, StringComparer.OrdinalIgnoreCase);
     }
 
+    public string CurrentLanguage { get; private set; } = "en";
+
+    public IReadOnlyDictionary<string, string> AllStrings => _strings;
+
     /// <summary>
-    /// Loads a language file. Falls back to English for missing keys.
+    ///     Loads a language file. Falls back to English for missing keys.
     /// </summary>
     public void LoadLanguage(string lang)
     {
@@ -83,38 +83,28 @@ public class LocalizationService
         }
 
         if (File.Exists(path))
-        {
             try
             {
                 var json = File.ReadAllText(path);
                 var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
                 if (dict is not null)
-                {
                     foreach (var kvp in dict)
-                    {
                         _strings[kvp.Key] = kvp.Value;
-                    }
-                }
             }
             catch (Exception ex)
             {
                 // Fall through to English
                 Log.Error(ex, "Failed to load language file {Path}", path);
             }
-        }
 
         // If not English, merge English fallback for missing keys
         if (!string.Equals(lang, "en", StringComparison.OrdinalIgnoreCase) && _enFallback.Count > 0)
-        {
             foreach (var kvp in _enFallback)
-            {
                 _strings.TryAdd(kvp.Key, kvp.Value);
-            }
-        }
     }
 
     /// <summary>
-    /// Gets a localized string by key. Returns the key itself if not found.
+    ///     Gets a localized string by key. Returns the key itself if not found.
     /// </summary>
     public string GetString(string key)
     {
@@ -122,7 +112,7 @@ public class LocalizationService
     }
 
     /// <summary>
-    /// Gets a localized string by key, returning <paramref name="fallback"/> when the key is missing.
+    ///     Gets a localized string by key, returning <paramref name="fallback" /> when the key is missing.
     /// </summary>
     public string GetString(string key, string fallback)
     {
@@ -130,7 +120,7 @@ public class LocalizationService
     }
 
     /// <summary>
-    /// Gets a formatted localized string.
+    ///     Gets a formatted localized string.
     /// </summary>
     public string GetString(string key, params object[] args)
     {

@@ -4,8 +4,8 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="DeleteFilesService"/> covering file deletion, directory deletion,
-/// read-only file handling, and null/empty path handling.
+///     Tests for <see cref="DeleteFilesService" /> covering file deletion, directory deletion,
+///     read-only file handling, and null/empty path handling.
 /// </summary>
 public class DeleteFilesServiceTests : IDisposable
 {
@@ -13,7 +13,7 @@ public class DeleteFilesServiceTests : IDisposable
     private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="DeleteFilesServiceTests"/> with a temporary test directory.
+    ///     Initializes a new instance of <see cref="DeleteFilesServiceTests" /> with a temporary test directory.
     /// </summary>
     public DeleteFilesServiceTests()
     {
@@ -23,14 +23,14 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory.
+    ///     Cleans up the temporary test directory.
     /// </summary>
     public void Dispose()
     {
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFile with a null path does not throw.
+    ///     Verifies that TryDeleteFile with a null path does not throw.
     /// </summary>
     [Fact]
     public void TryDeleteFileNullPathDoesNotThrow()
@@ -40,7 +40,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFile with an empty path does not throw.
+    ///     Verifies that TryDeleteFile with an empty path does not throw.
     /// </summary>
     [Fact]
     public void TryDeleteFileEmptyPathDoesNotThrow()
@@ -50,7 +50,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFile with a non-existent file path does not throw.
+    ///     Verifies that TryDeleteFile with a non-existent file path does not throw.
     /// </summary>
     [Fact]
     public void TryDeleteFileNonExistentFileDoesNotThrow()
@@ -61,7 +61,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFile deletes an existing file.
+    ///     Verifies that TryDeleteFile deletes an existing file.
     /// </summary>
     [Fact]
     public void TryDeleteFileExistingFileDeletesFile()
@@ -77,7 +77,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFile deletes a read-only file by removing the read-only attribute.
+    ///     Verifies that TryDeleteFile deletes a read-only file by removing the read-only attribute.
     /// </summary>
     [Fact]
     public void TryDeleteFileReadOnlyFileDeletesFile()
@@ -94,7 +94,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFileAsync with a null path does not throw.
+    ///     Verifies that TryDeleteFileAsync with a null path does not throw.
     /// </summary>
     [Fact]
     public async Task TryDeleteFileAsyncNullPathDoesNotThrow()
@@ -104,7 +104,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFileAsync with an empty path does not throw.
+    ///     Verifies that TryDeleteFileAsync with an empty path does not throw.
     /// </summary>
     [Fact]
     public async Task TryDeleteFileAsyncEmptyPathDoesNotThrow()
@@ -114,7 +114,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFileAsync with a non-existent file path does not throw.
+    ///     Verifies that TryDeleteFileAsync with a non-existent file path does not throw.
     /// </summary>
     [Fact]
     public async Task TryDeleteFileAsyncNonExistentFileDoesNotThrow()
@@ -125,7 +125,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFileAsync deletes an existing file.
+    ///     Verifies that TryDeleteFileAsync deletes an existing file.
     /// </summary>
     [Fact]
     public async Task TryDeleteFileAsyncExistingFileDeletesFile()
@@ -141,7 +141,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFileAsync deletes a read-only file.
+    ///     Verifies that TryDeleteFileAsync deletes a read-only file.
     /// </summary>
     [Fact]
     public async Task TryDeleteFileAsyncReadOnlyFileDeletesFile()
@@ -158,7 +158,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteDirectory with a null path does not throw.
+    ///     Verifies that TryDeleteDirectory with a null path does not throw.
     /// </summary>
     [Fact]
     public void TryDeleteDirectoryNullPathDoesNotThrow()
@@ -168,7 +168,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteDirectory with an empty path does not throw.
+    ///     Verifies that TryDeleteDirectory with an empty path does not throw.
     /// </summary>
     [Fact]
     public void TryDeleteDirectoryEmptyPathDoesNotThrow()
@@ -178,7 +178,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteDirectory with a non-existent directory path does not throw.
+    ///     Verifies that TryDeleteDirectory with a non-existent directory path does not throw.
     /// </summary>
     [Fact]
     public void TryDeleteDirectoryNonExistentDirectoryDoesNotThrow()
@@ -189,7 +189,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteDirectory deletes an existing directory and its contents.
+    ///     Verifies that TryDeleteDirectory deletes an existing directory and its contents.
     /// </summary>
     [Fact]
     public void TryDeleteDirectoryExistingDirectoryDeletesDirectory()
@@ -206,7 +206,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteDirectory deletes a directory with deeply nested subdirectories.
+    ///     Verifies that TryDeleteDirectory deletes a directory with deeply nested subdirectories.
     /// </summary>
     [Fact]
     public void TryDeleteDirectoryWithNestedDirectoriesDeletesAll()
@@ -222,7 +222,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFile handles file paths containing spaces.
+    ///     Verifies that TryDeleteFile handles file paths containing spaces.
     /// </summary>
     [Fact]
     public void TryDeleteFileWithSpacesInPathDeletesFile()
@@ -236,7 +236,7 @@ public class DeleteFilesServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFile handles files with long names.
+    ///     Verifies that TryDeleteFile handles files with long names.
     /// </summary>
     [Fact]
     public void TryDeleteFileWithLongFileNameDeletesFile()

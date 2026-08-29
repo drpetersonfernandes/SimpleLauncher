@@ -1,16 +1,17 @@
 using Moq;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the SetFuzzyMatchingWindow ViewModel (Phase 4.1 port).
+///     Tests for the SetFuzzyMatchingWindow ViewModel (Phase 4.1 port).
 /// </summary>
 public class SetFuzzyMatchingViewModelTests
 {
     private static SetFuzzyMatchingViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox,
-        out SimpleLauncher.Core.Services.SettingsManager.SettingsManagerService settings)
+        out SettingsManagerService settings)
     {
         messageBox = TestDependencies.MessageBox();
         settings = TestDependencies.Settings(messageBox: messageBox);

@@ -6,7 +6,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="DirectoryValidationService"/> class.
+///     Tests for the <see cref="DirectoryValidationService" /> class.
 /// </summary>
 [SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class DirectoryValidationServiceTests : IDisposable
@@ -14,7 +14,7 @@ public class DirectoryValidationServiceTests : IDisposable
     private readonly DirectoryValidationService _service;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="DirectoryValidationServiceTests"/> with a mock service provider.
+    ///     Initializes a new instance of <see cref="DirectoryValidationServiceTests" /> with a mock service provider.
     /// </summary>
     public DirectoryValidationServiceTests()
     {
@@ -23,14 +23,14 @@ public class DirectoryValidationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Restores the service provider mock state.
+    ///     Restores the service provider mock state.
     /// </summary>
     public void Dispose()
     {
     }
 
     /// <summary>
-    /// Verifies that IsWritableDirectory returns false for a null path.
+    ///     Verifies that IsWritableDirectory returns false for a null path.
     /// </summary>
     [Fact]
     public void IsWritableDirectoryNullPathReturnsFalse()
@@ -40,7 +40,7 @@ public class DirectoryValidationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IsWritableDirectory returns false for an empty path.
+    ///     Verifies that IsWritableDirectory returns false for an empty path.
     /// </summary>
     [Fact]
     public void IsWritableDirectoryEmptyPathReturnsFalse()
@@ -50,7 +50,7 @@ public class DirectoryValidationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IsWritableDirectory returns false for a non-existent directory.
+    ///     Verifies that IsWritableDirectory returns false for a non-existent directory.
     /// </summary>
     [Fact]
     public void IsWritableDirectoryNonExistentDirectoryReturnsFalse()
@@ -61,7 +61,7 @@ public class DirectoryValidationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IsWritableDirectory returns true for a writable directory.
+    ///     Verifies that IsWritableDirectory returns true for a writable directory.
     /// </summary>
     [Fact]
     public void IsWritableDirectoryWritableDirectoryReturnsTrue()
@@ -81,7 +81,7 @@ public class DirectoryValidationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IsWritableDirectory cleans up the temporary test file it creates.
+    ///     Verifies that IsWritableDirectory cleans up the temporary test file it creates.
     /// </summary>
     [Fact]
     public void IsWritableDirectoryCleansUpTestFile()
@@ -102,7 +102,7 @@ public class DirectoryValidationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IsWritableDirectory returns false when given a file path instead of a directory.
+    ///     Verifies that IsWritableDirectory returns false when given a file path instead of a directory.
     /// </summary>
     [Fact]
     public void IsWritableDirectoryFilePathReturnsFalse()

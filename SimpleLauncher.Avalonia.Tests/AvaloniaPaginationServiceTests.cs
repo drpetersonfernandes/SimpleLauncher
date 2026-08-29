@@ -5,45 +5,11 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for <see cref="AvaloniaPaginationService"/> (Phase 3) — page slicing,
-/// button states via a fake <see cref="IPaginationHost"/>, and the localized label.
+///     Tests for <see cref="AvaloniaPaginationService" /> (Phase 3) — page slicing,
+///     button states via a fake <see cref="IPaginationHost" />, and the localized label.
 /// </summary>
 public class AvaloniaPaginationServiceTests
 {
-    private sealed class FakePaginationHost : IPaginationHost
-    {
-        public bool PrevEnabled { get; private set; }
-        public bool NextEnabled { get; private set; }
-        public int ScrollToTopCount { get; private set; }
-        public string? Label { get; private set; }
-        public int NoFilesMessageCount { get; private set; }
-
-        public void SetPrevPageButtonEnabled(bool enabled)
-        {
-            PrevEnabled = enabled;
-        }
-
-        public void SetNextPageButtonEnabled(bool enabled)
-        {
-            NextEnabled = enabled;
-        }
-
-        public void ScrollToTop()
-        {
-            ScrollToTopCount++;
-        }
-
-        public void UpdateTotalFilesLabel(string? text)
-        {
-            Label = text;
-        }
-
-        public void AddNoFilesMessage()
-        {
-            NoFilesMessageCount++;
-        }
-    }
-
     private static (AvaloniaPaginationService Service, FakePaginationHost Host) Create(int filesPerPage = 10,
         int threshold = 10)
     {
@@ -66,7 +32,7 @@ public class AvaloniaPaginationServiceTests
     [Fact]
     public void ApplyPagination_UnderThreshold_ReturnsAllFilesAndDisablesButtons()
     {
-        var (service, host) = Create(filesPerPage: 10, threshold: 10);
+        var (service, host) = Create(10, 10);
         var files = Files(8);
 
         var result = service.ApplyPagination(files);
@@ -81,7 +47,7 @@ public class AvaloniaPaginationServiceTests
     [Fact]
     public void ApplyPagination_OverThreshold_ReturnsFirstPageAndEnablesNext()
     {
-        var (service, host) = Create(filesPerPage: 10, threshold: 10);
+        var (service, host) = Create(10, 10);
 
         var result = service.ApplyPagination(Files(25));
 
@@ -113,7 +79,7 @@ public class AvaloniaPaginationServiceTests
     [Fact]
     public void GoToNextPage_OnLastPage_DoesNotMove()
     {
-        var (service, _) = Create(filesPerPage: 10, threshold: 10);
+        var (service, _) = Create(10, 10);
         service.ApplyPagination(Files(25));
 
         service.GoToNextPage(); // page 2
@@ -128,7 +94,7 @@ public class AvaloniaPaginationServiceTests
     [Fact]
     public void GoToPreviousPage_OnFirstPage_DoesNotMove()
     {
-        var (service, _) = Create(filesPerPage: 10, threshold: 10);
+        var (service, _) = Create(10, 10);
 
         Assert.False(service.CanGoPrev());
         service.GoToPreviousPage();
@@ -183,5 +149,39 @@ public class AvaloniaPaginationServiceTests
         service.ApplyPagination(Files(5));
 
         Assert.Equal("Mostrando archivos del 1 al 5 de 5 en total", host.Label);
+    }
+
+    private sealed class FakePaginationHost : IPaginationHost
+    {
+        public bool PrevEnabled { get; private set; }
+        public bool NextEnabled { get; private set; }
+        public int ScrollToTopCount { get; private set; }
+        public string? Label { get; private set; }
+        public int NoFilesMessageCount { get; private set; }
+
+        public void SetPrevPageButtonEnabled(bool enabled)
+        {
+            PrevEnabled = enabled;
+        }
+
+        public void SetNextPageButtonEnabled(bool enabled)
+        {
+            NextEnabled = enabled;
+        }
+
+        public void ScrollToTop()
+        {
+            ScrollToTopCount++;
+        }
+
+        public void UpdateTotalFilesLabel(string? text)
+        {
+            Label = text;
+        }
+
+        public void AddNoFilesMessage()
+        {
+            NoFilesMessageCount++;
+        }
     }
 }

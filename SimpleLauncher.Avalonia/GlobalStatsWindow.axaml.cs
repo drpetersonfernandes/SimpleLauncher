@@ -5,16 +5,16 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Window that displays global statistics across all systems.
+///     Window that displays global statistics across all systems.
 /// </summary>
 public partial class GlobalStatsWindow : Window, IDisposable
 {
-    private readonly GlobalStatsViewModel _viewModel;
     private readonly ILogger _logger;
+    private readonly GlobalStatsViewModel _viewModel;
     private EventHandler? _closeRequestedHandler;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GlobalStatsWindow"/> class.
+    ///     Initializes a new instance of the <see cref="GlobalStatsWindow" /> class.
     /// </summary>
     /// <param name="logErrors">The logger instance for error logging.</param>
     /// <param name="viewModel">The view model providing global statistics logic.</param>
@@ -43,7 +43,16 @@ public partial class GlobalStatsWindow : Window, IDisposable
     }
 
     /// <summary>
-    /// Initializes the window with the list of system manager configurations for statistics calculation.
+    ///     Disposes of resources used by the window.
+    /// </summary>
+    public void Dispose()
+    {
+        _viewModel.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    ///     Initializes the window with the list of system manager configurations for statistics calculation.
     /// </summary>
     /// <param name="systemManagers">The list of system manager configurations.</param>
     public void Initialize(List<SystemManagerConfig> systemManagers)
@@ -61,24 +70,12 @@ public partial class GlobalStatsWindow : Window, IDisposable
                 e.Cancel = true;
 
                 var allowClose = await _viewModel.RequestCloseAsync();
-                if (allowClose)
-                {
-                    Close();
-                }
+                if (allowClose) Close();
             }
         }
         catch (Exception ex)
         {
             _logger.Error(ex, "Error in method GlobalStatsWindow_Closing.");
         }
-    }
-
-    /// <summary>
-    /// Disposes of resources used by the window.
-    /// </summary>
-    public void Dispose()
-    {
-        _viewModel.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

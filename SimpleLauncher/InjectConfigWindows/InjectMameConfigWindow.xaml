@@ -50,30 +50,49 @@
                                       Text="{Binding MameBgfxScreenChains}"
                                       ToolTip="{DynamicResource MameConfig_BgfxShader_Tooltip}" />
                         </Grid>
-                        <CheckBox IsChecked="{Binding MameFilter}" Content="{DynamicResource MameConfig_BilinearFiltering_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_BilinearFiltering_Tooltip}" />
-                        <CheckBox IsChecked="{Binding MameWindow}" Content="{DynamicResource MameConfig_RunInWindow_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_RunInWindow_Tooltip}" />
-                        <CheckBox IsChecked="{Binding MameMaximize}" Content="{DynamicResource MameConfig_Maximize_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_Maximize_Tooltip}" />
-                        <CheckBox IsChecked="{Binding MameKeepAspect}" Content="{DynamicResource MameConfig_EnforceAspectRatio_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_EnforceAspectRatio_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MameFilter}"
+                                  Content="{DynamicResource MameConfig_BilinearFiltering_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MameConfig_BilinearFiltering_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MameWindow}"
+                                  Content="{DynamicResource MameConfig_RunInWindow_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MameConfig_RunInWindow_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MameMaximize}"
+                                  Content="{DynamicResource MameConfig_Maximize_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MameConfig_Maximize_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MameKeepAspect}"
+                                  Content="{DynamicResource MameConfig_EnforceAspectRatio_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MameConfig_EnforceAspectRatio_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header="{DynamicResource MameConfig_PerformanceAdvanced_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding MameAutoframeskip}" Content="{DynamicResource MameConfig_AutoFrameskip_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_AutoFrameskip_Tooltip}" />
-                        <CheckBox IsChecked="{Binding MameCheat}" Content="{DynamicResource MameConfig_EnableCheats_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_EnableCheats_Tooltip}" />
-                        <CheckBox IsChecked="{Binding MameRewind}" Content="{DynamicResource MameConfig_EnableRewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_EnableRewind_Tooltip}" />
-                        <CheckBox IsChecked="{Binding MameNvramSave}" Content="{DynamicResource MameConfig_SaveNvram_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_SaveNvram_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MameAutoframeskip}"
+                                  Content="{DynamicResource MameConfig_AutoFrameskip_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MameConfig_AutoFrameskip_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MameCheat}"
+                                  Content="{DynamicResource MameConfig_EnableCheats_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MameConfig_EnableCheats_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MameRewind}"
+                                  Content="{DynamicResource MameConfig_EnableRewind_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MameConfig_EnableRewind_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MameNvramSave}"
+                                  Content="{DynamicResource MameConfig_SaveNvram_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MameConfig_SaveNvram_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- UX Section -->
                 <GroupBox Header="{DynamicResource MameConfig_UserExperience_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding MameSkipGameInfo}" Content="{DynamicResource MameConfig_SkipGameInfo_Checkbox}" Margin="0,5"
+                        <CheckBox IsChecked="{Binding MameSkipGameInfo}"
+                                  Content="{DynamicResource MameConfig_SkipGameInfo_Checkbox}" Margin="0,5"
                                   ToolTip="{DynamicResource MameConfig_SkipGameInfo_Tooltip}" />
-                        <CheckBox IsChecked="{Binding MameAutosave}" Content="{DynamicResource MameConfig_AutosaveState_Checkbox}" Margin="0,5"
+                        <CheckBox IsChecked="{Binding MameAutosave}"
+                                  Content="{DynamicResource MameConfig_AutosaveState_Checkbox}" Margin="0,5"
                                   ToolTip="{DynamicResource MameConfig_AutosaveState_Tooltip}" />
-                        <CheckBox IsChecked="{Binding MameConfirmQuit}" Content="{DynamicResource MameConfig_ConfirmQuit_Checkbox}" Margin="0,5"
+                        <CheckBox IsChecked="{Binding MameConfirmQuit}"
+                                  Content="{DynamicResource MameConfig_ConfirmQuit_Checkbox}" Margin="0,5"
                                   ToolTip="{DynamicResource MameConfig_ConfirmQuit_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
@@ -81,15 +100,21 @@
                 <!-- Input Section -->
                 <GroupBox Header="{DynamicResource MameConfig_Input_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding MameJoystick}" Content="{DynamicResource MameConfig_EnableJoystick_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MameConfig_EnableJoystick_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MameJoystick}"
+                                  Content="{DynamicResource MameConfig_EnableJoystick_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MameConfig_EnableJoystick_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding MameShowSettingsBeforeLaunch}" Content="{DynamicResource MameConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource MameConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding MameShowSettingsBeforeLaunch}"
+                                  Content="{DynamicResource MameConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource MameConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

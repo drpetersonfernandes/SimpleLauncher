@@ -5,31 +5,32 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Core.Services.RetroAchievements;
 
 /// <summary>
-/// Scans game paths in the background and calculates RetroAchievements hashes for
-/// every game file through the bundled RetroAchievementsSharp CLI tool
-/// (<see cref="IRetroAchievementsFileHasher"/>). Results are persisted per system
-/// through <see cref="IRetroAchievementsHashStore"/>.
-/// Only one scan runs at a time to avoid hammering the disk and the CLI process pool.
+///     Scans game paths in the background and calculates RetroAchievements hashes for
+///     every game file through the bundled RetroAchievementsSharp CLI tool
+///     (<see cref="IRetroAchievementsFileHasher" />). Results are persisted per system
+///     through <see cref="IRetroAchievementsHashStore" />.
+///     Only one scan runs at a time to avoid hammering the disk and the CLI process pool.
 /// </summary>
 public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
 {
     /// <summary>
-    /// Version of the hash calculation logic. Bump this whenever the hashing behavior
-    /// changes (e.g. extraction rules) so existing scans are recalculated.
+    ///     Version of the hash calculation logic. Bump this whenever the hashing behavior
+    ///     changes (e.g. extraction rules) so existing scans are recalculated.
     /// </summary>
     private const int CurrentHashVersion = 1;
 
-    private readonly ILogger _logger;
-    private readonly IRetroAchievementsSystemMatcher _systemMatcher;
+    private readonly IExtractionService _extractionService;
     private readonly IRetroAchievementsFileHasher _fileHasher;
     private readonly IGetListOfFilesService _getListOfFiles;
-    private readonly IExtractionService _extractionService;
     private readonly IRetroAchievementsHashStore _hashStore;
+
+    private readonly ILogger _logger;
+    private readonly IRetroAchievementsSystemMatcher _systemMatcher;
 
     private int _isScanningFlag;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsHashScanner"/> class.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsHashScanner" /> class.
     /// </summary>
     /// <param name="logErrors">The logger instance used for debugging and error output.</param>
     /// <param name="systemMatcher">The system matcher used to resolve system names to RetroAchievements console IDs.</param>
@@ -54,14 +55,14 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     }
 
     /// <summary>
-    /// Gets a value indicating whether a hash scan is currently running.
+    ///     Gets a value indicating whether a hash scan is currently running.
     /// </summary>
     public bool IsScanning => Volatile.Read(ref _isScanningFlag) == 1;
 
     /// <summary>
-    /// Determines whether the given system can be hashed for RetroAchievements.
-    /// Systems without a usable console ID (including the "unsupported" pseudo-system, ID 102)
-    /// are not scannable.
+    ///     Determines whether the given system can be hashed for RetroAchievements.
+    ///     Systems without a usable console ID (including the "unsupported" pseudo-system, ID 102)
+    ///     are not scannable.
     /// </summary>
     public bool IsSystemScannable(string systemName)
     {
@@ -71,8 +72,8 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     }
 
     /// <summary>
-    /// Determines whether an existing hash scan for the given system was produced by the
-    /// current hash logic (same <see cref="RaSystemHashes.HashVersion"/>).
+    ///     Determines whether an existing hash scan for the given system was produced by the
+    ///     current hash logic (same <see cref="RaSystemHashes.HashVersion" />).
     /// </summary>
     public bool IsScanUpToDate(string systemName)
     {
@@ -81,7 +82,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     }
 
     /// <summary>
-    /// Scans the game folders of a single system and persists the calculated hashes.
+    ///     Scans the game folders of a single system and persists the calculated hashes.
     /// </summary>
     public Task<bool> ScanSystemAsync(
         string systemName,
@@ -107,8 +108,8 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     }
 
     /// <summary>
-    /// Scans the game folders of multiple systems sequentially and persists the calculated hashes.
-    /// The whole operation runs on a thread-pool thread so the UI thread is never blocked.
+    ///     Scans the game folders of multiple systems sequentially and persists the calculated hashes.
+    ///     The whole operation runs on a thread-pool thread so the UI thread is never blocked.
     /// </summary>
     public async Task<bool> ScanAllSystemsAsync(
         IEnumerable<RaHashScanTarget> targets,
@@ -145,10 +146,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
             try
             {
                 var result = await ScanSystemCoreAsync(target, cancellationToken);
-                if (result == HashScanResult.Completed)
-                {
-                    onCompleted?.Invoke(target.SystemName);
-                }
+                if (result == HashScanResult.Completed) onCompleted?.Invoke(target.SystemName);
             }
             catch (OperationCanceledException)
             {
@@ -188,10 +186,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
                 resolvedPath, target.FileFormatsToSearch, target.DisableRecursiveSearch, target.GroupByFolder,
                 cancellationToken);
 
-            foreach (var file in filesInFolder)
-            {
-                uniqueFiles.TryAdd(Path.GetFileName(file), file);
-            }
+            foreach (var file in filesInFolder) uniqueFiles.TryAdd(Path.GetFileName(file), file);
         }
 
         // Only recalculate hashes when the number of games in the ROM path has changed
@@ -220,13 +215,9 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
         {
             var fileExtension = Path.GetExtension(filePath).ToLowerInvariant();
             if (fileExtension is ".7z" or ".rar" && !isFileNameHashSystem)
-            {
                 archiveFiles.Add(filePath);
-            }
             else
-            {
                 directFiles.Add(filePath);
-            }
         }
 
         var hashes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -235,10 +226,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
         if (directFiles.Count > 0)
         {
             var batchHashes = await _fileHasher.CalculateHashesAsync(directFiles, matchedSystemName, cancellationToken);
-            foreach (var (filePath, hash) in batchHashes)
-            {
-                hashes[filePath] = hash;
-            }
+            foreach (var (filePath, hash) in batchHashes) hashes[filePath] = hash;
         }
 
         // .7z/.rar archives are extracted to a temporary folder first, then hashed individually
@@ -247,10 +235,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
             cancellationToken.ThrowIfCancellationRequested();
 
             var hash = await HashExtractedArchiveAsync(archivePath, matchedSystemName, target.FileFormatsToLaunch);
-            if (!string.IsNullOrEmpty(hash))
-            {
-                hashes[archivePath] = hash;
-            }
+            if (!string.IsNullOrEmpty(hash)) hashes[archivePath] = hash;
         }
 
         var result = new RaSystemHashes
@@ -271,10 +256,10 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     }
 
     /// <summary>
-    /// Extracts a .7z/.rar archive to a temporary folder and calculates the hash of
-    /// the extracted game file through the RetroAchievementsSharp CLI tool
-    /// (<see cref="IRetroAchievementsFileHasher"/>). The temporary folder is deleted
-    /// afterwards.
+    ///     Extracts a .7z/.rar archive to a temporary folder and calculates the hash of
+    ///     the extracted game file through the RetroAchievementsSharp CLI tool
+    ///     (<see cref="IRetroAchievementsFileHasher" />). The temporary folder is deleted
+    ///     afterwards.
     /// </summary>
     /// <param name="archivePath">The full path to the .7z/.rar archive.</param>
     /// <param name="matchedSystemName">The resolved RetroAchievements system name.</param>
@@ -315,25 +300,20 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
         finally
         {
             if (!string.IsNullOrEmpty(tempExtractionPath))
-            {
                 try
                 {
-                    if (Directory.Exists(tempExtractionPath))
-                    {
-                        Directory.Delete(tempExtractionPath, true);
-                    }
+                    if (Directory.Exists(tempExtractionPath)) Directory.Delete(tempExtractionPath, true);
                 }
                 catch (Exception ex)
                 {
                     _logger.Debug(
                         $"[RA Hash Scanner] Failed to clean up temporary extraction folder '{tempExtractionPath}': {ex.Message}");
                 }
-            }
         }
     }
 
     /// <summary>
-    /// Resolves a local system name to its official RetroAchievements system name.
+    ///     Resolves a local system name to its official RetroAchievements system name.
     /// </summary>
     private string ResolveSystemName(string systemName)
     {
@@ -343,7 +323,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     }
 
     /// <summary>
-    /// The outcome of scanning a single system.
+    ///     The outcome of scanning a single system.
     /// </summary>
     private enum HashScanResult
     {

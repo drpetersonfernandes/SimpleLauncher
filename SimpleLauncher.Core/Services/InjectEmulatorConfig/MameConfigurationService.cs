@@ -2,34 +2,32 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.RegularExpressions;
 using SimpleLauncher.Core.Services.CheckPaths;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Injects user settings and ROM paths into the MAME emulator's mame.ini configuration file.
+///     Injects user settings and ROM paths into the MAME emulator's mame.ini configuration file.
 /// </summary>
 public static partial class MameConfigurationService
 {
     /// <summary>
-    /// Applies the saved MAME settings to the emulator's mame.ini file, injects the system ROM paths
-    /// into the rompath setting, and atomically writes the file.
+    ///     Applies the saved MAME settings to the emulator's mame.ini file, injects the system ROM paths
+    ///     into the rompath setting, and atomically writes the file.
     /// </summary>
     /// <param name="emulatorPath">Path to the MAME executable.</param>
     /// <param name="settings">The settings manager containing MAME configuration.</param>
     /// <param name="logger">The logger instance.</param>
     /// <param name="systemRomPath">Optional primary system ROM path to inject into rompath.</param>
     /// <param name="listOfSecondaryRomPath">Optional secondary ROM paths to inject into rompath.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger, string? systemRomPath = null, string[]? listOfSecondaryRomPath = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(emulatorPath);
         ArgumentNullException.ThrowIfNull(settings);
 
         var emuDir = Path.GetDirectoryName(emulatorPath);
-        if (string.IsNullOrEmpty(emuDir))
-        {
-            throw new InvalidOperationException("Emulator directory is null or empty.");
-        }
+        if (string.IsNullOrEmpty(emuDir)) throw new InvalidOperationException("Emulator directory is null or empty.");
 
         var configPath = Path.Combine(emuDir, "mame.ini");
 
@@ -38,7 +36,6 @@ public static partial class MameConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "MAME", "mame.ini");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -50,12 +47,9 @@ public static partial class MameConfigurationService
                     logger.Error(ex, $"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException(
                     $"mame.ini not found in {emuDir} and sample not available at {samplePath}");
-            }
         }
 
         logger.Debug($"[MameConfig] Injecting configuration into: {configPath}");
@@ -140,9 +134,7 @@ public static partial class MameConfigurationService
                 {
                     var fullPath = NormalizePath(GetFullPathSafe(path, emuDir)!);
                     if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
-                    {
                         finalPathList.Add(path); // Add the original (but unquoted) path
-                    }
                 }
 
                 // 2. Process the primary system ROM path
@@ -150,14 +142,11 @@ public static partial class MameConfigurationService
                 {
                     var fullPath = NormalizePath(GetFullPathSafe(systemRomPath, emuDir)!);
                     if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
-                    {
                         finalPathList.Add(RemoveQuotes(systemRomPath));
-                    }
                 }
 
                 // 3. Process secondary ROM paths
                 if (listOfSecondaryRomPath != null)
-                {
                     foreach (var secondaryPath in listOfSecondaryRomPath)
                     {
                         if (string.IsNullOrWhiteSpace(secondaryPath))
@@ -173,11 +162,8 @@ public static partial class MameConfigurationService
                         var fullPath = NormalizePath(GetFullPathSafe(resolvedSecondaryPath, emuDir)!);
                         if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) &&
                             uniqueFullPaths.Add(fullPath))
-                        {
                             finalPathList.Add(RemoveQuotes(resolvedSecondaryPath));
-                        }
                     }
-                }
 
                 // Reconstruct the value with unique, unquoted paths
                 var newRomPathValue = string.Join(";", finalPathList);
@@ -191,13 +177,11 @@ public static partial class MameConfigurationService
 
         // Add missing keys at the end
         foreach (var kvp in updates)
-        {
             if (!keysFound.Contains(kvp.Key))
             {
                 lines.Add($"{kvp.Key} {kvp.Value}");
                 modified = true;
             }
-        }
 
         // Add missing rompath key if not present in the original file
         if (!keysFound.Contains("rompath"))
@@ -210,14 +194,11 @@ public static partial class MameConfigurationService
             {
                 var fullPath = NormalizePath(GetFullPathSafe(systemRomPath, emuDir)!);
                 if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
-                {
                     finalPathList.Add(RemoveQuotes(systemRomPath));
-                }
             }
 
             // Process secondary ROM paths
             if (listOfSecondaryRomPath != null)
-            {
                 foreach (var secondaryPath in listOfSecondaryRomPath)
                 {
                     if (string.IsNullOrWhiteSpace(secondaryPath))
@@ -232,11 +213,8 @@ public static partial class MameConfigurationService
 
                     var fullPath = NormalizePath(GetFullPathSafe(resolvedSecondaryPath, emuDir)!);
                     if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
-                    {
                         finalPathList.Add(RemoveQuotes(resolvedSecondaryPath));
-                    }
                 }
-            }
 
             if (finalPathList.Count > 0)
             {
@@ -263,7 +241,6 @@ public static partial class MameConfigurationService
             {
                 // Clean up temp file if it exists
                 if (File.Exists(tempPath))
-                {
                     try
                     {
                         File.Delete(tempPath);
@@ -272,7 +249,6 @@ public static partial class MameConfigurationService
                     {
                         /* Ignore cleanup errors */
                     }
-                }
 
                 logger.Debug("[MameConfig] Failed to inject configuration changes.");
                 logger.Error(ex, "[MameConfig] Failed to inject configuration changes.");
@@ -282,8 +258,8 @@ public static partial class MameConfigurationService
     }
 
     /// <summary>
-    /// Restores mame.ini from the bundled sample.
-    /// Backs up the existing file to mame.ini.bak before overwriting.
+    ///     Restores mame.ini from the bundled sample.
+    ///     Backs up the existing file to mame.ini.bak before overwriting.
     /// </summary>
     public static bool RestoreMameIniFromSample(string emulatorPath, ILogger logger)
     {
@@ -325,8 +301,8 @@ public static partial class MameConfigurationService
     }
 
     /// <summary>
-    /// Splits ROM path and removes any existing quotes.
-    /// MAME uses semicolons as separators.
+    ///     Splits ROM path and removes any existing quotes.
+    ///     MAME uses semicolons as separators.
     /// </summary>
     private static List<string> SplitRomPath(string value)
     {
@@ -347,8 +323,8 @@ public static partial class MameConfigurationService
     }
 
     /// <summary>
-    /// Normalizes path for comparison (trims trailing separators).
-    /// Assumes Path.GetFullPath has already been called to resolve relative paths.
+    ///     Normalizes path for comparison (trims trailing separators).
+    ///     Assumes Path.GetFullPath has already been called to resolve relative paths.
     /// </summary>
     private static string NormalizePath(string path)
     {
@@ -359,7 +335,7 @@ public static partial class MameConfigurationService
     }
 
     /// <summary>
-    /// Safely gets full path, returning null if the path is invalid.
+    ///     Safely gets full path, returning null if the path is invalid.
     /// </summary>
     private static string? GetFullPathSafe(string path, string basePath)
     {

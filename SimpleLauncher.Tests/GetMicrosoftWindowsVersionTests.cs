@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="GetMicrosoftWindowsVersion"/> utility class.
+///     Tests for the <see cref="GetMicrosoftWindowsVersion" /> utility class.
 /// </summary>
 public class GetMicrosoftWindowsVersionTests
 {
     /// <summary>
-    /// Verifies that GetVersion returns a non-empty string.
+    ///     Verifies that GetVersion returns a non-empty string.
     /// </summary>
     [Fact]
     public void GetVersionReturnsNonEmptyString()
@@ -19,7 +19,7 @@ public class GetMicrosoftWindowsVersionTests
     }
 
     /// <summary>
-    /// Verifies that GetVersion returns a string starting with the expected prefix.
+    ///     Verifies that GetVersion returns a string starting with the expected prefix.
     /// </summary>
     [Fact]
     public void GetVersionContainsExpectedPrefix()

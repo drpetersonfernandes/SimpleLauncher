@@ -10,23 +10,23 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the Flycast emulator configuration injection window.
+///     ViewModel for the Flycast emulator configuration injection window.
 /// </summary>
 public partial class InjectFlycastConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly EmulatorPathResolver _emulatorPathResolver;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
     private string _emulatorPath = "";
 
     [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private bool _maximized;
-    [ObservableProperty] private int _width;
     [ObservableProperty] private int _height;
+    [ObservableProperty] private bool _maximized;
     [ObservableProperty] private bool _showBeforeLaunch;
+    [ObservableProperty] private int _width;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectFlycastConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectFlycastConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
@@ -44,7 +44,27 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Flycast emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -56,17 +76,7 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -75,16 +85,6 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -107,10 +107,7 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = _emulatorPathResolver.TryFindEmulatorPath("Flycast", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

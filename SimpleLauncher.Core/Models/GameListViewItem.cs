@@ -4,27 +4,27 @@ using System.Runtime.CompilerServices;
 namespace SimpleLauncher.Core.Models;
 
 /// <summary>
-/// Represents a single item in the game list view, supporting data binding for live UI updates.
+///     Represents a single item in the game list view, supporting data binding for live UI updates.
 /// </summary>
 public class GameListViewItem : INotifyPropertyChanged
 {
     /// <summary>
-    /// Gets the full file path of the game ROM.
+    ///     Gets the full file path of the game ROM.
     /// </summary>
     public string FilePath { get; init; } = "";
 
     /// <summary>
-    /// Gets the folder path containing the game ROM.
+    ///     Gets the folder path containing the game ROM.
     /// </summary>
     public string FolderPath { get; init; } = "";
 
     /// <summary>
-    /// Gets the system name associated with this game.
+    ///     Gets the system name associated with this game.
     /// </summary>
     public string SystemName { get; init; } = "";
 
     /// <summary>
-    /// Gets or sets whether this game is marked as a favorite.
+    ///     Gets or sets whether this game is marked as a favorite.
     /// </summary>
     public bool IsFavorite
     {
@@ -39,12 +39,12 @@ public class GameListViewItem : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Gets the file name of the game ROM (set once at creation).
+    ///     Gets the file name of the game ROM (set once at creation).
     /// </summary>
     public string FileName { get; init; } = "";
 
     /// <summary>
-    /// Gets or sets the machine description from the ROM database.
+    ///     Gets or sets the machine description from the ROM database.
     /// </summary>
     public string MachineDescription
     {
@@ -59,7 +59,7 @@ public class GameListViewItem : INotifyPropertyChanged
     } = "";
 
     /// <summary>
-    /// Gets or sets the number of times this game has been played.
+    ///     Gets or sets the number of times this game has been played.
     /// </summary>
     public string TimesPlayed
     {
@@ -74,7 +74,7 @@ public class GameListViewItem : INotifyPropertyChanged
     } = "0";
 
     /// <summary>
-    /// Gets or sets the total play time formatted as a string.
+    ///     Gets or sets the total play time formatted as a string.
     /// </summary>
     public string PlayTime
     {
@@ -89,7 +89,7 @@ public class GameListViewItem : INotifyPropertyChanged
     } = "0m 0s";
 
     /// <summary>
-    /// Gets or sets whether this game has RetroAchievements data.
+    ///     Gets or sets whether this game has RetroAchievements data.
     /// </summary>
     public bool HasAchievements
     {
@@ -104,7 +104,7 @@ public class GameListViewItem : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Gets or sets the number of achievements earned for this game.
+    ///     Gets or sets the number of achievements earned for this game.
     /// </summary>
     public int AchievementsEarned
     {
@@ -119,7 +119,7 @@ public class GameListViewItem : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Gets or sets the total number of achievements available for this game.
+    ///     Gets or sets the total number of achievements available for this game.
     /// </summary>
     public int AchievementsTotal
     {
@@ -134,7 +134,7 @@ public class GameListViewItem : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Occurs when a property value changes, supporting data binding updates.
+    ///     Occurs when a property value changes, supporting data binding updates.
     /// </summary>
     public event PropertyChangedEventHandler? PropertyChanged;
 

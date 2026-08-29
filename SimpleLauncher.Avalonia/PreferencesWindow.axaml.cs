@@ -10,17 +10,17 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Preferences window with OpenEmu-style nav-strip layout.
-/// RetroAchievements test connection wired to real API.
+///     Preferences window with OpenEmu-style nav-strip layout.
+///     RetroAchievements test connection wired to real API.
 /// </summary>
 public partial class PreferencesWindow : Window
 {
-    private readonly SettingsManagerService _settings;
-    private readonly LocalizationService _localization;
-    private readonly AvaloniaCheckForUpdatesService _updateService;
-    private readonly RetroAchievementsService? _raService;
     private readonly GamePadController _gamePadController;
+    private readonly LocalizationService _localization;
     private readonly Dictionary<string, Panel> _panels = new();
+    private readonly RetroAchievementsService? _raService;
+    private readonly SettingsManagerService _settings;
+    private readonly AvaloniaCheckForUpdatesService _updateService;
 
     public PreferencesWindow(SettingsManagerService settings, LocalizationService localization,
         AvaloniaCheckForUpdatesService updateService, GamePadController gamePadController)
@@ -59,22 +59,17 @@ public partial class PreferencesWindow : Window
     }
 
     /// <summary>
-    /// Writes every editable preference back to SettingsManagerService and persists
-    /// settings.xml — without this the preference controls were inert.
+    ///     Writes every editable preference back to SettingsManagerService and persists
+    ///     settings.xml — without this the preference controls were inert.
     /// </summary>
     private void SavePreferences()
     {
         try
         {
-            if (DefaultViewCombo.SelectedItem is ComboBoxItem { Tag: string viewMode })
-            {
-                _settings.ViewMode = viewMode;
-            }
+            if (DefaultViewCombo.SelectedItem is ComboBoxItem { Tag: string viewMode }) _settings.ViewMode = viewMode;
 
             if (int.TryParse(CardWidthBox.Text, out var cardWidth) && cardWidth is >= 148 and <= 280)
-            {
                 _settings.ThumbnailSize = cardWidth;
-            }
 
             _settings.EnableGamePadNavigation = GamepadNavCheck.IsChecked == true;
             _settings.DisplayMachineName = DisplayMachineNameCheck.IsChecked == true;
@@ -86,13 +81,9 @@ public partial class PreferencesWindow : Window
 
             // Start or stop the gamepad controller to match the new preference
             if (_settings.EnableGamePadNavigation)
-            {
                 _ = _gamePadController.StartAsync();
-            }
             else
-            {
                 _ = _gamePadController.StopAsync();
-            }
         }
         catch (Exception ex)
         {
@@ -147,9 +138,7 @@ public partial class PreferencesWindow : Window
     {
         LanguageCombo.Items.Clear();
         foreach (var (code, name) in LocalizationService.AvailableLanguages)
-        {
             LanguageCombo.Items.Add(new ComboBoxItem { Content = name, Tag = code });
-        }
     }
 
     private void NavList_SelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -158,38 +147,28 @@ public partial class PreferencesWindow : Window
 
         var tag = item.Tag as string ?? "general";
 
-        foreach (var panel in _panels.Values)
-        {
-            panel.IsVisible = false;
-        }
+        foreach (var panel in _panels.Values) panel.IsVisible = false;
 
-        if (_panels.TryGetValue(tag, out var selected))
-        {
-            selected.IsVisible = true;
-        }
+        if (_panels.TryGetValue(tag, out var selected)) selected.IsVisible = true;
     }
 
     private void LoadSettings()
     {
         // General
         foreach (var lbi in LanguageCombo.Items.OfType<ComboBoxItem>())
-        {
             if (string.Equals(lbi.Tag as string, _settings.Language, StringComparison.OrdinalIgnoreCase))
             {
                 LanguageCombo.SelectedItem = lbi;
                 break;
             }
-        }
 
         // View
         foreach (var lbi in DefaultViewCombo.Items.OfType<ComboBoxItem>())
-        {
             if (lbi.Tag as string == _settings.ViewMode)
             {
                 DefaultViewCombo.SelectedItem = lbi;
                 break;
             }
-        }
 
         CardWidthBox.Text = _settings.ThumbnailSize.ToString();
         GamepadNavCheck.IsChecked = _settings.EnableGamePadNavigation;

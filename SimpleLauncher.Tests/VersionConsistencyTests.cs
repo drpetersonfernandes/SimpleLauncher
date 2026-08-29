@@ -5,10 +5,10 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Ensures that version metadata scattered across the repository stays in sync
-/// with the canonical version defined in SimpleLauncher.csproj.
-/// When a mismatch is detected the test automatically rewrites the file and
-/// then fails so the developer can review the change before committing.
+///     Ensures that version metadata scattered across the repository stays in sync
+///     with the canonical version defined in SimpleLauncher.csproj.
+///     When a mismatch is detected the test automatically rewrites the file and
+///     then fails so the developer can review the change before committing.
 /// </summary>
 public class VersionConsistencyTests
 {
@@ -16,9 +16,7 @@ public class VersionConsistencyTests
     {
         var assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         if (assemblyLocation == null)
-        {
             throw new InvalidOperationException("Could not determine executing assembly location.");
-        }
 
         var path = Path.Combine(assemblyLocation, "..", "..", "..", "..", relativePath);
         return Path.GetFullPath(path);
@@ -37,7 +35,8 @@ public class VersionConsistencyTests
     }
 
     /// <summary>
-    /// Verifies that the version in app.manifest matches the AssemblyVersion from the project file, auto-correcting mismatches.
+    ///     Verifies that the version in app.manifest matches the AssemblyVersion from the project file, auto-correcting
+    ///     mismatches.
     /// </summary>
     [Fact]
     public void AppManifestVersionMatchesProjectVersion()
@@ -64,10 +63,7 @@ public class VersionConsistencyTests
         Assert.False(string.IsNullOrWhiteSpace(currentVersion),
             "assemblyIdentity version attribute not found in app.manifest");
 
-        if (string.Equals(currentVersion, expectedVersion, StringComparison.Ordinal))
-        {
-            return;
-        }
+        if (string.Equals(currentVersion, expectedVersion, StringComparison.Ordinal)) return;
 
         identityElement.SetAttributeValue("version", expectedVersion);
         doc.Save(manifestPath);
@@ -78,7 +74,8 @@ public class VersionConsistencyTests
     }
 
     /// <summary>
-    /// Verifies that the SimpleLauncher.Updater/version.txt content matches the project version, auto-correcting mismatches.
+    ///     Verifies that the SimpleLauncher.Updater/version.txt content matches the project version, auto-correcting
+    ///     mismatches.
     /// </summary>
     [Fact]
     public void UpdaterVersionTxtMatchesProjectVersion()
@@ -90,10 +87,7 @@ public class VersionConsistencyTests
         Assert.True(File.Exists(versionTxtPath), $"SimpleLauncher.Updater/version.txt not found at {versionTxtPath}");
 
         var currentContent = File.ReadAllText(versionTxtPath).Trim();
-        if (string.Equals(currentContent, expectedContent, StringComparison.Ordinal))
-        {
-            return;
-        }
+        if (string.Equals(currentContent, expectedContent, StringComparison.Ordinal)) return;
 
         File.WriteAllText(versionTxtPath, expectedContent + Environment.NewLine);
         Assert.Fail(

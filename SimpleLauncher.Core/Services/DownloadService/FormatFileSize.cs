@@ -3,12 +3,12 @@ using System.Globalization;
 namespace SimpleLauncher.Core.Services.DownloadService;
 
 /// <summary>
-/// Provides formatting helpers to display byte sizes in human-readable units.
+///     Provides formatting helpers to display byte sizes in human-readable units.
 /// </summary>
 public static class FormatFileSize
 {
     /// <summary>
-    /// Formats a byte size into MB.
+    ///     Formats a byte size into MB.
     /// </summary>
     /// <param name="bytes">The size in bytes.</param>
     /// <returns>A formatted string representation of the size in MB.</returns>
@@ -19,7 +19,7 @@ public static class FormatFileSize
     }
 
     /// <summary>
-    /// Formats a byte size into a human-readable format.
+    ///     Formats a byte size into a human-readable format.
     /// </summary>
     /// <param name="bytes">The size in bytes.</param>
     /// <returns>A formatted string representation of the size.</returns>

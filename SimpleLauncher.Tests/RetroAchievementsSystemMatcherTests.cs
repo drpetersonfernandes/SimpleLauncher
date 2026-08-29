@@ -4,15 +4,15 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="RetroAchievementsSystemMatcher"/> covering system name aliasing,
-/// official name validation, supported system enumeration, and system ID lookups.
+///     Tests for <see cref="RetroAchievementsSystemMatcher" /> covering system name aliasing,
+///     official name validation, supported system enumeration, and system ID lookups.
 /// </summary>
 public class RetroAchievementsSystemMatcherTests
 {
     private readonly RetroAchievementsSystemMatcher _matcher = new(new NoOpLogger(), Log.Logger);
 
     /// <summary>
-    /// Verifies that GetBestMatchSystemName maps known system aliases to their canonical RetroAchievements names.
+    ///     Verifies that GetBestMatchSystemName maps known system aliases to their canonical RetroAchievements names.
     /// </summary>
     /// <param name="input">The system name or alias to match.</param>
     /// <param name="expected">The expected canonical RetroAchievements system name.</param>
@@ -38,7 +38,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that GetBestMatchSystemName handles null, empty, and whitespace inputs gracefully.
+    ///     Verifies that GetBestMatchSystemName handles null, empty, and whitespace inputs gracefully.
     /// </summary>
     [Fact]
     public void GetBestMatchSystemNameNullOrWhitespaceReturnsOriginal()
@@ -49,7 +49,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that IsOfficialSystemName correctly identifies known official system names.
+    ///     Verifies that IsOfficialSystemName correctly identifies known official system names.
     /// </summary>
     /// <param name="name">The system name to check.</param>
     /// <param name="expected">Whether the name is expected to be an official system name.</param>
@@ -65,7 +65,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that GetSupportedSystemNames returns a non-empty list with no duplicates.
+    ///     Verifies that GetSupportedSystemNames returns a non-empty list with no duplicates.
     /// </summary>
     [Fact]
     public void GetSupportedSystemNamesReturnsNonEmptyList()
@@ -76,7 +76,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that GetExactAliasMatch returns the expected canonical name for known aliases.
+    ///     Verifies that GetExactAliasMatch returns the expected canonical name for known aliases.
     /// </summary>
     /// <param name="input">The alias to look up.</param>
     /// <param name="expected">The expected canonical system name for the alias.</param>
@@ -91,7 +91,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that GetExactAliasMatch returns null for an unknown alias.
+    ///     Verifies that GetExactAliasMatch returns null for an unknown alias.
     /// </summary>
     [Fact]
     public void GetExactAliasMatchUnknownReturnsNull()
@@ -101,7 +101,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that GetBestMatchSystemName returns a non-null result for a partial alias like "Nintendo".
+    ///     Verifies that GetBestMatchSystemName returns a non-null result for a partial alias like "Nintendo".
     /// </summary>
     [Fact]
     public void GetBestMatchSystemNameWithAlias()
@@ -111,7 +111,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that GetBestMatchSystemName normalizes an unknown system name to lowercase.
+    ///     Verifies that GetBestMatchSystemName normalizes an unknown system name to lowercase.
     /// </summary>
     [Fact]
     public void GetBestMatchSystemNameWithUnknownReturnsNormalizedInput()
@@ -121,7 +121,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that IsOfficialSystemName returns true for a valid official name.
+    ///     Verifies that IsOfficialSystemName returns true for a valid official name.
     /// </summary>
     [Fact]
     public void IsOfficialSystemNameWithValidName()
@@ -131,7 +131,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that IsOfficialSystemName returns false for an unrecognized system name.
+    ///     Verifies that IsOfficialSystemName returns false for an unrecognized system name.
     /// </summary>
     [Fact]
     public void IsOfficialSystemNameWithInvalidName()
@@ -141,7 +141,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that GetSupportedSystemNames includes well-known system names.
+    ///     Verifies that GetSupportedSystemNames includes well-known system names.
     /// </summary>
     [Fact]
     public void GetSupportedSystemNamesContainsKnownSystems()
@@ -151,7 +151,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that GetSystemId returns a positive integer for a known system.
+    ///     Verifies that GetSystemId returns a positive integer for a known system.
     /// </summary>
     [Fact]
     public void GetSystemIdWithValidSystem()
@@ -161,7 +161,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that GetSystemId returns -1 for an unknown system name.
+    ///     Verifies that GetSystemId returns -1 for an unknown system name.
     /// </summary>
     [Fact]
     public void GetSystemIdWithInvalidSystemReturnsMinusOne()
@@ -171,7 +171,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that IsSystemInMappings returns true for a known system alias.
+    ///     Verifies that IsSystemInMappings returns true for a known system alias.
     /// </summary>
     [Fact]
     public void IsSystemInMappingsWithValidSystem()
@@ -181,7 +181,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that IsSystemInMappings returns false for an unknown system name.
+    ///     Verifies that IsSystemInMappings returns false for an unknown system name.
     /// </summary>
     [Fact]
     public void IsSystemInMappingsWithInvalidSystem()
@@ -191,7 +191,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that the number of supported systems is at least 10.
+    ///     Verifies that the number of supported systems is at least 10.
     /// </summary>
     [Fact]
     public void SupportedSystemsCountIsReasonable()
@@ -201,7 +201,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that IsSystemInMappings returns the expected result for known system aliases.
+    ///     Verifies that IsSystemInMappings returns the expected result for known system aliases.
     /// </summary>
     /// <param name="input">The system name or alias to look up.</param>
     /// <param name="expected">Whether the system is expected to be in the mappings.</param>
@@ -216,7 +216,7 @@ public class RetroAchievementsSystemMatcherTests
     }
 
     /// <summary>
-    /// Verifies that GetSystemId returns the expected ID for known system aliases.
+    ///     Verifies that GetSystemId returns the expected ID for known system aliases.
     /// </summary>
     /// <param name="input">The system name or alias to look up.</param>
     /// <param name="expected">The expected RetroAchievements system ID.</param>

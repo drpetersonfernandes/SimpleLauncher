@@ -39,8 +39,12 @@
                                       SelectedItem="{Binding RedreamBroadcast}"
                                       ToolTip="{DynamicResource RedreamConfig_Broadcast_Tooltip}" />
                         </Grid>
-                        <CheckBox IsChecked="{Binding RedreamVsync}" Content="{DynamicResource RedreamConfig_Vertical_Sync}" Margin="0,5" ToolTip="{DynamicResource RedreamConfig_Vertical_Sync_Tooltip}" />
-                        <CheckBox IsChecked="{Binding RedreamFrameskip}" Content="{DynamicResource RedreamConfig_Frame_Skip}" Margin="0,5" ToolTip="{DynamicResource RedreamConfig_Frame_Skip_Tooltip}" />
+                        <CheckBox IsChecked="{Binding RedreamVsync}"
+                                  Content="{DynamicResource RedreamConfig_Vertical_Sync}" Margin="0,5"
+                                  ToolTip="{DynamicResource RedreamConfig_Vertical_Sync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding RedreamFrameskip}"
+                                  Content="{DynamicResource RedreamConfig_Frame_Skip}" Margin="0,5"
+                                  ToolTip="{DynamicResource RedreamConfig_Frame_Skip_Tooltip}" />
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -57,7 +61,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource RedreamConfig_ResolutionScale_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource RedreamConfig_ResolutionScale_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ResOptions}"
                                       SelectedItem="{Binding RedreamRes}"
@@ -79,7 +84,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource RedreamConfig_FullscreenMode_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource RedreamConfig_FullscreenMode_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding FullmodeOptions}"
                                       SelectedItem="{Binding RedreamFullmode}"
@@ -98,8 +104,11 @@
                             </Grid.ColumnDefinitions>
                             <Label Content="{DynamicResource RedreamConfig_Volume}" VerticalAlignment="Center" />
                             <DockPanel Grid.Column="1">
-                                <TextBlock Text="{Binding ElementName=SldVolume, Path=Value, StringFormat={}{0}%}" Width="40" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5,0,0,0" />
-                                <Slider x:Name="SldVolume" Value="{Binding RedreamVolume}" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" />
+                                <TextBlock Text="{Binding ElementName=SldVolume, Path=Value, StringFormat={}{0}%}"
+                                           Width="40" DockPanel.Dock="Right" VerticalAlignment="Center"
+                                           Margin="5,0,0,0" />
+                                <Slider x:Name="SldVolume" Value="{Binding RedreamVolume}" Minimum="0" Maximum="100"
+                                        TickFrequency="1" IsSnapToTickEnabled="True" />
                             </DockPanel>
                         </Grid>
                         <Grid Margin="0,5,0,5">
@@ -118,7 +127,9 @@
                                 <ComboBoxItem Content="64" />
                             </ComboBox>
                         </Grid>
-                        <CheckBox IsChecked="{Binding RedreamFramerate}" Content="{DynamicResource RedreamConfig_Frame_Rate_Counter}" Margin="0,5" ToolTip="{DynamicResource RedreamConfig_Frame_Rate_Counter_Tooltip}" />
+                        <CheckBox IsChecked="{Binding RedreamFramerate}"
+                                  Content="{DynamicResource RedreamConfig_Frame_Rate_Counter}" Margin="0,5"
+                                  ToolTip="{DynamicResource RedreamConfig_Frame_Rate_Counter_Tooltip}" />
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -146,8 +157,12 @@
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding RedreamShowSettingsBeforeLaunch}" Content="{DynamicResource RedreamConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource RedreamConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding RedreamShowSettingsBeforeLaunch}"
+                                  Content="{DynamicResource RedreamConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource RedreamConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

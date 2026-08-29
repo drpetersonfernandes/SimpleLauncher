@@ -4,7 +4,7 @@ using SimpleLauncher.ResourceTranslator.Models;
 namespace SimpleLauncher.ResourceTranslator.Services;
 
 /// <summary>
-/// Analyzes XAML resource files to find missing and duplicate translation keys.
+///     Analyzes XAML resource files to find missing and duplicate translation keys.
 /// </summary>
 public static class ResourceAnalyzer
 {
@@ -32,7 +32,7 @@ public static class ResourceAnalyzer
     };
 
     /// <summary>
-    /// Reads all key-value pairs from the English resource file.
+    ///     Reads all key-value pairs from the English resource file.
     /// </summary>
     /// <param name="englishFilePath">The path to the English resource file.</param>
     /// <returns>A dictionary of translation keys and their English values.</returns>
@@ -42,17 +42,14 @@ public static class ResourceAnalyzer
         foreach (var line in File.ReadAllLines(englishFilePath))
         {
             var match = EntryRegex.Match(line);
-            if (match.Success)
-            {
-                result[match.Groups[1].Value] = XmlHelper.UnescapeXml(match.Groups[2].Value);
-            }
+            if (match.Success) result[match.Groups[1].Value] = XmlHelper.UnescapeXml(match.Groups[2].Value);
         }
 
         return result;
     }
 
     /// <summary>
-    /// Analyzes all language resource files to identify missing and duplicate keys.
+    ///     Analyzes all language resource files to identify missing and duplicate keys.
     /// </summary>
     /// <param name="resourcesPath">The path to the resources directory.</param>
     /// <param name="englishKeys">The dictionary of English translation keys.</param>
@@ -82,13 +79,9 @@ public static class ResourceAnalyzer
                 {
                     var key = match.Groups[1].Value;
                     if (existingKeys.ContainsKey(key))
-                    {
                         duplicateKeys.Add(key);
-                    }
                     else
-                    {
                         existingKeys[key] = XmlHelper.UnescapeXml(match.Groups[2].Value);
-                    }
                 }
             }
 
@@ -98,7 +91,6 @@ public static class ResourceAnalyzer
                 .ToList();
 
             if (missing.Count > 0 || duplicateKeys.Count > 0)
-            {
                 batches.Add(new MissingKeyBatch
                 {
                     FilePath = file,
@@ -107,7 +99,6 @@ public static class ResourceAnalyzer
                     MissingKeys = missing,
                     DuplicateKeysRemoved = duplicateKeys.Distinct(StringComparer.Ordinal).ToList()
                 });
-            }
         }
 
         return batches;

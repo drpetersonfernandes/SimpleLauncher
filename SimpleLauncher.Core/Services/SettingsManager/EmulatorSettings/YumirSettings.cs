@@ -1,10 +1,11 @@
+using System.Globalization;
 using System.Xml.Linq;
 using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 
 /// <summary>
-/// Configuration settings for the Yumir emulator, including video, audio, and region detection options.
+///     Configuration settings for the Yumir emulator, including video, audio, and region detection options.
 /// </summary>
 public class YumirSettings : IEmulatorSettings
 {
@@ -69,12 +70,12 @@ public class YumirSettings : IEmulatorSettings
     {
         return new XElement(SectionName,
             new XElement("Fullscreen", Fullscreen),
-            new XElement("Volume", Volume.ToString(System.Globalization.CultureInfo.InvariantCulture)),
+            new XElement("Volume", Volume.ToString(CultureInfo.InvariantCulture)),
             new XElement("Mute", Mute),
             new XElement("VideoStandard", VideoStandard),
             new XElement("AutoDetectRegion", AutoDetectRegion),
             new XElement("PauseWhenUnfocused", PauseWhenUnfocused),
-            new XElement("ForcedAspect", ForcedAspect.ToString(System.Globalization.CultureInfo.InvariantCulture)),
+            new XElement("ForcedAspect", ForcedAspect.ToString(CultureInfo.InvariantCulture)),
             new XElement("ForceAspectRatio", ForceAspectRatio),
             new XElement("ReduceLatency", ReduceLatency),
             new XElement("ShowSettingsBeforeLaunch", ShowSettingsBeforeLaunch));

@@ -5,25 +5,25 @@ using MessagePack;
 namespace SimpleLauncher.Core.Models;
 
 /// <summary>
-/// Represents a play history entry for a game, persisted via MessagePack.
+///     Represents a play history entry for a game, persisted via MessagePack.
 /// </summary>
 [MessagePackObject]
 public class PlayHistoryItem : INotifyPropertyChanged
 {
     /// <summary>
-    /// Gets or sets the full file path of the played game.
+    ///     Gets or sets the full file path of the played game.
     /// </summary>
     [Key(0)]
     public string FileName { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the name of the system this game belongs to.
+    ///     Gets or sets the name of the system this game belongs to.
     /// </summary>
     [Key(1)]
     public string SystemName { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the total play time in seconds.
+    ///     Gets or sets the total play time in seconds.
     /// </summary>
     [Key(2)]
     public long TotalPlayTime
@@ -41,7 +41,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Gets or sets the number of times this game has been played.
+    ///     Gets or sets the number of times this game has been played.
     /// </summary>
     [Key(3)]
     public int TimesPlayed
@@ -57,7 +57,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Gets or sets the date of the last play session in ISO format (yyyy-MM-dd).
+    ///     Gets or sets the date of the last play session in ISO format (yyyy-MM-dd).
     /// </summary>
     [Key(4)]
     public string LastPlayDate
@@ -73,7 +73,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
     } = null!;
 
     /// <summary>
-    /// Gets or sets the time of the last play session in ISO format (HH:mm:ss).
+    ///     Gets or sets the time of the last play session in ISO format (HH:mm:ss).
     /// </summary>
     [Key(5)]
     public string LastPlayTime
@@ -89,7 +89,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
     } = null!;
 
     /// <summary>
-    /// Gets or sets the machine description from the ROM database.
+    ///     Gets or sets the machine description from the ROM database.
     /// </summary>
     [IgnoreMember]
     public string MachineDescription
@@ -105,13 +105,13 @@ public class PlayHistoryItem : INotifyPropertyChanged
     } = "";
 
     /// <summary>
-    /// Gets the file name portion of the game path for display.
+    ///     Gets the file name portion of the game path for display.
     /// </summary>
     [IgnoreMember]
     public string DisplayName => !string.IsNullOrEmpty(FileName) ? Path.GetFileName(FileName) : "";
 
     /// <summary>
-    /// Gets or sets the path to the cover image for this game.
+    ///     Gets or sets the path to the cover image for this game.
     /// </summary>
     [IgnoreMember]
     public string CoverImage
@@ -127,7 +127,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
     } = "";
 
     /// <summary>
-    /// Gets or sets the default emulator name for this game.
+    ///     Gets or sets the default emulator name for this game.
     /// </summary>
     [IgnoreMember]
     public string DefaultEmulator
@@ -143,7 +143,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
     } = "";
 
     /// <summary>
-    /// Gets the total play time formatted as a human-readable string (e.g. "2h 30m 15s").
+    ///     Gets the total play time formatted as a human-readable string (e.g. "2h 30m 15s").
     /// </summary>
     [IgnoreMember]
     public string FormattedPlayTime
@@ -158,7 +158,7 @@ public class PlayHistoryItem : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Occurs when a property value changes, supporting data binding updates.
+    ///     Occurs when a property value changes, supporting data binding updates.
     /// </summary>
     public event PropertyChangedEventHandler? PropertyChanged;
 

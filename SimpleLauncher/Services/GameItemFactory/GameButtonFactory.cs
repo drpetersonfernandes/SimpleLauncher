@@ -16,7 +16,9 @@ using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.LoadImages;
+using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.WpfServices;
 using Image = System.Windows.Controls.Image;
 
@@ -25,20 +27,20 @@ using Image = System.Windows.Controls.Image;
 namespace SimpleLauncher.Services.GameItemFactory;
 
 /// <summary>
-/// Factory that creates WPF game buttons with cover images, favorite star overlays,
-/// achievement/video/info shortcut buttons, and context menus for game entities.
+///     Factory that creates WPF game buttons with cover images, favorite star overlays,
+///     achievement/video/info shortcut buttons, and context menus for game entities.
 /// </summary>
 internal partial class GameButtonFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
-    List<SystemManager.SystemManagerService> systemManagers,
+    List<SystemManagerService> systemManagers,
     List<MameManagerService> machines,
     SettingsManagerService settings,
     FavoritesManager favoritesManager,
     WrapPanel gameFileGrid,
     MainWindow mainWindow,
     GamePadController gamePadController,
-    GameLauncher.GameLauncherService gameLauncher,
+    GameLauncherService gameLauncher,
     PlaySoundEffects playSoundEffects,
     IGetListOfFilesService getListOfFiles,
     IFindCoverImageService findCoverImage,
@@ -49,71 +51,72 @@ internal partial class GameButtonFactory(
     ILogger logger,
     IContextMenuService contextMenuService)
 {
-    private readonly ComboBox _emulatorComboBox =
-        emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
-
-    private readonly ComboBox _systemComboBox =
-        systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
-
-    private readonly List<SystemManager.SystemManagerService> _systemManagers =
-        systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
-
-    private readonly List<MameManagerService> _machines = machines ?? throw new ArgumentNullException(nameof(machines));
-    private readonly SettingsManagerService _settings = settings ?? throw new ArgumentNullException(nameof(settings));
-
-    private readonly FavoritesManager _favoritesManager =
-        favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
-
-    private readonly WrapPanel _gameFileGrid = gameFileGrid ?? throw new ArgumentNullException(nameof(gameFileGrid));
-    private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
-
-    private readonly GamePadController _gamePadController =
-        gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
-
-    private readonly GameLauncher.GameLauncherService _gameLauncher =
-        gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
-
-    private readonly PlaySoundEffects _playSoundEffects =
-        playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
-
-    private readonly IGetListOfFilesService _getListOfFiles =
-        getListOfFiles ?? throw new ArgumentNullException(nameof(getListOfFiles));
-
-    private readonly IFindCoverImageService _findCoverImage =
-        findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
-
-    private readonly IImageLoader _imageLoader = imageLoader ?? throw new ArgumentNullException(nameof(imageLoader));
-
-    private readonly IMessageBoxLibraryService _messageBox =
-        messageBox ?? throw new ArgumentNullException(nameof(messageBox));
-
-    private readonly IRetroAchievementsHasherTool _raHasherTool =
-        raHasherTool ?? throw new ArgumentNullException(nameof(raHasherTool));
-
     private readonly IContextMenuFunctions _contextMenuFunctions =
         contextMenuFunctions ?? throw new ArgumentNullException(nameof(contextMenuFunctions));
-
-    private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
     private readonly IContextMenuService _contextMenuService =
         contextMenuService ?? throw new ArgumentNullException(nameof(contextMenuService));
 
+    private readonly ComboBox _emulatorComboBox =
+        emulatorComboBox ?? throw new ArgumentNullException(nameof(emulatorComboBox));
+
+    private readonly FavoritesManager _favoritesManager =
+        favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
+
+    private readonly IFindCoverImageService _findCoverImage =
+        findCoverImage ?? throw new ArgumentNullException(nameof(findCoverImage));
+
+    private readonly WrapPanel _gameFileGrid = gameFileGrid ?? throw new ArgumentNullException(nameof(gameFileGrid));
+
+    private readonly GameLauncherService _gameLauncher =
+        gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
+
+    private readonly GamePadController _gamePadController =
+        gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
+
+    private readonly IGetListOfFilesService _getListOfFiles =
+        getListOfFiles ?? throw new ArgumentNullException(nameof(getListOfFiles));
+
+    private readonly IImageLoader _imageLoader = imageLoader ?? throw new ArgumentNullException(nameof(imageLoader));
+
+    private readonly ILogger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
+    private readonly List<MameManagerService> _machines = machines ?? throw new ArgumentNullException(nameof(machines));
+    private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+
+    private readonly IMessageBoxLibraryService _messageBox =
+        messageBox ?? throw new ArgumentNullException(nameof(messageBox));
+
+    private readonly PlaySoundEffects _playSoundEffects =
+        playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
+
+    private readonly IRetroAchievementsHasherTool _raHasherTool =
+        raHasherTool ?? throw new ArgumentNullException(nameof(raHasherTool));
+
+    private readonly SettingsManagerService _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+
+    private readonly ComboBox _systemComboBox =
+        systemComboBox ?? throw new ArgumentNullException(nameof(systemComboBox));
+
+    private readonly List<SystemManagerService> _systemManagers =
+        systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
+
     private Button _button = null!;
 
     /// <summary>
-    /// Gets or sets the height of the game cover image displayed on the button.
+    ///     Gets or sets the height of the game cover image displayed on the button.
     /// </summary>
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
 
     /// <summary>
-    /// Creates a game button with cover image, favorite star overlay, and context menu for the specified entity.
+    ///     Creates a game button with cover image, favorite star overlay, and context menu for the specified entity.
     /// </summary>
     /// <param name="entityPath">The file or directory path of the game entity.</param>
     /// <param name="systemName">The name of the system this game belongs to.</param>
     /// <param name="systemManager">The system manager service providing configuration for the system.</param>
     /// <returns>A configured WPF Button control representing the game.</returns>
     public async Task<Button> CreateGameButtonAsync(string entityPath, string systemName,
-        SystemManager.SystemManagerService systemManager)
+        SystemManagerService systemManager)
     {
         var isDirectory = Directory.Exists(entityPath);
 
@@ -121,14 +124,10 @@ internal partial class GameButtonFactory(
 
         var fileNameWithExtension = Path.GetFileName(entityPath); // Folder name
         if (isDirectory)
-        {
             // Folder name
             fileNameWithoutExtension = fileNameWithExtension;
-        }
         else
-        {
             fileNameWithoutExtension = Path.GetFileNameWithoutExtension(entityPath);
-        }
 
         var selectedSystemName = systemName;
         var selectedSystemManager = systemManager ?? throw new ArgumentNullException(nameof(systemManager));
@@ -136,9 +135,7 @@ internal partial class GameButtonFactory(
         var imagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName,
             selectedSystemManager.SystemImageFolder);
         if (isDirectory) // GroupByFolder is true
-        {
             // First, try to find an image with the same name as the folder name.
-
             // If the found path is a default image, try the fallback logic.
             if (imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
             {
@@ -154,7 +151,6 @@ internal partial class GameButtonFactory(
                         selectedSystemManager.SystemImageFolder);
                 }
             }
-        }
 
         // This is the logic for non-grouped files, which remains the same.
         var (imageStream, isDefaultImage) = await _imageLoader.LoadImageAsync(imagePath);

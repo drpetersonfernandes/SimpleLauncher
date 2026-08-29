@@ -4,7 +4,7 @@ using Application = System.Windows.Application;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Partial MainWindow containing pagination button handlers and page navigation logic.
+///     Partial MainWindow containing pagination button handlers and page navigation logic.
 /// </summary>
 public partial class MainWindow
 {
@@ -17,15 +17,9 @@ public partial class MainWindow
     {
         try
         {
-            if (_isLoadingGames)
-            {
-                return;
-            }
+            if (_isLoadingGames) return;
 
-            if (!UiOrchestratorService.CanGoToPrevPage())
-            {
-                return;
-            }
+            if (!UiOrchestratorService.CanGoToPrevPage()) return;
 
             CancelAndRecreateToken();
             UiOrchestratorService.GoToPreviousPage();
@@ -52,15 +46,9 @@ public partial class MainWindow
     {
         try
         {
-            if (_isLoadingGames)
-            {
-                return;
-            }
+            if (_isLoadingGames) return;
 
-            if (!UiOrchestratorService.CanGoToNextPage())
-            {
-                return;
-            }
+            if (!UiOrchestratorService.CanGoToNextPage()) return;
 
             CancelAndRecreateToken();
             UiOrchestratorService.GoToNextPage();

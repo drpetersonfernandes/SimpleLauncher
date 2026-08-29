@@ -7,7 +7,7 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Avalonia.Views;
 
 /// <summary>
-/// Specifies which buttons are shown on the message dialog.
+///     Specifies which buttons are shown on the message dialog.
 /// </summary>
 public enum MessageButtons
 {
@@ -18,7 +18,7 @@ public enum MessageButtons
 }
 
 /// <summary>
-/// Specifies the icon shown on the message dialog.
+///     Specifies the icon shown on the message dialog.
 /// </summary>
 public enum MessageIcon
 {
@@ -30,7 +30,7 @@ public enum MessageIcon
 }
 
 /// <summary>
-/// A lightweight message-box-style dialog used by <see cref="Services.AvaloniaServices.MessageBoxLibraryService"/>.
+///     A lightweight message-box-style dialog used by <see cref="Services.AvaloniaServices.MessageBoxLibraryService" />.
 /// </summary>
 public partial class MessageDialogWindow : Window
 {
@@ -40,7 +40,7 @@ public partial class MessageDialogWindow : Window
     }
 
     /// <summary>
-    /// Shows a modal message dialog owned by the specified window and returns the clicked button.
+    ///     Shows a modal message dialog owned by the specified window and returns the clicked button.
     /// </summary>
     public static Task<MessageBoxResult> ShowAsync(
         Window owner, string message, string caption,
@@ -69,17 +69,12 @@ public partial class MessageDialogWindow : Window
             _ => (string.Empty, null)
         };
 
-        if (string.IsNullOrEmpty(glyph) || brush is null)
-        {
-            return;
-        }
+        if (string.IsNullOrEmpty(glyph) || brush is null) return;
 
         IconText.Text = glyph;
-        if (ResourceNodeExtensions.TryFindResource(this, brush, out var brushResource) &&
+        if (this.TryFindResource(brush, out var brushResource) &&
             brushResource is IBrush foundBrush)
-        {
             IconText.Foreground = foundBrush;
-        }
 
         IconText.IsVisible = true;
     }
@@ -117,10 +112,7 @@ public partial class MessageDialogWindow : Window
                 Padding = new Thickness(14, 6)
             };
 
-            if (definition.Primary)
-            {
-                button.Classes.Add("primary");
-            }
+            if (definition.Primary) button.Classes.Add("primary");
 
             var result = definition.Result;
             button.Click += (_, _) => Close(result);

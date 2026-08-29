@@ -6,21 +6,21 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Services.ParameterResolver;
 
 /// <summary>
-/// Resolves emulator launch parameters by calling a remote API endpoint with the system and emulator context.
+///     Resolves emulator launch parameters by calling a remote API endpoint with the system and emulator context.
 /// </summary>
 public class ParameterResolverService : IParameterResolverService
 {
-    private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILogger _logger;
-
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         WriteIndented = false
     };
 
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ILogger _logger;
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="ParameterResolverService"/> class.
+    ///     Initializes a new instance of the <see cref="ParameterResolverService" /> class.
     /// </summary>
     /// <param name="httpClientFactory">The HTTP client factory for making API requests.</param>
     /// <param name="logErrors">The logger instance for error logging.</param>
@@ -31,7 +31,7 @@ public class ParameterResolverService : IParameterResolverService
     }
 
     /// <summary>
-    /// Sends a parameter resolution request to the remote API and returns the resolved parameters.
+    ///     Sends a parameter resolution request to the remote API and returns the resolved parameters.
     /// </summary>
     /// <param name="request">The request containing system name, emulator name, and ROM file information.</param>
     /// <returns>The resolved parameters, or null if the API call fails.</returns>
@@ -49,7 +49,6 @@ public class ParameterResolverService : IParameterResolverService
         var responseBody = await response.Content.ReadAsStringAsync();
 
         if (response.IsSuccessStatusCode)
-        {
             try
             {
                 return JsonSerializer.Deserialize<ParameterResolverResult>(responseBody, JsonOptions);
@@ -60,7 +59,6 @@ public class ParameterResolverService : IParameterResolverService
                 _logger.Error(ex, "ParameterResolver API returned malformed JSON");
                 return null;
             }
-        }
 
         var apiException =
             new InvalidOperationException($"ParameterResolver API returned {(int)response.StatusCode}: {responseBody}");

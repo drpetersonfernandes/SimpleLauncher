@@ -10,13 +10,13 @@ using ILogger = Serilog.ILogger;
 namespace SimpleLauncher.Avalonia.Services.TakeScreenshot;
 
 /// <summary>
-/// Captures a region of the screen into a PNG file (Windows-only).
-/// Mirrors the capture pattern used by <see cref="AvaloniaActiveWindowScreenshotService"/>.
+///     Captures a region of the screen into a PNG file (Windows-only).
+///     Mirrors the capture pattern used by <see cref="AvaloniaActiveWindowScreenshotService" />.
 /// </summary>
 public static class AvaloniaWindowCapture
 {
     /// <summary>
-    /// Captures the given screen rectangle and saves it as a PNG file.
+    ///     Captures the given screen rectangle and saves it as a PNG file.
     /// </summary>
     /// <param name="left">Left coordinate of the rectangle in screen pixels.</param>
     /// <param name="top">Top coordinate of the rectangle in screen pixels.</param>
@@ -24,7 +24,8 @@ public static class AvaloniaWindowCapture
     /// <param name="height">Height of the rectangle in pixels.</param>
     /// <param name="screenshotPath">Destination PNG file path.</param>
     /// <param name="logger">Logger for diagnostics.</param>
-    public static void CaptureRectangleToPng(int left, int top, int width, int height, string screenshotPath, ILogger logger)
+    public static void CaptureRectangleToPng(int left, int top, int width, int height, string screenshotPath,
+        ILogger logger)
     {
         using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
         using (var graphics = Graphics.FromImage(bitmap))

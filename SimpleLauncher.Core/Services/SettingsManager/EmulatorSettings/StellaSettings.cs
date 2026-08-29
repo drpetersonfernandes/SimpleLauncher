@@ -4,7 +4,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 
 /// <summary>
-/// Configuration settings for the Stella (Atari 2600) emulator, including video, audio, and time machine features.
+///     Configuration settings for the Stella (Atari 2600) emulator, including video, audio, and time machine features.
 /// </summary>
 public class StellaSettings : IEmulatorSettings
 {

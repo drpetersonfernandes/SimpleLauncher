@@ -5,16 +5,16 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="RomHistoryLoader"/> covering XML history file parsing,
-/// system/software name matching, and error handling for corrupt or missing files.
+///     Tests for <see cref="RomHistoryLoader" /> covering XML history file parsing,
+///     system/software name matching, and error handling for corrupt or missing files.
 /// </summary>
 public class RomHistoryLoaderTests : IDisposable
 {
     private readonly string _tempDir;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RomHistoryLoaderTests"/> class,
-    /// creating a temporary test directory.
+    ///     Initializes a new instance of the <see cref="RomHistoryLoaderTests" /> class,
+    ///     creating a temporary test directory.
     /// </summary>
     public RomHistoryLoaderTests()
     {
@@ -23,14 +23,11 @@ public class RomHistoryLoaderTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory.
+    ///     Cleans up the temporary test directory.
     /// </summary>
     public void Dispose()
     {
-        if (Directory.Exists(_tempDir))
-        {
-            Directory.Delete(_tempDir, true);
-        }
+        if (Directory.Exists(_tempDir)) Directory.Delete(_tempDir, true);
 
         GC.SuppressFinalize(this);
     }
@@ -43,7 +40,7 @@ public class RomHistoryLoaderTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEntry returns the correct entry when a system name match exists in the XML.
+    ///     Verifies that FindEntry returns the correct entry when a system name match exists in the XML.
     /// </summary>
     [Fact]
     public void FindEntryValidXmlWithSystemMatchReturnsEntry()
@@ -68,7 +65,7 @@ public class RomHistoryLoaderTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEntry returns the correct entry when a software item name match exists in the XML.
+    ///     Verifies that FindEntry returns the correct entry when a software item name match exists in the XML.
     /// </summary>
     [Fact]
     public void FindEntryValidXmlWithSoftwareMatchReturnsEntry()
@@ -93,7 +90,7 @@ public class RomHistoryLoaderTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEntry returns null when no matching entry exists in the XML.
+    ///     Verifies that FindEntry returns null when no matching entry exists in the XML.
     /// </summary>
     [Fact]
     public void FindEntryValidXmlWithoutMatchReturnsNull()
@@ -117,7 +114,7 @@ public class RomHistoryLoaderTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEntry throws XmlException when the XML file is malformed.
+    ///     Verifies that FindEntry throws XmlException when the XML file is malformed.
     /// </summary>
     [Fact]
     public void FindEntryCorruptedXmlThrowsXmlException()
@@ -129,7 +126,7 @@ public class RomHistoryLoaderTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEntry throws FileNotFoundException when the XML file does not exist.
+    ///     Verifies that FindEntry throws FileNotFoundException when the XML file does not exist.
     /// </summary>
     [Fact]
     public void FindEntryMissingFileThrowsFileNotFoundException()

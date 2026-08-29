@@ -24,27 +24,27 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 namespace SimpleLauncher.Pages;
 
 /// <summary>
-/// Page displaying the user's favorite games with launching, sorting, and context menu support.
+///     Page displaying the user's favorite games with launching, sorting, and context menu support.
 /// </summary>
 internal partial class FavoritesPage : ILoadingState, IDisposable
 {
-    private readonly FavoritesViewModel _viewModel;
-    private readonly MainWindow _mainWindow;
-    private readonly GamePadController _gamePadController;
-    private readonly GameLauncherService _gameLauncher;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IFindCoverImageService _findCoverImage;
-    private readonly List<MameManagerService> _machines;
-    private readonly FavoritesManager _favoritesManager;
-    private readonly SettingsManagerService _settings;
-    private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
     private readonly IContextMenuFunctions _contextMenuFunctions;
-    private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
+    private readonly FavoritesManager _favoritesManager;
+    private readonly IFindCoverImageService _findCoverImage;
+    private readonly GameLauncherService _gameLauncher;
+    private readonly GamePadController _gamePadController;
+    private readonly ILogger _logger;
+    private readonly List<MameManagerService> _machines;
+    private readonly MainWindow _mainWindow;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly SettingsManagerService _settings;
+    private readonly FavoritesViewModel _viewModel;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FavoritesPage"/> class.
+    ///     Initializes a new instance of the <see cref="FavoritesPage" /> class.
     /// </summary>
     /// <param name="settings">The application settings manager.</param>
     /// <param name="systemManagers">The list of system manager configurations.</param>
@@ -110,6 +110,26 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         Loaded += FavoritesPageLoadedAsync;
     }
 
+    /// <summary>
+    ///     Releases all resources used by the FavoritesPage.
+    /// </summary>
+    public void Dispose()
+    {
+        _viewModel.Dispose();
+    }
+
+    /// <summary>
+    ///     Sets the loading state of the page, showing or hiding the loading overlay.
+    /// </summary>
+    /// <param name="isLoading">Whether the page is in a loading state.</param>
+    /// <param name="message">The optional message to display while loading.</param>
+    public void SetLoadingState(bool isLoading, string? message = null)
+    {
+        LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+        if (isLoading)
+            LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+    }
+
     private async void FavoritesPageLoadedAsync(object sender, RoutedEventArgs e)
     {
         try
@@ -117,9 +137,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
             // Wire Emergency Return Button from Template
             LoadingOverlay.ApplyTemplate();
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
-            {
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
-            }
 
             await _viewModel.LoadFavoritesAsync();
 
@@ -145,10 +163,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
 
             _playSoundEffects.PlayTrashSound();
 
-            foreach (var favorite in selectedItems)
-            {
-                _viewModel.RemoveFavoriteFromCollection(favorite);
-            }
+            foreach (var favorite in selectedItems) _viewModel.RemoveFavoriteFromCollection(favorite);
 
             PreviewImage.Source = null;
             FavoritesDataGrid.ContextMenu = null;
@@ -201,10 +216,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
                 var result =
                     await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(filePath ??
                         selectedFavorite.FileName);
-                if (result == CoreMessageBoxResult.Yes)
-                {
-                    _viewModel.RemoveFavoriteFromCollection(selectedFavorite);
-                }
+                if (result == CoreMessageBoxResult.Yes) _viewModel.RemoveFavoriteFromCollection(selectedFavorite);
 
                 return;
             }
@@ -251,10 +263,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
             if (contextMenu != null)
             {
                 // Close the previous context menu before assigning a new one to prevent leaks.
-                if (FavoritesDataGrid.ContextMenu is { IsOpen: true } oldMenu)
-                {
-                    oldMenu.IsOpen = false;
-                }
+                if (FavoritesDataGrid.ContextMenu is { IsOpen: true } oldMenu) oldMenu.IsOpen = false;
 
                 FavoritesDataGrid.ContextMenu = contextMenu;
                 contextMenu.IsOpen = true;
@@ -309,10 +318,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
                     var favoriteToRemove = _viewModel.Favorites.FirstOrDefault(fav =>
                         fav.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
                         && fav.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
-                    if (favoriteToRemove != null)
-                    {
-                        _viewModel.RemoveFavoriteFromCollection(favoriteToRemove);
-                    }
+                    if (favoriteToRemove != null) _viewModel.RemoveFavoriteFromCollection(favoriteToRemove);
                 }
 
                 _logger.Information($"[LaunchGameFromFavoritesAsync] File does not exist: {filePath}");
@@ -373,9 +379,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
 
             // Convert Stream to BitmapImage for WPF display
             if (FavoritesDataGrid.SelectedItem == selectedFavorite)
-            {
                 PreviewImage.Source = _viewModel.PreviewImageSource?.ToBitmapImage();
-            }
         }
         catch (Exception ex)
         {
@@ -397,10 +401,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
                     if (selectedItems.Count > 0)
                     {
                         _playSoundEffects.PlayTrashSound();
-                        foreach (var favorite in selectedItems)
-                        {
-                            _viewModel.RemoveFavoriteFromCollection(favorite);
-                        }
+                        foreach (var favorite in selectedItems) _viewModel.RemoveFavoriteFromCollection(favorite);
 
                         PreviewImage.Source = null;
                         FavoritesDataGrid.ContextMenu = null;
@@ -431,20 +432,6 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         }
     }
 
-    /// <summary>
-    /// Sets the loading state of the page, showing or hiding the loading overlay.
-    /// </summary>
-    /// <param name="isLoading">Whether the page is in a loading state.</param>
-    /// <param name="message">The optional message to display while loading.</param>
-    public void SetLoadingState(bool isLoading, string? message = null)
-    {
-        LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
-        if (isLoading)
-        {
-            LoadingOverlay.Content = message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
-        }
-    }
-
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
     {
         _playSoundEffects.PlayNotificationSound();
@@ -452,13 +439,5 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
 
         _logger.Debug("[Emergency] User forced overlay dismissal in FavoritesPage.");
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
-    }
-
-    /// <summary>
-    /// Releases all resources used by the FavoritesPage.
-    /// </summary>
-    public void Dispose()
-    {
-        _viewModel.Dispose();
     }
 }

@@ -11,30 +11,30 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the Ares emulator configuration injection window.
+///     ViewModel for the Ares emulator configuration injection window.
 /// </summary>
 public partial class InjectAresConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly EmulatorPathResolver _emulatorPathResolver;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath = "";
-
-    [ObservableProperty] private string _videoDriver = "";
-    [ObservableProperty] private bool _exclusive;
-    [ObservableProperty] private string _shader = "";
-    [ObservableProperty] private string _multiplier = "";
+    private readonly SettingsManagerService _settings;
     [ObservableProperty] private string _aspectCorrection = "";
-    [ObservableProperty] private bool _mute;
-    [ObservableProperty] private double _volume;
+    [ObservableProperty] private bool _autoSaveMemory;
+    private string _emulatorPath = "";
+    [ObservableProperty] private bool _exclusive;
     [ObservableProperty] private bool _fastBoot;
+    [ObservableProperty] private string _multiplier = "";
+    [ObservableProperty] private bool _mute;
     [ObservableProperty] private bool _rewind;
     [ObservableProperty] private bool _runAhead;
-    [ObservableProperty] private bool _autoSaveMemory;
+    [ObservableProperty] private string _shader = "";
     [ObservableProperty] private bool _showBeforeLaunch;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectAresConfigViewModel"/>.</summary>
+    [ObservableProperty] private string _videoDriver = "";
+    [ObservableProperty] private double _volume;
+
+    /// <summary>Initializes a new instance of the <see cref="InjectAresConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
@@ -52,7 +52,47 @@ public partial class InjectAresConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Available video driver options for Ares.
+    /// </summary>
+    public IList<string> VideoDriverOptions { get; } = ["OpenGL 3.2", "Vulkan", "Direct3D 11", "Direct3D 12"];
+
+    /// <summary>
+    ///     Available shader options for Ares.
+    /// </summary>
+    public IList<string> ShaderOptions { get; } = ["None", "Blur"];
+
+    /// <summary>
+    ///     Available resolution multiplier options for Ares.
+    /// </summary>
+    public IList<string> MultiplierOptions { get; } = ["1", "2", "3", "4", "5"];
+
+    /// <summary>
+    ///     Available aspect correction options for Ares.
+    /// </summary>
+    public IList<string> AspectCorrectionOptions { get; } = ["Standard", "Center", "Scale", "Stretch"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Ares emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -64,37 +104,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available video driver options for Ares.
-    /// </summary>
-    public IList<string> VideoDriverOptions { get; } = ["OpenGL 3.2", "Vulkan", "Direct3D 11", "Direct3D 12"];
-
-    /// <summary>
-    /// Available shader options for Ares.
-    /// </summary>
-    public IList<string> ShaderOptions { get; } = ["None", "Blur"];
-
-    /// <summary>
-    /// Available resolution multiplier options for Ares.
-    /// </summary>
-    public IList<string> MultiplierOptions { get; } = ["1", "2", "3", "4", "5"];
-
-    /// <summary>
-    /// Available aspect correction options for Ares.
-    /// </summary>
-    public IList<string> AspectCorrectionOptions { get; } = ["Standard", "Center", "Scale", "Stretch"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -103,16 +113,6 @@ public partial class InjectAresConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -136,9 +136,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
         _settings.Ares.Exclusive = Exclusive;
         _settings.Ares.Shader = Shader;
         if (int.TryParse(Multiplier, CultureInfo.InvariantCulture, out var multiplier))
-        {
             _settings.Ares.Multiplier = multiplier;
-        }
 
         _settings.Ares.AspectCorrection = AspectCorrection;
         _settings.Ares.Mute = Mute;
@@ -153,10 +151,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = _emulatorPathResolver.TryFindEmulatorPath("Ares", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

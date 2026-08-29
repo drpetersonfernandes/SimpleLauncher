@@ -5,7 +5,7 @@ using SharpCompress.Readers.Zip;
 namespace SimpleLauncher.Avalonia.Updater.Services;
 
 /// <summary>
-/// Service for extracting ZIP archives with security checks and progress reporting.
+///     Service for extracting ZIP archives with security checks and progress reporting.
 /// </summary>
 internal class ZipService
 {
@@ -16,23 +16,7 @@ internal class ZipService
     private readonly string _appDirectory;
 
     /// <summary>
-    /// Event raised when extraction progress changes.
-    /// </summary>
-    public event EventHandler<EventArgs<ExtractionProgressInfo>>? ProgressChanged;
-
-    /// <summary>
-    /// Event raised when a log message needs to be displayed.
-    /// </summary>
-    public event EventHandler<EventArgs<string>>? LogMessage;
-
-    /// <summary>
-    /// Gets or sets the array of filenames to exclude from extraction.
-    /// These are typically files that should not be overwritten (like the updater itself).
-    /// </summary>
-    public string[] IgnoredFiles { get; set; } = Array.Empty<string>();
-
-    /// <summary>
-    /// Initializes a new instance of the ZipService class.
+    ///     Initializes a new instance of the ZipService class.
     /// </summary>
     /// <param name="appDirectory">The directory where files should be extracted.</param>
     public ZipService(string appDirectory)
@@ -41,8 +25,24 @@ internal class ZipService
     }
 
     /// <summary>
-    /// Extracts a ZIP archive from a memory stream to the application directory.
-    /// Uses streaming extraction without upfront indexing for faster start.
+    ///     Gets or sets the array of filenames to exclude from extraction.
+    ///     These are typically files that should not be overwritten (like the updater itself).
+    /// </summary>
+    public string[] IgnoredFiles { get; set; } = Array.Empty<string>();
+
+    /// <summary>
+    ///     Event raised when extraction progress changes.
+    /// </summary>
+    public event EventHandler<EventArgs<ExtractionProgressInfo>>? ProgressChanged;
+
+    /// <summary>
+    ///     Event raised when a log message needs to be displayed.
+    /// </summary>
+    public event EventHandler<EventArgs<string>>? LogMessage;
+
+    /// <summary>
+    ///     Extracts a ZIP archive from a memory stream to the application directory.
+    ///     Uses streaming extraction without upfront indexing for faster start.
     /// </summary>
     /// <param name="zipStream">The memory stream containing the ZIP archive.</param>
     /// <param name="cancellationToken">Token to cancel the extraction operation.</param>
@@ -91,9 +91,7 @@ internal class ZipService
                 // Security check: ensure the resolved destination path is within AppDirectory
                 // This is the actual guard — it catches all traversal attempts including encoded or multi-level ".."
                 if (!destinationPath.StartsWith(appDirectoryFullPath, StringComparison.OrdinalIgnoreCase))
-                {
                     throw new SecurityException($"Zip entry attempts to escape target directory: {entryKey}");
-                }
 
                 var destinationDirectory = Path.GetDirectoryName(destinationPath);
 
@@ -134,7 +132,7 @@ internal class ZipService
     }
 
     /// <summary>
-    /// Extracts a file from the ZIP reader with retry logic for locked files.
+    ///     Extracts a file from the ZIP reader with retry logic for locked files.
     /// </summary>
     /// <param name="reader">The ZIP reader positioned at the entry to extract.</param>
     /// <param name="destinationPath">The destination file path.</param>
@@ -154,7 +152,6 @@ internal class ZipService
 
             // Clear read-only attribute if the file already exists (e.g., from a previous installation)
             if (File.Exists(destinationPath))
-            {
                 try
                 {
                     var attributes = File.GetAttributes(destinationPath);
@@ -165,7 +162,6 @@ internal class ZipService
                 {
                     // Best effort — extraction will report the error if this fails
                 }
-            }
 
             try
             {
@@ -195,10 +191,8 @@ internal class ZipService
 
         // All retry attempts failed
         if (lastException != null)
-        {
             throw new IOException(
                 $"Failed to extract file after {FileWriteRetryAttempts} attempts: {entryKey}. " +
                 $"The file may be locked by another process or has restricted permissions.", lastException);
-        }
     }
 }

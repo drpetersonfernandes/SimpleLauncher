@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="SystemHelper"/> model covering property defaults, assignment, and edge cases.
+///     Tests for <see cref="SystemHelper" /> model covering property defaults, assignment, and edge cases.
 /// </summary>
 public class SystemHelperTests
 {
     /// <summary>
-    /// Verifies that default property values of a new SystemHelper are null.
+    ///     Verifies that default property values of a new SystemHelper are null.
     /// </summary>
     [Fact]
     public void DefaultValuesAreNull()
@@ -20,7 +20,7 @@ public class SystemHelperTests
     }
 
     /// <summary>
-    /// Verifies that SystemName and SystemHelperText properties can be set and retrieved.
+    ///     Verifies that SystemName and SystemHelperText properties can be set and retrieved.
     /// </summary>
     [Fact]
     public void PropertiesCanBeSet()
@@ -36,7 +36,7 @@ public class SystemHelperTests
     }
 
     /// <summary>
-    /// Verifies that SystemName and SystemHelperText support Unicode characters.
+    ///     Verifies that SystemName and SystemHelperText support Unicode characters.
     /// </summary>
     [Fact]
     public void SystemNameSupportsUnicode()
@@ -52,7 +52,7 @@ public class SystemHelperTests
     }
 
     /// <summary>
-    /// Verifies that SystemHelperText supports multiline strings.
+    ///     Verifies that SystemHelperText supports multiline strings.
     /// </summary>
     [Fact]
     public void SystemHelperTextSupportsMultiline()
@@ -68,7 +68,7 @@ public class SystemHelperTests
     }
 
     /// <summary>
-    /// Verifies that SystemHelperText supports very long text strings.
+    ///     Verifies that SystemHelperText supports very long text strings.
     /// </summary>
     [Fact]
     public void SystemHelperTextSupportsLongText()
@@ -83,7 +83,7 @@ public class SystemHelperTests
     }
 
     /// <summary>
-    /// Verifies that SystemHelperText supports special characters such as angle brackets and pipes.
+    ///     Verifies that SystemHelperText supports special characters such as angle brackets and pipes.
     /// </summary>
     [Fact]
     public void SystemHelperTextSupportsSpecialCharacters()
@@ -98,7 +98,7 @@ public class SystemHelperTests
     }
 
     /// <summary>
-    /// Verifies that properties are init-only and can be set during object initialization.
+    ///     Verifies that properties are init-only and can be set during object initialization.
     /// </summary>
     [Fact]
     public void PropertiesAreInitOnly()
@@ -109,7 +109,7 @@ public class SystemHelperTests
     }
 
     /// <summary>
-    /// Verifies that multiple SystemHelper instances maintain independent property values.
+    ///     Verifies that multiple SystemHelper instances maintain independent property values.
     /// </summary>
     [Fact]
     public void MultipleInstancesAreIndependent()

@@ -7,13 +7,13 @@ using SimpleLauncher.Avalonia.Updater.Services.DebugAndBugReport;
 namespace SimpleLauncher.Avalonia.Updater;
 
 /// <summary>
-/// Application entry point for the Avalonia Updater — sets up logging, global
-/// exception handling, and shows the update window.
+///     Application entry point for the Avalonia Updater — sets up logging, global
+///     exception handling, and shows the update window.
 /// </summary>
 public class App : Application
 {
     /// <summary>
-    /// Initializes the application: logging, bug-report sink and exception handlers.
+    ///     Initializes the application: logging, bug-report sink and exception handlers.
     /// </summary>
     public override void OnFrameworkInitializationCompleted()
     {

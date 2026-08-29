@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Xenia (Xbox 360) emulator before launching a game.
+///     Handles configuration injection for the Xenia (Xbox 360) emulator before launching a game.
 /// </summary>
 public class XeniaConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class XeniaConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="XeniaConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="XeniaConfigHandler" /> class.
     /// </summary>
     public XeniaConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {

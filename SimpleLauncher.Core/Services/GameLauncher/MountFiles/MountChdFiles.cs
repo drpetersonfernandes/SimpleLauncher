@@ -8,50 +8,26 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 
 /// <summary>
-/// Mounts CHD (Compressed Hunks of Data) disc images using CHDMounter and the Dokan filesystem driver.
+///     Mounts CHD (Compressed Hunks of Data) disc images using CHDMounter and the Dokan filesystem driver.
 /// </summary>
 public class MountChdFiles : IMountChdFiles
 {
     private const string ChdMounterRelativeDirectory = @"tools\CHDMounter";
 
-    private static string ChdMounterRelativePath => GetArchitectureSpecificExecutableRelativePath();
-
-    /// <summary>
-    /// Determines the CHDMounter executable relative path based on the current process architecture.
-    /// </summary>
-    private static string GetArchitectureSpecificExecutableRelativePath()
-    {
-        var arch = RuntimeInformation.ProcessArchitecture;
-
-        var executableName = arch switch
-        {
-            Architecture.X64 => "CHDMounter.exe",
-            Architecture.Arm64 => "CHDMounter_arm64.exe",
-            _ => throw new PlatformNotSupportedException($"Architecture {arch} is not supported by CHDMounter.")
-        };
-
-        return Path.Combine(ChdMounterRelativeDirectory, executableName);
-    }
-
     private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MountChdFiles"/> class.
+    ///     Initializes a new instance of the <see cref="MountChdFiles" /> class.
     /// </summary>
     public MountChdFiles(ILogger logger)
     {
         _logger = logger;
     }
 
-    private static HashSet<char> GetCurrentDriveLetters()
-    {
-        return Environment.GetLogicalDrives()
-            .Select(static d => char.ToUpper(d[0], CultureInfo.InvariantCulture))
-            .ToHashSet();
-    }
+    private static string ChdMounterRelativePath => GetArchitectureSpecificExecutableRelativePath();
 
     /// <summary>
-    /// Mounts a CHD file and returns a disposable drive handle with the mounted path and drive letter.
+    ///     Mounts a CHD file and returns a disposable drive handle with the mounted path and drive letter.
     /// </summary>
     public async Task<MountChdDrive> MountAsync(string resolvedChdFilePath, string? consoleAlias, ILogger logErrors,
         IMessageBoxLibraryService messageBox)
@@ -106,10 +82,7 @@ public class MountChdFiles : IMountChdFiles
 
         try
         {
-            if (!mountProcess.Start())
-            {
-                throw new InvalidOperationException("Failed to start the CHDMounter process.");
-            }
+            if (!mountProcess.Start()) throw new InvalidOperationException("Failed to start the CHDMounter process.");
 
             mountProcess.ErrorDataReceived += (_, e) =>
             {
@@ -126,10 +99,7 @@ public class MountChdFiles : IMountChdFiles
 
             if (!mountSuccessful || detectedDrive == null)
             {
-                if (!mountProcess.HasExited)
-                {
-                    mountProcess.Kill(true);
-                }
+                if (!mountProcess.HasExited) mountProcess.Kill(true);
 
                 mountProcess.Dispose();
                 await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(exitCode);
@@ -147,7 +117,6 @@ public class MountChdFiles : IMountChdFiles
             logErrors.Error(ex, contextMessage);
 
             if (!mountProcess.HasExited)
-            {
                 try
                 {
                     mountProcess.Kill(true);
@@ -156,7 +125,6 @@ public class MountChdFiles : IMountChdFiles
                 {
                     /* ignore */
                 }
-            }
 
             mountProcess.Dispose();
 
@@ -166,7 +134,7 @@ public class MountChdFiles : IMountChdFiles
     }
 
     /// <summary>
-    /// Mounts a CHD file, locates a game file within the mounted drive, launches the emulator, and unmounts on exit.
+    ///     Mounts a CHD file, locates a game file within the mounted drive, launches the emulator, and unmounts on exit.
     /// </summary>
     public async Task MountChdFileAndLoadAsync(
         string resolvedChdFilePath,
@@ -233,10 +201,7 @@ public class MountChdFiles : IMountChdFiles
             mountProcess = new Process { StartInfo = psiMount, EnableRaisingEvents = true };
 
             _logger.Debug("[MountChdFiles] Starting CHDMounter process...");
-            if (!mountProcess.Start())
-            {
-                throw new InvalidOperationException("Failed to start the CHDMounter process.");
-            }
+            if (!mountProcess.Start()) throw new InvalidOperationException("Failed to start the CHDMounter process.");
 
             mountProcess.ErrorDataReceived += (_, e) =>
             {
@@ -254,10 +219,7 @@ public class MountChdFiles : IMountChdFiles
 
             if (!mountSuccessful || drive == null)
             {
-                if (!mountProcess.HasExited)
-                {
-                    mountProcess.Kill(true);
-                }
+                if (!mountProcess.HasExited) mountProcess.Kill(true);
 
                 mountProcess.Dispose();
                 await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(exitCode);
@@ -322,15 +284,11 @@ public class MountChdFiles : IMountChdFiles
                     }
 
                     if (mountProcess.HasExited)
-                    {
                         _logger.Debug(
                             $"[MountChdFiles] CHDMounter (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
-                    }
                     else
-                    {
                         _logger.Debug(
                             $"[MountChdFiles] CHDMounter (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
-                    }
                 }
                 catch (InvalidOperationException ioEx)
                 {
@@ -372,18 +330,14 @@ public class MountChdFiles : IMountChdFiles
 
             await Task.Delay(2000);
             if (Directory.Exists(driveRoot))
-            {
                 _logger.Debug($"[MountChdFiles] WARNING: Drive {driveRoot} still exists after attempting to unmount.");
-            }
             else
-            {
                 _logger.Debug($"[MountChdFiles] Drive {driveRoot} successfully unmounted.");
-            }
         }
     }
 
     /// <summary>
-    /// Mounts a CHD file with an explicit console alias, locates a game file, launches the emulator, and unmounts on exit.
+    ///     Mounts a CHD file with an explicit console alias, locates a game file, launches the emulator, and unmounts on exit.
     /// </summary>
     public async Task MountChdFileAndLoadWithConsoleAliasAsync(
         string resolvedChdFilePath,
@@ -457,10 +411,7 @@ public class MountChdFiles : IMountChdFiles
             mountProcess = new Process { StartInfo = psiMount, EnableRaisingEvents = true };
 
             _logger.Debug("[MountChdFiles] Starting CHDMounter process...");
-            if (!mountProcess.Start())
-            {
-                throw new InvalidOperationException("Failed to start the CHDMounter process.");
-            }
+            if (!mountProcess.Start()) throw new InvalidOperationException("Failed to start the CHDMounter process.");
 
             mountProcess.ErrorDataReceived += (_, e) =>
             {
@@ -478,10 +429,7 @@ public class MountChdFiles : IMountChdFiles
 
             if (!mountSuccessful || drive == null)
             {
-                if (!mountProcess.HasExited)
-                {
-                    mountProcess.Kill(true);
-                }
+                if (!mountProcess.HasExited) mountProcess.Kill(true);
 
                 mountProcess.Dispose();
                 await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync(exitCode);
@@ -546,15 +494,11 @@ public class MountChdFiles : IMountChdFiles
                     }
 
                     if (mountProcess.HasExited)
-                    {
                         _logger.Debug(
                             $"[MountChdFiles] CHDMounter (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
-                    }
                     else
-                    {
                         _logger.Debug(
                             $"[MountChdFiles] CHDMounter (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
-                    }
                 }
                 catch (InvalidOperationException ioEx)
                 {
@@ -596,30 +540,23 @@ public class MountChdFiles : IMountChdFiles
 
             await Task.Delay(2000);
             if (Directory.Exists(driveRoot))
-            {
                 _logger.Debug($"[MountChdFiles] WARNING: Drive {driveRoot} still exists after attempting to unmount.");
-            }
             else
-            {
                 _logger.Debug($"[MountChdFiles] Drive {driveRoot} successfully unmounted.");
-            }
         }
     }
 
     /// <summary>
-    /// Determines the CHDMounter console alias for a given system name and emulator name.
-    /// Preserves the previous mounting routine: most systems mount as virtual CUE/BIN
-    /// (raw 2352) so emulators receive .cue/.bin files; only PS2/PS3/Xbox/Xbox 360 use
-    /// filesystem parsing, PSP and xemu use ISO RAW (single image.iso), 3DO uses
-    /// CUE/BIN 2048 (cooked). Aliases per CHDMounter README.
+    ///     Determines the CHDMounter console alias for a given system name and emulator name.
+    ///     Preserves the previous mounting routine: most systems mount as virtual CUE/BIN
+    ///     (raw 2352) so emulators receive .cue/.bin files; only PS2/PS3/Xbox/Xbox 360 use
+    ///     filesystem parsing, PSP and xemu use ISO RAW (single image.iso), 3DO uses
+    ///     CUE/BIN 2048 (cooked). Aliases per CHDMounter README.
     /// </summary>
     public string? GetConsoleAliasFromSystemName(string systemName, string emulatorName, string? emulatorLocation,
         ILogger logErrors)
     {
-        if (string.IsNullOrEmpty(systemName))
-        {
-            return null;
-        }
+        if (string.IsNullOrEmpty(systemName)) return null;
 
         // ── Emulator-specific overrides ──────────────────────────────────────────
         // These emulators require a specific virtual export mode to launch CHDs:
@@ -636,168 +573,198 @@ public class MountChdFiles : IMountChdFiles
             emulatorMatch.Contains("Final Burn Alpha", StringComparison.OrdinalIgnoreCase) ||
             emulatorMatch.Contains("FinalBurn Alpha", StringComparison.OrdinalIgnoreCase) ||
             locationMatch.Contains("fba64.exe", StringComparison.OrdinalIgnoreCase))
-        {
             return "cueisowav2048";
-        }
 
-        else if (emulatorMatch.Contains("FBNeo", StringComparison.OrdinalIgnoreCase) ||
-                 emulatorMatch.Contains("FB Neo", StringComparison.OrdinalIgnoreCase) ||
-                 emulatorMatch.Contains("FinalBurnNeo", StringComparison.OrdinalIgnoreCase) ||
-                 emulatorMatch.Contains("Final Burn Neo", StringComparison.OrdinalIgnoreCase) ||
-                 emulatorMatch.Contains("FinalBurn Neo", StringComparison.OrdinalIgnoreCase) ||
-                 locationMatch.Contains("fbneo64.exe", StringComparison.OrdinalIgnoreCase))
-        {
+        if (emulatorMatch.Contains("FBNeo", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("FB Neo", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("FinalBurnNeo", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("Final Burn Neo", StringComparison.OrdinalIgnoreCase) ||
+            emulatorMatch.Contains("FinalBurn Neo", StringComparison.OrdinalIgnoreCase) ||
+            locationMatch.Contains("fbneo64.exe", StringComparison.OrdinalIgnoreCase))
             return "cuebin2352";
-        }
 
-        else if (emulatorMatch.Contains("Nebula", StringComparison.OrdinalIgnoreCase) ||
-                 locationMatch.Contains("nebula.exe", StringComparison.OrdinalIgnoreCase))
-        {
+        if (emulatorMatch.Contains("Nebula", StringComparison.OrdinalIgnoreCase) ||
+            locationMatch.Contains("nebula.exe", StringComparison.OrdinalIgnoreCase))
             return "cueiso2048";
-        }
 
-        else if (emulatorMatch.Contains("raine", StringComparison.OrdinalIgnoreCase) ||
-                 locationMatch.Contains("raine.exe", StringComparison.OrdinalIgnoreCase))
-        {
+        if (emulatorMatch.Contains("raine", StringComparison.OrdinalIgnoreCase) ||
+            locationMatch.Contains("raine.exe", StringComparison.OrdinalIgnoreCase))
             return "cueisowav2352";
-        }
 
         if ((systemName.Contains("AMIGA CD", StringComparison.OrdinalIgnoreCase) ||
              systemName.Contains("AMIGACD", StringComparison.OrdinalIgnoreCase)) &&
             !systemName.Contains("CD32", StringComparison.OrdinalIgnoreCase))
-        {
             return "cuebin2352";
-        }
 
-        else if (systemName.Contains("AMIGA CD32", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("AMIGACD32", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("CD32", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("AMIGA CD32", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("AMIGACD32", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("CD32", StringComparison.OrdinalIgnoreCase))
             return "cuebin2352";
-        }
 
-        else if (systemName.Contains("CD-I", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("CDI", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PHILIPS CDI", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PHILIPSCDI", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("CD-I", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("CDI", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PHILIPS CDI", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PHILIPSCDI", StringComparison.OrdinalIgnoreCase))
             return "cuebin2352";
-        }
 
-        else if (systemName.Contains("DREAMCAST", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("SEGA DREAMCAST", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("DREAMCAST", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("SEGA DREAMCAST", StringComparison.OrdinalIgnoreCase))
             return "cuebin2352";
-        }
 
-        else if (systemName.Contains("FM Towns", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("FMTowns", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("FM Towns", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("FMTowns", StringComparison.OrdinalIgnoreCase))
             return "cuebin2352";
-        }
 
-        else if (systemName.Contains("NEOGEO CD", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("NEO GEO CD", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("NEOGEO CD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("NEO GEO CD", StringComparison.OrdinalIgnoreCase))
             return "cuebin2352";
-        }
 
-        else if (systemName.Contains("PCE-CD", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PC ENGINE CD", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("PCE-CD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PC ENGINE CD", StringComparison.OrdinalIgnoreCase))
             return "cuebin2352";
-        }
 
-        else if (systemName.Contains("PC-FX", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PCFX", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("PC-FX", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PCFX", StringComparison.OrdinalIgnoreCase))
             return "cuebin2352";
-        }
 
-        else if ((systemName.Contains("PS1", StringComparison.OrdinalIgnoreCase) ||
-                  systemName.Contains("PSX1", StringComparison.OrdinalIgnoreCase) ||
-                  systemName.Contains("PSX 1", StringComparison.OrdinalIgnoreCase) ||
-                  systemName.Contains("PLAY 1", StringComparison.OrdinalIgnoreCase) ||
-                  systemName.Contains("PLAYSTATION 1", StringComparison.OrdinalIgnoreCase) ||
-                  systemName.Contains("PLAYSTATION", StringComparison.OrdinalIgnoreCase)) &&
-                 !systemName.Contains('2') &&
-                 !systemName.Contains('3'))
-        {
+        if ((systemName.Contains("PS1", StringComparison.OrdinalIgnoreCase) ||
+             systemName.Contains("PSX1", StringComparison.OrdinalIgnoreCase) ||
+             systemName.Contains("PSX 1", StringComparison.OrdinalIgnoreCase) ||
+             systemName.Contains("PLAY 1", StringComparison.OrdinalIgnoreCase) ||
+             systemName.Contains("PLAYSTATION 1", StringComparison.OrdinalIgnoreCase) ||
+             systemName.Contains("PLAYSTATION", StringComparison.OrdinalIgnoreCase)) &&
+            !systemName.Contains('2') &&
+            !systemName.Contains('3'))
             return "cuebin2352";
-        }
 
-        else if (systemName.Contains("PS2", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PSX2", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PSX 2", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PLAY 2", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PLAYSTATION 2", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("PS2", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PSX2", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PSX 2", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PLAY 2", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PLAYSTATION 2", StringComparison.OrdinalIgnoreCase))
             return "ps2";
-        }
 
-        else if (systemName.Contains("PS3", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PSX3", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PSX 3", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PLAY 3", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PLAYSTATION 3", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("PS3", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PSX3", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PSX 3", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PLAY 3", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PLAYSTATION 3", StringComparison.OrdinalIgnoreCase))
             return "ps3";
-        }
 
-        else if (systemName.Contains("PSP", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PLAYSTATION PORTABLE", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("SONY PSP", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("PSP", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PLAYSTATION PORTABLE", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("SONY PSP", StringComparison.OrdinalIgnoreCase))
             return "isoraw2352";
-        }
 
-        else if (systemName.Contains("SATURN", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("SEGA SATURN", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("SATURN", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("SEGA SATURN", StringComparison.OrdinalIgnoreCase))
             return "cuebin2352";
-        }
-
         // Sega Genesis CD / Mega Drive CD / Sega CD / Mega CD
-        else if (systemName.Contains("GENESIS CD", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("SEGA CD", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("MEGA CD", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("GENESISCD", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("SEGACD", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("MEGACD", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("Sega Genesis CD", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("Mega Drive CD", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("GENESIS CD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("SEGA CD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("MEGA CD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("GENESISCD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("SEGACD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("MEGACD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("Sega Genesis CD", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("Mega Drive CD", StringComparison.OrdinalIgnoreCase))
             return "cuebin2352";
-        }
 
-        else if (systemName.Contains("3DO", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("PANASONIC 3DO", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("3DO", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("PANASONIC 3DO", StringComparison.OrdinalIgnoreCase))
             return "cuebin2048";
-        }
 
-        else if (systemName.Contains("XBOX", StringComparison.OrdinalIgnoreCase) &&
-                 !systemName.Contains("360", StringComparison.Ordinal))
+        if (systemName.Contains("XBOX", StringComparison.OrdinalIgnoreCase) &&
+            !systemName.Contains("360", StringComparison.Ordinal))
         {
             if (!string.IsNullOrEmpty(emulatorName) &&
                 emulatorName.Contains("xemu", StringComparison.OrdinalIgnoreCase))
-            {
                 return "isoraw2352";
-            }
 
             return "xbox";
         }
 
-        else if (systemName.Contains("XBOX 360", StringComparison.OrdinalIgnoreCase) ||
-                 systemName.Contains("XBOX360", StringComparison.OrdinalIgnoreCase))
-        {
+        if (systemName.Contains("XBOX 360", StringComparison.OrdinalIgnoreCase) ||
+            systemName.Contains("XBOX360", StringComparison.OrdinalIgnoreCase))
             return "xbox360";
-        }
 
-        else
+        return "cuebin2352";
+    }
+
+    /// <summary>
+    ///     Terminates all running CHDMounter processes to ensure clean unmounting.
+    /// </summary>
+    public void KillAllChdMounterProcesses(ILogger logErrors)
+    {
+        var processNames = new[] { "CHDMounter", "CHDMounter_arm64" };
+
+        try
         {
-            return "cuebin2352";
+            foreach (var processName in processNames)
+            {
+                var processes = Process.GetProcessesByName(processName);
+                if (processes.Length == 0)
+                {
+                    _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] No {processName} processes found.");
+                    continue;
+                }
+
+                _logger.Debug(
+                    $"[MountChdFiles.KillAllChdMounterProcesses] Found {processes.Length} {processName} process(es) to kill.");
+
+                foreach (var process in processes)
+                    try
+                    {
+                        if (!process.HasExited)
+                        {
+                            _logger.Debug(
+                                $"[MountChdFiles.KillAllChdMounterProcesses] Killing {processName} (ID: {process.Id}).");
+                            process.Kill(true);
+                            process.WaitForExit(5000);
+                            _logger.Debug(
+                                $"[MountChdFiles.KillAllChdMounterProcesses] {processName} (ID: {process.Id}) terminated. Exit code: {process.ExitCode}.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Debug(
+                            $"[MountChdFiles.KillAllChdMounterProcesses] Failed to kill {processName} (ID: {process.Id}): {ex.Message}");
+                    }
+                    finally
+                    {
+                        process.Dispose();
+                    }
+            }
         }
+        catch (Exception ex)
+        {
+            _logger.Debug(
+                $"[MountChdFiles.KillAllChdMounterProcesses] Error enumerating CHDMounter processes: {ex.Message}");
+        }
+    }
+
+    /// <summary>
+    ///     Determines the CHDMounter executable relative path based on the current process architecture.
+    /// </summary>
+    private static string GetArchitectureSpecificExecutableRelativePath()
+    {
+        var arch = RuntimeInformation.ProcessArchitecture;
+
+        var executableName = arch switch
+        {
+            Architecture.X64 => "CHDMounter.exe",
+            Architecture.Arm64 => "CHDMounter_arm64.exe",
+            _ => throw new PlatformNotSupportedException($"Architecture {arch} is not supported by CHDMounter.")
+        };
+
+        return Path.Combine(ChdMounterRelativeDirectory, executableName);
+    }
+
+    private static HashSet<char> GetCurrentDriveLetters()
+    {
+        return Environment.GetLogicalDrives()
+            .Select(static d => char.ToUpper(d[0], CultureInfo.InvariantCulture))
+            .ToHashSet();
     }
 
     private async Task<(bool Success, char? DriveLetter, int? ExitCode)> WaitForDriveMountAndDetectAsync(
@@ -832,10 +799,8 @@ public class MountChdFiles : IMountChdFiles
                     : $"Failed to mount CHD. The CHDMounter tool exited prematurely with code {exitCode}.";
 
                 if (errorOutput is { Count: > 0 })
-                {
                     contextMessage += "\n\n=== CHDMounter error output ===\n" +
                                       string.Join(Environment.NewLine, errorOutput);
-                }
 
                 _logger.Debug(
                     $"[MountChdFiles.WaitForDriveMountAndDetectAsync] CHDMounter process (ID: {processId}) exited prematurely during polling. {contextMessage}");
@@ -854,10 +819,8 @@ public class MountChdFiles : IMountChdFiles
         var timeoutContextMessage = $"Timed out waiting for the CHD to mount '{chdFileName}'. No new drive detected.";
 
         if (errorOutput is { Count: > 0 })
-        {
             timeoutContextMessage +=
                 "\n\n=== CHDMounter error output ===\n" + string.Join(Environment.NewLine, errorOutput);
-        }
 
         // Expected condition (mount timeout; user already gets UI feedback): not a bug,
         // keep it out of the bug report service.
@@ -886,10 +849,7 @@ public class MountChdFiles : IMountChdFiles
 
             _logger.Debug($"[MountChdFiles.FindGameFile] Found {allFiles.Length} files in {driveRoot}.");
 
-            foreach (var file in allFiles)
-            {
-                _logger.Debug($"[MountChdFiles.FindGameFile] Found: {file}");
-            }
+            foreach (var file in allFiles) _logger.Debug($"[MountChdFiles.FindGameFile] Found: {file}");
 
             return allFiles[0];
         }
@@ -898,60 +858,6 @@ public class MountChdFiles : IMountChdFiles
             _logger.Debug($"[MountChdFiles.FindGameFile] Error searching for game file in {driveRoot}: {ex.Message}");
             logErrors.Error(ex, $"Error in FindGameFile searching {driveRoot}");
             return null;
-        }
-    }
-
-    /// <summary>
-    /// Terminates all running CHDMounter processes to ensure clean unmounting.
-    /// </summary>
-    public void KillAllChdMounterProcesses(ILogger logErrors)
-    {
-        var processNames = new[] { "CHDMounter", "CHDMounter_arm64" };
-
-        try
-        {
-            foreach (var processName in processNames)
-            {
-                var processes = Process.GetProcessesByName(processName);
-                if (processes.Length == 0)
-                {
-                    _logger.Debug($"[MountChdFiles.KillAllChdMounterProcesses] No {processName} processes found.");
-                    continue;
-                }
-
-                _logger.Debug(
-                    $"[MountChdFiles.KillAllChdMounterProcesses] Found {processes.Length} {processName} process(es) to kill.");
-
-                foreach (var process in processes)
-                {
-                    try
-                    {
-                        if (!process.HasExited)
-                        {
-                            _logger.Debug(
-                                $"[MountChdFiles.KillAllChdMounterProcesses] Killing {processName} (ID: {process.Id}).");
-                            process.Kill(true);
-                            process.WaitForExit(5000);
-                            _logger.Debug(
-                                $"[MountChdFiles.KillAllChdMounterProcesses] {processName} (ID: {process.Id}) terminated. Exit code: {process.ExitCode}.");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Debug(
-                            $"[MountChdFiles.KillAllChdMounterProcesses] Failed to kill {processName} (ID: {process.Id}): {ex.Message}");
-                    }
-                    finally
-                    {
-                        process.Dispose();
-                    }
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            _logger.Debug(
-                $"[MountChdFiles.KillAllChdMounterProcesses] Error enumerating CHDMounter processes: {ex.Message}");
         }
     }
 }

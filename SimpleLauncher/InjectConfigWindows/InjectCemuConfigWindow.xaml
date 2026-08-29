@@ -17,7 +17,9 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource CemuConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding Fullscreen}" Content="{DynamicResource CemuConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource CemuConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Fullscreen}"
+                                  Content="{DynamicResource CemuConfig_Fullscreen_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource CemuConfig_Fullscreen_Tooltip}" />
 
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
@@ -49,7 +51,9 @@
                             </ComboBox>
                         </Grid>
 
-                        <CheckBox IsChecked="{Binding AsyncCompile}" Content="{DynamicResource CemuConfig_AsyncCompile_Checkbox}" Margin="0,5" ToolTip="{DynamicResource CemuConfig_AsyncCompile_Tooltip}" />
+                        <CheckBox IsChecked="{Binding AsyncCompile}"
+                                  Content="{DynamicResource CemuConfig_AsyncCompile_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource CemuConfig_AsyncCompile_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -57,14 +61,16 @@
                 <GroupBox Header="{DynamicResource CemuConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Label Content="{DynamicResource CemuConfig_Volume_Label}" VerticalAlignment="Center" />
-                        <Slider Value="{Binding Volume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource CemuConfig_Volume_Tooltip}" />
+                        <Slider Value="{Binding Volume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True"
+                                TickFrequency="1" ToolTip="{DynamicResource CemuConfig_Volume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- General Section -->
                 <GroupBox Header="{DynamicResource CemuConfig_General_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding Discord}" Content="{DynamicResource CemuConfig_Discord_Checkbox}" Margin="0,5" ToolTip="{DynamicResource CemuConfig_Discord_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Discord}" Content="{DynamicResource CemuConfig_Discord_Checkbox}"
+                                  Margin="0,5" ToolTip="{DynamicResource CemuConfig_Discord_Tooltip}" />
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -89,8 +95,12 @@
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}" Content="{DynamicResource CemuConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource CemuConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="{DynamicResource CemuConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource CemuConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

@@ -5,15 +5,16 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="FileFinderService"/> class.
+///     Tests for the <see cref="FileFinderService" /> class.
 /// </summary>
 public class FileFinderServiceTests : IDisposable
 {
-    private readonly string _tempDir;
     private readonly FileFinderService _service;
+    private readonly string _tempDir;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FileFinderServiceTests"/> class, creating a temporary directory and service instance.
+    ///     Initializes a new instance of the <see cref="FileFinderServiceTests" /> class, creating a temporary directory and
+    ///     service instance.
     /// </summary>
     public FileFinderServiceTests()
     {
@@ -23,12 +24,11 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory.
+    ///     Cleans up the temporary test directory.
     /// </summary>
     public void Dispose()
     {
         if (Directory.Exists(_tempDir))
-        {
             try
             {
                 Directory.Delete(_tempDir, true);
@@ -37,7 +37,6 @@ public class FileFinderServiceTests : IDisposable
             {
                 /* best effort cleanup */
             }
-        }
 
         GC.SuppressFinalize(this);
     }
@@ -45,7 +44,7 @@ public class FileFinderServiceTests : IDisposable
     // --- FindDefaultXex Tests ---
 
     /// <summary>
-    /// Verifies that FindDefaultXex returns null when the path is null.
+    ///     Verifies that FindDefaultXex returns null when the path is null.
     /// </summary>
     [Fact]
     public void FindDefaultXexNullPathReturnsNull()
@@ -54,7 +53,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXex returns null when the path is empty.
+    ///     Verifies that FindDefaultXex returns null when the path is empty.
     /// </summary>
     [Fact]
     public void FindDefaultXexEmptyPathReturnsNull()
@@ -63,7 +62,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXex returns null when the directory does not exist.
+    ///     Verifies that FindDefaultXex returns null when the directory does not exist.
     /// </summary>
     [Fact]
     public void FindDefaultXexNonExistentDirectoryReturnsNull()
@@ -72,7 +71,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXex returns null when no default.xex file exists.
+    ///     Verifies that FindDefaultXex returns null when no default.xex file exists.
     /// </summary>
     [Fact]
     public void FindDefaultXexNoFileReturnsNull()
@@ -82,7 +81,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXex returns the correct file path when default.xex exists.
+    ///     Verifies that FindDefaultXex returns the correct file path when default.xex exists.
     /// </summary>
     [Fact]
     public void FindDefaultXexFindsFile()
@@ -95,7 +94,7 @@ public class FileFinderServiceTests : IDisposable
     // --- FindDefaultXbe Tests ---
 
     /// <summary>
-    /// Verifies that FindDefaultXbe returns null when the path is null.
+    ///     Verifies that FindDefaultXbe returns null when the path is null.
     /// </summary>
     [Fact]
     public void FindDefaultXbeNullPathReturnsNull()
@@ -104,7 +103,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXbe returns null when the path is empty.
+    ///     Verifies that FindDefaultXbe returns null when the path is empty.
     /// </summary>
     [Fact]
     public void FindDefaultXbeEmptyPathReturnsNull()
@@ -113,7 +112,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXbe returns null when the directory does not exist.
+    ///     Verifies that FindDefaultXbe returns null when the directory does not exist.
     /// </summary>
     [Fact]
     public void FindDefaultXbeNonExistentDirectoryReturnsNull()
@@ -122,7 +121,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXbe returns null when no default.xbe file exists.
+    ///     Verifies that FindDefaultXbe returns null when no default.xbe file exists.
     /// </summary>
     [Fact]
     public void FindDefaultXbeNoFileReturnsNull()
@@ -132,7 +131,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXbe returns the correct file path when default.xbe exists.
+    ///     Verifies that FindDefaultXbe returns the correct file path when default.xbe exists.
     /// </summary>
     [Fact]
     public void FindDefaultXbeFindsFile()
@@ -145,7 +144,7 @@ public class FileFinderServiceTests : IDisposable
     // --- FindCueFile Tests ---
 
     /// <summary>
-    /// Verifies that FindCueFile returns null when the path is null.
+    ///     Verifies that FindCueFile returns null when the path is null.
     /// </summary>
     [Fact]
     public void FindCueFileNullPathReturnsNull()
@@ -154,7 +153,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindCueFile returns null when the path is empty.
+    ///     Verifies that FindCueFile returns null when the path is empty.
     /// </summary>
     [Fact]
     public void FindCueFileEmptyPathReturnsNull()
@@ -163,7 +162,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindCueFile returns null when the directory does not exist.
+    ///     Verifies that FindCueFile returns null when the directory does not exist.
     /// </summary>
     [Fact]
     public void FindCueFileNonExistentDirectoryReturnsNull()
@@ -172,7 +171,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindCueFile returns null when no .cue file exists.
+    ///     Verifies that FindCueFile returns null when no .cue file exists.
     /// </summary>
     [Fact]
     public void FindCueFileNoFileReturnsNull()
@@ -182,7 +181,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindCueFile returns the correct file path when a .cue file exists.
+    ///     Verifies that FindCueFile returns the correct file path when a .cue file exists.
     /// </summary>
     [Fact]
     public void FindCueFileFindsFile()
@@ -195,7 +194,7 @@ public class FileFinderServiceTests : IDisposable
     // --- FindBinFile Tests ---
 
     /// <summary>
-    /// Verifies that FindBinFile returns null when the path is null.
+    ///     Verifies that FindBinFile returns null when the path is null.
     /// </summary>
     [Fact]
     public void FindBinFileNullPathReturnsNull()
@@ -204,7 +203,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindBinFile returns null when the path is empty.
+    ///     Verifies that FindBinFile returns null when the path is empty.
     /// </summary>
     [Fact]
     public void FindBinFileEmptyPathReturnsNull()
@@ -213,7 +212,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindBinFile returns null when the directory does not exist.
+    ///     Verifies that FindBinFile returns null when the directory does not exist.
     /// </summary>
     [Fact]
     public void FindBinFileNonExistentDirectoryReturnsNull()
@@ -222,7 +221,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindBinFile returns null when no .bin file exists.
+    ///     Verifies that FindBinFile returns null when no .bin file exists.
     /// </summary>
     [Fact]
     public void FindBinFileNoFileReturnsNull()
@@ -232,7 +231,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindBinFile returns the correct file path when a .bin file exists.
+    ///     Verifies that FindBinFile returns the correct file path when a .bin file exists.
     /// </summary>
     [Fact]
     public void FindBinFileFindsFile()
@@ -245,7 +244,7 @@ public class FileFinderServiceTests : IDisposable
     // --- FindEbootBin Tests ---
 
     /// <summary>
-    /// Verifies that FindEbootBin returns null when the path is null.
+    ///     Verifies that FindEbootBin returns null when the path is null.
     /// </summary>
     [Fact]
     public void FindEbootBinNullPathReturnsNull()
@@ -254,7 +253,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin returns null when the path is empty.
+    ///     Verifies that FindEbootBin returns null when the path is empty.
     /// </summary>
     [Fact]
     public void FindEbootBinEmptyPathReturnsNull()
@@ -263,7 +262,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin returns null when the directory does not exist.
+    ///     Verifies that FindEbootBin returns null when the directory does not exist.
     /// </summary>
     [Fact]
     public void FindEbootBinNonExistentDirectoryReturnsNull()
@@ -272,7 +271,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin finds EBOOT.BIN in the top-level directory.
+    ///     Verifies that FindEbootBin finds EBOOT.BIN in the top-level directory.
     /// </summary>
     [Fact]
     public void FindEbootBinInTopDirectory()
@@ -283,7 +282,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin finds EBOOT.BIN in a subdirectory.
+    ///     Verifies that FindEbootBin finds EBOOT.BIN in a subdirectory.
     /// </summary>
     [Fact]
     public void FindEbootBinInSubdirectory()
@@ -296,7 +295,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin prefers the top-level directory over subdirectories.
+    ///     Verifies that FindEbootBin prefers the top-level directory over subdirectories.
     /// </summary>
     [Fact]
     public void FindEbootBinPrefersTopDirectory()
@@ -312,7 +311,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin returns null when no EBOOT.BIN file exists.
+    ///     Verifies that FindEbootBin returns null when no EBOOT.BIN file exists.
     /// </summary>
     [Fact]
     public void FindEbootBinNotFoundReturnsNull()
@@ -324,7 +323,7 @@ public class FileFinderServiceTests : IDisposable
     // --- FindImageIso Tests ---
 
     /// <summary>
-    /// Verifies that FindImageIso returns null when the path is null.
+    ///     Verifies that FindImageIso returns null when the path is null.
     /// </summary>
     [Fact]
     public void FindImageIsoNullPathReturnsNull()
@@ -333,7 +332,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindImageIso returns null when the path is empty.
+    ///     Verifies that FindImageIso returns null when the path is empty.
     /// </summary>
     [Fact]
     public void FindImageIsoEmptyPathReturnsNull()
@@ -342,7 +341,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindImageIso returns null when the directory does not exist.
+    ///     Verifies that FindImageIso returns null when the directory does not exist.
     /// </summary>
     [Fact]
     public void FindImageIsoNonExistentDirectoryReturnsNull()
@@ -351,7 +350,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindImageIso returns null when no .iso or .img file exists.
+    ///     Verifies that FindImageIso returns null when no .iso or .img file exists.
     /// </summary>
     [Fact]
     public void FindImageIsoNoFileReturnsNull()
@@ -361,7 +360,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindImageIso returns the .iso file path when one exists.
+    ///     Verifies that FindImageIso returns the .iso file path when one exists.
     /// </summary>
     [Fact]
     public void FindImageIsoFindsIsoFile()
@@ -372,7 +371,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindImageIso prefers .iso over .img when both exist.
+    ///     Verifies that FindImageIso prefers .iso over .img when both exist.
     /// </summary>
     [Fact]
     public void FindImageIsoPrefersIsoOverImg()
@@ -385,7 +384,7 @@ public class FileFinderServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindImageIso returns the .img file path when no .iso exists.
+    ///     Verifies that FindImageIso returns the .img file path when no .iso exists.
     /// </summary>
     [Fact]
     public void FindImageIsoFindsImgWhenNoIso()

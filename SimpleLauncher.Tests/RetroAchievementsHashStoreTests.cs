@@ -5,17 +5,17 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="RetroAchievementsHashStore"/> covering JSON persistence of
-/// per-system RetroAchievements hash scans in a temporary folder.
+///     Tests for <see cref="RetroAchievementsHashStore" /> covering JSON persistence of
+///     per-system RetroAchievements hash scans in a temporary folder.
 /// </summary>
 public class RetroAchievementsHashStoreTests : IDisposable
 {
-    private readonly string _tempFolder;
     private readonly RetroAchievementsHashStore _store;
+    private readonly string _tempFolder;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsHashStoreTests"/> class
-    /// with an isolated temporary hash folder.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsHashStoreTests" /> class
+    ///     with an isolated temporary hash folder.
     /// </summary>
     public RetroAchievementsHashStoreTests()
     {
@@ -24,20 +24,17 @@ public class RetroAchievementsHashStoreTests : IDisposable
     }
 
     /// <summary>
-    /// Deletes the temporary hash folder used by the tests.
+    ///     Deletes the temporary hash folder used by the tests.
     /// </summary>
     public void Dispose()
     {
-        if (Directory.Exists(_tempFolder))
-        {
-            Directory.Delete(_tempFolder, true);
-        }
+        if (Directory.Exists(_tempFolder)) Directory.Delete(_tempFolder, true);
 
         GC.SuppressFinalize(this);
     }
 
     /// <summary>
-    /// Verifies that a saved hash scan can be loaded back with the same values.
+    ///     Verifies that a saved hash scan can be loaded back with the same values.
     /// </summary>
     [Fact]
     public void SaveThenLoad_RoundTripsHashes()
@@ -68,7 +65,7 @@ public class RetroAchievementsHashStoreTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that HasSystemHashes is true after saving and false before any save.
+    ///     Verifies that HasSystemHashes is true after saving and false before any save.
     /// </summary>
     [Fact]
     public void HasSystemHashes_ReflectsSavedFiles()
@@ -81,7 +78,7 @@ public class RetroAchievementsHashStoreTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that loading a system that was never scanned returns null.
+    ///     Verifies that loading a system that was never scanned returns null.
     /// </summary>
     [Fact]
     public void LoadSystemHashes_WhenFileMissing_ReturnsNull()
@@ -90,8 +87,8 @@ public class RetroAchievementsHashStoreTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that system names with characters that are invalid in file names
-    /// are sanitized when building the JSON file name.
+    ///     Verifies that system names with characters that are invalid in file names
+    ///     are sanitized when building the JSON file name.
     /// </summary>
     [Fact]
     public void GetSystemHashFilePath_SanitizesInvalidCharacters()
@@ -107,7 +104,7 @@ public class RetroAchievementsHashStoreTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a corrupted JSON file loads as null instead of throwing.
+    ///     Verifies that a corrupted JSON file loads as null instead of throwing.
     /// </summary>
     [Fact]
     public void LoadSystemHashes_WhenFileCorrupted_ReturnsNull()

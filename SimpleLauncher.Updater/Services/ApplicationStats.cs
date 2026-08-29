@@ -9,7 +9,7 @@ using System.Text.Json;
 namespace SimpleLauncher.Updater.Services;
 
 /// <summary>
-/// Service for reporting application usage statistics to the ApplicationStats API
+///     Service for reporting application usage statistics to the ApplicationStats API
 /// </summary>
 internal static class ApplicationStats
 {
@@ -27,8 +27,8 @@ internal static class ApplicationStats
     }
 
     /// <summary>
-    /// Sends application launch statistics to the ApplicationStats API.
-    /// This is a fire-and-forget operation that will not block or throw.
+    ///     Sends application launch statistics to the ApplicationStats API.
+    ///     This is a fire-and-forget operation that will not block or throw.
     /// </summary>
     public static void SendLaunchStats()
     {
@@ -36,7 +36,7 @@ internal static class ApplicationStats
     }
 
     /// <summary>
-    /// Sends application launch statistics to the ApplicationStats API asynchronously.
+    ///     Sends application launch statistics to the ApplicationStats API asynchronously.
     /// </summary>
     private static async Task SendLaunchStatsAsync()
     {
@@ -58,15 +58,11 @@ internal static class ApplicationStats
             if (!response.IsSuccessStatusCode)
             {
                 if (response.StatusCode == HttpStatusCode.TooManyRequests)
-                {
                     // Expected condition (rate limit): not a bug, keep it out of the bug report service.
                     Log.Information("ApplicationStats API returned non-success status: {StatusCode}",
                         response.StatusCode);
-                }
                 else
-                {
                     Log.Warning("ApplicationStats API returned non-success status: {StatusCode}", response.StatusCode);
-                }
             }
         }
         catch (OperationCanceledException)
@@ -78,13 +74,9 @@ internal static class ApplicationStats
             // DNS/connection failures are expected network conditions (offline, DNS down,
             // TLS errors) — log at Information, not as a bug.
             if (ex is HttpRequestException or SocketException)
-            {
                 Log.Information(ex, "ApplicationStats API call failed");
-            }
             else
-            {
                 Log.Warning(ex, "ApplicationStats API call failed");
-            }
         }
     }
 }

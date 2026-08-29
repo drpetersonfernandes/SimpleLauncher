@@ -8,16 +8,16 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
 /// <summary>
-/// Converts CHD files to CUE/BIN format for emulators that do not support CHD natively (e.g., 4DO, Raine).
+///     Converts CHD files to CUE/BIN format for emulators that do not support CHD natively (e.g., 4DO, Raine).
 /// </summary>
 public class ChdToCueStrategy : ILaunchStrategy
 {
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly ILogger _logger;
     private readonly IDiscConverter _discConverter;
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ChdToCueStrategy"/> class.
+    ///     Initializes a new instance of the <see cref="ChdToCueStrategy" /> class.
     /// </summary>
     public ChdToCueStrategy(IMessageBoxLibraryService messageBox, ILogger logger, IDiscConverter discConverter)
     {
@@ -34,15 +34,10 @@ public class ChdToCueStrategy : ILaunchStrategy
     {
         if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
             string.IsNullOrEmpty(context.EmulatorName))
-        {
             return false;
-        }
 
         var isChd = Path.GetExtension(context.ResolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase);
-        if (!isChd)
-        {
-            return false;
-        }
+        if (!isChd) return false;
 
         var is4Do = context.EmulatorName.Contains("4do", StringComparison.OrdinalIgnoreCase) ||
                     (context.EmulatorManager?.EmulatorLocation?.Contains("4do.exe",

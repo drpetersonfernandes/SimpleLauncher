@@ -6,17 +6,10 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the RomHistoryWindow ViewModel (Phase 4.1 port).
+///     Tests for the RomHistoryWindow ViewModel (Phase 4.1 port).
 /// </summary>
 public class RomHistoryViewModelTests
 {
-    private static RomHistoryViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox)
-    {
-        messageBox = TestDependencies.MessageBox();
-        return new RomHistoryViewModel(TestDependencies.Logger().Object, messageBox.Object,
-            TestDependencies.ResourceProvider().Object);
-    }
-
     private const string HistoryXml = """
                                       <history>
                                         <entry>
@@ -25,6 +18,13 @@ public class RomHistoryViewModelTests
                                         </entry>
                                       </history>
                                       """;
+
+    private static RomHistoryViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox)
+    {
+        messageBox = TestDependencies.MessageBox();
+        return new RomHistoryViewModel(TestDependencies.Logger().Object, messageBox.Object,
+            TestDependencies.ResourceProvider().Object);
+    }
 
     [Fact]
     public void Initialize_SetsRomTexts()

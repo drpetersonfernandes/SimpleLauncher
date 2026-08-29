@@ -4,13 +4,15 @@ using System.Globalization;
 using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Win32;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.GameLauncher;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Core.Services.GamePad;
-using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Core.Services.InjectEmulatorConfig;
+using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Core.Services.UsageStats;
 using CheckApplicationControlPolicyService = SimpleLauncher.Core.Services.CheckApplicationControlPolicyService;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -18,39 +20,28 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.GameLauncher;
 
 /// <summary>
-/// ILauncherService implementation with file-type detection and strategy dispatch.
-/// Handles: direct launch (.exe/.bat/.lnk/.url), archive pass-through/extraction,
-/// ZIP mounting (RPCS3/ScummVM/XBLA), XISO mount (Cxbx), CHD mount (CHDMounter via Core).
-/// Mirrors the original SimpleLauncher launch pipeline: argument fallback (ROM path append),
-/// emulator pre-flight flags, real play-time measurement and emulator config injection.
+///     ILauncherService implementation with file-type detection and strategy dispatch.
+///     Handles: direct launch (.exe/.bat/.lnk/.url), archive pass-through/extraction,
+///     ZIP mounting (RPCS3/ScummVM/XBLA), XISO mount (Cxbx), CHD mount (CHDMounter via Core).
+///     Mirrors the original SimpleLauncher launch pipeline: argument fallback (ROM path append),
+///     emulator pre-flight flags, real play-time measurement and emulator config injection.
 /// </summary>
 public class LauncherService : ILauncherService
 {
-    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly AskAiToFixParameters _askAiToFixParameters;
     private readonly IEnumerable<IEmulatorConfigHandler> _configHandlers;
     private readonly IConfiguration _configuration;
-    private readonly IExtractionService _extractionService;
-    private readonly IMountXisoFiles _mountXisoFiles;
-    private readonly IMountChdFiles _mountChdFiles;
-    private readonly IMountZipFiles _mountZipFiles;
-    private readonly AskAiToFixParameters _askAiToFixParameters;
-    private readonly SettingsManagerService _settings;
-    private readonly IEnumerable<ILaunchStrategy> _launchStrategies;
     private readonly HashSet<string> _emulatorsToSkipErrorChecking;
-    private readonly PlayHistoryManager _playHistoryManager;
-    private readonly Stats _stats;
+    private readonly IExtractionService _extractionService;
     private readonly GamePadController _gamePadController;
-
-    /// <summary>
-    /// Real emulator run time of the last launch (from process start to exit).
-    /// Zero for shortcut launches (which do not wait for exit).
-    /// </summary>
-    public TimeSpan LastPlayTime { get; private set; }
-
-    /// <summary>
-    /// Raised after a game has finished playing with a play time above the 5-second threshold.
-    /// </summary>
-    public event EventHandler<GamePlayedEventArgs>? GamePlayed;
+    private readonly IEnumerable<ILaunchStrategy> _launchStrategies;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IMountChdFiles _mountChdFiles;
+    private readonly IMountXisoFiles _mountXisoFiles;
+    private readonly IMountZipFiles _mountZipFiles;
+    private readonly PlayHistoryManager _playHistoryManager;
+    private readonly SettingsManagerService _settings;
+    private readonly Stats _stats;
 
     public LauncherService(
         IMessageBoxLibraryService messageBox,
@@ -83,11 +74,8 @@ public class LauncherService : ILauncherService
             .GetSection("EmulatorsToSkipErrorChecking")
             .Get<string[]>();
         if (configEmulatorsToSkip is { Length: > 0 })
-        {
             _emulatorsToSkipErrorChecking = configEmulatorsToSkip.ToHashSet(StringComparer.OrdinalIgnoreCase);
-        }
         else
-        {
             // Hardcoded fallback matching WPF DoNotCheckErrorsOnSpecificEmulators
             _emulatorsToSkipErrorChecking = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
@@ -99,7 +87,6 @@ public class LauncherService : ILauncherService
                 "fMSX.exe", "fMSX",
                 "Projec(t)64.exe"
             };
-        }
 
         _playHistoryManager = playHistoryManager;
         _stats = stats;
@@ -107,224 +94,10 @@ public class LauncherService : ILauncherService
     }
 
     /// <summary>
-    /// Game launch pipeline entry point (port of the WPF GameLauncherService.HandleButtonClickAsync):
-    /// resolves the path, builds a <see cref="LaunchContext"/>, runs light validation, and dispatches
-    /// to the first matching <see cref="ILaunchStrategy"/> (ascending priority, Default last).
-    /// Play-time tracking stays with <see cref="LastPlayTime"/>.
+    ///     Real emulator run time of the last launch (from process start to exit).
+    ///     Zero for shortcut launches (which do not wait for exit).
     /// </summary>
-    public async Task HandleButtonClickAsync(
-        string filePath,
-        string selectedEmulatorName,
-        string selectedSystemName,
-        ISystemManager selectedSystemManager,
-        Emulator selectedEmulatorManager,
-        string rawEmulatorParameters,
-        IWindowContext windowContext,
-        ILoadingState? loadingStateProvider)
-    {
-        // 1. Create Context
-        var context = new LaunchContext
-        {
-            FilePath = filePath,
-            ResolvedFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath) ?? filePath,
-            EmulatorName = selectedEmulatorName,
-            SystemName = selectedSystemName,
-            SystemManagerService = selectedSystemManager,
-            EmulatorManager = selectedEmulatorManager,
-            Parameters = rawEmulatorParameters,
-            Settings = _settings,
-            WindowContext = windowContext,
-            LoadingState = loadingStateProvider
-        };
-
-        // Pause gamepad input while the emulator is running to prevent
-        // mouse/scroll leaking to the desktop (mirrors the WPF app behavior).
-        var wasGamePadRunning = _gamePadController.IsRunning;
-        if (wasGamePadRunning) await _gamePadController.StopAsync();
-
-        try
-        {
-            // 2. Validate SystemManagerService and Emulators before resolving
-            if (context.SystemManagerService?.Emulators == null ||
-                context.SystemManagerService.Emulators.Count == 0 ||
-                context.EmulatorManager == null)
-            {
-                Log.Warning("SystemManagerService or Emulators is null/empty when attempting to launch.");
-                await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(LogFilePath());
-                return;
-            }
-
-            // 3. Perform Validation (file exists — expected user condition, Information level)
-            if (!await ValidateContextAsync(context))
-            {
-                return;
-            }
-
-            // 4. Run configuration handlers BEFORE strategy dispatch (WPF parity).
-            // WPF HandleButtonClickAsync runs the first matching handler for EVERY
-            // launch — including direct .bat/.lnk/.url/.exe — and aborts the launch
-            // when a handler returns false (e.g. the user cancelled the settings window).
-            var configHandler = _configHandlers.FirstOrDefault(h =>
-                h.IsMatch(context.EmulatorName, context.EmulatorManager?.EmulatorLocation ?? ""));
-            if (configHandler != null)
-            {
-                loadingStateProvider?.SetLoadingState(true, "Configuring emulator...");
-                if (!await configHandler.HandleConfigurationAsync(context))
-                {
-                    Log.Information("Emulator config handler {Handler} aborted launch for {Emulator}",
-                        configHandler.GetType().Name, context.EmulatorName);
-                    loadingStateProvider?.SetLoadingState(false);
-                    return;
-                }
-            }
-
-            // 5. Select and execute the first matching strategy (ascending priority).
-            // The inline dispatch inside LaunchRegularEmulatorAsync mirrors the WPF
-            // Default/ZIP/XISO/CHD-mount strategies, so only strategies that previously
-            // had no Avalonia handling (PBP conversion, DOSBox, Commander Genius,
-            // CHD-to-CUE) can match before the Default fallback runs.
-            var strategy = _launchStrategies.FirstOrDefault(s => s.IsMatch(context));
-            if (strategy == null)
-            {
-                Log.Warning(
-                    "No launch strategy found for the context: SystemName='{System}', EmulatorName='{Emulator}', FilePath='{Path}'",
-                    context.SystemName, context.EmulatorName, context.FilePath);
-                await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(LogFilePath());
-                return;
-            }
-
-            await strategy.ExecuteAsync(context, this);
-        }
-        catch (Exception ex)
-        {
-            var detailedMessage = $"Launch Pipeline Failed.\n" +
-                                  $"Exception Type: {ex.GetType().FullName}\n" +
-                                  $"SystemName: '{context.SystemName ?? "null"}'\n" +
-                                  $"EmulatorName: '{context.EmulatorName ?? "null"}'\n" +
-                                  $"FilePath: '{context.FilePath ?? "null"}'\n" +
-                                  $"ResolvedFilePath: '{context.ResolvedFilePath ?? "null"}'";
-            Log.Error(ex, detailedMessage);
-            await _messageBox.CouldNotLaunchGameMessageBoxAsync(LogFilePath());
-        }
-        finally
-        {
-            if (wasGamePadRunning) await _gamePadController.StartAsync();
-        }
-    }
-
-    private async Task<bool> ValidateContextAsync(LaunchContext context)
-    {
-        if (string.IsNullOrWhiteSpace(context.ResolvedFilePath))
-        {
-            Log.Warning("Resolved file path is empty");
-            await _messageBox.FilePathIsInvalidMessageBoxAsync(LogFilePath());
-            return false;
-        }
-
-        var standardPath = context.ResolvedFilePath;
-        var longPath = PathHelper.GetLongPath(standardPath);
-
-        // Check both standard and long path formats for maximum compatibility (>260 char paths)
-        var standardFileExists = File.Exists(standardPath);
-        var longFileExists = File.Exists(longPath);
-        var standardDirExists = Directory.Exists(standardPath);
-        var longDirExists = Directory.Exists(longPath);
-
-        var fileExists = standardFileExists || longFileExists;
-        var directoryExists = standardDirExists || longDirExists;
-
-        // If file doesn't exist, try Unicode normalization variations.
-        // This handles cases where filenames have different normalization forms (NFC vs NFD),
-        // commonly occurring when files are created on different operating systems (macOS vs Windows).
-        string? normalizedPath = null;
-        if (!fileExists && !directoryExists)
-        {
-            normalizedPath = PathHelper.TryFindFileWithNormalizedPath(standardPath);
-            if (!string.IsNullOrEmpty(normalizedPath))
-            {
-                fileExists = true;
-                context.ResolvedFilePath = normalizedPath;
-                Log.Debug("[ValidateContextAsync] Found file using Unicode normalization: {Path}", normalizedPath);
-            }
-        }
-
-        if (!fileExists && !directoryExists)
-        {
-            var msg = $"File not found: {context.ResolvedFilePath}";
-
-            // OneDrive-specific guidance: cloud-only placeholders and unsynced folders are
-            // the most common cause of "file not found" for otherwise valid library entries.
-            if (context.ResolvedFilePath.Contains("OneDrive", StringComparison.OrdinalIgnoreCase))
-            {
-                var parentDir = Path.GetDirectoryName(context.ResolvedFilePath);
-                var oneDriveFolderExists = !string.IsNullOrEmpty(parentDir) && Directory.Exists(parentDir);
-                msg += oneDriveFolderExists
-                    ? "\nThe file is in a OneDrive folder but could not be found. " +
-                      "Ensure the file is synced and downloaded to your device. " +
-                      "Right-click the file in File Explorer and select 'Always keep on this device'."
-                    : "\nThe parent OneDrive folder does not exist or is not accessible. " +
-                      "Ensure OneDrive is signed in and synced, and that the folder is available on this device.";
-            }
-
-            // Expected condition: the game entry is stale (file deleted/moved since the list
-            // was loaded) and the user is already notified via the message box — not a bug report.
-            Log.Information(new FileNotFoundException(msg), msg);
-            await _messageBox.FilePathIsInvalidMessageBoxAsync(LogFilePath());
-            return false;
-        }
-
-        // Detect path format mismatch (exists in one format but not the other).
-        // Helps identify Unicode normalization or path handling issues; logged for developer
-        // investigation but does not block the launch.
-        if ((standardFileExists != longFileExists) || (standardDirExists != longDirExists))
-        {
-            Log.Error(
-                "Path validation mismatch detected:\n" +
-                "  Original Path: {Original}\n" +
-                "  Resolved Path: {Resolved}\n" +
-                "  Long Path: {Long}\n" +
-                "  Normalized Path Found: {Normalized}\n" +
-                "  Standard File.Exists: {StdFile}, Long Path File.Exists: {LongFile}\n" +
-                "  Standard Directory.Exists: {StdDir}, Long Path Directory.Exists: {LongDir}\n" +
-                "  This may indicate a Unicode normalization or path handling issue.",
-                context.FilePath, standardPath, longPath, normalizedPath ?? "N/A",
-                standardFileExists, longFileExists, standardDirExists, longDirExists);
-        }
-
-        if (string.IsNullOrWhiteSpace(context.EmulatorName))
-        {
-            Log.Warning("Emulator name is empty");
-            await _messageBox.CouldNotLaunchGameMessageBoxAsync(LogFilePath());
-            return false;
-        }
-
-        // Add the GroupByFolder check
-        if (context.SystemManagerService is { GroupByFolder: true })
-        {
-            var emulatorName = context.EmulatorName;
-            var emulatorLocation = context.EmulatorManager?.EmulatorLocation ?? "";
-
-            var isMame = emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
-                         emulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
-                         emulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase);
-
-            var isDosBox = emulatorName.Contains("DOSBox", StringComparison.OrdinalIgnoreCase) ||
-                           emulatorLocation.Contains("dosbox", StringComparison.OrdinalIgnoreCase);
-
-            if (!isMame && !isDosBox)
-            {
-                await _messageBox.GroupByFolderOnlyForMameAndDosBoxMessageBoxAsync();
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private string LogFilePath()
-    {
-        return PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
-    }
+    public TimeSpan LastPlayTime { get; private set; }
 
     public async Task LaunchRegularEmulatorAsync(
         string resolvedFilePath,
@@ -395,26 +168,20 @@ public class LauncherService : ILauncherService
                         loadingStateProvider?.SetLoadingState(true, "Mounting archive...");
 
                         if (isRpcs3)
-                        {
                             await _mountZipFiles.MountZipFileAndLoadEbootBinAsync(
                                 resolvedFilePath, selectedSystemManager.SystemName, emulatorName,
                                 selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters,
                                 windowContext, logPath, this, Log.Logger, _messageBox);
-                        }
                         else if (isScummVm)
-                        {
                             await _mountZipFiles.MountZipFileAndLoadWithScummVmAsync(
                                 resolvedFilePath, selectedSystemManager.SystemName, emulatorName,
                                 selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters,
                                 logPath, Log.Logger, _messageBox);
-                        }
                         else
-                        {
                             await _mountZipFiles.MountZipFileAndSearchForFileToLoadAsync(
                                 resolvedFilePath, selectedSystemManager.SystemName, emulatorName,
                                 selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters,
                                 windowContext, logPath, this, Log.Logger, _messageBox);
-                        }
 
                         loadingStateProvider?.SetLoadingState(false);
                         return;
@@ -662,7 +429,7 @@ public class LauncherService : ILauncherService
             else
             {
                 var trimmedParameters = resolvedParameters.TrimEnd();
-                var space = (string.IsNullOrWhiteSpace(trimmedParameters) || trimmedParameters.EndsWith('='))
+                var space = string.IsNullOrWhiteSpace(trimmedParameters) || trimmedParameters.EndsWith('=')
                     ? ""
                     : " ";
                 var isNeoGeoCd = ext is ".CUE" or ".ISO" or ".BIN";
@@ -724,17 +491,11 @@ public class LauncherService : ILauncherService
                         // and block forever, deadlocking WaitForExit (mirrors the WPF launcher).
                         process.OutputDataReceived += (_, e) =>
                         {
-                            if (e.Data is not null)
-                            {
-                                stdoutBuffer.AppendLine(e.Data);
-                            }
+                            if (e.Data is not null) stdoutBuffer.AppendLine(e.Data);
                         };
                         process.ErrorDataReceived += (_, e) =>
                         {
-                            if (e.Data is not null)
-                            {
-                                stderrBuffer.AppendLine(e.Data);
-                            }
+                            if (e.Data is not null) stderrBuffer.AppendLine(e.Data);
                         };
                     }
 
@@ -812,10 +573,8 @@ public class LauncherService : ILauncherService
 
             // ── Post-exit error analysis (ported from the WPF GameLauncherService) ──
             if (!string.IsNullOrWhiteSpace(stderrOutput))
-            {
                 Log.Debug("Emulator stderr for {Emulator}: {Stderr}", emulatorName,
                     stderrOutput.Length > 2000 ? stderrOutput[..2000] : stderrOutput);
-            }
 
             await AnalyzeProcessExitAsync(
                 processExitCode, stdoutOutput, stderrOutput,
@@ -839,7 +598,6 @@ public class LauncherService : ILauncherService
         {
             // Clean up temp extraction directory
             if (cleanupPath is not null)
-            {
                 try
                 {
                     Directory.Delete(cleanupPath, true);
@@ -848,11 +606,9 @@ public class LauncherService : ILauncherService
                 {
                     Log.Debug(ex, "Failed to delete temp extraction dir {Path}", cleanupPath);
                 }
-            }
 
             // Unmount the drives AFTER the emulator exited (kills the mount processes)
             if (mountedChd is not null)
-            {
                 try
                 {
                     await mountedChd.DisposeAsync();
@@ -861,10 +617,8 @@ public class LauncherService : ILauncherService
                 {
                     Log.Debug(ex, "Failed to unmount CHD drive");
                 }
-            }
 
             if (mountedXiso is not null)
-            {
                 try
                 {
                     await mountedXiso.DisposeAsync();
@@ -873,8 +627,227 @@ public class LauncherService : ILauncherService
                 {
                     Log.Debug(ex, "Failed to unmount XISO drive");
                 }
+        }
+    }
+
+    /// <summary>
+    ///     Raised after a game has finished playing with a play time above the 5-second threshold.
+    /// </summary>
+    public event EventHandler<GamePlayedEventArgs>? GamePlayed;
+
+    /// <summary>
+    ///     Game launch pipeline entry point (port of the WPF GameLauncherService.HandleButtonClickAsync):
+    ///     resolves the path, builds a <see cref="LaunchContext" />, runs light validation, and dispatches
+    ///     to the first matching <see cref="ILaunchStrategy" /> (ascending priority, Default last).
+    ///     Play-time tracking stays with <see cref="LastPlayTime" />.
+    /// </summary>
+    public async Task HandleButtonClickAsync(
+        string filePath,
+        string selectedEmulatorName,
+        string selectedSystemName,
+        ISystemManager selectedSystemManager,
+        Emulator selectedEmulatorManager,
+        string rawEmulatorParameters,
+        IWindowContext windowContext,
+        ILoadingState? loadingStateProvider)
+    {
+        // 1. Create Context
+        var context = new LaunchContext
+        {
+            FilePath = filePath,
+            ResolvedFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath) ?? filePath,
+            EmulatorName = selectedEmulatorName,
+            SystemName = selectedSystemName,
+            SystemManagerService = selectedSystemManager,
+            EmulatorManager = selectedEmulatorManager,
+            Parameters = rawEmulatorParameters,
+            Settings = _settings,
+            WindowContext = windowContext,
+            LoadingState = loadingStateProvider
+        };
+
+        // Pause gamepad input while the emulator is running to prevent
+        // mouse/scroll leaking to the desktop (mirrors the WPF app behavior).
+        var wasGamePadRunning = _gamePadController.IsRunning;
+        if (wasGamePadRunning) await _gamePadController.StopAsync();
+
+        try
+        {
+            // 2. Validate SystemManagerService and Emulators before resolving
+            if (context.SystemManagerService?.Emulators == null ||
+                context.SystemManagerService.Emulators.Count == 0 ||
+                context.EmulatorManager == null)
+            {
+                Log.Warning("SystemManagerService or Emulators is null/empty when attempting to launch.");
+                await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(LogFilePath());
+                return;
+            }
+
+            // 3. Perform Validation (file exists — expected user condition, Information level)
+            if (!await ValidateContextAsync(context)) return;
+
+            // 4. Run configuration handlers BEFORE strategy dispatch (WPF parity).
+            // WPF HandleButtonClickAsync runs the first matching handler for EVERY
+            // launch — including direct .bat/.lnk/.url/.exe — and aborts the launch
+            // when a handler returns false (e.g. the user cancelled the settings window).
+            var configHandler = _configHandlers.FirstOrDefault(h =>
+                h.IsMatch(context.EmulatorName, context.EmulatorManager?.EmulatorLocation ?? ""));
+            if (configHandler != null)
+            {
+                loadingStateProvider?.SetLoadingState(true, "Configuring emulator...");
+                if (!await configHandler.HandleConfigurationAsync(context))
+                {
+                    Log.Information("Emulator config handler {Handler} aborted launch for {Emulator}",
+                        configHandler.GetType().Name, context.EmulatorName);
+                    loadingStateProvider?.SetLoadingState(false);
+                    return;
+                }
+            }
+
+            // 5. Select and execute the first matching strategy (ascending priority).
+            // The inline dispatch inside LaunchRegularEmulatorAsync mirrors the WPF
+            // Default/ZIP/XISO/CHD-mount strategies, so only strategies that previously
+            // had no Avalonia handling (PBP conversion, DOSBox, Commander Genius,
+            // CHD-to-CUE) can match before the Default fallback runs.
+            var strategy = _launchStrategies.FirstOrDefault(s => s.IsMatch(context));
+            if (strategy == null)
+            {
+                Log.Warning(
+                    "No launch strategy found for the context: SystemName='{System}', EmulatorName='{Emulator}', FilePath='{Path}'",
+                    context.SystemName, context.EmulatorName, context.FilePath);
+                await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(LogFilePath());
+                return;
+            }
+
+            await strategy.ExecuteAsync(context, this);
+        }
+        catch (Exception ex)
+        {
+            var detailedMessage = $"Launch Pipeline Failed.\n" +
+                                  $"Exception Type: {ex.GetType().FullName}\n" +
+                                  $"SystemName: '{context.SystemName ?? "null"}'\n" +
+                                  $"EmulatorName: '{context.EmulatorName ?? "null"}'\n" +
+                                  $"FilePath: '{context.FilePath ?? "null"}'\n" +
+                                  $"ResolvedFilePath: '{context.ResolvedFilePath ?? "null"}'";
+            Log.Error(ex, detailedMessage);
+            await _messageBox.CouldNotLaunchGameMessageBoxAsync(LogFilePath());
+        }
+        finally
+        {
+            if (wasGamePadRunning) await _gamePadController.StartAsync();
+        }
+    }
+
+    private async Task<bool> ValidateContextAsync(LaunchContext context)
+    {
+        if (string.IsNullOrWhiteSpace(context.ResolvedFilePath))
+        {
+            Log.Warning("Resolved file path is empty");
+            await _messageBox.FilePathIsInvalidMessageBoxAsync(LogFilePath());
+            return false;
+        }
+
+        var standardPath = context.ResolvedFilePath;
+        var longPath = PathHelper.GetLongPath(standardPath);
+
+        // Check both standard and long path formats for maximum compatibility (>260 char paths)
+        var standardFileExists = File.Exists(standardPath);
+        var longFileExists = File.Exists(longPath);
+        var standardDirExists = Directory.Exists(standardPath);
+        var longDirExists = Directory.Exists(longPath);
+
+        var fileExists = standardFileExists || longFileExists;
+        var directoryExists = standardDirExists || longDirExists;
+
+        // If file doesn't exist, try Unicode normalization variations.
+        // This handles cases where filenames have different normalization forms (NFC vs NFD),
+        // commonly occurring when files are created on different operating systems (macOS vs Windows).
+        string? normalizedPath = null;
+        if (!fileExists && !directoryExists)
+        {
+            normalizedPath = PathHelper.TryFindFileWithNormalizedPath(standardPath);
+            if (!string.IsNullOrEmpty(normalizedPath))
+            {
+                fileExists = true;
+                context.ResolvedFilePath = normalizedPath;
+                Log.Debug("[ValidateContextAsync] Found file using Unicode normalization: {Path}", normalizedPath);
             }
         }
+
+        if (!fileExists && !directoryExists)
+        {
+            var msg = $"File not found: {context.ResolvedFilePath}";
+
+            // OneDrive-specific guidance: cloud-only placeholders and unsynced folders are
+            // the most common cause of "file not found" for otherwise valid library entries.
+            if (context.ResolvedFilePath.Contains("OneDrive", StringComparison.OrdinalIgnoreCase))
+            {
+                var parentDir = Path.GetDirectoryName(context.ResolvedFilePath);
+                var oneDriveFolderExists = !string.IsNullOrEmpty(parentDir) && Directory.Exists(parentDir);
+                msg += oneDriveFolderExists
+                    ? "\nThe file is in a OneDrive folder but could not be found. " +
+                      "Ensure the file is synced and downloaded to your device. " +
+                      "Right-click the file in File Explorer and select 'Always keep on this device'."
+                    : "\nThe parent OneDrive folder does not exist or is not accessible. " +
+                      "Ensure OneDrive is signed in and synced, and that the folder is available on this device.";
+            }
+
+            // Expected condition: the game entry is stale (file deleted/moved since the list
+            // was loaded) and the user is already notified via the message box — not a bug report.
+            Log.Information(new FileNotFoundException(msg), msg);
+            await _messageBox.FilePathIsInvalidMessageBoxAsync(LogFilePath());
+            return false;
+        }
+
+        // Detect path format mismatch (exists in one format but not the other).
+        // Helps identify Unicode normalization or path handling issues; logged for developer
+        // investigation but does not block the launch.
+        if (standardFileExists != longFileExists || standardDirExists != longDirExists)
+            Log.Error(
+                "Path validation mismatch detected:\n" +
+                "  Original Path: {Original}\n" +
+                "  Resolved Path: {Resolved}\n" +
+                "  Long Path: {Long}\n" +
+                "  Normalized Path Found: {Normalized}\n" +
+                "  Standard File.Exists: {StdFile}, Long Path File.Exists: {LongFile}\n" +
+                "  Standard Directory.Exists: {StdDir}, Long Path Directory.Exists: {LongDir}\n" +
+                "  This may indicate a Unicode normalization or path handling issue.",
+                context.FilePath, standardPath, longPath, normalizedPath ?? "N/A",
+                standardFileExists, longFileExists, standardDirExists, longDirExists);
+
+        if (string.IsNullOrWhiteSpace(context.EmulatorName))
+        {
+            Log.Warning("Emulator name is empty");
+            await _messageBox.CouldNotLaunchGameMessageBoxAsync(LogFilePath());
+            return false;
+        }
+
+        // Add the GroupByFolder check
+        if (context.SystemManagerService is { GroupByFolder: true })
+        {
+            var emulatorName = context.EmulatorName;
+            var emulatorLocation = context.EmulatorManager?.EmulatorLocation ?? "";
+
+            var isMame = emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
+                         emulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
+                         emulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase);
+
+            var isDosBox = emulatorName.Contains("DOSBox", StringComparison.OrdinalIgnoreCase) ||
+                           emulatorLocation.Contains("dosbox", StringComparison.OrdinalIgnoreCase);
+
+            if (!isMame && !isDosBox)
+            {
+                await _messageBox.GroupByFolderOnlyForMameAndDosBoxMessageBoxAsync();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private string LogFilePath()
+    {
+        return PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
     }
 
     #region Standard launches
@@ -889,7 +862,7 @@ public class LauncherService : ILauncherService
         IList<string> invalidPaths;
         try
         {
-            invalidPaths = Core.Services.GameLauncher.ValidateBatchFile.FindInvalidQuotedPathsSimple(resolvedFilePath);
+            invalidPaths = ValidateBatchFile.FindInvalidQuotedPathsSimple(resolvedFilePath);
         }
         catch (Exception ex)
         {
@@ -924,7 +897,6 @@ public class LauncherService : ILauncherService
 
                 // 5-minute timeout (matches the original launcher), then kill
                 if (!process.WaitForExit(300_000))
-                {
                     try
                     {
                         process.Kill();
@@ -934,11 +906,8 @@ public class LauncherService : ILauncherService
                     {
                         Log.Debug(killEx, "Failed to kill timed-out batch file {Path}", resolvedFilePath);
                     }
-                }
                 else if (process.ExitCode != 0 && !IsInEmulatorsToSkipList(selectedEmulatorManager.EmulatorName))
-                {
                     Log.Warning("Batch file exited with code {ExitCode}: {Path}", process.ExitCode, resolvedFilePath);
-                }
             }
             catch (Exception ex)
             {
@@ -948,10 +917,7 @@ public class LauncherService : ILauncherService
         });
 
         // Show the error on the UI thread (continuation of the awaited Task.Run)
-        if (error is not null)
-        {
-            await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
-        }
+        if (error is not null) await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
     }
 
     public async Task LaunchShortcutFileAsync(
@@ -1022,10 +988,7 @@ public class LauncherService : ILauncherService
         });
 
         // Show the error on the UI thread (continuation of the awaited Task.Run)
-        if (error is not null)
-        {
-            await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
-        }
+        if (error is not null) await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
     }
 
     public async Task LaunchExecutableAsync(
@@ -1052,9 +1015,7 @@ public class LauncherService : ILauncherService
                 process.WaitForExit();
 
                 if (process.ExitCode != 0 && !IsInEmulatorsToSkipList(selectedEmulatorManager.EmulatorName))
-                {
                     Log.Warning("Executable exited with code {ExitCode}: {Path}", process.ExitCode, resolvedFilePath);
-                }
             }
             catch (Exception ex)
             {
@@ -1065,10 +1026,7 @@ public class LauncherService : ILauncherService
         LastPlayTime = DateTime.Now - startTime;
 
         // Show the error on the UI thread (continuation of the awaited Task.Run)
-        if (error is not null)
-        {
-            await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
-        }
+        if (error is not null) await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
     }
 
     #endregion
@@ -1076,8 +1034,8 @@ public class LauncherService : ILauncherService
     #region Helpers
 
     /// <summary>
-    /// Updates play time statistics, records play history, and reports to the stats API.
-    /// Port of the WPF GameLauncherService.UpdateStatsAndPlayCountAsync.
+    ///     Updates play time statistics, records play history, and reports to the stats API.
+    ///     Port of the WPF GameLauncherService.UpdateStatsAndPlayCountAsync.
     /// </summary>
     private async Task UpdateStatsAndPlayCountAsync(
         TimeSpan playTime, string filePath, string systemName,
@@ -1124,9 +1082,9 @@ public class LauncherService : ILauncherService
     private const int DepViolation = -1073740791;
 
     /// <summary>
-    /// Post-exit error analysis — port of the WPF GameLauncherService's
-    /// DoNotCheckErrorsOnSpecificEmulators + CheckForMemoryAccessViolationAsync +
-    /// CheckForDepViolationAsync + CheckForExitCodeWithErrorAnyAsync pipeline.
+    ///     Post-exit error analysis — port of the WPF GameLauncherService's
+    ///     DoNotCheckErrorsOnSpecificEmulators + CheckForMemoryAccessViolationAsync +
+    ///     CheckForDepViolationAsync + CheckForExitCodeWithErrorAnyAsync pipeline.
     /// </summary>
     private async Task AnalyzeProcessExitAsync(
         int exitCode,
@@ -1237,9 +1195,9 @@ public class LauncherService : ILauncherService
         {
             // MAME ROM set error
             case true when
-                (combinedOutput.Contains("Not Found", StringComparison.OrdinalIgnoreCase) ||
-                 combinedOutput.Contains("WRONG LENGTH", StringComparison.OrdinalIgnoreCase) ||
-                 combinedOutput.Contains("Required files are missing", StringComparison.OrdinalIgnoreCase)):
+                combinedOutput.Contains("Not Found", StringComparison.OrdinalIgnoreCase) ||
+                combinedOutput.Contains("WRONG LENGTH", StringComparison.OrdinalIgnoreCase) ||
+                combinedOutput.Contains("Required files are missing", StringComparison.OrdinalIgnoreCase):
             {
                 Log.Debug("MAME ROM set error detected.");
                 Log.Warning(
@@ -1260,8 +1218,8 @@ public class LauncherService : ILauncherService
             }
             // MAME Unknown system
             case true when
-                (combinedOutput.Contains("Unknown system", StringComparison.OrdinalIgnoreCase) ||
-                 combinedOutput.Contains("approximately matches the following", StringComparison.OrdinalIgnoreCase)):
+                combinedOutput.Contains("Unknown system", StringComparison.OrdinalIgnoreCase) ||
+                combinedOutput.Contains("approximately matches the following", StringComparison.OrdinalIgnoreCase):
             {
                 Log.Debug("MAME Unknown system error detected.");
                 Log.Warning(
@@ -1282,8 +1240,8 @@ public class LauncherService : ILauncherService
             }
             // MAME Unable to load image
             case true when
-                (combinedOutput.Contains("Unable to load image", StringComparison.OrdinalIgnoreCase) ||
-                 combinedOutput.Contains("No such file or directory", StringComparison.OrdinalIgnoreCase)):
+                combinedOutput.Contains("Unable to load image", StringComparison.OrdinalIgnoreCase) ||
+                combinedOutput.Contains("No such file or directory", StringComparison.OrdinalIgnoreCase):
             {
                 Log.Debug("MAME Unable to load image error detected.");
                 Log.Warning(
@@ -1309,13 +1267,9 @@ public class LauncherService : ILauncherService
                 Log.Debug("MAME unknown option in INI detected. Attempting to restore mame.ini from sample.");
                 var restored = MameConfigurationService.RestoreMameIniFromSample(emulatorPath, Log.Logger);
                 if (restored)
-                {
                     Log.Debug("mame.ini restored successfully. User should retry.");
-                }
                 else
-                {
                     Log.Debug("Failed to restore mame.ini from sample.");
-                }
 
                 return;
             }
@@ -1338,10 +1292,10 @@ public class LauncherService : ILauncherService
     }
 
     /// <summary>
-    /// Determines which launchable file to look for inside a mounted CHD image for the
-    /// given emulator, and whether the image should be mounted at all. Emulators that
-    /// read .chd natively (RetroArch, DuckStation, PCSX2, ...) return <see cref="ChdGameFileKind.None"/>.
-    /// Mirrors the emulator gate of the WPF ChdMountStrategy.
+    ///     Determines which launchable file to look for inside a mounted CHD image for the
+    ///     given emulator, and whether the image should be mounted at all. Emulators that
+    ///     read .chd natively (RetroArch, DuckStation, PCSX2, ...) return <see cref="ChdGameFileKind.None" />.
+    ///     Mirrors the emulator gate of the WPF ChdMountStrategy.
     /// </summary>
     private static ChdGameFileKind GetChdGameFileKind(string emulatorName, string? emulatorLocation)
     {
@@ -1349,33 +1303,23 @@ public class LauncherService : ILauncherService
 
         if (emulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("retroarch.exe", StringComparison.OrdinalIgnoreCase))
-        {
             return ChdGameFileKind.None;
-        }
 
         if (emulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("rpcs3", StringComparison.OrdinalIgnoreCase))
-        {
             return ChdGameFileKind.EbootBin;
-        }
 
         if (emulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("xenia", StringComparison.OrdinalIgnoreCase))
-        {
             return ChdGameFileKind.DefaultXex;
-        }
 
         if (emulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("xemu", StringComparison.OrdinalIgnoreCase))
-        {
             return ChdGameFileKind.ImageIso;
-        }
 
         if (emulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("cxbx", StringComparison.OrdinalIgnoreCase))
-        {
             return ChdGameFileKind.DefaultXbe;
-        }
 
         if (emulatorName.Contains("Gens", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("gens.exe", StringComparison.OrdinalIgnoreCase) ||
@@ -1385,9 +1329,7 @@ public class LauncherService : ILauncherService
             emulatorName.Contains("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
             emulatorName.Contains("Fusion", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("fusion.exe", StringComparison.OrdinalIgnoreCase))
-        {
             return ChdGameFileKind.BinFile;
-        }
 
         if (emulatorName.Contains("Genesis Plus GX", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("gen_sdl.exe", StringComparison.OrdinalIgnoreCase) ||
@@ -1423,16 +1365,14 @@ public class LauncherService : ILauncherService
             loc.Contains("Tsugaru_CUI.exe", StringComparison.OrdinalIgnoreCase) ||
             emulatorName.Contains("Yabause", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("yabause.exe", StringComparison.OrdinalIgnoreCase))
-        {
             return ChdGameFileKind.CueFile;
-        }
 
         return ChdGameFileKind.None;
     }
 
     /// <summary>
-    /// Locates the launchable file inside a mounted CHD drive for the given emulator
-    /// (mirror of the WPF ChdMountStrategy file selection).
+    ///     Locates the launchable file inside a mounted CHD drive for the given emulator
+    ///     (mirror of the WPF ChdMountStrategy file selection).
     /// </summary>
     private static string? FindGameFileInMountedChd(string mountedPath, ChdGameFileKind kind)
     {
@@ -1449,7 +1389,7 @@ public class LauncherService : ILauncherService
     }
 
     /// <summary>
-    /// Kinds of launchable files that can be located inside a mounted CHD image.
+    ///     Kinds of launchable files that can be located inside a mounted CHD image.
     /// </summary>
     private enum ChdGameFileKind
     {
@@ -1463,19 +1403,15 @@ public class LauncherService : ILauncherService
     }
 
     /// <summary>
-    /// Extracts the URL from a .url internet shortcut file (URL=... line).
+    ///     Extracts the URL from a .url internet shortcut file (URL=... line).
     /// </summary>
     private static string? ExtractUrlFromShortcutFile(string shortcutPath)
     {
         try
         {
             foreach (var line in File.ReadAllLines(shortcutPath))
-            {
                 if (line.StartsWith("URL=", StringComparison.OrdinalIgnoreCase))
-                {
                     return line["URL=".Length..].Trim();
-                }
-            }
         }
         catch (Exception ex)
         {
@@ -1486,9 +1422,9 @@ public class LauncherService : ILauncherService
     }
 
     /// <summary>
-    /// Checks the Windows registry (HKEY_CLASSES_ROOT) for a registered handler for the
-    /// given URL protocol. Port of the WPF GameLauncherService.IsProtocolRegistered.
-    /// Callers must guard with <see cref="OperatingSystem.IsWindows()"/>.
+    ///     Checks the Windows registry (HKEY_CLASSES_ROOT) for a registered handler for the
+    ///     given URL protocol. Port of the WPF GameLauncherService.IsProtocolRegistered.
+    ///     Callers must guard with <see cref="OperatingSystem.IsWindows()" />.
     /// </summary>
     [SupportedOSPlatform("windows")]
     private static bool IsProtocolRegistered(string protocol)
@@ -1498,7 +1434,7 @@ public class LauncherService : ILauncherService
         try
         {
             // Protocol names are case-insensitive in the registry, but typically stored lowercase
-            using var protocolKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(protocol.ToLowerInvariant());
+            using var protocolKey = Registry.ClassesRoot.OpenSubKey(protocol.ToLowerInvariant());
             if (protocolKey == null)
             {
                 Log.Debug("[IsProtocolRegistered] Protocol key '{Protocol}' not found in HKEY_CLASSES_ROOT.",

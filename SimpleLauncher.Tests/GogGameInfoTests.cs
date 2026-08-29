@@ -5,8 +5,8 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="GogGameInfo"/> and <see cref="GogPlayTask"/> models
-/// covering JSON deserialization, default values, and property assignment.
+///     Tests for <see cref="GogGameInfo" /> and <see cref="GogPlayTask" /> models
+///     covering JSON deserialization, default values, and property assignment.
 /// </summary>
 public class GogGameInfoTests
 {
@@ -18,7 +18,7 @@ public class GogGameInfoTests
     // GogGameInfo tests
 
     /// <summary>
-    /// Verifies that a new GogGameInfo has all properties defaulting to null.
+    ///     Verifies that a new GogGameInfo has all properties defaulting to null.
     /// </summary>
     [Fact]
     public void GogGameInfoDefaultPropertiesAreNull()
@@ -30,7 +30,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that GogGameInfo properties can be set and retrieved correctly.
+    ///     Verifies that GogGameInfo properties can be set and retrieved correctly.
     /// </summary>
     [Fact]
     public void GogGameInfoPropertiesCanBeSet()
@@ -48,7 +48,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that GogGameInfo can be deserialized from JSON with empty play tasks.
+    ///     Verifies that GogGameInfo can be deserialized from JSON with empty play tasks.
     /// </summary>
     [Fact]
     public void GogGameInfoDeserializeFromJson()
@@ -71,7 +71,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that GogGameInfo can be deserialized from JSON with play tasks populated.
+    ///     Verifies that GogGameInfo can be deserialized from JSON with play tasks populated.
     /// </summary>
     [Fact]
     public void GogGameInfoDeserializeWithPlayTasks()
@@ -101,7 +101,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that GogGameInfo can be deserialized from an empty JSON object.
+    ///     Verifies that GogGameInfo can be deserialized from an empty JSON object.
     /// </summary>
     [Fact]
     public void GogGameInfoDeserializeEmptyJson()
@@ -117,7 +117,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that GogGameInfo detects DLC when RootGameId differs from GameId.
+    ///     Verifies that GogGameInfo detects DLC when RootGameId differs from GameId.
     /// </summary>
     [Fact]
     public void GogGameInfoDetectsDlcWhenRootGameIdDiffers()
@@ -134,7 +134,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that GogGameInfo does not detect DLC when RootGameId matches GameId.
+    ///     Verifies that GogGameInfo does not detect DLC when RootGameId matches GameId.
     /// </summary>
     [Fact]
     public void GogGameInfoNotDlcWhenRootGameIdMatches()
@@ -151,7 +151,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that GogGameInfo does not detect DLC when RootGameId is empty.
+    ///     Verifies that GogGameInfo does not detect DLC when RootGameId is empty.
     /// </summary>
     [Fact]
     public void GogGameInfoNotDlcWhenRootGameIdIsEmpty()
@@ -168,7 +168,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that GogGameInfo does not detect DLC when RootGameId is null.
+    ///     Verifies that GogGameInfo does not detect DLC when RootGameId is null.
     /// </summary>
     [Fact]
     public void GogGameInfoNotDlcWhenRootGameIdIsNull()
@@ -187,7 +187,7 @@ public class GogGameInfoTests
     // GogPlayTask tests
 
     /// <summary>
-    /// Verifies that a new GogPlayTask has all properties defaulting to null or false.
+    ///     Verifies that a new GogPlayTask has all properties defaulting to null or false.
     /// </summary>
     [Fact]
     public void GogPlayTaskDefaultValues()
@@ -200,7 +200,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that GogPlayTask properties can be set and retrieved correctly.
+    ///     Verifies that GogPlayTask properties can be set and retrieved correctly.
     /// </summary>
     [Fact]
     public void GogPlayTaskPropertiesCanBeSet()
@@ -220,7 +220,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that GogPlayTask can be deserialized from JSON with all properties populated.
+    ///     Verifies that GogPlayTask can be deserialized from JSON with all properties populated.
     /// </summary>
     [Fact]
     public void GogPlayTaskDeserializeFromJson()
@@ -243,7 +243,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that GogPlayTask can be deserialized from an empty JSON object.
+    ///     Verifies that GogPlayTask can be deserialized from an empty JSON object.
     /// </summary>
     [Fact]
     public void GogPlayTaskDeserializeEmptyJson()
@@ -260,7 +260,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that the primary FileTask can be found among multiple play tasks.
+    ///     Verifies that the primary FileTask can be found among multiple play tasks.
     /// </summary>
     [Fact]
     public void GogGameInfoFindPrimaryFileTask()
@@ -282,7 +282,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that null is returned when no primary FileTask exists.
+    ///     Verifies that null is returned when no primary FileTask exists.
     /// </summary>
     [Fact]
     public void GogGameInfoNoPrimaryFileTaskReturnsNull()
@@ -302,7 +302,7 @@ public class GogGameInfoTests
     }
 
     /// <summary>
-    /// Verifies that GogGameInfo can be deserialized from JSON with multiple play tasks.
+    ///     Verifies that GogGameInfo can be deserialized from JSON with multiple play tasks.
     /// </summary>
     [Fact]
     public void GogGameInfoDeserializeMultiplePlayTasks()

@@ -4,12 +4,13 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="Favorite"/> model covering required properties, optional defaults, and property change notifications.
+///     Tests for the <see cref="Favorite" /> model covering required properties, optional defaults, and property change
+///     notifications.
 /// </summary>
 public class FavoriteTests
 {
     /// <summary>
-    /// Verifies that a Favorite can be created with required FileName and SystemName properties.
+    ///     Verifies that a Favorite can be created with required FileName and SystemName properties.
     /// </summary>
     [Fact]
     public void FavoriteCanBeCreatedWithRequiredProperties()
@@ -25,7 +26,7 @@ public class FavoriteTests
     }
 
     /// <summary>
-    /// Verifies that optional properties default to null when only required properties are set.
+    ///     Verifies that optional properties default to null when only required properties are set.
     /// </summary>
     [Fact]
     public void FavoriteOptionalPropertiesDefaultToNull()
@@ -42,7 +43,7 @@ public class FavoriteTests
     }
 
     /// <summary>
-    /// Verifies that optional properties can be set and retrieved correctly.
+    ///     Verifies that optional properties can be set and retrieved correctly.
     /// </summary>
     [Fact]
     public void FavoriteOptionalPropertiesCanBeSet()
@@ -60,7 +61,7 @@ public class FavoriteTests
     }
 
     /// <summary>
-    /// Verifies that setting DefaultEmulator raises a PropertyChanged event.
+    ///     Verifies that setting DefaultEmulator raises a PropertyChanged event.
     /// </summary>
     [Fact]
     public void DefaultEmulatorPropertyRaisesPropertyChanged()
@@ -74,10 +75,7 @@ public class FavoriteTests
         var eventRaised = false;
         favorite.PropertyChanged += (_, args) =>
         {
-            if (string.Equals(args.PropertyName, "DefaultEmulator", StringComparison.Ordinal))
-            {
-                eventRaised = true;
-            }
+            if (string.Equals(args.PropertyName, "DefaultEmulator", StringComparison.Ordinal)) eventRaised = true;
         };
 
         favorite.DefaultEmulator = "RetroArch";
@@ -86,7 +84,7 @@ public class FavoriteTests
     }
 
     /// <summary>
-    /// Verifies that setting DefaultEmulator to the same value does not raise PropertyChanged.
+    ///     Verifies that setting DefaultEmulator to the same value does not raise PropertyChanged.
     /// </summary>
     [Fact]
     public void DefaultEmulatorSameValueDoesNotRaisePropertyChanged()
@@ -106,7 +104,7 @@ public class FavoriteTests
     }
 
     /// <summary>
-    /// Verifies that all Favorite properties can be set simultaneously and retrieved correctly.
+    ///     Verifies that all Favorite properties can be set simultaneously and retrieved correctly.
     /// </summary>
     [Fact]
     public void AllPropertiesCanBeSet()
@@ -128,7 +126,7 @@ public class FavoriteTests
     }
 
     /// <summary>
-    /// Verifies that the FileName property is init-only and can be set during object creation.
+    ///     Verifies that the FileName property is init-only and can be set during object creation.
     /// </summary>
     [Fact]
     public void FileNameIsInitOnly()
@@ -138,7 +136,7 @@ public class FavoriteTests
     }
 
     /// <summary>
-    /// Verifies that the SystemName property is init-only and can be set during object creation.
+    ///     Verifies that the SystemName property is init-only and can be set during object creation.
     /// </summary>
     [Fact]
     public void SystemNameIsInitOnly()
@@ -148,7 +146,7 @@ public class FavoriteTests
     }
 
     /// <summary>
-    /// Verifies that Unicode characters are preserved in FileName and MachineDescription properties.
+    ///     Verifies that Unicode characters are preserved in FileName and MachineDescription properties.
     /// </summary>
     [Fact]
     public void UnicodeCharactersArePreserved()
@@ -165,7 +163,7 @@ public class FavoriteTests
     }
 
     /// <summary>
-    /// Verifies that long file names are preserved in the FileName property.
+    ///     Verifies that long file names are preserved in the FileName property.
     /// </summary>
     [Fact]
     public void LongFileNameIsPreserved()
@@ -176,7 +174,7 @@ public class FavoriteTests
     }
 
     /// <summary>
-    /// Verifies that special characters in file names are preserved in the FileName property.
+    ///     Verifies that special characters in file names are preserved in the FileName property.
     /// </summary>
     [Fact]
     public void SpecialCharactersInFileNameArePreserved()

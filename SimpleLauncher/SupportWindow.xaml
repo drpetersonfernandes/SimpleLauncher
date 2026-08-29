@@ -23,12 +23,14 @@
 
             <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,0,10,10" Orientation="Horizontal">
                 <TextBlock Text="{DynamicResource Name}" Width="95" VerticalAlignment="Center" />
-                <TextBox x:Name="NameTextBox" Width="270" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" ToolTip="{DynamicResource TooltipName}" />
+                <TextBox x:Name="NameTextBox" Width="270" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="{DynamicResource TooltipName}" />
             </StackPanel>
 
             <StackPanel Grid.Row="2" Grid.Column="0" Margin="10,0,10,20" Orientation="Horizontal">
                 <TextBlock Text="{DynamicResource Email}" Width="95" VerticalAlignment="Center" />
-                <TextBox x:Name="EmailTextBox" Width="270" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" ToolTip="{DynamicResource TooltipEmail}" />
+                <TextBox x:Name="EmailTextBox" Width="270" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="{DynamicResource TooltipEmail}" />
             </StackPanel>
 
             <TextBox

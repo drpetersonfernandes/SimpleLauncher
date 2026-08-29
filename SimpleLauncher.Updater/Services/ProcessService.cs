@@ -4,7 +4,7 @@ using System.IO;
 namespace SimpleLauncher.Updater.Services;
 
 /// <summary>
-/// Service for managing process operations like waiting for process exit and restarting applications.
+///     Service for managing process operations like waiting for process exit and restarting applications.
 /// </summary>
 internal class ProcessService
 {
@@ -12,12 +12,12 @@ internal class ProcessService
     private const int ProcessExitPollIntervalMs = 500; // Poll every 500ms to check if process exited
 
     /// <summary>
-    /// Event raised when a log message needs to be displayed.
+    ///     Event raised when a log message needs to be displayed.
     /// </summary>
     public event EventHandler<EventArgs<string>>? LogMessage;
 
     /// <summary>
-    /// Waits for the main application process to exit.
+    ///     Waits for the main application process to exit.
     /// </summary>
     /// <param name="processId">The process ID of the main application, or null if not available.</param>
     /// <param name="cancellationToken">Token to cancel the wait operation.</param>
@@ -44,11 +44,9 @@ internal class ProcessService
                 cancellationToken.ThrowIfCancellationRequested();
 
                 if (!mainAppProcess.HasExited)
-                {
                     throw new TimeoutException(
                         $"Simple Launcher (PID: {processId}) did not exit within {ProcessExitTimeoutMs / 1000} seconds. " +
                         "The process may be unresponsive or still shutting down.");
-                }
 
                 // Add a small delay to ensure file handles are released
                 await Task.Delay(500, cancellationToken);
@@ -72,7 +70,6 @@ internal class ProcessService
 
             var processes = Process.GetProcessesByName("SimpleLauncher");
             if (processes.Length > 0)
-            {
                 try
                 {
                     var process = processes[0];
@@ -92,29 +89,19 @@ internal class ProcessService
                     cancellationToken.ThrowIfCancellationRequested();
 
                     if (!hasExited)
-                    {
                         LogMessage?.Invoke(this,
                             new EventArgs<string>(
                                 $"SimpleLauncher process did not exit within {ProcessExitTimeoutMs / 1000} seconds. Proceeding anyway."));
-                    }
                     else
-                    {
                         LogMessage?.Invoke(this, new EventArgs<string>("SimpleLauncher has exited."));
-                    }
                 }
                 finally
                 {
-                    foreach (var p in processes)
-                    {
-                        p.Dispose();
-                    }
+                    foreach (var p in processes) p.Dispose();
                 }
-            }
             else
-            {
                 LogMessage?.Invoke(this,
                     new EventArgs<string>("SimpleLauncher process not found. Proceeding immediately."));
-            }
 
             // Small delay to ensure file handles are released
             await Task.Delay(500, cancellationToken);
@@ -122,7 +109,7 @@ internal class ProcessService
     }
 
     /// <summary>
-    /// Restarts the main application after an update.
+    ///     Restarts the main application after an update.
     /// </summary>
     /// <param name="appDirectory">The directory containing the application executable.</param>
     /// <param name="executableName">The name of the executable to start (without .exe extension).</param>
@@ -163,7 +150,7 @@ internal class ProcessService
     }
 
     /// <summary>
-    /// Opens a URL in the default web browser.
+    ///     Opens a URL in the default web browser.
     /// </summary>
     /// <param name="url">The URL to open.</param>
     public void OpenUrl(string url)
@@ -184,8 +171,8 @@ internal class ProcessService
     }
 
     /// <summary>
-    /// Fire-and-forget helper for reporting bugs from synchronous contexts.
-    /// Logs exceptions to Debug output if the bug report itself fails.
+    ///     Fire-and-forget helper for reporting bugs from synchronous contexts.
+    ///     Logs exceptions to Debug output if the bug report itself fails.
     /// </summary>
     private static async Task ReportBugFireAndForgetAsync(Exception exception, string context)
     {

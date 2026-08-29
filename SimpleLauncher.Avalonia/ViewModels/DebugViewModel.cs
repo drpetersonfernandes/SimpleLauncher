@@ -11,17 +11,16 @@ using SimpleLauncher.Avalonia.Services;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the debug window, managing log message collection and display.
-/// Avalonia port of the WPF DebugViewModel.
+///     ViewModel for the debug window, managing log message collection and display.
+///     Avalonia port of the WPF DebugViewModel.
 /// </summary>
 public partial class DebugViewModel : ObservableObject
 {
+    private const int MaxMessageCount = 5000;
     private readonly Lock _logLock = new();
     private string _logText = "";
 
-    private const int MaxMessageCount = 5000;
-
-    /// <summary>Initializes a new instance of the <see cref="DebugViewModel"/> and connects to the debug window sink.</summary>
+    /// <summary>Initializes a new instance of the <see cref="DebugViewModel" /> and connects to the debug window sink.</summary>
     public DebugViewModel()
     {
         DebugWindowSink.Connect(this);
@@ -57,10 +56,7 @@ public partial class DebugViewModel : ObservableObject
         {
             LogMessages.Add(formattedMessage);
 
-            while (LogMessages.Count > MaxMessageCount)
-            {
-                LogMessages.RemoveAt(0);
-            }
+            while (LogMessages.Count > MaxMessageCount) LogMessages.RemoveAt(0);
 
             LogText = string.Join(Environment.NewLine, LogMessages) + Environment.NewLine;
             OnPropertyChanged(nameof(CanClearLog));
@@ -82,15 +78,9 @@ public partial class DebugViewModel : ObservableObject
 
         lock (_logLock)
         {
-            foreach (var msg in formattedMessages)
-            {
-                LogMessages.Add(msg);
-            }
+            foreach (var msg in formattedMessages) LogMessages.Add(msg);
 
-            while (LogMessages.Count > MaxMessageCount)
-            {
-                LogMessages.RemoveAt(0);
-            }
+            while (LogMessages.Count > MaxMessageCount) LogMessages.RemoveAt(0);
 
             LogText = string.Join(Environment.NewLine, LogMessages) + Environment.NewLine;
             OnPropertyChanged(nameof(CanClearLog));

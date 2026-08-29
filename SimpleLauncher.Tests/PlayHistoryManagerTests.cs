@@ -1,21 +1,23 @@
+using System.Collections.ObjectModel;
 using MessagePack;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="Services.PlayHistory.PlayHistoryManager"/> covering MessagePack
-/// serialization/deserialization, default values, corruption handling, and item ordering.
+///     Tests for <see cref="Services.PlayHistory.PlayHistoryManager" /> covering MessagePack
+///     serialization/deserialization, default values, corruption handling, and item ordering.
 /// </summary>
 public class PlayHistoryManagerTests : IDisposable
 {
     private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlayHistoryManagerTests"/> class,
-    /// installing the service provider mock and creating a temporary test directory.
+    ///     Initializes a new instance of the <see cref="PlayHistoryManagerTests" /> class,
+    ///     installing the service provider mock and creating a temporary test directory.
     /// </summary>
     public PlayHistoryManagerTests()
     {
@@ -25,7 +27,7 @@ public class PlayHistoryManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory and restores the service provider mock.
+    ///     Cleans up the temporary test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
@@ -44,13 +46,13 @@ public class PlayHistoryManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that PlayHistoryManager can be serialized and deserialized via MessagePack
-    /// while preserving all item properties.
+    ///     Verifies that PlayHistoryManager can be serialized and deserialized via MessagePack
+    ///     while preserving all item properties.
     /// </summary>
     [Fact]
     public void PlayHistoryManagerCanBeSerializedAndDeserialized()
     {
-        var manager = new Services.PlayHistory.PlayHistoryManager
+        var manager = new PlayHistoryManager
         {
             PlayHistoryList =
             [
@@ -68,7 +70,7 @@ public class PlayHistoryManagerTests : IDisposable
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
 
         Assert.NotNull(deserialized);
         Assert.Single(deserialized.PlayHistoryList);
@@ -81,46 +83,46 @@ public class PlayHistoryManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that an empty PlayHistoryManager serializes and deserializes correctly.
+    ///     Verifies that an empty PlayHistoryManager serializes and deserializes correctly.
     /// </summary>
     [Fact]
     public void PlayHistoryManagerEmptyListSerializesCorrectly()
     {
-        var manager = new Services.PlayHistory.PlayHistoryManager
+        var manager = new PlayHistoryManager
         {
             PlayHistoryList = [],
             Version = 1
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
 
         Assert.NotNull(deserialized);
         Assert.Empty(deserialized.PlayHistoryList);
     }
 
     /// <summary>
-    /// Verifies that the default Version of a new PlayHistoryManager is 1.
+    ///     Verifies that the default Version of a new PlayHistoryManager is 1.
     /// </summary>
     [Fact]
     public void PlayHistoryManagerDefaultVersionIsOne()
     {
-        var manager = new Services.PlayHistory.PlayHistoryManager();
+        var manager = new PlayHistoryManager();
         Assert.Equal(1, manager.Version);
     }
 
     /// <summary>
-    /// Verifies that the default PlayHistoryList of a new PlayHistoryManager is empty.
+    ///     Verifies that the default PlayHistoryList of a new PlayHistoryManager is empty.
     /// </summary>
     [Fact]
     public void PlayHistoryManagerDefaultListIsEmpty()
     {
-        var manager = new Services.PlayHistory.PlayHistoryManager();
+        var manager = new PlayHistoryManager();
         Assert.Empty(manager.PlayHistoryList);
     }
 
     /// <summary>
-    /// Verifies that deserializing corrupted MessagePack bytes throws a MessagePackSerializationException.
+    ///     Verifies that deserializing corrupted MessagePack bytes throws a MessagePackSerializationException.
     /// </summary>
     [Fact]
     public void PlayHistoryManagerCorruptedBytesThrowsException()
@@ -128,16 +130,16 @@ public class PlayHistoryManagerTests : IDisposable
         var corruptedBytes = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
         Assert.Throws<MessagePackSerializationException>(() =>
-            MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(corruptedBytes));
+            MessagePackSerializer.Deserialize<PlayHistoryManager>(corruptedBytes));
     }
 
     /// <summary>
-    /// Verifies that multiple play history items preserve their order after serialization and deserialization.
+    ///     Verifies that multiple play history items preserve their order after serialization and deserialization.
     /// </summary>
     [Fact]
     public void PlayHistoryManagerMultipleItemsPreservesOrder()
     {
-        var manager = new Services.PlayHistory.PlayHistoryManager
+        var manager = new PlayHistoryManager
         {
             PlayHistoryList =
             [
@@ -151,7 +153,7 @@ public class PlayHistoryManagerTests : IDisposable
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
 
         Assert.Equal(3, deserialized.PlayHistoryList.Count);
         Assert.Equal("game1.zip", deserialized.PlayHistoryList[0].FileName);
@@ -160,7 +162,7 @@ public class PlayHistoryManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that ISO date and time format strings are preserved after serialization.
+    ///     Verifies that ISO date and time format strings are preserved after serialization.
     /// </summary>
     [Fact]
     public void PlayHistoryItemIsoDateFormatIsPreserved()
@@ -173,20 +175,20 @@ public class PlayHistoryManagerTests : IDisposable
             LastPlayTime = "23:59:59"
         };
 
-        var manager = new Services.PlayHistory.PlayHistoryManager
+        var manager = new PlayHistoryManager
         {
             PlayHistoryList = [item]
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
 
         Assert.Equal("2024-12-25", deserialized.PlayHistoryList[0].LastPlayDate);
         Assert.Equal("23:59:59", deserialized.PlayHistoryList[0].LastPlayTime);
     }
 
     /// <summary>
-    /// Verifies that large play time values serialize and deserialize correctly.
+    ///     Verifies that large play time values serialize and deserialize correctly.
     /// </summary>
     [Fact]
     public void PlayHistoryItemLargePlayTimeSerializesCorrectly()
@@ -199,20 +201,20 @@ public class PlayHistoryManagerTests : IDisposable
             TimesPlayed = 100
         };
 
-        var manager = new Services.PlayHistory.PlayHistoryManager
+        var manager = new PlayHistoryManager
         {
             PlayHistoryList = [item]
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
 
         Assert.Equal(86400, deserialized.PlayHistoryList[0].TotalPlayTime);
         Assert.Equal(100, deserialized.PlayHistoryList[0].TimesPlayed);
     }
 
     /// <summary>
-    /// Verifies that DisplayName returns just the file name when given only a file name without a path.
+    ///     Verifies that DisplayName returns just the file name when given only a file name without a path.
     /// </summary>
     [Fact]
     public void PlayHistoryItemDisplayNameHandlesJustFileName()
@@ -222,7 +224,7 @@ public class PlayHistoryManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays correctly for seconds-only durations.
+    ///     Verifies that FormattedPlayTime displays correctly for seconds-only durations.
     /// </summary>
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeSecondsOnly()
@@ -232,7 +234,7 @@ public class PlayHistoryManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays minutes and seconds correctly.
+    ///     Verifies that FormattedPlayTime displays minutes and seconds correctly.
     /// </summary>
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeMinutesAndSeconds()
@@ -242,7 +244,7 @@ public class PlayHistoryManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays correctly for large play time values.
+    ///     Verifies that FormattedPlayTime displays correctly for large play time values.
     /// </summary>
     [Fact]
     public void PlayHistoryItemFormattedPlayTimeLargeValue()
@@ -252,12 +254,12 @@ public class PlayHistoryManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that special characters in file names are preserved through serialization.
+    ///     Verifies that special characters in file names are preserved through serialization.
     /// </summary>
     [Fact]
     public void PlayHistoryManagerWithSpecialCharactersInFileName()
     {
-        var manager = new Services.PlayHistory.PlayHistoryManager
+        var manager = new PlayHistoryManager
         {
             PlayHistoryList =
             [
@@ -272,7 +274,7 @@ public class PlayHistoryManagerTests : IDisposable
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
 
         Assert.Equal(2, deserialized.PlayHistoryList.Count);
         Assert.Equal("C:\\roms\\[BIOS] Test.zip", deserialized.PlayHistoryList[0].FileName);
@@ -280,12 +282,12 @@ public class PlayHistoryManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Unicode characters in file names are preserved through serialization.
+    ///     Verifies that Unicode characters in file names are preserved through serialization.
     /// </summary>
     [Fact]
     public void PlayHistoryManagerWithUnicodeCharacters()
     {
-        var manager = new Services.PlayHistory.PlayHistoryManager
+        var manager = new PlayHistoryManager
         {
             PlayHistoryList =
             [
@@ -296,31 +298,31 @@ public class PlayHistoryManagerTests : IDisposable
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
 
         Assert.Equal("C:\\roms\\ポケモン.zip", deserialized.PlayHistoryList[0].FileName);
     }
 
     /// <summary>
-    /// Verifies that the Version property is preserved through serialization.
+    ///     Verifies that the Version property is preserved through serialization.
     /// </summary>
     [Fact]
     public void PlayHistoryManagerVersionPreservedAfterSerialization()
     {
-        var manager = new Services.PlayHistory.PlayHistoryManager
+        var manager = new PlayHistoryManager
         {
             PlayHistoryList = [],
             Version = 99
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
 
         Assert.Equal(99, deserialized.Version);
     }
 
     /// <summary>
-    /// Verifies that a large list of 1000 play history items serializes and deserializes correctly.
+    ///     Verifies that a large list of 1000 play history items serializes and deserializes correctly.
     /// </summary>
     [Fact]
     public void PlayHistoryManagerLargeListSerializesCorrectly()
@@ -337,14 +339,14 @@ public class PlayHistoryManagerTests : IDisposable
             })
             .ToList();
 
-        var manager = new Services.PlayHistory.PlayHistoryManager
+        var manager = new PlayHistoryManager
         {
-            PlayHistoryList = new System.Collections.ObjectModel.ObservableCollection<PlayHistoryItem>(items),
+            PlayHistoryList = new ObservableCollection<PlayHistoryItem>(items),
             Version = 1
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.PlayHistory.PlayHistoryManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
 
         Assert.Equal(1000, deserialized.PlayHistoryList.Count);
         Assert.Equal(10, deserialized.PlayHistoryList[0].TotalPlayTime);
@@ -352,7 +354,7 @@ public class PlayHistoryManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a PlayHistoryItem with zero TimesPlayed and TotalPlayTime stores those values correctly.
+    ///     Verifies that a PlayHistoryItem with zero TimesPlayed and TotalPlayTime stores those values correctly.
     /// </summary>
     [Fact]
     public void PlayHistoryItemZeroTimesPlayed()
@@ -364,7 +366,7 @@ public class PlayHistoryManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that empty date and time strings are preserved correctly.
+    ///     Verifies that empty date and time strings are preserved correctly.
     /// </summary>
     [Fact]
     public void PlayHistoryItemEmptyDateAndTime()
@@ -376,7 +378,7 @@ public class PlayHistoryManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that PropertyChanged fires for TotalPlayTime after deserialization.
+    ///     Verifies that PropertyChanged fires for TotalPlayTime after deserialization.
     /// </summary>
     [Fact]
     public void PlayHistoryItemPropertyChangedOnTotalPlayTime()
@@ -386,9 +388,7 @@ public class PlayHistoryManagerTests : IDisposable
         item.PropertyChanged += (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(PlayHistoryItem.TotalPlayTime), StringComparison.Ordinal))
-            {
                 propertyChanged = true;
-            }
         };
 
         item.TotalPlayTime = 200;

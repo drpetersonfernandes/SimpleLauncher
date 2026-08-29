@@ -1,12 +1,12 @@
 namespace SimpleLauncher.Core.Interfaces;
 
 /// <summary>
-/// Provides methods to locate cover images for games.
+///     Provides methods to locate cover images for games.
 /// </summary>
 public interface IFindCoverImageService
 {
     /// <summary>
-    /// Finds the cover image path for a game based on its file name and system.
+    ///     Finds the cover image path for a game based on its file name and system.
     /// </summary>
     /// <param name="fileNameWithoutExtension">The game file name without its extension.</param>
     /// <param name="systemName">The name of the game system.</param>

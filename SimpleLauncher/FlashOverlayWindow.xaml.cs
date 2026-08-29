@@ -5,7 +5,7 @@ using SimpleLauncher.ViewModels;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Full-screen overlay window that displays a brief flash animation effect.
+///     Full-screen overlay window that displays a brief flash animation effect.
 /// </summary>
 public partial class FlashOverlayWindow : IDisposable
 {
@@ -13,7 +13,7 @@ public partial class FlashOverlayWindow : IDisposable
     private CancellationTokenSource? _cts;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FlashOverlayWindow"/> class.
+    ///     Initializes a new instance of the <see cref="FlashOverlayWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing flash overlay logic.</param>
     public FlashOverlayWindow(FlashOverlayViewModel viewModel)
@@ -33,7 +33,17 @@ public partial class FlashOverlayWindow : IDisposable
     }
 
     /// <summary>
-    /// Displays the flash overlay with a fade-in/out animation and closes automatically.
+    ///     Disposes the cancellation token source used by the flash animation and suppresses finalization.
+    /// </summary>
+    public void Dispose()
+    {
+        _cts?.Dispose();
+        _cts = null;
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    ///     Displays the flash overlay with a fade-in/out animation and closes automatically.
     /// </summary>
     public async Task ShowFlashAsync()
     {
@@ -69,15 +79,5 @@ public partial class FlashOverlayWindow : IDisposable
 
         // Close the window after the flash
         _viewModel.OnAnimationCompleted();
-    }
-
-    /// <summary>
-    /// Disposes the cancellation token source used by the flash animation and suppresses finalization.
-    /// </summary>
-    public void Dispose()
-    {
-        _cts?.Dispose();
-        _cts = null;
-        GC.SuppressFinalize(this);
     }
 }

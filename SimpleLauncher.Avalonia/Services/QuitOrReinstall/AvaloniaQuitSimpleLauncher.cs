@@ -5,17 +5,17 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Services.QuitOrReinstall;
 
 /// <summary>
-/// Handles application shutdown and restart for the Avalonia port.
-/// Port of the WPF QuitSimpleLauncher — Exit_Click routes here for a clean
-/// shutdown instead of merely closing the window.
+///     Handles application shutdown and restart for the Avalonia port.
+///     Port of the WPF QuitSimpleLauncher — Exit_Click routes here for a clean
+///     shutdown instead of merely closing the window.
 /// </summary>
 public class AvaloniaQuitSimpleLauncher
 {
-    private readonly ILogger _logger;
     private readonly IApplicationLifetime _applicationLifetime;
+    private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AvaloniaQuitSimpleLauncher"/> class.
+    ///     Initializes a new instance of the <see cref="AvaloniaQuitSimpleLauncher" /> class.
     /// </summary>
     public AvaloniaQuitSimpleLauncher(ILogger logErrors, IApplicationLifetime applicationLifetime)
     {
@@ -24,7 +24,7 @@ public class AvaloniaQuitSimpleLauncher
     }
 
     /// <summary>
-    /// Restarts the application by launching a new process and shutting down the current one.
+    ///     Restarts the application by launching a new process and shutting down the current one.
     /// </summary>
     public async Task RestartApplicationAsync(IMessageBoxLibraryService messageBox)
     {
@@ -60,7 +60,7 @@ public class AvaloniaQuitSimpleLauncher
     }
 
     /// <summary>
-    /// Shuts down the application immediately (clean shutdown path used by Exit).
+    ///     Shuts down the application immediately (clean shutdown path used by Exit).
     /// </summary>
     public void SimpleQuitApplication()
     {
@@ -68,7 +68,7 @@ public class AvaloniaQuitSimpleLauncher
     }
 
     /// <summary>
-    /// Launches a fresh updater and forcefully shuts down the application for an update.
+    ///     Launches a fresh updater and forcefully shuts down the application for an update.
     /// </summary>
     public async Task ShutdownForUpdateAsync(string updaterPath, IMessageBoxLibraryService messageBox)
     {

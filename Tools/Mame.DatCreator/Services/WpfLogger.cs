@@ -3,7 +3,7 @@ using System.Windows.Controls;
 namespace Mame.DatCreator.Services;
 
 /// <summary>
-/// Provides logging functionality that writes to a WPF TextBox control.
+///     Provides logging functionality that writes to a WPF TextBox control.
 /// </summary>
 public class WpfLogger
 {
@@ -11,7 +11,7 @@ public class WpfLogger
     private readonly ScrollViewer? _scrollViewer;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="WpfLogger"/> class.
+    ///     Initializes a new instance of the <see cref="WpfLogger" /> class.
     /// </summary>
     /// <param name="logTextBox">The TextBox to write log messages to.</param>
     /// <param name="scrollViewer">Optional ScrollViewer for auto-scrolling.</param>
@@ -22,7 +22,7 @@ public class WpfLogger
     }
 
     /// <summary>
-    /// Logs an informational message.
+    ///     Logs an informational message.
     /// </summary>
     /// <param name="message">The message to log.</param>
     public void Info(string message)
@@ -32,7 +32,7 @@ public class WpfLogger
     }
 
     /// <summary>
-    /// Logs a warning message.
+    ///     Logs a warning message.
     /// </summary>
     /// <param name="message">The message to log.</param>
     public void Warning(string message)
@@ -42,7 +42,7 @@ public class WpfLogger
     }
 
     /// <summary>
-    /// Logs an error message with an optional exception.
+    ///     Logs an error message with an optional exception.
     /// </summary>
     /// <param name="message">The error message to log.</param>
     /// <param name="ex">The optional exception to log.</param>
@@ -53,22 +53,15 @@ public class WpfLogger
         else
             Log.Error(message);
         AppendLog($"[ERROR] {message}");
-        if (ex != null)
-        {
-            AppendLog(ex.ToString());
-        }
+        if (ex != null) AppendLog(ex.ToString());
     }
 
     private void AppendLog(string message)
     {
         if (_logTextBox.Dispatcher.CheckAccess())
-        {
             AppendLogInternal(message);
-        }
         else
-        {
             _logTextBox.Dispatcher.Invoke(() => AppendLogInternal(message));
-        }
     }
 
     private void AppendLogInternal(string message)

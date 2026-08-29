@@ -3,10 +3,13 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Models;
 
 /// <summary>
-/// Immutable configuration model for a system (console/platform), implementing ISystemManager for read-only access.
+///     Immutable configuration model for a system (console/platform), implementing ISystemManager for read-only access.
 /// </summary>
 public class SystemManagerConfig : ISystemManager
 {
+    /// <summary>Gets the list of configured emulators for this system.</summary>
+    public IList<Emulator> Emulators { get; init; } = null!;
+
     /// <summary>Gets the name of the system.</summary>
     public string SystemName { get; init; } = null!;
 
@@ -27,9 +30,6 @@ public class SystemManagerConfig : ISystemManager
 
     /// <summary>Gets the list of file extensions that can be launched directly.</summary>
     public IList<string> FileFormatsToLaunch { get; init; } = null!;
-
-    /// <summary>Gets the list of configured emulators for this system.</summary>
-    public IList<Emulator> Emulators { get; init; } = null!;
 
     IReadOnlyList<IEmulator> ISystemManager.Emulators => Emulators?.Cast<IEmulator>().ToList() ?? [];
 

@@ -1,15 +1,17 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Resolves the file path of an emulator executable by searching the configured systems.
+///     Resolves the file path of an emulator executable by searching the configured systems.
 /// </summary>
 public static class EmulatorPathResolver
 {
     /// <summary>
-    /// Tries to find the resolved executable path of an emulator whose name contains the given hint.
+    ///     Tries to find the resolved executable path of an emulator whose name contains the given hint.
     /// </summary>
     /// <param name="emulatorNameHint">A name fragment used to identify the emulator.</param>
     /// <param name="logErrors">The error logger.</param>
@@ -21,11 +23,11 @@ public static class EmulatorPathResolver
 
         try
         {
-            var configuration = App.ServiceProvider?.GetService<Microsoft.Extensions.Configuration.IConfiguration>();
+            var configuration = App.ServiceProvider?.GetService<IConfiguration>();
             if (configuration == null)
                 return null;
 
-            var systems = SystemManager.SystemManagerService.LoadSystemManagers(configuration);
+            var systems = SystemManagerService.LoadSystemManagers(configuration);
             if (systems == null || systems.Count == 0)
                 return null;
 
@@ -42,10 +44,7 @@ public static class EmulatorPathResolver
                     if (emulator.EmulatorName?.Contains(emulatorNameHint, StringComparison.OrdinalIgnoreCase) == true)
                     {
                         var resolved = PathHelper.ResolveRelativeToAppDirectory(emulator.EmulatorLocation);
-                        if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
-                        {
-                            return resolved;
-                        }
+                        if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved)) return resolved;
                     }
                 }
             }

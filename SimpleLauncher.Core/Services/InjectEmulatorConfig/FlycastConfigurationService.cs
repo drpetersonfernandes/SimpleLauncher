@@ -1,21 +1,22 @@
 using System.Globalization;
 using System.Text;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Injects user settings into the Flycast emulator's emu.cfg configuration file.
+///     Injects user settings into the Flycast emulator's emu.cfg configuration file.
 /// </summary>
 public static class FlycastConfigurationService
 {
     /// <summary>
-    /// Applies the saved Flycast settings to the emulator's emu.cfg file,
-    /// creating the file from a bundled sample when it does not exist.
+    ///     Applies the saved Flycast settings to the emulator's emu.cfg file,
+    ///     creating the file from a bundled sample when it does not exist.
     /// </summary>
     /// <param name="emulatorPath">Path to the Flycast executable.</param>
     /// <param name="settings">The settings manager containing Flycast configuration.</param>
     /// <param name="logger">The logger instance.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -28,7 +29,6 @@ public static class FlycastConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Flycast", "emu.cfg");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -40,11 +40,8 @@ public static class FlycastConfigurationService
                     logger.Error(ex, $"[FlycastConfig] Failed to create emu.cfg from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("emu.cfg not found and sample is missing.", samplePath);
-            }
         }
 
         logger.Debug($"[FlycastConfig] Injecting configuration into: {configPath}");
@@ -118,28 +115,19 @@ public static class FlycastConfigurationService
                 var insertIndex = windowIndex + 1;
                 while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
                        !lines[insertIndex].Trim().StartsWith('['))
-                {
                     insertIndex++;
-                }
 
-                foreach (var kvp in windowUpdates)
-                {
-                    lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
-                }
+                foreach (var kvp in windowUpdates) lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
             }
             else // If [window] section doesn't exist, add it
             {
                 lines.Add("");
                 lines.Add("[window]");
-                foreach (var kvp in windowUpdates)
-                {
-                    lines.Add($"{kvp.Key} = {kvp.Value}");
-                }
+                foreach (var kvp in windowUpdates) lines.Add($"{kvp.Key} = {kvp.Value}");
             }
         }
 
         if (modified)
-        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -151,10 +139,7 @@ public static class FlycastConfigurationService
                 logger.Error(ex, $"[FlycastConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
-        }
         else
-        {
             logger.Debug("[FlycastConfig] No changes needed.");
-        }
     }
 }

@@ -6,15 +6,15 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the Avalonia UiResetService: verifies the reset flow clears filters,
-/// selections, pagination, and calls DisplaySystemSelectionScreenAsync on the host
-/// (WPF UiResetService parity).
+///     Tests for the Avalonia UiResetService: verifies the reset flow clears filters,
+///     selections, pagination, and calls DisplaySystemSelectionScreenAsync on the host
+///     (WPF UiResetService parity).
 /// </summary>
 public class UiResetServiceTests
 {
+    private readonly CancellationTokenSource _cts = new();
     private readonly Mock<IUiResetHost> _host;
     private readonly UiResetService _service;
-    private readonly CancellationTokenSource _cts = new();
 
     public UiResetServiceTests()
     {

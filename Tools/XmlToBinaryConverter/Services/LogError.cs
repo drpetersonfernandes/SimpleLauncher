@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace XmlToBinaryConverter.Services;
 
 /// <summary>
-/// Provides error logging functionality to a file.
+///     Provides error logging functionality to a file.
 /// </summary>
 public class LogError
 {
@@ -14,7 +14,7 @@ public class LogError
     private static string LogFilePath => Path.Combine(AppContext.BaseDirectory, LogFileName);
 
     /// <summary>
-    /// Logs an exception to the error log file asynchronously.
+    ///     Logs an exception to the error log file asynchronously.
     /// </summary>
     /// <param name="ex">The exception to log.</param>
     public async Task LogAsync(Exception ex)
@@ -34,9 +34,7 @@ public class LogError
             {
                 var logDirectory = Path.GetDirectoryName(LogFilePath);
                 if (!string.IsNullOrEmpty(logDirectory) && !Directory.Exists(logDirectory))
-                {
                     Directory.CreateDirectory(logDirectory);
-                }
 
                 // Try writing again
                 await File.AppendAllTextAsync(LogFilePath, errorMessage);
@@ -49,13 +47,12 @@ public class LogError
     }
 
     /// <summary>
-    /// Reads the error log file content asynchronously.
+    ///     Reads the error log file content asynchronously.
     /// </summary>
     /// <returns>The log file content, or a message indicating no log was found.</returns>
     public async Task<string> ReadLogAsync()
     {
         if (File.Exists(LogFilePath))
-        {
             try
             {
                 return await File.ReadAllTextAsync(LogFilePath);
@@ -65,18 +62,16 @@ public class LogError
                 Log.Warning(ex, "Error reading log file");
                 return $"Error reading log file: {ex.Message}";
             }
-        }
 
         return "No error log found.";
     }
 
     /// <summary>
-    /// Clears the error log file.
+    ///     Clears the error log file.
     /// </summary>
     public void ClearLog()
     {
         if (File.Exists(LogFilePath))
-        {
             try
             {
                 File.Delete(LogFilePath);
@@ -85,6 +80,5 @@ public class LogError
             {
                 Log.Warning(ex, "Error clearing log file");
             }
-        }
     }
 }

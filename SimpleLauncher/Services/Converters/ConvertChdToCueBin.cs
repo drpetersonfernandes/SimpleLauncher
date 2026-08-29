@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace SimpleLauncher.Services.Converters;
 
 /// <summary>
-/// Provides conversion of CHD disc image files to Cue/Bin format using chdman.exe.
+///     Provides conversion of CHD disc image files to Cue/Bin format using chdman.exe.
 /// </summary>
 public static class ConvertChdToCueBin
 {
@@ -16,12 +16,13 @@ public static class ConvertChdToCueBin
         return sp?.GetService<ILogger>() ?? Log.Logger;
     });
 
-    private static ILogger Logger => DebugLogger2.Value;
     private static readonly string TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
+    private static ILogger Logger => DebugLogger2.Value;
+
     /// <summary>
-    /// Converts a CHD file to a temporary Cue/Bin using chdman.exe.
-    /// Returns the path to the generated CUE file, or null if conversion failed.
+    ///     Converts a CHD file to a temporary Cue/Bin using chdman.exe.
+    ///     Returns the path to the generated CUE file, or null if conversion failed.
     /// </summary>
     public static async Task<string?> ConvertChdToCueBinAsync(string chdPath)
     {

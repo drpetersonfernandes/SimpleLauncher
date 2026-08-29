@@ -1,21 +1,23 @@
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.MameManager;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="RightClickContext"/> covering constructor parameter binding
-/// for file paths, system names, machines, favorites, and settings.
+///     Tests for <see cref="RightClickContext" /> covering constructor parameter binding
+///     for file paths, system names, machines, favorites, and settings.
 /// </summary>
 public class RightClickContextTests
 {
     /// <summary>
-    /// Verifies that the constructor sets the FilePath property correctly.
+    ///     Verifies that the constructor sets the FilePath property correctly.
     /// </summary>
     [Fact]
     public void ConstructorSetsFilePath()
@@ -25,7 +27,7 @@ public class RightClickContextTests
     }
 
     /// <summary>
-    /// Verifies that the constructor sets the FileNameWithExtension property correctly.
+    ///     Verifies that the constructor sets the FileNameWithExtension property correctly.
     /// </summary>
     [Fact]
     public void ConstructorSetsFileNameWithExtension()
@@ -35,7 +37,7 @@ public class RightClickContextTests
     }
 
     /// <summary>
-    /// Verifies that the constructor sets the FileNameWithoutExtension property correctly.
+    ///     Verifies that the constructor sets the FileNameWithoutExtension property correctly.
     /// </summary>
     [Fact]
     public void ConstructorSetsFileNameWithoutExtension()
@@ -45,7 +47,7 @@ public class RightClickContextTests
     }
 
     /// <summary>
-    /// Verifies that the constructor sets the SelectedSystemName property correctly.
+    ///     Verifies that the constructor sets the SelectedSystemName property correctly.
     /// </summary>
     [Fact]
     public void ConstructorSetsSelectedSystemName()
@@ -55,7 +57,7 @@ public class RightClickContextTests
     }
 
     /// <summary>
-    /// Verifies that the constructor sets the Machines property to the provided list.
+    ///     Verifies that the constructor sets the Machines property to the provided list.
     /// </summary>
     [Fact]
     public void ConstructorSetsMachines()
@@ -66,7 +68,7 @@ public class RightClickContextTests
     }
 
     /// <summary>
-    /// Verifies that the constructor initializes the FavoritesManager property.
+    ///     Verifies that the constructor initializes the FavoritesManager property.
     /// </summary>
     [Fact]
     public void ConstructorSetsFavoritesManager()
@@ -76,7 +78,7 @@ public class RightClickContextTests
     }
 
     /// <summary>
-    /// Verifies that the constructor initializes the Settings property.
+    ///     Verifies that the constructor initializes the Settings property.
     /// </summary>
     [Fact]
     public void ConstructorSetsSettings()
@@ -86,7 +88,7 @@ public class RightClickContextTests
     }
 
     /// <summary>
-    /// Verifies that the constructor throws ArgumentNullException for null FilePath.
+    ///     Verifies that the constructor throws ArgumentNullException for null FilePath.
     /// </summary>
     [Fact]
     public void ConstructorThrowsForNullFilePath()
@@ -95,7 +97,7 @@ public class RightClickContextTests
     }
 
     /// <summary>
-    /// Verifies that the constructor throws ArgumentNullException for null SelectedSystemName.
+    ///     Verifies that the constructor throws ArgumentNullException for null SelectedSystemName.
     /// </summary>
     [Fact]
     public void ConstructorThrowsForNullSelectedSystemName()
@@ -110,7 +112,7 @@ public class RightClickContextTests
         string? selectedSystemName = "NES",
         List<MameManagerService>? machines = null)
     {
-        var configuration = new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build();
+        var configuration = new ConfigurationBuilder().Build();
         var logErrors = new NoOpLogger();
         var credentialProtector = new NoOpCredentialProtector();
         var settings = new SettingsManagerService(configuration, logErrors, credentialProtector);
@@ -121,7 +123,7 @@ public class RightClickContextTests
             fileNameWithExtension,
             fileNameWithoutExtension,
             selectedSystemName!,
-            new Services.SystemManager.SystemManagerService { SystemName = selectedSystemName! },
+            new SystemManagerService { SystemName = selectedSystemName! },
             machines ?? [],
             favoritesManager,
             settings,
@@ -139,7 +141,7 @@ public class RightClickContextTests
     private sealed class NoOpLoadingState : ILoadingState
     {
         /// <summary>
-        /// Does nothing; the no-op loading state ignores every state change request.
+        ///     Does nothing; the no-op loading state ignores every state change request.
         /// </summary>
         /// <param name="isLoading">Whether a loading operation is in progress.</param>
         /// <param name="message">An optional message describing the loading operation.</param>

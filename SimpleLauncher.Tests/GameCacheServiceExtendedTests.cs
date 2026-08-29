@@ -5,7 +5,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Extended tests for the <see cref="GameCacheService"/> class covering additional edge cases.
+///     Extended tests for the <see cref="GameCacheService" /> class covering additional edge cases.
 /// </summary>
 public class GameCacheServiceExtendedTests : IDisposable
 {
@@ -14,7 +14,7 @@ public class GameCacheServiceExtendedTests : IDisposable
 
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GameCacheServiceExtendedTests"/> class, setting up the cache service.
+    ///     Initializes a new instance of the <see cref="GameCacheServiceExtendedTests" /> class, setting up the cache service.
     /// </summary>
     public GameCacheServiceExtendedTests()
     {
@@ -23,7 +23,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Disposes the cache service and restores the original service provider.
+    ///     Disposes the cache service and restores the original service provider.
     /// </summary>
     public void Dispose()
     {
@@ -33,7 +33,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SetAllGamesAsync overwrites previously cached games.
+    ///     Verifies that SetAllGamesAsync overwrites previously cached games.
     /// </summary>
     [Fact]
     public async Task SetAllGamesAsyncOverwritesPreviousGames()
@@ -48,7 +48,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SetSearchResultsAsync overwrites previously cached results.
+    ///     Verifies that SetSearchResultsAsync overwrites previously cached results.
     /// </summary>
     [Fact]
     public async Task SetSearchResultsAsyncOverwritesPreviousResults()
@@ -61,7 +61,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IsCachePopulatedForSystemAsync returns false when an empty games list was set.
+    ///     Verifies that IsCachePopulatedForSystemAsync returns false when an empty games list was set.
     /// </summary>
     [Fact]
     public async Task IsCachePopulatedForSystemAsyncReturnsFalseForEmptyGames()
@@ -72,7 +72,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that GetResortSourceAsync without filter returns all games even when search results exist.
+    ///     Verifies that GetResortSourceAsync without filter returns all games even when search results exist.
     /// </summary>
     [Fact]
     public async Task GetResortSourceAsyncWithoutFilterReturnsAllGamesEvenWithSearchResults()
@@ -86,7 +86,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that GetResortSourceAsync with filter returns search results and all games.
+    ///     Verifies that GetResortSourceAsync with filter returns search results and all games.
     /// </summary>
     [Fact]
     public async Task GetResortSourceAsyncWithFilterReturnsSearchResultsAndAllGames()
@@ -101,7 +101,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that InvalidateAsync clears cached games but preserves SelectedSystem.
+    ///     Verifies that InvalidateAsync clears cached games but preserves SelectedSystem.
     /// </summary>
     [Fact]
     public async Task InvalidateAsyncResetsSelectedSystem()
@@ -116,7 +116,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SetAllGamesAsync handles a large list of 10000 games.
+    ///     Verifies that SetAllGamesAsync handles a large list of 10000 games.
     /// </summary>
     [Fact]
     public async Task SetAllGamesAsyncWithLargeList()
@@ -129,7 +129,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SetSearchResultsAsync handles a large list of 5000 results.
+    ///     Verifies that SetSearchResultsAsync handles a large list of 5000 results.
     /// </summary>
     [Fact]
     public async Task SetSearchResultsAsyncWithLargeList()
@@ -142,7 +142,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that successive calls to GetAllGamesAsync return independent copies.
+    ///     Verifies that successive calls to GetAllGamesAsync return independent copies.
     /// </summary>
     [Fact]
     public async Task GetAllGamesAsyncReturnsIndependentCopies()
@@ -157,7 +157,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that successive calls to GetSearchResultsAsync return independent copies.
+    ///     Verifies that successive calls to GetSearchResultsAsync return independent copies.
     /// </summary>
     [Fact]
     public async Task GetSearchResultsAsyncReturnsIndependentCopies()
@@ -172,7 +172,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the workflow of setting games, invalidating, then setting for a different system.
+    ///     Verifies the workflow of setting games, invalidating, then setting for a different system.
     /// </summary>
     [Fact]
     public async Task SetAllGamesThenInvalidateThenSetDifferentSystem()
@@ -188,7 +188,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SetAllGamesAsync preserves the original list from external modification.
+    ///     Verifies that SetAllGamesAsync preserves the original list from external modification.
     /// </summary>
     [Fact]
     public async Task SetAllGamesAsyncPreservesOriginalList()
@@ -203,7 +203,7 @@ public class GameCacheServiceExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that calling Dispose twice does not throw.
+    ///     Verifies that calling Dispose twice does not throw.
     /// </summary>
     [Fact]
     public void DisposeTwiceDoesNotThrow()

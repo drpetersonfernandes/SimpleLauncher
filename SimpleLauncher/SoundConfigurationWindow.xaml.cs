@@ -5,14 +5,14 @@ using SimpleLauncher.ViewModels;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Window for configuring sound and notification settings.
+///     Window for configuring sound and notification settings.
 /// </summary>
 public partial class SoundConfigurationWindow
 {
     private readonly EventHandler _saveCompletedHandler;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SoundConfigurationWindow"/> class.
+    ///     Initializes a new instance of the <see cref="SoundConfigurationWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing sound configuration logic.</param>
     public SoundConfigurationWindow(SoundConfigurationViewModel viewModel)
@@ -24,10 +24,7 @@ public partial class SoundConfigurationWindow
 
         _saveCompletedHandler = (_, _) =>
         {
-            if (IsLoaded)
-            {
-                DialogResult = true;
-            }
+            if (IsLoaded) DialogResult = true;
 
             Close();
         };

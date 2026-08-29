@@ -5,7 +5,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Partial MainWindow implementing <see cref="IUiResetHost"/> for UI state reset and filter management.
+///     Partial MainWindow implementing <see cref="IUiResetHost" /> for UI state reset and filter management.
 /// </summary>
 public partial class MainWindow
 {

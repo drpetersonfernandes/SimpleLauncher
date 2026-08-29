@@ -1,21 +1,24 @@
 using System.Globalization;
+using System.Text;
+using System.Xml;
 using System.Xml.Linq;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Injects user settings into the Cemu emulator's settings.xml configuration file.
+///     Injects user settings into the Cemu emulator's settings.xml configuration file.
 /// </summary>
 public static class CemuConfigurationService
 {
     /// <summary>
-    /// Applies the saved Cemu settings to the emulator's settings.xml file,
-    /// creating the file from a bundled sample when it does not exist.
+    ///     Applies the saved Cemu settings to the emulator's settings.xml file,
+    ///     creating the file from a bundled sample when it does not exist.
     /// </summary>
     /// <param name="emulatorPath">Path to the Cemu executable.</param>
     /// <param name="settings">The settings manager containing Cemu configuration.</param>
     /// <param name="logger">The logger instance.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -28,7 +31,6 @@ public static class CemuConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Cemu", "settings.xml");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -40,11 +42,8 @@ public static class CemuConfigurationService
                     logger.Error(ex, $"[CemuConfig] Failed to create settings.xml from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("settings.xml not found and sample is missing.", samplePath);
-            }
         }
 
         logger.Debug($"[CemuConfig] Injecting configuration into: {configPath}");
@@ -74,13 +73,13 @@ public static class CemuConfigurationService
             SetOrUpdateElement(audio!, "TVVolume", settings.Cemu.TvVolume.ToString(CultureInfo.InvariantCulture));
 
             // Preserve original formatting by using XmlWriter
-            var writerSettings = new System.Xml.XmlWriterSettings
+            var writerSettings = new XmlWriterSettings
             {
                 Indent = true,
                 IndentChars = "    ",
-                Encoding = System.Text.Encoding.UTF8
+                Encoding = Encoding.UTF8
             };
-            using var writer = System.Xml.XmlWriter.Create(configPath, writerSettings);
+            using var writer = XmlWriter.Create(configPath, writerSettings);
             doc.Save(writer);
 
             logger.Debug("[CemuConfig] Injection successful.");
@@ -113,9 +112,7 @@ public static class CemuConfigurationService
         {
             var el = parent.Element(name);
             if (el != null)
-            {
                 el.Value = value;
-            }
             else parent.Add(new XElement(name, value));
         }
     }

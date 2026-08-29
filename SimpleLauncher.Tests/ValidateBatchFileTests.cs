@@ -4,15 +4,15 @@ using ValidateBatchFile = SimpleLauncher.Core.Services.GameLauncher.ValidateBatc
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests batch file validation logic that detects missing file paths and invalid quoted paths in batch scripts.
+///     Tests batch file validation logic that detects missing file paths and invalid quoted paths in batch scripts.
 /// </summary>
 public class ValidateBatchFileTests : IDisposable
 {
     private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ValidateBatchFileTests"/> class,
-    /// creating a temporary test directory.
+    ///     Initializes a new instance of the <see cref="ValidateBatchFileTests" /> class,
+    ///     creating a temporary test directory.
     /// </summary>
     public ValidateBatchFileTests()
     {
@@ -21,7 +21,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory.
+    ///     Cleans up the temporary test directory.
     /// </summary>
     public void Dispose()
     {
@@ -39,7 +39,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that validating a non-existent file path returns an empty list.
+    ///     Verifies that validating a non-existent file path returns an empty list.
     /// </summary>
     [Fact]
     public void ValidateBatchFileContentsNonExistentFileReturnsEmptyList()
@@ -49,7 +49,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that validating an empty batch file returns an empty list.
+    ///     Verifies that validating an empty batch file returns an empty list.
     /// </summary>
     [Fact]
     public void ValidateBatchFileContentsEmptyFileReturnsEmptyList()
@@ -62,7 +62,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a batch file with only echo commands returns no missing paths.
+    ///     Verifies that a batch file with only echo commands returns no missing paths.
     /// </summary>
     [Fact]
     public void ValidateBatchFileContentsValidPathsReturnsEmptyList()
@@ -75,7 +75,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that paths to non-existent executables are detected as missing.
+    ///     Verifies that paths to non-existent executables are detected as missing.
     /// </summary>
     [Fact]
     public void ValidateBatchFileContentsMissingPathsReturnsMissingPaths()
@@ -88,7 +88,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that lines starting with rem or :: (comments) are skipped during validation.
+    ///     Verifies that lines starting with rem or :: (comments) are skipped during validation.
     /// </summary>
     [Fact]
     public void ValidateBatchFileContentsRemLinesAreSkipped()
@@ -101,7 +101,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that lines starting with # are treated as comments and skipped.
+    ///     Verifies that lines starting with # are treated as comments and skipped.
     /// </summary>
     [Fact]
     public void ValidateBatchFileContentsCommentsWithHashAreSkipped()
@@ -114,7 +114,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that <see cref="ValidateBatchFile.FindInvalidQuotedPathsSimple"/> returns empty for a non-existent file.
+    ///     Verifies that <see cref="ValidateBatchFile.FindInvalidQuotedPathsSimple" /> returns empty for a non-existent file.
     /// </summary>
     [Fact]
     public void FindInvalidQuotedPathsSimpleNonExistentFileReturnsEmptyList()
@@ -124,7 +124,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that <see cref="ValidateBatchFile.FindInvalidQuotedPathsSimple"/> returns empty for an empty file.
+    ///     Verifies that <see cref="ValidateBatchFile.FindInvalidQuotedPathsSimple" /> returns empty for an empty file.
     /// </summary>
     [Fact]
     public void FindInvalidQuotedPathsSimpleEmptyFileReturnsEmptyList()
@@ -137,7 +137,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a quoted path with a drive letter pointing to a non-existent location is detected.
+    ///     Verifies that a quoted path with a drive letter pointing to a non-existent location is detected.
     /// </summary>
     [Fact]
     public void FindInvalidQuotedPathsSimpleMissingDrivePathReturnsPath()
@@ -151,7 +151,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a quoted path to an existing directory is not flagged as invalid.
+    ///     Verifies that a quoted path to an existing directory is not flagged as invalid.
     /// </summary>
     [Fact]
     public void FindInvalidQuotedPathsSimpleValidExistingPathReturnsEmpty()
@@ -167,7 +167,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a UNC path is detected and validated as a file path.
+    ///     Verifies that a UNC path is detected and validated as a file path.
     /// </summary>
     [Fact]
     public void FindInvalidQuotedPathsSimpleUncPathIsDetectedAsPath()
@@ -180,7 +180,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that quoted text that is not a file path is ignored.
+    ///     Verifies that quoted text that is not a file path is ignored.
     /// </summary>
     [Fact]
     public void FindInvalidQuotedPathsSimpleNonPathTextIsIgnored()
@@ -193,7 +193,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that multiple invalid quoted paths on the same line are all detected.
+    ///     Verifies that multiple invalid quoted paths on the same line are all detected.
     /// </summary>
     [Fact]
     public void FindInvalidQuotedPathsSimpleMultipleQuotedPathsFindsAll()
@@ -206,7 +206,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that an existing executable referenced in a batch file is not reported as missing.
+    ///     Verifies that an existing executable referenced in a batch file is not reported as missing.
     /// </summary>
     [Fact]
     public void ValidateBatchFileContentsExistingFileNotReported()
@@ -221,7 +221,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindInvalidQuotedPathsSimple detects missing paths in batch files.
+    ///     Verifies that FindInvalidQuotedPathsSimple detects missing paths in batch files.
     /// </summary>
     [Fact]
     public void FindInvalidQuotedPathsSimpleDetectsMissingPaths()
@@ -235,7 +235,7 @@ public class ValidateBatchFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindInvalidQuotedPathsSimple skips non-path quoted strings.
+    ///     Verifies that FindInvalidQuotedPathsSimple skips non-path quoted strings.
     /// </summary>
     [Fact]
     public void FindInvalidQuotedPathsSimpleSkipNonPaths()

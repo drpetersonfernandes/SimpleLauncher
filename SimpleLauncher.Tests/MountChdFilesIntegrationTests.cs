@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 using SimpleLauncher.Tests.TestHelpers;
@@ -7,8 +8,8 @@ using Xunit.Sdk;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Integration tests that mount real CHD disc images with CHDMounter and verify the mount succeeds.
-/// Tests are skipped at runtime when the CHD file, the CHDMounter tool, or the Dokan driver is unavailable.
+///     Integration tests that mount real CHD disc images with CHDMounter and verify the mount succeeds.
+///     Tests are skipped at runtime when the CHD file, the CHDMounter tool, or the Dokan driver is unavailable.
 /// </summary>
 public sealed class MountChdFilesIntegrationTests
 {
@@ -16,7 +17,7 @@ public sealed class MountChdFilesIntegrationTests
     private readonly IMessageBoxLibraryService _messageBox = new NoOpMessageBoxLibraryService();
 
     /// <summary>
-    /// Gets the test data rows for CHD mount integration tests, specifying the file path, game name, and console alias.
+    ///     Gets the test data rows for CHD mount integration tests, specifying the file path, game name, and console alias.
     /// </summary>
     public static TheoryData<string, string, string> ChdFiles => new()
     {
@@ -41,8 +42,8 @@ public sealed class MountChdFilesIntegrationTests
     };
 
     /// <summary>
-    /// Verifies that a real CHD disc image can be mounted and unmounted cleanly, checking that the mounted
-    /// drive is accessible and contains the expected system-specific content.
+    ///     Verifies that a real CHD disc image can be mounted and unmounted cleanly, checking that the mounted
+    ///     drive is accessible and contains the expected system-specific content.
     /// </summary>
     /// <param name="chdFilePath">The full path to the CHD file to mount.</param>
     /// <param name="gameName">The display name of the game for assertion messages.</param>
@@ -51,24 +52,17 @@ public sealed class MountChdFilesIntegrationTests
     [MemberData(nameof(ChdFiles))]
     public async Task MountRealChdSucceeds_And_UnmountsCleanly(string chdFilePath, string gameName, string consoleAlias)
     {
-        if (!File.Exists(chdFilePath))
-        {
-            throw SkipException.ForSkip($"CHD file not found: {chdFilePath}");
-        }
+        if (!File.Exists(chdFilePath)) throw SkipException.ForSkip($"CHD file not found: {chdFilePath}");
 
 #pragma warning disable CA1416
         if (!DokanValidation.IsDokanInstalled())
 #pragma warning restore CA1416
-        {
             throw SkipException.ForSkip("Dokan driver is not installed. CHD cannot be mounted.");
-        }
 
         var chdMounterExePath =
             Path.Combine(AppContext.BaseDirectory, "tools", "CHDMounter", GetChdMounterExecutableName());
         if (!File.Exists(chdMounterExePath))
-        {
             throw SkipException.ForSkip($"CHDMounter executable not found: {chdMounterExePath}");
-        }
 
         var mountService = new MountChdFiles(_logger);
 
@@ -115,18 +109,12 @@ public sealed class MountChdFilesIntegrationTests
 
     private static async Task WaitForDriveToDisappearAsync(string? driveRoot)
     {
-        if (string.IsNullOrEmpty(driveRoot))
-        {
-            return;
-        }
+        if (string.IsNullOrEmpty(driveRoot)) return;
 
         const int maxRetries = 20;
         for (var i = 0; i < maxRetries; i++)
         {
-            if (!Directory.Exists(driveRoot))
-            {
-                return;
-            }
+            if (!Directory.Exists(driveRoot)) return;
 
             await Task.Delay(500);
         }
@@ -136,8 +124,8 @@ public sealed class MountChdFilesIntegrationTests
 
     private static string GetChdMounterExecutableName()
     {
-        return System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture ==
-               System.Runtime.InteropServices.Architecture.Arm64
+        return RuntimeInformation.ProcessArchitecture ==
+               Architecture.Arm64
             ? "CHDMounter_arm64.exe"
             : "CHDMounter.exe";
     }

@@ -5,12 +5,12 @@ using SimpleLauncher.Interfaces;
 namespace SimpleLauncher.Services.GameScan;
 
 /// <summary>
-/// Scans for installed Ubisoft Connect (Uplay) games via the registry and creates shortcuts for them.
+///     Scans for installed Ubisoft Connect (Uplay) games via the registry and creates shortcuts for them.
 /// </summary>
 public class ScanUplayGames : IGamePlatformScanner
 {
     /// <summary>
-    /// Scans the Ubisoft Launcher registry keys for installed games and creates shortcuts and cover images.
+    ///     Scans the Ubisoft Launcher registry keys for installed games and creates shortcuts and cover images.
     /// </summary>
     /// <param name="gameScannerService">The scanner service providing shared helpers.</param>
     /// <param name="logErrors">The error logger.</param>
@@ -32,7 +32,6 @@ public class ScanUplayGames : IGamePlatformScanner
                 if (baseKey == null) continue;
 
                 foreach (var gameId in baseKey.GetSubKeyNames())
-                {
                     try
                     {
                         using var gameKey = baseKey.OpenSubKey(gameId);
@@ -55,10 +54,7 @@ public class ScanUplayGames : IGamePlatformScanner
                         await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
                         string? fullExePath = null;
-                        if (!string.IsNullOrEmpty(gameExe) && File.Exists(gameExe))
-                        {
-                            fullExePath = gameExe;
-                        }
+                        if (!string.IsNullOrEmpty(gameExe) && File.Exists(gameExe)) fullExePath = gameExe;
 
                         await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir,
                             sanitizedGameName, windowsImagesPath, fullExePath);
@@ -67,7 +63,6 @@ public class ScanUplayGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Error processing Ubisoft game registry key: {gameId}");
                     }
-                }
             }
         }
         catch (Exception ex)

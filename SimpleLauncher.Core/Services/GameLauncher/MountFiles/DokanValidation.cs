@@ -4,7 +4,7 @@ using System.Runtime.Versioning;
 namespace SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 
 /// <summary>
-/// Validates whether the Dokan user-mode filesystem driver is installed and available.
+///     Validates whether the Dokan user-mode filesystem driver is installed and available.
 /// </summary>
 [SupportedOSPlatform("windows")]
 public static class DokanValidation
@@ -13,7 +13,7 @@ public static class DokanValidation
     private static extern uint DokanVersion();
 
     /// <summary>
-    /// Checks whether the Dokan library (dokan2.dll) can be loaded and reports a valid version.
+    ///     Checks whether the Dokan library (dokan2.dll) can be loaded and reports a valid version.
     /// </summary>
     public static bool IsDokanInstalled()
     {

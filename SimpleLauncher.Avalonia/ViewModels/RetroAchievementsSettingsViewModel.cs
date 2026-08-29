@@ -8,22 +8,22 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the RetroAchievements settings window.
+///     ViewModel for the RetroAchievements settings window.
 /// </summary>
 public partial class RetroAchievementsSettingsViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
+    private readonly IRetroAchievementsEmulatorConfiguratorService _configurator;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly RetroAchievementsService _raService;
     private readonly IResourceProvider _resourceProvider;
-    private readonly IRetroAchievementsEmulatorConfiguratorService _configurator;
-
-    [ObservableProperty] private string _username;
+    private readonly SettingsManagerService _settings;
     [ObservableProperty] private string _apiKey;
     [ObservableProperty] private string _password;
 
-    /// <summary>Initializes a new instance of the <see cref="RetroAchievementsSettingsViewModel"/>.</summary>
+    [ObservableProperty] private string _username;
+
+    /// <summary>Initializes a new instance of the <see cref="RetroAchievementsSettingsViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -46,14 +46,14 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
         _password = _settings.RaPassword;
     }
 
+    /// <summary>Event raised to request the emulator executable path from the view.</summary>
+    public Func<Task<string?>>? RequestExePath { get; set; }
+
     /// <summary>Event raised when settings have been saved successfully.</summary>
     public event EventHandler SaveCompleted = null!;
 
     /// <summary>Event raised when the window should be closed without saving.</summary>
     public event EventHandler CloseRequested = null!;
-
-    /// <summary>Event raised to request the emulator executable path from the view.</summary>
-    public Func<Task<string?>>? RequestExePath { get; set; }
 
     [RelayCommand]
     private async Task SaveAsync()
@@ -101,7 +101,6 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
 
             var token = _settings.RaToken;
             if (!string.Equals(emulatorName, "RetroArch", StringComparison.Ordinal))
-            {
                 if (string.IsNullOrEmpty(token) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
                 {
                     token = await _raService.GetSessionTokenAsync(username, password);
@@ -117,7 +116,6 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
                         return;
                     }
                 }
-            }
 
             if (RequestExePath is not { } request) return;
 
@@ -139,13 +137,9 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
                 }
 
                 if (success)
-                {
                     await _messageBox.EmulatorConfiguredSuccessfullyMessageBoxAsync();
-                }
                 else
-                {
                     await _messageBox.FailedToConfigureTheEmulatorMessageBoxAsync();
-                }
             }
             catch (Exception ex)
             {

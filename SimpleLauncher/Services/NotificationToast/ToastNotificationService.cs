@@ -3,8 +3,8 @@ using System.Windows;
 namespace SimpleLauncher.Services.NotificationToast;
 
 /// <summary>
-/// Shows toast notifications on the UI thread through a single reusable
-/// <see cref="ToastNotificationWindow"/> instance.
+///     Shows toast notifications on the UI thread through a single reusable
+///     <see cref="ToastNotificationWindow" /> instance.
 /// </summary>
 public class ToastNotificationService : IToastNotificationService
 {
@@ -12,7 +12,7 @@ public class ToastNotificationService : IToastNotificationService
     private ToastNotificationWindow? _toastWindow;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ToastNotificationService"/> class.
+    ///     Initializes a new instance of the <see cref="ToastNotificationService" /> class.
     /// </summary>
     /// <param name="logErrors">The logger instance used for error logging.</param>
     public ToastNotificationService(ILogger logErrors)
@@ -21,9 +21,9 @@ public class ToastNotificationService : IToastNotificationService
     }
 
     /// <summary>
-    /// Shows a toast notification with the given title and message.
-    /// Never blocks the calling thread: when invoked from a background thread the
-    /// toast is dispatched asynchronously to the UI thread (fire-and-forget).
+    ///     Shows a toast notification with the given title and message.
+    ///     Never blocks the calling thread: when invoked from a background thread the
+    ///     toast is dispatched asynchronously to the UI thread (fire-and-forget).
     /// </summary>
     public void ShowToast(string title, string message)
     {
@@ -31,13 +31,9 @@ public class ToastNotificationService : IToastNotificationService
         {
             var dispatcher = Application.Current.Dispatcher;
             if (dispatcher.CheckAccess())
-            {
                 ShowToastCore(title, message);
-            }
             else
-            {
                 _ = dispatcher.BeginInvoke(() => ShowToastCore(title, message));
-            }
         }
         catch (Exception ex)
         {

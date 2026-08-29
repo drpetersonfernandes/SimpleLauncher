@@ -9,18 +9,19 @@ using MameConfigurationService = SimpleLauncher.Core.Services.InjectEmulatorConf
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for emulator configuration injection services that are not covered by EmulatorConfigInjectionTests.
+///     Tests for emulator configuration injection services that are not covered by EmulatorConfigInjectionTests.
 /// </summary>
 public class EmulatorConfigInjectionExtendedTests2 : IDisposable
 {
-    private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
-    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
+    private readonly ILogger _logErrors = new NoOpLogger();
+    private readonly string _testDirectory;
 
 
     /// <summary>
-    /// Initializes a new instance of <see cref="EmulatorConfigInjectionExtendedTests2"/> with in-memory configuration and a temporary test directory.
+    ///     Initializes a new instance of <see cref="EmulatorConfigInjectionExtendedTests2" /> with in-memory configuration and
+    ///     a temporary test directory.
     /// </summary>
     public EmulatorConfigInjectionExtendedTests2()
     {
@@ -38,7 +39,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the test directory and restores the service provider mock.
+    ///     Cleans up the test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
@@ -64,7 +65,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     // --- AresConfigurationService Tests ---
 
     /// <summary>
-    /// Verifies that Ares InjectSettings throws when given an invalid path.
+    ///     Verifies that Ares InjectSettings throws when given an invalid path.
     /// </summary>
     [Fact]
     public void AresInjectSettingsInvalidPathThrowsException()
@@ -77,7 +78,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     // --- DolphinConfigurationService Tests ---
 
     /// <summary>
-    /// Verifies that Dolphin InjectSettings throws when given an invalid path.
+    ///     Verifies that Dolphin InjectSettings throws when given an invalid path.
     /// </summary>
     [Fact]
     public void DolphinInjectSettingsInvalidPathThrowsException()
@@ -90,7 +91,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     // --- FlycastConfigurationService Tests ---
 
     /// <summary>
-    /// Verifies that Flycast InjectSettings throws when given an invalid path.
+    ///     Verifies that Flycast InjectSettings throws when given an invalid path.
     /// </summary>
     [Fact]
     public void FlycastInjectSettingsInvalidPathThrowsException()
@@ -103,7 +104,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     // --- MameConfigurationService Tests ---
 
     /// <summary>
-    /// Verifies that MAME InjectSettings throws when given an invalid path.
+    ///     Verifies that MAME InjectSettings throws when given an invalid path.
     /// </summary>
     [Fact]
     public void MameInjectSettingsInvalidPathThrowsException()
@@ -116,7 +117,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     // --- CemuConfigurationService Tests ---
 
     /// <summary>
-    /// Verifies that Cemu InjectSettings throws when given an invalid path.
+    ///     Verifies that Cemu InjectSettings throws when given an invalid path.
     /// </summary>
     [Fact]
     public void CemuInjectSettingsInvalidPathThrowsException()
@@ -129,7 +130,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     // --- AzaharConfigurationService Tests ---
 
     /// <summary>
-    /// Verifies that Azahar InjectSettings throws when given an invalid path.
+    ///     Verifies that Azahar InjectSettings throws when given an invalid path.
     /// </summary>
     [Fact]
     public void AzaharInjectSettingsInvalidPathThrowsException()
@@ -142,7 +143,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     // --- RaineConfigurationService Tests ---
 
     /// <summary>
-    /// Verifies that Raine InjectSettings throws when given an invalid path.
+    ///     Verifies that Raine InjectSettings throws when given an invalid path.
     /// </summary>
     [Fact]
     public void RaineInjectSettingsInvalidPathThrowsException()
@@ -155,7 +156,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     // --- SupermodelConfigurationService Tests ---
 
     /// <summary>
-    /// Verifies that Supermodel InjectSettings throws when given an invalid path.
+    ///     Verifies that Supermodel InjectSettings throws when given an invalid path.
     /// </summary>
     [Fact]
     public void SupermodelInjectSettingsInvalidPathThrowsException()
@@ -168,7 +169,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     // --- SegaModel2ConfigurationService Tests ---
 
     /// <summary>
-    /// Verifies that SegaModel2 InjectSettings throws when given an invalid path.
+    ///     Verifies that SegaModel2 InjectSettings throws when given an invalid path.
     /// </summary>
     [Fact]
     public void SegaModel2InjectSettingsInvalidPathThrowsException()
@@ -181,7 +182,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     // --- YumirConfigurationService Tests ---
 
     /// <summary>
-    /// Verifies that Yumir InjectSettings throws when given an invalid path.
+    ///     Verifies that Yumir InjectSettings throws when given an invalid path.
     /// </summary>
     [Fact]
     public void YumirInjectSettingsInvalidPathThrowsException()
@@ -194,7 +195,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     // --- EmulatorPathResolver Tests ---
 
     /// <summary>
-    /// Verifies that EmulatorPathResolver returns null for a null hint.
+    ///     Verifies that EmulatorPathResolver returns null for a null hint.
     /// </summary>
     [Fact]
     public void EmulatorPathResolverNullHintReturnsNull()
@@ -204,7 +205,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that EmulatorPathResolver returns null for an empty hint.
+    ///     Verifies that EmulatorPathResolver returns null for an empty hint.
     /// </summary>
     [Fact]
     public void EmulatorPathResolverEmptyHintReturnsNull()
@@ -214,7 +215,7 @@ public class EmulatorConfigInjectionExtendedTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that EmulatorPathResolver returns null for a whitespace-only hint.
+    ///     Verifies that EmulatorPathResolver returns null for a whitespace-only hint.
     /// </summary>
     [Fact]
     public void EmulatorPathResolverWhitespaceHintReturnsNull()

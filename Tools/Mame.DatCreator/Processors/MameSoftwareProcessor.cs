@@ -8,15 +8,15 @@ using Mame.DatCreator.Services;
 namespace Mame.DatCreator.Processors;
 
 /// <summary>
-/// Processes MAME software list XML files to extract machine information.
+///     Processes MAME software list XML files to extract machine information.
 /// </summary>
 /// <summary>
-/// Processes MAME software list XML files to extract machine information.
+///     Processes MAME software list XML files to extract machine information.
 /// </summary>
 public static class MameSoftwareProcessor
 {
     /// <summary>
-    /// Extracts machine information from all software list XML files in a folder.
+    ///     Extracts machine information from all software list XML files in a folder.
     /// </summary>
     /// <param name="inputFolderPath">The path to the folder containing software list XMLs.</param>
     /// <param name="logger">The logger instance for output messages.</param>
@@ -53,10 +53,7 @@ public static class MameSoftwareProcessor
                             Description = software.Element("description")?.Value ?? "No Description"
                         });
 
-                    foreach (var s in softwares)
-                    {
-                        allSoftware.Add(s);
-                    }
+                    foreach (var s in softwares) allSoftware.Add(s);
                 }
                 catch (Exception ex)
                 {
@@ -66,10 +63,7 @@ public static class MameSoftwareProcessor
 
             // Log warnings after the parallel loop to avoid Dispatcher.Invoke
             // blocking thread pool threads.
-            foreach (var warning in warnings)
-            {
-                logger.Warning(warning);
-            }
+            foreach (var warning in warnings) logger.Warning(warning);
 
             logger.Info($"Extracted {allSoftware.Count} entries from software lists.");
             return allSoftware.ToList();

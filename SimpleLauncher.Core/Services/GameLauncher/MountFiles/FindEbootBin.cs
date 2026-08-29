@@ -1,19 +1,16 @@
 namespace SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 
 /// <summary>
-/// Locates the EBOOT.BIN file (PS3 executable) in a directory, checking common PS3 folder structures first.
+///     Locates the EBOOT.BIN file (PS3 executable) in a directory, checking common PS3 folder structures first.
 /// </summary>
 public static class FindEbootBin
 {
     /// <summary>
-    /// Recursively searches for EBOOT.BIN, prioritizing the top directory and PS3_GAME/USRDIR structure.
+    ///     Recursively searches for EBOOT.BIN, prioritizing the top directory and PS3_GAME/USRDIR structure.
     /// </summary>
     public static string? FindEbootBinRecursive(string directoryPath, ILogger logErrors, ILogger logger)
     {
-        if (string.IsNullOrEmpty(directoryPath))
-        {
-            return null;
-        }
+        if (string.IsNullOrEmpty(directoryPath)) return null;
 
         const string targetFileName = "EBOOT.BIN";
         logger.Debug($"[FindEbootBin.FindEbootBinRecursive] Searching for {targetFileName} in {directoryPath}");

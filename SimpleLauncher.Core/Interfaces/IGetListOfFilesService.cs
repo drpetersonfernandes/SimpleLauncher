@@ -1,12 +1,12 @@
 namespace SimpleLauncher.Core.Interfaces;
 
 /// <summary>
-/// Provides methods to retrieve lists of files from a directory based on extensions and search options.
+///     Provides methods to retrieve lists of files from a directory based on extensions and search options.
 /// </summary>
 public interface IGetListOfFilesService
 {
     /// <summary>
-    /// Asynchronously retrieves files from the specified directory matching the given extensions.
+    ///     Asynchronously retrieves files from the specified directory matching the given extensions.
     /// </summary>
     /// <param name="directoryPath">The path of the directory to search.</param>
     /// <param name="fileExtensions">The list of file extensions to include (e.g., ".iso", ".bin").</param>

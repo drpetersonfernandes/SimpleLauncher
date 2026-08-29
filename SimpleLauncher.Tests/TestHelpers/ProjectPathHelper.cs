@@ -1,12 +1,12 @@
 namespace SimpleLauncher.Tests.TestHelpers;
 
 /// <summary>
-/// Shared helper for locating the SimpleLauncher project directory from the test output folder.
+///     Shared helper for locating the SimpleLauncher project directory from the test output folder.
 /// </summary>
 public static class ProjectPathHelper
 {
     /// <summary>
-    /// Walks up the directory tree from the test output folder to find the SimpleLauncher project directory.
+    ///     Walks up the directory tree from the test output folder to find the SimpleLauncher project directory.
     /// </summary>
     /// <returns>The absolute path to the SimpleLauncher project directory.</returns>
     /// <exception cref="DirectoryNotFoundException">Thrown when the project directory cannot be located.</exception>
@@ -19,9 +19,7 @@ public static class ProjectPathHelper
             var candidate = Path.Combine(dir.FullName, "SimpleLauncher");
             if (Directory.Exists(candidate) &&
                 File.Exists(Path.Combine(candidate, "SimpleLauncher.csproj")))
-            {
                 return candidate;
-            }
 
             dir = dir.Parent;
         }

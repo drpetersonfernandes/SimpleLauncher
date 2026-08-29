@@ -1,21 +1,22 @@
 using System.Globalization;
 using System.Text;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Injects user settings into the DuckStation emulator's settings.ini configuration file.
+///     Injects user settings into the DuckStation emulator's settings.ini configuration file.
 /// </summary>
 public static class DuckStationConfigurationService
 {
     /// <summary>
-    /// Applies the saved DuckStation settings to the emulator's settings.ini file,
-    /// creating the file from a bundled sample when it does not exist.
+    ///     Applies the saved DuckStation settings to the emulator's settings.ini file,
+    ///     creating the file from a bundled sample when it does not exist.
     /// </summary>
     /// <param name="emulatorPath">Path to the DuckStation executable.</param>
     /// <param name="settings">The settings manager containing DuckStation configuration.</param>
     /// <param name="logger">The logger instance.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -29,7 +30,6 @@ public static class DuckStationConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "DuckStation",
                 "settings.ini");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -41,11 +41,8 @@ public static class DuckStationConfigurationService
                     logger.Error(ex, $"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("settings.ini not found and sample is missing.", samplePath);
-            }
         }
 
         logger.Debug($"[DuckStationConfig] Injecting configuration into: {configPath}");
@@ -120,21 +117,13 @@ public static class DuckStationConfigurationService
             Dictionary<string, string>? currentUpdates = null;
 
             if (currentSection.Equals("[Main]", StringComparison.OrdinalIgnoreCase))
-            {
                 currentUpdates = mainUpdates;
-            }
             else if (currentSection.Equals("[GPU]", StringComparison.OrdinalIgnoreCase))
-            {
                 currentUpdates = gpuUpdates;
-            }
             else if (currentSection.Equals("[Display]", StringComparison.OrdinalIgnoreCase))
-            {
                 currentUpdates = displayUpdates;
-            }
             else if (currentSection.Equals("[Audio]", StringComparison.OrdinalIgnoreCase))
-            {
                 currentUpdates = audioUpdates;
-            }
 
             if (currentUpdates != null && currentUpdates.Remove(key, out var newValue))
             {
@@ -173,7 +162,6 @@ public static class DuckStationConfigurationService
         }
 
         if (modified)
-        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -185,11 +173,8 @@ public static class DuckStationConfigurationService
                 logger.Error(ex, $"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
-        }
         else
-        {
             logger.Debug("[DuckStationConfig] No changes needed.");
-        }
     }
 
     private static void ApplyUpdatesToSection(List<string> lines, string sectionName,
@@ -225,10 +210,7 @@ public static class DuckStationConfigurationService
             insertIndex = i + 1;
         }
 
-        foreach (var kvp in updates)
-        {
-            lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
-        }
+        foreach (var kvp in updates) lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
 
         modified = true;
     }

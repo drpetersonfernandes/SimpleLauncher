@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the <see cref="DownloadButtonState"/> enum values, count, and parsing behavior.
+///     Tests the <see cref="DownloadButtonState" /> enum values, count, and parsing behavior.
 /// </summary>
 public class DownloadButtonStateTests
 {
     /// <summary>
-    /// Verifies that the Idle enum value has the expected integer value of 0.
+    ///     Verifies that the Idle enum value has the expected integer value of 0.
     /// </summary>
     [Fact]
     public void DownloadButtonStateEnumHasIdle()
@@ -18,7 +18,7 @@ public class DownloadButtonStateTests
     }
 
     /// <summary>
-    /// Verifies that the Downloading enum value has the expected integer value of 1.
+    ///     Verifies that the Downloading enum value has the expected integer value of 1.
     /// </summary>
     [Fact]
     public void DownloadButtonStateEnumHasDownloading()
@@ -27,7 +27,7 @@ public class DownloadButtonStateTests
     }
 
     /// <summary>
-    /// Verifies that the Downloaded enum value has the expected integer value of 2.
+    ///     Verifies that the Downloaded enum value has the expected integer value of 2.
     /// </summary>
     [Fact]
     public void DownloadButtonStateEnumHasDownloaded()
@@ -36,7 +36,7 @@ public class DownloadButtonStateTests
     }
 
     /// <summary>
-    /// Verifies that the Failed enum value has the expected integer value of 3.
+    ///     Verifies that the Failed enum value has the expected integer value of 3.
     /// </summary>
     [Fact]
     public void DownloadButtonStateEnumHasFailed()
@@ -45,7 +45,7 @@ public class DownloadButtonStateTests
     }
 
     /// <summary>
-    /// Verifies that the DownloadButtonState enum has exactly four defined values.
+    ///     Verifies that the DownloadButtonState enum has exactly four defined values.
     /// </summary>
     [Fact]
     public void DownloadButtonStateEnumHasFourValues()
@@ -55,7 +55,7 @@ public class DownloadButtonStateTests
     }
 
     /// <summary>
-    /// Verifies that all DownloadButtonState enum values are defined.
+    ///     Verifies that all DownloadButtonState enum values are defined.
     /// </summary>
     [Fact]
     public void DownloadButtonStateEnumAllValuesAreDefined()
@@ -67,7 +67,7 @@ public class DownloadButtonStateTests
     }
 
     /// <summary>
-    /// Verifies that DownloadButtonState enum values can be parsed from their string names.
+    ///     Verifies that DownloadButtonState enum values can be parsed from their string names.
     /// </summary>
     [Fact]
     public void DownloadButtonStateParseFromString()

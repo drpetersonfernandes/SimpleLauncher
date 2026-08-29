@@ -17,15 +17,21 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource StellaConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding Fullscreen}" Content="{DynamicResource StellaConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_Fullscreen_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Vsync}" Content="{DynamicResource StellaConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_Vsync_Tooltip}" />
-                        <CheckBox IsChecked="{Binding CorrectAspect}" Content="{DynamicResource StellaConfig_CorrectAspect_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_CorrectAspect_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Fullscreen}"
+                                  Content="{DynamicResource StellaConfig_Fullscreen_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource StellaConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Vsync}" Content="{DynamicResource StellaConfig_Vsync_Checkbox}"
+                                  Margin="0,5" ToolTip="{DynamicResource StellaConfig_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding CorrectAspect}"
+                                  Content="{DynamicResource StellaConfig_CorrectAspect_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource StellaConfig_CorrectAspect_Tooltip}" />
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource StellaConfig_VideoDriver_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource StellaConfig_VideoDriver_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding VideoDriverOptions}"
                                       SelectedItem="{Binding VideoDriver}"
@@ -43,32 +49,44 @@
                                       ToolTip="{DynamicResource StellaConfig_TvFilter_Tooltip}" />
                         </Grid>
                         <Label Content="{DynamicResource StellaConfig_Scanlines_Label}" VerticalAlignment="Center" />
-                        <Slider Value="{Binding Scanlines}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource StellaConfig_Scanlines_Tooltip}" />
+                        <Slider Value="{Binding Scanlines}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True"
+                                TickFrequency="1" ToolTip="{DynamicResource StellaConfig_Scanlines_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
                 <GroupBox Header="{DynamicResource StellaConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding AudioEnabled}" Content="{DynamicResource StellaConfig_AudioEnabled_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_AudioEnabled_Tooltip}" />
+                        <CheckBox IsChecked="{Binding AudioEnabled}"
+                                  Content="{DynamicResource StellaConfig_AudioEnabled_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource StellaConfig_AudioEnabled_Tooltip}" />
                         <Label Content="{DynamicResource StellaConfig_AudioVolume_Label}" VerticalAlignment="Center" />
-                        <Slider Value="{Binding AudioVolume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource StellaConfig_AudioVolume_Tooltip}" />
+                        <Slider Value="{Binding AudioVolume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True"
+                                TickFrequency="1" ToolTip="{DynamicResource StellaConfig_AudioVolume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Features Section -->
                 <GroupBox Header="{DynamicResource StellaConfig_Features_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding TimeMachine}" Content="{DynamicResource StellaConfig_TimeMachine_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_TimeMachine_Tooltip}" />
-                        <CheckBox IsChecked="{Binding ConfirmExit}" Content="{DynamicResource StellaConfig_ConfirmExit_Checkbox}" Margin="0,5" ToolTip="{DynamicResource StellaConfig_ConfirmExit_Tooltip}" />
+                        <CheckBox IsChecked="{Binding TimeMachine}"
+                                  Content="{DynamicResource StellaConfig_TimeMachine_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource StellaConfig_TimeMachine_Tooltip}" />
+                        <CheckBox IsChecked="{Binding ConfirmExit}"
+                                  Content="{DynamicResource StellaConfig_ConfirmExit_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource StellaConfig_ConfirmExit_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}" Content="{DynamicResource StellaConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource StellaConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="{DynamicResource StellaConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource StellaConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

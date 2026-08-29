@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Avalonia.Services.InjectEmulatorConfig;
 using SimpleLauncher.Avalonia.Services.SystemManager;
@@ -8,17 +9,17 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// ViewModel tests for the emulator config-injection feature.
-/// Uses a portable-mode temp emulator dir so Dolphin ini injection stays
-/// isolated from the real user AppData.
+///     ViewModel tests for the emulator config-injection feature.
+///     Uses a portable-mode temp emulator dir so Dolphin ini injection stays
+///     isolated from the real user AppData.
 /// </summary>
 public class InjectDolphinConfigViewModelTests : IDisposable
 {
-    private readonly string _tempDir;
     private readonly string _fakeExe;
+    private readonly Mock<ILogger> _logger = new();
     private readonly Mock<IMessageBoxLibraryService> _messageBox = new();
     private readonly SettingsManagerService _settings;
-    private readonly Mock<ILogger> _logger = new();
+    private readonly string _tempDir;
 
     public InjectDolphinConfigViewModelTests()
     {
@@ -31,7 +32,7 @@ public class InjectDolphinConfigViewModelTests : IDisposable
         // is not shipped); pre-create an empty one so injection updates it in place.
         File.WriteAllText(Path.Combine(_tempDir, "User", "Config", "Dolphin.ini"), "");
 
-        var config = new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build();
+        var config = new ConfigurationBuilder().Build();
         _settings = new SettingsManagerService(
             config,
             _logger.Object,
@@ -43,7 +44,7 @@ public class InjectDolphinConfigViewModelTests : IDisposable
     {
         try
         {
-            Directory.Delete(_tempDir, recursive: true);
+            Directory.Delete(_tempDir, true);
         }
         catch
         {
@@ -54,7 +55,7 @@ public class InjectDolphinConfigViewModelTests : IDisposable
     private InjectDolphinConfigViewModel CreateViewModel()
     {
         var resolver = new EmulatorPathResolver(new SystemManagerService(
-            new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build()));
+            new ConfigurationBuilder().Build()));
         return new InjectDolphinConfigViewModel(_settings, _messageBox.Object, resolver, _logger.Object);
     }
 
@@ -66,7 +67,7 @@ public class InjectDolphinConfigViewModelTests : IDisposable
         _settings.Dolphin.ShowSettingsBeforeLaunch = true;
 
         var vm = CreateViewModel();
-        vm.Initialize(_fakeExe, isLauncherMode: true);
+        vm.Initialize(_fakeExe, true);
 
         Assert.Equal("OpenGL", vm.GfxBackend);
         Assert.True(vm.DspThread);
@@ -78,7 +79,7 @@ public class InjectDolphinConfigViewModelTests : IDisposable
     public void Cancel_RaisesCloseRequested()
     {
         var vm = CreateViewModel();
-        vm.Initialize(_fakeExe, isLauncherMode: true);
+        vm.Initialize(_fakeExe, true);
 
         var raised = false;
         vm.CloseRequested += (_, _) => { raised = true; };
@@ -96,7 +97,7 @@ public class InjectDolphinConfigViewModelTests : IDisposable
         _messageBox.Setup(m => m.DolphinConfigurationSavedSuccessfullyMessageBoxAsync()).Returns(Task.CompletedTask);
 
         var vm = CreateViewModel();
-        vm.Initialize(_fakeExe, isLauncherMode: true);
+        vm.Initialize(_fakeExe, true);
 
         var raised = false;
         vm.CloseRequested += (_, _) => { raised = true; };

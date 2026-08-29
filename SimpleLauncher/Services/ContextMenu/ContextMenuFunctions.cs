@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
@@ -18,7 +19,9 @@ using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Core.Services.TakeScreenshot;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.LoadImages;
+using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Services.WpfServices;
 using Image = System.Windows.Controls.Image;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -30,14 +33,14 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 namespace SimpleLauncher.Services.ContextMenu;
 
 /// <summary>
-/// Implements context menu actions for game items such as favorites, media viewing, screenshots, and deletion.
+///     Implements context menu actions for game items such as favorites, media viewing, screenshots, and deletion.
 /// </summary>
 public class ContextMenuFunctions : IContextMenuFunctions
 {
     private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ContextMenuFunctions"/> class.
+    ///     Initializes a new instance of the <see cref="ContextMenuFunctions" /> class.
     /// </summary>
     /// <param name="logger">The logger used to record debug information.</param>
     public ContextMenuFunctions(ILogger logger)
@@ -46,7 +49,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Adds a game to the favorites list and updates the UI accordingly.
+    ///     Adds a game to the favorites list and updates the UI accordingly.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithExtension">The file name of the game with its extension.</param>
@@ -88,9 +91,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                             string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
 
                     if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
-                    {
                         viewModel.IsFavorite = true;
-                    }
                 }
                 else // ListView is active (or called from another window)
                 {
@@ -123,7 +124,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Removes a game from the favorites list and updates the UI accordingly.
+    ///     Removes a game from the favorites list and updates the UI accordingly.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithExtension">The file name of the game with its extension.</param>
@@ -144,10 +145,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
                 && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
-            if (favoriteToRemove == null)
-            {
-                return;
-            }
+            if (favoriteToRemove == null) return;
 
             favoritesManager.FavoriteList.Remove(favoriteToRemove);
 
@@ -165,9 +163,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                         b.Tag is GameButtonTag tag && string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
 
                 if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
-                {
                     viewModel.IsFavorite = false;
-                }
             }
             else // ListView is active (or called from another window)
             {
@@ -196,7 +192,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens a video link for the specified game in the default browser.
+    ///     Opens a video link for the specified game in the default browser.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -213,10 +209,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         var searchTerm = fileNameWithoutExtension;
         var machine = machines.FirstOrDefault(m =>
             m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-        if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
-        {
-            searchTerm = machine.Description;
-        }
+        if (machine != null && !string.IsNullOrWhiteSpace(machine.Description)) searchTerm = machine.Description;
 
         var searchUrl = $"{settings.VideoUrl}{Uri.EscapeDataString($"{searchTerm} {systemName}")}";
 
@@ -252,7 +245,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens an information link for the specified game in the default browser.
+    ///     Opens an information link for the specified game in the default browser.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -269,10 +262,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         var searchTerm = fileNameWithoutExtension;
         var machine = machines.FirstOrDefault(m =>
             m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-        if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
-        {
-            searchTerm = machine.Description;
-        }
+        if (machine != null && !string.IsNullOrWhiteSpace(machine.Description)) searchTerm = machine.Description;
 
         var searchUrl = $"{settings.InfoUrl}{Uri.EscapeDataString($"{searchTerm} {systemName}")}";
 
@@ -307,7 +297,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens the ROM history window for the specified game.
+    ///     Opens the ROM history window for the specified game.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -325,10 +315,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         var searchTerm = fileNameWithoutExtension;
         var machine = machines.FirstOrDefault(m =>
             m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-        if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
-        {
-            searchTerm = machine.Description;
-        }
+        if (machine != null && !string.IsNullOrWhiteSpace(machine.Description)) searchTerm = machine.Description;
 
         try
         {
@@ -350,7 +337,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens the RetroAchievements window for the specified game, performing hash calculation and game lookup.
+    ///     Opens the RetroAchievements window for the specified game, performing hash calculation and game lookup.
     /// </summary>
     /// <param name="filePath">The full path to the game file.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -361,7 +348,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task OpenRetroAchievementsWindowAsync(string filePath, string fileNameWithoutExtension,
-        SystemManager.SystemManagerService systemManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects,
+        SystemManagerService systemManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects,
         ILoadingState loadingStateProvider, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         string? tempExtractionPath = null;
@@ -385,10 +372,8 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 });
 
                 // If user didn't save credentials, or saved empty ones, return
-                if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
-                {
-                    return;
-                }
+                if (string.IsNullOrWhiteSpace(settings.RaApiKey) ||
+                    string.IsNullOrWhiteSpace(settings.RaUsername)) return;
             }
 
             var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
@@ -509,7 +494,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             {
                 loadingStateProvider.SetLoadingState(true, preparingRaMsg);
                 mainWindow.UpdateStatusBarService.UpdateContent(preparingRaMsg);
-            }, System.Windows.Threading.DispatcherPriority.Render);
+            }, DispatcherPriority.Render);
 
             // Allow the UI to render the overlay before starting CPU-intensive hash calculation
             await Task.Delay(100);
@@ -683,7 +668,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens the cover image for the specified game in an image viewer window.
+    ///     Opens the cover image for the specified game in an image viewer window.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -691,7 +676,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="mainWindow">The main application window.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public Task OpenCoverAsync(string systemName, string fileNameWithoutExtension,
-        SystemManager.SystemManagerService systemManager, MainWindow mainWindow, IMessageBoxLibraryService messageBox)
+        SystemManagerService systemManager, MainWindow mainWindow, IMessageBoxLibraryService messageBox)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var systemImageFolder = systemManager.SystemImageFolder;
@@ -731,10 +716,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         bool TryFindImage(string? directory, out string? foundPath)
         {
             foundPath = null;
-            if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
-            {
-                return false;
-            }
+            if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory)) return false;
 
             foreach (var extension in imageExtensions)
             {
@@ -750,7 +732,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens the title snapshot image for the specified game in an image viewer window.
+    ///     Opens the title snapshot image for the specified game in an image viewer window.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -780,7 +762,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens the gameplay snapshot image for the specified game in an image viewer window.
+    ///     Opens the gameplay snapshot image for the specified game in an image viewer window.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -812,7 +794,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens the cart image for the specified game in an image viewer window.
+    ///     Opens the cart image for the specified game in an image viewer window.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -841,7 +823,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Plays the video file for the specified game using the default media player.
+    ///     Plays the video file for the specified game using the default media player.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -872,7 +854,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens the PDF manual for the specified game using the default PDF viewer.
+    ///     Opens the PDF manual for the specified game using the default PDF viewer.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -932,7 +914,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens the PDF walkthrough for the specified game using the default PDF viewer.
+    ///     Opens the PDF walkthrough for the specified game using the default PDF viewer.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -994,7 +976,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens the cabinet image for the specified game in an image viewer window.
+    ///     Opens the cabinet image for the specified game in an image viewer window.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -1026,7 +1008,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens the flyer image for the specified game in an image viewer window.
+    ///     Opens the flyer image for the specified game in an image viewer window.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -1055,7 +1037,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Opens the PCB (printed circuit board) image for the specified game in an image viewer window.
+    ///     Opens the PCB (printed circuit board) image for the specified game in an image viewer window.
     /// </summary>
     /// <param name="systemName">The name of the system the game belongs to.</param>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
@@ -1086,7 +1068,8 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Launches the specified game, waits for its window to appear, captures a screenshot, and saves it as the game's cover image.
+    ///     Launches the specified game, waits for its window to appear, captures a screenshot, and saves it as the game's
+    ///     cover image.
     /// </summary>
     /// <param name="filePath">The full path to the game file.</param>
     /// <param name="selectedEmulatorName">The name of the selected emulator.</param>
@@ -1102,9 +1085,9 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="logErrors">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task TakeScreenshotOfSelectedWindowAsync(string filePath, string selectedEmulatorName,
-        string selectedSystemName, SystemManager.SystemManagerService selectedSystemManager,
+        string selectedSystemName, SystemManagerService selectedSystemManager,
         SettingsManagerService settings, Button? button, MainWindow mainWindow, GamePadController gamePadController,
-        GameLauncher.GameLauncherService gameLauncher, PlaySoundEffects playSoundEffects,
+        GameLauncherService gameLauncher, PlaySoundEffects playSoundEffects,
         ILoadingState loadingStateProvider, ILogger logErrors, IMessageBoxLibraryService messageBox)
     {
         mainWindow.UpdateStatusBarService.UpdateContent(
@@ -1124,10 +1107,8 @@ public class ContextMenuFunctions : IContextMenuFunctions
             var systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemImageFolder);
 
             if (string.IsNullOrEmpty(systemImageFolder))
-            {
                 // Fallback to default if resolution fails or path is empty
                 systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedSystemName);
-            }
 
             try
             {
@@ -1137,10 +1118,8 @@ public class ContextMenuFunctions : IContextMenuFunctions
             {
                 // Notify developer
                 if (App.ServiceProvider != null)
-                {
                     logErrors.Error(ex,
                         $"[TakeScreenshotOfSelectedWindow] Could not create the system image folder: {systemImageFolder}");
-                }
             }
 
             // Capture initial window count before launch
@@ -1178,10 +1157,8 @@ public class ContextMenuFunctions : IContextMenuFunctions
 
                 // Optional: Log progress every few polls
                 if (stopwatch.Elapsed.TotalSeconds % 5 < pollInterval.TotalMilliseconds / 1000.0)
-                {
                     _logger.Debug(
                         $"[Screenshot] Polling... Elapsed: {stopwatch.Elapsed.TotalSeconds:F1}s / {maxWaitTime.TotalSeconds}s");
-                }
             }
 
             stopwatch.Stop();
@@ -1203,10 +1180,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             {
                 var dialog = App.ServiceProvider.GetRequiredService<WindowSelectionDialogWindow>();
                 dialog.Initialize(openWindows);
-                if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero)
-                {
-                    return;
-                }
+                if (dialog.ShowDialog() != true || dialog.SelectedWindowHandle == IntPtr.Zero) return;
 
                 var hWnd = dialog.SelectedWindowHandle;
 
@@ -1217,9 +1191,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 {
                     // If the client area fails, fall back to the full window dimensions
                     if (!TakeScreenshot.WindowScreenshot.GetWindowRect(hWnd, out rectangle))
-                    {
                         throw new InvalidOperationException("Failed to retrieve window dimensions.");
-                    }
                 }
                 else
                 {
@@ -1268,12 +1240,10 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 await flashWindow.ShowFlashAsync();
 
                 if (button != null)
-                {
                     // Update the button's image using the new ImageLoader
                     try
                     {
                         if (button.Content is Grid grid)
-                        {
                             // Find the Image control within the button's template
                             if (grid.Children.OfType<Border>().FirstOrDefault()?.Child is Image imageControl)
                             {
@@ -1282,7 +1252,6 @@ public class ContextMenuFunctions : IContextMenuFunctions
                                 var (imageStream, _) = await imageLoader.LoadImageAsync(screenshotPath);
                                 imageControl.Source = imageStream.ToBitmapImage(); // Assign the loaded image
                             }
-                        }
                     }
                     catch (Exception ex)
                     {
@@ -1290,10 +1259,8 @@ public class ContextMenuFunctions : IContextMenuFunctions
                         const string contextMessage =
                             "[TakeScreenshotOfSelectedWindow] Failed to update button image after screenshot.";
                         logErrors.Error(ex, contextMessage);
-
                         // Do not notify the user
                     }
-                }
             }
 
             // Reload the current Game List
@@ -1313,10 +1280,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
         {
             // Notify developer
             const string contextMessage = "[TakeScreenshotOfSelectedWindow] There was a problem saving the screenshot.";
-            if (App.ServiceProvider != null)
-            {
-                logErrors.Error(ex, contextMessage);
-            }
+            if (App.ServiceProvider != null) logErrors.Error(ex, contextMessage);
 
             // Notify user
             await messageBox.CouldNotSaveScreenshotMessageBoxAsync();
@@ -1324,7 +1288,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Deletes the specified game file from disk and reloads the game list.
+    ///     Deletes the specified game file from disk and reloads the game list.
     /// </summary>
     /// <param name="filePath">The full path to the game file to delete.</param>
     /// <param name="fileNameWithExtension">The file name of the game with its extension.</param>
@@ -1393,7 +1357,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     }
 
     /// <summary>
-    /// Deletes the cover image for the specified game and reloads the game list.
+    ///     Deletes the cover image for the specified game and reloads the game list.
     /// </summary>
     /// <param name="fileNameWithoutExtension">The file name of the game without its extension.</param>
     /// <param name="selectedSystemName">The name of the selected system.</param>
@@ -1405,7 +1369,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
     /// <param name="findCoverImage">The service used to locate cover images.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
     public async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName,
-        SystemManager.SystemManagerService selectedSystemManager, SettingsManagerService contextSettings,
+        SystemManagerService selectedSystemManager, SettingsManagerService contextSettings,
         MainWindow mainWindow, PlaySoundEffects playSoundEffects, ILogger logErrors,
         IFindCoverImageService findCoverImage, IMessageBoxLibraryService messageBox)
     {
@@ -1418,12 +1382,10 @@ public class ContextMenuFunctions : IContextMenuFunctions
         {
             playSoundEffects.PlayTrashSound();
 
-            if ((string.Equals(Path.GetFileNameWithoutExtension(coverPath), fileNameWithoutExtension,
-                    StringComparison.Ordinal)) & (!string.Equals(Path.GetFileNameWithoutExtension(coverPath), "default",
-                    StringComparison.Ordinal)))
-            {
+            if (string.Equals(Path.GetFileNameWithoutExtension(coverPath), fileNameWithoutExtension,
+                    StringComparison.Ordinal) & !string.Equals(Path.GetFileNameWithoutExtension(coverPath), "default",
+                    StringComparison.Ordinal))
                 await DeleteFiles.TryDeleteFileAsync(coverPath);
-            }
 
             await Task.Delay(400);
 

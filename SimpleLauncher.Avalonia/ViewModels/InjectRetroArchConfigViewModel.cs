@@ -10,41 +10,41 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the RetroArch emulator configuration injection window.
+///     ViewModel for the RetroArch emulator configuration injection window.
 /// </summary>
 public partial class InjectRetroArchConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly EmulatorPathResolver _emulatorPathResolver;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath = "";
-
-    [ObservableProperty] private string _videoDriver = "";
-    [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private bool _vsync;
-    [ObservableProperty] private bool _threadedVideo;
-    [ObservableProperty] private bool _bilinear;
+    private readonly SettingsManagerService _settings;
     [ObservableProperty] private string _aspectRatioIndex = "";
-    [ObservableProperty] private bool _scaleInteger;
-    [ObservableProperty] private bool _shaderEnable;
-    [ObservableProperty] private bool _hardSync;
     [ObservableProperty] private bool _audioEnable;
     [ObservableProperty] private bool _audioMute;
-    [ObservableProperty] private bool _pauseNonActive;
-    [ObservableProperty] private bool _saveOnExit;
-    [ObservableProperty] private bool _autoSaveState;
     [ObservableProperty] private bool _autoLoadState;
-    [ObservableProperty] private bool _rewind;
-    [ObservableProperty] private bool _runAhead;
-    [ObservableProperty] private string _menuDriver = "";
-    [ObservableProperty] private bool _showAdvancedSettings;
+    [ObservableProperty] private bool _autoSaveState;
+    [ObservableProperty] private bool _bilinear;
     [ObservableProperty] private bool _cheevosEnable;
     [ObservableProperty] private bool _cheevosHardcore;
     [ObservableProperty] private bool _discordAllow;
+    private string _emulatorPath = "";
+    [ObservableProperty] private bool _fullscreen;
+    [ObservableProperty] private bool _hardSync;
+    [ObservableProperty] private string _menuDriver = "";
+    [ObservableProperty] private bool _pauseNonActive;
+    [ObservableProperty] private bool _rewind;
+    [ObservableProperty] private bool _runAhead;
+    [ObservableProperty] private bool _saveOnExit;
+    [ObservableProperty] private bool _scaleInteger;
+    [ObservableProperty] private bool _shaderEnable;
+    [ObservableProperty] private bool _showAdvancedSettings;
     [ObservableProperty] private bool _showBeforeLaunch;
+    [ObservableProperty] private bool _threadedVideo;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectRetroArchConfigViewModel"/>.</summary>
+    [ObservableProperty] private string _videoDriver = "";
+    [ObservableProperty] private bool _vsync;
+
+    /// <summary>Initializes a new instance of the <see cref="InjectRetroArchConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
@@ -62,7 +62,47 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Available video driver options for RetroArch.
+    /// </summary>
+    public IList<string> VideoDriverOptions { get; } = ["gl", "vulkan", "d3d11", "d3d12", "d3d10", "sdl2"];
+
+    /// <summary>
+    ///     Available aspect ratio display options for RetroArch.
+    /// </summary>
+    public IList<string> AspectRatioIndexOptions { get; } = ["Core Provided", "4:3", "16:9", "16:10"];
+
+    /// <summary>
+    ///     Tags corresponding to the aspect ratio options for RetroArch.
+    /// </summary>
+    public IList<string> AspectRatioIndexTags { get; } = ["22", "0", "1", "2"];
+
+    /// <summary>
+    ///     Available menu driver options for RetroArch.
+    /// </summary>
+    public IList<string> MenuDriverOptions { get; } = ["ozone", "xmb", "rgui", "glui"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the RetroArch emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -74,37 +114,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available video driver options for RetroArch.
-    /// </summary>
-    public IList<string> VideoDriverOptions { get; } = ["gl", "vulkan", "d3d11", "d3d12", "d3d10", "sdl2"];
-
-    /// <summary>
-    /// Available aspect ratio display options for RetroArch.
-    /// </summary>
-    public IList<string> AspectRatioIndexOptions { get; } = ["Core Provided", "4:3", "16:9", "16:10"];
-
-    /// <summary>
-    /// Tags corresponding to the aspect ratio options for RetroArch.
-    /// </summary>
-    public IList<string> AspectRatioIndexTags { get; } = ["22", "0", "1", "2"];
-
-    /// <summary>
-    /// Available menu driver options for RetroArch.
-    /// </summary>
-    public IList<string> MenuDriverOptions { get; } = ["ozone", "xmb", "rgui", "glui"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -113,16 +123,6 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -181,10 +181,7 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = _emulatorPathResolver.TryFindEmulatorPath("RetroArch", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

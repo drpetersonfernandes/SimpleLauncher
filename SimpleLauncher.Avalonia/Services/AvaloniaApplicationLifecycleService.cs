@@ -1,25 +1,25 @@
+using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.UsageStats;
-using SimpleLauncher.Avalonia.Services.PlayHistory;
 
 namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
-/// Manages the application lifecycle: startup initialization, the silent update
-/// check, usage reporting, play-history migration, and game file watching.
-/// Avalonia port of the WPF <c>ApplicationLifecycleService</c> (no WPF dependencies).
+///     Manages the application lifecycle: startup initialization, the silent update
+///     check, usage reporting, play-history migration, and game file watching.
+///     Avalonia port of the WPF <c>ApplicationLifecycleService</c> (no WPF dependencies).
 /// </summary>
 public class AvaloniaApplicationLifecycleService
 {
-    private readonly AvaloniaStartupInitializationService _startupInitializationService;
-    private readonly AvaloniaCheckForUpdatesService _updateChecker;
-    private readonly Stats _stats;
-    private readonly PlayHistoryManager _playHistoryManager;
     private readonly AvaloniaGameFileWatcherService _gameFileWatcherService;
     private readonly ILogger _logger;
+    private readonly PlayHistoryManager _playHistoryManager;
+    private readonly AvaloniaStartupInitializationService _startupInitializationService;
+    private readonly Stats _stats;
+    private readonly AvaloniaCheckForUpdatesService _updateChecker;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AvaloniaApplicationLifecycleService"/> class.
+    ///     Initializes a new instance of the <see cref="AvaloniaApplicationLifecycleService" /> class.
     /// </summary>
     /// <param name="startupInitializationService">The startup initialization service.</param>
     /// <param name="updateChecker">The service for checking application updates.</param>
@@ -44,8 +44,8 @@ public class AvaloniaApplicationLifecycleService
     }
 
     /// <summary>
-    /// Runs the startup initialization sequence (status-bar timer, write-access check,
-    /// pagination defaults, required-files check). No-ops safe to call once per launch.
+    ///     Runs the startup initialization sequence (status-bar timer, write-access check,
+    ///     pagination defaults, required-files check). No-ops safe to call once per launch.
     /// </summary>
     public async Task RunStartupInitializationAsync()
     {
@@ -57,7 +57,7 @@ public class AvaloniaApplicationLifecycleService
     }
 
     /// <summary>
-    /// Silently checks for application updates without notifying the user.
+    ///     Silently checks for application updates without notifying the user.
     /// </summary>
     public Task SilentCheckForUpdatesAsync()
     {
@@ -65,7 +65,7 @@ public class AvaloniaApplicationLifecycleService
     }
 
     /// <summary>
-    /// Reports anonymous usage statistics.
+    ///     Reports anonymous usage statistics.
     /// </summary>
     public async Task ReportUsageAsync()
     {
@@ -80,7 +80,7 @@ public class AvaloniaApplicationLifecycleService
     }
 
     /// <summary>
-    /// Migrates play history entries from file names to full paths for the given systems.
+    ///     Migrates play history entries from file names to full paths for the given systems.
     /// </summary>
     /// <param name="systems">The configured systems used to resolve legacy entries.</param>
     public Task MigratePlayHistoryAsync(List<SystemManagerConfig> systems)
@@ -89,7 +89,7 @@ public class AvaloniaApplicationLifecycleService
     }
 
     /// <summary>
-    /// Occurs when the set of game files being watched changes.
+    ///     Occurs when the set of game files being watched changes.
     /// </summary>
     public event EventHandler<EventArgs<string>>? GameFilesChanged
     {
@@ -98,7 +98,7 @@ public class AvaloniaApplicationLifecycleService
     }
 
     /// <summary>
-    /// Starts watching the given folders for game file changes for the specified system.
+    ///     Starts watching the given folders for game file changes for the specified system.
     /// </summary>
     /// <param name="folders">The folders to watch for game file changes.</param>
     /// <param name="systemName">The name of the system the folders belong to.</param>
@@ -118,7 +118,7 @@ public class AvaloniaApplicationLifecycleService
     }
 
     /// <summary>
-    /// Stops watching for game file changes.
+    ///     Stops watching for game file changes.
     /// </summary>
     public void StopWatching()
     {

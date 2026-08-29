@@ -6,15 +6,15 @@ using Serilog.Events;
 namespace Mame.DatCreator;
 
 /// <summary>
-/// Entry point for the MAME DAT Creator application.
+///     Entry point for the MAME DAT Creator application.
 /// </summary>
 /// <summary>
-/// Entry point for the MAME DAT Creator application.
+///     Entry point for the MAME DAT Creator application.
 /// </summary>
 public static class Program
 {
     /// <summary>
-    /// Application entry point.
+    ///     Application entry point.
     /// </summary>
     /// <param name="args">Command-line arguments.</param>
     [STAThread]

@@ -13,41 +13,28 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 namespace SimpleLauncher.Services;
 
 /// <summary>
-/// Checks for new application releases on GitHub and orchestrates the update process.
+///     Checks for new application releases on GitHub and orchestrates the update process.
 /// </summary>
 public partial class CheckForUpdatesService
 {
     private const string RepoName = "SimpleLauncher";
-    private static readonly string[] RepoOwners = ["drpetersonfernandes", "purelogiccode"];
 
     private const string SecondaryServerBaseUrl =
         "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
 
+    private static readonly string[] RepoOwners = ["drpetersonfernandes", "purelogiccode"];
+
+    private static readonly char[] Separator = ['.'];
+
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
-    private readonly IResourceProvider _resourceProvider;
     private readonly QuitSimpleLauncher _quitSimpleLauncher;
+    private readonly IResourceProvider _resourceProvider;
     private readonly IServiceProvider _serviceProvider;
 
-    private static string CurrentRuntimeIdentifier
-    {
-        get
-        {
-            var arch = RuntimeInformation.ProcessArchitecture;
-            // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
-            return arch switch
-            {
-                Architecture.Arm64 => "win-arm64",
-                Architecture.X64 => "win-x64",
-                _ => throw new NotSupportedException(
-                    $"Unsupported runtime architecture '{arch}'. Only win-x64 and win-arm64 are supported.")
-            };
-        }
-    }
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="CheckForUpdatesService"/> class.
+    ///     Initializes a new instance of the <see cref="CheckForUpdatesService" /> class.
     /// </summary>
     /// <param name="httpClientFactory">The factory used to create the HTTP client for GitHub API requests.</param>
     /// <param name="messageBoxLibrary">The message box service used to prompt the user about updates.</param>
@@ -68,6 +55,22 @@ public partial class CheckForUpdatesService
         _serviceProvider = serviceProvider;
     }
 
+    private static string CurrentRuntimeIdentifier
+    {
+        get
+        {
+            var arch = RuntimeInformation.ProcessArchitecture;
+            // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
+            return arch switch
+            {
+                Architecture.Arm64 => "win-arm64",
+                Architecture.X64 => "win-x64",
+                _ => throw new NotSupportedException(
+                    $"Unsupported runtime architecture '{arch}'. Only win-x64 and win-arm64 are supported.")
+            };
+        }
+    }
+
     private string CurrentVersion
     {
         get
@@ -86,10 +89,8 @@ public partial class CheckForUpdatesService
         }
     }
 
-    private static readonly char[] Separator = ['.'];
-
     /// <summary>
-    /// Checks for updates silently in the background and shows the update window if a new version is available.
+    ///     Checks for updates silently in the background and shows the update window if a new version is available.
     /// </summary>
     /// <param name="mainWindow">The main application window used as the owner for update dialogs.</param>
     /// <returns>A task representing the asynchronous update check operation.</returns>
@@ -98,10 +99,8 @@ public partial class CheckForUpdatesService
         try
         {
             if (_httpClient == null)
-            {
                 throw new InvalidOperationException(
                     "HttpClientFactory is not initialized. Update check cannot proceed.");
-            }
 
             var (latestVersion, releasePackageUrl, updaterZipAssetUrl, fromFallback) =
                 await GetLatestReleaseInfoAsync();
@@ -142,7 +141,7 @@ public partial class CheckForUpdatesService
     }
 
     /// <summary>
-    /// Checks for updates manually and notifies the user whether an update is available or not.
+    ///     Checks for updates manually and notifies the user whether an update is available or not.
     /// </summary>
     /// <param name="mainWindow">The main application window used as the owner for update dialogs.</param>
     /// <returns>A task representing the asynchronous update check operation.</returns>
@@ -151,10 +150,8 @@ public partial class CheckForUpdatesService
         try
         {
             if (_httpClient == null)
-            {
                 throw new InvalidOperationException(
                     "HttpClientFactory is not initialized. Update check cannot proceed.");
-            }
 
             var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl, fromFallback) =
                 await GetLatestReleaseInfoAsync();
@@ -209,7 +206,7 @@ public partial class CheckForUpdatesService
     }
 
     /// <summary>
-    /// Retrieves the download URL of the latest updater package and the latest available version.
+    ///     Retrieves the download URL of the latest updater package and the latest available version.
     /// </summary>
     /// <returns>A tuple containing the updater ZIP URL and the latest version, or null values if unavailable.</returns>
     internal async Task<(string? UpdaterZipUrl, string? LatestVersion)> GetLatestUpdaterInfoAsync()
@@ -217,10 +214,8 @@ public partial class CheckForUpdatesService
         try
         {
             if (_httpClient == null)
-            {
                 throw new InvalidOperationException(
                     "HttpClientFactory is not initialized. Update check cannot proceed.");
-            }
 
             var (latestVersion, _, updaterZipAssetUrl, _) = await GetLatestReleaseInfoAsync();
             return (updaterZipAssetUrl, latestVersion);
@@ -234,10 +229,10 @@ public partial class CheckForUpdatesService
     }
 
     /// <summary>
-    /// Gets the latest release info from the GitHub API (trying each repository in order),
-    /// falling back to the secondary server (assets.purelogiccode.com) when GitHub is
-    /// unreachable. The secondary server hosts the release package and the updater
-    /// package (updater_{rid}.zip).
+    ///     Gets the latest release info from the GitHub API (trying each repository in order),
+    ///     falling back to the secondary server (assets.purelogiccode.com) when GitHub is
+    ///     unreachable. The secondary server hosts the release package and the updater
+    ///     package (updater_{rid}.zip).
     /// </summary>
     /// <returns>A tuple with the latest version, release package URL, updater zip URL, and whether the fallback was used.</returns>
     private async
@@ -247,7 +242,6 @@ public partial class CheckForUpdatesService
         _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
 
         foreach (var repoOwner in RepoOwners)
-        {
             try
             {
                 var response =
@@ -271,7 +265,6 @@ public partial class CheckForUpdatesService
                 _logger.Debug(
                     $"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed: {ex.Message}; trying the next source.");
             }
-        }
 
         // Fallback: the secondary server hosts a version.txt file and the release packages.
         try
@@ -316,10 +309,7 @@ public partial class CheckForUpdatesService
         try
         {
             var result = await _messageBoxLibrary.DoYouWantToUpdateMessageBoxAsync(currentVersion, latestVersion);
-            if (result != CoreMessageBoxResult.Yes)
-            {
-                return;
-            }
+            if (result != CoreMessageBoxResult.Yes) return;
 
             logWindow = _serviceProvider.GetRequiredService<UpdateLogWindow>();
             logWindow.Show();
@@ -337,14 +327,10 @@ public partial class CheckForUpdatesService
             // (the update failed — an error was already shown to the user)
             logWindow.Log("Updater.exe launch failed.");
             if (!string.IsNullOrEmpty(releasePackageUrl))
-            {
                 logWindow.Log($"Please download the update package manually from: {releasePackageUrl}");
-            }
             else
-            {
                 logWindow.Log(
                     $"The update package URL was not found. Please visit the GitHub releases page for {RepoOwners[0]}/{RepoName}.");
-            }
         }
         catch (Exception ex)
         {
@@ -362,7 +348,7 @@ public partial class CheckForUpdatesService
     }
 
     /// <summary>
-    /// Downloads the update file from the given URL into the provided memory stream.
+    ///     Downloads the update file from the given URL into the provided memory stream.
     /// </summary>
     /// <param name="url">The URL of the update file to download.</param>
     /// <param name="memoryStream">The memory stream that receives the downloaded file content.</param>
@@ -370,9 +356,7 @@ public partial class CheckForUpdatesService
     internal async Task DownloadUpdateFileToMemoryAsync(string url, MemoryStream memoryStream)
     {
         if (_httpClient == null)
-        {
             throw new InvalidOperationException("HttpClientFactory is not initialized. Cannot download update file.");
-        }
 
         // Use the pre-initialized HttpClient instance
         if (_httpClient != null)
@@ -387,7 +371,8 @@ public partial class CheckForUpdatesService
     }
 
     /// <summary>
-    /// Extracts all entries of a ZIP archive from a memory stream into the destination path, protecting against path traversal attacks.
+    ///     Extracts all entries of a ZIP archive from a memory stream into the destination path, protecting against path
+    ///     traversal attacks.
     /// </summary>
     /// <param name="zipStream">The memory stream containing the ZIP archive.</param>
     /// <param name="destinationPath">The directory where the archive entries are extracted.</param>
@@ -402,16 +387,11 @@ public partial class CheckForUpdatesService
             zipStream.Position = 0;
 
             // Ensure destination directory exists
-            if (!Directory.Exists(destinationPath))
-            {
-                Directory.CreateDirectory(destinationPath);
-            }
+            if (!Directory.Exists(destinationPath)) Directory.CreateDirectory(destinationPath);
 
             var fullDestinationPath = Path.GetFullPath(destinationPath);
             if (!fullDestinationPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
-            {
                 fullDestinationPath += Path.DirectorySeparatorChar;
-            }
 
             using var archive = ZipArchive.OpenArchive(zipStream);
             var hasEntries = false;
@@ -420,10 +400,7 @@ public partial class CheckForUpdatesService
             {
                 hasEntries = true;
 
-                if (entry.IsDirectory)
-                {
-                    continue;
-                }
+                if (entry.IsDirectory) continue;
 
                 // Security check: prevent path traversal attacks (zip slip)
                 if (entry.Key != null)
@@ -444,9 +421,7 @@ public partial class CheckForUpdatesService
                     // Ensure the directory exists
                     var entryDirectory = Path.GetDirectoryName(destinationFileFullPath);
                     if (!string.IsNullOrEmpty(entryDirectory) && !Directory.Exists(entryDirectory))
-                    {
                         Directory.CreateDirectory(entryDirectory);
-                    }
 
                     // Extract the entry
                     using (var entryStream = entry.OpenEntryStream())
@@ -457,9 +432,7 @@ public partial class CheckForUpdatesService
 
                     // Preserve file time if available
                     if (entry.LastModifiedTime.HasValue)
-                    {
                         File.SetLastWriteTime(destinationFileFullPath, entry.LastModifiedTime.Value);
-                    }
                 }
             }
 
@@ -516,11 +489,9 @@ public partial class CheckForUpdatesService
             if (currentVersion == null) return false;
 
             if (latestVersion != null)
-            {
                 // Notify developer
                 _logger.Error(ex,
                     $"Invalid version number format after normalization. Current: '{currentVersion}' (Normalized: '{MyRegex1().Replace(currentVersion, "")}'), Latest: '{latestVersion}' (Normalized: '{MyRegex1().Replace(latestVersion, "")}').");
-            }
 
             return false;
         }
@@ -595,16 +566,12 @@ public partial class CheckForUpdatesService
                         if (assetName?.Equals(expectedUpdaterFileName, StringComparison.OrdinalIgnoreCase) == true)
                         {
                             if (asset.TryGetProperty("browser_download_url", out var downloadUrlElement))
-                            {
                                 foundUpdaterZipUrl = downloadUrlElement.GetString();
-                            }
                         }
                         else if (assetName?.Equals(expectedReleaseFileName, StringComparison.OrdinalIgnoreCase) == true)
                         {
                             if (asset.TryGetProperty("browser_download_url", out var downloadUrlElement))
-                            {
                                 foundReleasePackageUrl = downloadUrlElement.GetString();
-                            }
                         }
                     }
 
@@ -612,31 +579,25 @@ public partial class CheckForUpdatesService
                 }
 
                 if (foundUpdaterZipUrl == null)
-                {
                     // Notify developer
                     _logger.Error(
                         new FileNotFoundException(
                             $"'{expectedUpdaterFileName}' asset not found in release '{versionTag}'.",
                             expectedUpdaterFileName), "GitHub API Asset Info");
-                }
 
                 if (foundReleasePackageUrl == null)
-                {
                     // Notify developer
                     _logger.Error(
                         new FileNotFoundException(
                             $"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.",
                             expectedReleaseFileName), "GitHub API Asset Info");
-                }
 
                 return (extractedNormalizedVersion, foundReleasePackageUrl, foundUpdaterZipUrl);
             }
-            else
-            {
-                // Notify developer
-                _logger.Error(new KeyNotFoundException("'assets' array not found or invalid in GitHub API response."),
-                    "GitHub API Response Error");
-            }
+
+            // Notify developer
+            _logger.Error(new KeyNotFoundException("'assets' array not found or invalid in GitHub API response."),
+                "GitHub API Response Error");
         }
         catch (JsonException jsonEx)
         {
@@ -662,15 +623,9 @@ public partial class CheckForUpdatesService
 
         var parts = new List<string>(numericVersion.Split(Separator, StringSplitOptions.RemoveEmptyEntries));
 
-        while (parts.Count < 4)
-        {
-            parts.Add("0");
-        }
+        while (parts.Count < 4) parts.Add("0");
 
-        if (parts.Count > 4)
-        {
-            parts = parts.GetRange(0, 4);
-        }
+        if (parts.Count > 4) parts = parts.GetRange(0, 4);
 
         return string.Join(".", parts);
     }

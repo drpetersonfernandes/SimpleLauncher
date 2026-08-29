@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the DuckStation (PS1) emulator before launching a game.
+///     Handles configuration injection for the DuckStation (PS1) emulator before launching a game.
 /// </summary>
 public class DuckStationConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DuckStationConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="DuckStationConfigHandler" /> class.
     /// </summary>
     public DuckStationConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {
@@ -56,9 +56,7 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
             {
                 shouldRun = true;
                 if (File.Exists(resolvedExe))
-                {
                     DuckStationConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
-                }
             }
 
             return shouldRun;

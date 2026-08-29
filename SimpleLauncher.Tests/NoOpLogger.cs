@@ -5,13 +5,13 @@ using Serilog.Events;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// A no-operation implementation of <see cref="ILogger"/> that silently discards all log events.
-/// Used in tests to satisfy logger dependencies without producing output.
+///     A no-operation implementation of <see cref="ILogger" /> that silently discards all log events.
+///     Used in tests to satisfy logger dependencies without producing output.
 /// </summary>
 internal sealed class NoOpLogger : ILogger
 {
     /// <summary>
-    /// Discards the specified log event.
+    ///     Discards the specified log event.
     /// </summary>
     /// <param name="logEvent">The log event to discard.</param>
     public void Write(LogEvent logEvent)
@@ -19,39 +19,39 @@ internal sealed class NoOpLogger : ILogger
     }
 
     /// <summary>
-    /// Returns this instance, ignoring the specified enricher.
+    ///     Returns this instance, ignoring the specified enricher.
     /// </summary>
     /// <param name="enricher">The enricher to ignore.</param>
-    /// <returns>This same <see cref="ILogger"/> instance.</returns>
+    /// <returns>This same <see cref="ILogger" /> instance.</returns>
     public ILogger ForContext(ILogEventEnricher enricher)
     {
         return this;
     }
 
     /// <summary>
-    /// Returns this instance, ignoring the specified enrichers.
+    ///     Returns this instance, ignoring the specified enrichers.
     /// </summary>
     /// <param name="enrichers">The enrichers to ignore.</param>
-    /// <returns>This same <see cref="ILogger"/> instance.</returns>
+    /// <returns>This same <see cref="ILogger" /> instance.</returns>
     public ILogger ForContext(IEnumerable<ILogEventEnricher> enrichers)
     {
         return this;
     }
 
     /// <summary>
-    /// Returns this instance, ignoring the specified property context.
+    ///     Returns this instance, ignoring the specified property context.
     /// </summary>
     /// <param name="propertyName">The property name to ignore.</param>
     /// <param name="value">The property value to ignore.</param>
     /// <param name="destructureObjects">Whether to destructure objects.</param>
-    /// <returns>This same <see cref="ILogger"/> instance.</returns>
+    /// <returns>This same <see cref="ILogger" /> instance.</returns>
     public ILogger ForContext(string propertyName, object value, bool destructureObjects = false)
     {
         return this;
     }
 
     /// <summary>
-    /// Always returns false without parsing the message template.
+    ///     Always returns false without parsing the message template.
     /// </summary>
     /// <param name="messageTemplate">The message template to ignore.</param>
     /// <param name="propertyValues">The property values to ignore.</param>
@@ -67,7 +67,7 @@ internal sealed class NoOpLogger : ILogger
     }
 
     /// <summary>
-    /// Always returns false without binding the property.
+    ///     Always returns false without binding the property.
     /// </summary>
     /// <param name="propertyName">The property name to ignore.</param>
     /// <param name="value">The property value to ignore.</param>

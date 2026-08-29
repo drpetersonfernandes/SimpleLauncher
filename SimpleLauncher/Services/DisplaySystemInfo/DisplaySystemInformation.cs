@@ -5,25 +5,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.CheckPaths;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.DisplaySystemInfo;
 
-using Interfaces;
-
 /// <summary>
-/// Displays system configuration information in the UI and validates system paths and emulator locations.
+///     Displays system configuration information in the UI and validates system paths and emulator locations.
 /// </summary>
 public class DisplaySystemInformation : IDisplaySystemInformation
 {
     /// <summary>
-    /// Populates the game file grid with system configuration details and validates all paths and emulator locations.
+    ///     Populates the game file grid with system configuration details and validates all paths and emulator locations.
     /// </summary>
     /// <param name="selectedManager">The system manager whose configuration to display.</param>
     /// <param name="gameFileGrid">The wrap panel to populate with system information UI elements.</param>
     /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
-    /// <returns>A <see cref="SystemValidationResult"/> indicating the validity of the system configuration.</returns>
-    public async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManager.SystemManagerService selectedManager,
+    /// <returns>A <see cref="SystemValidationResult" /> indicating the validity of the system configuration.</returns>
+    public async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManagerService selectedManager,
         WrapPanel gameFileGrid, CancellationToken cancellationToken = default)
     {
         // Clear image sources first to prevent memory leaks from BitmapImage references
@@ -76,20 +76,14 @@ public class DisplaySystemInformation : IDisplaySystemInformation
         systemInfoTextBlock.Inlines.Add(new LineBreak());
 
         var systemFoldersRun = new Run($"{systemFolder2}: {string.Join("; ", selectedManager.SystemFolders)}");
-        if (!validationResult.AreSystemFoldersValid)
-        {
-            systemFoldersRun.Foreground = Brushes.Red;
-        }
+        if (!validationResult.AreSystemFoldersValid) systemFoldersRun.Foreground = Brushes.Red;
 
         systemInfoTextBlock.Inlines.Add(systemFoldersRun);
         systemInfoTextBlock.Inlines.Add(new LineBreak());
 
         var systemImageFolderRun =
             new Run($"{systemImageFolder2}: {selectedManager.SystemImageFolder ?? defaultImageFolder2}");
-        if (!validationResult.IsSystemImageFolderValid)
-        {
-            systemImageFolderRun.Foreground = Brushes.Red;
-        }
+        if (!validationResult.IsSystemImageFolderValid) systemImageFolderRun.Foreground = Brushes.Red;
 
         systemInfoTextBlock.Inlines.Add(systemImageFolderRun);
         systemInfoTextBlock.Inlines.Add(new LineBreak());
@@ -120,9 +114,7 @@ public class DisplaySystemInformation : IDisplaySystemInformation
 
             var emulatorLocationRun = new Run($"{emulatorLocation2}: {emulator.EmulatorLocation}");
             if (validationResult.InvalidEmulatorLocations.Contains(emulator.EmulatorLocation))
-            {
                 emulatorLocationRun.Foreground = Brushes.Red;
-            }
 
             emulatorInfoTextBlock.Inlines.Add(emulatorLocationRun);
 
@@ -140,11 +132,11 @@ public class DisplaySystemInformation : IDisplaySystemInformation
     }
 
     /// <summary>
-    /// Validates the system configuration by checking that all system folders, image folders, and emulator paths exist.
+    ///     Validates the system configuration by checking that all system folders, image folders, and emulator paths exist.
     /// </summary>
     /// <param name="selectedManager">The system manager to validate.</param>
-    /// <returns>A <see cref="SystemValidationResult"/> containing validation status and any error messages.</returns>
-    public SystemValidationResult ValidateSystemConfiguration(SystemManager.SystemManagerService selectedManager)
+    /// <returns>A <see cref="SystemValidationResult" /> containing validation status and any error messages.</returns>
+    public SystemValidationResult ValidateSystemConfiguration(SystemManagerService selectedManager)
     {
         var result = new SystemValidationResult();
 
@@ -200,21 +192,17 @@ public class DisplaySystemInformation : IDisplaySystemInformation
     }
 
     /// <summary>
-    /// Recursively clears all Image.Source properties from game buttons to prevent memory leaks.
-    /// BitmapImage objects need to be released by clearing their references.
+    ///     Recursively clears all Image.Source properties from game buttons to prevent memory leaks.
+    ///     BitmapImage objects need to be released by clearing their references.
     /// </summary>
     private static void ClearGameButtonImages(Panel panel)
     {
         foreach (var child in panel.Children)
-        {
             switch (child)
             {
                 case Image image:
                     // Clear the image source to release the BitmapImage reference
-                    if (image.Source is BitmapImage)
-                    {
-                        image.Source = null;
-                    }
+                    if (image.Source is BitmapImage) image.Source = null;
 
                     break;
 
@@ -240,11 +228,10 @@ public class DisplaySystemInformation : IDisplaySystemInformation
                     ClearImageFromBorder(border);
                     break;
             }
-        }
     }
 
     /// <summary>
-    /// Helper method to clear images from a Border control.
+    ///     Helper method to clear images from a Border control.
     /// </summary>
     private static void ClearImageFromBorder(Border border)
     {
@@ -252,10 +239,7 @@ public class DisplaySystemInformation : IDisplaySystemInformation
         {
             case Image image:
             {
-                if (image.Source is BitmapImage)
-                {
-                    image.Source = null;
-                }
+                if (image.Source is BitmapImage) image.Source = null;
 
                 break;
             }

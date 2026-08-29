@@ -5,16 +5,18 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.LoadingOverlay;
+using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.GameLauncher;
 
 /// <summary>
-/// Provides functionality to ask an AI service to suggest corrected emulator parameters when a game fails to launch.
+///     Provides functionality to ask an AI service to suggest corrected emulator parameters when a game fails to launch.
 /// </summary>
 public static class AskAiToFixParameters
 {
     /// <summary>
-    /// Prompts the user with an AI-generated parameter suggestion and optionally applies the fix to the emulator configuration.
+    ///     Prompts the user with an AI-generated parameter suggestion and optionally applies the fix to the emulator
+    ///     configuration.
     /// </summary>
     /// <param name="systemManager">The system manager for the current system.</param>
     /// <param name="emulatorManager">The emulator whose parameters may be updated.</param>
@@ -80,9 +82,7 @@ public static class AskAiToFixParameters
                     var explanationFromParam = suggestedParam["Explanation:".Length..].Trim();
                     if (string.IsNullOrEmpty(explanation) ||
                         !explanation.Equals(explanationFromParam, StringComparison.OrdinalIgnoreCase))
-                    {
                         explanation = explanationFromParam;
-                    }
 
                     suggestedParam = "";
                 }
@@ -93,10 +93,7 @@ public static class AskAiToFixParameters
                                      "Do you want to apply this parameter?";
 
                 var dialogMessage = $"{confirmMessage}\n\n{suggestedParam}";
-                if (!string.IsNullOrEmpty(explanation))
-                {
-                    dialogMessage += $"\n\nExplanation: {explanation}";
-                }
+                if (!string.IsNullOrEmpty(explanation)) dialogMessage += $"\n\nExplanation: {explanation}";
 
                 var applyResult =
                     await messageBoxLibrary.CustomQuestionMessageBoxAsync(aiSuggestionTitle, dialogMessage);
@@ -109,9 +106,7 @@ public static class AskAiToFixParameters
                 // Build updated emulator list with the new parameters
                 var updatedEmulators = new List<Emulator>();
                 foreach (var emu in systemManager.Emulators.Cast<Emulator>())
-                {
                     if (emu.EmulatorName.Equals(emulatorManager.EmulatorName, StringComparison.OrdinalIgnoreCase))
-                    {
                         updatedEmulators.Add(new Emulator
                         {
                             EmulatorName = emu.EmulatorName,
@@ -125,14 +120,10 @@ public static class AskAiToFixParameters
                             ImagePackDownloadLink5 = emu.ImagePackDownloadLink5,
                             ImagePackDownloadExtractPath = emu.ImagePackDownloadExtractPath
                         });
-                    }
                     else
-                    {
                         updatedEmulators.Add(emu);
-                    }
-                }
 
-                var systemToSave = new SystemManager.SystemManagerService
+                var systemToSave = new SystemManagerService
                 {
                     SystemName = systemManager.SystemName ?? "",
                     SystemFolders = systemManager.SystemFolders ?? [],
@@ -145,7 +136,7 @@ public static class AskAiToFixParameters
                     Emulators = updatedEmulators
                 };
 
-                await SystemManager.SystemManagerService.SaveSystemConfigurationAsync(systemToSave,
+                await SystemManagerService.SaveSystemConfigurationAsync(systemToSave,
                     systemManager.SystemName, logger, configuration);
 
                 // Reload system managers so the main window uses the updated parameters

@@ -5,9 +5,9 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Services.RetroAchievements;
 
 /// <summary>
-/// Persists per-system RetroAchievements hash scans as JSON files under
-/// <c>%LocalAppData%\SimpleLauncher\RetroAchievementsHashes\</c>.
-/// Each scanned system gets its own <c>{SystemName}.json</c> file.
+///     Persists per-system RetroAchievements hash scans as JSON files under
+///     <c>%LocalAppData%\SimpleLauncher\RetroAchievementsHashes\</c>.
+///     Each scanned system gets its own <c>{SystemName}.json</c> file.
 /// </summary>
 public class RetroAchievementsHashStore : IRetroAchievementsHashStore
 {
@@ -18,15 +18,19 @@ public class RetroAchievementsHashStore : IRetroAchievementsHashStore
         WriteIndented = true
     };
 
-    private readonly ILogger _logger;
     private readonly Lock _fileLock = new();
     private readonly string? _hashesFolderPathOverride;
 
+    private readonly ILogger _logger;
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsHashStore"/> class.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsHashStore" /> class.
     /// </summary>
     /// <param name="logger">The logger instance used for debugging output.</param>
-    /// <param name="hashesFolderPathOverride">Optional custom folder for the hash files (used by tests); defaults to the application data folder.</param>
+    /// <param name="hashesFolderPathOverride">
+    ///     Optional custom folder for the hash files (used by tests); defaults to the
+    ///     application data folder.
+    /// </param>
     public RetroAchievementsHashStore(ILogger logger, string? hashesFolderPathOverride = null)
     {
         _logger = logger;
@@ -37,7 +41,7 @@ public class RetroAchievementsHashStore : IRetroAchievementsHashStore
                                        Path.Combine(AppDataPaths.SimpleLauncherDataFolder, HashesFolderName);
 
     /// <summary>
-    /// Gets the full path of the JSON hash file for the given system.
+    ///     Gets the full path of the JSON hash file for the given system.
     /// </summary>
     public string GetSystemHashFilePath(string systemName)
     {
@@ -46,7 +50,7 @@ public class RetroAchievementsHashStore : IRetroAchievementsHashStore
     }
 
     /// <summary>
-    /// Determines whether a hash scan result file exists for the given system.
+    ///     Determines whether a hash scan result file exists for the given system.
     /// </summary>
     public bool HasSystemHashes(string systemName)
     {
@@ -62,7 +66,7 @@ public class RetroAchievementsHashStore : IRetroAchievementsHashStore
     }
 
     /// <summary>
-    /// Loads the persisted hash scan for the given system.
+    ///     Loads the persisted hash scan for the given system.
     /// </summary>
     public RaSystemHashes? LoadSystemHashes(string systemName)
     {
@@ -86,7 +90,7 @@ public class RetroAchievementsHashStore : IRetroAchievementsHashStore
     }
 
     /// <summary>
-    /// Persists the hash scan for the given system as a JSON file.
+    ///     Persists the hash scan for the given system as a JSON file.
     /// </summary>
     public void SaveSystemHashes(RaSystemHashes systemHashes)
     {
@@ -114,7 +118,7 @@ public class RetroAchievementsHashStore : IRetroAchievementsHashStore
     }
 
     /// <summary>
-    /// Removes characters that are not valid in Windows file names from the system name.
+    ///     Removes characters that are not valid in Windows file names from the system name.
     /// </summary>
     private static string SanitizeFileName(string systemName)
     {

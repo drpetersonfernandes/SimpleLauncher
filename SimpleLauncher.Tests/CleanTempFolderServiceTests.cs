@@ -6,14 +6,14 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="CleanTempFolderService"/> using real temp directories
-/// and a mocked <see cref="IDeleteFilesService"/>.
+///     Tests for <see cref="CleanTempFolderService" /> using real temp directories
+///     and a mocked <see cref="IDeleteFilesService" />.
 /// </summary>
 public class CleanTempFolderServiceTests : IDisposable
 {
-    private readonly string _tempDir;
     private readonly Mock<IDeleteFilesService> _deleteFilesMock = new();
     private readonly CleanTempFolderService _service;
+    private readonly string _tempDir;
 
     public CleanTempFolderServiceTests()
     {
@@ -25,10 +25,7 @@ public class CleanTempFolderServiceTests : IDisposable
     {
         try
         {
-            if (Directory.Exists(_tempDir))
-            {
-                Directory.Delete(_tempDir, true);
-            }
+            if (Directory.Exists(_tempDir)) Directory.Delete(_tempDir, true);
         }
         catch
         {

@@ -5,33 +5,34 @@ using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.RetroAchievements;
+using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameFileLoadingOrchestrator;
 
 /// <summary>
-/// Orchestrates the game file loading pipeline: building file lists from disk or cache,
-/// applying filters (letter, search, favorites, RetroAchievements), sorting, and rendering.
+///     Orchestrates the game file loading pipeline: building file lists from disk or cache,
+///     applying filters (letter, search, favorites, RetroAchievements), sorting, and rendering.
 /// </summary>
 public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
 {
-    private IGameFileLoadingHost _host = null!;
+    private readonly FavoritesManager _favoritesManager;
+    private readonly IFindCoverImageService _findCoverImage;
     private readonly IGameCacheService _gameCacheService;
     private readonly IGameFilterService _gameFilterService;
-    private readonly IMameDataService _mameDataService;
-    private readonly IGetListOfFilesService _getListOfFiles;
-    private readonly FavoritesManager _favoritesManager;
-    private readonly RetroAchievementsService _retroAchievementsService;
-    private readonly IFindCoverImageService _findCoverImage;
     private readonly IGameItemRenderService _gameItemRenderService;
+    private readonly IGetListOfFilesService _getListOfFiles;
+    private readonly ILogger _logger;
+    private readonly IMameDataService _mameDataService;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IRetroAchievementsHashStore _raHashStore;
+    private readonly RetroAchievementsService _retroAchievementsService;
     private readonly SettingsManagerService _settings;
     private readonly IUpdateStatusBar _updateStatusBarService;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly ILogger _logger;
-    private readonly IRetroAchievementsHashStore _raHashStore;
+    private IGameFileLoadingHost _host = null!;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GameFileLoadingOrchestratorService"/> with all required dependencies.
+    ///     Initializes a new instance of <see cref="GameFileLoadingOrchestratorService" /> with all required dependencies.
     /// </summary>
     public GameFileLoadingOrchestratorService(
         IGameCacheService gameCacheService,
@@ -64,7 +65,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
     }
 
     /// <summary>
-    /// Binds the orchestrator to the host that provides UI controls and system context.
+    ///     Binds the orchestrator to the host that provides UI controls and system context.
     /// </summary>
     public void Initialize(IGameFileLoadingHost host)
     {
@@ -72,8 +73,8 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
     }
 
     /// <summary>
-    /// Loads game files for the currently selected system, applying letter/search/favorites/RA filters,
-    /// sorting, pagination, and rendering the results to the UI.
+    ///     Loads game files for the currently selected system, applying letter/search/favorites/RA filters,
+    ///     sorting, pagination, and rendering the results to the UI.
     /// </summary>
     public async Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null,
         CancellationToken cancellationToken = default)
@@ -135,10 +136,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                         var fileDir = Path.GetDirectoryName(f) ?? "";
                         var normalizedFileDir = EnsureTrailingSlash(fileDir);
 
-                        if (rootFolders.Contains(normalizedFileDir))
-                        {
-                            return f;
-                        }
+                        if (rootFolders.Contains(normalizedFileDir)) return f;
 
                         return fileDir;
                     }, StringComparer.Ordinal)
@@ -190,7 +188,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
     }
 
     /// <summary>
-    /// Invalidates all game file caches, forcing a fresh disk scan on the next load.
+    ///     Invalidates all game file caches, forcing a fresh disk scan on the next load.
     /// </summary>
     public Task InvalidateGameFileCachesAsync(CancellationToken cancellationToken = default)
     {
@@ -198,7 +196,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
     }
 
     /// <summary>
-    /// Handles file system change notifications for a system by invalidating caches and reloading game files.
+    ///     Handles file system change notifications for a system by invalidating caches and reloading game files.
     /// </summary>
     public async void OnGameFilesChangedAsync(string systemName)
     {
@@ -225,13 +223,13 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
     }
 
     /// <summary>
-    /// build list of all files to load.
+    ///     build list of all files to load.
     /// </summary>
     /// <param name="selectedManager">The selected manager.</param>
     /// <param name="startLetter">The start letter.</param>
     /// <param name="searchQuery">The search query.</param>
     /// <param name="token">The token.</param>
-    private async Task<IList<string>> BuildListOfAllFilesToLoad(SystemManager.SystemManagerService selectedManager,
+    private async Task<IList<string>> BuildListOfAllFilesToLoad(SystemManagerService selectedManager,
         string? startLetter, string? searchQuery, CancellationToken token)
     {
         if (_host.IsResortOperation)
@@ -286,9 +284,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                     {
                         if (!systemHashes.Hashes.TryGetValue(filePath, out var hash) ||
                             string.IsNullOrEmpty(hash))
-                        {
                             return false;
-                        }
 
                         return _retroAchievementsService.RaManager.GetGameInfoByHash(hash) != null;
                     }).ToList();
@@ -348,10 +344,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                             var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath,
                                 selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch,
                                 selectedManager.GroupByFolder, token);
-                            foreach (var file in filesInFolder)
-                            {
-                                uniqueFiles.TryAdd(Path.GetFileName(file), file);
-                            }
+                            foreach (var file in filesInFolder) uniqueFiles.TryAdd(Path.GetFileName(file), file);
                         }
 
                         allFiles = uniqueFiles.Values.ToList();
@@ -377,10 +370,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                             var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath,
                                 selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch,
                                 selectedManager.GroupByFolder, token);
-                            foreach (var file in filesInFolder)
-                            {
-                                uniqueFiles.TryAdd(Path.GetFileName(file), file);
-                            }
+                            foreach (var file in filesInFolder) uniqueFiles.TryAdd(Path.GetFileName(file), file);
                         }
 
                         allFiles = uniqueFiles.Values.ToList();
@@ -415,18 +405,15 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
     }
 
     /// <summary>
-    /// get favorite games for selected system.
+    ///     get favorite games for selected system.
     /// </summary>
     /// <param name="selectedManager">The selected manager.</param>
-    private List<string> GetFavoriteGamesForSelectedSystem(SystemManager.SystemManagerService selectedManager)
+    private List<string> GetFavoriteGamesForSelectedSystem(SystemManagerService selectedManager)
     {
         var favorites = _favoritesManager.FavoriteList;
 
         var selectedSystem = _host.SystemComboBox.SelectedItem?.ToString();
-        if (string.IsNullOrEmpty(selectedSystem) || selectedManager == null)
-        {
-            return [];
-        }
+        if (string.IsNullOrEmpty(selectedSystem) || selectedManager == null) return [];
 
         var favoriteGamePaths = favorites
             .Where(fav => fav.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase))

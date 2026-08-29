@@ -7,7 +7,7 @@ using MessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 namespace SimpleLauncher.Services.WpfServices;
 
 /// <summary>
-/// WPF implementation of IMessageDialogService, displaying message boxes via the WPF dispatcher.
+///     WPF implementation of IMessageDialogService, displaying message boxes via the WPF dispatcher.
 /// </summary>
 public class WpfMessageDialogService : IMessageDialogService
 {

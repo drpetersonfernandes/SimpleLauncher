@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.Configuration;
@@ -7,63 +8,57 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.MameManager;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.SettingsManager;
-using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Models;
+using SimpleLauncher.Services.Favorites;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the global search window, providing cross-system ROM search with scoring.
+///     ViewModel for the global search window, providing cross-system ROM search with scoring.
 /// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
+    private readonly FavoritesManager _favoritesManager;
+    private readonly IFindCoverImageService _findCoverImage;
+    private readonly IGetListOfFilesService _getListOfFiles;
+    private readonly IImageLoader _imageLoader;
     private readonly ILogger _logger;
-    private readonly SettingsManagerService _settings;
-    private readonly IList<SystemManager> _systemManagers;
     private readonly IList<MameManagerService> _machines;
     private readonly IDictionary<string, string> _mameLookup;
-    private readonly FavoritesManager _favoritesManager;
-    private readonly PlaySoundEffects _playSoundEffects;
-    private readonly IGetListOfFilesService _getListOfFiles;
-    private readonly IFindCoverImageService _findCoverImage;
-    private readonly IImageLoader _imageLoader;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlaySoundEffects _playSoundEffects;
     private readonly IResourceProvider _resourceProvider;
+    private readonly SettingsManagerService _settings;
+    private readonly IList<SystemManager> _systemManagers;
     private CancellationTokenSource _cancellationTokenSource;
 
-    [ObservableProperty] private ObservableCollection<SearchResult> _searchResults = [];
-
-    [ObservableProperty] private SearchResult? _selectedResult;
-
-    [ObservableProperty] private Stream? _previewImageSource;
-
-    // ReSharper disable once UnusedParameterInPartialMethod
-    partial void OnPreviewImageSourceChanged(Stream? oldValue, Stream? newValue)
-    {
-        oldValue?.Dispose();
-    }
-
     [ObservableProperty] private bool _isLoading;
+
+    [ObservableProperty] private bool _launchButtonEnabled;
 
     [ObservableProperty] private string _loadingMessage = "";
 
     [ObservableProperty] private bool _noResultsVisible;
 
+    [ObservableProperty] private Stream? _previewImageSource;
+
     [ObservableProperty] private string _resultsCountText = "";
 
     [ObservableProperty] private bool _resultsCountVisible;
 
-    [ObservableProperty] private bool _launchButtonEnabled;
+    [ObservableProperty] private ObservableCollection<SearchResult> _searchResults = [];
 
-    [ObservableProperty] private List<string> _systemNames = [];
+    [ObservableProperty] private SearchResult? _selectedResult;
 
     [ObservableProperty] private int _selectedSystemIndex;
 
-    /// <summary>Initializes a new instance of the <see cref="GlobalSearchViewModel"/>.</summary>
+    [ObservableProperty] private List<string> _systemNames = [];
+
+    /// <summary>Initializes a new instance of the <see cref="GlobalSearchViewModel" />.</summary>
     /// <param name="configuration">The application configuration.</param>
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="settings">The settings manager service.</param>
@@ -108,6 +103,21 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         _cancellationTokenSource = new CancellationTokenSource();
 
         InitializeSystemNames();
+    }
+
+    /// <summary>Releases resources used by this ViewModel.</summary>
+    public void Dispose()
+    {
+        _cancellationTokenSource.Dispose();
+        PreviewImageSource?.Dispose();
+        PreviewImageSource = null;
+        GC.SuppressFinalize(this);
+    }
+
+    // ReSharper disable once UnusedParameterInPartialMethod
+    partial void OnPreviewImageSourceChanged(Stream? oldValue, Stream? newValue)
+    {
+        oldValue?.Dispose();
     }
 
     private void InitializeSystemNames()
@@ -175,7 +185,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                 {
                     SearchResults = new ObservableCollection<SearchResult>(results);
                     NoResultsVisible = false;
-                    ResultsCountText = string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                    ResultsCountText = string.Format(CultureInfo.InvariantCulture,
                         _resourceProvider.GetString("FoundResults", "Found {0} results"), results.Count);
                     ResultsCountVisible = true;
                 }
@@ -202,10 +212,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
             }
             finally
             {
-                if (!_cancellationTokenSource.IsCancellationRequested)
-                {
-                    IsLoading = false;
-                }
+                if (!_cancellationTokenSource.IsCancellationRequested) IsLoading = false;
             }
         }
         catch (Exception ex)
@@ -224,10 +231,8 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         var allSystemsString = _resourceProvider.GetString("AllSystems", "All Systems");
         IEnumerable<SystemManager> systemsToSearch = _systemManagers;
         if (!string.Equals(selectedSystem, allSystemsString, StringComparison.Ordinal))
-        {
             systemsToSearch = _systemManagers.Where(sm =>
                 sm.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
-        }
 
         foreach (var systemManager in systemsToSearch)
         {
@@ -269,9 +274,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                 var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
                 if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) ||
                     systemManager.FileFormatsToSearch == null)
-                {
                     continue;
-                }
 
                 var matchedFilesList = await _getListOfFiles.GetFilesAsync(
                     systemFolderPath, systemManager.FileFormatsToSearch, effectiveSystemManager.DisableRecursiveSearch,
@@ -354,7 +357,7 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
 
     /// <summary>Gets the system manager for the specified system name.</summary>
     /// <param name="systemName">The system name to look up.</param>
-    /// <returns>The matching <see cref="SystemManager"/>, or <c>null</c> if not found.</returns>
+    /// <returns>The matching <see cref="SystemManager" />, or <c>null</c> if not found.</returns>
     public SystemManager? GetSystemManager(string systemName)
     {
         return _systemManagers.FirstOrDefault(manager =>
@@ -415,15 +418,9 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         var hasAndOperator = searchTerms.Any(static t => t.Equals("and", StringComparison.OrdinalIgnoreCase));
         var hasOrOperator = searchTerms.Any(static t => t.Equals("or", StringComparison.OrdinalIgnoreCase));
 
-        if (hasAndOperator)
-        {
-            return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
-        }
+        if (hasAndOperator) return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
 
-        if (hasOrOperator)
-        {
-            return keywords.Any(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
-        }
+        if (hasOrOperator) return keywords.Any(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
 
         return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
     }
@@ -432,23 +429,11 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     {
         var terms = new List<string>();
         var matches = MyRegex().Matches(searchTerm);
-        foreach (Match match in matches)
-        {
-            terms.Add(match.Value.Trim('"').ToLowerInvariant());
-        }
+        foreach (Match match in matches) terms.Add(match.Value.Trim('"').ToLowerInvariant());
 
         return terms.Where(static t => !string.IsNullOrWhiteSpace(t)).ToList();
     }
 
     [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""", RegexOptions.Compiled | RegexOptions.ExplicitCapture, 1000)]
     private static partial Regex MyRegex();
-
-    /// <summary>Releases resources used by this ViewModel.</summary>
-    public void Dispose()
-    {
-        _cancellationTokenSource.Dispose();
-        PreviewImageSource?.Dispose();
-        PreviewImageSource = null;
-        GC.SuppressFinalize(this);
-    }
 }

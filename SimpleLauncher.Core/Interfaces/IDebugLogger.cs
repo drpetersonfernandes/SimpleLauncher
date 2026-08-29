@@ -1,7 +1,7 @@
 namespace SimpleLauncher.Core.Interfaces;
 
 /// <summary>
-/// Defines the contract for debug logging services.
+///     Defines the contract for debug logging services.
 /// </summary>
 public interface IDebugLogger
 {

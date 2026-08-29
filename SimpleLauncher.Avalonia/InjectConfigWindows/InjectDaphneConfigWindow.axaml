@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectDaphneConfigWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Daphne Configuration"
         Height="550" Width="700"

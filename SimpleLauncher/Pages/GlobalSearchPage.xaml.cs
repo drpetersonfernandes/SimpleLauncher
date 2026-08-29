@@ -22,27 +22,27 @@ using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService
 namespace SimpleLauncher.Pages;
 
 /// <summary>
-/// Page for searching games across all systems with filtering, launching, and context menu support.
+///     Page for searching games across all systems with filtering, launching, and context menu support.
 /// </summary>
 internal partial class GlobalSearchPage : IDisposable, ILoadingState
 {
-    private readonly GlobalSearchViewModel _viewModel;
-    private readonly MainWindow _mainWindow;
-    private readonly GamePadController _gamePadController;
-    private readonly GameLauncherService _gameLauncher;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IFindCoverImageService _findCoverImage;
-    private readonly List<MameManagerService> _machines;
-    private readonly FavoritesManager _favoritesManager;
-    private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
-    private readonly SettingsManagerService _settings;
     private readonly IContextMenuFunctions _contextMenuFunctions;
-    private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
+    private readonly FavoritesManager _favoritesManager;
+    private readonly IFindCoverImageService _findCoverImage;
+    private readonly GameLauncherService _gameLauncher;
+    private readonly GamePadController _gamePadController;
+    private readonly ILogger _logger;
+    private readonly List<MameManagerService> _machines;
+    private readonly MainWindow _mainWindow;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly SettingsManagerService _settings;
+    private readonly GlobalSearchViewModel _viewModel;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GlobalSearchPage"/> class.
+    ///     Initializes a new instance of the <see cref="GlobalSearchPage" /> class.
     /// </summary>
     /// <param name="systemManagers">The list of system manager configurations.</param>
     /// <param name="machines">The list of MAME machine definitions.</param>
@@ -119,12 +119,32 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         {
             LoadingOverlay.ApplyTemplate();
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
-            {
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
-            }
         };
 
         Unloaded += GlobalSearchPage_Unloaded;
+    }
+
+    /// <summary>
+    ///     Releases all resources used by the GlobalSearchPage.
+    /// </summary>
+    public void Dispose()
+    {
+        _viewModel.Dispose();
+    }
+
+    /// <summary>
+    ///     Sets the loading state of the page, showing or hiding the loading overlay.
+    /// </summary>
+    /// <param name="isLoading">Whether the page is in a loading state.</param>
+    /// <param name="message">The optional message to display while loading.</param>
+    public void SetLoadingState(bool isLoading, string? message = null)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+            if (isLoading) LoadingOverlay.Content = message;
+        });
     }
 
     private void GlobalSearchPage_Unloaded(object sender, RoutedEventArgs e)
@@ -181,10 +201,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
 
     private void SearchWhenPressEnterKey(object sender, KeyEventArgs e)
     {
-        if (e.Key == Key.Enter)
-        {
-            SearchButtonClickAsync(sender, e);
-        }
+        if (e.Key == Key.Enter) SearchButtonClickAsync(sender, e);
     }
 
     private async void LaunchButton_ClickAsync(object sender, RoutedEventArgs e)
@@ -342,9 +359,7 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
                 await _viewModel.UpdatePreviewImageAsync(selectedResult.CoverImage);
 
                 if (ResultsDataGrid.SelectedItem == selectedResult)
-                {
                     PreviewImage.Source = _viewModel.PreviewImageSource?.ToBitmapImage();
-                }
             }
             else
             {
@@ -359,23 +374,6 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         }
     }
 
-    /// <summary>
-    /// Sets the loading state of the page, showing or hiding the loading overlay.
-    /// </summary>
-    /// <param name="isLoading">Whether the page is in a loading state.</param>
-    /// <param name="message">The optional message to display while loading.</param>
-    public void SetLoadingState(bool isLoading, string? message = null)
-    {
-        Dispatcher.Invoke(() =>
-        {
-            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
-            if (isLoading)
-            {
-                LoadingOverlay.Content = message;
-            }
-        });
-    }
-
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
     {
         _playSoundEffects.PlayNotificationSound();
@@ -384,13 +382,5 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
 
         _logger.Debug("[Emergency] User forced overlay dismissal in GlobalSearchPage.");
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
-    }
-
-    /// <summary>
-    /// Releases all resources used by the GlobalSearchPage.
-    /// </summary>
-    public void Dispose()
-    {
-        _viewModel.Dispose();
     }
 }

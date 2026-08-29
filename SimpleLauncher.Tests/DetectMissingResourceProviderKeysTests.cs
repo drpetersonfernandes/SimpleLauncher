@@ -9,14 +9,13 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Compares every resource key referenced via _resourceProvider.GetString("Key") or
-/// _resourceProvider.GetString("Key", "default") in the SimpleLauncher source code
-/// against the English resource dictionary (strings.en.xaml).
-/// 
-/// Features:
-/// - Missing keys with a known default value are automatically appended to strings.en.xaml.
-/// - Keys without a default value are reported for manual addition.
-/// - Duplicate keys in strings.en.xaml are detected and reported.
+///     Compares every resource key referenced via _resourceProvider.GetString("Key") or
+///     _resourceProvider.GetString("Key", "default") in the SimpleLauncher source code
+///     against the English resource dictionary (strings.en.xaml).
+///     Features:
+///     - Missing keys with a known default value are automatically appended to strings.en.xaml.
+///     - Keys without a default value are reported for manual addition.
+///     - Duplicate keys in strings.en.xaml are detected and reported.
 /// </summary>
 [SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public partial class DetectMissingResourceProviderKeysTests
@@ -24,8 +23,8 @@ public partial class DetectMissingResourceProviderKeysTests
     private static readonly XNamespace XNamespace = "http://schemas.microsoft.com/winfx/2006/xaml";
 
     /// <summary>
-    /// Verifies that the English resource file contains every key referenced via _resourceProvider.GetString
-    /// and has no duplicate keys.
+    ///     Verifies that the English resource file contains every key referenced via _resourceProvider.GetString
+    ///     and has no duplicate keys.
     /// </summary>
     [Fact]
     public void EnglishResourceFileShouldContainAllResourceProviderKeys()
@@ -66,22 +65,13 @@ public partial class DetectMissingResourceProviderKeysTests
         var keysWithoutDefaults = new List<string>();
 
         foreach (var key in missingKeys)
-        {
             if (providerKeys.TryGetValue(key, out var defaultValue) && !string.IsNullOrEmpty(defaultValue))
-            {
                 keysWithDefaults[key] = defaultValue;
-            }
             else
-            {
                 keysWithoutDefaults.Add(key);
-            }
-        }
 
         // Step 6: Auto-add keys that have a known non-empty default value.
-        if (keysWithDefaults.Count > 0)
-        {
-            AppendMissingEntries(stringsEnPath, keysWithDefaults);
-        }
+        if (keysWithDefaults.Count > 0) AppendMissingEntries(stringsEnPath, keysWithDefaults);
 
         // Step 7: Build failure message.
         var message = new StringBuilder();
@@ -92,9 +82,7 @@ public partial class DetectMissingResourceProviderKeysTests
                 "DUPLICATE KEYS detected in strings.en.xaml (duplicates were automatically removed, keeping first occurrence):");
             message.AppendLine();
             foreach (var kvp in duplicateKeys.OrderBy(static x => x.Key, StringComparer.OrdinalIgnoreCase))
-            {
                 message.AppendLine(CultureInfo.InvariantCulture, $"  Key: '{kvp.Key}' appeared {kvp.Value} times");
-            }
 
             message.AppendLine();
         }
@@ -105,9 +93,7 @@ public partial class DetectMissingResourceProviderKeysTests
                 $"The following {keysWithDefaults.Count} key(s) were automatically added to strings.en.xaml:");
             message.AppendLine();
             foreach (var key in keysWithDefaults.Keys.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
-            {
                 message.AppendLine(CultureInfo.InvariantCulture, $"  - {key}");
-            }
 
             message.AppendLine();
         }
@@ -118,20 +104,15 @@ public partial class DetectMissingResourceProviderKeysTests
                 $"The following {keysWithoutDefaults.Count} key(s) could not be automatically added because no default value was provided. Please add them manually to strings.en.xaml:");
             message.AppendLine();
             foreach (var key in keysWithoutDefaults.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
-            {
                 message.AppendLine(CultureInfo.InvariantCulture, $"  - {key}");
-            }
         }
 
-        if (message.Length > 0)
-        {
-            Assert.Fail(message.ToString());
-        }
+        if (message.Length > 0) Assert.Fail(message.ToString());
     }
 
     /// <summary>
-    /// Scans .cs files for _resourceProvider.GetString("Key") and _resourceProvider.GetString("Key", "default").
-    /// Returns a dictionary mapping each key to its default value (empty string if no default provided).
+    ///     Scans .cs files for _resourceProvider.GetString("Key") and _resourceProvider.GetString("Key", "default").
+    ///     Returns a dictionary mapping each key to its default value (empty string if no default provided).
     /// </summary>
     private static Dictionary<string, string> CollectResourceProviderKeys(string sourcePath)
     {
@@ -158,7 +139,7 @@ public partial class DetectMissingResourceProviderKeysTests
     }
 
     /// <summary>
-    /// Extracts all key-value pairs from a XAML resource file using XML parsing.
+    ///     Extracts all key-value pairs from a XAML resource file using XML parsing.
     /// </summary>
     private static Dictionary<string, string> ExtractEntriesFromXaml(string xamlPath)
     {
@@ -183,7 +164,7 @@ public partial class DetectMissingResourceProviderKeysTests
     }
 
     /// <summary>
-    /// Extracts just the keys from a XAML resource file using XML parsing.
+    ///     Extracts just the keys from a XAML resource file using XML parsing.
     /// </summary>
     private static HashSet<string> ExtractKeysFromXaml(string xamlPath)
     {
@@ -197,17 +178,14 @@ public partial class DetectMissingResourceProviderKeysTests
             .Where(static e => e.Attribute(XNamespace + "Key") != null)
             .ToList();
 
-        foreach (var element in elementsWithKey)
-        {
-            keys.Add(element.Attribute(XNamespace + "Key")!.Value);
-        }
+        foreach (var element in elementsWithKey) keys.Add(element.Attribute(XNamespace + "Key")!.Value);
 
         return keys;
     }
 
     /// <summary>
-    /// Detects duplicate x:Key entries in a XAML file using XML parsing.
-    /// Returns a dictionary mapping each duplicate key to its occurrence count.
+    ///     Detects duplicate x:Key entries in a XAML file using XML parsing.
+    ///     Returns a dictionary mapping each duplicate key to its occurrence count.
     /// </summary>
     private static Dictionary<string, int> DetectDuplicateKeys(string xamlPath)
     {
@@ -232,7 +210,7 @@ public partial class DetectMissingResourceProviderKeysTests
     }
 
     /// <summary>
-    /// Removes duplicate keys from a XAML file using XML parsing, keeping only the first occurrence.
+    ///     Removes duplicate keys from a XAML file using XML parsing, keeping only the first occurrence.
     /// </summary>
     private static void RemoveDuplicateKeys(string xamlPath)
     {
@@ -249,18 +227,15 @@ public partial class DetectMissingResourceProviderKeysTests
         foreach (var element in elementsWithKey)
         {
             var key = element.Attribute(XNamespace + "Key")!.Value;
-            if (!seenKeys.Add(key))
-            {
-                element.Remove();
-            }
+            if (!seenKeys.Add(key)) element.Remove();
         }
 
         WriteXamlFile(doc, xamlPath);
     }
 
     /// <summary>
-    /// Parses strings.en.xaml using XML parsing, appends the missing entries,
-    /// sorts everything alphabetically by key, and rewrites the file.
+    ///     Parses strings.en.xaml using XML parsing, appends the missing entries,
+    ///     sorts everything alphabetically by key, and rewrites the file.
     /// </summary>
     private static void AppendMissingEntries(string filePath, Dictionary<string, string> missingEntries)
     {
@@ -284,23 +259,18 @@ public partial class DetectMissingResourceProviderKeysTests
         // Merge missing entries.
         var addedEntries = new Dictionary<string, string>(StringComparer.Ordinal);
         foreach (var kvp in missingEntries)
-        {
             if (!existingEntries.ContainsKey(kvp.Key))
             {
                 existingEntries[kvp.Key] = kvp.Value;
                 addedEntries[kvp.Key] = kvp.Value;
             }
-        }
 
         // Only rewrite if we actually added entries.
         if (addedEntries.Count == 0)
             return;
 
         // Remove all existing keyed elements.
-        foreach (var element in elementsWithKey)
-        {
-            element.Remove();
-        }
+        foreach (var element in elementsWithKey) element.Remove();
 
         // Build the file content manually with proper formatting.
         var lines = new List<string>
@@ -328,7 +298,7 @@ public partial class DetectMissingResourceProviderKeysTests
     }
 
     /// <summary>
-    /// Writes an XDocument to file preserving the original format with entries on separate lines.
+    ///     Writes an XDocument to file preserving the original format with entries on separate lines.
     /// </summary>
     private static void WriteXamlFile(XDocument doc, string filePath)
     {
@@ -394,8 +364,8 @@ public partial class DetectMissingResourceProviderKeysTests
     }
 
     /// <summary>
-    /// Matches: _resourceProvider.GetString("KEY") or _resourceProvider.GetString("KEY", "DEFAULT")
-    /// Group 1 = key, Group 2 = optional default value
+    ///     Matches: _resourceProvider.GetString("KEY") or _resourceProvider.GetString("KEY", "DEFAULT")
+    ///     Group 1 = key, Group 2 = optional default value
     /// </summary>
     [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
         Justification = "Capturing groups are needed to extract key and default value")]

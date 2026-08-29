@@ -4,16 +4,17 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for game file finder utilities (FindDefaultXex, FindDefaultXbe, FindCueFile, FindBinFile, FindImageIso, FindEbootBin).
+///     Tests for game file finder utilities (FindDefaultXex, FindDefaultXbe, FindCueFile, FindBinFile, FindImageIso,
+///     FindEbootBin).
 /// </summary>
 public class FindGameFileTests : IDisposable
 {
-    private readonly string _testDirectory;
     private readonly ILogger _logErrors = new NoOpLogger();
     private readonly ILogger _logger = Log.Logger;
+    private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FindGameFileTests"/> class, setting up a temporary test directory.
+    ///     Initializes a new instance of the <see cref="FindGameFileTests" /> class, setting up a temporary test directory.
     /// </summary>
     public FindGameFileTests()
     {
@@ -22,7 +23,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory.
+    ///     Cleans up the temporary test directory.
     /// </summary>
     public void Dispose()
     {
@@ -41,7 +42,7 @@ public class FindGameFileTests : IDisposable
 
     // FindDefaultXex tests
     /// <summary>
-    /// Verifies that FindDefaultXex returns null when the path is null.
+    ///     Verifies that FindDefaultXex returns null when the path is null.
     /// </summary>
     [Fact]
     public void FindDefaultXexNullPathReturnsNull()
@@ -51,7 +52,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXex returns null when the path is empty.
+    ///     Verifies that FindDefaultXex returns null when the path is empty.
     /// </summary>
     [Fact]
     public void FindDefaultXexEmptyPathReturnsNull()
@@ -61,7 +62,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXex returns null when the directory does not exist.
+    ///     Verifies that FindDefaultXex returns null when the directory does not exist.
     /// </summary>
     [Fact]
     public void FindDefaultXexNonExistentDirectoryReturnsNull()
@@ -71,7 +72,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXex returns the file path when default.xex exists.
+    ///     Verifies that FindDefaultXex returns the file path when default.xex exists.
     /// </summary>
     [Fact]
     public void FindDefaultXexFileExistsReturnsPath()
@@ -86,7 +87,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXex returns null when default.xex does not exist in the directory.
+    ///     Verifies that FindDefaultXex returns null when default.xex does not exist in the directory.
     /// </summary>
     [Fact]
     public void FindDefaultXexFileDoesNotExistReturnsNull()
@@ -97,7 +98,7 @@ public class FindGameFileTests : IDisposable
 
     // FindDefaultXbe tests
     /// <summary>
-    /// Verifies that FindDefaultXbe returns null when the path is null.
+    ///     Verifies that FindDefaultXbe returns null when the path is null.
     /// </summary>
     [Fact]
     public void FindDefaultXbeNullPathReturnsNull()
@@ -107,7 +108,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXbe returns null when the path is empty.
+    ///     Verifies that FindDefaultXbe returns null when the path is empty.
     /// </summary>
     [Fact]
     public void FindDefaultXbeEmptyPathReturnsNull()
@@ -117,7 +118,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXbe returns null when the directory does not exist.
+    ///     Verifies that FindDefaultXbe returns null when the directory does not exist.
     /// </summary>
     [Fact]
     public void FindDefaultXbeNonExistentDirectoryReturnsNull()
@@ -127,7 +128,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXbe returns the file path when default.xbe exists.
+    ///     Verifies that FindDefaultXbe returns the file path when default.xbe exists.
     /// </summary>
     [Fact]
     public void FindDefaultXbeFileExistsReturnsPath()
@@ -142,7 +143,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindDefaultXbe returns null when default.xbe does not exist in the directory.
+    ///     Verifies that FindDefaultXbe returns null when default.xbe does not exist in the directory.
     /// </summary>
     [Fact]
     public void FindDefaultXbeFileDoesNotExistReturnsNull()
@@ -153,7 +154,7 @@ public class FindGameFileTests : IDisposable
 
     // FindCueFile tests
     /// <summary>
-    /// Verifies that FindCueFile returns null when the path is null.
+    ///     Verifies that FindCueFile returns null when the path is null.
     /// </summary>
     [Fact]
     public void FindCueFileNullPathReturnsNull()
@@ -163,7 +164,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindCueFile returns null when the path is empty.
+    ///     Verifies that FindCueFile returns null when the path is empty.
     /// </summary>
     [Fact]
     public void FindCueFileEmptyPathReturnsNull()
@@ -173,7 +174,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindCueFile returns null when the directory does not exist.
+    ///     Verifies that FindCueFile returns null when the directory does not exist.
     /// </summary>
     [Fact]
     public void FindCueFileNonExistentDirectoryReturnsNull()
@@ -183,7 +184,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindCueFile returns the file path when a .cue file exists.
+    ///     Verifies that FindCueFile returns the file path when a .cue file exists.
     /// </summary>
     [Fact]
     public void FindCueFileFileExistsReturnsPath()
@@ -198,7 +199,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindCueFile returns one of the .cue files when multiple exist.
+    ///     Verifies that FindCueFile returns one of the .cue files when multiple exist.
     /// </summary>
     [Fact]
     public void FindCueFileMultipleCueFilesReturnsFirst()
@@ -216,7 +217,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindCueFile returns null when no .cue files exist in the directory.
+    ///     Verifies that FindCueFile returns null when no .cue files exist in the directory.
     /// </summary>
     [Fact]
     public void FindCueFileNoCueFilesReturnsNull()
@@ -229,7 +230,7 @@ public class FindGameFileTests : IDisposable
 
     // FindBinFile tests
     /// <summary>
-    /// Verifies that FindBinFile returns null when the path is null.
+    ///     Verifies that FindBinFile returns null when the path is null.
     /// </summary>
     [Fact]
     public void FindBinFileNullPathReturnsNull()
@@ -239,7 +240,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindBinFile returns null when the path is empty.
+    ///     Verifies that FindBinFile returns null when the path is empty.
     /// </summary>
     [Fact]
     public void FindBinFileEmptyPathReturnsNull()
@@ -249,7 +250,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindBinFile returns null when the directory does not exist.
+    ///     Verifies that FindBinFile returns null when the directory does not exist.
     /// </summary>
     [Fact]
     public void FindBinFileNonExistentDirectoryReturnsNull()
@@ -259,7 +260,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindBinFile returns the file path when a .bin file exists.
+    ///     Verifies that FindBinFile returns the file path when a .bin file exists.
     /// </summary>
     [Fact]
     public void FindBinFileFileExistsReturnsPath()
@@ -274,7 +275,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindBinFile returns null when no .bin files exist in the directory.
+    ///     Verifies that FindBinFile returns null when no .bin files exist in the directory.
     /// </summary>
     [Fact]
     public void FindBinFileNoBinFilesReturnsNull()
@@ -287,7 +288,7 @@ public class FindGameFileTests : IDisposable
 
     // FindImageIso tests
     /// <summary>
-    /// Verifies that FindImageIso returns null when the path is null.
+    ///     Verifies that FindImageIso returns null when the path is null.
     /// </summary>
     [Fact]
     public void FindImageIsoNullPathReturnsNull()
@@ -297,7 +298,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindImageIso returns null when the path is empty.
+    ///     Verifies that FindImageIso returns null when the path is empty.
     /// </summary>
     [Fact]
     public void FindImageIsoEmptyPathReturnsNull()
@@ -307,7 +308,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindImageIso returns null when the directory does not exist.
+    ///     Verifies that FindImageIso returns null when the directory does not exist.
     /// </summary>
     [Fact]
     public void FindImageIsoNonExistentDirectoryReturnsNull()
@@ -317,7 +318,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindImageIso returns the file path when an .iso file exists.
+    ///     Verifies that FindImageIso returns the file path when an .iso file exists.
     /// </summary>
     [Fact]
     public void FindImageIsoFileExistsReturnsPath()
@@ -332,7 +333,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindImageIso returns null when no .iso file exists in the directory.
+    ///     Verifies that FindImageIso returns null when no .iso file exists in the directory.
     /// </summary>
     [Fact]
     public void FindImageIsoFileDoesNotExistReturnsNull()
@@ -343,7 +344,7 @@ public class FindGameFileTests : IDisposable
 
     // FindEbootBin tests
     /// <summary>
-    /// Verifies that FindEbootBin returns null when the path is null.
+    ///     Verifies that FindEbootBin returns null when the path is null.
     /// </summary>
     [Fact]
     public void FindEbootBinNullPathReturnsNull()
@@ -353,7 +354,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin returns null when the path is empty.
+    ///     Verifies that FindEbootBin returns null when the path is empty.
     /// </summary>
     [Fact]
     public void FindEbootBinEmptyPathReturnsNull()
@@ -363,7 +364,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin finds EBOOT.BIN in the top-level directory.
+    ///     Verifies that FindEbootBin finds EBOOT.BIN in the top-level directory.
     /// </summary>
     [Fact]
     public void FindEbootBinInTopDirectoryReturnsPath()
@@ -378,7 +379,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin finds EBOOT.BIN in the PS3_GAME/USRDIR directory structure.
+    ///     Verifies that FindEbootBin finds EBOOT.BIN in the PS3_GAME/USRDIR directory structure.
     /// </summary>
     [Fact]
     public void FindEbootBinInPs3GameUsrDirReturnsPath()
@@ -396,7 +397,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin finds EBOOT.BIN in a deeply nested directory.
+    ///     Verifies that FindEbootBin finds EBOOT.BIN in a deeply nested directory.
     /// </summary>
     [Fact]
     public void FindEbootBinInNestedDirectoryReturnsPath()
@@ -413,7 +414,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin returns null when no EBOOT.BIN file exists.
+    ///     Verifies that FindEbootBin returns null when no EBOOT.BIN file exists.
     /// </summary>
     [Fact]
     public void FindEbootBinNotFoundReturnsNull()
@@ -423,7 +424,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin prefers the top-level directory over nested subdirectories.
+    ///     Verifies that FindEbootBin prefers the top-level directory over nested subdirectories.
     /// </summary>
     [Fact]
     public void FindEbootBinPrefersTopDirectoryOverNested()
@@ -442,7 +443,7 @@ public class FindGameFileTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindEbootBin prefers the PS3_GAME/USRDIR structure over full recursive search.
+    ///     Verifies that FindEbootBin prefers the PS3_GAME/USRDIR structure over full recursive search.
     /// </summary>
     [Fact]
     public void FindEbootBinPrefersPs3StructureOverFullRecursive()

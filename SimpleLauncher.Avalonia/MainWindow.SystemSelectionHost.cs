@@ -3,8 +3,8 @@ using SimpleLauncher.Avalonia.Interfaces;
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Partial MainWindow implementing <see cref="ISystemSelectionHost"/> for system
-/// selection coordination (WPF MainWindow.SystemSelectionHost.cs parity).
+///     Partial MainWindow implementing <see cref="ISystemSelectionHost" /> for system
+///     selection coordination (WPF MainWindow.SystemSelectionHost.cs parity).
 /// </summary>
 public partial class MainWindow : ISystemSelectionHost
 {

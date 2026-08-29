@@ -4,7 +4,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 
 /// <summary>
-/// Holds emulator configuration settings for Sega Model 2.
+///     Holds emulator configuration settings for Sega Model 2.
 /// </summary>
 public class SegaModel2Settings : IEmulatorSettings
 {
@@ -73,7 +73,7 @@ public class SegaModel2Settings : IEmulatorSettings
 
 
     /// <summary>Serializes the current settings to an XML element.</summary>
-    /// <returns>An <see cref="XElement"/> containing the settings data.</returns>
+    /// <returns>An <see cref="XElement" /> containing the settings data.</returns>
     public XElement ToXElement()
     {
         return new XElement(SectionName,
@@ -93,7 +93,7 @@ public class SegaModel2Settings : IEmulatorSettings
     }
 
 
-    /// <summary>Copies settings from another <see cref="IEmulatorSettings"/> instance of the same type.</summary>
+    /// <summary>Copies settings from another <see cref="IEmulatorSettings" /> instance of the same type.</summary>
     /// <param name="other">The source settings to copy from.</param>
     public void CopyFrom(IEmulatorSettings other)
     {

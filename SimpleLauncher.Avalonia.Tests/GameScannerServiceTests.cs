@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Xml.Linq;
 using Moq;
 using SimpleLauncher.Avalonia.Services.GameScan;
@@ -9,42 +10,39 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for <see cref="GameScannerService"/> — "Microsoft Windows" system creation, shortcut
-/// materialization through the registered scanners, idempotence, ignored-name filtering, and the
-/// FindMainExecutable/TryGetExeFiles heuristics. All I/O is isolated to a temp system.xml and the
-/// test output directory.
+///     Tests for <see cref="GameScannerService" /> — "Microsoft Windows" system creation, shortcut
+///     materialization through the registered scanners, idempotence, ignored-name filtering, and the
+///     FindMainExecutable/TryGetExeFiles heuristics. All I/O is isolated to a temp system.xml and the
+///     test output directory.
 /// </summary>
 public class GameScannerServiceTests : IDisposable
 {
+    private readonly string _tempRoot = Path.Combine(Path.GetTempPath(), $"SL_GameScanTest_{Guid.NewGuid():N}");
+
+    public GameScannerServiceTests()
+    {
+        CleanDefaultFolders();
+        Directory.CreateDirectory(_tempRoot);
+    }
+
     private static string DefaultRomsPath =>
         PathHelper.ResolveRelativeToAppDirectory($@"%BASEFOLDER%\roms\{GameScannerService.WindowsSystemName}")!;
 
     private static string DefaultImagesPath =>
         PathHelper.ResolveRelativeToAppDirectory($@"%BASEFOLDER%\images\{GameScannerService.WindowsSystemName}")!;
 
-    private readonly string _tempRoot = Path.Combine(Path.GetTempPath(), $"SL_GameScanTest_{Guid.NewGuid():N}");
-
-    /// <summary>
-    /// Test scanner that materializes (name, exePath) pairs as .url shortcuts exactly like the
-    /// real storefront scanners do (sanitized name, ignored names filtered).
-    /// </summary>
-    private sealed class FakeScanner(List<(string Name, string ExePath)> games) : IGamePlatformScanner
+    public void Dispose()
     {
-        private readonly List<(string Name, string ExePath)> _games = games;
-
-        public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
-            string windowsImagesPath, ISet<string> ignoredGameNames)
+        try
         {
-            foreach (var (name, exePath) in _games)
-            {
-                if (ignoredGameNames.Contains(name)) continue;
-                if (string.IsNullOrWhiteSpace(exePath)) continue;
-
-                var sanitized = SanitizeInputSystemName.SanitizeFolderName(name);
-                var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitized}.url");
-                await File.WriteAllTextAsync(shortcutPath, $"[InternetShortcut]\nURL=file:///{exePath}");
-            }
+            if (Directory.Exists(_tempRoot)) Directory.Delete(_tempRoot, true);
         }
+        catch
+        {
+            // Best-effort cleanup
+        }
+
+        GC.SuppressFinalize(this);
     }
 
     private static GameScannerService CreateScanner(string systemXmlPath, params IGamePlatformScanner[] scanners)
@@ -65,8 +63,8 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Removes the default %BASEFOLDER% roms/images folders left by previous test runs
-    /// (same test-bin location every run, so shortcuts would otherwise be skipped).
+    ///     Removes the default %BASEFOLDER% roms/images folders left by previous test runs
+    ///     (same test-bin location every run, so shortcuts would otherwise be skipped).
     /// </summary>
     private static void CleanDefaultFolders()
     {
@@ -79,26 +77,6 @@ public class GameScannerServiceTests : IDisposable
         {
             Log.Debug(ex, "Failed to clean default scanner test folders");
         }
-    }
-
-    public GameScannerServiceTests()
-    {
-        CleanDefaultFolders();
-        Directory.CreateDirectory(_tempRoot);
-    }
-
-    public void Dispose()
-    {
-        try
-        {
-            if (Directory.Exists(_tempRoot)) Directory.Delete(_tempRoot, true);
-        }
-        catch
-        {
-            // Best-effort cleanup
-        }
-
-        GC.SuppressFinalize(this);
     }
 
     // ── Orchestration (ScanForStoreGamesCoreAsync) ──
@@ -342,7 +320,7 @@ public class GameScannerServiceTests : IDisposable
     public void FindMainExecutableReturnsNullForNonExistentDirectory()
     {
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [Path.Combine(_tempRoot, "nonexistent"), "game", null]);
@@ -356,7 +334,7 @@ public class GameScannerServiceTests : IDisposable
         Directory.CreateDirectory(gameDir);
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "game", null]);
@@ -372,7 +350,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "other.exe"), "other exe");
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
@@ -389,7 +367,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "other.exe"), "other exe");
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
@@ -407,7 +385,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "MyGame.exe"), "game exe");
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", specificExe]) as string;
@@ -424,7 +402,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "game.exe"), new string('x', 1000));
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
@@ -441,7 +419,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "game.exe"), new string('x', 1000));
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
@@ -458,7 +436,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "game.exe"), new string('x', 1000));
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
@@ -475,7 +453,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "game.exe"), new string('x', 1000));
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
@@ -492,7 +470,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "large.exe"), new string('x', 5000));
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "UnknownGame", null]) as string;
@@ -508,7 +486,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "game.exe"), "game exe");
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var nonExistentPath = Path.Combine(gameDir, "nonexistent.exe");
@@ -523,7 +501,7 @@ public class GameScannerServiceTests : IDisposable
     public void TryGetExeFilesReturnsNullWhenDirectoryVanished()
     {
         var method = typeof(GameScannerService).GetMethod("TryGetExeFiles",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         // A directory that no longer exists must yield null, never DirectoryNotFoundException.
@@ -540,12 +518,35 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "readme.txt"), "not an exe");
 
         var method = typeof(GameScannerService).GetMethod("TryGetExeFiles",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir]) as string[];
         Assert.NotNull(result);
         var file = Assert.Single(result);
         Assert.Equal("game.exe", Path.GetFileName(file));
+    }
+
+    /// <summary>
+    ///     Test scanner that materializes (name, exePath) pairs as .url shortcuts exactly like the
+    ///     real storefront scanners do (sanitized name, ignored names filtered).
+    /// </summary>
+    private sealed class FakeScanner(List<(string Name, string ExePath)> games) : IGamePlatformScanner
+    {
+        private readonly List<(string Name, string ExePath)> _games = games;
+
+        public async Task ScanAsync(GameScannerService gameScannerService, ILogger logErrors, string windowsRomsPath,
+            string windowsImagesPath, ISet<string> ignoredGameNames)
+        {
+            foreach (var (name, exePath) in _games)
+            {
+                if (ignoredGameNames.Contains(name)) continue;
+                if (string.IsNullOrWhiteSpace(exePath)) continue;
+
+                var sanitized = SanitizeInputSystemName.SanitizeFolderName(name);
+                var shortcutPath = Path.Combine(windowsRomsPath, $"{sanitized}.url");
+                await File.WriteAllTextAsync(shortcutPath, $"[InternetShortcut]\nURL=file:///{exePath}");
+            }
+        }
     }
 }

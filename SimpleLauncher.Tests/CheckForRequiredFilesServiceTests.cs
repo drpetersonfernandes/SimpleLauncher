@@ -7,10 +7,10 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="CheckForRequiredFilesService"/> using the test bin directory
-/// (the app base directory) and a mocked <see cref="IMessageBoxLibraryService"/>.
-/// Note: the service reads the required-files list via <c>GetValue&lt;string[]&gt;</c>, which
-/// does not bind array config keys, so the hardcoded default list is used in practice.
+///     Tests for <see cref="CheckForRequiredFilesService" /> using the test bin directory
+///     (the app base directory) and a mocked <see cref="IMessageBoxLibraryService" />.
+///     Note: the service reads the required-files list via <c>GetValue&lt;string[]&gt;</c>, which
+///     does not bind array config keys, so the hardcoded default list is used in practice.
 /// </summary>
 public class CheckForRequiredFilesServiceTests
 {
@@ -48,10 +48,7 @@ public class CheckForRequiredFilesServiceTests
 
         try
         {
-            if (wasPresent)
-            {
-                File.Move(clickSound, backup);
-            }
+            if (wasPresent) File.Move(clickSound, backup);
 
             string? capturedList = null;
             _messageBoxMock
@@ -66,10 +63,7 @@ public class CheckForRequiredFilesServiceTests
         }
         finally
         {
-            if (wasPresent && File.Exists(backup))
-            {
-                File.Move(backup, clickSound);
-            }
+            if (wasPresent && File.Exists(backup)) File.Move(backup, clickSound);
         }
     }
 
@@ -89,20 +83,14 @@ public class CheckForRequiredFilesServiceTests
 
         try
         {
-            if (wasPresent)
-            {
-                File.Move(clickSound, backup);
-            }
+            if (wasPresent) File.Move(clickSound, backup);
 
             await service.CheckFilesAsync(EmptyConfiguration(), logger);
             // No exception expected; the error is logged
         }
         finally
         {
-            if (wasPresent && File.Exists(backup))
-            {
-                File.Move(backup, clickSound);
-            }
+            if (wasPresent && File.Exists(backup)) File.Move(backup, clickSound);
         }
     }
 }

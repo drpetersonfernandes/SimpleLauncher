@@ -17,12 +17,23 @@
                 <!-- General Section -->
                 <GroupBox Header="{DynamicResource DuckStationConfig_General_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding DuckStationStartFullscreen}" Content="{DynamicResource DuckStationConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_Fullscreen_Tooltip}" />
-                        <CheckBox IsChecked="{Binding DuckStationPauseOnFocusLoss}" Content="{DynamicResource DuckStationConfig_PauseOnFocusLoss_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_PauseOnFocusLoss_Tooltip}" />
-                        <CheckBox IsChecked="{Binding DuckStationSaveStateOnExit}" Content="{DynamicResource DuckStationConfig_SaveStateOnExit_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_SaveStateOnExit_Tooltip}" />
-                        <CheckBox IsChecked="{Binding DuckStationRewindEnable}" Content="{DynamicResource DuckStationConfig_RewindEnable_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_RewindEnable_Tooltip}" />
-                        <Label Content="{DynamicResource DuckStationConfig_Runahead_Label}" VerticalAlignment="Center" ToolTip="{DynamicResource DuckStationConfig_Runahead_Tooltip}" />
-                        <Slider Value="{Binding DuckStationRunaheadFrameCount}" Minimum="0" Maximum="8" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource DuckStationConfig_Runahead_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DuckStationStartFullscreen}"
+                                  Content="{DynamicResource DuckStationConfig_Fullscreen_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DuckStationConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DuckStationPauseOnFocusLoss}"
+                                  Content="{DynamicResource DuckStationConfig_PauseOnFocusLoss_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DuckStationConfig_PauseOnFocusLoss_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DuckStationSaveStateOnExit}"
+                                  Content="{DynamicResource DuckStationConfig_SaveStateOnExit_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DuckStationConfig_SaveStateOnExit_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DuckStationRewindEnable}"
+                                  Content="{DynamicResource DuckStationConfig_RewindEnable_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DuckStationConfig_RewindEnable_Tooltip}" />
+                        <Label Content="{DynamicResource DuckStationConfig_Runahead_Label}" VerticalAlignment="Center"
+                               ToolTip="{DynamicResource DuckStationConfig_Runahead_Tooltip}" />
+                        <Slider Value="{Binding DuckStationRunaheadFrameCount}" Minimum="0" Maximum="8"
+                                IsSnapToTickEnabled="True" TickFrequency="1"
+                                ToolTip="{DynamicResource DuckStationConfig_Runahead_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -34,7 +45,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource DuckStationConfig_Renderer_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource DuckStationConfig_Renderer_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding RendererOptions}"
                                       SelectedItem="{Binding DuckStationRenderer}"
@@ -45,7 +57,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource DuckStationConfig_ResolutionScale_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource DuckStationConfig_ResolutionScale_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ResolutionScaleOptions}"
                                       SelectedValue="{Binding DuckStationResolutionScale}"
@@ -58,7 +71,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource DuckStationConfig_TextureFilter_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource DuckStationConfig_TextureFilter_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding TextureFilterOptions}"
                                       SelectedItem="{Binding DuckStationTextureFilter}"
@@ -69,32 +83,48 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource DuckStationConfig_AspectRatio_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource DuckStationConfig_AspectRatio_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AspectRatioOptions}"
                                       SelectedItem="{Binding DuckStationAspectRatio}"
                                       ToolTip="{DynamicResource DuckStationConfig_AspectRatio_Tooltip}" />
                         </Grid>
-                        <CheckBox IsChecked="{Binding DuckStationWidescreenHack}" Content="{DynamicResource DuckStationConfig_WidescreenHack_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_WidescreenHack_Tooltip}" />
-                        <CheckBox IsChecked="{Binding DuckStationPgxpEnable}" Content="{DynamicResource DuckStationConfig_PgxpEnable_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_PgxpEnable_Tooltip}" />
-                        <CheckBox IsChecked="{Binding DuckStationVsync}" Content="{DynamicResource DuckStationConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DuckStationWidescreenHack}"
+                                  Content="{DynamicResource DuckStationConfig_WidescreenHack_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DuckStationConfig_WidescreenHack_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DuckStationPgxpEnable}"
+                                  Content="{DynamicResource DuckStationConfig_PgxpEnable_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DuckStationConfig_PgxpEnable_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DuckStationVsync}"
+                                  Content="{DynamicResource DuckStationConfig_Vsync_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DuckStationConfig_Vsync_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
                 <GroupBox Header="{DynamicResource DuckStationConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding DuckStationOutputMuted}" Content="{DynamicResource DuckStationConfig_Mute_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DuckStationConfig_Mute_Tooltip}" />
-                        <Label Content="{DynamicResource DuckStationConfig_Volume_Label}" VerticalAlignment="Center" ToolTip="{DynamicResource DuckStationConfig_Volume_Tooltip}" />
-                        <Slider Value="{Binding DuckStationOutputVolume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource DuckStationConfig_Volume_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DuckStationOutputMuted}"
+                                  Content="{DynamicResource DuckStationConfig_Mute_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DuckStationConfig_Mute_Tooltip}" />
+                        <Label Content="{DynamicResource DuckStationConfig_Volume_Label}" VerticalAlignment="Center"
+                               ToolTip="{DynamicResource DuckStationConfig_Volume_Tooltip}" />
+                        <Slider Value="{Binding DuckStationOutputVolume}" Minimum="0" Maximum="100"
+                                IsSnapToTickEnabled="True" TickFrequency="1"
+                                ToolTip="{DynamicResource DuckStationConfig_Volume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding DuckStationShowSettingsBeforeLaunch}" Content="{DynamicResource DuckStationConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource DuckStationConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding DuckStationShowSettingsBeforeLaunch}"
+                                  Content="{DynamicResource DuckStationConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource DuckStationConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

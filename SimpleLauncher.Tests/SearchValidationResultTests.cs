@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the SearchValidationResult model for creating success and failure validation results.
+///     Tests the SearchValidationResult model for creating success and failure validation results.
 /// </summary>
 public class SearchValidationResultTests
 {
     /// <summary>
-    /// Verifies that the Success factory creates a valid result with the correct query.
+    ///     Verifies that the Success factory creates a valid result with the correct query.
     /// </summary>
     [Fact]
     public void SuccessCreatesValidResult()
@@ -20,7 +20,7 @@ public class SearchValidationResultTests
     }
 
     /// <summary>
-    /// Verifies that the Failure factory creates an invalid result with a null query.
+    ///     Verifies that the Failure factory creates an invalid result with a null query.
     /// </summary>
     [Fact]
     public void FailureCreatesInvalidResult()
@@ -31,7 +31,7 @@ public class SearchValidationResultTests
     }
 
     /// <summary>
-    /// Verifies that the Success factory preserves the query as-is including whitespace.
+    ///     Verifies that the Success factory preserves the query as-is including whitespace.
     /// </summary>
     [Fact]
     public void SuccessTrimsQuery()
@@ -41,7 +41,7 @@ public class SearchValidationResultTests
     }
 
     /// <summary>
-    /// Verifies that Success with an empty string still produces a valid result.
+    ///     Verifies that Success with an empty string still produces a valid result.
     /// </summary>
     [Fact]
     public void SuccessWithEmptyQueryStillValid()
@@ -52,7 +52,7 @@ public class SearchValidationResultTests
     }
 
     /// <summary>
-    /// Verifies that Success correctly stores queries containing special characters.
+    ///     Verifies that Success correctly stores queries containing special characters.
     /// </summary>
     [Fact]
     public void SuccessWithSpecialCharacters()
@@ -63,7 +63,7 @@ public class SearchValidationResultTests
     }
 
     /// <summary>
-    /// Verifies that Success correctly stores queries containing Unicode characters.
+    ///     Verifies that Success correctly stores queries containing Unicode characters.
     /// </summary>
     [Fact]
     public void SuccessWithUnicodeCharacters()
@@ -74,7 +74,7 @@ public class SearchValidationResultTests
     }
 
     /// <summary>
-    /// Verifies that a Failure result always has IsValid set to false.
+    ///     Verifies that a Failure result always has IsValid set to false.
     /// </summary>
     [Fact]
     public void FailureIsValidFalseByDefault()
@@ -84,7 +84,7 @@ public class SearchValidationResultTests
     }
 
     /// <summary>
-    /// Verifies that internal whitespace within the query is preserved.
+    ///     Verifies that internal whitespace within the query is preserved.
     /// </summary>
     [Fact]
     public void SuccessPreservesInternalWhitespace()
@@ -94,7 +94,7 @@ public class SearchValidationResultTests
     }
 
     /// <summary>
-    /// Verifies that multiple Success results maintain independent query values.
+    ///     Verifies that multiple Success results maintain independent query values.
     /// </summary>
     [Fact]
     public void MultipleSuccessResultsAreIndependent()
@@ -107,7 +107,7 @@ public class SearchValidationResultTests
     }
 
     /// <summary>
-    /// Verifies that a Failure result has a null ValidatedQuery property.
+    ///     Verifies that a Failure result has a null ValidatedQuery property.
     /// </summary>
     [Fact]
     public void FailureResultHasNullValidatedQuery()

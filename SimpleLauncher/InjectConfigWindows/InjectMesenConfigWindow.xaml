@@ -17,9 +17,14 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource MesenConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding Fullscreen}" Content="{DynamicResource MesenConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_Fullscreen_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Vsync}" Content="{DynamicResource MesenConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_Vsync_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Bilinear}" Content="{DynamicResource MesenConfig_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_Bilinear_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Fullscreen}"
+                                  Content="{DynamicResource MesenConfig_Fullscreen_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MesenConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Vsync}" Content="{DynamicResource MesenConfig_Vsync_Checkbox}"
+                                  Margin="0,5" ToolTip="{DynamicResource MesenConfig_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Bilinear}"
+                                  Content="{DynamicResource MesenConfig_Bilinear_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MesenConfig_Bilinear_Tooltip}" />
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -48,27 +53,38 @@
                 <!-- Audio Section -->
                 <GroupBox Header="{DynamicResource MesenConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding EnableAudio}" Content="{DynamicResource MesenConfig_EnableAudio_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_EnableAudio_Tooltip}" />
+                        <CheckBox IsChecked="{Binding EnableAudio}"
+                                  Content="{DynamicResource MesenConfig_EnableAudio_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MesenConfig_EnableAudio_Tooltip}" />
                         <Label Content="{DynamicResource MesenConfig_MasterVolume_Label}" VerticalAlignment="Center" />
-                        <Slider Value="{Binding MasterVolume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MesenConfig_MasterVolume_Tooltip}" />
+                        <Slider Value="{Binding MasterVolume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True"
+                                TickFrequency="1" ToolTip="{DynamicResource MesenConfig_MasterVolume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Performance & Features Section -->
                 <GroupBox Header="{DynamicResource MesenConfig_Performance_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding Rewind}" Content="{DynamicResource MesenConfig_Rewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_Rewind_Tooltip}" />
-                        <CheckBox IsChecked="{Binding PauseInBackground}" Content="{DynamicResource MesenConfig_PauseInBackground_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MesenConfig_PauseInBackground_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Rewind}" Content="{DynamicResource MesenConfig_Rewind_Checkbox}"
+                                  Margin="0,5" ToolTip="{DynamicResource MesenConfig_Rewind_Tooltip}" />
+                        <CheckBox IsChecked="{Binding PauseInBackground}"
+                                  Content="{DynamicResource MesenConfig_PauseInBackground_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MesenConfig_PauseInBackground_Tooltip}" />
                         <Label Content="{DynamicResource MesenConfig_RunAhead_Label}" VerticalAlignment="Center" />
-                        <Slider Value="{Binding RunAhead}" Minimum="0" Maximum="8" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MesenConfig_RunAhead_Tooltip}" />
+                        <Slider Value="{Binding RunAhead}" Minimum="0" Maximum="8" IsSnapToTickEnabled="True"
+                                TickFrequency="1" ToolTip="{DynamicResource MesenConfig_RunAhead_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}" Content="{DynamicResource MesenConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource MesenConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="{DynamicResource MesenConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource MesenConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

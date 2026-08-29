@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.SystemSelectionWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Select RetroAchievements System"
         Height="220" Width="420"
@@ -14,7 +14,8 @@
                        TextWrapping="Wrap" Margin="0,0,0,10"
                        Foreground="{DynamicResource TextSecondaryBrush}" />
 
-            <TextBlock Text="{ext:Translate SystemSelectionWindow_Select_the_system_for_this_game}" FontWeight="Bold" Margin="0,0,0,5"
+            <TextBlock Text="{ext:Translate SystemSelectionWindow_Select_the_system_for_this_game}" FontWeight="Bold"
+                       Margin="0,0,0,5"
                        Foreground="{DynamicResource TextPrimaryBrush}" />
 
             <ComboBox ItemsSource="{Binding Systems}"
@@ -26,7 +27,8 @@
                 <Button Content="{ext:Translate Confirm}" Command="{Binding ConfirmCommand}" IsDefault="True"
                         Classes="primary" Margin="0,0,10,0" Width="120"
                         ToolTip.Tip="{ext:Translate SystemSelectionWindow_Confirm_the_selected_system}" />
-                <Button Content="{ext:Translate YumirConfig_Cancel_Button}" Command="{Binding CancelCommand}" IsCancel="True"
+                <Button Content="{ext:Translate YumirConfig_Cancel_Button}" Command="{Binding CancelCommand}"
+                        IsCancel="True"
                         Classes="secondary" Width="80" ToolTip.Tip="{ext:Translate YumirConfig_Cancel_Button}" />
             </StackPanel>
         </StackPanel>

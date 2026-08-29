@@ -12,14 +12,15 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for <see cref="RetroAchievementsViewModel"/> — covers credentials-missing, success, unauthorized,
-/// error and edge paths for profile / unlocks / progress, plus utility helpers.
+///     Tests for <see cref="RetroAchievementsViewModel" /> — covers credentials-missing, success, unauthorized,
+///     error and edge paths for profile / unlocks / progress, plus utility helpers.
 /// </summary>
 public class RetroAchievementsViewModelTests
 {
     private static IConfiguration Config => new ConfigurationBuilder().Build();
 
-    private static string ProfileJson(string user = "testuser", int permissions = 1, int untracked = 0, string rank = "123",
+    private static string ProfileJson(string user = "testuser", int permissions = 1, int untracked = 0,
+        string rank = "123",
         string motto = "Hello", string richPresence = "Playing", string memberSince = "2020-01-01 00:00:00")
     {
         return JsonSerializer.Serialize(new
@@ -40,7 +41,7 @@ public class RetroAchievementsViewModelTests
             ID = 42,
             UserWallActive = true,
             Motto = motto,
-            Rank = rank,
+            Rank = rank
         });
     }
 
@@ -159,7 +160,7 @@ public class RetroAchievementsViewModelTests
     [Fact]
     public async Task LoadUserProfile_CredentialsNotSet_ShowsNoProfile()
     {
-        var vm = CreateVm(_ => JsonResponse("[]"), raUsername: "", raApiKey: "");
+        var vm = CreateVm(_ => JsonResponse("[]"), "", "");
         await vm.LoadUserProfileAsync();
         Assert.True(vm.NoProfileVisible);
         Assert.False(vm.IsLoading);
@@ -170,7 +171,7 @@ public class RetroAchievementsViewModelTests
     [Fact]
     public async Task LoadUserProfile_CredentialsWhitespace_ShowsNoProfile()
     {
-        var vm = CreateVm(_ => JsonResponse("[]"), raUsername: "   ", raApiKey: "   ");
+        var vm = CreateVm(_ => JsonResponse("[]"), "   ", "   ");
         await vm.LoadUserProfileAsync();
         Assert.True(vm.NoProfileVisible);
         Assert.False(vm.IsLoading);
@@ -183,7 +184,8 @@ public class RetroAchievementsViewModelTests
         {
             var uri = req.RequestUri!.ToString();
             if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal)) return JsonResponse(ProfileJson());
-            if (uri.Contains("API_GetUserRecentlyPlayedGames.php", StringComparison.Ordinal)) return JsonResponse(RecentlyPlayedJson());
+            if (uri.Contains("API_GetUserRecentlyPlayedGames.php", StringComparison.Ordinal))
+                return JsonResponse(RecentlyPlayedJson());
             return new HttpResponseMessage(HttpStatusCode.NotFound);
         });
 
@@ -262,7 +264,8 @@ public class RetroAchievementsViewModelTests
         var vm = CreateVm(req =>
         {
             var uri = req.RequestUri!.ToString();
-            if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal)) return JsonResponse(ProfileJson(motto: ""));
+            if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal))
+                return JsonResponse(ProfileJson(motto: ""));
             if (uri.Contains("API_GetUserRecentlyPlayedGames.php", StringComparison.Ordinal)) return JsonResponse("[]");
             return new HttpResponseMessage(HttpStatusCode.NotFound);
         });
@@ -280,8 +283,10 @@ public class RetroAchievementsViewModelTests
             var vm = CreateVm(req =>
             {
                 var uri = req.RequestUri!.ToString();
-                if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal)) return JsonResponse(ProfileJson(permissions: perm));
-                if (uri.Contains("API_GetUserRecentlyPlayedGames.php", StringComparison.Ordinal)) return JsonResponse("[]");
+                if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal))
+                    return JsonResponse(ProfileJson(permissions: perm));
+                if (uri.Contains("API_GetUserRecentlyPlayedGames.php", StringComparison.Ordinal))
+                    return JsonResponse("[]");
                 return new HttpResponseMessage(HttpStatusCode.NotFound);
             });
             await vm.LoadUserProfileAsync();
@@ -291,7 +296,8 @@ public class RetroAchievementsViewModelTests
         var vmUnknown = CreateVm(req =>
         {
             var uri = req.RequestUri!.ToString();
-            if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal)) return JsonResponse(ProfileJson(permissions: 99));
+            if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal))
+                return JsonResponse(ProfileJson(permissions: 99));
             if (uri.Contains("API_GetUserRecentlyPlayedGames.php", StringComparison.Ordinal)) return JsonResponse("[]");
             return new HttpResponseMessage(HttpStatusCode.NotFound);
         });
@@ -305,7 +311,8 @@ public class RetroAchievementsViewModelTests
         var vmTracked = CreateVm(req =>
         {
             var uri = req.RequestUri!.ToString();
-            if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal)) return JsonResponse(ProfileJson(untracked: 0));
+            if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal))
+                return JsonResponse(ProfileJson(untracked: 0));
             if (uri.Contains("API_GetUserRecentlyPlayedGames.php", StringComparison.Ordinal)) return JsonResponse("[]");
             return new HttpResponseMessage(HttpStatusCode.NotFound);
         });
@@ -315,7 +322,8 @@ public class RetroAchievementsViewModelTests
         var vmUntracked = CreateVm(req =>
         {
             var uri = req.RequestUri!.ToString();
-            if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal)) return JsonResponse(ProfileJson(untracked: 1));
+            if (uri.Contains("API_GetUserProfile.php", StringComparison.Ordinal))
+                return JsonResponse(ProfileJson(untracked: 1));
             if (uri.Contains("API_GetUserRecentlyPlayedGames.php", StringComparison.Ordinal)) return JsonResponse("[]");
             return new HttpResponseMessage(HttpStatusCode.NotFound);
         });
@@ -328,7 +336,7 @@ public class RetroAchievementsViewModelTests
     [Fact]
     public async Task LoadUnlocks_CredentialsNotSet_ShowsNoUnlocks()
     {
-        var vm = CreateVm(_ => JsonResponse("[]"), raUsername: "", raApiKey: "");
+        var vm = CreateVm(_ => JsonResponse("[]"), "", "");
         await vm.LoadUnlocksByDateAsync();
         Assert.True(vm.NoUnlocksVisible);
         Assert.Null(vm.Unlocks);
@@ -339,7 +347,7 @@ public class RetroAchievementsViewModelTests
     [Fact]
     public async Task LoadUnlocks_Success_PopulatesUnlocksAndTotals()
     {
-        var vm = CreateVm(_ => JsonResponse(EarnedAchievementsJson(2)));
+        var vm = CreateVm(_ => JsonResponse(EarnedAchievementsJson()));
         await vm.LoadUnlocksByDateAsync();
         Assert.False(vm.NoUnlocksVisible);
         Assert.NotNull(vm.Unlocks);
@@ -421,7 +429,7 @@ public class RetroAchievementsViewModelTests
     [Fact]
     public async Task LoadUserProgress_CredentialsNotSet_ShowsNoProgress()
     {
-        var vm = CreateVm(_ => JsonResponse("{}"), raUsername: "", raApiKey: "");
+        var vm = CreateVm(_ => JsonResponse("{}"), "", "");
         await vm.LoadUserProgressAsync();
         Assert.True(vm.NoUserProgressVisible);
         Assert.Null(vm.UserProgress);
@@ -487,14 +495,14 @@ public class RetroAchievementsViewModelTests
     [InlineData("a/b", "https://retroachievements.org/user/a%2Fb")]
     public void GetProfileUrl_EncodesUsername(string username, string expected)
     {
-        var vm = CreateVm(_ => JsonResponse("{}"), raUsername: username);
+        var vm = CreateVm(_ => JsonResponse("{}"), username);
         Assert.Equal(expected, vm.GetProfileUrl());
     }
 
     [Fact]
     public void GetProfileUrl_NullUsername_ReturnsBaseUrl()
     {
-        var vm = CreateVm(_ => JsonResponse("{}"), raUsername: null);
+        var vm = CreateVm(_ => JsonResponse("{}"), null);
         // Settings constructor defaults RaUsername to "" when null, but we explicitly allow null via CreateVm
         // The VM escapes null to "" so URL ends with /user/
         var url = vm.GetProfileUrl();

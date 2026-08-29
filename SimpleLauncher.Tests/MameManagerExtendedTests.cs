@@ -4,12 +4,13 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Extended tests for the <see cref="MameMachineData"/> model covering default values, property assignment, and edge cases.
+///     Extended tests for the <see cref="MameMachineData" /> model covering default values, property assignment, and edge
+///     cases.
 /// </summary>
 public class MameManagerExtendedTests
 {
     /// <summary>
-    /// Verifies that the default MachineName is an empty string.
+    ///     Verifies that the default MachineName is an empty string.
     /// </summary>
     [Fact]
     public void MameManagerDefaultMachineNameIsNull()
@@ -19,7 +20,7 @@ public class MameManagerExtendedTests
     }
 
     /// <summary>
-    /// Verifies that the default Description is an empty string.
+    ///     Verifies that the default Description is an empty string.
     /// </summary>
     [Fact]
     public void MameManagerDefaultDescriptionIsNull()
@@ -29,7 +30,7 @@ public class MameManagerExtendedTests
     }
 
     /// <summary>
-    /// Verifies that MameMachineData properties can be set.
+    ///     Verifies that MameMachineData properties can be set.
     /// </summary>
     [Fact]
     public void MameManagerPropertiesCanBeSet()
@@ -45,7 +46,7 @@ public class MameManagerExtendedTests
     }
 
     /// <summary>
-    /// Verifies that MameMachineData properties support special characters.
+    ///     Verifies that MameMachineData properties support special characters.
     /// </summary>
     [Fact]
     public void MameManagerWithSpecialCharacters()
@@ -61,7 +62,7 @@ public class MameManagerExtendedTests
     }
 
     /// <summary>
-    /// Verifies that MameMachineData supports Unicode characters in the Description property.
+    ///     Verifies that MameMachineData supports Unicode characters in the Description property.
     /// </summary>
     [Fact]
     public void MameManagerWithUnicodeDescription()
@@ -76,7 +77,7 @@ public class MameManagerExtendedTests
     }
 
     /// <summary>
-    /// Verifies that MameMachineData handles empty string values correctly.
+    ///     Verifies that MameMachineData handles empty string values correctly.
     /// </summary>
     [Fact]
     public void MameManagerWithEmptyStrings()
@@ -92,7 +93,7 @@ public class MameManagerExtendedTests
     }
 
     /// <summary>
-    /// Verifies that MameMachineData handles long description strings correctly.
+    ///     Verifies that MameMachineData handles long description strings correctly.
     /// </summary>
     [Fact]
     public void MameManagerWithLongDescription()

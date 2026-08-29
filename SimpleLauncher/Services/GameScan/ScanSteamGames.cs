@@ -9,8 +9,8 @@ using SimpleLauncher.Interfaces;
 namespace SimpleLauncher.Services.GameScan;
 
 /// <summary>
-/// Scans for installed Steam games by reading the Steam installation registry entry,
-/// library folders VDF, and app manifests, and creates shortcuts for them.
+///     Scans for installed Steam games by reading the Steam installation registry entry,
+///     library folders VDF, and app manifests, and creates shortcuts for them.
 /// </summary>
 internal class ScanSteamGames : IGamePlatformScanner
 {
@@ -18,7 +18,7 @@ internal class ScanSteamGames : IGamePlatformScanner
     private readonly ISteamVdfParser _vdfParser;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScanSteamGames"/> class.
+    ///     Initializes a new instance of the <see cref="ScanSteamGames" /> class.
     /// </summary>
     /// <param name="logger">The logger instance.</param>
     /// <param name="vdfParser">The VDF parser used to read Steam configuration files.</param>
@@ -29,8 +29,8 @@ internal class ScanSteamGames : IGamePlatformScanner
     }
 
     /// <summary>
-    /// Locates all Steam library folders, scans their app manifests and source mods,
-    /// and creates shortcuts for the installed games.
+    ///     Locates all Steam library folders, scans their app manifests and source mods,
+    ///     and creates shortcuts for the installed games.
     /// </summary>
     /// <param name="gameScannerService">The scanner service providing shared helpers.</param>
     /// <param name="logErrors">The error logger.</param>
@@ -48,21 +48,14 @@ internal class ScanSteamGames : IGamePlatformScanner
             var steamPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", null) as string;
 
             if (string.IsNullOrEmpty(steamPath))
-            {
                 steamPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam", "InstallPath",
                     null) as string;
-            }
 
             if (string.IsNullOrEmpty(steamPath))
-            {
                 steamPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Valve\Steam", "InstallPath",
                     null) as string;
-            }
 
-            if (string.IsNullOrEmpty(steamPath))
-            {
-                steamPath = GetSteamPathFromProcess();
-            }
+            if (string.IsNullOrEmpty(steamPath)) steamPath = GetSteamPathFromProcess();
 
             if (string.IsNullOrEmpty(steamPath))
             {
@@ -79,7 +72,6 @@ internal class ScanSteamGames : IGamePlatformScanner
             // 2. Parse libraryfolders.vdf for external libraries
             var libraryFoldersVdf = Path.Combine(steamPath, "steamapps", "libraryfolders.vdf");
             if (File.Exists(libraryFoldersVdf))
-            {
                 try
                 {
                     var vdfData = _vdfParser.Parse(libraryFoldersVdf, logErrors);
@@ -90,9 +82,7 @@ internal class ScanSteamGames : IGamePlatformScanner
                         : vdfData;
 
                     if (rootNode != null)
-                    {
                         foreach (var kvp in rootNode)
-                        {
                             switch (kvp.Value)
                             {
                                 // Modern format: "0" { "path" "C:\\Games" ... }
@@ -101,9 +91,7 @@ internal class ScanSteamGames : IGamePlatformScanner
                                     pathObj is string pathStr:
                                 {
                                     if (!string.Equals(pathStr, steamPath, StringComparison.OrdinalIgnoreCase))
-                                    {
                                         libraryPaths.Add(Path.Combine(pathStr, "steamapps"));
-                                    }
 
                                     break;
                                 }
@@ -111,21 +99,16 @@ internal class ScanSteamGames : IGamePlatformScanner
                                 case string legacyPath:
                                 {
                                     if (!string.Equals(legacyPath, steamPath, StringComparison.OrdinalIgnoreCase))
-                                    {
                                         libraryPaths.Add(Path.Combine(legacyPath, "steamapps"));
-                                    }
 
                                     break;
                                 }
                             }
-                        }
-                    }
                 }
                 catch (Exception ex)
                 {
                     logErrors.Error(ex, "Error parsing libraryfolders.vdf");
                 }
-            }
 
             // 3. Scan for Games in all libraries
             foreach (var libraryPath in libraryPaths.Distinct(StringComparer.Ordinal))
@@ -148,10 +131,8 @@ internal class ScanSteamGames : IGamePlatformScanner
                 }
 
                 foreach (var manifestFile in manifestFiles)
-                {
                     await ProcessSteamManifestAsync(gameScannerService, manifestFile, libraryPath, steamPath, logErrors,
                         windowsRomsPath, windowsImagesPath, ignoredGameNames);
-                }
             }
 
             // 4. Scan for Source Mods
@@ -175,11 +156,9 @@ internal class ScanSteamGames : IGamePlatformScanner
                 }
 
                 foreach (var modDir in modDirectories)
-                {
                     // Pass windowsImagesPath here
                     await ProcessSourceModAsync(gameScannerService, modDir, windowsRomsPath, windowsImagesPath,
                         logErrors);
-                }
             }
         }
         catch (Exception ex)
@@ -197,7 +176,6 @@ internal class ScanSteamGames : IGamePlatformScanner
             var appData = _vdfParser.Parse(manifestFile, logErrors);
             if (appData.TryGetValue("AppState", out var appState) &&
                 appState is Dictionary<string, object> appStateDict)
-            {
                 if (appStateDict.TryGetValue("name", out var nameObj) && nameObj is string gameName &&
                     appStateDict.TryGetValue("appid", out var appIdObj) && appIdObj is string appId &&
                     appStateDict.TryGetValue("installdir", out var installDirObj) && installDirObj is string installDir)
@@ -214,7 +192,6 @@ internal class ScanSteamGames : IGamePlatformScanner
                     await TryCopySteamArtworkAsync(gameScannerService, logErrors, steamPath, appId, gameName,
                         sanitizedGameName, gameInstallPath, windowsImagesPath);
                 }
-            }
         }
         catch (Exception ex)
         {
@@ -240,26 +217,16 @@ internal class ScanSteamGames : IGamePlatformScanner
             if (vdfData.TryGetValue("GameInfo", out var gi) && gi is Dictionary<string, object> gameInfo)
             {
                 // Get the Display Name
-                if (gameInfo.TryGetValue("game", out var nameObj))
-                {
-                    gameName = nameObj.ToString();
-                }
+                if (gameInfo.TryGetValue("game", out var nameObj)) gameName = nameObj.ToString();
 
                 // Get the Base AppID (e.g., 243730 for Source SDK 2013)
                 if (gameInfo.TryGetValue("FileSystem", out var fs) && fs is Dictionary<string, object> fileSystem)
-                {
                     if (fileSystem.TryGetValue("SteamAppId", out var appIdObj))
-                    {
                         baseAppId = appIdObj.ToString();
-                    }
-                }
             }
 
             // Fallback for name if not found in VDF
-            if (string.IsNullOrEmpty(gameName))
-            {
-                gameName = new DirectoryInfo(modDir).Name;
-            }
+            if (string.IsNullOrEmpty(gameName)) gameName = new DirectoryInfo(modDir).Name;
 
             if (string.IsNullOrEmpty(baseAppId))
             {
@@ -283,7 +250,6 @@ internal class ScanSteamGames : IGamePlatformScanner
                 // Source mods usually have a game.ico in the root folder
                 var modIcon = Path.Combine(modDir, "game.ico");
                 if (File.Exists(modIcon))
-                {
                     try
                     {
                         using var icon = new Icon(modIcon, 256, 256);
@@ -294,13 +260,10 @@ internal class ScanSteamGames : IGamePlatformScanner
                     {
                         /* Fallback to generic scan */
                     }
-                }
 
                 if (!File.Exists(destArtworkPath))
-                {
                     await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, modDir, sanitizedGameName,
                         windowsImagesPath);
-                }
             }
 
             _logger.Debug($"[GameScannerService] Created shortcut for Source Mod: {gameName}");
@@ -335,10 +298,7 @@ internal class ScanSteamGames : IGamePlatformScanner
         if (File.Exists(destArtworkPath)) return;
 
         // 1. Try API first
-        if (await gameScannerService.TryDownloadImageFromApiAsync(gameName, destArtworkPath, logErrors))
-        {
-            return;
-        }
+        if (await gameScannerService.TryDownloadImageFromApiAsync(gameName, destArtworkPath, logErrors)) return;
 
         // 2. Try Steam's local artwork cache
         var cachePath = Path.Combine(steamPath, "appcache", "librarycache");
@@ -355,7 +315,6 @@ internal class ScanSteamGames : IGamePlatformScanner
             {
                 var sourcePath = Path.Combine(cachePath, pattern);
                 if (File.Exists(sourcePath))
-                {
                     try
                     {
                         // Convert JPG to PNG
@@ -368,7 +327,6 @@ internal class ScanSteamGames : IGamePlatformScanner
                         logErrors.Error(ex,
                             $"Error converting Steam artwork from JPG to PNG for {sanitizedGameName} (Source: {sourcePath})");
                     }
-                }
             }
         }
 

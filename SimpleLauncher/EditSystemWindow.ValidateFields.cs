@@ -11,13 +11,9 @@ internal partial class EditSystemWindow
     private static void SetFieldValidationState(Control control, bool isValid)
     {
         if (isValid)
-        {
             MarkValid(control);
-        }
         else
-        {
             MarkInvalid(control);
-        }
     }
 
     private static void MarkInvalid(Control control)
@@ -113,10 +109,7 @@ internal partial class EditSystemWindow
     private async Task<bool> ValidateEmulatorLocationAsync(string emulatorNameText, string emulatorLocationText,
         IEnumerable<string> formatsToSearch, int emulatorNumber)
     {
-        if (string.IsNullOrEmpty(emulatorNameText))
-        {
-            return false;
-        }
+        if (string.IsNullOrEmpty(emulatorNameText)) return false;
 
         // If formatsToSearch contains bat, exe, lnk, or url, the emulator path is not required.
         var requiresEmulatorPath = !formatsToSearch.Any(static f =>
@@ -282,10 +275,7 @@ internal partial class EditSystemWindow
         // First, sanitize the input (though this is primarily handled in SaveSystemButtonClickAsync)
         systemNameText = SanitizeInputSystemName.SanitizeFolderName(systemNameText);
 
-        if (!string.IsNullOrEmpty(systemNameText))
-        {
-            return false;
-        }
+        if (!string.IsNullOrEmpty(systemNameText)) return false;
 
         // Notify user
         await _messageBox.SystemNameCanNotBeEmptyMessageBoxAsync();
@@ -315,9 +305,6 @@ internal partial class EditSystemWindow
             Emulator5ParametersTextBox
         ];
 
-        foreach (var paramTextBox in parameterTextBoxes)
-        {
-            MarkValid(paramTextBox);
-        }
+        foreach (var paramTextBox in parameterTextBoxes) MarkValid(paramTextBox);
     }
 }

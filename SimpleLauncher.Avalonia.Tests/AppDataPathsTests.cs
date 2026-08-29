@@ -3,7 +3,7 @@ using SimpleLauncher.Core.Services;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests the cross-platform app-data folder resolution (the Linux XDG fallback fix).
+///     Tests the cross-platform app-data folder resolution (the Linux XDG fallback fix).
 /// </summary>
 public class AppDataPathsTests
 {
@@ -26,7 +26,7 @@ public class AppDataPathsTests
     {
         var userProfile = OperatingSystem.IsWindows() ? @"C:\Users\Test" : "/home/test";
 
-        var result = AppDataPaths.Resolve(null, userProfile, isWindows: OperatingSystem.IsWindows());
+        var result = AppDataPaths.Resolve(null, userProfile, OperatingSystem.IsWindows());
 
         var expected = OperatingSystem.IsWindows()
             ? Path.Combine(userProfile, "AppData", "Local", "SimpleLauncher")
@@ -37,7 +37,7 @@ public class AppDataPathsTests
     [Fact]
     public void Resolve_LinuxFallback_UsesDotLocalShareUnderHome()
     {
-        var result = AppDataPaths.Resolve(null, "/home/test", isWindows: false);
+        var result = AppDataPaths.Resolve(null, "/home/test", false);
 
         Assert.Equal(Path.Combine("/home/test", ".local", "share", "SimpleLauncher"), result);
     }
@@ -46,7 +46,7 @@ public class AppDataPathsTests
     public void Resolve_RelativeLocalAppData_IsIgnored()
     {
         // The Linux quirk: LocalApplicationData returns a relative/empty value.
-        var result = AppDataPaths.Resolve("SimpleLauncher", "/home/test", isWindows: false);
+        var result = AppDataPaths.Resolve("SimpleLauncher", "/home/test", false);
 
         Assert.Equal(Path.Combine("/home/test", ".local", "share", "SimpleLauncher"), result);
     }
@@ -54,7 +54,7 @@ public class AppDataPathsTests
     [Fact]
     public void Resolve_EmptyEverything_FallsBackToBaseDirectory()
     {
-        var result = AppDataPaths.Resolve(null, null, isWindows: false);
+        var result = AppDataPaths.Resolve(null, null, false);
 
         Assert.True(Path.IsPathRooted(result));
         Assert.EndsWith("SimpleLauncher", result);

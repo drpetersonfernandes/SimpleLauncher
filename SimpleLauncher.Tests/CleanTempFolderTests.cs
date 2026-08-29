@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the <see cref="CleanTempFolder"/> utility for cleaning temporary directories and partial extractions.
+///     Tests the <see cref="CleanTempFolder" /> utility for cleaning temporary directories and partial extractions.
 /// </summary>
 public class CleanTempFolderTests
 {
     /// <summary>
-    /// Verifies that passing a null path to CleanupTempDirectoryAsync does not throw.
+    ///     Verifies that passing a null path to CleanupTempDirectoryAsync does not throw.
     /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncNullPathDoesNotThrow()
@@ -19,7 +19,7 @@ public class CleanTempFolderTests
     }
 
     /// <summary>
-    /// Verifies that passing an empty path to CleanupTempDirectoryAsync does not throw.
+    ///     Verifies that passing an empty path to CleanupTempDirectoryAsync does not throw.
     /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncEmptyPathDoesNotThrow()
@@ -29,7 +29,7 @@ public class CleanTempFolderTests
     }
 
     /// <summary>
-    /// Verifies that passing a non-existent path to CleanupTempDirectoryAsync does not throw.
+    ///     Verifies that passing a non-existent path to CleanupTempDirectoryAsync does not throw.
     /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncNonExistentPathDoesNotThrow()
@@ -40,7 +40,7 @@ public class CleanTempFolderTests
     }
 
     /// <summary>
-    /// Verifies that CleanupTempDirectoryAsync deletes an existing directory and its contents.
+    ///     Verifies that CleanupTempDirectoryAsync deletes an existing directory and its contents.
     /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncExistingDirectoryDeletesDirectory()
@@ -58,7 +58,7 @@ public class CleanTempFolderTests
     }
 
     /// <summary>
-    /// Verifies that passing a null path to CleanupPartialExtractionAsync does not throw.
+    ///     Verifies that passing a null path to CleanupPartialExtractionAsync does not throw.
     /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncNullPathDoesNotThrow()
@@ -68,7 +68,7 @@ public class CleanTempFolderTests
     }
 
     /// <summary>
-    /// Verifies that passing an empty path to CleanupPartialExtractionAsync does not throw.
+    ///     Verifies that passing an empty path to CleanupPartialExtractionAsync does not throw.
     /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncEmptyPathDoesNotThrow()
@@ -78,7 +78,7 @@ public class CleanTempFolderTests
     }
 
     /// <summary>
-    /// Verifies that passing a non-existent path to CleanupPartialExtractionAsync does not throw.
+    ///     Verifies that passing a non-existent path to CleanupPartialExtractionAsync does not throw.
     /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncNonExistentPathDoesNotThrow()
@@ -89,7 +89,7 @@ public class CleanTempFolderTests
     }
 
     /// <summary>
-    /// Verifies that CleanupPartialExtractionAsync deletes the tracking file and all other files.
+    ///     Verifies that CleanupPartialExtractionAsync deletes the tracking file and all other files.
     /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncDeletesTrackingFile()
@@ -108,7 +108,7 @@ public class CleanTempFolderTests
     }
 
     /// <summary>
-    /// Verifies that CleanupPartialExtractionAsync deletes files and subdirectories while preserving the root directory.
+    ///     Verifies that CleanupPartialExtractionAsync deletes files and subdirectories while preserving the root directory.
     /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncDeletesFilesAndSubdirectories()
@@ -136,7 +136,7 @@ public class CleanTempFolderTests
     }
 
     /// <summary>
-    /// Verifies that CleanupPartialExtractionAsync deletes read-only files.
+    ///     Verifies that CleanupPartialExtractionAsync deletes read-only files.
     /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncReadOnlyFilesDeletesSuccessfully()

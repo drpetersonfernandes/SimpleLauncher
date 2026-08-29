@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the <see cref="CheckForFileLockService"/> utility for detecting locked files.
+///     Tests the <see cref="CheckForFileLockService" /> utility for detecting locked files.
 /// </summary>
 public class CheckForFileLockTests
 {
     /// <summary>
-    /// Verifies that an empty file path returns false (not locked).
+    ///     Verifies that an empty file path returns false (not locked).
     /// </summary>
     [Theory]
     [InlineData("")]
@@ -20,7 +20,7 @@ public class CheckForFileLockTests
     }
 
     /// <summary>
-    /// Verifies that a null file path returns false (not locked).
+    ///     Verifies that a null file path returns false (not locked).
     /// </summary>
     [Fact]
     public void IsFileLockedNullReturnsFalse()
@@ -30,7 +30,7 @@ public class CheckForFileLockTests
     }
 
     /// <summary>
-    /// Verifies that a non-existent file path returns false (not locked).
+    ///     Verifies that a non-existent file path returns false (not locked).
     /// </summary>
     [Fact]
     public void IsFileLockedNonExistentFileReturnsFalse()
@@ -41,7 +41,7 @@ public class CheckForFileLockTests
     }
 
     /// <summary>
-    /// Verifies that an existing unlocked file returns false (not locked).
+    ///     Verifies that an existing unlocked file returns false (not locked).
     /// </summary>
     [Fact]
     public void IsFileLockedExistingUnlockedFileReturnsFalse()
@@ -59,7 +59,7 @@ public class CheckForFileLockTests
     }
 
     /// <summary>
-    /// Verifies that a file locked with an exclusive handle returns true.
+    ///     Verifies that a file locked with an exclusive handle returns true.
     /// </summary>
     [Fact]
     public void IsFileLockedLockedFileReturnsTrue()

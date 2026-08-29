@@ -6,7 +6,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="BooleanToFavoriteStatusConverter"/> class.
+///     Tests for the <see cref="BooleanToFavoriteStatusConverter" /> class.
 /// </summary>
 [SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class BooleanToFavoriteStatusConverterTests
@@ -14,7 +14,7 @@ public class BooleanToFavoriteStatusConverterTests
     private readonly BooleanToFavoriteStatusConverter _converter = new();
 
     /// <summary>
-    /// Verifies that ConvertBack throws NotSupportedException since the converter only supports one-way conversion.
+    ///     Verifies that ConvertBack throws NotSupportedException since the converter only supports one-way conversion.
     /// </summary>
     [Fact]
     public void ConvertBackThrowsNotSupportedException()
@@ -24,7 +24,7 @@ public class BooleanToFavoriteStatusConverterTests
     }
 
     /// <summary>
-    /// Verifies that converting a true boolean value returns a non-null string.
+    ///     Verifies that converting a true boolean value returns a non-null string.
     /// </summary>
     [Fact]
     public void ConvertTrueReturnsNonNullString()
@@ -35,7 +35,7 @@ public class BooleanToFavoriteStatusConverterTests
     }
 
     /// <summary>
-    /// Verifies that converting a false boolean value returns a non-null string.
+    ///     Verifies that converting a false boolean value returns a non-null string.
     /// </summary>
     [Fact]
     public void ConvertFalseReturnsNonNullString()
@@ -46,7 +46,7 @@ public class BooleanToFavoriteStatusConverterTests
     }
 
     /// <summary>
-    /// Verifies that converting true and false produces two distinct string representations.
+    ///     Verifies that converting true and false produces two distinct string representations.
     /// </summary>
     [Fact]
     public void ConvertTrueAndFalseReturnDifferentStrings()
@@ -57,7 +57,7 @@ public class BooleanToFavoriteStatusConverterTests
     }
 
     /// <summary>
-    /// Verifies that converting a non-boolean value returns a non-null string without throwing.
+    ///     Verifies that converting a non-boolean value returns a non-null string without throwing.
     /// </summary>
     [Fact]
     public void ConvertNonBoolReturnsNonNullString()
@@ -68,7 +68,7 @@ public class BooleanToFavoriteStatusConverterTests
     }
 
     /// <summary>
-    /// Verifies that converting a null value returns a non-null string without throwing.
+    ///     Verifies that converting a null value returns a non-null string without throwing.
     /// </summary>
     [Fact]
     public void ConvertNullReturnsNonNullString()

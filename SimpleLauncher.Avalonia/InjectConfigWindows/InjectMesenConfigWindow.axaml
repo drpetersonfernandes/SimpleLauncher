@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectMesenConfigWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Mesen Configuration"
         Height="700" Width="700"
@@ -27,14 +27,16 @@
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate MesenConfig_Bilinear_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="{ext:Translate MesenConfig_AspectRatio_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate MesenConfig_AspectRatio_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AspectRatioOptions}"
                                       SelectedItem="{Binding AspectRatio}"
                                       ToolTip.Tip="{ext:Translate MesenConfig_AspectRatio_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="{ext:Translate MesenConfig_VideoFilter_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate MesenConfig_VideoFilter_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding VideoFilterOptions}"
                                       SelectedItem="{Binding VideoFilter}"
@@ -50,7 +52,8 @@
                                   Content="{ext:Translate StellaConfig_AudioEnabled_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate MesenConfig_EnableAudio_Tooltip}" />
-                        <TextBlock Text="{ext:Translate MesenConfig_MasterVolume_Label}" Classes="form-label" VerticalAlignment="Center" />
+                        <TextBlock Text="{ext:Translate MesenConfig_MasterVolume_Label}" Classes="form-label"
+                                   VerticalAlignment="Center" />
                         <Slider Value="{Binding MasterVolume}"
                                 Minimum="0"
                                 Maximum="100"
@@ -71,7 +74,8 @@
                                   Content="{ext:Translate MesenConfig_PauseInBackground_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate MesenConfig_PauseInBackground_Tooltip}" />
-                        <TextBlock Text="{ext:Translate MesenConfig_RunAhead_Label}" Classes="form-label" VerticalAlignment="Center" />
+                        <TextBlock Text="{ext:Translate MesenConfig_RunAhead_Label}" Classes="form-label"
+                                   VerticalAlignment="Center" />
                         <Slider Value="{Binding RunAhead}"
                                 Minimum="0"
                                 Maximum="8"

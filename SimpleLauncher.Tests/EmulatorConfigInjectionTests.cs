@@ -13,18 +13,20 @@ using BlastemConfigurationService = SimpleLauncher.Core.Services.InjectEmulatorC
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for emulator configuration injection into various emulator config file formats (INI, JSON, TOML, YAML, flat key-value).
+///     Tests for emulator configuration injection into various emulator config file formats (INI, JSON, TOML, YAML, flat
+///     key-value).
 /// </summary>
 [SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class EmulatorConfigInjectionTests : IDisposable
 {
-    private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
-    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
+    private readonly ILogger _logErrors = new NoOpLogger();
+    private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="EmulatorConfigInjectionTests"/> with in-memory configuration and a temporary test directory.
+    ///     Initializes a new instance of <see cref="EmulatorConfigInjectionTests" /> with in-memory configuration and a
+    ///     temporary test directory.
     /// </summary>
     public EmulatorConfigInjectionTests()
     {
@@ -42,14 +44,14 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the test directory and restores the service provider mock.
+    ///     Cleans up the test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
     }
 
     /// <summary>
-    /// Copies a sample config file from the test samples directory into a temporary emulator directory.
+    ///     Copies a sample config file from the test samples directory into a temporary emulator directory.
     /// </summary>
     private void CopySampleToEmuDir(string emulatorDirName, string sampleSubDir, string configFileName)
     {
@@ -62,7 +64,7 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Returns a fake emulator executable path within the specified emulator directory.
+    ///     Returns a fake emulator executable path within the specified emulator directory.
     /// </summary>
     private static string FakeEmulatorExePath(string emuDir)
     {
@@ -70,7 +72,7 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Creates a new SettingsManagerService instance with test configuration.
+    ///     Creates a new SettingsManagerService instance with test configuration.
     /// </summary>
     private SettingsManagerService CreateSettingsManager()
     {
@@ -78,7 +80,7 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that DuckStation settings are correctly injected into an INI config file.
+    ///     Verifies that DuckStation settings are correctly injected into an INI config file.
     /// </summary>
     [Fact]
     public void DuckStationInjectsSettingsCorrectly()
@@ -123,7 +125,7 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that PCSX2 settings are correctly injected into an INI config file.
+    ///     Verifies that PCSX2 settings are correctly injected into an INI config file.
     /// </summary>
     [Fact]
     public void Pcsx2InjectsSettingsCorrectly()
@@ -164,8 +166,8 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that when PCSX2 runs in portable mode (portable.ini marker present) and no config exists,
-    /// the PCSX2.ini is created from the sample inside the emulator's 'inis' subfolder.
+    ///     Verifies that when PCSX2 runs in portable mode (portable.ini marker present) and no config exists,
+    ///     the PCSX2.ini is created from the sample inside the emulator's 'inis' subfolder.
     /// </summary>
     [Fact]
     public void Pcsx2PortableMarkerCreatesConfigInEmulatorInisFolder()
@@ -188,7 +190,7 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Mesen settings are correctly injected into a JSON config file.
+    ///     Verifies that Mesen settings are correctly injected into a JSON config file.
     /// </summary>
     [Fact]
     public void MesenInjectsJsonSettingsCorrectly()
@@ -233,7 +235,7 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Xenia settings are correctly injected into a TOML config file.
+    ///     Verifies that Xenia settings are correctly injected into a TOML config file.
     /// </summary>
     [Fact]
     public void XeniaInjectsTomlSettingsCorrectly()
@@ -299,7 +301,7 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that RPCS3 settings are correctly injected into a YAML config file.
+    ///     Verifies that RPCS3 settings are correctly injected into a YAML config file.
     /// </summary>
     [Fact]
     public void Rpcs3InjectsYamlSettingsCorrectly()
@@ -347,7 +349,7 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Redream settings are correctly injected into a flat key-value config file.
+    ///     Verifies that Redream settings are correctly injected into a flat key-value config file.
     /// </summary>
     [Fact]
     public void RedreamInjectsFlatKeyValueCorrectly()
@@ -376,10 +378,7 @@ public class EmulatorConfigInjectionTests : IDisposable
         foreach (var line in lines)
         {
             var parts = line.Split('=', 2);
-            if (parts.Length == 2)
-            {
-                values[parts[0].Trim()] = parts[1].Trim();
-            }
+            if (parts.Length == 2) values[parts[0].Trim()] = parts[1].Trim();
         }
 
         Assert.Equal("RGB", values["cable"]);
@@ -397,7 +396,7 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that RetroArch settings are correctly injected into a quoted key-value config file.
+    ///     Verifies that RetroArch settings are correctly injected into a quoted key-value config file.
     /// </summary>
     [Fact]
     public void RetroArchInjectsQuotedSettingsCorrectly()
@@ -439,10 +438,7 @@ public class EmulatorConfigInjectionTests : IDisposable
             if (string.IsNullOrWhiteSpace(trimmed) || trimmed.StartsWith('#')) continue;
 
             var parts = trimmed.Split('=', 2);
-            if (parts.Length >= 1)
-            {
-                values[parts[0].Trim()] = parts.Length > 1 ? parts[1].Trim() : "";
-            }
+            if (parts.Length >= 1) values[parts[0].Trim()] = parts.Length > 1 ? parts[1].Trim() : "";
         }
 
         Assert.Equal("\"true\"", values["video_fullscreen"]);
@@ -470,7 +466,7 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Blastem settings are correctly injected into a nested block config file.
+    ///     Verifies that Blastem settings are correctly injected into a nested block config file.
     /// </summary>
     [Fact]
     public void BlastemInjectsNestedBlockSettingsCorrectly()
@@ -504,7 +500,7 @@ public class EmulatorConfigInjectionTests : IDisposable
     // --- Helpers ---
 
     /// <summary>
-    /// Parses an INI file with sections into a dictionary keyed by (section, key).
+    ///     Parses an INI file with sections into a dictionary keyed by (section, key).
     /// </summary>
     private static Dictionary<(string Section, string Key), string> ParseIniSections(List<string> lines)
     {
@@ -524,10 +520,7 @@ public class EmulatorConfigInjectionTests : IDisposable
                 continue;
 
             var parts = trimmed.Split('=', 2);
-            if (parts.Length == 2)
-            {
-                result[(currentSection, parts[0].Trim())] = parts[1].Trim();
-            }
+            if (parts.Length == 2) result[(currentSection, parts[0].Trim())] = parts[1].Trim();
         }
 
         return result;

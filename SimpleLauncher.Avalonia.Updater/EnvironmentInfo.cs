@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using Microsoft.Win32;
@@ -6,66 +7,66 @@ using Microsoft.Win32;
 namespace SimpleLauncher.Avalonia.Updater;
 
 /// <summary>
-/// Contains detailed environment information for bug reporting
+///     Contains detailed environment information for bug reporting
 /// </summary>
 internal class EnvironmentInfo
 {
     /// <summary>
-    /// Gets or sets the date and time when the environment information was collected.
+    ///     Gets or sets the date and time when the environment information was collected.
     /// </summary>
     public string Date { get; set; } = "";
 
     /// <summary>
-    /// Gets or sets the name of the application.
+    ///     Gets or sets the name of the application.
     /// </summary>
     public string ApplicationName { get; set; } = "";
 
     /// <summary>
-    /// Gets or sets the version of the application.
+    ///     Gets or sets the version of the application.
     /// </summary>
     public string ApplicationVersion { get; set; } = "";
 
     /// <summary>
-    /// Gets or sets the operating system version string.
+    ///     Gets or sets the operating system version string.
     /// </summary>
     public string OsVersion { get; set; } = "";
 
     /// <summary>
-    /// Gets or sets the processor architecture (e.g., x64, Arm64).
+    ///     Gets or sets the processor architecture (e.g., x64, Arm64).
     /// </summary>
     public string Architecture { get; set; } = "";
 
     /// <summary>
-    /// Gets or sets the process bitness (32-bit or 64-bit).
+    ///     Gets or sets the process bitness (32-bit or 64-bit).
     /// </summary>
     public string Bitness { get; set; } = "";
 
     /// <summary>
-    /// Gets or sets the Windows version information.
+    ///     Gets or sets the Windows version information.
     /// </summary>
     public string WindowsVersion { get; set; } = "";
 
     /// <summary>
-    /// Gets or sets the number of processors available on the machine.
+    ///     Gets or sets the number of processors available on the machine.
     /// </summary>
     public string ProcessorCount { get; set; } = "";
 
     /// <summary>
-    /// Gets or sets the base directory of the application.
+    ///     Gets or sets the base directory of the application.
     /// </summary>
     public string BaseDirectory { get; set; } = "";
 
     /// <summary>
-    /// Gets or sets the path to the system's temporary folder.
+    ///     Gets or sets the path to the system's temporary folder.
     /// </summary>
     public string TempPath { get; set; } = "";
 
     /// <summary>
-    /// Collects all environment information
+    ///     Collects all environment information
     /// </summary>
     public static EnvironmentInfo Collect()
     {
-        var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+        var assembly = Assembly.GetExecutingAssembly();
 
         return new EnvironmentInfo
         {
@@ -83,7 +84,7 @@ internal class EnvironmentInfo
     }
 
     /// <summary>
-    /// Gets the operating system version
+    ///     Gets the operating system version
     /// </summary>
     private static string GetOsVersion()
     {
@@ -99,7 +100,7 @@ internal class EnvironmentInfo
     }
 
     /// <summary>
-    /// Gets the processor architecture
+    ///     Gets the processor architecture
     /// </summary>
     private static string GetArchitecture()
     {
@@ -115,7 +116,7 @@ internal class EnvironmentInfo
     }
 
     /// <summary>
-    /// Gets the bitness (32-bit or 64-bit)
+    ///     Gets the bitness (32-bit or 64-bit)
     /// </summary>
     private static string GetBitness()
     {
@@ -131,7 +132,7 @@ internal class EnvironmentInfo
     }
 
     /// <summary>
-    /// Gets the Windows version information using registry for accurate detection
+    ///     Gets the Windows version information using registry for accurate detection
     /// </summary>
     private static string GetWindowsVersion()
     {
@@ -145,21 +146,15 @@ internal class EnvironmentInfo
                 {
                     // Windows 11 check: ProductName contains "Windows 11"
                     if (productName.Contains("Windows 11", StringComparison.OrdinalIgnoreCase))
-                    {
                         return $"{productName} (Build {Environment.OSVersion.Version.Build})";
-                    }
 
                     // Windows Server 2022 check: ProductName contains "Server 2022"
                     if (productName.Contains("Server 2022", StringComparison.OrdinalIgnoreCase))
-                    {
                         return $"{productName} (Build {Environment.OSVersion.Version.Build})";
-                    }
 
                     // Windows 10 check
                     if (productName.Contains("Windows 10", StringComparison.OrdinalIgnoreCase))
-                    {
                         return $"{productName} (Build {Environment.OSVersion.Version.Build})";
-                    }
                 }
 
                 // Fallback to Environment.OSVersion with improved logic
@@ -169,11 +164,9 @@ internal class EnvironmentInfo
                 // Windows 11 and Server 2022 both have build >= 22000
                 // Use registry to differentiate, or fall back to Major.Minor check
                 if (version is { Build: >= 22000, Major: 10 })
-                {
                     // Without registry, we can't be 100% sure, but we'll assume Windows 11 for client OS
                     // and note the uncertainty
                     return $"Windows 11 or Server 2022 (Build {version.Build})";
-                }
 
                 return version.Major switch
                 {
@@ -188,10 +181,8 @@ internal class EnvironmentInfo
                     _ => $"Windows (Version {version.Major}.{version.Minor}, Build {version.Build})"
                 };
             }
-            else
-            {
-                return "Non-Windows OS";
-            }
+
+            return "Non-Windows OS";
         }
         catch (Exception ex)
         {
@@ -201,7 +192,7 @@ internal class EnvironmentInfo
     }
 
     /// <summary>
-    /// Gets the ProductName from Windows registry for accurate OS identification
+    ///     Gets the ProductName from Windows registry for accurate OS identification
     /// </summary>
     [SupportedOSPlatform("windows")]
     private static string? GetRegistryProductName()

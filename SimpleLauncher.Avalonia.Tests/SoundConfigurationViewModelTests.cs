@@ -6,8 +6,8 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the SoundConfigurationWindow ViewModel (Phase 4.1 port). Audio playback
-/// is disabled (EnableNotificationSound = false) so no device is touched.
+///     Tests for the SoundConfigurationWindow ViewModel (Phase 4.1 port). Audio playback
+///     is disabled (EnableNotificationSound = false) so no device is touched.
 /// </summary>
 public class SoundConfigurationViewModelTests
 {
@@ -144,7 +144,6 @@ public class SoundConfigurationViewModelTests
     private static void TryDeleteFile(string path)
     {
         for (var attempt = 0; attempt < 10; attempt++)
-        {
             try
             {
                 File.Delete(path);
@@ -154,7 +153,6 @@ public class SoundConfigurationViewModelTests
             {
                 Thread.Sleep(50); // transient handle (AV scanner etc.)
             }
-        }
     }
 
     [Fact]

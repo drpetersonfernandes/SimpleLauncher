@@ -7,23 +7,22 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the sound configuration window.
+///     ViewModel for the sound configuration window.
 /// </summary>
 public partial class SoundConfigurationViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
-    private readonly PlaySoundEffects _playSoundEffects;
-    private readonly ILogger _logger;
-    private readonly IMessageBoxLibraryService _messageBox;
-
     private const string DefaultNotificationSound = "click.mp3";
     private static readonly string AudioFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly SettingsManagerService _settings;
 
     [ObservableProperty] private bool _enableNotificationSound;
-    [ObservableProperty] private string _notificationSoundFile;
     [ObservableProperty] private bool _isSoundControlsEnabled;
+    [ObservableProperty] private string _notificationSoundFile;
 
-    /// <summary>Initializes a new instance of the <see cref="SoundConfigurationViewModel"/> class.</summary>
+    /// <summary>Initializes a new instance of the <see cref="SoundConfigurationViewModel" /> class.</summary>
     /// <param name="settings">The settings manager for reading and saving sound configuration.</param>
     /// <param name="playSoundEffects">The sound effects service for playing notification sounds.</param>
     /// <param name="logErrors">The logger for recording errors.</param>
@@ -43,14 +42,14 @@ public partial class SoundConfigurationViewModel : ObservableObject
         _isSoundControlsEnabled = _enableNotificationSound;
     }
 
+    /// <summary>Event raised to request a sound file path from the view.</summary>
+    public Func<Task<string?>>? RequestSoundFilePath { get; set; }
+
     /// <summary>Event raised when settings have been saved.</summary>
     public event EventHandler SaveCompleted = null!;
 
     /// <summary>Event raised when the window should be closed.</summary>
     public event EventHandler CloseRequested = null!;
-
-    /// <summary>Event raised to request a sound file path from the view.</summary>
-    public Func<Task<string?>>? RequestSoundFilePath { get; set; }
 
     partial void OnEnableNotificationSoundChanged(bool value)
     {
@@ -73,9 +72,7 @@ public partial class SoundConfigurationViewModel : ObservableObject
 
             if (!string.Equals(Path.GetFullPath(sourceFilePath), Path.GetFullPath(destinationFilePath),
                     StringComparison.OrdinalIgnoreCase))
-            {
                 File.Copy(sourceFilePath, destinationFilePath, true);
-            }
 
             NotificationSoundFile = chosenFileName;
         }

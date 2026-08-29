@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="GameButtonTag"/> model class.
+///     Tests for the <see cref="GameButtonTag" /> model class.
 /// </summary>
 public class GameButtonTagTests
 {
     /// <summary>
-    /// Verifies that a new GameButtonTag has correct default values.
+    ///     Verifies that a new GameButtonTag has correct default values.
     /// </summary>
     [Fact]
     public void DefaultValuesAreCorrect()
@@ -21,7 +21,7 @@ public class GameButtonTagTests
     }
 
     /// <summary>
-    /// Verifies that GameButtonTag properties can be set during initialization.
+    ///     Verifies that GameButtonTag properties can be set during initialization.
     /// </summary>
     [Fact]
     public void PropertiesCanBeSet()
@@ -37,7 +37,7 @@ public class GameButtonTagTests
     }
 
     /// <summary>
-    /// Verifies that GameButtonTag properties can be modified after creation.
+    ///     Verifies that GameButtonTag properties can be modified after creation.
     /// </summary>
     [Fact]
     public void PropertiesCanBeChangedAfterCreation()
@@ -56,7 +56,7 @@ public class GameButtonTagTests
     }
 
     /// <summary>
-    /// Verifies that the Key property can be set to null.
+    ///     Verifies that the Key property can be set to null.
     /// </summary>
     [Fact]
     public void KeyCanBeNull()
@@ -72,7 +72,7 @@ public class GameButtonTagTests
     }
 
     /// <summary>
-    /// Verifies that the Key property can contain special characters and file paths.
+    ///     Verifies that the Key property can contain special characters and file paths.
     /// </summary>
     [Fact]
     public void KeyCanContainSpecialCharacters()

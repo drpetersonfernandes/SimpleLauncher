@@ -3,17 +3,17 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Interfaces;
 
 /// <summary>
-/// Mounts ZIP archives containing disc-based games using SimpleZipDrive and the Dokan filesystem driver.
+///     Mounts ZIP archives containing disc-based games using SimpleZipDrive and the Dokan filesystem driver.
 /// </summary>
 public interface IMountZipFiles
 {
     /// <summary>
-    /// Gets the configured mount drive root path (e.g., "Z:\").
+    ///     Gets the configured mount drive root path (e.g., "Z:\").
     /// </summary>
     string ConfiguredMountDriveRoot { get; }
 
     /// <summary>
-    /// Mounts a ZIP archive and launches the EBOOT.BIN file found within it using the specified emulator.
+    ///     Mounts a ZIP archive and launches the EBOOT.BIN file found within it using the specified emulator.
     /// </summary>
     /// <param name="resolvedZipFilePath">The full path to the ZIP archive to mount.</param>
     /// <param name="selectedSystemName">The name of the selected system.</param>
@@ -33,7 +33,7 @@ public interface IMountZipFiles
         ILogger logErrors, IMessageBoxLibraryService messageBox);
 
     /// <summary>
-    /// Mounts a ZIP archive and searches for a nested file to launch using the specified emulator.
+    ///     Mounts a ZIP archive and searches for a nested file to launch using the specified emulator.
     /// </summary>
     /// <param name="resolvedZipFilePath">The full path to the ZIP archive to mount.</param>
     /// <param name="selectedSystemName">The name of the selected system.</param>
@@ -53,7 +53,7 @@ public interface IMountZipFiles
         ILogger logErrors, IMessageBoxLibraryService messageBox);
 
     /// <summary>
-    /// Mounts a ZIP archive and launches ScummVM with the mounted game path.
+    ///     Mounts a ZIP archive and launches ScummVM with the mounted game path.
     /// </summary>
     /// <param name="resolvedZipFilePath">The full path to the ZIP archive to mount.</param>
     /// <param name="selectedSystemName">The name of the selected system.</param>
@@ -70,7 +70,7 @@ public interface IMountZipFiles
         string selectedEmulatorParameters, string? logPath, ILogger logErrors, IMessageBoxLibraryService messageBox);
 
     /// <summary>
-    /// Terminates all running SimpleZipDrive processes to ensure clean unmounting.
+    ///     Terminates all running SimpleZipDrive processes to ensure clean unmounting.
     /// </summary>
     /// <param name="logErrors">The error logger.</param>
     void KillAllSimpleZipDriveProcesses(ILogger logErrors);

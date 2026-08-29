@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="DownloadProgressEventArgs"/> model.
+///     Tests for the <see cref="DownloadProgressEventArgs" /> model.
 /// </summary>
 public class DownloadProgressEventArgsTests
 {
     /// <summary>
-    /// Verifies that a new DownloadProgressEventArgs has correct default values.
+    ///     Verifies that a new DownloadProgressEventArgs has correct default values.
     /// </summary>
     [Fact]
     public void DefaultValuesAreCorrect()
@@ -23,7 +23,7 @@ public class DownloadProgressEventArgsTests
     }
 
     /// <summary>
-    /// Verifies that BytesReceived can be set and retrieved.
+    ///     Verifies that BytesReceived can be set and retrieved.
     /// </summary>
     [Fact]
     public void BytesReceivedCanBeSet()
@@ -33,7 +33,7 @@ public class DownloadProgressEventArgsTests
     }
 
     /// <summary>
-    /// Verifies that TotalBytesToReceive can be set and retrieved.
+    ///     Verifies that TotalBytesToReceive can be set and retrieved.
     /// </summary>
     [Fact]
     public void TotalBytesToReceiveCanBeSet()
@@ -43,7 +43,7 @@ public class DownloadProgressEventArgsTests
     }
 
     /// <summary>
-    /// Verifies that TotalBytesToReceive can be set to null.
+    ///     Verifies that TotalBytesToReceive can be set to null.
     /// </summary>
     [Fact]
     public void TotalBytesToReceiveCanBeSetToNull()
@@ -57,7 +57,7 @@ public class DownloadProgressEventArgsTests
     }
 
     /// <summary>
-    /// Verifies that ProgressPercentage can be set and retrieved.
+    ///     Verifies that ProgressPercentage can be set and retrieved.
     /// </summary>
     /// <param name="percentage">The progress percentage value to assign and read back.</param>
     [Theory]
@@ -72,7 +72,7 @@ public class DownloadProgressEventArgsTests
     }
 
     /// <summary>
-    /// Verifies that StatusMessage can be set and retrieved.
+    ///     Verifies that StatusMessage can be set and retrieved.
     /// </summary>
     [Fact]
     public void StatusMessageCanBeSet()
@@ -82,7 +82,7 @@ public class DownloadProgressEventArgsTests
     }
 
     /// <summary>
-    /// Verifies that StatusMessage defaults to empty string, not null.
+    ///     Verifies that StatusMessage defaults to empty string, not null.
     /// </summary>
     [Fact]
     public void StatusMessageDefaultsToEmptyString()
@@ -93,7 +93,7 @@ public class DownloadProgressEventArgsTests
     }
 
     /// <summary>
-    /// Verifies that DownloadProgressEventArgs inherits from EventArgs.
+    ///     Verifies that DownloadProgressEventArgs inherits from EventArgs.
     /// </summary>
     [Fact]
     public void InheritsFromEventArgs()
@@ -103,7 +103,7 @@ public class DownloadProgressEventArgsTests
     }
 
     /// <summary>
-    /// Verifies that all properties can be set together.
+    ///     Verifies that all properties can be set together.
     /// </summary>
     [Fact]
     public void AllPropertiesCanBeSetTogether()

@@ -8,15 +8,15 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Verifies that every localization resource file (strings.*.xaml) has its entries
-/// sorted alphabetically by x:Key using case-insensitive ordinal comparison.
-/// Files that are out of order are automatically re-sorted and the test fails
-/// so the developer knows the file was modified.
+///     Verifies that every localization resource file (strings.*.xaml) has its entries
+///     sorted alphabetically by x:Key using case-insensitive ordinal comparison.
+///     Files that are out of order are automatically re-sorted and the test fails
+///     so the developer knows the file was modified.
 /// </summary>
 public partial class DetectAlphabeticalOrderingTests
 {
     /// <summary>
-    /// Verifies that all localization resource files have their entries sorted alphabetically by key.
+    ///     Verifies that all localization resource files have their entries sorted alphabetically by key.
     /// </summary>
     [Fact]
     public void AllResourceFilesShouldBeSortedAlphabeticallyByKey()
@@ -44,17 +44,11 @@ public partial class DetectAlphabeticalOrderingTests
                 if (match.Success)
                 {
                     entries.Add((match.Groups[1].Value, lines[i]));
-                    if (firstEntryIndex == -1)
-                    {
-                        firstEntryIndex = i;
-                    }
+                    if (firstEntryIndex == -1) firstEntryIndex = i;
                 }
                 else if (string.Equals(lines[i].Trim(), "</ResourceDictionary>", StringComparison.Ordinal))
                 {
-                    if (firstEntryIndex == -1)
-                    {
-                        firstEntryIndex = i;
-                    }
+                    if (firstEntryIndex == -1) firstEntryIndex = i;
                 }
             }
 
@@ -87,10 +81,7 @@ public partial class DetectAlphabeticalOrderingTests
         message.AppendLine(
             "The following resource files were not sorted alphabetically by key and have been auto-sorted:");
         message.AppendLine();
-        foreach (var fileName in unsortedFiles)
-        {
-            message.AppendLine(CultureInfo.InvariantCulture, $"  - {fileName}");
-        }
+        foreach (var fileName in unsortedFiles) message.AppendLine(CultureInfo.InvariantCulture, $"  - {fileName}");
 
         Assert.Fail(message.ToString());
     }

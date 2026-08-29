@@ -1,7 +1,6 @@
-// ReSharper disable once RedundantUsingDirective
-
-using System.Runtime.InteropServices;
 using SimpleLauncher.Core.Interfaces;
+// ReSharper disable once RedundantUsingDirective
+using System.Runtime.InteropServices;
 #if WINDOWS
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -10,21 +9,12 @@ using System.Drawing.Imaging;
 namespace SimpleLauncher.Avalonia.Services.GameScan;
 
 /// <summary>
-/// A utility class to extract icons from executable files.
+///     A utility class to extract icons from executable files.
 /// </summary>
 public class IconExtractor : IIconExtractor
 {
-#if WINDOWS
-    [DllImport("shell32.dll", CharSet = CharSet.Auto)]
-    private static extern IntPtr ExtractIcon(IntPtr hInst, string lpszExeFileName, int nIconIndex);
-
-    [DllImport("user32.dll", SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool DestroyIcon(IntPtr hIcon);
-#endif
-
     /// <summary>
-    /// Extracts the first icon from an executable and saves it as a PNG file.
+    ///     Extracts the first icon from an executable and saves it as a PNG file.
     /// </summary>
     /// <param name="exePath">The path to the executable file.</param>
     /// <param name="savePath">The path where the PNG icon should be saved.</param>
@@ -46,9 +36,7 @@ public class IconExtractor : IIconExtractor
                 // Ensure the directory exists before saving
                 var directory = Path.GetDirectoryName(savePath);
                 if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-                {
                     Directory.CreateDirectory(directory);
-                }
 
                 bmp.Save(savePath, ImageFormat.Png);
             }
@@ -62,13 +50,18 @@ public class IconExtractor : IIconExtractor
             // According to documentation, do not call DestroyIcon on an icon retrieved by ExtractIcon.
             // However, some sources suggest it's necessary to avoid leaks.
             // A check for non-zero handle is a safe practice.
-            if (hIcon != IntPtr.Zero)
-            {
-                DestroyIcon(hIcon);
-            }
+            if (hIcon != IntPtr.Zero) DestroyIcon(hIcon);
         }
 #else
         // Icon extraction uses System.Drawing (Windows-only); no-op on other platforms.
 #endif
     }
+#if WINDOWS
+    [DllImport("shell32.dll", CharSet = CharSet.Auto)]
+    private static extern IntPtr ExtractIcon(IntPtr hInst, string lpszExeFileName, int nIconIndex);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool DestroyIcon(IntPtr hIcon);
+#endif
 }

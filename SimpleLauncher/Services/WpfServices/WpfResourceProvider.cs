@@ -4,7 +4,8 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Services.WpfServices;
 
 /// <summary>
-/// WPF implementation of IResourceProvider, retrieving localized string resources from the application resource dictionary.
+///     WPF implementation of IResourceProvider, retrieving localized string resources from the application resource
+///     dictionary.
 /// </summary>
 public class WpfResourceProvider : IResourceProvider
 {

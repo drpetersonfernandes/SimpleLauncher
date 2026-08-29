@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Raine (arcade) emulator before launching a game.
+///     Handles configuration injection for the Raine (arcade) emulator before launching a game.
 /// </summary>
 public class RaineConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class RaineConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RaineConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="RaineConfigHandler" /> class.
     /// </summary>
     public RaineConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {

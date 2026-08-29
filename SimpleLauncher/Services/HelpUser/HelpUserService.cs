@@ -5,27 +5,28 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.HelpUser;
 using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.HelpUser;
 
 /// <summary>
-/// Provides emulator parameter help text for systems and renders it in a RichTextBox.
+///     Provides emulator parameter help text for systems and renders it in a RichTextBox.
 /// </summary>
 public partial class HelpUserService : IHelpUserService
 {
-    private readonly Core.Services.HelpUser.HelpUserManager _manager;
     private readonly ILogger _logger;
+    private readonly HelpUserManager _manager;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="HelpUserService"/> class and starts loading the parameters file.
+    ///     Initializes a new instance of the <see cref="HelpUserService" /> class and starts loading the parameters file.
     /// </summary>
     /// <param name="logErrors">The error logger.</param>
     /// <param name="messageBoxLibrary">The message box service for user notifications.</param>
     public HelpUserService(ILogger logErrors, IMessageBoxLibraryService messageBoxLibrary)
     {
         _logger = logErrors;
-        _manager = new Core.Services.HelpUser.HelpUserManager(logErrors, messageBoxLibrary);
+        _manager = new HelpUserManager(logErrors, messageBoxLibrary);
         try
         {
             _ = _manager.LoadAsync(); // Load parameters.md
@@ -38,38 +39,16 @@ public partial class HelpUserService : IHelpUserService
         }
     }
 
-    // Renamed for clarity: Matches **bold text**
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
-        Justification = "Capturing group is needed to extract the bold text")]
-    [GeneratedRegex(@"\*\*(.*?)\*\*", RegexOptions.Compiled, 1000)]
-    private static partial Regex BoldRegex();
-
-    // Renamed for clarity: Matches ## headings
-    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
-        Justification = "Capturing group is needed to extract the heading text")]
-    [GeneratedRegex(@"^##\s*(.*?)$", RegexOptions.Multiline, 1000)]
-    private static partial Regex HeadingRegex();
-
-    // New regex for Markdown links: [text](url)
-    [GeneratedRegex(@"\[(?<text>[^\]]+?)\]\((?<url>https?://\S+?)\)", RegexOptions.Compiled, 1000)]
-    private static partial Regex MarkdownLinkRegex();
-
-    // Renamed for clarity: Matches raw URLs like http://example.com or www.example.com
-    [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled, 1000)]
-    private static partial Regex RawUrlRegex();
-
     /// <summary>
-    /// Gets the help text for the given system name, falling back to a message
-    /// when no information is available for the system.
+    ///     Gets the help text for the given system name, falling back to a message
+    ///     when no information is available for the system.
     /// </summary>
     /// <param name="systemName">The name of the system to get help for.</param>
     /// <returns>The help text for the system.</returns>
     public string GetHelpText(string systemName)
     {
         if (string.IsNullOrEmpty(systemName))
-        {
             return (string)Application.Current.TryFindResource("Nosystemnameprovided") ?? "No system name provided.";
-        }
 
         var responses = new Dictionary<string, Func<string>>(StringComparer.OrdinalIgnoreCase)
         {
@@ -352,21 +331,16 @@ public partial class HelpUserService : IHelpUserService
         };
 
         // Check if a response exists for the given system name
-        if (responses.TryGetValue(systemName, out var responseGenerator))
-        {
-            return responseGenerator();
-        }
-        else
-        {
-            var noinformationavailableforsystem2 =
-                (string)Application.Current.TryFindResource("Noinformationavailableforsystem") ??
-                "No information available for system:";
-            return $"{noinformationavailableforsystem2} {systemName}";
-        }
+        if (responses.TryGetValue(systemName, out var responseGenerator)) return responseGenerator();
+
+        var noinformationavailableforsystem2 =
+            (string)Application.Current.TryFindResource("Noinformationavailableforsystem") ??
+            "No information available for system:";
+        return $"{noinformationavailableforsystem2} {systemName}";
     }
 
     /// <summary>
-    /// Updates the content of a RichTextBox with formatted text for the given system name.
+    ///     Updates the content of a RichTextBox with formatted text for the given system name.
     /// </summary>
     public void UpdateHelpUserTextBlock(RichTextBox helpUserRichTextBox, string systemName)
     {
@@ -374,6 +348,26 @@ public partial class HelpUserService : IHelpUserService
         var text = GetHelpText(systemName);
         SetTextWithMarkdownInternal(helpUserRichTextBox, text);
     }
+
+    // Renamed for clarity: Matches **bold text**
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the bold text")]
+    [GeneratedRegex(@"\*\*(.*?)\*\*", RegexOptions.Compiled, 1000)]
+    private static partial Regex BoldRegex();
+
+    // Renamed for clarity: Matches ## headings
+    [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
+        Justification = "Capturing group is needed to extract the heading text")]
+    [GeneratedRegex(@"^##\s*(.*?)$", RegexOptions.Multiline, 1000)]
+    private static partial Regex HeadingRegex();
+
+    // New regex for Markdown links: [text](url)
+    [GeneratedRegex(@"\[(?<text>[^\]]+?)\]\((?<url>https?://\S+?)\)", RegexOptions.Compiled, 1000)]
+    private static partial Regex MarkdownLinkRegex();
+
+    // Renamed for clarity: Matches raw URLs like http://example.com or www.example.com
+    [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled, 1000)]
+    private static partial Regex RawUrlRegex();
 
     private string AmstradCpcDetails()
     {
@@ -812,7 +806,7 @@ public partial class HelpUserService : IHelpUserService
     }
 
     /// <summary>
-    /// Helper method to add plain text to a paragraph, processing raw URLs within it.
+    ///     Helper method to add plain text to a paragraph, processing raw URLs within it.
     /// </summary>
     /// <param name="paragraph">The paragraph to add inlines to.</param>
     /// <param name="text">The plain text segment to process.</param>
@@ -826,10 +820,7 @@ public partial class HelpUserService : IHelpUserService
         var matchIndex = 0;
         foreach (var part in parts)
         {
-            if (!string.IsNullOrEmpty(part))
-            {
-                paragraph.Inlines.Add(new Run(part));
-            }
+            if (!string.IsNullOrEmpty(part)) paragraph.Inlines.Add(new Run(part));
 
             if (matchIndex < matches.Count)
             {
@@ -855,8 +846,8 @@ public partial class HelpUserService : IHelpUserService
     }
 
     /// <summary>
-    /// Parses the input text for Markdown formatting (bold, headings, Markdown links, raw URLs)
-    /// and displays it in the provided RichTextBox.
+    ///     Parses the input text for Markdown formatting (bold, headings, Markdown links, raw URLs)
+    ///     and displays it in the provided RichTextBox.
     /// </summary>
     /// <param name="richTextBox">The RichTextBox to display the formatted text in.</param>
     /// <param name="text">The text containing Markdown to parse.</param>
@@ -874,16 +865,10 @@ public partial class HelpUserService : IHelpUserService
         var matches = new List<(Match Match, string Type)>();
 
         // Find all bold matches
-        foreach (Match match in BoldRegex().Matches(text))
-        {
-            matches.Add((match, "bold"));
-        }
+        foreach (Match match in BoldRegex().Matches(text)) matches.Add((match, "bold"));
 
         // Find all markdown link matches
-        foreach (Match match in MarkdownLinkRegex().Matches(text))
-        {
-            matches.Add((match, "markdownLink"));
-        }
+        foreach (Match match in MarkdownLinkRegex().Matches(text)) matches.Add((match, "markdownLink"));
 
         // Sort matches by their starting index
         // This is crucial for correct processing order and handling overlaps (e.g., a markdown link

@@ -14,185 +14,109 @@ using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services.GameListUI;
+using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameLauncher;
+using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.PlayHistory;
+using SimpleLauncher.Services.TakeScreenshot;
 using SimpleLauncher.Services.TrayIcon;
 using SimpleLauncher.Services.UiHelpers;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
+using MessageBoxButton = System.Windows.MessageBoxButton;
+using MessageBoxImage = System.Windows.MessageBoxImage;
+using MessageBoxResult = System.Windows.MessageBoxResult;
 using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService;
 
 namespace SimpleLauncher;
 
 /// <summary>
-/// Main application window for SimpleLauncher, hosting game browsing, filtering, pagination, and system management UI.
+///     Main application window for SimpleLauncher, hosting game browsing, filtering, pagination, and system management UI.
 /// </summary>
 public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingState, IMenuCheckMarkHost, IUiResetHost,
     IUiOrchestratorHost, IStartupInitializationHost, IThemeMenuHost, ILanguageMenuHost, IStatusBarHost
 {
-    private CancellationTokenSource _cancellationSource = new();
-    private volatile bool _isResortOperation;
-    private bool _wasControllerRunningBeforeDeactivation;
-
-    private bool _isDisposed;
-
-    private bool _playHistoryMigrated;
-
     /// <summary>
-    /// Gets or sets the timer used for temporary status bar messages.
-    /// </summary>
-    internal DispatcherTimer? StatusBarTimer { get; set; }
-
-    /// <summary>
-    /// Collection of game list items displayed in the UI.
-    /// </summary>
-    public ObservableCollection<GameListViewItem> GameListItems { get; } = [];
-
-    // Event handler references for proper unsubscription to prevent memory leaks
-    private RoutedEventHandler? _emergencyButtonClickHandler;
-    private readonly RoutedEventHandler _asyncLoadedHandler;
-    private readonly EventHandler<EventArgs<string>> _gameFilesChangedHandler;
-    private readonly EventHandler<GamePlayedEventArgs> _gamePlayedHandler;
-
-    // F8 global hotkey for active window screenshots
-    private Services.TakeScreenshot.GlobalHotkeyService? _globalHotkeyService;
-    private Services.TakeScreenshot.ActiveWindowScreenshotService? _activeWindowScreenshotService;
-
-    private readonly IMountChdFiles _mountChdFiles;
-
-    /// <summary>
-    /// Occurs when a property value changes, supporting data binding updates.
-    /// </summary>
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    private string? _selectedSystem = "";
-
-    /// <summary>
-    /// Gets or sets the currently selected system name.
-    /// </summary>
-    public string? SelectedSystem
-    {
-        get => _selectedSystem;
-        set
-        {
-            _selectedSystem = value;
-            OnPropertyChanged(nameof(SelectedSystem));
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets the play time display string for the current game.
-    /// </summary>
-    private string _playTime = "";
-
-    public string PlayTime
-    {
-        get => _playTime;
-        set
-        {
-            _playTime = value;
-            OnPropertyChanged(nameof(PlayTime));
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets whether the play time display is visible.
-    /// </summary>
-    public bool IsPlayTimeVisible
-    {
-        get;
-        set
-        {
-            if (field == value) return;
-
-            field = value;
-            OnPropertyChanged(nameof(IsPlayTimeVisible));
-        }
-    } = true;
-
-    private bool _isLoadingGames;
-
-    /// <summary>
-    /// Gets whether games are currently being loaded.
-    /// </summary>
-    public bool IsLoadingGames
-    {
-        get => _isLoadingGames;
-        private set
-        {
-            _isLoadingGames = value;
-            OnPropertyChanged(nameof(IsLoadingGames));
-        }
-    }
-
-    private void OnPropertyChanged(string propertyName)
-    {
-        if (Dispatcher.CheckAccess())
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        else
-        {
-            Dispatcher.BeginInvoke(() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)));
-        }
-    }
-
-    // Pagination
-    /// <summary>
-    /// The next page navigation button used for pagination.
-    /// </summary>
-    internal Button? NextPageButton2;
-
-    /// <summary>
-    /// The previous page navigation button used for pagination.
-    /// </summary>
-    internal Button? PrevPageButton2;
-
-    /// <summary>
-    /// The tray icon manager instance for system tray integration.
-    /// </summary>
-    internal TrayIconManager? TrayIconManager;
-
-    /// <summary>
-    /// The play history manager that tracks play history for games.
-    /// </summary>
-    internal PlayHistoryManager PlayHistoryManager { get; }
-
-    private List<SystemManager> _systemManagers = null!;
-    private readonly FilterMenu _topLetterNumberMenu;
-    private readonly SettingsManagerService _settings;
-    private readonly IGameBrowserService _gameBrowser;
-    private string _selectedImageFolder = "";
-    private List<string> _selectedRomFolders = [];
-
-    private readonly IExternalToolLauncher _externalToolLauncher;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IMenuOrchestrator _menuOrchestrator;
-    private readonly IApplicationLifecycleService _lifecycle;
-    private readonly IAudioInputService _audioInput;
-    private readonly IContextMenuFunctions _contextMenuFunctions;
-    private readonly ILogger _logger;
-    private readonly IContextMenuService _contextMenuService;
-    private readonly GameLauncherService _gameLauncherService;
-
-    /// <summary>
-    /// The status bar update service used to display messages in the status bar.
-    /// </summary>
-    internal readonly IUpdateStatusBar UpdateStatusBarService;
-
-    /// <summary>
-    /// The UI reset service used to reset the UI to its default state.
-    /// </summary>
-    internal readonly IUiResetService UiResetService;
-
-    /// <summary>
-    /// The UI orchestrator service that coordinates UI updates.
+    ///     The UI orchestrator service that coordinates UI updates.
     /// </summary>
     internal readonly IUiOrchestrator UiOrchestratorService;
 
     /// <summary>
-    /// Initializes a new instance of the MainWindow class with the required services.
+    ///     The UI reset service used to reset the UI to its default state.
+    /// </summary>
+    internal readonly IUiResetService UiResetService;
+
+    /// <summary>
+    ///     The status bar update service used to display messages in the status bar.
+    /// </summary>
+    internal readonly IUpdateStatusBar UpdateStatusBarService;
+
+    private readonly RoutedEventHandler _asyncLoadedHandler;
+    private readonly IAudioInputService _audioInput;
+    private readonly IContextMenuFunctions _contextMenuFunctions;
+    private readonly IContextMenuService _contextMenuService;
+
+    private readonly IExternalToolLauncher _externalToolLauncher;
+    private readonly IGameBrowserService _gameBrowser;
+    private readonly EventHandler<EventArgs<string>> _gameFilesChangedHandler;
+    private readonly GameLauncherService _gameLauncherService;
+    private readonly EventHandler<GamePlayedEventArgs> _gamePlayedHandler;
+    private readonly IApplicationLifecycleService _lifecycle;
+    private readonly ILogger _logger;
+    private readonly IMenuOrchestrator _menuOrchestrator;
+    private readonly IMessageBoxLibraryService _messageBox;
+
+    private readonly IMountChdFiles _mountChdFiles;
+    private readonly SettingsManagerService _settings;
+    private readonly FilterMenu _topLetterNumberMenu;
+
+    // Pagination
+    /// <summary>
+    ///     The next page navigation button used for pagination.
+    /// </summary>
+    internal Button? NextPageButton2;
+
+    /// <summary>
+    ///     The previous page navigation button used for pagination.
+    /// </summary>
+    internal Button? PrevPageButton2;
+
+    /// <summary>
+    ///     The tray icon manager instance for system tray integration.
+    /// </summary>
+    internal TrayIconManager? TrayIconManager;
+
+    private ActiveWindowScreenshotService? _activeWindowScreenshotService;
+    private CancellationTokenSource _cancellationSource = new();
+
+    // Event handler references for proper unsubscription to prevent memory leaks
+    private RoutedEventHandler? _emergencyButtonClickHandler;
+
+    // F8 global hotkey for active window screenshots
+    private GlobalHotkeyService? _globalHotkeyService;
+
+    private bool _isDisposed;
+
+    private bool _isLoadingGames;
+    private volatile bool _isResortOperation;
+
+    private bool _playHistoryMigrated;
+
+    /// <summary>
+    ///     Gets or sets the play time display string for the current game.
+    /// </summary>
+    private string _playTime = "";
+
+    private string _selectedImageFolder = "";
+    private List<string> _selectedRomFolders = [];
+
+    private string? _selectedSystem = "";
+
+    private List<SystemManager> _systemManagers = null!;
+    private bool _wasControllerRunningBeforeDeactivation;
+
+    /// <summary>
+    ///     Initializes a new instance of the MainWindow class with the required services.
     /// </summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="playHistoryManager">The play history manager.</param>
@@ -300,6 +224,130 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         Loaded += _asyncLoadedHandler;
     }
 
+    /// <summary>
+    ///     Gets or sets the timer used for temporary status bar messages.
+    /// </summary>
+    internal DispatcherTimer? StatusBarTimer { get; set; }
+
+    /// <summary>
+    ///     Collection of game list items displayed in the UI.
+    /// </summary>
+    public ObservableCollection<GameListViewItem> GameListItems { get; } = [];
+
+    /// <summary>
+    ///     Gets or sets whether the play time display is visible.
+    /// </summary>
+    public bool IsPlayTimeVisible
+    {
+        get;
+        set
+        {
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged(nameof(IsPlayTimeVisible));
+        }
+    } = true;
+
+    /// <summary>
+    ///     The play history manager that tracks play history for games.
+    /// </summary>
+    internal PlayHistoryManager PlayHistoryManager { get; }
+
+    /// <summary>
+    ///     Sets the loading state of the UI, optionally displaying a message.
+    /// </summary>
+    /// <param name="isLoading">Whether the UI is in a loading state.</param>
+    /// <param name="message">An optional message to display during loading.</param>
+    public void SetLoadingState(bool isLoading, string? message = null)
+    {
+        UiOrchestratorService.SetLoadingState(isLoading, message);
+    }
+
+    /// <summary>
+    ///     Gets whether games are currently being loaded.
+    /// </summary>
+    public bool IsLoadingGames
+    {
+        get => _isLoadingGames;
+        private set
+        {
+            _isLoadingGames = value;
+            OnPropertyChanged(nameof(IsLoadingGames));
+        }
+    }
+
+    /// <summary>
+    ///     Occurs when a property value changes, supporting data binding updates.
+    /// </summary>
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    /// <summary>
+    ///     Gets or sets the currently selected system name.
+    /// </summary>
+    public string? SelectedSystem
+    {
+        get => _selectedSystem;
+        set
+        {
+            _selectedSystem = value;
+            OnPropertyChanged(nameof(SelectedSystem));
+        }
+    }
+
+    public string PlayTime
+    {
+        get => _playTime;
+        set
+        {
+            _playTime = value;
+            OnPropertyChanged(nameof(PlayTime));
+        }
+    }
+
+    // IUiOrchestratorHost implementation
+    ScrollViewer IUiOrchestratorHost.Scroller => Scroller;
+    Image IUiOrchestratorHost.PreviewImage => PreviewImage;
+    WrapPanel IUiOrchestratorHost.GameFileGrid => GameFileGrid;
+    Grid IUiOrchestratorHost.ListViewPreviewArea => ListViewPreviewArea;
+    Frame IUiOrchestratorHost.PageContentFrame => PageContentFrame;
+    Grid IUiOrchestratorHost.MainGameContent => MainGameContent;
+    Grid IUiOrchestratorHost.MainContentGrid => MainContentGrid;
+    Label IUiOrchestratorHost.TotalFilesLabel => TotalFilesLabel;
+    Button IUiOrchestratorHost.PrevPageButton2 => PrevPageButton2!;
+    Button IUiOrchestratorHost.NextPageButton2 => NextPageButton2!;
+    UIElement IUiOrchestratorHost.LoadingOverlay => LoadingOverlay;
+    Button IUiOrchestratorHost.SortOrderToggleButton => SortOrderToggleButton;
+    TextBox IUiOrchestratorHost.SearchTextBox => SearchTextBox;
+    ComboBox IUiOrchestratorHost.SystemComboBox => SystemComboBox;
+    ComboBox IUiOrchestratorHost.EmulatorComboBox => EmulatorComboBox;
+    ObservableCollection<GameListViewItem> IUiOrchestratorHost.GameListItems => GameListItems;
+
+    bool IUiOrchestratorHost.IsLoadingGames => _isLoadingGames;
+
+    void IUiOrchestratorHost.SetIsLoadingGamesInternal(bool value)
+    {
+        SetIsLoadingGamesInternal(value);
+    }
+
+    void IUiOrchestratorHost.CancelAndRecreateToken()
+    {
+        CancelAndRecreateToken();
+    }
+
+    Task IUiOrchestratorHost.ResetUiAsync()
+    {
+        return ResetUiAsync();
+    }
+
+    private void OnPropertyChanged(string propertyName)
+    {
+        if (Dispatcher.CheckAccess())
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        else
+            Dispatcher.BeginInvoke(() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)));
+    }
+
     private async Task OnLoadedAsync()
     {
         try
@@ -318,9 +366,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
             // F8 global hotkey for active window screenshots
             _globalHotkeyService =
-                App.ServiceProvider.GetRequiredService<Services.TakeScreenshot.GlobalHotkeyService>();
+                App.ServiceProvider.GetRequiredService<GlobalHotkeyService>();
             _activeWindowScreenshotService = App.ServiceProvider
-                .GetRequiredService<Services.TakeScreenshot.ActiveWindowScreenshotService>();
+                .GetRequiredService<ActiveWindowScreenshotService>();
             _globalHotkeyService.Initialize(this);
 
             if (!_globalHotkeyService.IsRegistered)
@@ -328,8 +376,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 var msg = (string)Application.Current.TryFindResource("F8ShortcutInUse")
                           ??
                           "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.";
-                MessageBox.Show(msg, "SimpleLauncher", System.Windows.MessageBoxButton.OK,
-                    System.Windows.MessageBoxImage.Warning);
+                MessageBox.Show(msg, "SimpleLauncher", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
             }
 
             _globalHotkeyService.F8Pressed += async () =>
@@ -421,8 +469,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 if (_systemManagers == null || _systemManagers.Count == 0)
                 {
                     var result =
-                        (System.Windows.MessageBoxResult)(int)await _messageBox.FirstRunWelcomeMessageBoxAsync();
-                    if (result == System.Windows.MessageBoxResult.Yes)
+                        (MessageBoxResult)(int)await _messageBox.FirstRunWelcomeMessageBoxAsync();
+                    if (result == MessageBoxResult.Yes)
                     {
                         var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();
                         easyModeWindow.Owner = this;
@@ -511,7 +559,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     /// <summary>
-    /// Cancels the current operation token and replaces it with a new one.
+    ///     Cancels the current operation token and replaces it with a new one.
     /// </summary>
     internal void CancelAndRecreateToken()
     {
@@ -534,7 +582,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     /// <summary>
-    /// Navigates to a Page within the MainWindow, hiding the main game content.
+    ///     Navigates to a Page within the MainWindow, hiding the main game content.
     /// </summary>
     internal void NavigateToPage(Page page)
     {
@@ -547,7 +595,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     /// <summary>
-    /// Returns to the main game content from a page.
+    ///     Returns to the main game content from a page.
     /// </summary>
     internal void NavigateBackToMainContent()
     {
@@ -621,10 +669,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         try
         {
-            if (_isLoadingGames)
-            {
-                CancelAndRecreateToken();
-            }
+            if (_isLoadingGames) CancelAndRecreateToken();
 
             _audioInput.PlayNotificationSound();
 
@@ -651,10 +696,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     {
         try
         {
-            if (_isLoadingGames)
-            {
-                CancelAndRecreateToken();
-            }
+            if (_isLoadingGames) CancelAndRecreateToken();
 
             _audioInput.PlayNotificationSound();
 
@@ -722,7 +764,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     /// <summary>
-    /// Refreshes the game list play time and times played after a game has been played.
+    ///     Refreshes the game list play time and times played after a game has been played.
     /// </summary>
     /// <param name="fileName">The file name of the played game.</param>
     /// <param name="systemName">The system name the game belongs to.</param>
@@ -742,10 +784,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                     h.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) &&
                     h.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
-            if (historyItem == null)
-            {
-                return;
-            }
+            if (historyItem == null) return;
 
             // Update in the UI thread to ensure UI refreshes
             Dispatcher.Invoke(() =>
@@ -779,17 +818,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     /// <summary>
-    /// Sets the loading state of the UI, optionally displaying a message.
-    /// </summary>
-    /// <param name="isLoading">Whether the UI is in a loading state.</param>
-    /// <param name="message">An optional message to display during loading.</param>
-    public void SetLoadingState(bool isLoading, string? message = null)
-    {
-        UiOrchestratorService.SetLoadingState(isLoading, message);
-    }
-
-    /// <summary>
-    /// Sets the internal loading games flag for UI state tracking.
+    ///     Sets the internal loading games flag for UI state tracking.
     /// </summary>
     /// <param name="value">Whether games are currently loading.</param>
     internal void SetIsLoadingGamesInternal(bool value)
@@ -803,7 +832,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     /// <summary>
-    /// Initializes the pagination buttons to their default disabled state.
+    ///     Initializes the pagination buttons to their default disabled state.
     /// </summary>
     internal void SetPaginationButtonsDefault()
     {
@@ -814,7 +843,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     /// <summary>
-    /// Sets the tray icon manager instance for system tray integration.
+    ///     Sets the tray icon manager instance for system tray integration.
     /// </summary>
     /// <param name="manager">The tray icon manager to use.</param>
     internal void SetTrayIconManager(TrayIconManager manager)
@@ -884,16 +913,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
             try
             {
-                if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem)
-                {
-                    return;
-                }
+                if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem) return;
 
                 if (string.IsNullOrEmpty(selectedItem.FilePath))
-                {
                     // This is likely the "No results found" placeholder item.
                     return;
-                }
 
                 // Delegate the double-click handling to the render service
                 await _gameBrowser.HandleDoubleClickAsync(selectedItem);
@@ -937,7 +961,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 var gamePadController = App.ServiceProvider.GetRequiredService<GamePadController>();
                 var playSoundEffects = App.ServiceProvider.GetRequiredService<PlaySoundEffects>();
                 var machines = App.ServiceProvider.GetRequiredService<IMameDataService>().Machines.ToList();
-                var favoritesManager = App.ServiceProvider.GetRequiredService<Services.Favorites.FavoritesManager>();
+                var favoritesManager = App.ServiceProvider.GetRequiredService<FavoritesManager>();
                 var findCoverImage = App.ServiceProvider.GetRequiredService<IFindCoverImageService>();
 
                 var context = new RightClickContext(
@@ -967,10 +991,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 if (contextMenu != null)
                 {
                     // Close the previous context menu before assigning a new one to prevent leaks.
-                    if (GameDataGrid.ContextMenu is { IsOpen: true } oldMenu)
-                    {
-                        oldMenu.IsOpen = false;
-                    }
+                    if (GameDataGrid.ContextMenu is { IsOpen: true } oldMenu) oldMenu.IsOpen = false;
 
                     GameDataGrid.ContextMenu = contextMenu;
                     contextMenu.IsOpen = true;
@@ -989,7 +1010,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     /// <summary>
-    /// Enables or disables the game launch buttons in the UI.
+    ///     Enables or disables the game launch buttons in the UI.
     /// </summary>
     /// <param name="isEnabled">Whether the game buttons should be enabled.</param>
     internal void SetGameButtonsEnabled(bool isEnabled)
@@ -998,7 +1019,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     /// <summary>
-    /// Clears all game button images from the specified panel.
+    ///     Clears all game button images from the specified panel.
     /// </summary>
     /// <param name="panel">The panel containing game button images to clear.</param>
     internal static void ClearGameButtonImages(Panel panel)
@@ -1024,10 +1045,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
             try
             {
-                if (_isLoadingGames)
-                {
-                    return;
-                }
+                if (_isLoadingGames) return;
 
                 CancelAndRecreateToken();
 
@@ -1069,10 +1087,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
     private void UpdateSortOrderButtonUi()
     {
-        if (SortOrderToggleButton == null)
-        {
-            return;
-        }
+        if (SortOrderToggleButton == null) return;
 
         if (string.Equals(((IUiResetHost)this).MameSortOrder, AppConstants.MameSortOrderFileName,
                 StringComparison.Ordinal))
@@ -1090,7 +1105,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     /// <summary>
-    /// Loads game files asynchronously based on the specified filter and search query.
+    ///     Loads game files asynchronously based on the specified filter and search query.
     /// </summary>
     /// <param name="startLetter">An optional starting letter filter for game names.</param>
     /// <param name="searchQuery">An optional search query to filter games.</param>
@@ -1103,47 +1118,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
     }
 
     /// <summary>
-    /// Invalidates all game file caches so they are reloaded on the next request.
+    ///     Invalidates all game file caches so they are reloaded on the next request.
     /// </summary>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A task representing the asynchronous invalidation operation.</returns>
     internal Task InvalidateGameFileCachesAsync(CancellationToken cancellationToken = default)
     {
         return _gameBrowser.InvalidateGameFileCachesAsync(cancellationToken);
-    }
-
-    // IUiOrchestratorHost implementation
-    ScrollViewer IUiOrchestratorHost.Scroller => Scroller;
-    Image IUiOrchestratorHost.PreviewImage => PreviewImage;
-    WrapPanel IUiOrchestratorHost.GameFileGrid => GameFileGrid;
-    Grid IUiOrchestratorHost.ListViewPreviewArea => ListViewPreviewArea;
-    Frame IUiOrchestratorHost.PageContentFrame => PageContentFrame;
-    Grid IUiOrchestratorHost.MainGameContent => MainGameContent;
-    Grid IUiOrchestratorHost.MainContentGrid => MainContentGrid;
-    Label IUiOrchestratorHost.TotalFilesLabel => TotalFilesLabel;
-    Button IUiOrchestratorHost.PrevPageButton2 => PrevPageButton2!;
-    Button IUiOrchestratorHost.NextPageButton2 => NextPageButton2!;
-    UIElement IUiOrchestratorHost.LoadingOverlay => LoadingOverlay;
-    Button IUiOrchestratorHost.SortOrderToggleButton => SortOrderToggleButton;
-    TextBox IUiOrchestratorHost.SearchTextBox => SearchTextBox;
-    ComboBox IUiOrchestratorHost.SystemComboBox => SystemComboBox;
-    ComboBox IUiOrchestratorHost.EmulatorComboBox => EmulatorComboBox;
-    ObservableCollection<GameListViewItem> IUiOrchestratorHost.GameListItems => GameListItems;
-
-    bool IUiOrchestratorHost.IsLoadingGames => _isLoadingGames;
-
-    void IUiOrchestratorHost.SetIsLoadingGamesInternal(bool value)
-    {
-        SetIsLoadingGamesInternal(value);
-    }
-
-    void IUiOrchestratorHost.CancelAndRecreateToken()
-    {
-        CancelAndRecreateToken();
-    }
-
-    Task IUiOrchestratorHost.ResetUiAsync()
-    {
-        return ResetUiAsync();
     }
 }

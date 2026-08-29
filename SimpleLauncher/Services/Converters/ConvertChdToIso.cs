@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace SimpleLauncher.Services.Converters;
 
 /// <summary>
-/// Provides conversion of CHD disc image files to ISO format using chdman.exe.
+///     Provides conversion of CHD disc image files to ISO format using chdman.exe.
 /// </summary>
 public static class ConvertChdToIso
 {
@@ -21,7 +21,7 @@ public static class ConvertChdToIso
     private static ILogger Logger => DebugLogger2.Value;
 
     /// <summary>
-    /// Converts a CHD file to a temporary ISO using chdman.exe.
+    ///     Converts a CHD file to a temporary ISO using chdman.exe.
     /// </summary>
     public static async Task<string?> ConvertChdToIsoAsync(string chdPath)
     {

@@ -4,7 +4,7 @@ using Avalonia.Data.Converters;
 namespace SimpleLauncher.Avalonia.Converters;
 
 /// <summary>
-/// Converts a boolean to IsVisible (true) / collapsed (false).
+///     Converts a boolean to IsVisible (true) / collapsed (false).
 /// </summary>
 public class BoolToVisibilityConverter : IValueConverter
 {
@@ -20,7 +20,7 @@ public class BoolToVisibilityConverter : IValueConverter
 }
 
 /// <summary>
-/// Converts a boolean to collapsed (true) / IsVisible (false) — inverse of BoolToVisibilityConverter.
+///     Converts a boolean to collapsed (true) / IsVisible (false) — inverse of BoolToVisibilityConverter.
 /// </summary>
 public class InverseBoolToVisibilityConverter : IValueConverter
 {
@@ -36,7 +36,7 @@ public class InverseBoolToVisibilityConverter : IValueConverter
 }
 
 /// <summary>
-/// Inverts a boolean value. Used for IsEnabled bindings where a "downloaded" state should disable the button.
+///     Inverts a boolean value. Used for IsEnabled bindings where a "downloaded" state should disable the button.
 /// </summary>
 public class InverseBoolConverter : IValueConverter
 {
@@ -52,7 +52,7 @@ public class InverseBoolConverter : IValueConverter
 }
 
 /// <summary>
-/// Converts null to collapsed, non-null to IsVisible.
+///     Converts null to collapsed, non-null to IsVisible.
 /// </summary>
 public class NullToVisibilityConverter : IValueConverter
 {

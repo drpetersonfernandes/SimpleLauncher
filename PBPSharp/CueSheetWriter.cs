@@ -4,7 +4,7 @@ using PBPSharp.Models;
 namespace PBPSharp;
 
 /// <summary>
-/// Generates CUE sheet content from disc TOC data.
+///     Generates CUE sheet content from disc TOC data.
 /// </summary>
 public static class CueSheetWriter
 {
@@ -12,7 +12,7 @@ public static class CueSheetWriter
     private const string AudioTrackType = "AUDIO";
 
     /// <summary>
-    /// Generates a CUE sheet string for the given TOC entries.
+    ///     Generates a CUE sheet string for the given TOC entries.
     /// </summary>
     /// <param name="binFileName">The BIN file name (without path) referenced in the CUE sheet.</param>
     /// <param name="tocEntries">The disc's Table of Contents entries.</param>
@@ -47,11 +47,8 @@ public static class CueSheetWriter
     private static (int Minutes, int Seconds, int Frames) SubtractLeadin(int minutes, int seconds, int frames,
         int leadinFrames)
     {
-        var totalFrames = (minutes * 60 * 75) + (seconds * 75) + frames - leadinFrames;
-        if (totalFrames < 0)
-        {
-            totalFrames = 0;
-        }
+        var totalFrames = minutes * 60 * 75 + seconds * 75 + frames - leadinFrames;
+        if (totalFrames < 0) totalFrames = 0;
 
         var m = totalFrames / (60 * 75);
         var remainder = totalFrames % (60 * 75);

@@ -6,24 +6,24 @@ using Avalonia.Media;
 namespace SimpleLauncher.Avalonia.Updater;
 
 /// <summary>
-/// Minimal message-dialog helper (code-built; the updater does not reference the main app's UI).
+///     Minimal message-dialog helper (code-built; the updater does not reference the main app's UI).
 /// </summary>
 internal static class DialogHelper
 {
     /// <summary>
-    /// Shows a modal message box with an OK button.
+    ///     Shows a modal message box with an OK button.
     /// </summary>
     public static async Task ShowMessageAsync(Window owner, string message, string title)
     {
-        await ShowDialogAsync(owner, message, title, yesNo: false);
+        await ShowDialogAsync(owner, message, title, false);
     }
 
     /// <summary>
-    /// Shows a modal Yes/No dialog and returns the user's choice.
+    ///     Shows a modal Yes/No dialog and returns the user's choice.
     /// </summary>
     public static async Task<bool> ShowYesNoAsync(Window owner, string message, string title)
     {
-        return await ShowDialogAsync(owner, message, title, yesNo: true);
+        return await ShowDialogAsync(owner, message, title, true);
     }
 
     private static async Task<bool> ShowDialogAsync(Window owner, string message, string title, bool yesNo)

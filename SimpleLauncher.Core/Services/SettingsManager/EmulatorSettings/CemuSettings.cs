@@ -4,55 +4,56 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 
 /// <summary>
-/// Represents the user-configurable settings for the Cemu emulator, persisted to the system configuration under the "Cemu" section.
+///     Represents the user-configurable settings for the Cemu emulator, persisted to the system configuration under the
+///     "Cemu" section.
 /// </summary>
 public class CemuSettings : IEmulatorSettings
 {
     private const string SectionName = "Cemu";
 
     /// <summary>
-    /// Gets or sets a value indicating whether the emulator starts in fullscreen mode.
+    ///     Gets or sets a value indicating whether the emulator starts in fullscreen mode.
     /// </summary>
     public bool Fullscreen { get; set; }
 
     /// <summary>
-    /// Gets or sets the graphics API used by the emulator (e.g., 1 for Vulkan).
+    ///     Gets or sets the graphics API used by the emulator (e.g., 1 for Vulkan).
     /// </summary>
     public int GraphicApi { get; set; } = 1;
 
     /// <summary>
-    /// Gets or sets the vertical synchronization mode (e.g., 1 for on).
+    ///     Gets or sets the vertical synchronization mode (e.g., 1 for on).
     /// </summary>
     public int Vsync { get; set; } = 1;
 
     /// <summary>
-    /// Gets or sets a value indicating whether shaders are compiled asynchronously to reduce stuttering.
+    ///     Gets or sets a value indicating whether shaders are compiled asynchronously to reduce stuttering.
     /// </summary>
     public bool AsyncCompile { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the TV audio volume percentage.
+    ///     Gets or sets the TV audio volume percentage.
     /// </summary>
     public int TvVolume { get; set; } = 50;
 
     /// <summary>
-    /// Gets or sets the console system language used by the emulator (e.g., 1 for English).
+    ///     Gets or sets the console system language used by the emulator (e.g., 1 for English).
     /// </summary>
     public int ConsoleLanguage { get; set; } = 1;
 
     /// <summary>
-    /// Gets or sets a value indicating whether Discord rich presence is enabled.
+    ///     Gets or sets a value indicating whether Discord rich presence is enabled.
     /// </summary>
     public bool DiscordPresence { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
+    ///     Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
 
 
     /// <summary>
-    /// Loads the Cemu settings from the specified XML element.
+    ///     Loads the Cemu settings from the specified XML element.
     /// </summary>
     /// <param name="settings">The XML element containing the system configuration.</param>
     public void LoadFromXml(XElement settings)
@@ -71,7 +72,7 @@ public class CemuSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Serializes the Cemu settings into an XML element for persistence.
+    ///     Serializes the Cemu settings into an XML element for persistence.
     /// </summary>
     /// <returns>The XML element containing the Cemu settings.</returns>
     public XElement ToXElement()
@@ -89,7 +90,7 @@ public class CemuSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Copies the values from another emulator settings instance if it is a Cemu settings instance.
+    ///     Copies the values from another emulator settings instance if it is a Cemu settings instance.
     /// </summary>
     /// <param name="other">The other emulator settings instance to copy from.</param>
     public void CopyFrom(IEmulatorSettings other)
@@ -108,7 +109,7 @@ public class CemuSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Resets all Cemu settings to their default values.
+    ///     Resets all Cemu settings to their default values.
     /// </summary>
     public void ResetDefaults()
     {

@@ -1,13 +1,12 @@
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 /// <summary>
-/// Partial MainWindow implementing <see cref="IGameItemRenderHost"/> for game item rendering operations.
+///     Partial MainWindow implementing <see cref="IGameItemRenderHost" /> for game item rendering operations.
 /// </summary>
 public partial class MainWindow : IGameItemRenderHost
 {

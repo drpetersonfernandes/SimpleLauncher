@@ -10,28 +10,28 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the Mesen emulator configuration injection window.
+///     ViewModel for the Mesen emulator configuration injection window.
 /// </summary>
 public partial class InjectMesenConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly EmulatorPathResolver _emulatorPathResolver;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath = null!;
-    [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private bool _vsync;
+    private readonly SettingsManagerService _settings;
     [ObservableProperty] private string _aspectRatio = null!;
     [ObservableProperty] private bool _bilinear;
-    [ObservableProperty] private string _videoFilter = null!;
+    private string _emulatorPath = null!;
     [ObservableProperty] private bool _enableAudio;
+    [ObservableProperty] private bool _fullscreen;
     [ObservableProperty] private int _masterVolume;
+    [ObservableProperty] private bool _pauseInBackground;
     [ObservableProperty] private bool _rewind;
     [ObservableProperty] private int _runAhead;
-    [ObservableProperty] private bool _pauseInBackground;
     [ObservableProperty] private bool _showBeforeLaunch;
+    [ObservableProperty] private string _videoFilter = null!;
+    [ObservableProperty] private bool _vsync;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectMesenConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectMesenConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
@@ -46,7 +46,37 @@ public partial class InjectMesenConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Available aspect ratio options for Mesen.
+    /// </summary>
+    public IList<string> AspectRatioOptions { get; } = ["NoStretching", "4:3", "16:9", "Auto"];
+
+    /// <summary>
+    ///     Available video filter options for Mesen.
+    /// </summary>
+    public IList<string> VideoFilterOptions { get; } = ["None", "NTSC", "CRT", "LCD"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Mesen emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -58,27 +88,7 @@ public partial class InjectMesenConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available aspect ratio options for Mesen.
-    /// </summary>
-    public IList<string> AspectRatioOptions { get; } = ["NoStretching", "4:3", "16:9", "Auto"];
-
-    /// <summary>
-    /// Available video filter options for Mesen.
-    /// </summary>
-    public IList<string> VideoFilterOptions { get; } = ["None", "NTSC", "CRT", "LCD"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -87,16 +97,6 @@ public partial class InjectMesenConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -131,10 +131,7 @@ public partial class InjectMesenConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = _emulatorPathResolver.TryFindEmulatorPath("Mesen", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

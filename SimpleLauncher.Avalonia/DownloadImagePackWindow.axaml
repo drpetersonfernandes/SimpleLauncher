@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.DownloadImagePackWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:models="using:SimpleLauncher.Core.Models"
         Title="Download Image Pack"
@@ -57,7 +57,8 @@
                 <StackPanel>
                     <TextBlock Text="{ext:Translate InstallImagePack}" FontWeight="SemiBold" Margin="0,0,0,10" />
 
-                    <Border BorderBrush="{DynamicResource BorderNormalBrush}" BorderThickness="1" CornerRadius="3" Padding="10">
+                    <Border BorderBrush="{DynamicResource BorderNormalBrush}" BorderThickness="1" CornerRadius="3"
+                            Padding="10">
                         <ItemsControl ItemsSource="{Binding ImagePacksToDisplay}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -92,7 +93,8 @@
                 <!-- Progress Info -->
                 <Grid Grid.Column="0" Margin="0,0,20,0" RowDefinitions="Auto,Auto">
                     <Grid>
-                        <ProgressBar Value="{Binding ProgressPercentage, Mode=OneWay}" Height="20" Minimum="0" Maximum="100" />
+                        <ProgressBar Value="{Binding ProgressPercentage, Mode=OneWay}" Height="20" Minimum="0"
+                                     Maximum="100" />
                         <TextBlock Text="{ext:Translate DownloadProgress}"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"
                                    Foreground="{DynamicResource TextPrimaryBrush}"
@@ -129,7 +131,8 @@
                            FontSize="14"
                            HorizontalAlignment="Center"
                            Margin="0,12,0,0" />
-                <Button x:Name="EmergencyButton" Content="{ext:Translate EditSystemWindow_Return}" Width="100" Margin="0,16,0,0"
+                <Button x:Name="EmergencyButton" Content="{ext:Translate EditSystemWindow_Return}" Width="100"
+                        Margin="0,16,0,0"
                         Classes="secondary"
                         Click="EmergencyOverlayRelease_Click"
                         HorizontalAlignment="Center" />

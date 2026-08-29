@@ -6,7 +6,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Services.AvaloniaServices;
 
 /// <summary>
-/// Avalonia implementation of IWindowContext — wraps the main window.
+///     Avalonia implementation of IWindowContext — wraps the main window.
 /// </summary>
 public class AvaloniaWindowContext : IWindowContext
 {
@@ -16,13 +16,6 @@ public class AvaloniaWindowContext : IWindowContext
     }
 
     public Window? OwnerWindow { get; set; }
-
-    private Window GetWindow()
-    {
-        return OwnerWindow
-               ?? (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
-               ?? throw new InvalidOperationException("No window available");
-    }
 
     public IntPtr Handle =>
         GetWindow().TryGetPlatformHandle()?.Handle ?? IntPtr.Zero;
@@ -40,10 +33,7 @@ public class AvaloniaWindowContext : IWindowContext
     public void Activate()
     {
         var window = GetWindow();
-        if (window.WindowState == WindowState.Minimized)
-        {
-            window.WindowState = WindowState.Normal;
-        }
+        if (window.WindowState == WindowState.Minimized) window.WindowState = WindowState.Normal;
 
         window.Activate();
     }
@@ -51,4 +41,11 @@ public class AvaloniaWindowContext : IWindowContext
     public IDispatcherService Dispatcher { get; }
 
     public object PlatformWindow => GetWindow();
+
+    private Window GetWindow()
+    {
+        return OwnerWindow
+               ?? (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow
+               ?? throw new InvalidOperationException("No window available");
+    }
 }

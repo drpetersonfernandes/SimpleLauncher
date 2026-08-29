@@ -9,15 +9,15 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="SystemConfigurationWriterService"/> using real XML files in a temp directory.
-/// The temp file is created before constructing the service so <see cref="DataFileLocation"/>
-/// always resolves to the temp path (portable mode).
+///     Tests for <see cref="SystemConfigurationWriterService" /> using real XML files in a temp directory.
+///     The temp file is created before constructing the service so <see cref="DataFileLocation" />
+///     always resolves to the temp path (portable mode).
 /// </summary>
 public class SystemConfigurationWriterServiceTests : IDisposable
 {
-    private readonly string _testDir;
-    private readonly string _systemXmlPath;
     private readonly ILogger _logger = new NoOpLogger();
+    private readonly string _systemXmlPath;
+    private readonly string _testDir;
     private SystemConfigurationWriterService _service = null!;
 
     public SystemConfigurationWriterServiceTests()
@@ -27,6 +27,18 @@ public class SystemConfigurationWriterServiceTests : IDisposable
         _systemXmlPath = Path.Combine(_testDir, "system.xml");
         File.WriteAllText(_systemXmlPath, "<SystemConfigs />");
         File.SetLastWriteTimeUtc(_systemXmlPath, DateTime.UtcNow.AddHours(1));
+    }
+
+    public void Dispose()
+    {
+        try
+        {
+            if (Directory.Exists(_testDir)) Directory.Delete(_testDir, true);
+        }
+        catch
+        {
+            // Best-effort cleanup
+        }
     }
 
     private void CreateService()
@@ -39,21 +51,6 @@ public class SystemConfigurationWriterServiceTests : IDisposable
             .Build();
 
         _service = new SystemConfigurationWriterService(configuration, _logger);
-    }
-
-    public void Dispose()
-    {
-        try
-        {
-            if (Directory.Exists(_testDir))
-            {
-                Directory.Delete(_testDir, true);
-            }
-        }
-        catch
-        {
-            // Best-effort cleanup
-        }
     }
 
     private static Mock<ISystemManager> CreateSystemMock(
@@ -150,8 +147,8 @@ public class SystemConfigurationWriterServiceTests : IDisposable
     public async Task SaveSystemAsync_SameNameTwice_UpdatesInsteadOfDuplicating()
     {
         CreateService();
-        var first = CreateSystemMock("NES", folders: ["first-folder"]);
-        var second = CreateSystemMock("NES", folders: ["second-folder"]);
+        var first = CreateSystemMock("NES", ["first-folder"]);
+        var second = CreateSystemMock("NES", ["second-folder"]);
 
         await _service.SaveSystemAsync(first.Object);
         await _service.SaveSystemAsync(second.Object);
@@ -166,11 +163,11 @@ public class SystemConfigurationWriterServiceTests : IDisposable
     public async Task SaveSystemAsync_WithOriginalSystemName_RenamesExistingEntry()
     {
         CreateService();
-        var original = CreateSystemMock("Old Name", folders: ["roms"]);
+        var original = CreateSystemMock("Old Name", ["roms"]);
         await _service.SaveSystemAsync(original.Object);
 
-        var renamed = CreateSystemMock("New Name", folders: ["roms"]);
-        await _service.SaveSystemAsync(renamed.Object, originalSystemName: "Old Name");
+        var renamed = CreateSystemMock("New Name", ["roms"]);
+        await _service.SaveSystemAsync(renamed.Object, "Old Name");
 
         var doc = LoadXml();
         var systemNodes = doc.Root!.Elements("SystemConfig").ToList();

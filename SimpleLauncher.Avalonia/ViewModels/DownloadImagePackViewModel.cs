@@ -14,30 +14,32 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the image pack download window.
+///     ViewModel for the image pack download window.
 /// </summary>
 public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 {
-    private readonly PlaySoundEffects _playSoundEffects;
     private readonly DownloadManager _downloadManager;
-    private readonly IServiceScope _scope;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly ILogger _logger;
     private readonly EasyModeManager _easyModeManager;
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlaySoundEffects _playSoundEffects;
     private readonly IResourceProvider _resourceProvider;
-    private EasyModeManager? _manager;
+    private readonly IServiceScope _scope;
     private volatile bool _disposed;
-    private int _operationInProgressFlag;
+    private bool _isLoading;
 
     private bool _isOperationInProgress;
     private bool _isStopEnabled;
-    private double _progressPercentage;
-    private string _statusMessage = "";
-    private bool _isLoading;
-    private string _loadingMessage = "";
     private bool _isSystemDropdownEnabled = true;
+    private string _loadingMessage = "";
+    private EasyModeManager? _manager;
+    private int _operationInProgressFlag;
+    private double _progressPercentage;
 
-    /// <summary>Initializes a new instance of the <see cref="DownloadImagePackViewModel"/>.</summary>
+    private string _selectedSystemName = "";
+    private string _statusMessage = "";
+
+    /// <summary>Initializes a new instance of the <see cref="DownloadImagePackViewModel" />.</summary>
     /// <param name="playSoundEffects">The sound effects service.</param>
     /// <param name="logger">The logger instance.</param>
     /// <param name="easyModeManager">The Easy Mode configuration manager.</param>
@@ -129,18 +131,13 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         private set => SetProperty(ref _isSystemDropdownEnabled, value);
     }
 
-    private string _selectedSystemName = "";
-
     /// <summary>Gets or sets the currently selected system name.</summary>
     public string SelectedSystemName
     {
         get => _selectedSystemName;
         set
         {
-            if (SetProperty(ref _selectedSystemName, value))
-            {
-                OnSystemSelectionChanged();
-            }
+            if (SetProperty(ref _selectedSystemName, value)) OnSystemSelectionChanged();
         }
     }
 
@@ -149,6 +146,13 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
 
     /// <summary>Gets the command to download the selected image pack.</summary>
     public IAsyncRelayCommand<object?> DownloadImagePackCommand { get; }
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 
     private bool TryStartOperation()
     {
@@ -166,7 +170,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     }
 
     /// <summary>
-    /// Initializes the ViewModel by loading the Easy Mode configuration.
+    ///     Initializes the ViewModel by loading the Easy Mode configuration.
     /// </summary>
     public async Task InitializeAsync()
     {
@@ -217,10 +221,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 .OrderBy(static name => name, StringComparer.Ordinal)
                 .ToList();
 
-            foreach (var name in systemsWithImagePacks)
-            {
-                SystemNames.Add(name);
-            }
+            foreach (var name in systemsWithImagePacks) SystemNames.Add(name);
         }
         catch (Exception ex)
         {
@@ -258,7 +259,6 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private void AddImagePackItemIfValid(string? downloadLink, string? extractPath, string displayName)
     {
         if (!string.IsNullOrEmpty(downloadLink) && !string.IsNullOrEmpty(extractPath))
-        {
             ImagePacksToDisplay.Add(new ImagePackDownloadItem
             {
                 DisplayName = displayName,
@@ -266,7 +266,6 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 ExtractPath = extractPath,
                 State = DownloadButtonState.Idle
             });
-        }
     }
 
     private async Task ExecuteDownloadAsync(object? parameter)
@@ -470,13 +469,9 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
             }
 
             if (_downloadManager.IsDownloadCompleted)
-            {
                 await _messageBox.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
-            }
             else
-            {
                 await _messageBox.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
-            }
 
             EndOperation();
 
@@ -524,10 +519,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         {
             if (_disposed) break;
 
-            if (item.State == DownloadButtonState.Downloading)
-            {
-                item.State = DownloadButtonState.Failed;
-            }
+            if (item.State == DownloadButtonState.Downloading) item.State = DownloadButtonState.Failed;
         }
 
         EndOperation();
@@ -551,7 +543,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     }
 
     /// <summary>
-    /// Forces release of the busy overlay and cancels any in-progress download.
+    ///     Forces release of the busy overlay and cancels any in-progress download.
     /// </summary>
     public void EmergencyOverlayRelease()
     {
@@ -567,7 +559,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     }
 
     /// <summary>
-    /// Performs cleanup when the window is closing.
+    ///     Performs cleanup when the window is closing.
     /// </summary>
     public async Task CloseWindowRoutineAsync()
     {
@@ -586,13 +578,6 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
         {
             _logger.Error(ex, "Error closing the Add System window.");
         }
-    }
-
-    /// <inheritdoc />
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 
     private void Dispose(bool disposing)

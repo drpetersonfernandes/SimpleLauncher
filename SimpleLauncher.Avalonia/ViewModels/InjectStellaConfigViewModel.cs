@@ -11,28 +11,28 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the Stella emulator configuration injection window.
+///     ViewModel for the Stella emulator configuration injection window.
 /// </summary>
 public partial class InjectStellaConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly EmulatorPathResolver _emulatorPathResolver;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath = "";
-    [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private bool _vsync;
-    [ObservableProperty] private bool _correctAspect;
-    [ObservableProperty] private string _videoDriver = "";
-    [ObservableProperty] private string _tvFilter = "";
-    [ObservableProperty] private int _scanlines;
+    private readonly SettingsManagerService _settings;
     [ObservableProperty] private bool _audioEnabled;
     [ObservableProperty] private int _audioVolume;
-    [ObservableProperty] private bool _timeMachine;
     [ObservableProperty] private bool _confirmExit;
+    [ObservableProperty] private bool _correctAspect;
+    private string _emulatorPath = "";
+    [ObservableProperty] private bool _fullscreen;
+    [ObservableProperty] private int _scanlines;
     [ObservableProperty] private bool _showBeforeLaunch;
+    [ObservableProperty] private bool _timeMachine;
+    [ObservableProperty] private string _tvFilter = "";
+    [ObservableProperty] private string _videoDriver = "";
+    [ObservableProperty] private bool _vsync;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectStellaConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectStellaConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
@@ -50,7 +50,37 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Available video driver options for Stella.
+    /// </summary>
+    public IList<string> VideoDriverOptions { get; } = ["direct3d", "opengl", "software"];
+
+    /// <summary>
+    ///     Available TV filter options for Stella.
+    /// </summary>
+    public IList<string> TvFilterOptions { get; } = ["0", "1", "2", "3"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Stella emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -62,27 +92,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available video driver options for Stella.
-    /// </summary>
-    public IList<string> VideoDriverOptions { get; } = ["direct3d", "opengl", "software"];
-
-    /// <summary>
-    /// Available TV filter options for Stella.
-    /// </summary>
-    public IList<string> TvFilterOptions { get; } = ["0", "1", "2", "3"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -91,16 +101,6 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -124,9 +124,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
         _settings.Stella.CorrectAspect = CorrectAspect;
         _settings.Stella.VideoDriver = VideoDriver;
         if (int.TryParse(TvFilter, CultureInfo.InvariantCulture, out var tvFilter))
-        {
             _settings.Stella.TvFilter = tvFilter;
-        }
 
         _settings.Stella.Scanlines = Scanlines;
         _settings.Stella.AudioEnabled = AudioEnabled;
@@ -139,10 +137,7 @@ public partial class InjectStellaConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = _emulatorPathResolver.TryFindEmulatorPath("Stella", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

@@ -4,7 +4,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="NoOpDebugLogger"/>: the fallback logger must never throw.
+///     Tests for <see cref="NoOpDebugLogger" />: the fallback logger must never throw.
 /// </summary>
 public class NoOpDebugLoggerTests
 {

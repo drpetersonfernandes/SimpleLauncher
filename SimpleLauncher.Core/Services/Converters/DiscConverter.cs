@@ -8,7 +8,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.Converters;
 
 /// <summary>
-/// Converts disc image formats (CHD, PBP, and other disc images) to ISO or CUE/BIN using bundled conversion tools.
+///     Converts disc image formats (CHD, PBP, and other disc images) to ISO or CUE/BIN using bundled conversion tools.
 /// </summary>
 public class DiscConverter : IDiscConverter
 {
@@ -17,7 +17,7 @@ public class DiscConverter : IDiscConverter
     private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DiscConverter"/> class.
+    ///     Initializes a new instance of the <see cref="DiscConverter" /> class.
     /// </summary>
     /// <param name="logger">The logger used to record conversion activity.</param>
     public DiscConverter(ILogger logger)
@@ -26,7 +26,7 @@ public class DiscConverter : IDiscConverter
     }
 
     /// <summary>
-    /// Converts a CHD disc image to an ISO file using chdman.
+    ///     Converts a CHD disc image to an ISO file using chdman.
     /// </summary>
     /// <param name="chdPath">The path of the CHD file to convert.</param>
     /// <returns>The path of the converted ISO file, or null if the conversion failed.</returns>
@@ -116,7 +116,7 @@ public class DiscConverter : IDiscConverter
     }
 
     /// <summary>
-    /// Converts a CHD disc image to a CUE/BIN pair using chdman.
+    ///     Converts a CHD disc image to a CUE/BIN pair using chdman.
     /// </summary>
     /// <param name="chdPath">The path of the CHD file to convert.</param>
     /// <returns>The path of the converted CUE file, or null if the conversion failed.</returns>
@@ -206,7 +206,7 @@ public class DiscConverter : IDiscConverter
     }
 
     /// <summary>
-    /// Converts a PBP disc image to a CUE/BIN pair using the managed PBPSharp library.
+    ///     Converts a PBP disc image to a CUE/BIN pair using the managed PBPSharp library.
     /// </summary>
     /// <param name="pbpPath">The path of the PBP file to convert.</param>
     /// <returns>The path of the converted CUE file, or null if the conversion failed.</returns>
@@ -269,7 +269,7 @@ public class DiscConverter : IDiscConverter
     }
 
     /// <summary>
-    /// Converts a disc image file (such as RVZ) to an ISO file using DolphinTool.
+    ///     Converts a disc image file (such as RVZ) to an ISO file using DolphinTool.
     /// </summary>
     /// <param name="discImagePath">The path of the disc image file to convert.</param>
     /// <returns>The path of the converted ISO file, or null if the conversion failed.</returns>
@@ -361,7 +361,7 @@ public class DiscConverter : IDiscConverter
     }
 
     /// <summary>
-    /// Best-effort deletion of temporary conversion files (e.g. a partial BIN left behind by a failed extraction).
+    ///     Best-effort deletion of temporary conversion files (e.g. a partial BIN left behind by a failed extraction).
     /// </summary>
     private static void TryDeleteTempFiles(string tempCuePath, string tempBinPath)
     {

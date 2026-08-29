@@ -10,7 +10,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests that URLs referenced in parameters.md and EasyMode configuration files are reachable and valid.
+///     Tests that URLs referenced in parameters.md and EasyMode configuration files are reachable and valid.
 /// </summary>
 public partial class UrlValidationTests
 {
@@ -30,16 +30,14 @@ public partial class UrlValidationTests
     {
         var assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         if (assemblyLocation == null)
-        {
             throw new InvalidOperationException("Could not determine executing assembly location.");
-        }
 
         var path = Path.Combine(assemblyLocation, "..", "..", "..", "..", relativePath);
         return Path.GetFullPath(path);
     }
 
     /// <summary>
-    /// Verifies that all URLs found in parameters.md are reachable via HTTP requests.
+    ///     Verifies that all URLs found in parameters.md are reachable via HTTP requests.
     /// </summary>
     [Fact]
     public async Task ParametersMdAllUrlsAreReachable()
@@ -64,12 +62,10 @@ public partial class UrlValidationTests
             {
                 var error = await CheckUrlAsync(url);
                 if (error != null)
-                {
                     lock (brokenUrls)
                     {
                         brokenUrls.Add(error);
                     }
-                }
             }
             finally
             {
@@ -86,7 +82,7 @@ public partial class UrlValidationTests
     }
 
     /// <summary>
-    /// Verifies that the EasyMode API endpoints return valid JSON array responses.
+    ///     Verifies that the EasyMode API endpoints return valid JSON array responses.
     /// </summary>
     [Theory]
     [InlineData("https://www.purelogiccode.com/simplelauncheradmin/api/Systems/x64")]
@@ -102,7 +98,7 @@ public partial class UrlValidationTests
     }
 
     /// <summary>
-    /// Verifies that all URLs found in the local EasyMode sample XML files are reachable via HTTP requests.
+    ///     Verifies that all URLs found in the local EasyMode sample XML files are reachable via HTTP requests.
     /// </summary>
     [Theory]
     [InlineData("easymode.xml")]
@@ -166,12 +162,10 @@ public partial class UrlValidationTests
             {
                 var error = await CheckUrlAsync(url);
                 if (error != null)
-                {
                     lock (brokenUrls)
                     {
                         brokenUrls.Add($"{xmlFileName} -> {error}");
                     }
-                }
             }
             finally
             {
@@ -189,7 +183,7 @@ public partial class UrlValidationTests
     }
 
     /// <summary>
-    /// Verifies that EasyMode fallback XML files are reachable and contain valid, reachable download URLs.
+    ///     Verifies that EasyMode fallback XML files are reachable and contain valid, reachable download URLs.
     /// </summary>
     [Theory]
     [InlineData("https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/easymode.xml")]
@@ -253,12 +247,10 @@ public partial class UrlValidationTests
             {
                 var error = await CheckUrlAsync(url);
                 if (error != null)
-                {
                     lock (brokenUrls)
                     {
                         brokenUrls.Add($"{xmlUrl} -> {error}");
                     }
-                }
             }
             finally
             {
@@ -278,7 +270,6 @@ public partial class UrlValidationTests
     {
         const int maxRetries = 2;
         for (var attempt = 0; attempt <= maxRetries; attempt++)
-        {
             try
             {
                 using var headRequest = new HttpRequestMessage(HttpMethod.Head, url);
@@ -316,7 +307,6 @@ public partial class UrlValidationTests
             {
                 return $"{url} -> {ex.GetType().Name}: {ex.Message}";
             }
-        }
 
         return null;
     }

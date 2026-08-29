@@ -5,14 +5,14 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Extended tests for <see cref="PathHelper"/> covering additional edge cases for
-/// path resolution, placeholder handling, parameter string resolution, and file lookup.
+///     Extended tests for <see cref="PathHelper" /> covering additional edge cases for
+///     path resolution, placeholder handling, parameter string resolution, and file lookup.
 /// </summary>
 [SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class PathHelperExtendedTests
 {
     /// <summary>
-    /// Verifies that ResolveRelativeToAppDirectory returns null for null input.
+    ///     Verifies that ResolveRelativeToAppDirectory returns null for null input.
     /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryNullReturnsNull()
@@ -22,7 +22,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ResolveRelativeToAppDirectory returns null for empty input.
+    ///     Verifies that ResolveRelativeToAppDirectory returns null for empty input.
     /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryEmptyReturnsNull()
@@ -32,7 +32,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ResolveRelativeToAppDirectory returns null for whitespace-only input.
+    ///     Verifies that ResolveRelativeToAppDirectory returns null for whitespace-only input.
     /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryWhitespaceReturnsNull()
@@ -42,7 +42,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ResolveRelativeToAppDirectory returns null for an extremely long path.
+    ///     Verifies that ResolveRelativeToAppDirectory returns null for an extremely long path.
     /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryVeryLongPathReturnsNull()
@@ -53,7 +53,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ResolveRelativeToAppDirectory returns the app directory for the bare %BASEFOLDER% placeholder.
+    ///     Verifies that ResolveRelativeToAppDirectory returns the app directory for the bare %BASEFOLDER% placeholder.
     /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryBaseFolderOnlyReturnsAppDirectory()
@@ -64,7 +64,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ResolveRelativeToAppDirectory handles %BASEFOLDER% with a trailing separator.
+    ///     Verifies that ResolveRelativeToAppDirectory handles %BASEFOLDER% with a trailing separator.
     /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryBaseFolderWithTrailingSeparator()
@@ -75,7 +75,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ResolveRelativeToAppDirectory treats %BASEFOLDER% as case-insensitive.
+    ///     Verifies that ResolveRelativeToAppDirectory treats %BASEFOLDER% as case-insensitive.
     /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryBaseFolderCaseInsensitive()
@@ -86,8 +86,8 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ContainsGameSpecificPlaceholder detects all supported placeholder variants including
-    /// %GAME%, %ROMNAME%, %ROMFILE%, $game$, $romname$, $romfile$, {game}, {romname}, and {romfile}.
+    ///     Verifies that ContainsGameSpecificPlaceholder detects all supported placeholder variants including
+    ///     %GAME%, %ROMNAME%, %ROMFILE%, $game$, $romname$, $romfile$, {game}, {romname}, and {romfile}.
     /// </summary>
     /// <param name="text">The text to inspect for a game-specific placeholder.</param>
     /// <param name="expected">Whether a placeholder is expected to be detected.</param>
@@ -112,7 +112,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that GetLongPath returns whitespace unchanged.
+    ///     Verifies that GetLongPath returns whitespace unchanged.
     /// </summary>
     [Fact]
     public void GetLongPathWhitespaceReturnsWhitespace()
@@ -122,7 +122,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that GetLongPath returns an already-extended path unchanged.
+    ///     Verifies that GetLongPath returns an already-extended path unchanged.
     /// </summary>
     [Fact]
     public void GetLongPathAlreadyExtendedWithDotSlashReturnsUnchanged()
@@ -132,7 +132,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that SanitizePathToken returns an empty string for null input.
+    ///     Verifies that SanitizePathToken returns an empty string for null input.
     /// </summary>
     [Fact]
     public void SanitizePathTokenNullReturnsEmpty()
@@ -142,7 +142,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that SanitizePathToken returns an empty string when the input consists only of separators.
+    ///     Verifies that SanitizePathToken returns an empty string when the input consists only of separators.
     /// </summary>
     [Fact]
     public void SanitizePathTokenOnlySeparatorsReturnsEmpty()
@@ -152,7 +152,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that GetFileNameWithoutExtension returns null for null input.
+    ///     Verifies that GetFileNameWithoutExtension returns null for null input.
     /// </summary>
     [Fact]
     public void GetFileNameWithoutExtensionNullReturnsNull()
@@ -162,7 +162,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that GetFileName returns null for null input.
+    ///     Verifies that GetFileName returns null for null input.
     /// </summary>
     [Fact]
     public void GetFileNameNullReturnsNull()
@@ -172,7 +172,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that GetFileNameWithoutExtension correctly handles paths with spaces.
+    ///     Verifies that GetFileNameWithoutExtension correctly handles paths with spaces.
     /// </summary>
     [Fact]
     public void GetFileNameWithoutExtensionPathWithSpaces()
@@ -182,7 +182,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that GetFileName correctly handles paths with spaces.
+    ///     Verifies that GetFileName correctly handles paths with spaces.
     /// </summary>
     [Fact]
     public void GetFileNamePathWithSpaces()
@@ -192,7 +192,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString returns an empty string for empty input.
+    ///     Verifies that ResolveParameterString returns an empty string for empty input.
     /// </summary>
     [Fact]
     public void ResolveParameterStringEmptyReturnsEmpty()
@@ -202,7 +202,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString returns an empty string for whitespace-only input.
+    ///     Verifies that ResolveParameterString returns an empty string for whitespace-only input.
     /// </summary>
     [Fact]
     public void ResolveParameterStringWhitespaceOnlyReturnsEmpty()
@@ -212,7 +212,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString leaves parameters without placeholders unchanged.
+    ///     Verifies that ResolveParameterString leaves parameters without placeholders unchanged.
     /// </summary>
     [Fact]
     public void ResolveParameterStringNoPlaceholdersReturnsUnchanged()
@@ -223,7 +223,8 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString resolves %SYSTEMFOLDER% to an empty string when the system folders list is empty.
+    ///     Verifies that ResolveParameterString resolves %SYSTEMFOLDER% to an empty string when the system folders list is
+    ///     empty.
     /// </summary>
     [Fact]
     public void ResolveParameterStringEmptySystemFoldersListResolvesEmpty()
@@ -234,7 +235,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString resolves %SYSTEMFOLDER% to an empty string when system folders is null.
+    ///     Verifies that ResolveParameterString resolves %SYSTEMFOLDER% to an empty string when system folders is null.
     /// </summary>
     [Fact]
     public void ResolveParameterStringNullSystemFoldersResolvesEmpty()
@@ -245,7 +246,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that the %ROM% placeholder resolves to the full ROM path including spaces.
+    ///     Verifies that the %ROM% placeholder resolves to the full ROM path including spaces.
     /// </summary>
     [Fact]
     public void ResolveParameterStringRomPlaceholderWithSpacesAddsQuotes()
@@ -256,7 +257,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that the %NAME% placeholder preserves surrounding quotes in the parameter string.
+    ///     Verifies that the %NAME% placeholder preserves surrounding quotes in the parameter string.
     /// </summary>
     [Fact]
     public void ResolveParameterStringNamePlaceholderPreservesQuotes()
@@ -267,7 +268,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FindFileInSystemFolders returns null for a null system folders list.
+    ///     Verifies that FindFileInSystemFolders returns null for a null system folders list.
     /// </summary>
     [Fact]
     public void FindFileInSystemFoldersNullListReturnsNull()
@@ -277,7 +278,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FindFileInSystemFolders returns null for an empty system folders list.
+    ///     Verifies that FindFileInSystemFolders returns null for an empty system folders list.
     /// </summary>
     [Fact]
     public void FindFileInSystemFoldersEmptyListReturnsNull()
@@ -287,7 +288,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FindFileInSystemFolders returns null for a null file name.
+    ///     Verifies that FindFileInSystemFolders returns null for a null file name.
     /// </summary>
     [Fact]
     public void FindFileInSystemFoldersNullFileNameReturnsNull()
@@ -297,7 +298,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FindFileInSystemFolders returns null for an empty file name.
+    ///     Verifies that FindFileInSystemFolders returns null for an empty file name.
     /// </summary>
     [Fact]
     public void FindFileInSystemFoldersEmptyFileNameReturnsNull()
@@ -307,7 +308,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FindContainingSystemFolder returns the primary folder when the file path is empty.
+    ///     Verifies that FindContainingSystemFolder returns the primary folder when the file path is empty.
     /// </summary>
     [Fact]
     public void FindContainingSystemFolderEmptyFilePathReturnsPrimaryFolder()
@@ -317,7 +318,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that TryGetExistingDirectory returns null for null input.
+    ///     Verifies that TryGetExistingDirectory returns null for null input.
     /// </summary>
     [Fact]
     public void TryGetExistingDirectoryNullReturnsNull()
@@ -327,7 +328,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that TryGetExistingDirectory returns null for empty input.
+    ///     Verifies that TryGetExistingDirectory returns null for empty input.
     /// </summary>
     [Fact]
     public void TryGetExistingDirectoryEmptyReturnsNull()
@@ -337,7 +338,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that TryGetExistingDirectory returns null for whitespace-only input.
+    ///     Verifies that TryGetExistingDirectory returns null for whitespace-only input.
     /// </summary>
     [Fact]
     public void TryGetExistingDirectoryWhitespaceReturnsNull()
@@ -347,7 +348,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that TryGetExistingDirectory returns null for a non-existent directory path.
+    ///     Verifies that TryGetExistingDirectory returns null for a non-existent directory path.
     /// </summary>
     [Fact]
     public void TryGetExistingDirectoryNonExistentReturnsNull()
@@ -357,7 +358,7 @@ public class PathHelperExtendedTests
     }
 
     /// <summary>
-    /// Verifies that TryGetExistingDirectory returns the path when the directory exists.
+    ///     Verifies that TryGetExistingDirectory returns the path when the directory exists.
     /// </summary>
     [Fact]
     public void TryGetExistingDirectoryExistingReturnsPath()

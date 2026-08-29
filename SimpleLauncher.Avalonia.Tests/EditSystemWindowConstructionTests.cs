@@ -11,12 +11,12 @@ using SimpleLauncher.Core.Services.SystemConfiguration;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Regression tests that construct the real EditSystemWindow on the headless UI thread.
-/// XAML population errors (invalid property values, unrecognized resource references,
-/// missing event handlers) throw inside InitializeComponent and silently prevented the
-/// Edit System window from opening — e.g. Cursor="SizeWE" (a WPF-only cursor name)
-/// threw 'Unrecognized cursor type' on Avalonia. Construction alone exercises
-/// !XamlIlPopulate, so these tests catch that class of breakage without showing a dialog.
+///     Regression tests that construct the real EditSystemWindow on the headless UI thread.
+///     XAML population errors (invalid property values, unrecognized resource references,
+///     missing event handlers) throw inside InitializeComponent and silently prevented the
+///     Edit System window from opening — e.g. Cursor="SizeWE" (a WPF-only cursor name)
+///     threw 'Unrecognized cursor type' on Avalonia. Construction alone exercises
+///     !XamlIlPopulate, so these tests catch that class of breakage without showing a dialog.
 /// </summary>
 public class EditSystemWindowConstructionTests
 {

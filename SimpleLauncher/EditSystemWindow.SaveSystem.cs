@@ -54,10 +54,7 @@ internal partial class EditSystemWindow
             // --- Update UI with processed values ---
             SystemFolderTextBox.Text = allSystemFolders.FirstOrDefault() ?? "";
             AdditionalFoldersListBox.Items.Clear();
-            foreach (var folder in allSystemFolders.Skip(1))
-            {
-                AdditionalFoldersListBox.Items.Add(folder);
-            }
+            foreach (var folder in allSystemFolders.Skip(1)) AdditionalFoldersListBox.Items.Add(folder);
 
             SystemImageFolderTextBox.Text = varSystemImageFolderText;
             Emulator1PathTextBox.Text = emulator1LocationText;
@@ -94,13 +91,9 @@ internal partial class EditSystemWindow
             firstFolder = systemFolderResult.FolderText;
 
             if (allSystemFolders.Count > 0)
-            {
                 allSystemFolders[0] = firstFolder;
-            }
             else
-            {
                 allSystemFolders.Add(firstFolder);
-            }
 
             // Validate SystemImageFolder (uses the potentially prefixed value)
             var imageFolderResult = await ValidateSystemImageFolderAsync(systemNameText, varSystemImageFolderText);
@@ -124,25 +117,17 @@ internal partial class EditSystemWindow
                 MarkInvalid(FormatToSearchTextBox);
                 return;
             }
-            else
-            {
-                MarkValid(FormatToSearchTextBox); // Valid state
-            }
+
+            MarkValid(FormatToSearchTextBox); // Valid state
 
             var formatsToSearch = formatSearchResult.Formats;
 
             var formatLaunchResult = await ValidateFormatToLaunchAsync(formatToLaunchText, extractFileBeforeLaunch);
-            if (formatLaunchResult.IsFailed)
-            {
-                return;
-            }
+            if (formatLaunchResult.IsFailed) return;
 
             var formatsToLaunch = formatLaunchResult.Formats;
 
-            if (await ValidateEmulator1NameAsync(emulator1NameText))
-            {
-                return;
-            }
+            if (await ValidateEmulator1NameAsync(emulator1NameText)) return;
 
             if (await ValidateEmulatorLocationAsync(emulator1NameText, emulator1LocationText, formatsToSearch, 1))
             {
@@ -204,10 +189,7 @@ internal partial class EditSystemWindow
                 if (!hasMameOrDosBoxEmulator)
                 {
                     var result = await _messageBox.GroupByFolderWarningMessageBoxAsync();
-                    if (result == CoreMessageBoxResult.No)
-                    {
-                        return; // User chose not to save, so abort.
-                    }
+                    if (result == CoreMessageBoxResult.No) return; // User chose not to save, so abort.
                 }
             }
 
@@ -273,13 +255,11 @@ internal partial class EditSystemWindow
                 var currentReceiveNotification = receiveNotifications[i];
 
                 if (!string.IsNullOrEmpty(currentEmulatorLocation) || !string.IsNullOrEmpty(currentEmulatorParameters))
-                {
                     if (string.IsNullOrEmpty(currentEmulatorName))
                     {
                         await _messageBox.EmulatorNameRequiredMessageBoxAsync(i + 2); // Pass emulator number (2-5)
                         return;
                     }
-                }
 
                 if (string.IsNullOrEmpty(currentEmulatorName)) continue;
 
@@ -346,10 +326,8 @@ internal partial class EditSystemWindow
                     PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(varSystemImageFolderText);
                 if (resolvedSystemFolder != null && resolvedSystemImageFolder != null)
-                {
                     await CreateDefaultSystemFoldersService.CreateFoldersAsync(systemNameText, resolvedSystemFolder,
                         resolvedSystemImageFolder, _configuration, _logger, _messageBox);
-                }
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
             }
@@ -382,25 +360,16 @@ internal partial class EditSystemWindow
     // Helper method to add %BASEFOLDER% prefix if the path is relative and doesn't have it
     private static string MaybeAddBaseFolderPrefix(string path)
     {
-        if (string.IsNullOrWhiteSpace(path))
-        {
-            return path;
-        }
+        if (string.IsNullOrWhiteSpace(path)) return path;
 
         // Normalize separators to the system default (e.g., / to \ on Windows)
         var normalizedPath = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
 
         // Check if it's already rooted (absolute) using the normalized path
-        if (Path.IsPathRooted(normalizedPath))
-        {
-            return normalizedPath;
-        }
+        if (Path.IsPathRooted(normalizedPath)) return normalizedPath;
 
         // Check if it already starts with the placeholder
-        if (normalizedPath.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
-        {
-            return normalizedPath;
-        }
+        if (normalizedPath.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase)) return normalizedPath;
 
         // It's a relative path without the placeholder, add it
         // Handle cases like ".\roms" or "../images"

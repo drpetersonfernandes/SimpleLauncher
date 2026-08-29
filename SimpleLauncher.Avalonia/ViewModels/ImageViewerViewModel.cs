@@ -6,16 +6,16 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the ImageViewerWindow.
+///     ViewModel for the ImageViewerWindow.
 /// </summary>
 public class ImageViewerViewModel : ObservableObject
 {
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private Bitmap? _imageSource;
     private string _errorMessage = "";
+    private Bitmap? _imageSource;
 
-    /// <summary>Initializes a new instance of the <see cref="ImageViewerViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="ImageViewerViewModel" />.</summary>
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="messageBox">The message box service for error notifications.</param>
     public ImageViewerViewModel(ILogger logErrors, IMessageBoxLibraryService messageBox)
@@ -25,7 +25,7 @@ public class ImageViewerViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Gets or sets the image source to display.
+    ///     Gets or sets the image source to display.
     /// </summary>
     public Bitmap? ImageSource
     {
@@ -34,7 +34,7 @@ public class ImageViewerViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Gets or sets an error message if image loading failed.
+    ///     Gets or sets an error message if image loading failed.
     /// </summary>
     public string ErrorMessage
     {
@@ -43,7 +43,7 @@ public class ImageViewerViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Loads an image from a file path.
+    ///     Loads an image from a file path.
     /// </summary>
     /// <param name="imagePath">The path to the image file.</param>
     public async Task LoadImageFromPathAsync(string? imagePath)
@@ -71,7 +71,7 @@ public class ImageViewerViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Loads an image from a URI (local or web).
+    ///     Loads an image from a URI (local or web).
     /// </summary>
     /// <param name="imageUri">The URI of the image.</param>
     public async Task LoadImageFromUri(Uri imageUri)

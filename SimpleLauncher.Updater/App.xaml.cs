@@ -7,12 +7,12 @@ using SimpleLauncher.Updater.Services.DebugAndBugReport;
 namespace SimpleLauncher.Updater;
 
 /// <summary>
-/// Application class for the Updater application that handles startup, shutdown, and global exception handling.
+///     Application class for the Updater application that handles startup, shutdown, and global exception handling.
 /// </summary>
 public partial class App
 {
     /// <summary>
-    /// Called when the application starts up. Sets up exception handling and creates the main window.
+    ///     Called when the application starts up. Sets up exception handling and creates the main window.
     /// </summary>
     /// <param name="e">The startup event arguments containing command line arguments.</param>
     protected override void OnStartup(StartupEventArgs e)
@@ -52,13 +52,13 @@ public partial class App
     }
 
     /// <summary>
-    /// Called when the application exits. Disposes HttpClient instances to prevent resource leaks.
+    ///     Called when the application exits. Disposes HttpClient instances to prevent resource leaks.
     /// </summary>
     /// <param name="e">The exit event arguments.</param>
     protected override void OnExit(ExitEventArgs e)
     {
         // Dispose HttpClient instances to prevent socket exhaustion
-        SimpleLauncher.Updater.MainWindow.DisposeHttpClient();
+        Updater.MainWindow.DisposeHttpClient();
         BugReportService.Dispose();
 
         Log.CloseAndFlush();
@@ -67,7 +67,7 @@ public partial class App
     }
 
     /// <summary>
-    /// Sets up global exception handling for the application
+    ///     Sets up global exception handling for the application
     /// </summary>
     private void SetupExceptionHandling()
     {

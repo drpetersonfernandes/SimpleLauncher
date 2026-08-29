@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text;
 using Moq;
 using SimpleLauncher.Avalonia.Services.AvaloniaServices;
@@ -9,11 +10,11 @@ using SimpleLauncher.Core.Services.EasyMode;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the EasyMode "Add System" ViewModel (WPF EasyModeWindow parity).
-/// The EasyMode configuration is served by a fake HTTP handler, image-pack button
-/// state is derived from the selected system, and the download/extraction flow is
-/// exercised end-to-end through a real DownloadManager (extraction itself is mocked
-/// and gated so the loading overlay state can be asserted mid-extraction).
+///     Tests for the EasyMode "Add System" ViewModel (WPF EasyModeWindow parity).
+///     The EasyMode configuration is served by a fake HTTP handler, image-pack button
+///     state is derived from the selected system, and the download/extraction flow is
+///     exercised end-to-end through a real DownloadManager (extraction itself is mocked
+///     and gated so the loading overlay state can be asserted mid-extraction).
 /// </summary>
 public class EasyModeViewModelTests
 {
@@ -196,7 +197,7 @@ public class EasyModeViewModelTests
     }
 
     /// <summary>
-    /// Serves both the EasyMode API (JSON) and component archives (fake bytes).
+    ///     Serves both the EasyMode API (JSON) and component archives (fake bytes).
     /// </summary>
     private sealed class EasyModeHandler : HttpMessageHandler
     {
@@ -212,15 +213,13 @@ public class EasyModeViewModelTests
         {
             var url = request.RequestUri?.AbsoluteUri ?? "";
             if (url.Contains("api/Systems", StringComparison.Ordinal))
-            {
-                return Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+                return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = new StringContent(_json, Encoding.UTF8, "application/json")
                 });
-            }
 
             // Component downloads (emulator / core / image pack archives).
-            return Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new ByteArrayContent("fake archive bytes"u8.ToArray())
             });

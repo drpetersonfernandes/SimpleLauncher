@@ -1,21 +1,23 @@
 using System.Globalization;
 using System.Text;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Provides functionality to inject Simple Launcher settings into the PCSX2 emulator configuration file (PCSX2.ini).
+///     Provides functionality to inject Simple Launcher settings into the PCSX2 emulator configuration file (PCSX2.ini).
 /// </summary>
 public static class Pcsx2ConfigurationService
 {
     /// <summary>
-    /// Injects Simple Launcher configuration settings into the PCSX2 emulator's PCSX2.ini file.
-    /// Handles portable and installed modes, creates the config from a sample if missing, and updates UI, graphics, audio, and achievement settings.
+    ///     Injects Simple Launcher configuration settings into the PCSX2 emulator's PCSX2.ini file.
+    ///     Handles portable and installed modes, creates the config from a sample if missing, and updates UI, graphics, audio,
+    ///     and achievement settings.
     /// </summary>
     /// <param name="emulatorPath">The full path to the PCSX2 emulator executable.</param>
     /// <param name="settings">The settings manager containing PCSX2 configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -28,7 +30,6 @@ public static class Pcsx2ConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "PCSX2", "PCSX2.ini");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(configPath) ??
@@ -51,11 +52,8 @@ public static class Pcsx2ConfigurationService
                     logger.Error(ex, $"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("PCSX2.ini not found and sample is missing.", samplePath);
-            }
         }
 
         var uiUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -146,33 +144,17 @@ public static class Pcsx2ConfigurationService
         }
 
         // Add missing keys/sections
-        if (uiUpdates.Count > 0)
-        {
-            ApplyUpdatesToSection(lines, "[UI]", uiUpdates, ref modified);
-        }
+        if (uiUpdates.Count > 0) ApplyUpdatesToSection(lines, "[UI]", uiUpdates, ref modified);
 
-        if (emuCoreUpdates.Count > 0)
-        {
-            ApplyUpdatesToSection(lines, "[EmuCore]", emuCoreUpdates, ref modified);
-        }
+        if (emuCoreUpdates.Count > 0) ApplyUpdatesToSection(lines, "[EmuCore]", emuCoreUpdates, ref modified);
 
-        if (gsUpdates.Count > 0)
-        {
-            ApplyUpdatesToSection(lines, "[EmuCore/GS]", gsUpdates, ref modified);
-        }
+        if (gsUpdates.Count > 0) ApplyUpdatesToSection(lines, "[EmuCore/GS]", gsUpdates, ref modified);
 
-        if (audioUpdates.Count > 0)
-        {
-            ApplyUpdatesToSection(lines, "[SPU2/Mixing]", audioUpdates, ref modified);
-        }
+        if (audioUpdates.Count > 0) ApplyUpdatesToSection(lines, "[SPU2/Mixing]", audioUpdates, ref modified);
 
-        if (achUpdates.Count > 0)
-        {
-            ApplyUpdatesToSection(lines, "[Achievements]", achUpdates, ref modified);
-        }
+        if (achUpdates.Count > 0) ApplyUpdatesToSection(lines, "[Achievements]", achUpdates, ref modified);
 
         if (modified)
-        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -190,7 +172,6 @@ public static class Pcsx2ConfigurationService
                 logger.Error(ex, $"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
-        }
     }
 
     private static string ResolveConfigPath(string emuDir, ILogger logger)
@@ -245,14 +226,8 @@ public static class Pcsx2ConfigurationService
         }
 
         var insertIndex = sectionIndex + 1;
-        foreach (var kvp in updates)
-        {
-            lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
-        }
+        foreach (var kvp in updates) lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
 
-        if (updates.Count > 0)
-        {
-            modified = true;
-        }
+        if (updates.Count > 0) modified = true;
     }
 }

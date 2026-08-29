@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace SimpleLauncher.Core.Services.CheckPaths;
 
 /// <summary>
-/// Provides path resolution, token expansion, and file lookup helpers used across the application.
+///     Provides path resolution, token expansion, and file lookup helpers used across the application.
 /// </summary>
 public static partial class PathHelper
 {
@@ -33,30 +33,22 @@ public static partial class PathHelper
 
     private static bool IsPathContainedInBaseFolder(string resolvedPath, string baseFolder)
     {
-        if (string.IsNullOrEmpty(resolvedPath) || string.IsNullOrEmpty(baseFolder))
-        {
-            return false;
-        }
+        if (string.IsNullOrEmpty(resolvedPath) || string.IsNullOrEmpty(baseFolder)) return false;
 
         var normalizedResolved = Path.GetFullPath(resolvedPath);
         var normalizedBase = Path.GetFullPath(baseFolder);
 
-        if (normalizedResolved.Equals(normalizedBase, StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
+        if (normalizedResolved.Equals(normalizedBase, StringComparison.OrdinalIgnoreCase)) return true;
 
         if (!normalizedBase.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal) &&
             !normalizedBase.EndsWith(Path.AltDirectorySeparatorChar.ToString(), StringComparison.Ordinal))
-        {
             normalizedBase += Path.DirectorySeparatorChar;
-        }
 
         return normalizedResolved.StartsWith(normalizedBase, StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>
-    /// Determines whether the given text contains any game-specific placeholder tokens such as %GAME% or %ROMNAME%.
+    ///     Determines whether the given text contains any game-specific placeholder tokens such as %GAME% or %ROMNAME%.
     /// </summary>
     /// <param name="text">The text to inspect.</param>
     /// <returns>True if the text contains a game-specific placeholder, false otherwise.</returns>
@@ -69,7 +61,8 @@ public static partial class PathHelper
     }
 
     /// <summary>
-    /// Resolves placeholder tokens in an emulator parameter string, such as %BASEFOLDER%, %SYSTEMFOLDER%, %ROM%, and %NAME%.
+    ///     Resolves placeholder tokens in an emulator parameter string, such as %BASEFOLDER%, %SYSTEMFOLDER%, %ROM%, and
+    ///     %NAME%.
     /// </summary>
     /// <param name="parameters">The parameter string containing tokens to resolve.</param>
     /// <param name="systemFolders">The list of system folders used to resolve the %SYSTEMFOLDER% token.</param>
@@ -86,19 +79,13 @@ public static partial class PathHelper
         string? romSystemFolder = null,
         string? resolvedRomName = null)
     {
-        if (string.IsNullOrWhiteSpace(parameters))
-        {
-            return "";
-        }
+        if (string.IsNullOrWhiteSpace(parameters)) return "";
 
         var pathTokenRegex = MyRegex();
 
         var resolvedParameters = pathTokenRegex.Replace(parameters, match =>
         {
-            if (match is not { Success: true })
-            {
-                return "";
-            }
+            if (match is not { Success: true }) return "";
 
             var originalToken = match.Value;
             var isQuotedToken = (originalToken.StartsWith('"') && originalToken.EndsWith('"')) ||
@@ -113,17 +100,13 @@ public static partial class PathHelper
                  !tokenForLogic.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase) &&
                  !tokenForLogic.Contains("%ROM%", StringComparison.OrdinalIgnoreCase) &&
                  !tokenForLogic.Contains("%NAME%", StringComparison.OrdinalIgnoreCase)))
-            {
                 return originalToken;
-            }
 
             var processedToken = tokenForLogic;
 
             if (processedToken.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
-            {
                 processedToken = processedToken.Replace("%BASEFOLDER%",
                     SanitizePathToken(AppDomain.CurrentDomain.BaseDirectory), StringComparison.OrdinalIgnoreCase);
-            }
 
             if (processedToken.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
@@ -136,10 +119,7 @@ public static partial class PathHelper
                         .Select(SanitizePathToken)
                         .ToList();
 
-                    if (resolvedFolders.Count > 0)
-                    {
-                        resolvedSystemFolderPaths = string.Join(";", resolvedFolders);
-                    }
+                    if (resolvedFolders.Count > 0) resolvedSystemFolderPaths = string.Join(";", resolvedFolders);
                 }
 
                 processedToken = processedToken.Replace("%SYSTEMFOLDER%", resolvedSystemFolderPaths,
@@ -148,30 +128,22 @@ public static partial class PathHelper
 
             if (!string.IsNullOrEmpty(romSystemFolder) &&
                 processedToken.Contains("%ROMSYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
-            {
                 processedToken = processedToken.Replace("%ROMSYSTEMFOLDER%", SanitizePathToken(romSystemFolder),
                     StringComparison.OrdinalIgnoreCase);
-            }
 
             if (!string.IsNullOrEmpty(resolvedEmulatorFolderPath) &&
                 processedToken.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase))
-            {
                 processedToken = processedToken.Replace("%EMULATORFOLDER%",
                     SanitizePathToken(resolvedEmulatorFolderPath), StringComparison.OrdinalIgnoreCase);
-            }
 
             if (!string.IsNullOrEmpty(resolvedRomPath) &&
                 processedToken.Contains("%ROM%", StringComparison.OrdinalIgnoreCase))
-            {
                 processedToken = processedToken.Replace("%ROM%", SanitizePathToken(resolvedRomPath),
                     StringComparison.OrdinalIgnoreCase);
-            }
 
             if (!string.IsNullOrEmpty(resolvedRomName) &&
                 processedToken.Contains("%NAME%", StringComparison.OrdinalIgnoreCase))
-            {
                 processedToken = processedToken.Replace("%NAME%", resolvedRomName, StringComparison.OrdinalIgnoreCase);
-            }
 
             processedToken = Environment.ExpandEnvironmentVariables(processedToken);
 
@@ -187,9 +159,7 @@ public static partial class PathHelper
 
             if (finalTokenValue.Contains(' ') && !isQuotedToken && !finalTokenValue.Contains('"') &&
                 !finalTokenValue.Contains('\''))
-            {
                 return $"\"{finalTokenValue}\"";
-            }
 
             return finalTokenValue;
         });
@@ -198,22 +168,18 @@ public static partial class PathHelper
     }
 
     /// <summary>
-    /// Resolves the given path to a full path relative to the application directory, handling the %BASEFOLDER% placeholder.
+    ///     Resolves the given path to a full path relative to the application directory, handling the %BASEFOLDER%
+    ///     placeholder.
     /// </summary>
     /// <param name="path">The path to resolve.</param>
     /// <returns>The full resolved path, or null if the path could not be resolved.</returns>
     public static string? ResolveRelativeToAppDirectory(string? path)
     {
-        if (string.IsNullOrWhiteSpace(path) || path.Length > MaxPathLength)
-        {
-            return null;
-        }
+        if (string.IsNullOrWhiteSpace(path) || path.Length > MaxPathLength) return null;
 
         if ((path.StartsWith('"') && path.EndsWith('"')) ||
             (path.StartsWith('\'') && path.EndsWith('\'')))
-        {
             path = path[1..^1];
-        }
 
         string basePath;
         var remainingPath = path;
@@ -246,18 +212,18 @@ public static partial class PathHelper
     }
 
     /// <summary>
-    /// Resolves the full path of the user error log file, matching the exact location where Serilog writes it
-    /// (see the file sink configuration in App.xaml.cs: '%LOCALAPPDATA%\SimpleLauncher\' + LogPath,
-    /// defaulting to 'error_user.log').
+    ///     Resolves the full path of the user error log file, matching the exact location where Serilog writes it
+    ///     (see the file sink configuration in App.xaml.cs: '%LOCALAPPDATA%\SimpleLauncher\' + LogPath,
+    ///     defaulting to 'error_user.log').
     /// </summary>
-    /// <param name="logFileName">The log file name from configuration (LogPath key), or null to use the default 'error_user.log'.</param>
+    /// <param name="logFileName">
+    ///     The log file name from configuration (LogPath key), or null to use the default
+    ///     'error_user.log'.
+    /// </param>
     /// <returns>The absolute path of the log file.</returns>
     public static string ResolveLogFilePath(string? logFileName)
     {
-        if (string.IsNullOrWhiteSpace(logFileName))
-        {
-            logFileName = "error_user.log";
-        }
+        if (string.IsNullOrWhiteSpace(logFileName)) logFileName = "error_user.log";
 
         return Path.Combine(
             AppDataPaths.SimpleLauncherDataFolder,
@@ -268,17 +234,14 @@ public static partial class PathHelper
     {
         var resolvedPath1 = ResolveRelativeToAppDirectory(path1);
 
-        if (string.IsNullOrEmpty(resolvedPath1))
-        {
-            return "";
-        }
+        if (string.IsNullOrEmpty(resolvedPath1)) return "";
 
         var combinedPath = Path.Combine(resolvedPath1, path2);
         return ResolveRelativeToAppDirectory(combinedPath) ?? "";
     }
 
     /// <summary>
-    /// Gets the file name of the given path without its extension.
+    ///     Gets the file name of the given path without its extension.
     /// </summary>
     /// <param name="path">The path of the file.</param>
     /// <returns>The file name without its extension.</returns>
@@ -288,7 +251,7 @@ public static partial class PathHelper
     }
 
     /// <summary>
-    /// Gets the file name of the given path.
+    ///     Gets the file name of the given path.
     /// </summary>
     /// <param name="path">The path of the file.</param>
     /// <returns>The file name including its extension.</returns>
@@ -298,22 +261,19 @@ public static partial class PathHelper
     }
 
     /// <summary>
-    /// Trims trailing directory separators from the given path token value.
+    ///     Trims trailing directory separators from the given path token value.
     /// </summary>
     /// <param name="pathTokenValue">The path token value to sanitize.</param>
     /// <returns>The sanitized path token value, or an empty string if null or blank.</returns>
     public static string SanitizePathToken(string? pathTokenValue)
     {
-        if (string.IsNullOrEmpty(pathTokenValue))
-        {
-            return "";
-        }
+        if (string.IsNullOrEmpty(pathTokenValue)) return "";
 
         return pathTokenValue.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
     }
 
     /// <summary>
-    /// Converts the given path to a long path format supported by Windows APIs, if it is not already.
+    ///     Converts the given path to a long path format supported by Windows APIs, if it is not already.
     /// </summary>
     /// <param name="path">The path to convert.</param>
     /// <returns>The long path representation of the given path, or null if the path is null.</returns>
@@ -324,30 +284,22 @@ public static partial class PathHelper
         if (string.IsNullOrWhiteSpace(path) ||
             path.StartsWith(@"\\?\", StringComparison.OrdinalIgnoreCase) ||
             path.StartsWith(@"\\.\", StringComparison.OrdinalIgnoreCase))
-        {
             return path;
-        }
 
-        if (path.StartsWith(@"\\", StringComparison.Ordinal))
-        {
-            return @"\\?\UNC\" + path[2..];
-        }
+        if (path.StartsWith(@"\\", StringComparison.Ordinal)) return @"\\?\UNC\" + path[2..];
 
         return @"\\?\" + path;
     }
 
     /// <summary>
-    /// Searches the given system folders for a file matching the given file name and returns its full path.
+    ///     Searches the given system folders for a file matching the given file name and returns its full path.
     /// </summary>
     /// <param name="systemFolders">The list of system folders to search.</param>
     /// <param name="fileName">The name of the file to find.</param>
     /// <returns>The full path of the found file, or null if it was not found.</returns>
     public static string? FindFileInSystemFolders(IList<string>? systemFolders, string? fileName)
     {
-        if (systemFolders == null || systemFolders.Count == 0 || string.IsNullOrEmpty(fileName))
-        {
-            return null;
-        }
+        if (systemFolders == null || systemFolders.Count == 0 || string.IsNullOrEmpty(fileName)) return null;
 
         foreach (var folder in systemFolders)
         {
@@ -356,17 +308,14 @@ public static partial class PathHelper
 
             var longPath = GetLongPath(filePath);
 
-            if (File.Exists(filePath) || File.Exists(longPath))
-            {
-                return filePath;
-            }
+            if (File.Exists(filePath) || File.Exists(longPath)) return filePath;
         }
 
         return null;
     }
 
     /// <summary>
-    /// Finds which of the given system folders contains the given file path.
+    ///     Finds which of the given system folders contains the given file path.
     /// </summary>
     /// <param name="systemFolders">The list of system folders to check.</param>
     /// <param name="primarySystemFolder">The primary system folder returned when no match is found.</param>
@@ -376,9 +325,7 @@ public static partial class PathHelper
         string? filePath)
     {
         if (systemFolders == null || systemFolders.Count == 0 || string.IsNullOrEmpty(filePath))
-        {
             return primarySystemFolder;
-        }
 
         var normalizedFilePath = Path.GetFullPath(filePath);
 
@@ -389,10 +336,7 @@ public static partial class PathHelper
 
             var normalizedFolder = Path.GetFullPath(resolvedFolder);
 
-            if (IsPathContainedInBaseFolder(normalizedFilePath, normalizedFolder))
-            {
-                return resolvedFolder;
-            }
+            if (IsPathContainedInBaseFolder(normalizedFilePath, normalizedFolder)) return resolvedFolder;
         }
 
         return primarySystemFolder;
@@ -404,24 +348,18 @@ public static partial class PathHelper
     private static partial Regex MyRegex();
 
     /// <summary>
-    /// Resolves the given folder path and returns it if the directory exists.
+    ///     Resolves the given folder path and returns it if the directory exists.
     /// </summary>
     /// <param name="folderPath">The folder path to resolve and validate.</param>
     /// <returns>The resolved existing directory path, or null if it does not exist.</returns>
     public static string? TryGetExistingDirectory(string? folderPath)
     {
-        if (string.IsNullOrWhiteSpace(folderPath))
-        {
-            return null;
-        }
+        if (string.IsNullOrWhiteSpace(folderPath)) return null;
 
         try
         {
             var resolved = ResolveRelativeToAppDirectory(folderPath);
-            if (!string.IsNullOrEmpty(resolved) && Directory.Exists(resolved))
-            {
-                return resolved;
-            }
+            if (!string.IsNullOrEmpty(resolved) && Directory.Exists(resolved)) return resolved;
         }
         catch (Exception ex)
         {
@@ -432,31 +370,23 @@ public static partial class PathHelper
     }
 
     /// <summary>
-    /// Attempts to find a file on disk matching the given path, tolerating Unicode normalization differences in the file name.
+    ///     Attempts to find a file on disk matching the given path, tolerating Unicode normalization differences in the file
+    ///     name.
     /// </summary>
     /// <param name="filePath">The file path to find.</param>
     /// <returns>The path of the matching file or directory, or null if none was found.</returns>
     public static string? TryFindFileWithNormalizedPath(string? filePath)
     {
-        if (string.IsNullOrWhiteSpace(filePath))
-        {
-            return null;
-        }
+        if (string.IsNullOrWhiteSpace(filePath)) return null;
 
         try
         {
             var directoryPath = Path.GetDirectoryName(filePath);
             var fileName = Path.GetFileName(filePath);
 
-            if (string.IsNullOrEmpty(directoryPath) || string.IsNullOrEmpty(fileName))
-            {
-                return null;
-            }
+            if (string.IsNullOrEmpty(directoryPath) || string.IsNullOrEmpty(fileName)) return null;
 
-            if (!Directory.Exists(directoryPath))
-            {
-                return null;
-            }
+            if (!Directory.Exists(directoryPath)) return null;
 
             var normalizedFileNames = new HashSet<string>(StringComparer.Ordinal)
             {
@@ -472,12 +402,8 @@ public static partial class PathHelper
                 var existingFileName = Path.GetFileName(existingFile);
 
                 foreach (var normalizedFileName in normalizedFileNames)
-                {
                     if (existingFileName.Equals(normalizedFileName, StringComparison.OrdinalIgnoreCase))
-                    {
                         return existingFile;
-                    }
-                }
             }
 
             foreach (var existingDir in Directory.EnumerateDirectories(directoryPath))
@@ -485,12 +411,8 @@ public static partial class PathHelper
                 var existingDirName = Path.GetFileName(existingDir);
 
                 foreach (var normalizedFileName in normalizedFileNames)
-                {
                     if (existingDirName.Equals(normalizedFileName, StringComparison.OrdinalIgnoreCase))
-                    {
                         return existingDir;
-                    }
-                }
             }
         }
         catch (Exception ex)

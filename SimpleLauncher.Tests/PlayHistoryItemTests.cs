@@ -1,16 +1,17 @@
+using System.Reflection;
 using SimpleLauncher.Core.Models;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="PlayHistoryItem"/> covering display name formatting,
-/// play time formatting, default values, and property change notifications.
+///     Tests for <see cref="PlayHistoryItem" /> covering display name formatting,
+///     play time formatting, default values, and property change notifications.
 /// </summary>
 public class PlayHistoryItemTests
 {
     /// <summary>
-    /// Verifies that DisplayName extracts the file name from a full file path.
+    ///     Verifies that DisplayName extracts the file name from a full file path.
     /// </summary>
     [Fact]
     public void DisplayNameWithFullPathReturnsFileName()
@@ -25,7 +26,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that DisplayName returns the file name when given just a file name without a path.
+    ///     Verifies that DisplayName returns the file name when given just a file name without a path.
     /// </summary>
     [Fact]
     public void DisplayNameWithFileNameOnlyReturnsFileName()
@@ -40,7 +41,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that DisplayName returns an empty string when FileName is null.
+    ///     Verifies that DisplayName returns an empty string when FileName is null.
     /// </summary>
     [Fact]
     public void DisplayNameWithNullFileNameReturnsEmpty()
@@ -55,7 +56,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that DisplayName returns an empty string when FileName is empty.
+    ///     Verifies that DisplayName returns an empty string when FileName is empty.
     /// </summary>
     [Fact]
     public void DisplayNameWithEmptyFileNameReturnsEmpty()
@@ -70,7 +71,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays "0m 0s" for zero seconds.
+    ///     Verifies that FormattedPlayTime displays "0m 0s" for zero seconds.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeZeroSecondsReturnsZeroMinutesZeroSeconds()
@@ -80,7 +81,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays minutes and seconds for durations under one hour.
+    ///     Verifies that FormattedPlayTime displays minutes and seconds for durations under one hour.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeUnderOneHourReturnsMinutesAndSeconds()
@@ -90,7 +91,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays hours, minutes, and seconds for exactly one hour.
+    ///     Verifies that FormattedPlayTime displays hours, minutes, and seconds for exactly one hour.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeExactlyOneHourReturnsHoursMinutesSeconds()
@@ -100,7 +101,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays hours, minutes, and seconds for durations over one hour.
+    ///     Verifies that FormattedPlayTime displays hours, minutes, and seconds for durations over one hour.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeOverOneHourReturnsHoursMinutesSeconds()
@@ -110,7 +111,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime correctly formats a large play time value.
+    ///     Verifies that FormattedPlayTime correctly formats a large play time value.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeLargeValueReturnsCorrectFormat()
@@ -120,7 +121,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays minutes and seconds for 59 minutes.
+    ///     Verifies that FormattedPlayTime displays minutes and seconds for 59 minutes.
     /// </summary>
     [Fact]
     public void FormattedPlayTime59MinutesReturnsMinutesOnly()
@@ -130,7 +131,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that PropertyChanged can be subscribed to and fires when OnPropertyChanged is invoked.
+    ///     Verifies that PropertyChanged can be subscribed to and fires when OnPropertyChanged is invoked.
     /// </summary>
     [Fact]
     public void PropertyChangedCanBeSubscribed()
@@ -141,14 +142,14 @@ public class PlayHistoryItemTests
 
         // Trigger via reflection since OnPropertyChanged is protected
         var method = typeof(PlayHistoryItem).GetMethod("OnPropertyChanged",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            BindingFlags.NonPublic | BindingFlags.Instance);
         method?.Invoke(item, ["TestProperty"]);
 
         Assert.True(eventRaised);
     }
 
     /// <summary>
-    /// Verifies that all default property values of a new PlayHistoryItem are correct.
+    ///     Verifies that all default property values of a new PlayHistoryItem are correct.
     /// </summary>
     [Fact]
     public void DefaultValuesAreCorrect()
@@ -164,7 +165,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays correctly for exactly one minute.
+    ///     Verifies that FormattedPlayTime displays correctly for exactly one minute.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeOneMinuteReturnsCorrectFormat()
@@ -174,7 +175,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays correctly for complex hour, minute, and second combinations.
+    ///     Verifies that FormattedPlayTime displays correctly for complex hour, minute, and second combinations.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeComplexReturnsCorrectFormat()
@@ -184,7 +185,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays correctly when only seconds are present.
+    ///     Verifies that FormattedPlayTime displays correctly when only seconds are present.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeOnlySecondsReturnsCorrectFormat()
@@ -194,7 +195,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that all PlayHistoryItem properties can be set and retrieved correctly.
+    ///     Verifies that all PlayHistoryItem properties can be set and retrieved correctly.
     /// </summary>
     [Fact]
     public void AllPropertiesCanBeSet()
@@ -218,7 +219,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that PropertyChanged fires when TotalPlayTime is modified.
+    ///     Verifies that PropertyChanged fires when TotalPlayTime is modified.
     /// </summary>
     [Fact]
     public void PropertyChangedTotalPlayTime()
@@ -228,9 +229,7 @@ public class PlayHistoryItemTests
         item.PropertyChanged += (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(PlayHistoryItem.TotalPlayTime), StringComparison.Ordinal))
-            {
                 raised = true;
-            }
         };
 
         item.TotalPlayTime = 100;
@@ -238,7 +237,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that PropertyChanged for FormattedPlayTime fires when TotalPlayTime is modified.
+    ///     Verifies that PropertyChanged for FormattedPlayTime fires when TotalPlayTime is modified.
     /// </summary>
     [Fact]
     public void PropertyChangedFormattedPlayTime()
@@ -247,10 +246,8 @@ public class PlayHistoryItemTests
         var raised = false;
         item.PropertyChanged += (_, args) =>
         {
-            if (string.Equals(args.PropertyName, nameof(PlayHistoryItem.FormattedPlayTime), StringComparison.Ordinal))
-            {
-                raised = true;
-            }
+            if (string.Equals(args.PropertyName, nameof(PlayHistoryItem.FormattedPlayTime),
+                    StringComparison.Ordinal)) raised = true;
         };
 
         item.TotalPlayTime = 100;
@@ -258,7 +255,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that setting the same TotalPlayTime value does not raise PropertyChanged.
+    ///     Verifies that setting the same TotalPlayTime value does not raise PropertyChanged.
     /// </summary>
     [Fact]
     public void SameValueDoesNotRaisePropertyChanged()
@@ -272,7 +269,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that DisplayName handles Unicode file names correctly.
+    ///     Verifies that DisplayName handles Unicode file names correctly.
     /// </summary>
     [Fact]
     public void UnicodeFileNameDisplaysCorrectly()
@@ -282,7 +279,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that DisplayName handles special characters in file names correctly.
+    ///     Verifies that DisplayName handles special characters in file names correctly.
     /// </summary>
     [Fact]
     public void SpecialCharactersInFileNameDisplayCorrectly()
@@ -292,7 +289,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that large play time and times played values are stored correctly.
+    ///     Verifies that large play time and times played values are stored correctly.
     /// </summary>
     [Fact]
     public void LargePlayTimeValuesAreCorrect()
@@ -304,7 +301,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that ISO date format strings are preserved in LastPlayDate and LastPlayTime.
+    ///     Verifies that ISO date format strings are preserved in LastPlayDate and LastPlayTime.
     /// </summary>
     [Fact]
     public void IsoDateFormatIsPreserved()
@@ -315,7 +312,7 @@ public class PlayHistoryItemTests
     }
 
     /// <summary>
-    /// Verifies that US date format strings are preserved in LastPlayDate.
+    ///     Verifies that US date format strings are preserved in LastPlayDate.
     /// </summary>
     [Fact]
     public void UsDateFormatIsPreserved()

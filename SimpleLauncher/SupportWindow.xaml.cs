@@ -7,17 +7,17 @@ using SimpleLauncher.ViewModels;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Window for submitting support requests and bug reports.
+///     Window for submitting support requests and bug reports.
 /// </summary>
 public partial class SupportWindow : ILoadingState
 {
-    private readonly SupportViewModel _viewModel;
-    private readonly ILogger _logger;
     private readonly EventHandler _formClearedHandler;
+    private readonly ILogger _logger;
+    private readonly SupportViewModel _viewModel;
     private Button? _emergencyReturnButton;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SupportWindow"/> class.
+    ///     Initializes a new instance of the <see cref="SupportWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing support form logic.</param>
     /// <param name="logger">The debug logger.</param>
@@ -66,6 +66,25 @@ public partial class SupportWindow : ILoadingState
         DataContext = _viewModel;
     }
 
+    /// <summary>
+    ///     Toggles the loading overlay with an optional message.
+    /// </summary>
+    /// <param name="isLoading">Whether to show or hide the loading overlay.</param>
+    /// <param name="message">Optional message to display while loading.</param>
+    public void SetLoadingState(bool isLoading, string? message = null)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+
+            MainContentGrid?.IsEnabled = !isLoading;
+
+            if (isLoading)
+                LoadingOverlay.Content =
+                    message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+        });
+    }
+
     private void OnCloseRequested(object? sender, EventArgs e)
     {
         Close();
@@ -79,27 +98,6 @@ public partial class SupportWindow : ILoadingState
                                  "Sending support request...";
             SetLoadingState(_viewModel.IsLoading, loadingMessage);
         }
-    }
-
-    /// <summary>
-    /// Toggles the loading overlay with an optional message.
-    /// </summary>
-    /// <param name="isLoading">Whether to show or hide the loading overlay.</param>
-    /// <param name="message">Optional message to display while loading.</param>
-    public void SetLoadingState(bool isLoading, string? message = null)
-    {
-        Dispatcher.Invoke(() =>
-        {
-            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
-
-            MainContentGrid?.IsEnabled = !isLoading;
-
-            if (isLoading)
-            {
-                LoadingOverlay.Content =
-                    message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
-            }
-        });
     }
 
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)

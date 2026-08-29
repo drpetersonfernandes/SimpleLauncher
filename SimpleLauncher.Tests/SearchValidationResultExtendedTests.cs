@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Extended tests for <see cref="SearchValidationResult"/> covering additional edge cases.
+///     Extended tests for <see cref="SearchValidationResult" /> covering additional edge cases.
 /// </summary>
 public class SearchValidationResultExtendedTests
 {
     /// <summary>
-    /// Verifies that Success handles a very long query string correctly.
+    ///     Verifies that Success handles a very long query string correctly.
     /// </summary>
     [Fact]
     public void SuccessWithLongQuery()
@@ -21,7 +21,7 @@ public class SearchValidationResultExtendedTests
     }
 
     /// <summary>
-    /// Verifies that Success handles queries containing newline characters.
+    ///     Verifies that Success handles queries containing newline characters.
     /// </summary>
     [Fact]
     public void SuccessWithNewlines()
@@ -32,7 +32,7 @@ public class SearchValidationResultExtendedTests
     }
 
     /// <summary>
-    /// Verifies that Success handles queries containing tab characters.
+    ///     Verifies that Success handles queries containing tab characters.
     /// </summary>
     [Fact]
     public void SuccessWithTabs()
@@ -43,7 +43,7 @@ public class SearchValidationResultExtendedTests
     }
 
     /// <summary>
-    /// Verifies that Success handles queries with mixed whitespace characters.
+    ///     Verifies that Success handles queries with mixed whitespace characters.
     /// </summary>
     [Fact]
     public void SuccessWithMixedWhitespace()
@@ -54,7 +54,7 @@ public class SearchValidationResultExtendedTests
     }
 
     /// <summary>
-    /// Verifies that Success handles queries containing emoji characters.
+    ///     Verifies that Success handles queries containing emoji characters.
     /// </summary>
     [Fact]
     public void SuccessWithEmoji()
@@ -65,7 +65,7 @@ public class SearchValidationResultExtendedTests
     }
 
     /// <summary>
-    /// Verifies that Success handles queries containing accented characters.
+    ///     Verifies that Success handles queries containing accented characters.
     /// </summary>
     [Fact]
     public void SuccessWithAccentedCharacters()
@@ -76,7 +76,7 @@ public class SearchValidationResultExtendedTests
     }
 
     /// <summary>
-    /// Verifies that Success handles queries containing Chinese characters.
+    ///     Verifies that Success handles queries containing Chinese characters.
     /// </summary>
     [Fact]
     public void SuccessWithChineseCharacters()
@@ -87,7 +87,7 @@ public class SearchValidationResultExtendedTests
     }
 
     /// <summary>
-    /// Verifies that Success handles queries containing Arabic characters.
+    ///     Verifies that Success handles queries containing Arabic characters.
     /// </summary>
     [Fact]
     public void SuccessWithArabicCharacters()
@@ -98,7 +98,7 @@ public class SearchValidationResultExtendedTests
     }
 
     /// <summary>
-    /// Verifies that multiple Failure calls return independent result instances.
+    ///     Verifies that multiple Failure calls return independent result instances.
     /// </summary>
     [Fact]
     public void FailureMultipleCallsReturnIndependentResults()
@@ -110,7 +110,7 @@ public class SearchValidationResultExtendedTests
     }
 
     /// <summary>
-    /// Verifies that Success and Failure results are independent of each other.
+    ///     Verifies that Success and Failure results are independent of each other.
     /// </summary>
     [Fact]
     public void SuccessAndFailureAreIndependent()
@@ -125,7 +125,7 @@ public class SearchValidationResultExtendedTests
     }
 
     /// <summary>
-    /// Verifies that Success with null query still produces a valid result.
+    ///     Verifies that Success with null query still produces a valid result.
     /// </summary>
     [Fact]
     public void SuccessWithNullQueryStillValid()
@@ -136,7 +136,7 @@ public class SearchValidationResultExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ValidatedQuery is set correctly and can be read back.
+    ///     Verifies that ValidatedQuery is set correctly and can be read back.
     /// </summary>
     [Fact]
     public void ValidatedQueryIsInitOnly()
@@ -147,7 +147,7 @@ public class SearchValidationResultExtendedTests
     }
 
     /// <summary>
-    /// Verifies that IsValid is set correctly on a Success result.
+    ///     Verifies that IsValid is set correctly on a Success result.
     /// </summary>
     [Fact]
     public void IsValidIsInitOnly()

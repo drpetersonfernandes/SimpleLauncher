@@ -8,7 +8,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="UiResetService"/> orchestration using a mocked <see cref="IUiResetHost"/>.
+///     Tests for <see cref="UiResetService" /> orchestration using a mocked <see cref="IUiResetHost" />.
 /// </summary>
 [SuppressMessage("ReSharper", "PlaceAssignmentExpressionIntoBlock")]
 public class UiResetServiceTests

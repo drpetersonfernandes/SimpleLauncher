@@ -4,95 +4,96 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 
 /// <summary>
-/// Represents the user-configurable settings for the Redream emulator, persisted to the system configuration under the "Redream" section.
+///     Represents the user-configurable settings for the Redream emulator, persisted to the system configuration under the
+///     "Redream" section.
 /// </summary>
 public class RedreamSettings : IEmulatorSettings
 {
     private const string SectionName = "Redream";
 
     /// <summary>
-    /// Gets or sets the Dreamcast video cable type (e.g., "vga").
+    ///     Gets or sets the Dreamcast video cable type (e.g., "vga").
     /// </summary>
     public string Cable { get; set; } = "vga";
 
     /// <summary>
-    /// Gets or sets the video broadcast standard (e.g., "ntsc").
+    ///     Gets or sets the video broadcast standard (e.g., "ntsc").
     /// </summary>
     public string Broadcast { get; set; } = "ntsc";
 
     /// <summary>
-    /// Gets or sets the emulator UI language (e.g., "english").
+    ///     Gets or sets the emulator UI language (e.g., "english").
     /// </summary>
     public string Language { get; set; } = "english";
 
     /// <summary>
-    /// Gets or sets the emulated console region (e.g., "usa").
+    ///     Gets or sets the emulated console region (e.g., "usa").
     /// </summary>
     public string Region { get; set; } = "usa";
 
     /// <summary>
-    /// Gets or sets a value indicating whether vertical synchronization is enabled.
+    ///     Gets or sets a value indicating whether vertical synchronization is enabled.
     /// </summary>
     public bool Vsync { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether frame skipping is enabled.
+    ///     Gets or sets a value indicating whether frame skipping is enabled.
     /// </summary>
     public bool Frameskip { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the aspect ratio of the emulation window (e.g., "4:3").
+    ///     Gets or sets the aspect ratio of the emulation window (e.g., "4:3").
     /// </summary>
     public string Aspect { get; set; } = "4:3";
 
     /// <summary>
-    /// Gets or sets the internal resolution multiplier applied during emulation.
+    ///     Gets or sets the internal resolution multiplier applied during emulation.
     /// </summary>
     public int Res { get; set; } = 2;
 
     /// <summary>
-    /// Gets or sets the graphics renderer used by the emulator (e.g., "hle_perstrip").
+    ///     Gets or sets the graphics renderer used by the emulator (e.g., "hle_perstrip").
     /// </summary>
     public string Renderer { get; set; } = "hle_perstrip";
 
     /// <summary>
-    /// Gets or sets the fullscreen mode used by the emulator (e.g., "exclusive fullscreen").
+    ///     Gets or sets the fullscreen mode used by the emulator (e.g., "exclusive fullscreen").
     /// </summary>
     public string Fullmode { get; set; } = "exclusive fullscreen";
 
     /// <summary>
-    /// Gets or sets the audio volume percentage.
+    ///     Gets or sets the audio volume percentage.
     /// </summary>
     public int Volume { get; set; } = 100;
 
     /// <summary>
-    /// Gets or sets the audio latency in milliseconds.
+    ///     Gets or sets the audio latency in milliseconds.
     /// </summary>
     public int Latency { get; set; } = 32;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the frames per second counter is displayed.
+    ///     Gets or sets a value indicating whether the frames per second counter is displayed.
     /// </summary>
     public bool Framerate { get; set; }
 
     /// <summary>
-    /// Gets or sets the width of the emulation window in windowed mode.
+    ///     Gets or sets the width of the emulation window in windowed mode.
     /// </summary>
     public int Width { get; set; } = 1280;
 
     /// <summary>
-    /// Gets or sets the height of the emulation window in windowed mode.
+    ///     Gets or sets the height of the emulation window in windowed mode.
     /// </summary>
     public int Height { get; set; } = 720;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
+    ///     Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
 
 
     /// <summary>
-    /// Loads the Redream settings from the specified XML element.
+    ///     Loads the Redream settings from the specified XML element.
     /// </summary>
     /// <param name="settings">The XML element containing the system configuration.</param>
     public void LoadFromXml(XElement settings)
@@ -119,7 +120,7 @@ public class RedreamSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Serializes the Redream settings into an XML element for persistence.
+    ///     Serializes the Redream settings into an XML element for persistence.
     /// </summary>
     /// <returns>The XML element containing the Redream settings.</returns>
     public XElement ToXElement()
@@ -145,7 +146,7 @@ public class RedreamSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Copies the values from another emulator settings instance if it is a Redream settings instance.
+    ///     Copies the values from another emulator settings instance if it is a Redream settings instance.
     /// </summary>
     /// <param name="other">The other emulator settings instance to copy from.</param>
     public void CopyFrom(IEmulatorSettings other)
@@ -172,7 +173,7 @@ public class RedreamSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Resets all Redream settings to their default values.
+    ///     Resets all Redream settings to their default values.
     /// </summary>
     public void ResetDefaults()
     {

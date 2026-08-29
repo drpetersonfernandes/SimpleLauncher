@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="DataFileLocation"/> class.
+///     Tests for the <see cref="DataFileLocation" /> class.
 /// </summary>
 public class DataFileLocationTests
 {
     /// <summary>
-    /// Verifies that the constructor sets the file name to end with the specified name.
+    ///     Verifies that the constructor sets the file name to end with the specified name.
     /// </summary>
     [Fact]
     public void ConstructorSetsFileName()
@@ -22,7 +22,7 @@ public class DataFileLocationTests
     }
 
     /// <summary>
-    /// Verifies that TempFilePath appends a .tmp extension to the FilePath.
+    ///     Verifies that TempFilePath appends a .tmp extension to the FilePath.
     /// </summary>
     [Fact]
     public void TempFilePathAppendsTmpExtension()
@@ -34,7 +34,7 @@ public class DataFileLocationTests
     }
 
     /// <summary>
-    /// Verifies that FilePath is not empty after construction.
+    ///     Verifies that FilePath is not empty after construction.
     /// </summary>
     [Fact]
     public void FilePathIsNotEmpty()
@@ -46,7 +46,7 @@ public class DataFileLocationTests
     }
 
     /// <summary>
-    /// Verifies that IsPortableMode returns a valid boolean value.
+    ///     Verifies that IsPortableMode returns a valid boolean value.
     /// </summary>
     [Fact]
     public void IsPortableModeIsSet()
@@ -59,7 +59,7 @@ public class DataFileLocationTests
     }
 
     /// <summary>
-    /// Verifies that GetLocalAppDataPath returns a valid path ending with the file name.
+    ///     Verifies that GetLocalAppDataPath returns a valid path ending with the file name.
     /// </summary>
     [Fact]
     public void GetLocalAppDataPathReturnsValidPath()
@@ -75,7 +75,7 @@ public class DataFileLocationTests
     }
 
     /// <summary>
-    /// Verifies that GetLocalAppDataPath starts with the LocalApplicationData folder path.
+    ///     Verifies that GetLocalAppDataPath starts with the LocalApplicationData folder path.
     /// </summary>
     [Fact]
     public void GetLocalAppDataPathContainsLocalAppData()
@@ -90,7 +90,7 @@ public class DataFileLocationTests
     }
 
     /// <summary>
-    /// Verifies that TryFallbackToLocalAppData returns true and updates the FilePath to the local app data location.
+    ///     Verifies that TryFallbackToLocalAppData returns true and updates the FilePath to the local app data location.
     /// </summary>
     [Fact]
     public void TryFallbackToLocalAppDataReturnsTrueAndUpdatesState()
@@ -107,7 +107,7 @@ public class DataFileLocationTests
     }
 
     /// <summary>
-    /// Verifies that TryFallbackToLocalAppData sets the FilePath to match GetLocalAppDataPath.
+    ///     Verifies that TryFallbackToLocalAppData sets the FilePath to match GetLocalAppDataPath.
     /// </summary>
     [Fact]
     public void TryFallbackToLocalAppDataSetsCorrectPath()
@@ -122,7 +122,7 @@ public class DataFileLocationTests
     }
 
     /// <summary>
-    /// Verifies that multiple instances with the same file name produce the same local app data path.
+    ///     Verifies that multiple instances with the same file name produce the same local app data path.
     /// </summary>
     [Fact]
     public void MultipleInstancesWithSameFileNameHaveSameLocalPath()

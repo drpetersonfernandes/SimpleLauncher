@@ -5,16 +5,16 @@ using SimpleLauncher.ViewModels;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Window that downloads and installs image packs for game systems.
+///     Window that downloads and installs image packs for game systems.
 /// </summary>
 public partial class DownloadImagePackWindow : IDisposable
 {
-    private readonly DownloadImagePackViewModel _viewModel;
     private readonly ILogger _logger;
+    private readonly DownloadImagePackViewModel _viewModel;
     private Button? _emergencyReturnButton;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DownloadImagePackWindow"/> class.
+    ///     Initializes a new instance of the <see cref="DownloadImagePackWindow" /> class.
     /// </summary>
     /// <param name="logErrors">The logger instance for error logging.</param>
     /// <param name="viewModel">The view model providing download and extraction logic.</param>
@@ -39,6 +39,15 @@ public partial class DownloadImagePackWindow : IDisposable
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
             }
         };
+    }
+
+    /// <summary>
+    ///     Disposes of resources used by the window.
+    /// </summary>
+    public void Dispose()
+    {
+        _viewModel.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private async void DownloadImagePackWindowLoadedAsync(object sender, RoutedEventArgs e)
@@ -78,14 +87,5 @@ public partial class DownloadImagePackWindow : IDisposable
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
     {
         _viewModel.EmergencyOverlayRelease();
-    }
-
-    /// <summary>
-    /// Disposes of resources used by the window.
-    /// </summary>
-    public void Dispose()
-    {
-        _viewModel.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

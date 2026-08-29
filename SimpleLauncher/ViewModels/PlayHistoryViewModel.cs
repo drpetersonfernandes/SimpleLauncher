@@ -16,43 +16,36 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// Provides the play history list, selection, and preview logic for the play history UI.
+///     Provides the play history list, selection, and preview logic for the play history UI.
 /// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class PlayHistoryViewModel : ObservableObject, IDisposable
 {
-    private readonly IConfiguration _configuration;
-    private readonly ILogger _logger;
-    private readonly PlayHistoryManager _playHistoryManager;
-    private readonly SettingsManagerService _settings;
-    private readonly IList<SystemManager> _systemManagers;
-    private readonly IList<MameManagerService> _machines;
-    private readonly PlaySoundEffects _playSoundEffects;
-    private readonly IFindCoverImageService _findCoverImage;
-    private readonly IImageLoader _imageLoader;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IResourceProvider _resourceProvider;
-
     private const string TimeFormat = "HH:mm:ss";
     private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
-
-    [ObservableProperty] private ObservableCollection<PlayHistoryItem> _playHistoryList = [];
-
-    [ObservableProperty] private PlayHistoryItem? _selectedItem;
-
-    [ObservableProperty] private Stream? _previewImageSource;
-
-    // ReSharper disable once UnusedParameterInPartialMethod
-    partial void OnPreviewImageSourceChanged(Stream? oldValue, Stream? newValue)
-    {
-        oldValue?.Dispose();
-    }
+    private readonly IConfiguration _configuration;
+    private readonly IFindCoverImageService _findCoverImage;
+    private readonly IImageLoader _imageLoader;
+    private readonly ILogger _logger;
+    private readonly IList<MameManagerService> _machines;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlayHistoryManager _playHistoryManager;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly IResourceProvider _resourceProvider;
+    private readonly SettingsManagerService _settings;
+    private readonly IList<SystemManager> _systemManagers;
 
     [ObservableProperty] private bool _isLoading;
 
     [ObservableProperty] private string _loadingMessage = "";
 
-    /// <summary>Initializes a new instance of the <see cref="PlayHistoryViewModel"/>.</summary>
+    [ObservableProperty] private ObservableCollection<PlayHistoryItem> _playHistoryList = [];
+
+    [ObservableProperty] private Stream? _previewImageSource;
+
+    [ObservableProperty] private PlayHistoryItem? _selectedItem;
+
+    /// <summary>Initializes a new instance of the <see cref="PlayHistoryViewModel" />.</summary>
     /// <param name="configuration">The application configuration.</param>
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="playHistoryManager">The play history manager for persistence.</param>
@@ -88,6 +81,20 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         _imageLoader = imageLoader;
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
+    }
+
+    /// <summary>Releases resources used by this ViewModel.</summary>
+    public void Dispose()
+    {
+        PreviewImageSource?.Dispose();
+        PreviewImageSource = null;
+        GC.SuppressFinalize(this);
+    }
+
+    // ReSharper disable once UnusedParameterInPartialMethod
+    partial void OnPreviewImageSourceChanged(Stream? oldValue, Stream? newValue)
+    {
+        oldValue?.Dispose();
     }
 
     /// <summary>Loads the play history with cover images and machine descriptions.</summary>
@@ -188,10 +195,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
     /// <param name="items">The collection of play history items to remove.</param>
     public void RemoveItems(IEnumerable<PlayHistoryItem> items)
     {
-        foreach (var item in items)
-        {
-            PlayHistoryList.Remove(item);
-        }
+        foreach (var item in items) PlayHistoryList.Remove(item);
 
         _playHistoryManager.PlayHistoryList = PlayHistoryList;
         _ = _playHistoryManager.SavePlayHistoryAsync();
@@ -258,7 +262,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
 
     /// <summary>Gets the system manager for the specified system name.</summary>
     /// <param name="systemName">The system name to look up.</param>
-    /// <returns>The matching <see cref="SystemManager"/>, or <c>null</c> if not found.</returns>
+    /// <returns>The matching <see cref="SystemManager" />, or <c>null</c> if not found.</returns>
     public SystemManager? GetSystemManager(string systemName)
     {
         return _systemManagers.FirstOrDefault(manager =>
@@ -305,9 +309,7 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         {
             if (DateTime.TryParseExact($"{dateStr} {timeStr}", "yyyy-MM-dd HH:mm:ss",
                     InvariantCulture, DateTimeStyles.None, out var result))
-            {
                 return result;
-            }
 
             string[] dateFormats =
             [
@@ -316,18 +318,12 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
                 "d", "D"
             ];
             foreach (var df in dateFormats)
-            {
                 if (DateTime.TryParseExact($"{dateStr} {timeStr}",
                         $"{df} {TimeFormat}", InvariantCulture, DateTimeStyles.None, out result))
-                {
                     return result;
-                }
-            }
 
             if (DateTime.TryParse($"{dateStr} {timeStr}", InvariantCulture, DateTimeStyles.None, out result))
-            {
                 return result;
-            }
 
             return DateTime.MinValue;
         }
@@ -346,20 +342,9 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
         var defaultCoverImagePath = Path.Combine(baseDirectory, "images", "default.png");
 
-        if (systemManager == null)
-        {
-            return defaultCoverImagePath;
-        }
+        if (systemManager == null) return defaultCoverImagePath;
 
         return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName,
             systemManager.SystemImageFolder);
-    }
-
-    /// <summary>Releases resources used by this ViewModel.</summary>
-    public void Dispose()
-    {
-        PreviewImageSource?.Dispose();
-        PreviewImageSource = null;
-        GC.SuppressFinalize(this);
     }
 }

@@ -1,12 +1,12 @@
 namespace SimpleLauncher.Avalonia.Services.GameLauncher;
 
 /// <summary>
-/// Optional launch-feedback surface implemented by the host UI (WPF
-/// GameLauncherService used IToastNotificationService + IUpdateStatusBar;
-/// this is the Avalonia equivalent). The launcher checks whether its
-/// <see cref="SimpleLauncher.Core.Interfaces.ILoadingState"/> provider also
-/// implements this interface and, when it does, emits launch and playtime
-/// toasts/status updates instead of staying silent.
+///     Optional launch-feedback surface implemented by the host UI (WPF
+///     GameLauncherService used IToastNotificationService + IUpdateStatusBar;
+///     this is the Avalonia equivalent). The launcher checks whether its
+///     <see cref="SimpleLauncher.Core.Interfaces.ILoadingState" /> provider also
+///     implements this interface and, when it does, emits launch and playtime
+///     toasts/status updates instead of staying silent.
 /// </summary>
 public interface ILaunchFeedback
 {

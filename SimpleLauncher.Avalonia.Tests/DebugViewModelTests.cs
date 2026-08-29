@@ -4,8 +4,8 @@ using SimpleLauncher.Avalonia.ViewModels;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the DebugWindow ViewModel (Phase 4.1 port). The view model posts
-/// dispatcher work to the dedicated UI thread provided by the headless platform.
+///     Tests for the DebugWindow ViewModel (Phase 4.1 port). The view model posts
+///     dispatcher work to the dedicated UI thread provided by the headless platform.
 /// </summary>
 public class DebugViewModelTests
 {

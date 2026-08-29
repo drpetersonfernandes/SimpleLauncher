@@ -3,7 +3,7 @@ using Avalonia.Threading;
 namespace SimpleLauncher.Avalonia.Services.UpdateStatusBar;
 
 /// <summary>
-/// UI surface the status bar service drives.
+///     UI surface the status bar service drives.
 /// </summary>
 public interface IAvaloniaStatusBarHost
 {
@@ -12,15 +12,15 @@ public interface IAvaloniaStatusBarHost
 }
 
 /// <summary>
-/// Manages status bar text updates with auto-clear timeout.
-/// Extracted from the inline status-bar logic in MainViewModel and MainWindow.
-/// Mirrors the WPF UpdateStatusBarService.
+///     Manages status bar text updates with auto-clear timeout.
+///     Extracted from the inline status-bar logic in MainViewModel and MainWindow.
+///     Mirrors the WPF UpdateStatusBarService.
 /// </summary>
 public class AvaloniaUpdateStatusBarService
 {
-    private IAvaloniaStatusBarHost? _host;
-    private DispatcherTimer? _clearTimer;
     private readonly int _timeoutSeconds;
+    private DispatcherTimer? _clearTimer;
+    private IAvaloniaStatusBarHost? _host;
 
     public AvaloniaUpdateStatusBarService(int timeoutSeconds = 3)
     {
@@ -34,7 +34,7 @@ public class AvaloniaUpdateStatusBarService
     }
 
     /// <summary>
-    /// Updates the status bar content and restarts the auto-clear timer.
+    ///     Updates the status bar content and restarts the auto-clear timer.
     /// </summary>
     public void UpdateContent(string content)
     {
@@ -60,15 +60,12 @@ public class AvaloniaUpdateStatusBarService
     }
 
     /// <summary>
-    /// Clears the status bar text immediately and stops the timer.
+    ///     Clears the status bar text immediately and stops the timer.
     /// </summary>
     public void Clear()
     {
         _clearTimer?.Stop();
         var host = _host;
-        if (host != null)
-        {
-            Dispatcher.UIThread.Post(() => host.SetStatusText(""));
-        }
+        if (host != null) Dispatcher.UIThread.Post(() => host.SetStatusText(""));
     }
 }

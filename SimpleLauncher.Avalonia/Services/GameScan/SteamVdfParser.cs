@@ -6,7 +6,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Services.GameScan;
 
 /// <summary>
-/// A simple parser for Valve's KeyValue (VDF) file format.
+///     A simple parser for Valve's KeyValue (VDF) file format.
 /// </summary>
 public partial class SteamVdfParser : ISteamVdfParser
 {
@@ -14,7 +14,7 @@ public partial class SteamVdfParser : ISteamVdfParser
     private static readonly Regex TokenRegex = MyRegex();
 
     /// <summary>
-    /// Parses a Valve KeyValue (VDF) file into a nested dictionary of key/value pairs.
+    ///     Parses a Valve KeyValue (VDF) file into a nested dictionary of key/value pairs.
     /// </summary>
     /// <param name="filePath">The path to the VDF file to parse.</param>
     /// <param name="logErrors">The error logger used when parsing fails.</param>
@@ -92,21 +92,17 @@ public partial class SteamVdfParser : ISteamVdfParser
         catch (Exception ex)
         {
             if (logErrors != null)
-            {
                 logErrors.Error(ex, $"[SteamVdfParser] Failed to parse VDF file: {filePath}");
-            }
             else
-            {
                 logger?.Error(ex, $"[SteamVdfParser] Failed to parse VDF file: {filePath}");
-            }
 
             return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
         }
     }
 
     /// <summary>
-    /// Manually unescapes VDF specific sequences.
-    /// This avoids crashing on standard Windows paths like "resource\DearEsther".
+    ///     Manually unescapes VDF specific sequences.
+    ///     This avoids crashing on standard Windows paths like "resource\DearEsther".
     /// </summary>
     private static string UnescapeVdfValue(string value)
     {

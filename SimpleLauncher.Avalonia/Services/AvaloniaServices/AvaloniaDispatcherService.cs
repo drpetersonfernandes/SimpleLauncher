@@ -4,7 +4,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Services.AvaloniaServices;
 
 /// <summary>
-/// Avalonia implementation of IDispatcherService — dispatches work to the UI thread.
+///     Avalonia implementation of IDispatcherService — dispatches work to the UI thread.
 /// </summary>
 public class AvaloniaDispatcherService : IDispatcherService
 {
@@ -31,10 +31,7 @@ public class AvaloniaDispatcherService : IDispatcherService
 
     public Task InvokeAsync(Func<Task> func)
     {
-        if (_dispatcher.CheckAccess())
-        {
-            return func();
-        }
+        if (_dispatcher.CheckAccess()) return func();
 
         return _dispatcher.InvokeAsync(func);
     }

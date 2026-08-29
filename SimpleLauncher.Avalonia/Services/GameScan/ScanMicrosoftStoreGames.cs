@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
@@ -8,17 +9,17 @@ using SimpleLauncher.Core.Services.SanitizeInputString;
 namespace SimpleLauncher.Avalonia.Services.GameScan;
 
 /// <summary>
-/// Scans for installed Microsoft Store games using PowerShell, classifies them via an API,
-/// and creates launch shortcuts and cover images for confirmed games.
+///     Scans for installed Microsoft Store games using PowerShell, classifies them via an API,
+///     and creates launch shortcuts and cover images for confirmed games.
 /// </summary>
 public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
 {
-    private readonly ILogger _logger;
-    private readonly IHttpClientFactory _httpClientFactory;
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScanMicrosoftStoreGames"/> class.
+    ///     Initializes a new instance of the <see cref="ScanMicrosoftStoreGames" /> class.
     /// </summary>
     /// <param name="logger">The logger instance.</param>
     /// <param name="httpClientFactory">The HTTP client factory for classification API requests.</param>
@@ -29,8 +30,8 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
     }
 
     /// <summary>
-    /// Enumerates installed Microsoft Store apps via PowerShell, classifies them as games through the API,
-    /// and creates shortcuts and images for the confirmed games.
+    ///     Enumerates installed Microsoft Store apps via PowerShell, classifies them as games through the API,
+    ///     and creates shortcuts and images for the confirmed games.
     /// </summary>
     /// <param name="gameScannerService">The scanner service providing shared helpers.</param>
     /// <param name="logErrors">The error logger.</param>
@@ -93,10 +94,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.System);
             var powerShellPath = Path.Combine(systemPath, "WindowsPowerShell", "v1.0", "powershell.exe");
 
-            if (!File.Exists(powerShellPath))
-            {
-                powerShellPath = "powershell.exe";
-            }
+            if (!File.Exists(powerShellPath)) powerShellPath = "powershell.exe";
 
             var startInfo = new ProcessStartInfo
             {
@@ -137,7 +135,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                     "[ScanMicrosoftStoreGames] PowerShell scan timed out after 30 seconds. Skipping Microsoft Store scan.");
                 return;
             }
-            catch (System.ComponentModel.Win32Exception ex) when (ex.NativeErrorCode is 5 or 2 or 126)
+            catch (Win32Exception ex) when (ex.NativeErrorCode is 5 or 2 or 126)
             {
                 // 5 = Access Denied (AppLocker/WDAC), 2 = File Not Found, 126 = Module Not Found
                 _logger.Debug(
@@ -194,7 +192,6 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             var seenAppIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
             foreach (var element in doc.RootElement.EnumerateArray())
-            {
                 try
                 {
                     var name = element.GetProperty("Name").GetString();
@@ -222,7 +219,6 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                 {
                     logErrors.Error(ex, "Error processing Microsoft Store game entry.");
                 }
-            }
 
             if (allInstalledApps.Count == 0)
             {
@@ -233,10 +229,8 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             _logger.Debug(
                 $"[ScanMicrosoftStoreGames] Found {allInstalledApps.Count} Microsoft Store apps. Sending to classification API...");
             foreach (var app in allInstalledApps)
-            {
                 _logger.Debug(
                     $"[ScanMicrosoftStoreGames]   -> Sending: Name=\"{app.Name}\" (Normalized=\"{app.Name.Trim().ToUpperInvariant()}\") AppId=\"{app.AppId}\"");
-            }
 
             var confirmedGames = await ClassifyGamesViaApiAsync(allInstalledApps, logErrors);
 
@@ -255,10 +249,8 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                     await File.WriteAllTextAsync(shortcutPath, batchContent);
 
                     if (!string.IsNullOrEmpty(game.InstallLocation) && Directory.Exists(game.InstallLocation))
-                    {
                         await TryExtractStoreIconAsync(gameScannerService, logErrors, game.Name, game.InstallLocation,
                             game.LogoRelativePath, sanitizedGameName, windowsImagesPath);
-                    }
                 }
             }
             else
@@ -317,9 +309,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
 
             _logger.Debug($"[ScanMicrosoftStoreGames] API deserialized games count: {apiResponse.Games.Count}");
             foreach (var g in apiResponse.Games)
-            {
                 _logger.Debug($"[ScanMicrosoftStoreGames]   <- Received game: Name=\"{g.Name}\" AppId=\"{g.AppId}\"");
-            }
 
             var confirmedGames = apiResponse.Games.Select(static g => new StoreAppInfo
             {
@@ -358,10 +348,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
         string windowsImagesPath)
     {
         // Ensure the destination directory exists
-        if (!Directory.Exists(windowsImagesPath))
-        {
-            Directory.CreateDirectory(windowsImagesPath);
-        }
+        if (!Directory.Exists(windowsImagesPath)) Directory.CreateDirectory(windowsImagesPath);
 
         var destPath = Path.Combine(windowsImagesPath, $"{sanitizedGameName}.png");
         // Check if a valid icon already exists (non-zero size to handle corrupt/empty files from previous failed copies)
@@ -373,10 +360,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
         }
 
         // 1. Try API first
-        if (await gameScannerService.TryDownloadImageFromApiAsync(gameName, destPath, logErrors))
-        {
-            return;
-        }
+        if (await gameScannerService.TryDownloadImageFromApiAsync(gameName, destPath, logErrors)) return;
 
         try
         {
@@ -385,7 +369,6 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             {
                 var fullLogoPath = Path.Combine(installPath, logoRelativePath);
                 if (File.Exists(fullLogoPath))
-                {
                     // Use try-catch for file operations
                     try
                     {
@@ -415,7 +398,6 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
                     }
-                }
             }
 
             // 3. Heuristic Search: Look for common logo names
@@ -440,7 +422,6 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                 {
                     var p = Path.Combine(dir, fileName);
                     if (File.Exists(p))
-                    {
                         try
                         {
                             await Task.Run(() => File.Copy(p, destPath, true));
@@ -470,7 +451,6 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                             logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
                             // Continue to next possibility
                         }
-                    }
                 }
 
                 // Check for high-res targetsize images
@@ -507,7 +487,6 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                     .FirstOrDefault();
 
                 if (bestIcon != null)
-                {
                     try
                     {
                         await Task.Run(() => File.Copy(bestIcon, destPath, true));
@@ -536,7 +515,6 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
                     }
-                }
 
                 // Fallback: Just take the largest PNG in the Assets folder
                 if (dir.EndsWith("Assets", StringComparison.Ordinal) ||
@@ -554,7 +532,6 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                         }
                     }).FirstOrDefault();
                     if (largestPng != null)
-                    {
                         try
                         {
                             await Task.Run(() => File.Copy(largestPng, destPath, true));
@@ -583,7 +560,6 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                         {
                             logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
                         }
-                    }
                 }
             }
 
@@ -598,8 +574,8 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
     }
 
     /// <summary>
-    /// Extracts the first complete JSON array from a string that may contain non-JSON content.
-    /// Uses bracket depth counting to find the matching closing bracket.
+    ///     Extracts the first complete JSON array from a string that may contain non-JSON content.
+    ///     Uses bracket depth counting to find the matching closing bracket.
     /// </summary>
     private static string? ExtractFirstJsonArray(string input)
     {
@@ -611,8 +587,8 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
     }
 
     /// <summary>
-    /// Extracts the first complete JSON object from a string that may contain non-JSON content.
-    /// Uses brace depth counting to find the matching closing brace.
+    ///     Extracts the first complete JSON object from a string that may contain non-JSON content.
+    ///     Uses brace depth counting to find the matching closing brace.
     /// </summary>
     private static string? ExtractFirstJsonObject(string input)
     {
@@ -657,10 +633,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             else if (c == closeChar)
             {
                 depth--;
-                if (depth == 0)
-                {
-                    return input.Substring(startIndex, i - startIndex + 1);
-                }
+                if (depth == 0) return input.Substring(startIndex, i - startIndex + 1);
             }
         }
 
@@ -668,9 +641,9 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
     }
 
     /// <summary>
-    /// Removes invalid control characters from JSON strings.
-    /// Control characters (0x00-0x1F) are not valid in JSON strings unless properly escaped.
-    /// This method removes them to prevent JsonReaderException.
+    ///     Removes invalid control characters from JSON strings.
+    ///     Control characters (0x00-0x1F) are not valid in JSON strings unless properly escaped.
+    ///     This method removes them to prevent JsonReaderException.
     /// </summary>
     private static string SanitizeJsonControlCharacters(string json)
     {
@@ -683,7 +656,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
     }
 
     /// <summary>
-    /// Detects if PowerShell error output indicates execution policy restrictions
+    ///     Detects if PowerShell error output indicates execution policy restrictions
     /// </summary>
     private static bool IsExecutionPolicyRestricted(string errorOutput)
     {

@@ -5,10 +5,10 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Guards the localization PACKAGING step: every language the app can select must
-/// be embedded as a pack resource in the built assembly, otherwise
-/// App.ApplyLanguage throws IOException ("Failed to Apply Language") at runtime
-/// and falls back to English.
+///     Guards the localization PACKAGING step: every language the app can select must
+///     be embedded as a pack resource in the built assembly, otherwise
+///     App.ApplyLanguage throws IOException ("Failed to Apply Language") at runtime
+///     and falls back to English.
 /// </summary>
 public class LocalizationResourcePackagingTests
 {

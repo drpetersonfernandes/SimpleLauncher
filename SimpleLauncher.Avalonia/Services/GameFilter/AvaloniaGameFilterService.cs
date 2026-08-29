@@ -5,15 +5,15 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Services.GameFilter;
 
 /// <summary>
-/// Encapsulates game-list filtering and sorting logic (letter filter, MAME sort,
-/// search query, show-games visibility). Extracted from MainViewModel for testability
-/// and reuse, mirroring the WPF GameFilterService.
+///     Encapsulates game-list filtering and sorting logic (letter filter, MAME sort,
+///     search query, show-games visibility). Extracted from MainViewModel for testability
+///     and reuse, mirroring the WPF GameFilterService.
 /// </summary>
 public class AvaloniaGameFilterService
 {
     private readonly IFindCoverImageService _findCoverImage;
-    private readonly SettingsManagerService _settings;
     private readonly IMameDataService _mameData;
+    private readonly SettingsManagerService _settings;
 
     public AvaloniaGameFilterService(
         IFindCoverImageService findCoverImage,
@@ -26,7 +26,7 @@ public class AvaloniaGameFilterService
     }
 
     /// <summary>
-    /// Filters the game list by the Show Games setting (ShowAll / ShowWithCover / ShowWithoutCover).
+    ///     Filters the game list by the Show Games setting (ShowAll / ShowWithCover / ShowWithoutCover).
     /// </summary>
     public List<GameCardViewModel> FilterByShowGamesSetting(List<GameCardViewModel> games)
     {
@@ -40,8 +40,8 @@ public class AvaloniaGameFilterService
     }
 
     /// <summary>
-    /// Filters the game list by a starting letter. "#" matches files starting with a digit.
-    /// Empty or null letter returns the list unfiltered.
+    ///     Filters the game list by a starting letter. "#" matches files starting with a digit.
+    ///     Empty or null letter returns the list unfiltered.
     /// </summary>
     public List<GameCardViewModel> FilterByLetter(List<GameCardViewModel> games, string letter)
     {
@@ -49,13 +49,11 @@ public class AvaloniaGameFilterService
             return games;
 
         if (string.Equals(letter, "#", StringComparison.Ordinal))
-        {
             return games.Where(game =>
             {
                 var fileName = Path.GetFileName(game.FilePath);
                 return !string.IsNullOrEmpty(fileName) && char.IsDigit(fileName[0]);
             }).ToList();
-        }
 
         return games.Where(game =>
         {
@@ -66,12 +64,11 @@ public class AvaloniaGameFilterService
     }
 
     /// <summary>
-    /// Sorts the game list by MAME machine description or file name.
+    ///     Sorts the game list by MAME machine description or file name.
     /// </summary>
     public List<GameCardViewModel> SortByMameOrder(List<GameCardViewModel> games, string mameSortOrder)
     {
         if (string.Equals(mameSortOrder, "MachineDescription", StringComparison.Ordinal))
-        {
             return games.OrderBy(game =>
             {
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(game.FilePath);
@@ -80,13 +77,12 @@ public class AvaloniaGameFilterService
                     ? description
                     : fileNameWithoutExtension;
             }, StringComparer.OrdinalIgnoreCase).ToList();
-        }
 
         return games.OrderBy(game => Path.GetFileName(game.FilePath), StringComparer.OrdinalIgnoreCase).ToList();
     }
 
     /// <summary>
-    /// Filters the game list by a search query applied to DisplayTitle.
+    ///     Filters the game list by a search query applied to DisplayTitle.
     /// </summary>
     public List<GameCardViewModel> FilterBySearchQuery(List<GameCardViewModel> games, string searchQuery)
     {

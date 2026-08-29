@@ -4,7 +4,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the emulator name normalization logic that converts emulator names to title case.
+///     Tests the emulator name normalization logic that converts emulator names to title case.
 /// </summary>
 public class StatsNormalizeEmulatorNameTests
 {
@@ -12,7 +12,7 @@ public class StatsNormalizeEmulatorNameTests
     // through the public API by testing the CultureInfo.TextInfo.ToTitleCase pattern
 
     /// <summary>
-    /// Verifies that emulator names are converted to title case regardless of input casing.
+    ///     Verifies that emulator names are converted to title case regardless of input casing.
     /// </summary>
     /// <param name="input">The raw emulator name to normalize.</param>
     /// <param name="expected">The expected title-cased emulator name.</param>
@@ -33,7 +33,7 @@ public class StatsNormalizeEmulatorNameTests
     }
 
     /// <summary>
-    /// Verifies that an empty string returns an empty result.
+    ///     Verifies that an empty string returns an empty result.
     /// </summary>
     [Fact]
     public void NormalizeEmulatorNameEmptyReturnsEmpty()
@@ -43,7 +43,7 @@ public class StatsNormalizeEmulatorNameTests
     }
 
     /// <summary>
-    /// Verifies that null input returns an empty result.
+    ///     Verifies that null input returns an empty result.
     /// </summary>
     [Fact]
     public void NormalizeEmulatorNameNullReturnsEmpty()
@@ -53,7 +53,7 @@ public class StatsNormalizeEmulatorNameTests
     }
 
     /// <summary>
-    /// Verifies that whitespace-only input returns an empty result.
+    ///     Verifies that whitespace-only input returns an empty result.
     /// </summary>
     [Fact]
     public void NormalizeEmulatorNameWhitespaceReturnsEmpty()
@@ -63,7 +63,7 @@ public class StatsNormalizeEmulatorNameTests
     }
 
     /// <summary>
-    /// Verifies that a single character is converted to uppercase.
+    ///     Verifies that a single character is converted to uppercase.
     /// </summary>
     [Fact]
     public void NormalizeEmulatorNameSingleChar()
@@ -73,7 +73,7 @@ public class StatsNormalizeEmulatorNameTests
     }
 
     /// <summary>
-    /// Verifies that multi-word names are title-cased correctly.
+    ///     Verifies that multi-word names are title-cased correctly.
     /// </summary>
     [Fact]
     public void NormalizeEmulatorNameWithSpaces()
@@ -83,7 +83,7 @@ public class StatsNormalizeEmulatorNameTests
     }
 
     /// <summary>
-    /// Verifies that names containing numbers are handled correctly.
+    ///     Verifies that names containing numbers are handled correctly.
     /// </summary>
     [Fact]
     public void NormalizeEmulatorNameWithNumbers()
@@ -93,7 +93,7 @@ public class StatsNormalizeEmulatorNameTests
     }
 
     /// <summary>
-    /// Verifies that names containing hyphens are title-cased correctly.
+    ///     Verifies that names containing hyphens are title-cased correctly.
     /// </summary>
     [Fact]
     public void NormalizeEmulatorNameWithHyphens()

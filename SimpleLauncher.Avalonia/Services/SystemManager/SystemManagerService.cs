@@ -1,22 +1,30 @@
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
-using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services;
 using SimpleLauncher.Core.Services.CheckPaths;
 
 namespace SimpleLauncher.Avalonia.Services.SystemManager;
 
 /// <summary>
-/// Reads and writes system.xml, exposing system configurations.
-/// Supports both legacy (nested child-element) and simplified (semicolon/comma-delimited) formats for reading.
-/// Writes in the legacy format for compatibility with the original SimpleLauncher.
+///     Reads and writes system.xml, exposing system configurations.
+///     Supports both legacy (nested child-element) and simplified (semicolon/comma-delimited) formats for reading.
+///     Writes in the legacy format for compatibility with the original SimpleLauncher.
 /// </summary>
 public class SystemManagerService
 {
     private static readonly Lock XmlLock = new();
+
+    private static readonly Regex SystemConfigBlockRegexInstance =
+        new(@"<SystemConfig\b[^>]*>.*?</SystemConfig>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
+    private static readonly Regex SystemNameRegexInstance =
+        new(@"<SystemName>\s*(.*?)\s*</SystemName>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService? _messageBox;
     private List<SystemManagerConfig>? _cachedSystems;
@@ -30,11 +38,11 @@ public class SystemManagerService
     // ── Read ──────────────────────────────────────────────────────────
 
     /// <summary>
-    /// Loads all system configurations from system.xml. Mirrors the WPF
-    /// LoadSystemManagersInternalAsync: validates each system, removes invalid
-    /// ones (notifying the user), attempts partial recovery on structural
-    /// corruption via regex, offers to restore the last backup when the file is
-    /// unrecoverable, and rewrites a cleaned, sorted copy back to disk.
+    ///     Loads all system configurations from system.xml. Mirrors the WPF
+    ///     LoadSystemManagersInternalAsync: validates each system, removes invalid
+    ///     ones (notifying the user), attempts partial recovery on structural
+    ///     corruption via regex, offers to restore the last backup when the file is
+    ///     unrecoverable, and rewrites a cleaned, sorted copy back to disk.
     /// </summary>
     public List<SystemManagerConfig> LoadSystems()
     {
@@ -60,9 +68,7 @@ public class SystemManagerService
             var doc = XDocument.Load(reader, LoadOptions.None);
 
             if (doc.Root != null)
-            {
                 foreach (var element in doc.Root.Elements("SystemConfig"))
-                {
                     try
                     {
                         var config = ParseSystemElement(element);
@@ -75,8 +81,6 @@ public class SystemManagerService
                             $"The system '{name}' was removed due to the following error(s):\n- {ex.Message}");
                         dirty = true;
                     }
-                }
-            }
         }
         catch (XmlException ex)
         {
@@ -87,7 +91,6 @@ public class SystemManagerService
             {
                 var rawXml = File.ReadAllText(path);
                 foreach (Match match in SystemConfigBlockRegexInstance.Matches(rawXml))
-                {
                     try
                     {
                         var sysConfigElement = XElement.Parse(match.Value);
@@ -103,17 +106,13 @@ public class SystemManagerService
                         Log.Error(innerEx, "Failed to validate system configuration during recovery for '{SysName}'",
                             sysName);
                     }
-                }
             }
             catch (Exception recoveryEx)
             {
                 Log.Error(recoveryEx, "Failed to perform regex recovery on system.xml.");
             }
 
-            if (_cachedSystems.Count == 0 && invalidErrors.Count == 0)
-            {
-                NotifyCorruptedAndMaybeRestore(path);
-            }
+            if (_cachedSystems.Count == 0 && invalidErrors.Count == 0) NotifyCorruptedAndMaybeRestore(path);
         }
         catch (IOException ex)
         {
@@ -127,14 +126,10 @@ public class SystemManagerService
         }
 
         // Notify the user about each invalid system that was removed.
-        foreach (var error in invalidErrors)
-        {
-            _ = _messageBox?.InvalidSystemConfigurationMessageBoxAsync(error);
-        }
+        foreach (var error in invalidErrors) _ = _messageBox?.InvalidSystemConfigurationMessageBoxAsync(error);
 
         // Rewrite a cleaned, sorted copy so future loads don't re-corrupt.
         if (dirty && _cachedSystems.Count > 0)
-        {
             try
             {
                 SaveCleanedSystems(_cachedSystems, path);
@@ -143,7 +138,6 @@ public class SystemManagerService
             {
                 Log.Error(saveEx, "Error saving cleaned 'system.xml' after loading.");
             }
-        }
 
         return _cachedSystems;
     }
@@ -215,12 +209,6 @@ public class SystemManagerService
         };
     }
 
-    private static readonly Regex SystemConfigBlockRegexInstance =
-        new(@"<SystemConfig\b[^>]*>.*?</SystemConfig>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-
-    private static readonly Regex SystemNameRegexInstance =
-        new(@"<SystemName>\s*(.*?)\s*</SystemName>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-
     /// <summary>Rewrites system.xml with the supplied (validated) systems, sorted by name.</summary>
     private static void SaveCleanedSystems(List<SystemManagerConfig> systems, string path)
     {
@@ -245,7 +233,6 @@ public class SystemManagerService
         const int maxRetries = 3;
         var retryDelayMs = 500;
         for (var attempt = 0; attempt < maxRetries; attempt++)
-        {
             try
             {
                 var tempPath = path + ".tmp";
@@ -254,7 +241,7 @@ public class SystemManagerService
                     Indent = true,
                     IndentChars = "  ",
                     NewLineHandling = NewLineHandling.Replace,
-                    Encoding = System.Text.Encoding.UTF8
+                    Encoding = Encoding.UTF8
                 };
 
                 using (var ms = new MemoryStream())
@@ -288,11 +275,10 @@ public class SystemManagerService
                     Log.Error(ex, "Error saving cleaned 'system.xml'.");
                 }
             }
-        }
     }
 
     /// <summary>
-    /// Gets a single system by name.
+    ///     Gets a single system by name.
     /// </summary>
     public SystemManagerConfig? GetSystem(string systemName)
     {
@@ -301,7 +287,7 @@ public class SystemManagerService
     }
 
     /// <summary>
-    /// Invalidates the cache — call after system.xml changes.
+    ///     Invalidates the cache — call after system.xml changes.
     /// </summary>
     public void InvalidateCache()
     {
@@ -311,8 +297,8 @@ public class SystemManagerService
     // ── Write (EasyMode) ──────────────────────────────────────────────
 
     /// <summary>
-    /// Adds or updates a system configuration from an EasyMode preset.
-    /// Mirrors the original SimpleLauncher's <c>AddOrUpdateSystemFromEasyModeAsync</c>.
+    ///     Adds or updates a system configuration from an EasyMode preset.
+    ///     Mirrors the original SimpleLauncher's <c>AddOrUpdateSystemFromEasyModeAsync</c>.
     /// </summary>
     public static Task AddOrUpdateSystemFromEasyModeAsync(
         EasyModeSystemConfig selectedSystem,
@@ -336,8 +322,8 @@ public class SystemManagerService
     }
 
     /// <summary>
-    /// Persists a system configuration to system.xml (legacy format with nested child elements),
-    /// creating or updating the entry with retry logic and atomic writes.
+    ///     Persists a system configuration to system.xml (legacy format with nested child elements),
+    ///     creating or updating the entry with retry logic and atomic writes.
     /// </summary>
     internal static async Task SaveSystemConfigurationAsync(
         string systemName,
@@ -373,9 +359,7 @@ public class SystemManagerService
                                 ? new XDocument(new XElement("SystemConfigs"))
                                 : XDocument.Parse(xmlContent);
                             if (xmlDoc.Root?.Name != "SystemConfigs")
-                            {
                                 xmlDoc = new XDocument(new XElement("SystemConfigs"));
-                            }
                         }
                         else
                         {
@@ -388,7 +372,6 @@ public class SystemManagerService
                         // cannot be read at the portable path (read-only/blocked deployment).
                         var fallbackPath = fileLocation.GetLocalAppDataPath();
                         if (File.Exists(fallbackPath))
-                        {
                             try
                             {
                                 var xmlContent = File.ReadAllText(fallbackPath);
@@ -396,24 +379,16 @@ public class SystemManagerService
                                     ? new XDocument(new XElement("SystemConfigs"))
                                     : XDocument.Parse(xmlContent);
                                 if (xmlDoc.Root?.Name != "SystemConfigs")
-                                {
                                     xmlDoc = new XDocument(new XElement("SystemConfigs"));
-                                }
 
-                                if (fileLocation.TryFallbackToLocalAppData())
-                                {
-                                    systemXmlPath = fileLocation.FilePath;
-                                }
+                                if (fileLocation.TryFallbackToLocalAppData()) systemXmlPath = fileLocation.FilePath;
                             }
                             catch
                             {
                                 xmlDoc = new XDocument(new XElement("SystemConfigs"));
                             }
-                        }
                         else
-                        {
                             xmlDoc = new XDocument(new XElement("SystemConfigs"));
-                        }
                     }
                     catch (Exception ex)
                     {
@@ -459,7 +434,6 @@ public class SystemManagerService
                     Exception? lastException = null;
 
                     for (var attempt = 0; attempt < maxRetries; attempt++)
-                    {
                         try
                         {
                             var tempPath = systemXmlPath + ".tmp";
@@ -468,7 +442,7 @@ public class SystemManagerService
                                 Indent = true,
                                 IndentChars = "  ",
                                 NewLineHandling = NewLineHandling.Replace,
-                                Encoding = System.Text.Encoding.UTF8
+                                Encoding = Encoding.UTF8
                             };
 
                             byte[] xmlBytes;
@@ -497,7 +471,6 @@ public class SystemManagerService
                             // WPF parity: in portable mode, when the final in-place attempt fails
                             // (read-only/blocked deployment), fall back to LocalAppData and retry.
                             if (fileLocation.IsPortableMode && attempt == maxRetries - 1)
-                            {
                                 try
                                 {
                                     var oldSystemXmlPath = systemXmlPath;
@@ -515,7 +488,6 @@ public class SystemManagerService
                                 {
                                     Log.Debug(fallbackEx, "Fallback to LocalAppData failed while saving system.xml.");
                                 }
-                            }
 
                             if (attempt < maxRetries - 1)
                             {
@@ -538,7 +510,6 @@ public class SystemManagerService
                             lastException = ex;
                             break;
                         }
-                    }
 
                     logErrors?.Error(lastException, "Error saving system.xml.");
                     throw new InvalidOperationException("Failed to save system configuration.", lastException);
@@ -569,23 +540,21 @@ public class SystemManagerService
     // ── Parsers (read: backward-compatible with legacy + simplified formats) ──
 
     /// <summary>
-    /// Parses system folders from either:
-    ///   (A) Legacy:   &lt;SystemFolders&gt;&lt;SystemFolder&gt;...&lt;/SystemFolder&gt;...&lt;/SystemFolders&gt;
-    ///   (B) Simplified: &lt;SystemFolder&gt;path1;path2&lt;/SystemFolder&gt;  (direct child)
+    ///     Parses system folders from either:
+    ///     (A) Legacy:   &lt;SystemFolders&gt;&lt;SystemFolder&gt;...&lt;/SystemFolder&gt;...&lt;/SystemFolders&gt;
+    ///     (B) Simplified: &lt;SystemFolder&gt;path1;path2&lt;/SystemFolder&gt;  (direct child)
     /// </summary>
     private static List<string> ParseFoldersCompat(XElement systemConfigElement)
     {
         // Legacy format: <SystemFolders> containing <SystemFolder> children
         var foldersElement = systemConfigElement.Element("SystemFolders");
         if (foldersElement != null)
-        {
             return
             [
                 .. foldersElement.Elements("SystemFolder")
                     .Select(f => f.Value.Trim())
                     .Where(f => !string.IsNullOrEmpty(f))
             ];
-        }
 
         // Simplified format: direct <SystemFolder> child, semicolon-separated
         var directValue = systemConfigElement.Element("SystemFolder")?.Value;
@@ -593,9 +562,9 @@ public class SystemManagerService
     }
 
     /// <summary>
-    /// Parses a list from either:
-    ///   (A) Legacy:   &lt;container&gt;&lt;itemElement&gt;...&lt;/itemElement&gt;...&lt;/container&gt;
-    ///   (B) Simplified: &lt;container&gt;item1,item2&lt;/container&gt;  (direct child, comma-separated)
+    ///     Parses a list from either:
+    ///     (A) Legacy:   &lt;container&gt;&lt;itemElement&gt;...&lt;/itemElement&gt;...&lt;/container&gt;
+    ///     (B) Simplified: &lt;container&gt;item1,item2&lt;/container&gt;  (direct child, comma-separated)
     /// </summary>
     private static List<string> ParseListCompat(XElement systemConfigElement, string containerName,
         string itemElementName)
@@ -606,14 +575,12 @@ public class SystemManagerService
         // Legacy format: child elements
         var childItems = container.Elements(itemElementName).ToList();
         if (childItems.Count > 0)
-        {
             return
             [
                 .. childItems
                     .Select(e => e.Value.Trim())
                     .Where(v => !string.IsNullOrEmpty(v))
             ];
-        }
 
         // Simplified format: comma-separated value
         return ParseCommaList(container.Value);
@@ -651,7 +618,6 @@ public class SystemManagerService
         if (emulatorsElement is null) return emulators;
 
         foreach (var el in emulatorsElement.Elements("Emulator"))
-        {
             emulators.Add(new Emulator
             {
                 EmulatorName = el.Element("EmulatorName")?.Value ?? "",
@@ -667,7 +633,6 @@ public class SystemManagerService
                 ImagePackDownloadLink5 = el.Element("ImagePackDownloadLink5")?.Value ?? "",
                 ImagePackDownloadExtractPath = el.Element("ImagePackDownloadExtractPath")?.Value ?? ""
             });
-        }
 
         return emulators;
     }
@@ -698,10 +663,7 @@ public class SystemManagerService
             new XElement("FileFormatsToLaunch",
                 fileFormatsToLaunch.Select(f => new XElement("FormatToLaunch", f))));
 
-        if (emulator != null)
-        {
-            element.Add(BuildEmulatorsElement(emulator));
-        }
+        if (emulator != null) element.Add(BuildEmulatorsElement(emulator));
 
         return element;
     }
@@ -733,8 +695,8 @@ public class SystemManagerService
     }
 
     /// <summary>
-    /// Merges EasyMode-supplied fields into an existing SystemConfig element in-place,
-    /// preserving any child elements not explicitly set (e.g. custom user additions).
+    ///     Merges EasyMode-supplied fields into an existing SystemConfig element in-place,
+    ///     preserving any child elements not explicitly set (e.g. custom user additions).
     /// </summary>
     private static void MergeSystemConfigElement(
         XElement existing,

@@ -11,7 +11,7 @@ using SimpleLauncher.Core;
 namespace SimpleLauncher.Services.UsageStats;
 
 /// <summary>
-/// Sends anonymous application usage statistics to the remote stats API.
+///     Sends anonymous application usage statistics to the remote stats API.
 /// </summary>
 public class ApplicationStats
 {
@@ -72,13 +72,9 @@ public class ApplicationStats
             // TLS errors) — log at Information, not as a bug. Only unexpected exceptions
             // are reported.
             if (ex is HttpRequestException or SocketException)
-            {
                 Logger.Information(ex, $"ApplicationStats API call failed: {ex.Message}");
-            }
             else
-            {
                 logErrors.Error(ex, $"ApplicationStats API call failed: {ex.Message}");
-            }
         }
     }
 }

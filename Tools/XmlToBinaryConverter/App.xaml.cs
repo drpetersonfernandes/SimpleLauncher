@@ -1,16 +1,17 @@
 ﻿using System;
 using System.IO;
+using System.Windows;
 using Serilog.Events;
 using XmlToBinaryConverter.Services.DebugAndBugReport;
 
 namespace XmlToBinaryConverter;
 
 /// <summary>
-/// Application entry point for the XML to Binary Converter.
+///     Application entry point for the XML to Binary Converter.
 /// </summary>
 public partial class App
 {
-    protected override void OnStartup(System.Windows.StartupEventArgs e)
+    protected override void OnStartup(StartupEventArgs e)
     {
         var appDataLogFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
         Directory.CreateDirectory(appDataLogFolder);
@@ -33,7 +34,7 @@ public partial class App
         base.OnStartup(e);
     }
 
-    protected override void OnExit(System.Windows.ExitEventArgs e)
+    protected override void OnExit(ExitEventArgs e)
     {
         Log.CloseAndFlush();
         base.OnExit(e);

@@ -4,8 +4,8 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Services.UIReset;
 
 /// <summary>
-/// Handles resetting the UI to its initial state, clearing filters, selections, and
-/// pagination (port of the WPF UiResetService onto the Avalonia shell host).
+///     Handles resetting the UI to its initial state, clearing filters, selections, and
+///     pagination (port of the WPF UiResetService onto the Avalonia shell host).
 /// </summary>
 public class UiResetService : IUiResetService
 {

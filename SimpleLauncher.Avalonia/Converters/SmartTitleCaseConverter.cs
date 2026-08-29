@@ -4,7 +4,7 @@ using Avalonia.Data.Converters;
 namespace SimpleLauncher.Avalonia.Converters;
 
 /// <summary>
-/// Normalizes game titles: all-uppercase → Title Case, all-lowercase → Title Case, mixed case → as-is.
+///     Normalizes game titles: all-uppercase → Title Case, all-lowercase → Title Case, mixed case → as-is.
 /// </summary>
 public class SmartTitleCaseConverter : IValueConverter
 {
@@ -17,12 +17,10 @@ public class SmartTitleCaseConverter : IValueConverter
         var isAllLower = title.All(c => !char.IsLetter(c) || char.IsLower(c));
 
         if (isAllUpper || isAllLower)
-        {
             // Always use InvariantCulture: game titles are ASCII-dominated, and
             // culture-sensitive casing (e.g. Turkish dotted/dotless I) could
             // otherwise corrupt the title depending on the UI culture.
             return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(title.ToLowerInvariant());
-        }
 
         return title;
     }

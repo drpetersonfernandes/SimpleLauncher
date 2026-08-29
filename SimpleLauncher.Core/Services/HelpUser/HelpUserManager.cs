@@ -6,7 +6,7 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Services.HelpUser;
 
 /// <summary>
-/// Loads and parses the 'parameters.md' file into a list of system help entries.
+///     Loads and parses the 'parameters.md' file into a list of system help entries.
 /// </summary>
 public partial class HelpUserManager
 {
@@ -14,19 +14,14 @@ public partial class HelpUserManager
     // the executable, and depending on the working directory made the file appear
     // "missing" (modal reinstall dialog) whenever the app was launched from elsewhere.
     private static readonly string FilePath = Path.Combine(AppContext.BaseDirectory, "parameters.md");
-    private readonly ILogger _logger;
-    private readonly IMessageBoxLibraryService _messageBoxLibrary;
 
     // Regex to match Markdown H2 headers: ## System Name
     private static readonly Regex HeaderRegex = MyRegex();
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
 
     /// <summary>
-    /// Gets the list of systems parsed from the 'parameters.md' file.
-    /// </summary>
-    public IList<SystemHelper> Systems { get; private set; } = [];
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="HelpUserManager"/> class.
+    ///     Initializes a new instance of the <see cref="HelpUserManager" /> class.
     /// </summary>
     /// <param name="logErrors">The error logger.</param>
     /// <param name="messageBoxLibrary">The message box service for user notifications.</param>
@@ -37,8 +32,13 @@ public partial class HelpUserManager
     }
 
     /// <summary>
-    /// Loads 'parameters.md', parses its contents, and populates the <see cref="Systems"/> list.
-    /// Notifies the user through message boxes when the file is missing, empty, or invalid.
+    ///     Gets the list of systems parsed from the 'parameters.md' file.
+    /// </summary>
+    public IList<SystemHelper> Systems { get; private set; } = [];
+
+    /// <summary>
+    ///     Loads 'parameters.md', parses its contents, and populates the <see cref="Systems" /> list.
+    ///     Notifies the user through message boxes when the file is missing, empty, or invalid.
     /// </summary>
     public async Task LoadAsync()
     {
@@ -113,7 +113,7 @@ public partial class HelpUserManager
     }
 
     /// <summary>
-    /// Parses the Markdown content and extracts system information.
+    ///     Parses the Markdown content and extracts system information.
     /// </summary>
     /// <param name="markdownContent">The raw Markdown content.</param>
     /// <returns>A list of SystemHelper objects parsed from the Markdown.</returns>
@@ -129,10 +129,7 @@ public partial class HelpUserManager
 
             // Skip the title header (e.g., "# List of Parameters to use in the 'system.xml'")
             // or any H2 that appears to be a title/instruction rather than a system
-            if (systemName.StartsWith("List of Parameters", StringComparison.OrdinalIgnoreCase))
-            {
-                continue;
-            }
+            if (systemName.StartsWith("List of Parameters", StringComparison.OrdinalIgnoreCase)) continue;
 
             // Calculate the content range for this system
             var contentStart = currentMatch.Index + currentMatch.Length;
@@ -146,13 +143,11 @@ public partial class HelpUserManager
                 var content = markdownContent.Substring(contentStart, contentLength).Trim();
 
                 if (!string.IsNullOrWhiteSpace(content))
-                {
                     systems.Add(new SystemHelper
                     {
                         SystemName = systemName,
                         SystemHelperText = NormalizeText(content)
                     });
-                }
             }
         }
 

@@ -1,13 +1,14 @@
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 
 namespace SimpleLauncher.Updater.Services;
 
 /// <summary>
-/// Service for reporting bugs to the bug report API
+///     Service for reporting bugs to the bug report API
 /// </summary>
 internal static class BugReportService
 {
@@ -18,19 +19,19 @@ internal static class BugReportService
 
     private static readonly string ApiKey = DecodeApiKey();
 
+    private static readonly string LogFilePath =
+        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bugreport_failures.log");
+
+    private static int _isReporting;
+
     private static string DecodeApiKey()
     {
         var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(ApiKeyEncoded));
         return Encoding.UTF8.GetString(Convert.FromBase64String(decoded));
     }
 
-    private static readonly string LogFilePath =
-        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bugreport_failures.log");
-
-    private static int _isReporting;
-
     /// <summary>
-    /// Disposes the HttpClient instance. Should be called when the application is shutting down.
+    ///     Disposes the HttpClient instance. Should be called when the application is shutting down.
     /// </summary>
     public static void Dispose()
     {
@@ -38,7 +39,7 @@ internal static class BugReportService
     }
 
     /// <summary>
-    /// Reports an exception to the bug report API
+    ///     Reports an exception to the bug report API
     /// </summary>
     /// <param name="exception">The exception to report</param>
     /// <param name="additionalInfo">Additional context information</param>
@@ -86,7 +87,7 @@ internal static class BugReportService
     }
 
     /// <summary>
-    /// Reports an exception synchronously (for use in catch blocks where async is not possible)
+    ///     Reports an exception synchronously (for use in catch blocks where async is not possible)
     /// </summary>
     /// <param name="exception">The exception to report</param>
     /// <param name="additionalInfo">Additional context information</param>
@@ -97,15 +98,13 @@ internal static class BugReportService
             .ContinueWith(static t =>
             {
                 if (t.IsFaulted)
-                {
                     Log.Warning(t.Exception?.InnerException, "BugReportService.ReportBug fire-and-forget failed");
-                }
             }, TaskContinuationOptions.OnlyOnFaulted);
     }
 
     /// <summary>
-    /// Logs bug report failure to a local file as fallback when API is unavailable.
-    /// This ensures errors are not lost in production when Debug output is not visible.
+    ///     Logs bug report failure to a local file as fallback when API is unavailable.
+    ///     This ensures errors are not lost in production when Debug output is not visible.
     /// </summary>
     /// <param name="errorMessage">The error message to log</param>
     /// <param name="bugReport">The bug report data, if available</param>
@@ -156,7 +155,7 @@ internal static class BugReportService
     }
 
     /// <summary>
-    /// Creates a BugReportRequest with all environment and exception details
+    ///     Creates a BugReportRequest with all environment and exception details
     /// </summary>
     /// <param name="exception">The exception to include in the report</param>
     /// <param name="additionalInfo">Additional context information</param>
@@ -165,7 +164,7 @@ internal static class BugReportService
     {
         try
         {
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            var assembly = Assembly.GetExecutingAssembly();
             var assemblyName = assembly.GetName().Name ?? "SimpleLauncher.Updater";
             var version = assembly.GetName().Version?.ToString() ?? "Unknown";
 
@@ -192,7 +191,7 @@ internal static class BugReportService
     }
 
     /// <summary>
-    /// Builds the comprehensive bug report message with all environment details
+    ///     Builds the comprehensive bug report message with all environment details
     /// </summary>
     /// <param name="env">The environment information</param>
     /// <param name="exception">The exception to include</param>
@@ -251,7 +250,7 @@ internal static class BugReportService
     }
 
     /// <summary>
-    /// Builds a comprehensive stack trace including all inner exceptions
+    ///     Builds a comprehensive stack trace including all inner exceptions
     /// </summary>
     /// <param name="exception">The exception to build the stack trace from</param>
     /// <param name="maxDepth">Maximum depth of inner exceptions to include</param>
@@ -290,7 +289,7 @@ internal static class BugReportService
     }
 
     /// <summary>
-    /// Gets user information (machine name as a basic identifier)
+    ///     Gets user information (machine name as a basic identifier)
     /// </summary>
     /// <returns>The machine name, or null if it cannot be retrieved</returns>
     private static string? GetUserInfo()
@@ -308,7 +307,7 @@ internal static class BugReportService
     }
 
     /// <summary>
-    /// Gets the environment name (Debug/Release)
+    ///     Gets the environment name (Debug/Release)
     /// </summary>
     /// <returns>The environment name</returns>
     private static string GetEnvironmentName()

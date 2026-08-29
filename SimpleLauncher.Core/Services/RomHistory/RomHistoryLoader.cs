@@ -6,25 +6,22 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Services.RomHistory;
 
 /// <summary>
-/// Provides methods for loading and querying the local ROM history database (history.dat or history.xml).
+///     Provides methods for loading and querying the local ROM history database (history.dat or history.xml).
 /// </summary>
 public static class RomHistoryLoader
 {
     /// <summary>
-    /// Searches for an entry matching <paramref name="romName"/> in history.dat (MessagePack) first,
-    /// then falls back to history.xml if the .dat file is not available.
+    ///     Searches for an entry matching <paramref name="romName" /> in history.dat (MessagePack) first,
+    ///     then falls back to history.xml if the .dat file is not available.
     /// </summary>
     /// <param name="historyFilePath">Full path to the history.xml file.</param>
     /// <param name="romName">The ROM name to search for.</param>
-    /// <returns>The matching <see cref="XElement"/> entry, or <c>null</c> if not found.</returns>
+    /// <returns>The matching <see cref="XElement" /> entry, or <c>null</c> if not found.</returns>
     public static XElement? FindEntry(string historyFilePath, string romName)
     {
         var datFilePath = Path.ChangeExtension(historyFilePath, ".dat");
 
-        if (File.Exists(datFilePath))
-        {
-            return FindEntryFromDat(datFilePath, romName);
-        }
+        if (File.Exists(datFilePath)) return FindEntryFromDat(datFilePath, romName);
 
         return FindEntryFromXml(historyFilePath, romName);
     }
@@ -37,15 +34,11 @@ public static class RomHistoryLoader
         if (history.Entries == null) return null;
 
         foreach (var entry in history.Entries)
-        {
             if ((entry.Systems?.SystemItems != null &&
                  entry.Systems.SystemItems.Any(s => string.Equals(s.Name, romName, StringComparison.Ordinal))) ||
                 (entry.Software?.Items != null &&
                  entry.Software.Items.Any(i => string.Equals(i.Name, romName, StringComparison.Ordinal))))
-            {
                 return BuildEntryXElement(entry);
-            }
-        }
 
         return null;
     }
@@ -83,10 +76,7 @@ public static class RomHistoryLoader
             element.Add(systems);
         }
 
-        if (entry.Text != null)
-        {
-            element.Add(new XElement("text", entry.Text));
-        }
+        if (entry.Text != null) element.Add(new XElement("text", entry.Text));
 
         return element;
     }

@@ -7,19 +7,19 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the Mednafen emulator configuration injection service that writes global and per-system settings
-/// into the mednafen.cfg configuration file.
+///     Tests the Mednafen emulator configuration injection service that writes global and per-system settings
+///     into the mednafen.cfg configuration file.
 /// </summary>
 public class MednafenConfigInjectionTests : IDisposable
 {
-    private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
-    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
+    private readonly ILogger _logErrors = new NoOpLogger();
+    private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MednafenConfigInjectionTests"/> class,
-    /// creating a temporary test directory and configuration for each test.
+    ///     Initializes a new instance of the <see cref="MednafenConfigInjectionTests" /> class,
+    ///     creating a temporary test directory and configuration for each test.
     /// </summary>
     public MednafenConfigInjectionTests()
     {
@@ -37,7 +37,7 @@ public class MednafenConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory and restores the service provider mock.
+    ///     Cleans up the temporary test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
@@ -76,8 +76,8 @@ public class MednafenConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that global Mednafen settings such as video driver, fullscreen, vsync, volume, cheats, and rewind
-    /// are correctly injected into the mednafen.cfg configuration file.
+    ///     Verifies that global Mednafen settings such as video driver, fullscreen, vsync, volume, cheats, and rewind
+    ///     are correctly injected into the mednafen.cfg configuration file.
     /// </summary>
     [Fact]
     public void MednafenInjectsGlobalSettingsCorrectly()
@@ -108,8 +108,8 @@ public class MednafenConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that per-system Mednafen settings such as stretch, bilinear, scanlines, shader, and special
-    /// are correctly applied to all supported system prefixes (nes, snes, psx, gba, etc.).
+    ///     Verifies that per-system Mednafen settings such as stretch, bilinear, scanlines, shader, and special
+    ///     are correctly applied to all supported system prefixes (nes, snes, psx, gba, etc.).
     /// </summary>
     [Fact]
     public void MednafenInjectsPerSystemSettingsCorrectly()
@@ -147,7 +147,7 @@ public class MednafenConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that disabled boolean options are written with zero/false values in the configuration file.
+    ///     Verifies that disabled boolean options are written with zero/false values in the configuration file.
     /// </summary>
     [Fact]
     public void MednafenDisabledOptionsUsesZeroValues()
@@ -175,7 +175,7 @@ public class MednafenConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a new mednafen.cfg file is created from the bundled sample when the configuration file is missing.
+    ///     Verifies that a new mednafen.cfg file is created from the bundled sample when the configuration file is missing.
     /// </summary>
     [Fact]
     public void MednafenCreatesConfigFromSampleIfMissing()
@@ -197,7 +197,7 @@ public class MednafenConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that per-system settings are injected for every supported Mednafen system prefix.
+    ///     Verifies that per-system settings are injected for every supported Mednafen system prefix.
     /// </summary>
     [Fact]
     public void MednafenAllSystemPrefixesAreInjected()

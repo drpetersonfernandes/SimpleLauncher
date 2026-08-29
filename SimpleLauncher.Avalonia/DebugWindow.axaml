@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.DebugWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Debugger"
         Height="400" Width="800"

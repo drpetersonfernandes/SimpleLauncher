@@ -10,19 +10,14 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Services.UiHelpers;
 
 /// <summary>
-/// Provides an alphabetical letter filter panel (A–Z, #, All) for filtering game lists, with keyboard navigation support.
+///     Provides an alphabetical letter filter panel (A–Z, #, All) for filtering game lists, with keyboard navigation
+///     support.
 /// </summary>
 public class FilterMenu
 {
-    /// <summary>Gets the StackPanel containing the filter buttons.</summary>
-    public StackPanel LetterPanel { get; } = new() { Orientation = Orientation.Horizontal };
+    private readonly IPlaySoundEffects _playSoundEffects;
 
     private Button? _selectedButton;
-
-    /// <summary>Raised when a letter or filter option is selected, passing the selected letter or null for "All".</summary>
-    public event EventHandler<EventArgs<string?>> OnLetterSelected = null!;
-
-    private readonly IPlaySoundEffects _playSoundEffects;
 
     /// <summary>Initializes a new instance of the FilterMenu with sound effects support.</summary>
     public FilterMenu(IPlaySoundEffects playSoundEffects)
@@ -32,6 +27,12 @@ public class FilterMenu
         InitializeNumberButton();
         InitializeLetterButtons();
     }
+
+    /// <summary>Gets the StackPanel containing the filter buttons.</summary>
+    public StackPanel LetterPanel { get; } = new() { Orientation = Orientation.Horizontal };
+
+    /// <summary>Raised when a letter or filter option is selected, passing the selected letter or null for "All".</summary>
+    public event EventHandler<EventArgs<string?>> OnLetterSelected = null!;
 
     private void InitializeNumberButton()
     {
@@ -118,13 +119,11 @@ public class FilterMenu
         }
 
         if (newIndex >= 0 && newIndex < LetterPanel.Children.Count)
-        {
             if (LetterPanel.Children[newIndex] is Button targetButton)
             {
                 targetButton.Focus(); // Move keyboard focus to the target button
                 e.Handled = true; // Mark event as handled to prevent further processing
             }
-        }
     }
 
     private int FindNeighbor(Button currentButton, FocusNavigationDirection direction)
@@ -173,9 +172,7 @@ public class FilterMenu
     private void UpdateSelectedButton(Button button)
     {
         if (_selectedButton != null && _selectedButton != button)
-        {
             _selectedButton.ClearValue(Control.BackgroundProperty);
-        }
 
         // ReSharper disable once AssignNullToNotNullAttribute
         button.Background = (Brush)Application.Current.Resources["AccentColorBrush"];

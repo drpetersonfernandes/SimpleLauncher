@@ -7,23 +7,23 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="RetroAchievementsHashScanner"/> covering background scanning,
-/// JSON persistence through the hash store, and prevention of parallel scans.
+///     Tests for <see cref="RetroAchievementsHashScanner" /> covering background scanning,
+///     JSON persistence through the hash store, and prevention of parallel scans.
 /// </summary>
 public class RetroAchievementsHashScannerTests : IDisposable
 {
-    private readonly string _tempFolder;
-    private readonly string _romsFolder;
-    private readonly RetroAchievementsHashStore _store;
-    private readonly RetroAchievementsSystemMatcher _systemMatcher;
+    private readonly FakeExtractionService _extractionService;
     private readonly FakeFileHasher _fileHasher;
     private readonly FakeGetListOfFilesService _getListOfFiles;
-    private readonly FakeExtractionService _extractionService;
+    private readonly string _romsFolder;
     private readonly RetroAchievementsHashScanner _scanner;
+    private readonly RetroAchievementsHashStore _store;
+    private readonly RetroAchievementsSystemMatcher _systemMatcher;
+    private readonly string _tempFolder;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsHashScannerTests"/> class
-    /// with an isolated temporary ROM and hash folder.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsHashScannerTests" /> class
+    ///     with an isolated temporary ROM and hash folder.
     /// </summary>
     public RetroAchievementsHashScannerTests()
     {
@@ -41,20 +41,17 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// Deletes the temporary folders used by the tests.
+    ///     Deletes the temporary folders used by the tests.
     /// </summary>
     public void Dispose()
     {
-        if (Directory.Exists(_tempFolder))
-        {
-            Directory.Delete(_tempFolder, true);
-        }
+        if (Directory.Exists(_tempFolder)) Directory.Delete(_tempFolder, true);
 
         GC.SuppressFinalize(this);
     }
 
     /// <summary>
-    /// Verifies that scanning a system writes a JSON file containing a hash for every game file.
+    ///     Verifies that scanning a system writes a JSON file containing a hash for every game file.
     /// </summary>
     [Fact]
     public async Task ScanSystemAsync_CalculatesAndPersistsHashes()
@@ -68,9 +65,9 @@ public class RetroAchievementsHashScannerTests : IDisposable
             [_romsFolder],
             [".7z"],
             [".a26"],
-            disableRecursiveSearch: true,
-            groupByFolder: false,
-            onCompleted: completedSystems.Add);
+            true,
+            false,
+            completedSystems.Add);
 
         Assert.True(started);
         Assert.Contains("Nintendo 64", completedSystems, StringComparer.OrdinalIgnoreCase);
@@ -84,7 +81,7 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that scanning a system again with the same game count skips re-hashing.
+    ///     Verifies that scanning a system again with the same game count skips re-hashing.
     /// </summary>
     [Fact]
     public async Task ScanSystemAsync_WhenGameCountUnchanged_SkipsReHashing()
@@ -96,8 +93,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
             [_romsFolder],
             [".7z"],
             [".a26"],
-            disableRecursiveSearch: true,
-            groupByFolder: false);
+            true,
+            false);
 
         Assert.Equal(1, _fileHasher.HashCallCount);
 
@@ -107,9 +104,9 @@ public class RetroAchievementsHashScannerTests : IDisposable
             [_romsFolder],
             [".7z"],
             [".a26"],
-            disableRecursiveSearch: true,
-            groupByFolder: false,
-            onCompleted: completedSystems.Add);
+            true,
+            false,
+            completedSystems.Add);
 
         Assert.Equal(1, _fileHasher.HashCallCount);
         Assert.Empty(completedSystems);
@@ -117,8 +114,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a stored scan produced by older hash logic is recalculated even
-    /// when the game count is unchanged.
+    ///     Verifies that a stored scan produced by older hash logic is recalculated even
+    ///     when the game count is unchanged.
     /// </summary>
     [Fact]
     public async Task ScanSystemAsync_WhenHashVersionChanged_ReHashes()
@@ -143,9 +140,9 @@ public class RetroAchievementsHashScannerTests : IDisposable
             [_romsFolder],
             [".7z"],
             [".a26"],
-            disableRecursiveSearch: true,
-            groupByFolder: false,
-            onCompleted: completedSystems.Add);
+            true,
+            false,
+            completedSystems.Add);
 
         Assert.Contains("Nintendo 64", completedSystems, StringComparer.OrdinalIgnoreCase);
 
@@ -155,7 +152,7 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that scanning a system again after a game was added recalculates the hashes.
+    ///     Verifies that scanning a system again after a game was added recalculates the hashes.
     /// </summary>
     [Fact]
     public async Task ScanSystemAsync_WhenGameCountChanged_ReHashes()
@@ -167,8 +164,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
             [_romsFolder],
             [".7z"],
             [".a26"],
-            disableRecursiveSearch: true,
-            groupByFolder: false);
+            true,
+            false);
 
         Assert.Equal(1, _fileHasher.HashCallCount);
 
@@ -180,9 +177,9 @@ public class RetroAchievementsHashScannerTests : IDisposable
             [_romsFolder],
             [".7z"],
             [".a26"],
-            disableRecursiveSearch: true,
-            groupByFolder: false,
-            onCompleted: completedSystems.Add);
+            true,
+            false,
+            completedSystems.Add);
 
         Assert.Equal(3, _fileHasher.HashCallCount);
         Assert.Contains("Nintendo 64", completedSystems, StringComparer.OrdinalIgnoreCase);
@@ -193,7 +190,7 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that files that cannot be hashed are skipped and an empty result is still persisted.
+    ///     Verifies that files that cannot be hashed are skipped and an empty result is still persisted.
     /// </summary>
     [Fact]
     public async Task ScanSystemAsync_WhenHashFails_SkipsFileButPersistsResult()
@@ -207,8 +204,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
             [_romsFolder],
             [".7z"],
             [".a26"],
-            disableRecursiveSearch: true,
-            groupByFolder: false);
+            true,
+            false);
 
         Assert.True(started);
         Assert.True(_store.HasSystemHashes("Nintendo 64"));
@@ -216,9 +213,9 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that .zip archives are hashed directly through the CLI tool (which
-    /// pre-loads the first entry itself) without extracting to disk, and that the
-    /// hash is stored under the original archive path.
+    ///     Verifies that .zip archives are hashed directly through the CLI tool (which
+    ///     pre-loads the first entry itself) without extracting to disk, and that the
+    ///     hash is stored under the original archive path.
     /// </summary>
     [Fact]
     public async Task ScanSystemAsync_ZipFilesAreHashedDirectly()
@@ -230,8 +227,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
             [_romsFolder],
             [".zip"],
             [".a26"],
-            disableRecursiveSearch: true,
-            groupByFolder: false);
+            true,
+            false);
 
         // The archive was NOT extracted to disk; it was hashed in the batch call
         Assert.Empty(_extractionService.ExtractedArchives);
@@ -246,8 +243,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that .7z archives are extracted to a temporary folder before hashing and
-    /// that the hash is stored under the original archive path.
+    ///     Verifies that .7z archives are extracted to a temporary folder before hashing and
+    ///     that the hash is stored under the original archive path.
     /// </summary>
     [Fact]
     public async Task ScanSystemAsync_SevenZipFilesAreExtractedBeforeHashing()
@@ -259,8 +256,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
             [_romsFolder],
             [".7z"],
             [".a26"],
-            disableRecursiveSearch: true,
-            groupByFolder: false);
+            true,
+            false);
 
         // The archive was extracted once, and the hasher received the extracted ROM file
         Assert.Single(_extractionService.ExtractedArchives);
@@ -277,7 +274,7 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// Creates a zip archive on disk containing a single entry.
+    ///     Creates a zip archive on disk containing a single entry.
     /// </summary>
     private static void CreateZip(string zipPath, string entryName, string content)
     {
@@ -288,7 +285,7 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a second scan request is rejected while a scan is already running.
+    ///     Verifies that a second scan request is rejected while a scan is already running.
     /// </summary>
     [Fact]
     public async Task ScanSystemAsync_SecondCallWhileScanning_IsRejected()
@@ -302,8 +299,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
             [_romsFolder],
             [".7z"],
             [".a26"],
-            disableRecursiveSearch: true,
-            groupByFolder: false);
+            true,
+            false);
 
         // The scan flag is set synchronously, so the second call is rejected immediately.
         var secondStarted = await _scanner.ScanSystemAsync(
@@ -311,8 +308,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
             [_romsFolder],
             [".7z"],
             [".a26"],
-            disableRecursiveSearch: true,
-            groupByFolder: false);
+            true,
+            false);
 
         Assert.False(secondStarted);
         Assert.True(_scanner.IsScanning);
@@ -323,7 +320,7 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that systems without a usable RetroAchievements console ID are reported as not scannable.
+    ///     Verifies that systems without a usable RetroAchievements console ID are reported as not scannable.
     /// </summary>
     [Fact]
     public void IsSystemScannable_SupportsOnlyKnownSystems()
@@ -335,8 +332,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a stored scan is only considered up to date when it was produced
-    /// by the current hash logic.
+    ///     Verifies that a stored scan is only considered up to date when it was produced
+    ///     by the current hash logic.
     /// </summary>
     [Fact]
     public async Task IsScanUpToDate_RequiresCurrentHashVersion()
@@ -359,15 +356,15 @@ public class RetroAchievementsHashScannerTests : IDisposable
             [_romsFolder],
             [".7z"],
             [".a26"],
-            disableRecursiveSearch: true,
-            groupByFolder: false);
+            true,
+            false);
 
         Assert.True(_scanner.IsScanUpToDate("Nintendo 64"));
     }
 
     /// <summary>
-    /// Verifies that scanning all systems skips unsupported systems and only persists
-    /// results for the supported ones.
+    ///     Verifies that scanning all systems skips unsupported systems and only persists
+    ///     results for the supported ones.
     /// </summary>
     [Fact]
     public async Task ScanAllSystemsAsync_SkipsUnsupportedSystems()
@@ -406,34 +403,34 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// A fake file hasher that returns a deterministic hash per file name.
+    ///     A fake file hasher that returns a deterministic hash per file name.
     /// </summary>
     private sealed class FakeFileHasher : IRetroAchievementsFileHasher
     {
         private readonly TaskCompletionSource<bool> _gate = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
         /// <summary>
-        /// Gets the number of times <see cref="CalculateHashAsync"/> was called.
+        ///     Gets the number of times <see cref="CalculateHashAsync" /> was called.
         /// </summary>
         public int HashCallCount { get; private set; }
 
         /// <summary>
-        /// Gets the number of times <see cref="CalculateHashesAsync"/> was called.
+        ///     Gets the number of times <see cref="CalculateHashesAsync" /> was called.
         /// </summary>
         public int BatchCallCount { get; private set; }
 
         /// <summary>
-        /// Gets the file paths that were passed to <see cref="CalculateHashAsync"/>.
+        ///     Gets the file paths that were passed to <see cref="CalculateHashAsync" />.
         /// </summary>
         public List<string> HashedPaths { get; } = [];
 
         /// <summary>
-        /// Gets or sets a value indicating whether every hash calculation returns null.
+        ///     Gets or sets a value indicating whether every hash calculation returns null.
         /// </summary>
         public bool FailAll { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether hash calls block until <see cref="ReleaseBlock"/> is called.
+        ///     Gets or sets a value indicating whether hash calls block until <see cref="ReleaseBlock" /> is called.
         /// </summary>
         public bool BlockCalls { get; set; }
 
@@ -442,10 +439,7 @@ public class RetroAchievementsHashScannerTests : IDisposable
             HashCallCount++;
             HashedPaths.Add(filePath);
 
-            if (BlockCalls)
-            {
-                await _gate.Task;
-            }
+            if (BlockCalls) await _gate.Task;
 
             if (FailAll) return null;
 
@@ -459,21 +453,13 @@ public class RetroAchievementsHashScannerTests : IDisposable
         {
             BatchCallCount++;
 
-            if (BlockCalls)
-            {
-                await _gate.Task;
-            }
+            if (BlockCalls) await _gate.Task;
 
-            if (FailAll)
-            {
-                return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            }
+            if (FailAll) return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
             var results = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             foreach (var filePath in filePaths)
-            {
                 results[filePath] = $"hash-{Path.GetFileNameWithoutExtension(filePath)}";
-            }
 
             return results;
         }
@@ -485,7 +471,7 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// A fake file enumeration service that lists files by extension from a single folder.
+    ///     A fake file enumeration service that lists files by extension from a single folder.
     /// </summary>
     private sealed class FakeGetListOfFilesService : IGetListOfFilesService
     {
@@ -507,8 +493,8 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
-    /// A fake extraction service that "extracts" archives into a fake temporary folder,
-    /// producing a file with the same base name and the first launchable extension.
+    ///     A fake extraction service that "extracts" archives into a fake temporary folder,
+    ///     producing a file with the same base name and the first launchable extension.
     /// </summary>
     private sealed class FakeExtractionService : IExtractionService
     {
@@ -516,7 +502,7 @@ public class RetroAchievementsHashScannerTests : IDisposable
             Path.Combine(Path.GetTempPath(), "SimpleLauncherHashScannerTests", "FakeTemp");
 
         /// <summary>
-        /// Gets the archive paths that were extracted.
+        ///     Gets the archive paths that were extracted.
         /// </summary>
         public List<string> ExtractedArchives { get; } = [];
 

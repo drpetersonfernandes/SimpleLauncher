@@ -1,24 +1,25 @@
 using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Injects user settings into the Blastem emulator's default.cfg configuration file.
+///     Injects user settings into the Blastem emulator's default.cfg configuration file.
 /// </summary>
 public static partial class BlastemConfigurationService
 {
     private static readonly char[] Separator = [' ', '\t'];
 
     /// <summary>
-    /// Applies the saved Blastem settings to the emulator's default.cfg file,
-    /// creating the file from a bundled sample when it does not exist.
+    ///     Applies the saved Blastem settings to the emulator's default.cfg file,
+    ///     creating the file from a bundled sample when it does not exist.
     /// </summary>
     /// <param name="emulatorPath">Path to the Blastem executable.</param>
     /// <param name="settings">The settings manager containing Blastem configuration.</param>
     /// <param name="logger">The logger instance.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -31,7 +32,6 @@ public static partial class BlastemConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Blastem", "default.cfg");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -43,11 +43,8 @@ public static partial class BlastemConfigurationService
                     logger.Error(ex, $"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("default.cfg not found and sample is missing.", samplePath);
-            }
         }
 
         logger.Debug($"[BlastemConfig] Injecting configuration into: {configPath}");
@@ -107,10 +104,7 @@ public static partial class BlastemConfigurationService
             {
                 // Track block scope for hierarchical config format
                 case "}":
-                    if (blockStack.Count > 0)
-                    {
-                        blockStack.Pop();
-                    }
+                    if (blockStack.Count > 0) blockStack.Pop();
 
                     continue;
             }
@@ -152,7 +146,6 @@ public static partial class BlastemConfigurationService
         }
 
         if (modified)
-        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -164,11 +157,8 @@ public static partial class BlastemConfigurationService
                 logger.Error(ex, $"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
-        }
         else
-        {
             logger.Debug("[BlastemConfig] No changes needed for Blastem configuration.");
-        }
     }
 
     [GeneratedRegex(@"^\s*", RegexOptions.None, 1000)]

@@ -5,7 +5,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="DebugViewModel"/> class covering log message appending, clearing, and copy functionality.
+///     Tests for the <see cref="DebugViewModel" /> class covering log message appending, clearing, and copy functionality.
 /// </summary>
 public class DebugViewModelTests
 {
@@ -22,7 +22,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that the constructor initializes empty log messages and disabled command states.
+    ///     Verifies that the constructor initializes empty log messages and disabled command states.
     /// </summary>
     [Fact]
     public void ConstructorInitializesEmptyLog()
@@ -37,7 +37,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that AppendLogMessage adds a message with a timestamp and enables clear/copy commands.
+    ///     Verifies that AppendLogMessage adds a message with a timestamp and enables clear/copy commands.
     /// </summary>
     [Fact]
     public void AppendLogMessageAddsMessageWithTimestamp()
@@ -58,7 +58,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that AppendLogMessage adds multiple messages to the log.
+    ///     Verifies that AppendLogMessage adds multiple messages to the log.
     /// </summary>
     [Fact]
     public void AppendLogMessageAddsMultipleMessages()
@@ -76,7 +76,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that ClearLogCommand can execute when the log has messages.
+    ///     Verifies that ClearLogCommand can execute when the log has messages.
     /// </summary>
     [Fact]
     public void ClearLogCommandCanExecuteWhenLogHasMessages()
@@ -89,7 +89,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that ClearLogCommand cannot execute when the log is empty.
+    ///     Verifies that ClearLogCommand cannot execute when the log is empty.
     /// </summary>
     [Fact]
     public void ClearLogCommandCannotExecuteWhenLogIsEmpty()
@@ -98,7 +98,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that ClearLogCommand clears all messages and disables clear/copy commands.
+    ///     Verifies that ClearLogCommand clears all messages and disables clear/copy commands.
     /// </summary>
     [Fact]
     public void ClearLogCommandClearsAllMessages()
@@ -116,7 +116,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that CopyLogCommand can execute when the log has content.
+    ///     Verifies that CopyLogCommand can execute when the log has content.
     /// </summary>
     [Fact]
     public void CopyLogCommandCanExecuteWhenLogHasContent()
@@ -129,7 +129,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that CopyLogCommand cannot execute when the log is empty.
+    ///     Verifies that CopyLogCommand cannot execute when the log is empty.
     /// </summary>
     [Fact]
     public void CopyLogCommandCannotExecuteWhenLogIsEmpty()
@@ -138,7 +138,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that CopyLogCommand can execute when the log has a test message.
+    ///     Verifies that CopyLogCommand can execute when the log has a test message.
     /// </summary>
     [Fact]
     public void CopyLogCommandExistsAndCanExecuteWhenLogHasContent()
@@ -151,7 +151,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that LogText contains all appended messages joined with newlines.
+    ///     Verifies that LogText contains all appended messages joined with newlines.
     /// </summary>
     [Fact]
     public void LogTextContainsAllMessagesJoined()
@@ -168,7 +168,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that PropertyChanged is raised for CanClearLog when messages are added.
+    ///     Verifies that PropertyChanged is raised for CanClearLog when messages are added.
     /// </summary>
     [Fact]
     public void PropertyChangedRaisedForCanClearLogWhenMessagesAdded()
@@ -179,9 +179,7 @@ public class DebugViewModelTests
             viewModel.PropertyChanged += (_, e) =>
             {
                 if (string.Equals(e.PropertyName, nameof(DebugViewModel.CanClearLog), StringComparison.Ordinal))
-                {
                     raised = true;
-                }
             };
             viewModel.AppendLogMessage("Test");
             Assert.True(raised);
@@ -189,7 +187,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that PropertyChanged is raised for CanCopyLog when messages are added.
+    ///     Verifies that PropertyChanged is raised for CanCopyLog when messages are added.
     /// </summary>
     [Fact]
     public void PropertyChangedRaisedForCanCopyLogWhenMessagesAdded()
@@ -200,9 +198,7 @@ public class DebugViewModelTests
             viewModel.PropertyChanged += (_, e) =>
             {
                 if (string.Equals(e.PropertyName, nameof(DebugViewModel.CanCopyLog), StringComparison.Ordinal))
-                {
                     raised = true;
-                }
             };
             viewModel.AppendLogMessage("Test");
             Assert.True(raised);
@@ -210,7 +206,7 @@ public class DebugViewModelTests
     }
 
     /// <summary>
-    /// Verifies that PropertyChanged is raised for LogText when messages are added.
+    ///     Verifies that PropertyChanged is raised for LogText when messages are added.
     /// </summary>
     [Fact]
     public void PropertyChangedRaisedForLogTextWhenMessagesAdded()
@@ -221,9 +217,7 @@ public class DebugViewModelTests
             viewModel.PropertyChanged += (_, e) =>
             {
                 if (string.Equals(e.PropertyName, nameof(DebugViewModel.LogText), StringComparison.Ordinal))
-                {
                     raised = true;
-                }
             };
             viewModel.AppendLogMessage("Test");
             Assert.True(raised);

@@ -8,14 +8,14 @@ using SimpleLauncher.InjectConfigWindows;
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Daphne (laserdisc arcade) emulator before launching a game.
+///     Handles configuration injection for the Daphne (laserdisc arcade) emulator before launching a game.
 /// </summary>
 public class DaphneConfigHandler : IEmulatorConfigHandler
 {
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DaphneConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="DaphneConfigHandler" /> class.
     /// </summary>
     public DaphneConfigHandler(IServiceScopeFactory scopeFactory)
     {

@@ -8,14 +8,14 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Treats strings.en.xaml as the master resource file and verifies that
-/// every other strings.*.xaml file contains exactly the same set of keys.
-/// This test is read-only — it never modifies any resource file.
+///     Treats strings.en.xaml as the master resource file and verifies that
+///     every other strings.*.xaml file contains exactly the same set of keys.
+///     This test is read-only — it never modifies any resource file.
 /// </summary>
 public partial class DetectMissingKeysInOtherLanguagesTests
 {
     /// <summary>
-    /// Verifies that every non-English resource file contains all keys from the English base file.
+    ///     Verifies that every non-English resource file contains all keys from the English base file.
     /// </summary>
     [Fact]
     public void AllLanguageFilesShouldContainEveryKeyFromEnglish()
@@ -47,15 +47,9 @@ public partial class DetectMissingKeysInOtherLanguagesTests
             var missing = englishKeys.Except(fileKeys, StringComparer.Ordinal).ToList();
             var extra = fileKeys.Except(englishKeys, StringComparer.Ordinal).ToList();
 
-            if (missing.Count > 0)
-            {
-                missingKeysByFile[fileName] = missing;
-            }
+            if (missing.Count > 0) missingKeysByFile[fileName] = missing;
 
-            if (extra.Count > 0)
-            {
-                extraKeysByFile[fileName] = extra;
-            }
+            if (extra.Count > 0) extraKeysByFile[fileName] = extra;
         }
 
         if (missingKeysByFile.Count == 0 && extraKeysByFile.Count == 0)
@@ -71,9 +65,7 @@ public partial class DetectMissingKeysInOtherLanguagesTests
             {
                 message.AppendLine(CultureInfo.InvariantCulture, $"  File: {kvp.Key}");
                 foreach (var key in kvp.Value.OrderBy(static x => x, StringComparer.OrdinalIgnoreCase))
-                {
                     message.AppendLine(CultureInfo.InvariantCulture, $"    - {key}");
-                }
             }
 
             message.AppendLine();
@@ -86,9 +78,7 @@ public partial class DetectMissingKeysInOtherLanguagesTests
             {
                 message.AppendLine(CultureInfo.InvariantCulture, $"  File: {kvp.Key}");
                 foreach (var key in kvp.Value.OrderBy(static x => x, StringComparer.OrdinalIgnoreCase))
-                {
                     message.AppendLine(CultureInfo.InvariantCulture, $"    - {key}");
-                }
             }
         }
 

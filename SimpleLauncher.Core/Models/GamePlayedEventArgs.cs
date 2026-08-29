@@ -1,12 +1,12 @@
 namespace SimpleLauncher.Core.Models;
 
 /// <summary>
-/// Provides data for the event that occurs after a game has finished playing.
+///     Provides data for the event that occurs after a game has finished playing.
 /// </summary>
 public sealed class GamePlayedEventArgs : EventArgs
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="GamePlayedEventArgs"/> class.
+    ///     Initializes a new instance of the <see cref="GamePlayedEventArgs" /> class.
     /// </summary>
     /// <param name="fileName">The file name of the played game.</param>
     /// <param name="systemName">The system name the game belongs to.</param>

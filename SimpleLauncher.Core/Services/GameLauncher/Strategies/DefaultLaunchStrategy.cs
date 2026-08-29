@@ -4,8 +4,8 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Services.GameLauncher.Strategies;
 
 /// <summary>
-/// Fallback strategy that handles standard file types (.BAT, .LNK, .URL, .EXE) and regular ROM/game launches.
-/// Has the lowest priority so all specialized strategies are tried first.
+///     Fallback strategy that handles standard file types (.BAT, .LNK, .URL, .EXE) and regular ROM/game launches.
+///     Has the lowest priority so all specialized strategies are tried first.
 /// </summary>
 public class DefaultLaunchStrategy : ILaunchStrategy
 {

@@ -4,94 +4,95 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 
 /// <summary>
-/// Represents the user-configurable settings for the MAME emulator, persisted to the system configuration under the "Mame" section.
+///     Represents the user-configurable settings for the MAME emulator, persisted to the system configuration under the
+///     "Mame" section.
 /// </summary>
 public class MameSettings : IEmulatorSettings
 {
     private const string SectionName = "Mame";
 
     /// <summary>
-    /// Gets or sets the video output mode used by MAME (e.g., "auto").
+    ///     Gets or sets the video output mode used by MAME (e.g., "auto").
     /// </summary>
     public string Video { get; set; } = "auto";
 
     /// <summary>
-    /// Gets or sets a value indicating whether MAME runs in a window instead of fullscreen.
+    ///     Gets or sets a value indicating whether MAME runs in a window instead of fullscreen.
     /// </summary>
     public bool Window { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the emulation window starts maximized.
+    ///     Gets or sets a value indicating whether the emulation window starts maximized.
     /// </summary>
     public bool Maximize { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the original game aspect ratio is preserved.
+    ///     Gets or sets a value indicating whether the original game aspect ratio is preserved.
     /// </summary>
     public bool KeepAspect { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the game information screen is skipped on startup.
+    ///     Gets or sets a value indicating whether the game information screen is skipped on startup.
     /// </summary>
     public bool SkipGameInfo { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether NVRAM is automatically saved when exiting.
+    ///     Gets or sets a value indicating whether NVRAM is automatically saved when exiting.
     /// </summary>
     public bool Autosave { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether MAME asks for confirmation before quitting.
+    ///     Gets or sets a value indicating whether MAME asks for confirmation before quitting.
     /// </summary>
     public bool ConfirmQuit { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether joystick input is enabled.
+    ///     Gets or sets a value indicating whether joystick input is enabled.
     /// </summary>
     public bool Joystick { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
+    ///     Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether automatic frame skipping is enabled to maintain speed.
+    ///     Gets or sets a value indicating whether automatic frame skipping is enabled to maintain speed.
     /// </summary>
     public bool Autoframeskip { get; set; }
 
     /// <summary>
-    /// Gets or sets the BGFX video backend used by MAME (e.g., "auto").
+    ///     Gets or sets the BGFX video backend used by MAME (e.g., "auto").
     /// </summary>
     public string BgfxBackend { get; set; } = "auto";
 
     /// <summary>
-    /// Gets or sets the BGFX screen chain effect applied to the video output.
+    ///     Gets or sets the BGFX screen chain effect applied to the video output.
     /// </summary>
     public string BgfxScreenChains { get; set; } = "default";
 
     /// <summary>
-    /// Gets or sets a value indicating whether texture filtering is enabled.
+    ///     Gets or sets a value indicating whether texture filtering is enabled.
     /// </summary>
     public bool Filter { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether cheat support is enabled.
+    ///     Gets or sets a value indicating whether cheat support is enabled.
     /// </summary>
     public bool Cheat { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether rewind support is enabled.
+    ///     Gets or sets a value indicating whether rewind support is enabled.
     /// </summary>
     public bool Rewind { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether NVRAM data is saved on exit.
+    ///     Gets or sets a value indicating whether NVRAM data is saved on exit.
     /// </summary>
     public bool NvramSave { get; set; } = true;
 
     /// <summary>
-    /// Loads the MAME settings from the specified XML element.
+    ///     Loads the MAME settings from the specified XML element.
     /// </summary>
     /// <param name="settings">The XML element containing the system configuration.</param>
     public void LoadFromXml(XElement settings)
@@ -118,7 +119,7 @@ public class MameSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Serializes the MAME settings into an XML element for persistence.
+    ///     Serializes the MAME settings into an XML element for persistence.
     /// </summary>
     /// <returns>The XML element containing the MAME settings.</returns>
     public XElement ToXElement()
@@ -144,7 +145,7 @@ public class MameSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Copies the values from another emulator settings instance if it is a MAME settings instance.
+    ///     Copies the values from another emulator settings instance if it is a MAME settings instance.
     /// </summary>
     /// <param name="other">The other emulator settings instance to copy from.</param>
     public void CopyFrom(IEmulatorSettings other)
@@ -171,7 +172,7 @@ public class MameSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Resets all MAME settings to their default values.
+    ///     Resets all MAME settings to their default values.
     /// </summary>
     public void ResetDefaults()
     {

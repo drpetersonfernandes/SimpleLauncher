@@ -11,16 +11,16 @@ using ILogger = Serilog.ILogger;
 namespace SimpleLauncher.Avalonia.Services.ContextMenus;
 
 /// <summary>
-/// Builds right-click context menus for game items (port of the WPF ContextMenuService).
-/// The item set, order, separators, conditional achievements entry, and icons mirror
-/// the original WPF implementation; the Avalonia-only extras are appended at the end.
+///     Builds right-click context menus for game items (port of the WPF ContextMenuService).
+///     The item set, order, separators, conditional achievements entry, and icons mirror
+///     the original WPF implementation; the Avalonia-only extras are appended at the end.
 /// </summary>
 public class AvaloniaContextMenuService
 {
+    private readonly AvaloniaContextMenuFunctions _functions;
     private readonly LocalizationService _localization;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private readonly AvaloniaContextMenuFunctions _functions;
 
     public AvaloniaContextMenuService(
         LocalizationService localization,
@@ -35,7 +35,7 @@ public class AvaloniaContextMenuService
     }
 
     /// <summary>
-    /// Builds and opens a context menu for the given game context at the pointer location.
+    ///     Builds and opens a context menu for the given game context at the pointer location.
     /// </summary>
     /// <param name="context">The game and services context.</param>
     /// <param name="placementTarget">The control to anchor the menu to.</param>
@@ -170,10 +170,7 @@ public class AvaloniaContextMenuService
                 var result =
                     await _messageBox.AreYouSureYouWantToDeleteTheCoverImageMessageBoxAsync(
                         context.FileNameWithoutExtension);
-                if (result == CoreMessageBoxResult.Yes)
-                {
-                    await _functions.DeleteCoverImageAsync(context);
-                }
+                if (result == CoreMessageBoxResult.Yes) await _functions.DeleteCoverImageAsync(context);
             }
             catch (Exception ex)
             {
@@ -271,7 +268,7 @@ public class AvaloniaContextMenuService
 }
 
 /// <summary>
-/// Avalonia-only extra actions appended after the WPF-parity menu entries.
+///     Avalonia-only extra actions appended after the WPF-parity menu entries.
 /// </summary>
 public class GameContextMenuCallbacks
 {

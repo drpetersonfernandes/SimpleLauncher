@@ -6,18 +6,18 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the SettingsManagerService for correct default values, modification behavior, and emulator-specific settings.
+///     Tests the SettingsManagerService for correct default values, modification behavior, and emulator-specific settings.
 /// </summary>
 public class SettingsManagerTests : IDisposable
 {
-    private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
-    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
+    private readonly ILogger _logErrors = new NoOpLogger();
+    private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SettingsManagerTests"/> class,
-    /// installing the service provider mock, creating a temporary test directory, and building configuration.
+    ///     Initializes a new instance of the <see cref="SettingsManagerTests" /> class,
+    ///     installing the service provider mock, creating a temporary test directory, and building configuration.
     /// </summary>
     public SettingsManagerTests()
     {
@@ -35,7 +35,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory and restores the service provider mock.
+    ///     Cleans up the temporary test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
@@ -54,7 +54,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default thumbnail size is 250.
+    ///     Verifies the default thumbnail size is 250.
     /// </summary>
     [Fact]
     public void DefaultThumbnailSizeIs250()
@@ -64,7 +64,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default games per page is 200.
+    ///     Verifies the default games per page is 200.
     /// </summary>
     [Fact]
     public void DefaultGamesPerPageIs200()
@@ -74,7 +74,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default show games setting is ShowAll.
+    ///     Verifies the default show games setting is ShowAll.
     /// </summary>
     [Fact]
     public void DefaultShowGamesIsShowAll()
@@ -84,7 +84,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default view mode is GridView.
+    ///     Verifies the default view mode is GridView.
     /// </summary>
     [Fact]
     public void DefaultViewModeIsGridView()
@@ -94,7 +94,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default base theme is Dark.
+    ///     Verifies the default base theme is Dark.
     /// </summary>
     [Fact]
     public void DefaultBaseThemeIsDark()
@@ -104,7 +104,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default accent color is Blue.
+    ///     Verifies the default accent color is Blue.
     /// </summary>
     [Fact]
     public void DefaultAccentColorIsBlue()
@@ -114,7 +114,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default language is en.
+    ///     Verifies the default language is en.
     /// </summary>
     [Fact]
     public void DefaultLanguageIsEn()
@@ -124,7 +124,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default X-axis dead zone value is 0.05.
+    ///     Verifies the default X-axis dead zone value is 0.05.
     /// </summary>
     [Fact]
     public void DefaultDeadZoneXIsCorrect()
@@ -133,7 +133,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default Y-axis dead zone value is 0.02.
+    ///     Verifies the default Y-axis dead zone value is 0.02.
     /// </summary>
     [Fact]
     public void DefaultDeadZoneYIsCorrect()
@@ -142,7 +142,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that fuzzy matching is enabled by default.
+    ///     Verifies that fuzzy matching is enabled by default.
     /// </summary>
     [Fact]
     public void DefaultEnableFuzzyMatchingIsTrue()
@@ -152,7 +152,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default fuzzy matching threshold is 0.80.
+    ///     Verifies the default fuzzy matching threshold is 0.80.
     /// </summary>
     [Fact]
     public void DefaultFuzzyMatchingThresholdIs080()
@@ -162,7 +162,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that notification sounds are enabled by default.
+    ///     Verifies that notification sounds are enabled by default.
     /// </summary>
     [Fact]
     public void DefaultEnableNotificationSoundIsTrue()
@@ -172,7 +172,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default button aspect ratio is Square.
+    ///     Verifies the default button aspect ratio is Square.
     /// </summary>
     [Fact]
     public void DefaultButtonAspectRatioIsSquare()
@@ -182,7 +182,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default filename display mode is Original.
+    ///     Verifies the default filename display mode is Original.
     /// </summary>
     [Fact]
     public void DefaultFilenameDisplayModeIsOriginal()
@@ -192,7 +192,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default filename font size is Normal.
+    ///     Verifies the default filename font size is Normal.
     /// </summary>
     [Fact]
     public void DefaultFilenameFontSizeIsNormal()
@@ -202,7 +202,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default machine name font size is Normal.
+    ///     Verifies the default machine name font size is Normal.
     /// </summary>
     [Fact]
     public void DefaultMachineNameFontSizeIsNormal()
@@ -212,7 +212,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default style variant is Default.
+    ///     Verifies the default style variant is Default.
     /// </summary>
     [Fact]
     public void DefaultStyleVariantIsDefault()
@@ -222,7 +222,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the overlay open video button is enabled by default.
+    ///     Verifies the overlay open video button is enabled by default.
     /// </summary>
     [Fact]
     public void DefaultOverlayOpenVideoButtonIsTrue()
@@ -232,7 +232,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that additional system folders section is expanded by default.
+    ///     Verifies that additional system folders section is expanded by default.
     /// </summary>
     [Fact]
     public void DefaultAdditionalSystemFoldersExpandedIsTrue()
@@ -242,7 +242,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that all emulator expanded states default to true.
+    ///     Verifies that all emulator expanded states default to true.
     /// </summary>
     [Fact]
     public void DefaultEmulatorExpandedStatesAreTrue()
@@ -256,7 +256,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that settings properties can be modified and the new values are retained.
+    ///     Verifies that settings properties can be modified and the new values are retained.
     /// </summary>
     [Fact]
     public void SettingsCanBeModified()
@@ -285,7 +285,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that DuckStation emulator settings have correct default values.
+    ///     Verifies that DuckStation emulator settings have correct default values.
     /// </summary>
     [Fact]
     public void DefaultDuckStationSettingsAreCorrect()
@@ -302,7 +302,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that RetroArch emulator settings have correct default values.
+    ///     Verifies that RetroArch emulator settings have correct default values.
     /// </summary>
     [Fact]
     public void DefaultRetroArchSettingsAreCorrect()
@@ -317,7 +317,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that system play times collection is empty by default.
+    ///     Verifies that system play times collection is empty by default.
     /// </summary>
     [Fact]
     public void SystemPlayTimesDefaultIsEmpty()
@@ -327,7 +327,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the video URL defaults are loaded from configuration.
+    ///     Verifies that the video URL defaults are loaded from configuration.
     /// </summary>
     [Fact]
     public void VideoUrlDefaultsFromConfiguration()
@@ -337,7 +337,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the info URL defaults are loaded from configuration.
+    ///     Verifies that the info URL defaults are loaded from configuration.
     /// </summary>
     [Fact]
     public void InfoUrlDefaultsFromConfiguration()
@@ -347,7 +347,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that resetting to defaults restores all general settings to their default values.
+    ///     Verifies that resetting to defaults restores all general settings to their default values.
     /// </summary>
     [Fact]
     public void ResetToDefaultsRestoresAllGeneralSettings()
@@ -380,7 +380,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that resetting to defaults restores emulator-specific settings to their default values.
+    ///     Verifies that resetting to defaults restores emulator-specific settings to their default values.
     /// </summary>
     [Fact]
     public void ResetToDefaultsRestoresEmulatorSettings()
@@ -401,7 +401,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the ThumbnailSize property accepts valid values within the allowed range.
+    ///     Verifies that the ThumbnailSize property accepts valid values within the allowed range.
     /// </summary>
     [Fact]
     public void ThumbnailSizeValidationAcceptsValidValues()
@@ -416,7 +416,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the GamesPerPage property accepts valid values within the allowed range.
+    ///     Verifies that the GamesPerPage property accepts valid values within the allowed range.
     /// </summary>
     [Fact]
     public void GamesPerPageValidationAcceptsValidValues()
@@ -431,7 +431,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the AccentColor property accepts all valid color names.
+    ///     Verifies that the AccentColor property accepts all valid color names.
     /// </summary>
     [Fact]
     public void AccentColorValidationAcceptsAllValidColors()
@@ -453,7 +453,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that UpdateSystemPlayTime adds a new entry for a system not yet tracked.
+    ///     Verifies that UpdateSystemPlayTime adds a new entry for a system not yet tracked.
     /// </summary>
     [Fact]
     public void UpdateSystemPlayTimeAddsNewEntry()
@@ -468,7 +468,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that UpdateSystemPlayTime accumulates play time for an existing system entry.
+    ///     Verifies that UpdateSystemPlayTime accumulates play time for an existing system entry.
     /// </summary>
     [Fact]
     public void UpdateSystemPlayTimeAccumulatesExistingEntry()
@@ -483,7 +483,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that UpdateSystemPlayTime tracks play time for multiple independent systems.
+    ///     Verifies that UpdateSystemPlayTime tracks play time for multiple independent systems.
     /// </summary>
     [Fact]
     public void UpdateSystemPlayTimeMultipleSystems()
@@ -501,7 +501,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Xenia emulator settings have correct default values.
+    ///     Verifies that Xenia emulator settings have correct default values.
     /// </summary>
     [Fact]
     public void DefaultXeniaSettingsAreCorrect()
@@ -522,7 +522,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that RPCS3 emulator settings have correct default values.
+    ///     Verifies that RPCS3 emulator settings have correct default values.
     /// </summary>
     [Fact]
     public void DefaultRpcs3SettingsAreCorrect()
@@ -543,7 +543,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Mednafen emulator settings have correct default values.
+    ///     Verifies that Mednafen emulator settings have correct default values.
     /// </summary>
     [Fact]
     public void DefaultMednafenSettingsAreCorrect()
@@ -564,7 +564,7 @@ public class SettingsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Stella emulator settings have correct default values.
+    ///     Verifies that Stella emulator settings have correct default values.
     /// </summary>
     [Fact]
     public void DefaultStellaSettingsAreCorrect()

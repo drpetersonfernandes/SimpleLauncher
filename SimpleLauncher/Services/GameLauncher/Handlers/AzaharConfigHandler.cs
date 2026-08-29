@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Azahar (3DS) emulator before launching a game.
+///     Handles configuration injection for the Azahar (3DS) emulator before launching a game.
 /// </summary>
 public class AzaharConfigHandler : IEmulatorConfigHandler
 {
@@ -18,7 +18,7 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AzaharConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="AzaharConfigHandler" /> class.
     /// </summary>
     public AzaharConfigHandler(IMessageBoxLibraryService messageBox, ILogger logger, IServiceScopeFactory scopeFactory)
     {

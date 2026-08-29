@@ -22,14 +22,19 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource MednafenConfig_VideoDriver_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource MednafenConfig_VideoDriver_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding VideoDriverOptions}"
                                       SelectedItem="{Binding MednafenVideoDriver}"
                                       ToolTip="{DynamicResource MednafenConfig_VideoDriver_Tooltip}" />
                         </Grid>
-                        <CheckBox IsChecked="{Binding MednafenFullscreen}" Content="{DynamicResource MednafenConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Fullscreen_Tooltip}" />
-                        <CheckBox IsChecked="{Binding MednafenVsync}" Content="{DynamicResource MednafenConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MednafenFullscreen}"
+                                  Content="{DynamicResource MednafenConfig_Fullscreen_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MednafenConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MednafenVsync}"
+                                  Content="{DynamicResource MednafenConfig_Vsync_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MednafenConfig_Vsync_Tooltip}" />
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -41,7 +46,9 @@
                                       SelectedItem="{Binding MednafenStretch}"
                                       ToolTip="{DynamicResource MednafenConfig_Stretch_Tooltip}" />
                         </Grid>
-                        <CheckBox IsChecked="{Binding MednafenBilinear}" Content="{DynamicResource MednafenConfig_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Bilinear_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MednafenBilinear}"
+                                  Content="{DynamicResource MednafenConfig_Bilinear_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MednafenConfig_Bilinear_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -49,7 +56,9 @@
                 <GroupBox Header="{DynamicResource MednafenConfig_Effects_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Label Content="{DynamicResource MednafenConfig_Scanlines_Label}" VerticalAlignment="Center" />
-                        <Slider Value="{Binding MednafenScanlines}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MednafenConfig_Scanlines_Tooltip}" />
+                        <Slider Value="{Binding MednafenScanlines}" Minimum="0" Maximum="100"
+                                IsSnapToTickEnabled="True" TickFrequency="1"
+                                ToolTip="{DynamicResource MednafenConfig_Scanlines_Tooltip}" />
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -68,23 +77,32 @@
                 <GroupBox Header="{DynamicResource MednafenConfig_Sound_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Label Content="{DynamicResource MednafenConfig_Volume_Label}" VerticalAlignment="Center" />
-                        <Slider Value="{Binding MednafenVolume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource MednafenConfig_Volume_Tooltip}" />
+                        <Slider Value="{Binding MednafenVolume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True"
+                                TickFrequency="1" ToolTip="{DynamicResource MednafenConfig_Volume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Features Section -->
                 <GroupBox Header="{DynamicResource MednafenConfig_Features_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding MednafenCheats}" Content="{DynamicResource MednafenConfig_Cheats_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Cheats_Tooltip}" />
-                        <CheckBox IsChecked="{Binding MednafenRewind}" Content="{DynamicResource MednafenConfig_Rewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource MednafenConfig_Rewind_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MednafenCheats}"
+                                  Content="{DynamicResource MednafenConfig_Cheats_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MednafenConfig_Cheats_Tooltip}" />
+                        <CheckBox IsChecked="{Binding MednafenRewind}"
+                                  Content="{DynamicResource MednafenConfig_Rewind_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource MednafenConfig_Rewind_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding MednafenShowSettingsBeforeLaunch}" Content="{DynamicResource MednafenConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource MednafenConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding MednafenShowSettingsBeforeLaunch}"
+                                  Content="{DynamicResource MednafenConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource MednafenConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

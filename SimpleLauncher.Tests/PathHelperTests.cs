@@ -1,16 +1,17 @@
+using SimpleLauncher.Services.SystemManager;
 using Xunit;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="PathHelper"/> covering path sanitization, placeholder resolution,
-/// relative path detection, system folder lookup, and file normalization.
+///     Tests for <see cref="PathHelper" /> covering path sanitization, placeholder resolution,
+///     relative path detection, system folder lookup, and file normalization.
 /// </summary>
 public class PathHelperTests
 {
     /// <summary>
-    /// Verifies that SanitizePathToken removes trailing path separators from the input.
+    ///     Verifies that SanitizePathToken removes trailing path separators from the input.
     /// </summary>
     /// <param name="input">The raw path token to sanitize.</param>
     /// <param name="expected">The expected sanitized token.</param>
@@ -26,7 +27,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that SanitizePathToken returns an empty string for null input.
+    ///     Verifies that SanitizePathToken returns an empty string for null input.
     /// </summary>
     [Fact]
     public void SanitizePathTokenNullReturnsEmpty()
@@ -36,7 +37,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that GetFileNameWithoutExtension returns the file name without its extension.
+    ///     Verifies that GetFileNameWithoutExtension returns the file name without its extension.
     /// </summary>
     /// <param name="path">The path to extract the file name from.</param>
     /// <param name="expected">The expected file name without its extension.</param>
@@ -51,7 +52,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that GetFileName returns the file name with extension from a full path.
+    ///     Verifies that GetFileName returns the file name with extension from a full path.
     /// </summary>
     /// <param name="path">The path to extract the file name from.</param>
     /// <param name="expected">The expected file name including its extension.</param>
@@ -66,7 +67,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ContainsGameSpecificPlaceholder detects %GAME% and %ROMNAME% placeholders.
+    ///     Verifies that ContainsGameSpecificPlaceholder detects %GAME% and %ROMNAME% placeholders.
     /// </summary>
     /// <param name="text">The text to inspect for a game-specific placeholder.</param>
     /// <param name="expected">Whether a placeholder is expected to be detected.</param>
@@ -83,7 +84,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ContainsGameSpecificPlaceholder returns false for null input.
+    ///     Verifies that ContainsGameSpecificPlaceholder returns false for null input.
     /// </summary>
     [Fact]
     public void ContainsGameSpecificPlaceholderNullReturnsFalse()
@@ -93,7 +94,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that GetLongPath produces the correct extended-length path prefix for various inputs.
+    ///     Verifies that GetLongPath produces the correct extended-length path prefix for various inputs.
     /// </summary>
     /// <param name="path">The path to convert to an extended-length path.</param>
     /// <param name="expected">The expected extended-length path.</param>
@@ -109,7 +110,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that GetLongPath returns null for null input.
+    ///     Verifies that GetLongPath returns null for null input.
     /// </summary>
     [Fact]
     public void GetLongPathNullReturnsNull()
@@ -119,7 +120,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that FindContainingSystemFolder returns the primary folder when the game file is inside it.
+    ///     Verifies that FindContainingSystemFolder returns the primary folder when the game file is inside it.
     /// </summary>
     [Fact]
     public void FindContainingSystemFolderPrimaryFolderMatchReturnsPrimaryFolder()
@@ -133,7 +134,7 @@ public class PathHelperTests
             Directory.CreateDirectory(primaryFolder);
             File.WriteAllText(gameFile, "dummy");
 
-            var systemManager = new Services.SystemManager.SystemManagerService
+            var systemManager = new SystemManagerService
             {
                 SystemFolders = [primaryFolder]
             };
@@ -150,7 +151,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that FindContainingSystemFolder returns an additional folder when the game file is inside it.
+    ///     Verifies that FindContainingSystemFolder returns an additional folder when the game file is inside it.
     /// </summary>
     [Fact]
     public void FindContainingSystemFolderAdditionalFolderMatchReturnsAdditionalFolder()
@@ -166,7 +167,7 @@ public class PathHelperTests
             Directory.CreateDirectory(additionalFolder);
             File.WriteAllText(gameFile, "dummy");
 
-            var systemManager = new Services.SystemManager.SystemManagerService
+            var systemManager = new SystemManagerService
             {
                 SystemFolders = [primaryFolder, additionalFolder]
             };
@@ -183,7 +184,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that FindContainingSystemFolder returns the primary folder when no system folder matches.
+    ///     Verifies that FindContainingSystemFolder returns the primary folder when no system folder matches.
     /// </summary>
     [Fact]
     public void FindContainingSystemFolderNoMatchReturnsPrimaryFolder()
@@ -200,7 +201,7 @@ public class PathHelperTests
             Directory.CreateDirectory(Path.Combine(baseDir, "unrelated"));
             File.WriteAllText(gameFile, "dummy");
 
-            var systemManager = new Services.SystemManager.SystemManagerService
+            var systemManager = new SystemManagerService
             {
                 SystemFolders = [primaryFolder, otherFolder]
             };
@@ -217,7 +218,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that FindContainingSystemFolder matches a parent folder for files in nested subdirectories.
+    ///     Verifies that FindContainingSystemFolder matches a parent folder for files in nested subdirectories.
     /// </summary>
     [Fact]
     public void FindContainingSystemFolderNestedSubfolderMatchReturnsParentFolder()
@@ -232,7 +233,7 @@ public class PathHelperTests
             Directory.CreateDirectory(nestedFolder);
             File.WriteAllText(gameFile, "dummy");
 
-            var systemManager = new Services.SystemManager.SystemManagerService
+            var systemManager = new SystemManagerService
             {
                 SystemFolders = [primaryFolder]
             };
@@ -249,7 +250,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that FindContainingSystemFolder returns null when the system folders list is null.
+    ///     Verifies that FindContainingSystemFolder returns null when the system folders list is null.
     /// </summary>
     [Fact]
     public void FindContainingSystemFolderNullSystemManagerReturnsNull()
@@ -259,12 +260,12 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that FindContainingSystemFolder returns the primary folder when the file path is null.
+    ///     Verifies that FindContainingSystemFolder returns the primary folder when the file path is null.
     /// </summary>
     [Fact]
     public void FindContainingSystemFolderNullFilePathReturnsPrimaryFolder()
     {
-        var systemManager = new Services.SystemManager.SystemManagerService
+        var systemManager = new SystemManagerService
         {
             SystemFolders = ["C:\\roms\\Arcade"]
         };
@@ -275,7 +276,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveRelativeToAppDirectory resolves the %BASEFOLDER% placeholder correctly.
+    ///     Verifies that ResolveRelativeToAppDirectory resolves the %BASEFOLDER% placeholder correctly.
     /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryBaseFolderPlaceholderResolvesCorrectly()
@@ -287,7 +288,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveRelativeToAppDirectory returns an absolute path unchanged.
+    ///     Verifies that ResolveRelativeToAppDirectory returns an absolute path unchanged.
     /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryAbsolutePathReturnsCanonicalPath()
@@ -297,7 +298,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveRelativeToAppDirectory resolves a relative path against the application directory.
+    ///     Verifies that ResolveRelativeToAppDirectory resolves a relative path against the application directory.
     /// </summary>
     [Fact]
     public void ResolveRelativeToAppDirectoryRelativePathResolvesToAppDirectory()
@@ -309,7 +310,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString replaces the %BASEFOLDER% placeholder with the actual base folder.
+    ///     Verifies that ResolveParameterString replaces the %BASEFOLDER% placeholder with the actual base folder.
     /// </summary>
     [Fact]
     public void ResolveParameterStringResolvesBaseFolderPlaceholder()
@@ -323,7 +324,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString replaces the %SYSTEMFOLDER% placeholder with the provided system folder.
+    ///     Verifies that ResolveParameterString replaces the %SYSTEMFOLDER% placeholder with the provided system folder.
     /// </summary>
     [Fact]
     public void ResolveParameterStringResolvesSystemFolderPlaceholder()
@@ -335,7 +336,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString replaces the %EMULATORFOLDER% placeholder with the provided emulator folder.
+    ///     Verifies that ResolveParameterString replaces the %EMULATORFOLDER% placeholder with the provided emulator folder.
     /// </summary>
     [Fact]
     public void ResolveParameterStringResolvesEmulatorFolderPlaceholder()
@@ -347,7 +348,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString replaces multiple different placeholders in a single string.
+    ///     Verifies that ResolveParameterString replaces multiple different placeholders in a single string.
     /// </summary>
     [Fact]
     public void ResolveParameterStringResolvesMultiplePlaceholders()
@@ -362,7 +363,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString leaves unknown placeholders intact.
+    ///     Verifies that ResolveParameterString leaves unknown placeholders intact.
     /// </summary>
     [Fact]
     public void ResolveParameterStringKeepsUnknownPlaceholdersIntact()
@@ -374,7 +375,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString preserves game-specific placeholders like %ROMNAME% and %ROMFILE%.
+    ///     Verifies that ResolveParameterString preserves game-specific placeholders like %ROMNAME% and %ROMFILE%.
     /// </summary>
     [Fact]
     public void ResolveParameterStringKeepsGameSpecificPlaceholdersIntact()
@@ -386,7 +387,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString resolves paths containing directory traversal sequences.
+    ///     Verifies that ResolveParameterString resolves paths containing directory traversal sequences.
     /// </summary>
     [Fact]
     public void ResolveParameterStringResolvesPathTraversal()
@@ -399,7 +400,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString handles quoted paths containing placeholders.
+    ///     Verifies that ResolveParameterString handles quoted paths containing placeholders.
     /// </summary>
     [Fact]
     public void ResolveParameterStringHandlesQuotedPaths()
@@ -411,7 +412,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString resolves an exact %SYSTEMFOLDER% match correctly.
+    ///     Verifies that ResolveParameterString resolves an exact %SYSTEMFOLDER% match correctly.
     /// </summary>
     [Fact]
     public void ResolveParameterStringExactMatchSystemFolderResolvesCorrectly()
@@ -423,7 +424,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString does not modify known command-line flags.
+    ///     Verifies that ResolveParameterString does not modify known command-line flags.
     /// </summary>
     [Fact]
     public void ResolveParameterStringKnownFlagsAreNotModified()
@@ -438,7 +439,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that FindFileInSystemFolders returns the full path when the file exists.
+    ///     Verifies that FindFileInSystemFolders returns the full path when the file exists.
     /// </summary>
     [Fact]
     public void FindFileInSystemFoldersFileExistsReturnsPath()
@@ -453,7 +454,7 @@ public class PathHelperTests
             Directory.CreateDirectory(folder);
             File.WriteAllText(filePath, "dummy");
 
-            var systemManager = new Services.SystemManager.SystemManagerService
+            var systemManager = new SystemManagerService
             {
                 SystemFolders = [folder]
             };
@@ -469,12 +470,12 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that FindFileInSystemFolders returns null when the file is not found.
+    ///     Verifies that FindFileInSystemFolders returns null when the file is not found.
     /// </summary>
     [Fact]
     public void FindFileInSystemFoldersFileNotFoundReturnsNull()
     {
-        var systemManager = new Services.SystemManager.SystemManagerService
+        var systemManager = new SystemManagerService
         {
             SystemFolders = ["C:\\nonexistent\\roms"]
         };
@@ -484,7 +485,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString joins multiple system folders with semicolons.
+    ///     Verifies that ResolveParameterString joins multiple system folders with semicolons.
     /// </summary>
     [Fact]
     public void ResolveParameterStringResolvesMultipleSystemFolders()
@@ -496,7 +497,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString replaces the %ROM% placeholder with the ROM file path.
+    ///     Verifies that ResolveParameterString replaces the %ROM% placeholder with the ROM file path.
     /// </summary>
     [Fact]
     public void ResolveParameterStringResolvesRomPlaceholder()
@@ -508,7 +509,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString replaces the %NAME% placeholder with the provided name value.
+    ///     Verifies that ResolveParameterString replaces the %NAME% placeholder with the provided name value.
     /// </summary>
     [Fact]
     public void ResolveParameterStringResolvesNamePlaceholder()
@@ -520,7 +521,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString correctly substitutes %NAME% with a value containing spaces.
+    ///     Verifies that ResolveParameterString correctly substitutes %NAME% with a value containing spaces.
     /// </summary>
     [Fact]
     public void ResolveParameterStringResolvesNamePlaceholderWithSpaces()
@@ -532,12 +533,12 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that FindContainingSystemFolder returns null when the system folders list is empty.
+    ///     Verifies that FindContainingSystemFolder returns null when the system folders list is empty.
     /// </summary>
     [Fact]
     public void FindContainingSystemFolderEmptySystemFoldersListReturnsNull()
     {
-        var systemManager = new Services.SystemManager.SystemManagerService
+        var systemManager = new SystemManagerService
         {
             SystemFolders = []
         };
@@ -548,7 +549,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that ResolveParameterString replaces the %ROMSYSTEMFOLDER% placeholder correctly.
+    ///     Verifies that ResolveParameterString replaces the %ROMSYSTEMFOLDER% placeholder correctly.
     /// </summary>
     [Fact]
     public void ResolveParameterStringResolvesRomSystemFolderPlaceholder()
@@ -560,7 +561,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that TryFindFileWithNormalizedPath returns null for a null path.
+    ///     Verifies that TryFindFileWithNormalizedPath returns null for a null path.
     /// </summary>
     [Fact]
     public void TryFindFileWithNormalizedPathNullPathReturnsNull()
@@ -570,7 +571,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that TryFindFileWithNormalizedPath returns null for an empty path.
+    ///     Verifies that TryFindFileWithNormalizedPath returns null for an empty path.
     /// </summary>
     [Fact]
     public void TryFindFileWithNormalizedPathEmptyPathReturnsNull()
@@ -580,7 +581,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that TryFindFileWithNormalizedPath returns null for a whitespace-only path.
+    ///     Verifies that TryFindFileWithNormalizedPath returns null for a whitespace-only path.
     /// </summary>
     [Fact]
     public void TryFindFileWithNormalizedPathWhitespacePathReturnsNull()
@@ -590,7 +591,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that TryFindFileWithNormalizedPath returns null when the directory does not exist.
+    ///     Verifies that TryFindFileWithNormalizedPath returns null when the directory does not exist.
     /// </summary>
     [Fact]
     public void TryFindFileWithNormalizedPathNonExistentDirectoryReturnsNull()
@@ -600,7 +601,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that TryFindFileWithNormalizedPath returns the original path when the file exists.
+    ///     Verifies that TryFindFileWithNormalizedPath returns the original path when the file exists.
     /// </summary>
     [Fact]
     public void TryFindFileWithNormalizedPathFileExistsReturnsOriginalPath()
@@ -626,7 +627,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that TryFindFileWithNormalizedPath returns the directory path when it exists.
+    ///     Verifies that TryFindFileWithNormalizedPath returns the directory path when it exists.
     /// </summary>
     [Fact]
     public void TryFindFileWithNormalizedPathDirectoryExistsReturnsDirectoryPath()
@@ -651,7 +652,7 @@ public class PathHelperTests
     }
 
     /// <summary>
-    /// Verifies that TryFindFileWithNormalizedPath resolves case-insensitive file name mismatches on Windows.
+    ///     Verifies that TryFindFileWithNormalizedPath resolves case-insensitive file name mismatches on Windows.
     /// </summary>
     [Fact]
     public void TryFindFileWithNormalizedPathCaseMismatchReturnsActualPath()

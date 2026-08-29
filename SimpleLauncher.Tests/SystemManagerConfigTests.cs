@@ -4,13 +4,13 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="SystemManagerConfig"/> model covering default values, property assignment,
-/// and PrimarySystemFolder behavior.
+///     Tests for the <see cref="SystemManagerConfig" /> model covering default values, property assignment,
+///     and PrimarySystemFolder behavior.
 /// </summary>
 public class SystemManagerConfigTests
 {
     /// <summary>
-    /// Verifies that all default property values of a new SystemManagerConfig are null or false.
+    ///     Verifies that all default property values of a new SystemManagerConfig are null or false.
     /// </summary>
     [Fact]
     public void DefaultPropertiesAreNull()
@@ -30,7 +30,7 @@ public class SystemManagerConfigTests
     }
 
     /// <summary>
-    /// Verifies that all init-only properties can be set during object initialization.
+    ///     Verifies that all init-only properties can be set during object initialization.
     /// </summary>
     [Fact]
     public void InitPropertiesCanBeSet()
@@ -60,7 +60,7 @@ public class SystemManagerConfigTests
     }
 
     /// <summary>
-    /// Verifies that PrimarySystemFolder returns the first folder in the SystemFolders list.
+    ///     Verifies that PrimarySystemFolder returns the first folder in the SystemFolders list.
     /// </summary>
     [Fact]
     public void PrimarySystemFolderReturnsFirstFolder()
@@ -74,7 +74,7 @@ public class SystemManagerConfigTests
     }
 
     /// <summary>
-    /// Verifies that PrimarySystemFolder returns null when SystemFolders is null.
+    ///     Verifies that PrimarySystemFolder returns null when SystemFolders is null.
     /// </summary>
     [Fact]
     public void PrimarySystemFolderReturnsNullWhenFoldersAreNull()
@@ -84,7 +84,7 @@ public class SystemManagerConfigTests
     }
 
     /// <summary>
-    /// Verifies that PrimarySystemFolder returns null when SystemFolders is empty.
+    ///     Verifies that PrimarySystemFolder returns null when SystemFolders is empty.
     /// </summary>
     [Fact]
     public void PrimarySystemFolderReturnsNullWhenFoldersAreEmpty()
@@ -98,7 +98,7 @@ public class SystemManagerConfigTests
     }
 
     /// <summary>
-    /// Verifies that the Emulators list can be populated with emulator entries.
+    ///     Verifies that the Emulators list can be populated with emulator entries.
     /// </summary>
     [Fact]
     public void EmulatorsCanBeSet()

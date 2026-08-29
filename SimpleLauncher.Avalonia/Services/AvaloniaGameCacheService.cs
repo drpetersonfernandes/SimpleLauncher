@@ -3,10 +3,10 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
-/// Thread-safe in-memory cache of game file lists keyed by system name. Scanning a
-/// system's folders is the most expensive part of a library load, so navigating
-/// between systems reuses the cached file list instead of re-enumerating the disk.
-/// Avalonia port of the WPF <c>GameCacheService</c> (per-system lists; no WPF types).
+///     Thread-safe in-memory cache of game file lists keyed by system name. Scanning a
+///     system's folders is the most expensive part of a library load, so navigating
+///     between systems reuses the cached file list instead of re-enumerating the disk.
+///     Avalonia port of the WPF <c>GameCacheService</c> (per-system lists; no WPF types).
 /// </summary>
 public sealed class AvaloniaGameCacheService
 {
@@ -14,7 +14,7 @@ public sealed class AvaloniaGameCacheService
     private readonly Lock _lock = new();
 
     /// <summary>
-    /// Gets the number of systems currently cached.
+    ///     Gets the number of systems currently cached.
     /// </summary>
     public int CachedSystemCount
     {
@@ -28,8 +28,8 @@ public sealed class AvaloniaGameCacheService
     }
 
     /// <summary>
-    /// Returns a snapshot of the cached file list for the given system, or null when
-    /// the system is not cached yet.
+    ///     Returns a snapshot of the cached file list for the given system, or null when
+    ///     the system is not cached yet.
     /// </summary>
     /// <param name="systemName">The system name (case-insensitive).</param>
     public List<string>? GetCachedFiles(string systemName)
@@ -41,7 +41,7 @@ public sealed class AvaloniaGameCacheService
     }
 
     /// <summary>
-    /// Replaces the cached file list for the given system.
+    ///     Replaces the cached file list for the given system.
     /// </summary>
     /// <param name="systemName">The system name (case-insensitive).</param>
     /// <param name="files">The game file paths to cache.</param>
@@ -54,7 +54,7 @@ public sealed class AvaloniaGameCacheService
     }
 
     /// <summary>
-    /// Determines whether the cache already contains a file list for the given system.
+    ///     Determines whether the cache already contains a file list for the given system.
     /// </summary>
     /// <param name="systemName">The system name (case-insensitive).</param>
     public bool IsPopulated(string systemName)
@@ -66,9 +66,9 @@ public sealed class AvaloniaGameCacheService
     }
 
     /// <summary>
-    /// Returns the cached file list for the system, or scans it via the provided
-    /// enumerator and caches the result. The enumerator is only invoked when the
-    /// system is not cached yet.
+    ///     Returns the cached file list for the system, or scans it via the provided
+    ///     enumerator and caches the result. The enumerator is only invoked when the
+    ///     system is not cached yet.
     /// </summary>
     /// <param name="system">The system configuration.</param>
     /// <param name="enumerateFiles">The file enumeration function (called under the cache lock).</param>
@@ -77,10 +77,7 @@ public sealed class AvaloniaGameCacheService
     {
         lock (_lock)
         {
-            if (_cache.TryGetValue(system.SystemName, out var cached))
-            {
-                return [.. cached];
-            }
+            if (_cache.TryGetValue(system.SystemName, out var cached)) return [.. cached];
 
             var files = enumerateFiles(system).ToList();
             _cache[system.SystemName] = [.. files];
@@ -89,8 +86,8 @@ public sealed class AvaloniaGameCacheService
     }
 
     /// <summary>
-    /// Removes the cached file list for the given system (called when its files
-    /// change on disk, or when the system configuration changes).
+    ///     Removes the cached file list for the given system (called when its files
+    ///     change on disk, or when the system configuration changes).
     /// </summary>
     /// <param name="systemName">The system name (case-insensitive).</param>
     public void Invalidate(string systemName)
@@ -102,7 +99,7 @@ public sealed class AvaloniaGameCacheService
     }
 
     /// <summary>
-    /// Clears all cached file lists (called after a full library refresh).
+    ///     Clears all cached file lists (called after a full library refresh).
     /// </summary>
     public void Clear()
     {

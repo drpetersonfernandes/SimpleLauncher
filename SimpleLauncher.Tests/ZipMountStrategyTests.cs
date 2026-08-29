@@ -8,7 +8,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="ZipMountStrategy"/> class.
+///     Tests for the <see cref="ZipMountStrategy" /> class.
 /// </summary>
 public class ZipMountStrategyTests
 {
@@ -27,7 +27,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that the strategy has a priority of 30.
+    ///     Verifies that the strategy has a priority of 30.
     /// </summary>
     [Fact]
     public void PriorityIs30()
@@ -37,7 +37,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="ZipMountStrategy.IsMatch"/> returns false when the file path is empty.
+    ///     Verifies that <see cref="ZipMountStrategy.IsMatch" /> returns false when the file path is empty.
     /// </summary>
     [Fact]
     public void IsMatchEmptyFilePathReturnsFalse()
@@ -54,7 +54,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="ZipMountStrategy.IsMatch"/> returns false when the emulator name is empty.
+    ///     Verifies that <see cref="ZipMountStrategy.IsMatch" /> returns false when the emulator name is empty.
     /// </summary>
     [Fact]
     public void IsMatchEmptyEmulatorNameReturnsFalse()
@@ -71,7 +71,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="ZipMountStrategy.IsMatch"/> returns false when the system name is empty.
+    ///     Verifies that <see cref="ZipMountStrategy.IsMatch" /> returns false when the system name is empty.
     /// </summary>
     [Fact]
     public void IsMatchEmptySystemNameReturnsFalse()
@@ -88,7 +88,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="ZipMountStrategy.IsMatch"/> returns false for non-archive files like ISO.
+    ///     Verifies that <see cref="ZipMountStrategy.IsMatch" /> returns false for non-archive files like ISO.
     /// </summary>
     [Fact]
     public void IsMatchNonArchiveFileReturnsFalse()
@@ -105,7 +105,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that archive files with RPCS3 emulator are matched correctly.
+    ///     Verifies that archive files with RPCS3 emulator are matched correctly.
     /// </summary>
     /// <param name="extension">The file extension to test.</param>
     [Theory]
@@ -126,7 +126,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that archive extension matching is case-insensitive.
+    ///     Verifies that archive extension matching is case-insensitive.
     /// </summary>
     /// <param name="extension">The uppercase file extension to test.</param>
     [Theory]
@@ -147,7 +147,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that archive files with ScummVM system name are matched correctly.
+    ///     Verifies that archive files with ScummVM system name are matched correctly.
     /// </summary>
     /// <param name="extension">The file extension to test.</param>
     [Theory]
@@ -168,7 +168,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that archive files with XBLA system name are matched correctly.
+    ///     Verifies that archive files with XBLA system name are matched correctly.
     /// </summary>
     /// <param name="extension">The file extension to test.</param>
     [Theory]
@@ -189,7 +189,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that archive files are not matched when the emulator is unsupported.
+    ///     Verifies that archive files are not matched when the emulator is unsupported.
     /// </summary>
     [Fact]
     public void IsMatchArchiveWithUnsupportedEmulatorReturnsFalse()
@@ -206,7 +206,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that RPCS3 name casing variants are all recognized.
+    ///     Verifies that RPCS3 name casing variants are all recognized.
     /// </summary>
     [Fact]
     public void IsMatchRpcs3NameVariants()
@@ -237,7 +237,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that ScummVM system name variants are all recognized.
+    ///     Verifies that ScummVM system name variants are all recognized.
     /// </summary>
     [Fact]
     public void IsMatchScummSystemNameVariants()
@@ -268,7 +268,7 @@ public class ZipMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that XBLA system name variants are all recognized.
+    ///     Verifies that XBLA system name variants are all recognized.
     /// </summary>
     [Fact]
     public void IsMatchXblaSystemNameVariants()

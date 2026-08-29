@@ -8,8 +8,8 @@ using WindowScreenshotModel = SimpleLauncher.Avalonia.Models.WindowScreenshot;
 namespace SimpleLauncher.Avalonia.Services.TakeScreenshot;
 
 /// <summary>
-/// Provides methods to capture screenshots of specific windows using Win32 API calls.
-/// Windows-only port of the WPF WindowScreenshot (net10.0-windows TFM).
+///     Provides methods to capture screenshots of specific windows using Win32 API calls.
+///     Windows-only port of the WPF WindowScreenshot (net10.0-windows TFM).
 /// </summary>
 public static partial class WindowScreenshot
 {
@@ -39,7 +39,7 @@ public static partial class WindowScreenshot
     private static partial bool IsIconic(IntPtr hWnd);
 
     /// <summary>
-    /// Gets the rectangle of the client area (excluding borders and menu).
+    ///     Gets the rectangle of the client area (excluding borders and menu).
     /// </summary>
     /// <param name="hWnd">Handle to the window.</param>
     /// <param name="clientRectangle">The rectangle of the client area in screen coordinates.</param>
@@ -56,10 +56,7 @@ public static partial class WindowScreenshot
         }
 
         // Get the client area dimensions
-        if (!GetClientRect(hWnd, out var localClientRect))
-        {
-            return false;
-        }
+        if (!GetClientRect(hWnd, out var localClientRect)) return false;
 
         // Get the top-left corner of the client area in screen coordinates
         var clientTopLeft = new WindowScreenshotModel.Point { X = localClientRect.Left, Y = localClientRect.Top };

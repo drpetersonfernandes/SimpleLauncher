@@ -1,21 +1,23 @@
 using System.Globalization;
 using System.Text;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Provides functionality to inject Simple Launcher settings into the Sega Model 2 emulator configuration file (EMULATOR.INI).
+///     Provides functionality to inject Simple Launcher settings into the Sega Model 2 emulator configuration file
+///     (EMULATOR.INI).
 /// </summary>
 public static class SegaModel2ConfigurationService
 {
     /// <summary>
-    /// Injects Simple Launcher configuration settings into the Sega Model 2 emulator's EMULATOR.INI file.
-    /// Creates the config from a sample if it does not exist, then updates renderer and input settings.
+    ///     Injects Simple Launcher configuration settings into the Sega Model 2 emulator's EMULATOR.INI file.
+    ///     Creates the config from a sample if it does not exist, then updates renderer and input settings.
     /// </summary>
     /// <param name="emulatorPath">The full path to the Sega Model 2 emulator executable.</param>
     /// <param name="settings">The settings manager containing Sega Model 2 configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -29,7 +31,6 @@ public static class SegaModel2ConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "SEGA Model 2",
                 "EMULATOR.INI");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -41,11 +42,8 @@ public static class SegaModel2ConfigurationService
                     logger.Error(ex, $"[SegaModel2Config] Failed to create EMULATOR.INI from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("EMULATOR.INI not found and sample is missing.", samplePath);
-            }
         }
 
         logger.Debug($"[SegaModel2Config] Injecting configuration into: {configPath}");
@@ -110,13 +108,9 @@ public static class SegaModel2ConfigurationService
             Dictionary<string, string>? currentUpdates = null;
 
             if (currentSection.Equals("[Renderer]", StringComparison.OrdinalIgnoreCase))
-            {
                 currentUpdates = rendererUpdates;
-            }
             else if (currentSection.Equals("[Input]", StringComparison.OrdinalIgnoreCase))
-            {
                 currentUpdates = inputUpdates;
-            }
 
             if (currentUpdates != null && currentUpdates.TryGetValue(key, out var newValue))
             {
@@ -145,23 +139,15 @@ public static class SegaModel2ConfigurationService
                     var insertIndex = rendererIndex + 1;
                     while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
                            !lines[insertIndex].Trim().StartsWith('['))
-                    {
                         insertIndex++;
-                    }
 
-                    foreach (var kvp in rendererUpdates)
-                    {
-                        lines.Insert(insertIndex++, $"{kvp.Key}={kvp.Value}");
-                    }
+                    foreach (var kvp in rendererUpdates) lines.Insert(insertIndex++, $"{kvp.Key}={kvp.Value}");
                 }
                 else
                 {
                     // Section doesn't exist, add it at the end
                     lines.Add("[Renderer]");
-                    foreach (var kvp in rendererUpdates)
-                    {
-                        lines.Add($"{kvp.Key}={kvp.Value}");
-                    }
+                    foreach (var kvp in rendererUpdates) lines.Add($"{kvp.Key}={kvp.Value}");
                 }
             }
 
@@ -174,29 +160,20 @@ public static class SegaModel2ConfigurationService
                     var insertIndex = inputIndex + 1;
                     while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
                            !lines[insertIndex].Trim().StartsWith('['))
-                    {
                         insertIndex++;
-                    }
 
-                    foreach (var kvp in inputUpdates)
-                    {
-                        lines.Insert(insertIndex++, $"{kvp.Key}={kvp.Value}");
-                    }
+                    foreach (var kvp in inputUpdates) lines.Insert(insertIndex++, $"{kvp.Key}={kvp.Value}");
                 }
                 else
                 {
                     // Section doesn't exist, add it at the end
                     lines.Add("[Input]");
-                    foreach (var kvp in inputUpdates)
-                    {
-                        lines.Add($"{kvp.Key}={kvp.Value}");
-                    }
+                    foreach (var kvp in inputUpdates) lines.Add($"{kvp.Key}={kvp.Value}");
                 }
             }
         }
 
         if (modified)
-        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -208,10 +185,7 @@ public static class SegaModel2ConfigurationService
                 logger.Error(ex, $"[SegaModel2Config] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
-        }
         else
-        {
             logger.Debug("[SegaModel2Config] No changes needed.");
-        }
     }
 }

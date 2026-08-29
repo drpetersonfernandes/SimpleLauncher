@@ -1,19 +1,20 @@
 using System.Windows;
+using Microsoft.Win32;
 using SimpleLauncher.ViewModels;
 
 namespace SimpleLauncher.InjectConfigWindows;
 
 /// <summary>
-/// Window for injecting Ares emulator configuration settings.
+///     Window for injecting Ares emulator configuration settings.
 /// </summary>
 public partial class InjectAresConfigWindow
 {
-    private readonly InjectAresConfigViewModel _viewModel;
-    private readonly Func<string?> _requestEmulatorPathHandler;
     private readonly Func<Window> _getOwnerWindowHandler;
+    private readonly Func<string?> _requestEmulatorPathHandler;
+    private readonly InjectAresConfigViewModel _viewModel;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="InjectAresConfigWindow"/> class.
+    ///     Initializes a new instance of the <see cref="InjectAresConfigWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing configuration logic.</param>
     public InjectAresConfigWindow(InjectAresConfigViewModel viewModel)
@@ -39,13 +40,18 @@ public partial class InjectAresConfigWindow
         DataContext = _viewModel;
     }
 
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration.
+    /// </summary>
+    public bool ShouldRun => _viewModel.ShouldRun;
+
     private void OnCloseRequested(object? sender, EventArgs e)
     {
         Close();
     }
 
     /// <summary>
-    /// Initializes the window with the specified emulator path and launcher mode.
+    ///     Initializes the window with the specified emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">Optional path to the Ares emulator executable.</param>
     /// <param name="isLauncherMode">If true, the window operates in launcher mode.</param>
@@ -53,20 +59,12 @@ public partial class InjectAresConfigWindow
     {
         _viewModel.Initialize(emulatorPath, isLauncherMode);
 
-        if (!isLauncherMode)
-        {
-            BtnSave.IsDefault = true;
-        }
+        if (!isLauncherMode) BtnSave.IsDefault = true;
     }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration.
-    /// </summary>
-    public bool ShouldRun => _viewModel.ShouldRun;
 
     private static string? OnRequestEmulatorPath()
     {
-        var dialog = new Microsoft.Win32.OpenFileDialog
+        var dialog = new OpenFileDialog
         {
             Filter = "Ares Executable|ares.exe|All Executables|*.exe",
             Title = (string)Application.Current.TryFindResource("SelectAresEmulator") ?? "Select Ares Emulator"

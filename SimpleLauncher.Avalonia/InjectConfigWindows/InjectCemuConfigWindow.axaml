@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectCemuConfigWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Cemu Configuration Injection"
         Height="600" Width="700"

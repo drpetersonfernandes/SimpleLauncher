@@ -1,102 +1,18 @@
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
-
 
 namespace SimpleLauncher;
 
 /// <summary>
-/// Partial MainWindow containing window closing, disposal, and event unsubscription logic.
+///     Partial MainWindow containing window closing, disposal, and event unsubscription logic.
 /// </summary>
 public partial class MainWindow
 {
     private bool _isCloseSaveDeferred;
 
-    private async void MainWindow_Closing(object? sender, CancelEventArgs e)
-    {
-        try
-        {
-            // Defer the actual close until the settings save completes; otherwise the
-            // process can exit before the background write finishes and lose the last changes.
-            if (!_isCloseSaveDeferred)
-            {
-                e.Cancel = true;
-                _isCloseSaveDeferred = true;
-
-                try
-                {
-                    await SaveApplicationSettings();
-                }
-                catch (Exception ex)
-                {
-                    Log.Error($"Error saving settings during close: {ex.Message}");
-                }
-
-                Close();
-                return;
-            }
-
-            // Unsubscribe from events to prevent memory leaks
-            UnsubscribeEventHandlers();
-
-            Dispose();
-        }
-        catch (Exception ex)
-        {
-            Log.Error($"Error in Main Window_Closing. Error: {ex.Message}");
-        }
-    }
-
-    private void MainWindow_StateChanged(object? sender, EventArgs e)
-    {
-        if (WindowState == System.Windows.WindowState.Minimized)
-        {
-            Hide();
-            ShowInTaskbar = false;
-        }
-    }
-
     /// <summary>
-    /// Unsubscribes all event handlers to prevent memory leaks.
-    /// </summary>
-    private void UnsubscribeEventHandlers()
-    {
-        // Unsubscribe window-level event handlers
-        Closing -= MainWindow_Closing;
-        StateChanged -= MainWindow_StateChanged;
-        Activated -= MainWindow_Activated;
-        Deactivated -= MainWindow_Deactivated;
-
-        // Unsubscribe the async Loaded handler if it was subscribed
-        if (_asyncLoadedHandler != null)
-        {
-            Loaded -= _asyncLoadedHandler;
-        }
-
-        // Unsubscribe FilterMenu event handler
-        if (_topLetterNumberMenu != null)
-        {
-            _topLetterNumberMenu.OnLetterSelected -= TopLetterNumberMenu_OnLetterSelectedAsync;
-        }
-
-        // Unsubscribe emergency button click handler if it was wired
-        if (_emergencyButtonClickHandler != null && LoadingOverlay?.Template != null)
-        {
-            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
-            {
-                emergencyBtn.Click -= _emergencyButtonClickHandler;
-            }
-        }
-
-        // Unsubscribe and stop game file watcher
-        _lifecycle.UnsubscribeGameFilesChanged(_gameFilesChangedHandler);
-        _lifecycle.StopWatching();
-
-        // Unsubscribe game played event
-        _gameLauncherService.GamePlayed -= _gamePlayedHandler;
-    }
-
-    /// <summary>
-    /// Disposes all managed resources including cancellation tokens, event handlers, and background services.
+    ///     Disposes all managed resources including cancellation tokens, event handlers, and background services.
     /// </summary>
     public void Dispose()
     {
@@ -154,5 +70,80 @@ public partial class MainWindow
         }
 
         GC.SuppressFinalize(this);
+    }
+
+    private async void MainWindow_Closing(object? sender, CancelEventArgs e)
+    {
+        try
+        {
+            // Defer the actual close until the settings save completes; otherwise the
+            // process can exit before the background write finishes and lose the last changes.
+            if (!_isCloseSaveDeferred)
+            {
+                e.Cancel = true;
+                _isCloseSaveDeferred = true;
+
+                try
+                {
+                    await SaveApplicationSettings();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Error saving settings during close: {ex.Message}");
+                }
+
+                Close();
+                return;
+            }
+
+            // Unsubscribe from events to prevent memory leaks
+            UnsubscribeEventHandlers();
+
+            Dispose();
+        }
+        catch (Exception ex)
+        {
+            Log.Error($"Error in Main Window_Closing. Error: {ex.Message}");
+        }
+    }
+
+    private void MainWindow_StateChanged(object? sender, EventArgs e)
+    {
+        if (WindowState == WindowState.Minimized)
+        {
+            Hide();
+            ShowInTaskbar = false;
+        }
+    }
+
+    /// <summary>
+    ///     Unsubscribes all event handlers to prevent memory leaks.
+    /// </summary>
+    private void UnsubscribeEventHandlers()
+    {
+        // Unsubscribe window-level event handlers
+        Closing -= MainWindow_Closing;
+        StateChanged -= MainWindow_StateChanged;
+        Activated -= MainWindow_Activated;
+        Deactivated -= MainWindow_Deactivated;
+
+        // Unsubscribe the async Loaded handler if it was subscribed
+        if (_asyncLoadedHandler != null) Loaded -= _asyncLoadedHandler;
+
+        // Unsubscribe FilterMenu event handler
+        if (_topLetterNumberMenu != null)
+            _topLetterNumberMenu.OnLetterSelected -= TopLetterNumberMenu_OnLetterSelectedAsync;
+
+        // Unsubscribe emergency button click handler if it was wired
+        if (_emergencyButtonClickHandler != null && LoadingOverlay?.Template != null)
+            if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
+                emergencyBtn.Click -= _emergencyButtonClickHandler;
+
+        // Unsubscribe and stop game file watcher
+        _lifecycle.UnsubscribeGameFilesChanged(_gameFilesChangedHandler);
+        _lifecycle.StopWatching();
+
+        // Unsubscribe game played event
+        _gameLauncherService.GamePlayed -= _gamePlayedHandler;
     }
 }

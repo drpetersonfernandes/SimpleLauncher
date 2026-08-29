@@ -6,8 +6,8 @@ using Microsoft.Win32;
 namespace SimpleLauncher.Updater.Services;
 
 /// <summary>
-/// Service for detecting whether the Dokan library is installed,
-/// and for downloading and installing it if missing.
+///     Service for detecting whether the Dokan library is installed,
+///     and for downloading and installing it if missing.
 /// </summary>
 internal class DokanService
 {
@@ -20,17 +20,7 @@ internal class DokanService
     private readonly DownloadService _downloadService;
 
     /// <summary>
-    /// Event raised when a log message needs to be displayed.
-    /// </summary>
-    public event EventHandler<EventArgs<string>>? LogMessage;
-
-    /// <summary>
-    /// Event raised when download progress changes.
-    /// </summary>
-    public event EventHandler<EventArgs<DownloadProgressInfo>>? ProgressChanged;
-
-    /// <summary>
-    /// Initializes a new instance of the DokanService class.
+    ///     Initializes a new instance of the DokanService class.
     /// </summary>
     /// <param name="downloadService">The download service to use for downloading files.</param>
     public DokanService(DownloadService downloadService)
@@ -39,7 +29,17 @@ internal class DokanService
     }
 
     /// <summary>
-    /// Checks whether the Dokan library is installed on this system.
+    ///     Event raised when a log message needs to be displayed.
+    /// </summary>
+    public event EventHandler<EventArgs<string>>? LogMessage;
+
+    /// <summary>
+    ///     Event raised when download progress changes.
+    /// </summary>
+    public event EventHandler<EventArgs<DownloadProgressInfo>>? ProgressChanged;
+
+    /// <summary>
+    ///     Checks whether the Dokan library is installed on this system.
     /// </summary>
     /// <returns>True if Dokan is detected, false otherwise.</returns>
     public bool IsDokanInstalled()
@@ -65,7 +65,7 @@ internal class DokanService
     }
 
     /// <summary>
-    /// Gets the Dokan MSI download URL for the current processor architecture.
+    ///     Gets the Dokan MSI download URL for the current processor architecture.
     /// </summary>
     /// <returns>The download URL for the appropriate Dokan MSI installer.</returns>
     private static string GetDokanDownloadUrl()
@@ -78,7 +78,7 @@ internal class DokanService
     }
 
     /// <summary>
-    /// Downloads the Dokan MSI installer to the application directory and launches it.
+    ///     Downloads the Dokan MSI installer to the application directory and launches it.
     /// </summary>
     /// <param name="appDirectory">The directory to save the MSI file to.</param>
     public async Task DownloadAndInstallDokanAsync(string appDirectory)
@@ -153,7 +153,7 @@ internal class DokanService
     }
 
     /// <summary>
-    /// Checks the Windows registry for any Dokan installation entry.
+    ///     Checks the Windows registry for any Dokan installation entry.
     /// </summary>
     private static bool IsDokanInRegistry()
     {
@@ -163,7 +163,7 @@ internal class DokanService
     }
 
     /// <summary>
-    /// Checks a specific registry view for Dokan uninstall entries.
+    ///     Checks a specific registry view for Dokan uninstall entries.
     /// </summary>
     private static bool CheckUninstallRegistry(RegistryView registryView)
     {
@@ -174,22 +174,18 @@ internal class DokanService
             if (uninstallKey == null) return false;
 
             foreach (var subKeyName in uninstallKey.GetSubKeyNames())
-            {
                 try
                 {
                     using var subKey = uninstallKey.OpenSubKey(subKeyName);
                     var displayName = subKey?.GetValue("DisplayName") as string;
                     if (!string.IsNullOrEmpty(displayName) &&
                         displayName.Contains("Dokan", StringComparison.OrdinalIgnoreCase))
-                    {
                         return true;
-                    }
                 }
                 catch
                 {
                     // Skip keys that can't be read
                 }
-            }
         }
         catch
         {
@@ -200,7 +196,7 @@ internal class DokanService
     }
 
     /// <summary>
-    /// Checks whether the Dokan DLL exists in the System32 directory.
+    ///     Checks whether the Dokan DLL exists in the System32 directory.
     /// </summary>
     private static bool IsDokanDllPresent()
     {

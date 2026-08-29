@@ -7,8 +7,8 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Models;
 
 /// <summary>
-/// Contextual information passed to right-click menu handlers for game items.
-/// Aggregates game data and services needed by the context menu (WPF RightClickContext port).
+///     Contextual information passed to right-click menu handlers for game items.
+///     Aggregates game data and services needed by the context menu (WPF RightClickContext port).
 /// </summary>
 public class AvaloniaRightClickContext(
     string filePath,

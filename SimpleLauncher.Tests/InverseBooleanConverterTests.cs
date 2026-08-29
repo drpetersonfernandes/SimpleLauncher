@@ -5,14 +5,14 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="InverseBooleanConverter"/> class.
+///     Tests for the <see cref="InverseBooleanConverter" /> class.
 /// </summary>
 public class InverseBooleanConverterTests
 {
     private readonly InverseBooleanConverter _converter = new();
 
     /// <summary>
-    /// Verifies that Convert returns the inverse of a boolean value.
+    ///     Verifies that Convert returns the inverse of a boolean value.
     /// </summary>
     [Theory]
     [InlineData(true, false)]
@@ -24,7 +24,7 @@ public class InverseBooleanConverterTests
     }
 
     /// <summary>
-    /// Verifies that ConvertBack returns the inverse of a boolean value.
+    ///     Verifies that ConvertBack returns the inverse of a boolean value.
     /// </summary>
     [Theory]
     [InlineData(true, false)]
@@ -36,7 +36,7 @@ public class InverseBooleanConverterTests
     }
 
     /// <summary>
-    /// Verifies that Convert returns the original value for non-boolean input.
+    ///     Verifies that Convert returns the original value for non-boolean input.
     /// </summary>
     [Fact]
     public void ConvertNonBooleanReturnsOriginalValue()
@@ -46,7 +46,7 @@ public class InverseBooleanConverterTests
     }
 
     /// <summary>
-    /// Verifies that ConvertBack returns the original value for non-boolean input.
+    ///     Verifies that ConvertBack returns the original value for non-boolean input.
     /// </summary>
     [Fact]
     public void ConvertBackNonBooleanReturnsOriginalValue()
@@ -56,7 +56,7 @@ public class InverseBooleanConverterTests
     }
 
     /// <summary>
-    /// Verifies that Convert and ConvertBack are inverse operations.
+    ///     Verifies that Convert and ConvertBack are inverse operations.
     /// </summary>
     [Fact]
     public void ConvertAndConvertBackAreInverse()
@@ -68,7 +68,7 @@ public class InverseBooleanConverterTests
     }
 
     /// <summary>
-    /// Verifies that ConvertBack and Convert are inverse operations.
+    ///     Verifies that ConvertBack and Convert are inverse operations.
     /// </summary>
     [Fact]
     public void ConvertBackAndConvertAreInverse()
@@ -80,7 +80,7 @@ public class InverseBooleanConverterTests
     }
 
     /// <summary>
-    /// Verifies that Convert returns the original value when the input is an integer, not a boolean.
+    ///     Verifies that Convert returns the original value when the input is an integer, not a boolean.
     /// </summary>
     [Fact]
     public void ConvertIntReturnsOriginalValue()
@@ -90,7 +90,7 @@ public class InverseBooleanConverterTests
     }
 
     /// <summary>
-    /// Verifies that Convert returns null when the input is null.
+    ///     Verifies that Convert returns null when the input is null.
     /// </summary>
     [Fact]
     public void ConvertNullReturnsNull()

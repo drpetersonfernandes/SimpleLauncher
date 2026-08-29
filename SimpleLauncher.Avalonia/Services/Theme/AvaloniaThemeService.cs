@@ -5,9 +5,9 @@ using Avalonia.Styling;
 namespace SimpleLauncher.Avalonia.Services.Theme;
 
 /// <summary>
-/// Applies base theme + accent color at runtime by overriding the
-/// <c>Color</c> resources consumed by <c>Themes/DarkTheme.axaml</c>.
-/// Parity with the WPF <c>ThemeMenuService</c> (5 base themes + 27 accents).
+///     Applies base theme + accent color at runtime by overriding the
+///     <c>Color</c> resources consumed by <c>Themes/DarkTheme.axaml</c>.
+///     Parity with the WPF <c>ThemeMenuService</c> (5 base themes + 27 accents).
 /// </summary>
 public static class AvaloniaThemeService
 {
@@ -108,8 +108,8 @@ public static class AvaloniaThemeService
     };
 
     /// <summary>
-    /// Applies the base theme and accent color. Unknown base themes fall back to Dark;
-    /// unknown accents fall back to Blue. <c>Adaptive</c> follows the OS theme.
+    ///     Applies the base theme and accent color. Unknown base themes fall back to Dark;
+    ///     unknown accents fall back to Blue. <c>Adaptive</c> follows the OS theme.
     /// </summary>
     public static void ApplyTheme(string? baseTheme, string? accentColor)
     {
@@ -127,17 +127,10 @@ public static class AvaloniaThemeService
         };
 
         foreach (var key in PaletteKeys)
-        {
             if (palette.TryGetValue(key, out var hex))
-            {
                 Application.Current.Resources[key] = Color.Parse(hex);
-            }
-        }
 
-        if (!AccentHex.TryGetValue(effectiveAccent, out var accentHex))
-        {
-            accentHex = AccentHex["Blue"];
-        }
+        if (!AccentHex.TryGetValue(effectiveAccent, out var accentHex)) accentHex = AccentHex["Blue"];
 
         var accent = Color.Parse(accentHex);
         Application.Current.Resources["AccentColor"] = accent;
@@ -158,6 +151,7 @@ public static class AvaloniaThemeService
     private static Color Lighten(Color c, double amount)
     {
         return Color.FromArgb(c.A, L(c.R), L(c.G), L(c.B));
+
         byte L(byte v)
         {
             return (byte)Math.Min(255, v + (255 - v) * amount);

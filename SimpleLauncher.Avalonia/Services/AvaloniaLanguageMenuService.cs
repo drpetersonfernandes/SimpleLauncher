@@ -1,15 +1,15 @@
 namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
-/// Maps language menu items (by x:Name) to language codes and back. The canonical
-/// 18-language set matches the WPF <c>LanguageMenuService.NameToCode</c> and the
-/// <see cref="LocalizationService.AvailableLanguages"/> set (canonical codes use
-/// 'pt-BR' / 'zh-Hans', matching the resource file names).
+///     Maps language menu items (by x:Name) to language codes and back. The canonical
+///     18-language set matches the WPF <c>LanguageMenuService.NameToCode</c> and the
+///     <see cref="LocalizationService.AvailableLanguages" /> set (canonical codes use
+///     'pt-BR' / 'zh-Hans', matching the resource file names).
 /// </summary>
 public class AvaloniaLanguageMenuService
 {
     /// <summary>
-    /// Maps menu item x:Name to the canonical language code.
+    ///     Maps menu item x:Name to the canonical language code.
     /// </summary>
     public static readonly IReadOnlyDictionary<string, string> NameToCode =
         new Dictionary<string, string>(StringComparer.Ordinal)
@@ -35,7 +35,7 @@ public class AvaloniaLanguageMenuService
         };
 
     /// <summary>
-    /// Looks up the language code for a menu item name, or null when the name is not a language item.
+    ///     Looks up the language code for a menu item name, or null when the name is not a language item.
     /// </summary>
     /// <param name="menuItemName">The menu item x:Name (may be null).</param>
     public string? GetLanguageCodeFromMenuItemName(string? menuItemName)
@@ -44,8 +44,8 @@ public class AvaloniaLanguageMenuService
     }
 
     /// <summary>
-    /// Returns the menu item x:Name that should be checked for the given language
-    /// code (case-insensitive), or null when the code is not a supported language.
+    ///     Returns the menu item x:Name that should be checked for the given language
+    ///     code (case-insensitive), or null when the code is not a supported language.
     /// </summary>
     /// <param name="languageCode">The canonical (or WPF-style lowercase) language code.</param>
     public string? GetMenuItemNameForLanguageCode(string languageCode)
@@ -56,7 +56,7 @@ public class AvaloniaLanguageMenuService
     }
 
     /// <summary>
-    /// Determines whether the given menu item name belongs to the language submenu.
+    ///     Determines whether the given menu item name belongs to the language submenu.
     /// </summary>
     /// <param name="menuItemName">The menu item x:Name (may be null).</param>
     public bool IsLanguageMenuItem(string? menuItemName)

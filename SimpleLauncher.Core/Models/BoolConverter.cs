@@ -4,12 +4,12 @@ using System.Text.Json.Serialization;
 namespace SimpleLauncher.Core.Models;
 
 /// <summary>
-/// Custom converter to handle API returning boolean values as numbers (0/1).
+///     Custom converter to handle API returning boolean values as numbers (0/1).
 /// </summary>
 public class BoolConverter : JsonConverter<bool>
 {
     /// <summary>
-    /// Reads and converts a JSON token to a boolean, handling true, false, and numeric (0/1) representations.
+    ///     Reads and converts a JSON token to a boolean, handling true, false, and numeric (0/1) representations.
     /// </summary>
     /// <param name="reader">The JSON reader.</param>
     /// <param name="typeToConvert">The target type to convert to.</param>
@@ -28,7 +28,7 @@ public class BoolConverter : JsonConverter<bool>
     }
 
     /// <summary>
-    /// Writes a boolean value as a JSON boolean token.
+    ///     Writes a boolean value as a JSON boolean token.
     /// </summary>
     /// <param name="writer">The JSON writer.</param>
     /// <param name="value">The boolean value to write.</param>

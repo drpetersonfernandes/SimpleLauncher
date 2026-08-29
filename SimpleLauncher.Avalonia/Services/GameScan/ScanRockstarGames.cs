@@ -7,8 +7,8 @@ using SimpleLauncher.Core.Services.SanitizeInputString;
 namespace SimpleLauncher.Avalonia.Services.GameScan;
 
 /// <summary>
-/// Scans for installed Rockstar Games by matching uninstall strings against known title IDs
-/// and creates shortcuts for them.
+///     Scans for installed Rockstar Games by matching uninstall strings against known title IDs
+///     and creates shortcuts for them.
 /// </summary>
 public partial class ScanRockstarGames : IGamePlatformScanner
 {
@@ -44,7 +44,7 @@ public partial class ScanRockstarGames : IGamePlatformScanner
     ];
 
     /// <summary>
-    /// Scans the registry uninstall entries for known Rockstar title IDs and creates shortcuts and cover images.
+    ///     Scans the registry uninstall entries for known Rockstar title IDs and creates shortcuts and cover images.
     /// </summary>
     /// <param name="gameScannerService">The scanner service providing shared helpers.</param>
     /// <param name="logErrors">The error logger.</param>
@@ -70,7 +70,6 @@ public partial class ScanRockstarGames : IGamePlatformScanner
                 if (baseKey == null) continue;
 
                 foreach (var subKeyName in baseKey.GetSubKeyNames())
-                {
                     try
                     {
                         using var subKey = baseKey.OpenSubKey(subKeyName);
@@ -115,7 +114,6 @@ public partial class ScanRockstarGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Error processing Rockstar game registry key: {subKeyName}");
                     }
-                }
             }
         }
         catch (Exception ex)

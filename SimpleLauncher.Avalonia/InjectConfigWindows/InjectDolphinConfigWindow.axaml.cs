@@ -5,17 +5,17 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.InjectConfigWindows;
 
 /// <summary>
-/// Window for injecting Dolphin emulator configuration settings.
+///     Window for injecting Dolphin emulator configuration settings.
 /// </summary>
 public partial class InjectDolphinConfigWindow : Window
 {
-    private readonly InjectDolphinConfigViewModel _viewModel;
     private readonly IFilePickerService _filePicker;
-    private readonly Func<Task<string?>> _requestEmulatorPathHandler;
     private readonly Func<Window> _getOwnerWindowHandler;
+    private readonly Func<Task<string?>> _requestEmulatorPathHandler;
+    private readonly InjectDolphinConfigViewModel _viewModel;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="InjectDolphinConfigWindow"/> class.
+    ///     Initializes a new instance of the <see cref="InjectDolphinConfigWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing configuration logic.</param>
     /// <param name="filePicker">The file picker service used to locate the emulator executable.</param>
@@ -42,13 +42,18 @@ public partial class InjectDolphinConfigWindow : Window
         DataContext = _viewModel;
     }
 
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration.
+    /// </summary>
+    public bool ShouldRun => _viewModel.ShouldRun;
+
     private void OnCloseRequested(object? sender, EventArgs e)
     {
         Close();
     }
 
     /// <summary>
-    /// Initializes the window with the specified emulator path and launcher mode.
+    ///     Initializes the window with the specified emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">Optional path to the Dolphin emulator executable.</param>
     /// <param name="isLauncherMode">If true, the window operates in launcher mode.</param>
@@ -56,11 +61,6 @@ public partial class InjectDolphinConfigWindow : Window
     {
         _viewModel.Initialize(emulatorPath, isLauncherMode);
     }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration.
-    /// </summary>
-    public bool ShouldRun => _viewModel.ShouldRun;
 
     private async Task<string?> OnRequestEmulatorPath()
     {

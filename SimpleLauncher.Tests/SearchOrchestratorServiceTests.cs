@@ -1,21 +1,22 @@
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.SearchOrchestrator;
+using SimpleLauncher.Services.SystemManager;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the SearchOrchestratorService for validating and preparing search queries.
+///     Tests the SearchOrchestratorService for validating and preparing search queries.
 /// </summary>
 public class SearchOrchestratorServiceTests
 {
-    private readonly SearchOrchestratorService _service;
     private readonly GameCacheServiceForTest _gameCacheService;
+    private readonly SearchOrchestratorService _service;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SearchOrchestratorServiceTests"/> class,
-    /// creating the game cache service and search orchestrator service instances.
+    ///     Initializes a new instance of the <see cref="SearchOrchestratorServiceTests" /> class,
+    ///     creating the game cache service and search orchestrator service instances.
     /// </summary>
     public SearchOrchestratorServiceTests()
     {
@@ -24,7 +25,7 @@ public class SearchOrchestratorServiceTests
     }
 
     /// <summary>
-    /// Verifies that validation fails when the system name is null.
+    ///     Verifies that validation fails when the system name is null.
     /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsFailureForNullSystem()
@@ -34,7 +35,7 @@ public class SearchOrchestratorServiceTests
     }
 
     /// <summary>
-    /// Verifies that validation fails when the system name is empty.
+    ///     Verifies that validation fails when the system name is empty.
     /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsFailureForEmptySystem()
@@ -44,7 +45,7 @@ public class SearchOrchestratorServiceTests
     }
 
     /// <summary>
-    /// Verifies that validation fails when the search query is null.
+    ///     Verifies that validation fails when the search query is null.
     /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsFailureForNullQuery()
@@ -54,7 +55,7 @@ public class SearchOrchestratorServiceTests
     }
 
     /// <summary>
-    /// Verifies that validation fails when the search query is empty.
+    ///     Verifies that validation fails when the search query is empty.
     /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsFailureForEmptyQuery()
@@ -64,7 +65,7 @@ public class SearchOrchestratorServiceTests
     }
 
     /// <summary>
-    /// Verifies that validation fails when the search query is whitespace only.
+    ///     Verifies that validation fails when the search query is whitespace only.
     /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsFailureForWhitespaceQuery()
@@ -74,7 +75,7 @@ public class SearchOrchestratorServiceTests
     }
 
     /// <summary>
-    /// Verifies that validation succeeds and returns the query for valid input.
+    ///     Verifies that validation succeeds and returns the query for valid input.
     /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncReturnsSuccessForValidInput()
@@ -85,7 +86,7 @@ public class SearchOrchestratorServiceTests
     }
 
     /// <summary>
-    /// Verifies that leading and trailing whitespace is trimmed from the search query.
+    ///     Verifies that leading and trailing whitespace is trimmed from the search query.
     /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncTrimsQuery()
@@ -95,7 +96,7 @@ public class SearchOrchestratorServiceTests
     }
 
     /// <summary>
-    /// Verifies that successful validation clears previous search results in the cache.
+    ///     Verifies that successful validation clears previous search results in the cache.
     /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncClearsSearchResults()
@@ -105,7 +106,7 @@ public class SearchOrchestratorServiceTests
     }
 
     /// <summary>
-    /// Verifies that failed validation does not clear search results in the cache.
+    ///     Verifies that failed validation does not clear search results in the cache.
     /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncFailureDoesNotClearSearchResults()
@@ -116,7 +117,7 @@ public class SearchOrchestratorServiceTests
     }
 
     /// <summary>
-    /// Verifies that search queries with special characters like parentheses are handled correctly.
+    ///     Verifies that search queries with special characters like parentheses are handled correctly.
     /// </summary>
     [Fact]
     public async Task ValidateAndPrepareAsyncWithSpecialCharacters()
@@ -129,17 +130,17 @@ public class SearchOrchestratorServiceTests
     private class GameCacheServiceForTest : IGameCacheService
     {
         /// <summary>
-        /// Gets or sets a value indicating whether the orchestrator replaced the cached search results.
+        ///     Gets or sets a value indicating whether the orchestrator replaced the cached search results.
         /// </summary>
         public bool SearchResultsCleared { get; set; }
 
         /// <summary>
-        /// Gets or sets the currently selected system name.
+        ///     Gets or sets the currently selected system name.
         /// </summary>
-        public string SelectedSystem { get; set; } = "";
+        public string SelectedSystem => "";
 
         /// <summary>
-        /// Returns an empty list of cached games.
+        ///     Returns an empty list of cached games.
         /// </summary>
         /// <param name="ct">A token to observe for cancellation.</param>
         /// <returns>A task producing an empty game list.</returns>
@@ -149,7 +150,7 @@ public class SearchOrchestratorServiceTests
         }
 
         /// <summary>
-        /// Returns an empty list of cached search results.
+        ///     Returns an empty list of cached search results.
         /// </summary>
         /// <param name="ct">A token to observe for cancellation.</param>
         /// <returns>A task producing an empty search result list.</returns>
@@ -159,7 +160,7 @@ public class SearchOrchestratorServiceTests
         }
 
         /// <summary>
-        /// Always reports that the cache is not populated for the requested system.
+        ///     Always reports that the cache is not populated for the requested system.
         /// </summary>
         /// <param name="systemName">The system name to check.</param>
         /// <param name="ct">A token to observe for cancellation.</param>
@@ -170,23 +171,23 @@ public class SearchOrchestratorServiceTests
         }
 
         /// <summary>
-        /// Ignores the supplied game list and completes immediately.
+        ///     Ignores the supplied game list and completes immediately.
         /// </summary>
         /// <param name="games">The games that would be cached.</param>
         /// <param name="systemName">The system the games belong to.</param>
         /// <param name="ct">A token to observe for cancellation.</param>
-        /// <returns>A completed <see cref="Task"/>.</returns>
+        /// <returns>A completed <see cref="Task" />.</returns>
         public Task SetAllGamesAsync(IList<string> games, string systemName, CancellationToken ct)
         {
             return Task.CompletedTask;
         }
 
         /// <summary>
-        /// Flags that the cached search results were replaced and completes immediately.
+        ///     Flags that the cached search results were replaced and completes immediately.
         /// </summary>
         /// <param name="results">The search results that would be cached.</param>
         /// <param name="ct">A token to observe for cancellation.</param>
-        /// <returns>A completed <see cref="Task"/>.</returns>
+        /// <returns>A completed <see cref="Task" />.</returns>
         public Task SetSearchResultsAsync(IList<string> results, CancellationToken ct)
         {
             SearchResultsCleared = true;
@@ -194,7 +195,7 @@ public class SearchOrchestratorServiceTests
         }
 
         /// <summary>
-        /// Returns empty game and search result lists to use as a re-sort source.
+        ///     Returns empty game and search result lists to use as a re-sort source.
         /// </summary>
         /// <param name="hasActiveFilter">Whether a filter is currently applied.</param>
         /// <param name="ct">A token to observe for cancellation.</param>
@@ -206,30 +207,30 @@ public class SearchOrchestratorServiceTests
         }
 
         /// <summary>
-        /// Ignores the request to populate the cache from disk and completes immediately.
+        ///     Ignores the request to populate the cache from disk and completes immediately.
         /// </summary>
         /// <param name="config">The system configuration that would be scanned.</param>
         /// <param name="fileService">The service that would enumerate the files on disk.</param>
         /// <param name="ct">A token to observe for cancellation.</param>
-        /// <returns>A completed <see cref="Task"/>.</returns>
-        public Task PopulateFromDiskAsync(Services.SystemManager.SystemManagerService config,
+        /// <returns>A completed <see cref="Task" />.</returns>
+        public Task PopulateFromDiskAsync(SystemManagerService config,
             IGetListOfFilesService fileService, CancellationToken ct)
         {
             return Task.CompletedTask;
         }
 
         /// <summary>
-        /// Ignores the cache invalidation request and completes immediately.
+        ///     Ignores the cache invalidation request and completes immediately.
         /// </summary>
         /// <param name="ct">A token to observe for cancellation.</param>
-        /// <returns>A completed <see cref="Task"/>.</returns>
+        /// <returns>A completed <see cref="Task" />.</returns>
         public Task InvalidateAsync(CancellationToken ct)
         {
             return Task.CompletedTask;
         }
 
         /// <summary>
-        /// Does nothing; the test cache holds no state that needs clearing synchronously.
+        ///     Does nothing; the test cache holds no state that needs clearing synchronously.
         /// </summary>
         public void ClearSync()
         {

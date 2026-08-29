@@ -7,7 +7,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="PbpToCueStrategy"/> class.
+///     Tests for the <see cref="PbpToCueStrategy" /> class.
 /// </summary>
 public class PbpToCueStrategyTests
 {
@@ -24,7 +24,7 @@ public class PbpToCueStrategyTests
     }
 
     /// <summary>
-    /// Verifies that the strategy has a priority of 15.
+    ///     Verifies that the strategy has a priority of 15.
     /// </summary>
     [Fact]
     public void PriorityIs15()
@@ -34,7 +34,7 @@ public class PbpToCueStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns false when the file path is empty.
+    ///     Verifies that IsMatch returns false when the file path is empty.
     /// </summary>
     [Fact]
     public void IsMatchEmptyFilePathReturnsFalse()
@@ -50,7 +50,7 @@ public class PbpToCueStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns false when the emulator name is empty.
+    ///     Verifies that IsMatch returns false when the emulator name is empty.
     /// </summary>
     [Fact]
     public void IsMatchEmptyEmulatorNameReturnsFalse()
@@ -66,7 +66,7 @@ public class PbpToCueStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns false for non-PBP file extensions.
+    ///     Verifies that IsMatch returns false for non-PBP file extensions.
     /// </summary>
     [Fact]
     public void IsMatchNonPbpFileReturnsFalse()
@@ -82,7 +82,7 @@ public class PbpToCueStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns false for a non-Mednafen emulator.
+    ///     Verifies that IsMatch returns false for a non-Mednafen emulator.
     /// </summary>
     [Fact]
     public void IsMatchNonMednafenEmulatorReturnsFalse()
@@ -98,7 +98,7 @@ public class PbpToCueStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns true for PBP files paired with Mednafen emulator variants.
+    ///     Verifies that IsMatch returns true for PBP files paired with Mednafen emulator variants.
     /// </summary>
     /// <param name="emulatorName">The Mednafen emulator name variant to test.</param>
     [Theory]
@@ -118,7 +118,7 @@ public class PbpToCueStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns true when the emulator location points to a Mednafen executable.
+    ///     Verifies that IsMatch returns true when the emulator location points to a Mednafen executable.
     /// </summary>
     [Fact]
     public void IsMatchMednafenByEmulatorLocationReturnsTrue()
@@ -135,7 +135,7 @@ public class PbpToCueStrategyTests
     }
 
     /// <summary>
-    /// Verifies that PBP file extension matching is case-insensitive.
+    ///     Verifies that PBP file extension matching is case-insensitive.
     /// </summary>
     [Fact]
     public void IsMatchPbpExtensionCaseInsensitive()
@@ -163,7 +163,7 @@ public class PbpToCueStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns false for non-PBP file extensions.
+    ///     Verifies that IsMatch returns false for non-PBP file extensions.
     /// </summary>
     /// <param name="extension">The non-PBP file extension to test.</param>
     [Theory]

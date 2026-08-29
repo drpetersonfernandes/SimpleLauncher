@@ -11,26 +11,26 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the Cemu emulator configuration injection window.
+///     ViewModel for the Cemu emulator configuration injection window.
 /// </summary>
 public partial class InjectCemuConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly EmulatorPathResolver _emulatorPathResolver;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
+    [ObservableProperty] private bool _asyncCompile;
+    [ObservableProperty] private bool _discord;
     private string _emulatorPath = "";
 
     [ObservableProperty] private bool _fullscreen;
     [ObservableProperty] private string _graphicApi = "";
-    [ObservableProperty] private string _vsync = "";
-    [ObservableProperty] private bool _asyncCompile;
-    [ObservableProperty] private int _volume;
-    [ObservableProperty] private bool _discord;
     [ObservableProperty] private string _language = "";
     [ObservableProperty] private bool _showBeforeLaunch;
+    [ObservableProperty] private int _volume;
+    [ObservableProperty] private string _vsync = "";
 
-    /// <summary>Initializes a new instance of the <see cref="InjectCemuConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectCemuConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
@@ -48,7 +48,27 @@ public partial class InjectCemuConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Cemu emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -60,17 +80,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -79,16 +89,6 @@ public partial class InjectCemuConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -106,22 +106,15 @@ public partial class InjectCemuConfigViewModel : ObservableObject
     {
         _settings.Cemu.Fullscreen = Fullscreen;
         if (int.TryParse(GraphicApi, CultureInfo.InvariantCulture, out var graphicApi))
-        {
             _settings.Cemu.GraphicApi = graphicApi;
-        }
 
-        if (int.TryParse(Vsync, CultureInfo.InvariantCulture, out var vsync))
-        {
-            _settings.Cemu.Vsync = vsync;
-        }
+        if (int.TryParse(Vsync, CultureInfo.InvariantCulture, out var vsync)) _settings.Cemu.Vsync = vsync;
 
         _settings.Cemu.AsyncCompile = AsyncCompile;
         _settings.Cemu.TvVolume = Volume;
         _settings.Cemu.DiscordPresence = Discord;
         if (int.TryParse(Language, CultureInfo.InvariantCulture, out var language))
-        {
             _settings.Cemu.ConsoleLanguage = language;
-        }
 
         _settings.Cemu.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
         _ = _settings.SaveAsync();
@@ -129,10 +122,7 @@ public partial class InjectCemuConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = _emulatorPathResolver.TryFindEmulatorPath("Cemu", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

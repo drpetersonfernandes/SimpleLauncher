@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="GameButtonViewModel"/> class.
+///     Tests for the <see cref="GameButtonViewModel" /> class.
 /// </summary>
 public class GameButtonViewModelTests
 {
     /// <summary>
-    /// Verifies that the default value of IsFavorite is false.
+    ///     Verifies that the default value of IsFavorite is false.
     /// </summary>
     [Fact]
     public void DefaultIsFavoriteIsFalse()
@@ -19,7 +19,7 @@ public class GameButtonViewModelTests
     }
 
     /// <summary>
-    /// Verifies that the default value of HasAchievements is false.
+    ///     Verifies that the default value of HasAchievements is false.
     /// </summary>
     [Fact]
     public void DefaultHasAchievementsIsFalse()
@@ -29,7 +29,7 @@ public class GameButtonViewModelTests
     }
 
     /// <summary>
-    /// Verifies that IsFavorite can be set to true.
+    ///     Verifies that IsFavorite can be set to true.
     /// </summary>
     [Fact]
     public void IsFavoriteCanBeSetToTrue()
@@ -39,7 +39,7 @@ public class GameButtonViewModelTests
     }
 
     /// <summary>
-    /// Verifies that HasAchievements can be set to true.
+    ///     Verifies that HasAchievements can be set to true.
     /// </summary>
     [Fact]
     public void HasAchievementsCanBeSetToTrue()
@@ -49,7 +49,7 @@ public class GameButtonViewModelTests
     }
 
     /// <summary>
-    /// Verifies that setting IsFavorite raises PropertyChanged.
+    ///     Verifies that setting IsFavorite raises PropertyChanged.
     /// </summary>
     [Fact]
     public void IsFavoriteRaisesPropertyChanged()
@@ -59,9 +59,7 @@ public class GameButtonViewModelTests
         vm.PropertyChanged += (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(GameButtonViewModel.IsFavorite), StringComparison.Ordinal))
-            {
                 raised = true;
-            }
         };
 
         vm.IsFavorite = true;
@@ -69,7 +67,7 @@ public class GameButtonViewModelTests
     }
 
     /// <summary>
-    /// Verifies that setting HasAchievements raises PropertyChanged.
+    ///     Verifies that setting HasAchievements raises PropertyChanged.
     /// </summary>
     [Fact]
     public void HasAchievementsRaisesPropertyChanged()
@@ -78,10 +76,8 @@ public class GameButtonViewModelTests
         var raised = false;
         vm.PropertyChanged += (_, args) =>
         {
-            if (string.Equals(args.PropertyName, nameof(GameButtonViewModel.HasAchievements), StringComparison.Ordinal))
-            {
-                raised = true;
-            }
+            if (string.Equals(args.PropertyName, nameof(GameButtonViewModel.HasAchievements),
+                    StringComparison.Ordinal)) raised = true;
         };
 
         vm.HasAchievements = true;
@@ -89,7 +85,7 @@ public class GameButtonViewModelTests
     }
 
     /// <summary>
-    /// Verifies that setting IsFavorite to the same value does not raise PropertyChanged.
+    ///     Verifies that setting IsFavorite to the same value does not raise PropertyChanged.
     /// </summary>
     [Fact]
     public void IsFavoriteSameValueDoesNotRaisePropertyChanged()
@@ -103,7 +99,7 @@ public class GameButtonViewModelTests
     }
 
     /// <summary>
-    /// Verifies that setting HasAchievements to the same value does not raise PropertyChanged.
+    ///     Verifies that setting HasAchievements to the same value does not raise PropertyChanged.
     /// </summary>
     [Fact]
     public void HasAchievementsSameValueDoesNotRaisePropertyChanged()
@@ -117,7 +113,7 @@ public class GameButtonViewModelTests
     }
 
     /// <summary>
-    /// Verifies that IsFavorite can be toggled between true and false.
+    ///     Verifies that IsFavorite can be toggled between true and false.
     /// </summary>
     [Fact]
     public void IsFavoriteToggleBackAndForth()
@@ -132,7 +128,7 @@ public class GameButtonViewModelTests
     }
 
     /// <summary>
-    /// Verifies that multiple PropertyChanged subscriptions are all invoked.
+    ///     Verifies that multiple PropertyChanged subscriptions are all invoked.
     /// </summary>
     [Fact]
     public void MultiplePropertyChangedSubscriptions()

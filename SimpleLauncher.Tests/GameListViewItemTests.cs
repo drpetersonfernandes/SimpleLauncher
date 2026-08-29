@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="GameListViewItem"/> model class.
+///     Tests for the <see cref="GameListViewItem" /> model class.
 /// </summary>
 public class GameListViewItemTests
 {
     /// <summary>
-    /// Verifies that a new GameListViewItem has correct default values.
+    ///     Verifies that a new GameListViewItem has correct default values.
     /// </summary>
     [Fact]
     public void DefaultValuesAreCorrect()
@@ -29,7 +29,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that init properties can be set during object creation.
+    ///     Verifies that init properties can be set during object creation.
     /// </summary>
     [Fact]
     public void InitPropertiesCanBeSetDuringCreation()
@@ -47,7 +47,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting IsFavorite raises PropertyChanged.
+    ///     Verifies that setting IsFavorite raises PropertyChanged.
     /// </summary>
     [Fact]
     public void IsFavoriteRaisesPropertyChanged()
@@ -57,9 +57,7 @@ public class GameListViewItemTests
         item.PropertyChanged += (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(GameListViewItem.IsFavorite), StringComparison.Ordinal))
-            {
                 eventRaised = true;
-            }
         };
 
         item.IsFavorite = true;
@@ -69,7 +67,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting IsFavorite to the same value does not raise PropertyChanged.
+    ///     Verifies that setting IsFavorite to the same value does not raise PropertyChanged.
     /// </summary>
     [Fact]
     public void IsFavoriteSameValueDoesNotRaisePropertyChanged()
@@ -84,7 +82,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting MachineDescription raises PropertyChanged.
+    ///     Verifies that setting MachineDescription raises PropertyChanged.
     /// </summary>
     [Fact]
     public void MachineDescriptionRaisesPropertyChanged()
@@ -94,9 +92,7 @@ public class GameListViewItemTests
         item.PropertyChanged += (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(GameListViewItem.MachineDescription), StringComparison.Ordinal))
-            {
                 eventRaised = true;
-            }
         };
 
         item.MachineDescription = "Neo Geo";
@@ -106,7 +102,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting MachineDescription to the same value does not raise PropertyChanged.
+    ///     Verifies that setting MachineDescription to the same value does not raise PropertyChanged.
     /// </summary>
     [Fact]
     public void MachineDescriptionSameValueDoesNotRaisePropertyChanged()
@@ -121,7 +117,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting TimesPlayed raises PropertyChanged.
+    ///     Verifies that setting TimesPlayed raises PropertyChanged.
     /// </summary>
     [Fact]
     public void TimesPlayedRaisesPropertyChanged()
@@ -131,9 +127,7 @@ public class GameListViewItemTests
         item.PropertyChanged += (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(GameListViewItem.TimesPlayed), StringComparison.Ordinal))
-            {
                 eventRaised = true;
-            }
         };
 
         item.TimesPlayed = "5";
@@ -143,7 +137,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting TimesPlayed to the same value does not raise PropertyChanged.
+    ///     Verifies that setting TimesPlayed to the same value does not raise PropertyChanged.
     /// </summary>
     [Fact]
     public void TimesPlayedSameValueDoesNotRaisePropertyChanged()
@@ -158,7 +152,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting PlayTime raises PropertyChanged.
+    ///     Verifies that setting PlayTime raises PropertyChanged.
     /// </summary>
     [Fact]
     public void PlayTimeRaisesPropertyChanged()
@@ -168,9 +162,7 @@ public class GameListViewItemTests
         item.PropertyChanged += (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(GameListViewItem.PlayTime), StringComparison.Ordinal))
-            {
                 eventRaised = true;
-            }
         };
 
         item.PlayTime = "1h 30m 0s";
@@ -180,7 +172,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting PlayTime to the same value does not raise PropertyChanged.
+    ///     Verifies that setting PlayTime to the same value does not raise PropertyChanged.
     /// </summary>
     [Fact]
     public void PlayTimeSameValueDoesNotRaisePropertyChanged()
@@ -195,7 +187,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting HasAchievements raises PropertyChanged.
+    ///     Verifies that setting HasAchievements raises PropertyChanged.
     /// </summary>
     [Fact]
     public void HasAchievementsRaisesPropertyChanged()
@@ -205,9 +197,7 @@ public class GameListViewItemTests
         item.PropertyChanged += (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(GameListViewItem.HasAchievements), StringComparison.Ordinal))
-            {
                 eventRaised = true;
-            }
         };
 
         item.HasAchievements = true;
@@ -217,7 +207,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting AchievementsEarned raises PropertyChanged.
+    ///     Verifies that setting AchievementsEarned raises PropertyChanged.
     /// </summary>
     [Fact]
     public void AchievementsEarnedRaisesPropertyChanged()
@@ -227,9 +217,7 @@ public class GameListViewItemTests
         item.PropertyChanged += (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(GameListViewItem.AchievementsEarned), StringComparison.Ordinal))
-            {
                 eventRaised = true;
-            }
         };
 
         item.AchievementsEarned = 10;
@@ -239,7 +227,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting AchievementsTotal raises PropertyChanged.
+    ///     Verifies that setting AchievementsTotal raises PropertyChanged.
     /// </summary>
     [Fact]
     public void AchievementsTotalRaisesPropertyChanged()
@@ -249,9 +237,7 @@ public class GameListViewItemTests
         item.PropertyChanged += (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(GameListViewItem.AchievementsTotal), StringComparison.Ordinal))
-            {
                 eventRaised = true;
-            }
         };
 
         item.AchievementsTotal = 50;
@@ -261,7 +247,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting AchievementsEarned to the same value does not raise PropertyChanged.
+    ///     Verifies that setting AchievementsEarned to the same value does not raise PropertyChanged.
     /// </summary>
     [Fact]
     public void AchievementsEarnedSameValueDoesNotRaisePropertyChanged()
@@ -276,7 +262,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that setting AchievementsTotal to the same value does not raise PropertyChanged.
+    ///     Verifies that setting AchievementsTotal to the same value does not raise PropertyChanged.
     /// </summary>
     [Fact]
     public void AchievementsTotalSameValueDoesNotRaisePropertyChanged()
@@ -291,7 +277,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that multiple PropertyChanged subscriptions are all invoked.
+    ///     Verifies that multiple PropertyChanged subscriptions are all invoked.
     /// </summary>
     [Fact]
     public void MultiplePropertyChangedSubscriptions()
@@ -306,7 +292,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that PropertyChanged event sender is the correct instance.
+    ///     Verifies that PropertyChanged event sender is the correct instance.
     /// </summary>
     [Fact]
     public void PropertyChangedSenderIsCorrect()
@@ -320,7 +306,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that PropertyChanged event args contain the correct property name.
+    ///     Verifies that PropertyChanged event args contain the correct property name.
     /// </summary>
     [Fact]
     public void PropertyChangedArgsPropertyNameIsCorrect()
@@ -334,7 +320,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that FilePath supports special characters like parentheses and brackets.
+    ///     Verifies that FilePath supports special characters like parentheses and brackets.
     /// </summary>
     [Fact]
     public void FilePathWithSpecialCharacters()
@@ -345,7 +331,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that FilePath supports Unicode characters.
+    ///     Verifies that FilePath supports Unicode characters.
     /// </summary>
     [Fact]
     public void FilePathWithUnicode()
@@ -355,7 +341,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that FolderPath supports spaces.
+    ///     Verifies that FolderPath supports spaces.
     /// </summary>
     [Fact]
     public void FolderPathWithSpaces()
@@ -365,7 +351,7 @@ public class GameListViewItemTests
     }
 
     /// <summary>
-    /// Verifies that all GameListViewItem properties can be set simultaneously and retrieved correctly.
+    ///     Verifies that all GameListViewItem properties can be set simultaneously and retrieved correctly.
     /// </summary>
     [Fact]
     public void CanSetAllPropertiesSimultaneously()

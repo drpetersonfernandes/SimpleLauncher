@@ -6,7 +6,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Services.WpfServices;
 
 /// <summary>
-/// WPF implementation of IApplicationLifetime, providing application shutdown and restart functionality.
+///     WPF implementation of IApplicationLifetime, providing application shutdown and restart functionality.
 /// </summary>
 public class WpfApplicationLifetime(ILogger logErrors, IServiceProvider serviceProvider) : IApplicationLifetime
 {
@@ -26,10 +26,7 @@ public class WpfApplicationLifetime(ILogger logErrors, IServiceProvider serviceP
     {
         try
         {
-            if (Environment.ProcessPath != null)
-            {
-                _ = Process.Start(Environment.ProcessPath);
-            }
+            if (Environment.ProcessPath != null) _ = Process.Start(Environment.ProcessPath);
 
             Application.Current.Shutdown();
         }

@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.SetGamepadDeadZoneWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Set Gamepad Dead Zone"
         Width="600" Height="480"

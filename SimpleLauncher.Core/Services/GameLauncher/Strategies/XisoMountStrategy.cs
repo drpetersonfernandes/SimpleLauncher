@@ -7,7 +7,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Core.Services.GameLauncher.Strategies;
 
 /// <summary>
-/// Mounts original Xbox ISO images as virtual drives and launches them with Cxbx-Reloaded.
+///     Mounts original Xbox ISO images as virtual drives and launches them with Cxbx-Reloaded.
 /// </summary>
 public class XisoMountStrategy : ILaunchStrategy
 {
@@ -17,7 +17,7 @@ public class XisoMountStrategy : ILaunchStrategy
     private readonly IMountXisoFiles _mountXisoFiles;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="XisoMountStrategy"/> class.
+    ///     Initializes a new instance of the <see cref="XisoMountStrategy" /> class.
     /// </summary>
     public XisoMountStrategy(IConfiguration configuration, ILogger logErrors, IMessageBoxLibraryService messageBox,
         IMountXisoFiles mountXisoFiles)
@@ -36,9 +36,7 @@ public class XisoMountStrategy : ILaunchStrategy
     {
         if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
             string.IsNullOrEmpty(context.EmulatorName))
-        {
             return false;
-        }
 
         return context.EmulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) &&
                Path.GetExtension(context.ResolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase);
@@ -51,10 +49,8 @@ public class XisoMountStrategy : ILaunchStrategy
             PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"),
             _logger, _messageBox);
         if (mountedDrive.IsMounted)
-        {
             await launcher.LaunchRegularEmulatorAsync(mountedDrive.MountedPath, context.EmulatorName,
                 context.SystemManagerService!, context.EmulatorManager!, context.Parameters, context.WindowContext!,
                 context.LoadingState, context.ResolvedFilePath);
-        }
     }
 }

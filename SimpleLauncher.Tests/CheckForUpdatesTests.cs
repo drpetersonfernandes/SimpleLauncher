@@ -1,4 +1,5 @@
 using System.IO.Compression;
+using System.Reflection;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 using CheckForUpdatesService = SimpleLauncher.Services.CheckForUpdatesService;
@@ -6,16 +7,16 @@ using CheckForUpdatesService = SimpleLauncher.Services.CheckForUpdatesService;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="CheckForUpdatesService"/> covering version comparison, response parsing,
-/// ZIP extraction, and real GitHub API interactions.
+///     Tests for <see cref="CheckForUpdatesService" /> covering version comparison, response parsing,
+///     ZIP extraction, and real GitHub API interactions.
 /// </summary>
 public class CheckForUpdatesTests : IDisposable
 {
     private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CheckForUpdatesTests"/> class,
-    /// installing the service provider mock and creating a temporary test directory.
+    ///     Initializes a new instance of the <see cref="CheckForUpdatesTests" /> class,
+    ///     installing the service provider mock and creating a temporary test directory.
     /// </summary>
     public CheckForUpdatesTests()
     {
@@ -25,16 +26,13 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory and restores the service provider mock.
+    ///     Cleans up the temporary test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
         try
         {
-            if (Directory.Exists(_testDirectory))
-            {
-                Directory.Delete(_testDirectory, true);
-            }
+            if (Directory.Exists(_testDirectory)) Directory.Delete(_testDirectory, true);
         }
         catch
         {
@@ -50,7 +48,7 @@ public class CheckForUpdatesTests : IDisposable
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Verifies that a newer four-part version (e.g. 5.6.1.0) is detected as an update over the current version.
+    ///     Verifies that a newer four-part version (e.g. 5.6.1.0) is detected as an update over the current version.
     /// </summary>
     [Fact]
     public void IsNewVersionAvailableFourPartVersionsReturnsTrue()
@@ -60,7 +58,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that two identical four-part versions are not detected as an update.
+    ///     Verifies that two identical four-part versions are not detected as an update.
     /// </summary>
     [Fact]
     public void IsNewVersionAvailableFourPartVersionsEqualReturnsFalse()
@@ -70,7 +68,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a newer major version is detected as an update.
+    ///     Verifies that a newer major version is detected as an update.
     /// </summary>
     [Fact]
     public void IsNewVersionAvailableMajorDifferenceReturnsTrue()
@@ -80,7 +78,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a newer minor version is detected as an update.
+    ///     Verifies that a newer minor version is detected as an update.
     /// </summary>
     [Fact]
     public void IsNewVersionAvailableMinorDifferenceReturnsTrue()
@@ -90,7 +88,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a newer patch version is detected as an update.
+    ///     Verifies that a newer patch version is detected as an update.
     /// </summary>
     [Fact]
     public void IsNewVersionAvailablePatchDifferenceReturnsTrue()
@@ -100,7 +98,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that an older current version with a newer major version returns false when compared.
+    ///     Verifies that an older current version with a newer major version returns false when compared.
     /// </summary>
     [Fact]
     public void IsNewVersionAvailableCurrentNewerMajorReturnsFalse()
@@ -110,7 +108,8 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that versions with prefixes such as "release" or "v" are compared correctly and a newer version is detected.
+    ///     Verifies that versions with prefixes such as "release" or "v" are compared correctly and a newer version is
+    ///     detected.
     /// </summary>
     /// <param name="current">The current version string, possibly prefixed.</param>
     /// <param name="latest">The latest version string, possibly prefixed.</param>
@@ -125,7 +124,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that identical prefixed versions are not detected as an update.
+    ///     Verifies that identical prefixed versions are not detected as an update.
     /// </summary>
     /// <param name="current">The current version string, possibly prefixed.</param>
     /// <param name="latest">The latest version string, possibly prefixed.</param>
@@ -143,7 +142,7 @@ public class CheckForUpdatesTests : IDisposable
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Verifies that version strings in various formats are normalized to a four-part version string.
+    ///     Verifies that version strings in various formats are normalized to a four-part version string.
     /// </summary>
     /// <param name="input">The raw version string.</param>
     /// <param name="expected">The expected normalized version string.</param>
@@ -161,7 +160,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a null version string is normalized to "0.0.0.0".
+    ///     Verifies that a null version string is normalized to "0.0.0.0".
     /// </summary>
     [Fact]
     public void NormalizeVersionNullReturnsZeroes()
@@ -170,7 +169,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a whitespace-only version string is normalized to "0.0.0.0".
+    ///     Verifies that a whitespace-only version string is normalized to "0.0.0.0".
     /// </summary>
     [Fact]
     public void NormalizeVersionWhitespaceOnlyReturnsZeroes()
@@ -179,7 +178,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a version string containing only a prefix is normalized to "0.0.0.0".
+    ///     Verifies that a version string containing only a prefix is normalized to "0.0.0.0".
     /// </summary>
     [Fact]
     public void NormalizeVersionOnlyPrefixReturnsZeroes()
@@ -192,7 +191,7 @@ public class CheckForUpdatesTests : IDisposable
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Verifies that a response with both updater and release assets returns all URLs.
+    ///     Verifies that a response with both updater and release assets returns all URLs.
     /// </summary>
     [Fact]
     public void ParseResponseWithBothAssetsReturnsAllUrls()
@@ -220,7 +219,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a response with an empty assets array returns only the version.
+    ///     Verifies that a response with an empty assets array returns only the version.
     /// </summary>
     [Fact]
     public void ParseResponseWithEmptyAssetsArrayReturnsVersionOnly()
@@ -240,7 +239,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that assets unrelated to the updater or release return null URLs.
+    ///     Verifies that assets unrelated to the updater or release return null URLs.
     /// </summary>
     [Fact]
     public void ParseResponseWithUnrelatedAssetsReturnsNullsForUrls()
@@ -263,7 +262,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that an asset missing the browser download URL returns null for that URL.
+    ///     Verifies that an asset missing the browser download URL returns null for that URL.
     /// </summary>
     [Fact]
     public void ParseResponseWithMissingBrowserDownloadUrlReturnsNull()
@@ -284,7 +283,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that an empty tag name returns nulls for version and URLs.
+    ///     Verifies that an empty tag name returns nulls for version and URLs.
     /// </summary>
     [Fact]
     public void ParseResponseWithEmptyTagNameReturnsNulls()
@@ -306,7 +305,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a non-array assets value returns nulls for version and URLs.
+    ///     Verifies that a non-array assets value returns nulls for version and URLs.
     /// </summary>
     [Fact]
     public void ParseResponseWithAssetsNotArrayReturnsNulls()
@@ -326,7 +325,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a response with only the updater asset returns null for the release URL.
+    ///     Verifies that a response with only the updater asset returns null for the release URL.
     /// </summary>
     [Fact]
     public void ParseResponseWithUpdaterOnlyReturnsNullForRelease()
@@ -348,7 +347,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a response with only the release asset returns null for the updater URL.
+    ///     Verifies that a response with only the release asset returns null for the updater URL.
     /// </summary>
     [Fact]
     public void ParseResponseWithReleaseOnlyReturnsNullForUpdater()
@@ -370,7 +369,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a version string containing only a prefix returns nulls for version and URLs.
+    ///     Verifies that a version string containing only a prefix returns nulls for version and URLs.
     /// </summary>
     [Fact]
     public void ParseResponseWithVersionOnlyPrefixReturnsNulls()
@@ -396,7 +395,7 @@ public class CheckForUpdatesTests : IDisposable
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Verifies that ZIP entries with path traversal sequences are rejected.
+    ///     Verifies that ZIP entries with path traversal sequences are rejected.
     /// </summary>
     [Fact]
     public void ExtractAllFromZipWithPathTraversalReturnsFalse()
@@ -418,7 +417,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that ZIP entries with nested directories are extracted to the correct locations.
+    ///     Verifies that ZIP entries with nested directories are extracted to the correct locations.
     /// </summary>
     [Fact]
     public void ExtractAllFromZipWithNestedDirectoriesExtractsCorrectly()
@@ -437,7 +436,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a ZIP with a single file extracts successfully.
+    ///     Verifies that a ZIP with a single file extracts successfully.
     /// </summary>
     [Fact]
     public void ExtractAllFromZipWithSingleFileExtractsSuccessfully()
@@ -454,7 +453,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a ZIP containing large file content extracts without truncation.
+    ///     Verifies that a ZIP containing large file content extracts without truncation.
     /// </summary>
     [Fact]
     public void ExtractAllFromZipWithLargeContentExtractsSuccessfully()
@@ -472,7 +471,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that existing files are overwritten when extracting a ZIP.
+    ///     Verifies that existing files are overwritten when extracting a ZIP.
     /// </summary>
     [Fact]
     public void ExtractAllFromZipOverwritesExistingFiles()
@@ -492,7 +491,7 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a corrupted ZIP stream is detected and extraction returns false.
+    ///     Verifies that a corrupted ZIP stream is detected and extraction returns false.
     /// </summary>
     [Fact]
     public void ExtractAllFromZipCorruptedStreamReturnsFalse()
@@ -509,8 +508,8 @@ public class CheckForUpdatesTests : IDisposable
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Verifies that the latest updater info can be retrieved — from the real GitHub API,
-    /// or from the secondary server fallback when GitHub is unreachable/rate-limited.
+    ///     Verifies that the latest updater info can be retrieved — from the real GitHub API,
+    ///     or from the secondary server fallback when GitHub is unreachable/rate-limited.
     /// </summary>
     [Fact]
     public async Task GetLatestUpdaterInfoAsyncReturnsVersionAndUrl()
@@ -532,7 +531,7 @@ public class CheckForUpdatesTests : IDisposable
     // ------------------------------------------------------------------
 
     /// <summary>
-    /// Verifies that the updater file can be downloaded from GitHub as a valid ZIP.
+    ///     Verifies that the updater file can be downloaded from GitHub as a valid ZIP.
     /// </summary>
     [Fact]
     public async Task DownloadUpdateFileToMemoryAsyncFromGitHubDownloadsContent()
@@ -588,7 +587,7 @@ public class CheckForUpdatesTests : IDisposable
     {
         var checker = CreateCheckerInstance();
         var method = typeof(CheckForUpdatesService).GetMethod("IsNewVersionAvailable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            BindingFlags.NonPublic | BindingFlags.Instance);
         var result = method?.Invoke(checker, [current, latest]);
         return (bool)(result ?? throw new InvalidOperationException("Reflection invoke returned null."));
     }
@@ -596,7 +595,7 @@ public class CheckForUpdatesTests : IDisposable
     private static string InvokeNormalizeVersion(string version)
     {
         var method = typeof(CheckForUpdatesService).GetMethod("NormalizeVersion",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         var result = method?.Invoke(null, [version]);
         return (string)(result ?? throw new InvalidOperationException("Reflection invoke returned null."));
     }
@@ -605,7 +604,7 @@ public class CheckForUpdatesTests : IDisposable
     {
         var checker = CreateCheckerInstance();
         var method = typeof(CheckForUpdatesService).GetMethod("ParseVersionAndAssetUrlsFromResponse",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            BindingFlags.NonPublic | BindingFlags.Instance);
         var result = method?.Invoke(checker, [json]);
         return ((string?, string?, string?))(result ??
                                              throw new InvalidOperationException("Reflection invoke returned null."));
@@ -614,7 +613,7 @@ public class CheckForUpdatesTests : IDisposable
     private static CheckForUpdatesService CreateCheckerInstance()
     {
         var constructor = typeof(CheckForUpdatesService)
-            .GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
+            .GetConstructors(BindingFlags.Instance | BindingFlags.Public).First();
         var factory = new RealHttpClientFactory();
         var logErrors = new NoOpLogger();
         return (CheckForUpdatesService)constructor.Invoke([factory, null, null, logErrors, null, null]);
@@ -623,10 +622,10 @@ public class CheckForUpdatesTests : IDisposable
     private sealed class RealHttpClientFactory : IHttpClientFactory
     {
         /// <summary>
-        /// Creates a new <see cref="HttpClient"/> instance for the specified name.
+        ///     Creates a new <see cref="HttpClient" /> instance for the specified name.
         /// </summary>
         /// <param name="name">The logical name of the client.</param>
-        /// <returns>A new <see cref="HttpClient"/> instance.</returns>
+        /// <returns>A new <see cref="HttpClient" /> instance.</returns>
         public HttpClient CreateClient(string name)
         {
             return new HttpClient();

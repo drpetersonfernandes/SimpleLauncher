@@ -8,19 +8,19 @@ using Application = System.Windows.Application;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the gamepad dead zone configuration window.
+///     ViewModel for the gamepad dead zone configuration window.
 /// </summary>
 public partial class SetGamepadDeadZoneViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settingsManager;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
-    private readonly ILogger _logger;
+    private readonly SettingsManagerService _settingsManager;
 
     private double _deadZoneX;
     private double _deadZoneY;
 
-    /// <summary>Initializes a new instance of the <see cref="SetGamepadDeadZoneViewModel"/> class.</summary>
+    /// <summary>Initializes a new instance of the <see cref="SetGamepadDeadZoneViewModel" /> class.</summary>
     /// <param name="settingsManager">The settings manager for reading and saving dead zone values.</param>
     /// <param name="messageBox">The message box service for displaying dialogs.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
@@ -43,10 +43,7 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
         get => _deadZoneX;
         set
         {
-            if (SetProperty(ref _deadZoneX, value))
-            {
-                OnPropertyChanged(nameof(DeadZoneXText));
-            }
+            if (SetProperty(ref _deadZoneX, value)) OnPropertyChanged(nameof(DeadZoneXText));
         }
     }
 
@@ -56,10 +53,7 @@ public partial class SetGamepadDeadZoneViewModel : ObservableObject
         get => _deadZoneY;
         set
         {
-            if (SetProperty(ref _deadZoneY, value))
-            {
-                OnPropertyChanged(nameof(DeadZoneYText));
-            }
+            if (SetProperty(ref _deadZoneY, value)) OnPropertyChanged(nameof(DeadZoneYText));
         }
     }
 

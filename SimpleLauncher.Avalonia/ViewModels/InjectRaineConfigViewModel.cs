@@ -10,35 +10,35 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the Raine emulator configuration injection window.
+///     ViewModel for the Raine emulator configuration injection window.
 /// </summary>
 public partial class InjectRaineConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly EmulatorPathResolver _emulatorPathResolver;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
     private string _gameFilePath = null!;
-    private string _systemRomPath = null!;
-    [ObservableProperty] private bool _raineFullscreen;
     [ObservableProperty] private bool _raineFixAspectRatio;
-    [ObservableProperty] private bool _raineVsync;
+    [ObservableProperty] private int _raineFrameSkip;
+    [ObservableProperty] private bool _raineFullscreen;
+    [ObservableProperty] private int _raineMusicVolume;
+    [ObservableProperty] private bool _raineMuteMusic;
+    [ObservableProperty] private bool _raineMuteSfx;
+    [ObservableProperty] private string _raineNeoCdBios = null!;
     [ObservableProperty] private int _raineResX;
     [ObservableProperty] private int _raineResY;
-    [ObservableProperty] private string _raineSoundDriver = null!;
-    [ObservableProperty] private int _raineSampleRate;
-    [ObservableProperty] private bool _raineShowSettingsBeforeLaunch;
-    [ObservableProperty] private bool _raineShowFps;
-    [ObservableProperty] private int _raineFrameSkip;
-    [ObservableProperty] private string _raineNeoCdBios = null!;
-    [ObservableProperty] private int _raineMusicVolume;
-    [ObservableProperty] private int _raineSfxVolume;
-    [ObservableProperty] private bool _raineMuteSfx;
-    [ObservableProperty] private bool _raineMuteMusic;
     [ObservableProperty] private string _raineRomDirectory = null!;
+    [ObservableProperty] private int _raineSampleRate;
+    [ObservableProperty] private int _raineSfxVolume;
+    [ObservableProperty] private bool _raineShowFps;
+    [ObservableProperty] private bool _raineShowSettingsBeforeLaunch;
+    [ObservableProperty] private string _raineSoundDriver = null!;
+    [ObservableProperty] private bool _raineVsync;
+    private string _systemRomPath = null!;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectRaineConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectRaineConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
@@ -53,7 +53,52 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path, launcher mode, and optional file paths.
+    ///     Available sound driver options for Raine.
+    /// </summary>
+    public IList<string> SoundDriverOptions { get; } = ["directsound", "sdl"];
+
+    /// <summary>
+    ///     Available audio sample rate options for Raine.
+    /// </summary>
+    public IList<string> SampleRateOptions { get; } = ["22050", "44100", "48000"];
+
+    /// <summary>
+    ///     Available frame skip options for Raine.
+    /// </summary>
+    public IList<string> FrameSkipOptions { get; } = ["0", "1", "2", "3", "4", "5"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Requests the user to select a file path.
+    /// </summary>
+    public Func<Task<string?>>? RequestFilePath { get; set; }
+
+    /// <summary>
+    ///     Requests the user to select a folder path.
+    /// </summary>
+    public Func<Task<string?>>? RequestFolderPath { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path, launcher mode, and optional file paths.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Raine emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -70,32 +115,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available sound driver options for Raine.
-    /// </summary>
-    public IList<string> SoundDriverOptions { get; } = ["directsound", "sdl"];
-
-    /// <summary>
-    /// Available audio sample rate options for Raine.
-    /// </summary>
-    public IList<string> SampleRateOptions { get; } = ["22050", "44100", "48000"];
-
-    /// <summary>
-    /// Available frame skip options for Raine.
-    /// </summary>
-    public IList<string> FrameSkipOptions { get; } = ["0", "1", "2", "3", "4", "5"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -104,26 +124,6 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
-
-    /// <summary>
-    /// Requests the user to select a file path.
-    /// </summary>
-    public Func<Task<string?>>? RequestFilePath { get; set; }
-
-    /// <summary>
-    /// Requests the user to select a folder path.
-    /// </summary>
-    public Func<Task<string?>>? RequestFolderPath { get; set; }
 
     private void LoadSettings()
     {
@@ -168,10 +168,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = _emulatorPathResolver.TryFindEmulatorPath("Raine", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
@@ -216,10 +213,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
         if (RequestFilePath is not { } request) return;
 
         var result = await request();
-        if (!string.IsNullOrEmpty(result))
-        {
-            RaineNeoCdBios = result;
-        }
+        if (!string.IsNullOrEmpty(result)) RaineNeoCdBios = result;
     }
 
     [RelayCommand]
@@ -228,10 +222,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
         if (RequestFolderPath is not { } request) return;
 
         var result = await request();
-        if (!string.IsNullOrEmpty(result))
-        {
-            RaineRomDirectory = result;
-        }
+        if (!string.IsNullOrEmpty(result)) RaineRomDirectory = result;
     }
 
     [RelayCommand]

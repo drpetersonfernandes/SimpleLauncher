@@ -30,10 +30,15 @@
             <TextBlock Text="{DynamicResource Anopensourceemulatorfrontend}" />
             <TextBlock Margin="0,10,0,0" Text="{Binding AppVersion}" />
             <TextBlock Margin="0,10,0,0">
-                <Hyperlink Command="{Binding OpenWebsiteCommand}" CommandParameter="https://www.purelogiccode.com" ToolTip="{DynamicResource TooltipNavigateToWebsite}">https://www.purelogiccode.com</Hyperlink>
+                <Hyperlink Command="{Binding OpenWebsiteCommand}" CommandParameter="https://www.purelogiccode.com"
+                           ToolTip="{DynamicResource TooltipNavigateToWebsite}">
+                    https://www.purelogiccode.com
+                </Hyperlink>
             </TextBlock>
             <TextBlock Margin="0,10,0,10">
-                <Hyperlink Command="{Binding OpenWebsiteCommand}" CommandParameter="https://github.com/drpetersonfernandes/SimpleLauncher" ToolTip="{DynamicResource TooltipNavigateToGithub}">
+                <Hyperlink Command="{Binding OpenWebsiteCommand}"
+                           CommandParameter="https://github.com/drpetersonfernandes/SimpleLauncher"
+                           ToolTip="{DynamicResource TooltipNavigateToGithub}">
                     https://github.com/drpetersonfernandes/SimpleLauncher
                 </Hyperlink>
             </TextBlock>

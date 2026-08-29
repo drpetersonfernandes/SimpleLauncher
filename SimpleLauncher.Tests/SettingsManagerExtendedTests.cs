@@ -6,19 +6,19 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Extended tests for <see cref="SettingsManagerService"/> covering additional edge cases for
-/// setting modifications, emulator settings, play time tracking, and reset behavior.
+///     Extended tests for <see cref="SettingsManagerService" /> covering additional edge cases for
+///     setting modifications, emulator settings, play time tracking, and reset behavior.
 /// </summary>
 public class SettingsManagerExtendedTests : IDisposable
 {
-    private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
-    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
+    private readonly ILogger _logErrors = new NoOpLogger();
+    private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SettingsManagerExtendedTests"/> class,
-    /// installing the service provider mock, creating a temporary test directory, and building configuration.
+    ///     Initializes a new instance of the <see cref="SettingsManagerExtendedTests" /> class,
+    ///     installing the service provider mock, creating a temporary test directory, and building configuration.
     /// </summary>
     public SettingsManagerExtendedTests()
     {
@@ -36,7 +36,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory and restores the service provider mock.
+    ///     Cleans up the temporary test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
@@ -55,7 +55,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default ShowGames setting is "ShowAll".
+    ///     Verifies the default ShowGames setting is "ShowAll".
     /// </summary>
     [Fact]
     public void DefaultShowGamesIsShowAll()
@@ -65,7 +65,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that ShowGames can be changed to "ShowWithCover".
+    ///     Verifies that ShowGames can be changed to "ShowWithCover".
     /// </summary>
     [Fact]
     public void ShowGamesCanBeChangedToShowWithCover()
@@ -76,7 +76,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that ShowGames can be changed to "ShowWithoutCover".
+    ///     Verifies that ShowGames can be changed to "ShowWithoutCover".
     /// </summary>
     [Fact]
     public void ShowGamesCanBeChangedToShowWithoutCover()
@@ -87,7 +87,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default ViewMode is "GridView".
+    ///     Verifies the default ViewMode is "GridView".
     /// </summary>
     [Fact]
     public void DefaultViewModeIsGridView()
@@ -97,7 +97,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that ViewMode can be changed to "ListView".
+    ///     Verifies that ViewMode can be changed to "ListView".
     /// </summary>
     [Fact]
     public void ViewModeCanBeChangedToListView()
@@ -108,7 +108,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that updating system play time with zero duration does not throw an exception.
+    ///     Verifies that updating system play time with zero duration does not throw an exception.
     /// </summary>
     [Fact]
     public void UpdateSystemPlayTimeZeroDurationStillCreatesEntry()
@@ -121,7 +121,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a large play time duration is stored correctly.
+    ///     Verifies that a large play time duration is stored correctly.
     /// </summary>
     [Fact]
     public void UpdateSystemPlayTimeLargeDuration()
@@ -132,23 +132,20 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that many small play time accumulations are correctly summed.
+    ///     Verifies that many small play time accumulations are correctly summed.
     /// </summary>
     [Fact]
     public void UpdateSystemPlayTimeManyAccumulations()
     {
         using var settings = new SettingsManagerService(_configuration, _logErrors, _credentialProtector);
-        for (var i = 0; i < 100; i++)
-        {
-            settings.UpdateSystemPlayTime("NES", TimeSpan.FromMinutes(1));
-        }
+        for (var i = 0; i < 100; i++) settings.UpdateSystemPlayTime("NES", TimeSpan.FromMinutes(1));
 
         Assert.Single(settings.SystemPlayTimes);
         Assert.Equal(6000, settings.SystemPlayTimes[0].PlayTimeSeconds);
     }
 
     /// <summary>
-    /// Verifies that ResetToDefaults clears all system play time entries.
+    ///     Verifies that ResetToDefaults clears all system play time entries.
     /// </summary>
     [Fact]
     public void ResetToDefaultsRestoresSystemPlayTimes()
@@ -163,7 +160,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that ResetToDefaults restores the ViewMode to its default value.
+    ///     Verifies that ResetToDefaults restores the ViewMode to its default value.
     /// </summary>
     [Fact]
     public void ResetToDefaultsRestoresViewMode()
@@ -175,7 +172,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that ResetToDefaults restores the ShowGames setting to its default value.
+    ///     Verifies that ResetToDefaults restores the ShowGames setting to its default value.
     /// </summary>
     [Fact]
     public void ResetToDefaultsRestoresShowGames()
@@ -187,7 +184,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default DuckStation Renderer is "Automatic".
+    ///     Verifies the default DuckStation Renderer is "Automatic".
     /// </summary>
     [Fact]
     public void DefaultDuckStationRendererIsAutomatic()
@@ -197,7 +194,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that DuckStation emulator settings can be modified.
+    ///     Verifies that DuckStation emulator settings can be modified.
     /// </summary>
     [Fact]
     public void DuckStationSettingsCanBeModified()
@@ -213,7 +210,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default RetroArch VideoDriver is "gl".
+    ///     Verifies the default RetroArch VideoDriver is "gl".
     /// </summary>
     [Fact]
     public void DefaultRetroArchVideoDriverIsGl()
@@ -223,7 +220,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that RetroArch emulator settings can be modified.
+    ///     Verifies that RetroArch emulator settings can be modified.
     /// </summary>
     [Fact]
     public void RetroArchSettingsCanBeModified()
@@ -239,7 +236,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default RPCS3 Renderer is "Vulkan".
+    ///     Verifies the default RPCS3 Renderer is "Vulkan".
     /// </summary>
     [Fact]
     public void DefaultRpcs3RendererIsVulkan()
@@ -249,7 +246,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that RPCS3 emulator settings can be modified.
+    ///     Verifies that RPCS3 emulator settings can be modified.
     /// </summary>
     [Fact]
     public void Rpcs3SettingsCanBeModified()
@@ -265,7 +262,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default Mednafen Volume is 100.
+    ///     Verifies the default Mednafen Volume is 100.
     /// </summary>
     [Fact]
     public void DefaultMednafenVolumeIs100()
@@ -275,7 +272,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Mednafen emulator settings can be modified.
+    ///     Verifies that Mednafen emulator settings can be modified.
     /// </summary>
     [Fact]
     public void MednafenSettingsCanBeModified()
@@ -291,7 +288,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default Stella AudioVolume is 80.
+    ///     Verifies the default Stella AudioVolume is 80.
     /// </summary>
     [Fact]
     public void DefaultStellaAudioVolumeIs80()
@@ -301,7 +298,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Stella emulator settings can be modified.
+    ///     Verifies that Stella emulator settings can be modified.
     /// </summary>
     [Fact]
     public void StellaSettingsCanBeModified()
@@ -317,7 +314,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default Xenia GPU is "d3d12".
+    ///     Verifies the default Xenia GPU is "d3d12".
     /// </summary>
     [Fact]
     public void DefaultXeniaGpuIsD3D12()
@@ -327,7 +324,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Xenia emulator settings can be modified.
+    ///     Verifies that Xenia emulator settings can be modified.
     /// </summary>
     [Fact]
     public void XeniaSettingsCanBeModified()
@@ -343,7 +340,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that ResetToDefaults restores DuckStation settings to their default values.
+    ///     Verifies that ResetToDefaults restores DuckStation settings to their default values.
     /// </summary>
     [Fact]
     public void ResetToDefaultsRestoresDuckStationSettings()
@@ -361,7 +358,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that ResetToDefaults restores Xenia settings to their default values.
+    ///     Verifies that ResetToDefaults restores Xenia settings to their default values.
     /// </summary>
     [Fact]
     public void ResetToDefaultsRestoresXeniaSettings()
@@ -379,7 +376,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the default FuzzyMatchingThreshold is within the valid 0.0 to 1.0 range.
+    ///     Verifies that the default FuzzyMatchingThreshold is within the valid 0.0 to 1.0 range.
     /// </summary>
     [Fact]
     public void DefaultFuzzyMatchingThresholdRange()
@@ -389,7 +386,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FuzzyMatchingThreshold accepts boundary values 0.0 and 1.0.
+    ///     Verifies that FuzzyMatchingThreshold accepts boundary values 0.0 and 1.0.
     /// </summary>
     [Fact]
     public void FuzzyMatchingThresholdCanBeSetToBoundaryValues()
@@ -403,7 +400,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that notification sounds are enabled by default.
+    ///     Verifies that notification sounds are enabled by default.
     /// </summary>
     [Fact]
     public void DefaultNotificationSoundIsEnabled()
@@ -413,7 +410,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that notification sounds can be disabled.
+    ///     Verifies that notification sounds can be disabled.
     /// </summary>
     [Fact]
     public void NotificationSoundCanBeDisabled()
@@ -424,7 +421,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the overlay open video button is enabled by default.
+    ///     Verifies that the overlay open video button is enabled by default.
     /// </summary>
     [Fact]
     public void DefaultOverlayOpenVideoButtonIsEnabled()
@@ -434,7 +431,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the overlay open video button can be disabled.
+    ///     Verifies that the overlay open video button can be disabled.
     /// </summary>
     [Fact]
     public void OverlayOpenVideoButtonCanBeDisabled()
@@ -445,7 +442,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that all emulator expanded states default to true.
+    ///     Verifies that all emulator expanded states default to true.
     /// </summary>
     [Fact]
     public void DefaultEmulatorExpandedStatesAreAllTrue()
@@ -459,7 +456,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that emulator expanded states can be toggled to false.
+    ///     Verifies that emulator expanded states can be toggled to false.
     /// </summary>
     [Fact]
     public void EmulatorExpandedStatesCanBeToggled()
@@ -479,7 +476,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default ButtonAspectRatio is "Square".
+    ///     Verifies the default ButtonAspectRatio is "Square".
     /// </summary>
     [Fact]
     public void DefaultButtonAspectRatioIsSquare()
@@ -489,7 +486,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default FilenameDisplayMode is "Original".
+    ///     Verifies the default FilenameDisplayMode is "Original".
     /// </summary>
     [Fact]
     public void DefaultFilenameDisplayModeIsOriginal()
@@ -499,7 +496,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default FilenameFontSize is "Normal".
+    ///     Verifies the default FilenameFontSize is "Normal".
     /// </summary>
     [Fact]
     public void DefaultFilenameFontSizeIsNormal()
@@ -509,7 +506,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default MachineNameFontSize is "Normal".
+    ///     Verifies the default MachineNameFontSize is "Normal".
     /// </summary>
     [Fact]
     public void DefaultMachineNameFontSizeIsNormal()
@@ -519,7 +516,7 @@ public class SettingsManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the default StyleVariant is "Default".
+    ///     Verifies the default StyleVariant is "Default".
     /// </summary>
     [Fact]
     public void DefaultStyleVariantIsDefault()

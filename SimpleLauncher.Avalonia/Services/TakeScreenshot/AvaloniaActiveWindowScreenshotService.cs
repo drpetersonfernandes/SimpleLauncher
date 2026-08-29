@@ -11,20 +11,17 @@ using WindowScreenshotModel = SimpleLauncher.Avalonia.Models.WindowScreenshot;
 namespace SimpleLauncher.Avalonia.Services.TakeScreenshot;
 
 /// <summary>
-/// Captures a screenshot of the currently active (foreground) window and saves it
-/// to the .\screenshot folder relative to the application directory.
-/// Windows-only port of the WPF ActiveWindowScreenshotService (net10.0-windows TFM).
+///     Captures a screenshot of the currently active (foreground) window and saves it
+///     to the .\screenshot folder relative to the application directory.
+///     Windows-only port of the WPF ActiveWindowScreenshotService (net10.0-windows TFM).
 /// </summary>
 public sealed partial class AvaloniaActiveWindowScreenshotService
 {
-    [LibraryImport("user32.dll")]
-    private static partial IntPtr GetForegroundWindow();
-
     private readonly ILogger _logger;
     private readonly IPlaySoundEffects _playSoundEffects;
     private readonly IServiceProvider _serviceProvider;
 
-    /// <summary>Initializes a new instance of the <see cref="AvaloniaActiveWindowScreenshotService"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="AvaloniaActiveWindowScreenshotService" />.</summary>
     /// <param name="logger">The logger instance.</param>
     /// <param name="playSoundEffects">The sound effects service for the shutter sound.</param>
     /// <param name="serviceProvider">The service provider for resolving dependencies.</param>
@@ -38,9 +35,12 @@ public sealed partial class AvaloniaActiveWindowScreenshotService
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
     }
 
+    [LibraryImport("user32.dll")]
+    private static partial IntPtr GetForegroundWindow();
+
     /// <summary>
-    /// Captures a screenshot of the current foreground window and saves it as a PNG file
-    /// in the .\screenshot directory (relative to the application base directory).
+    ///     Captures a screenshot of the current foreground window and saves it as a PNG file
+    ///     in the .\screenshot directory (relative to the application base directory).
     /// </summary>
     public Task CaptureActiveWindowAsync()
     {
@@ -73,7 +73,8 @@ public sealed partial class AvaloniaActiveWindowScreenshotService
 
             if (width <= 0 || height <= 0)
             {
-                _logger.Debug("[AvaloniaActiveWindowScreenshot] Cannot take a screenshot of a minimized or zero-size window.");
+                _logger.Debug(
+                    "[AvaloniaActiveWindowScreenshot] Cannot take a screenshot of a minimized or zero-size window.");
                 return Task.CompletedTask;
             }
 

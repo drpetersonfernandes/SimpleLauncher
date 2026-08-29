@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 namespace SimpleLauncher.Core.Services.PlaySound;
 
 /// <summary>
-/// Minimal ALSA (libasound.so.2) P/Invoke surface used for PCM playback.
+///     Minimal ALSA (libasound.so.2) P/Invoke surface used for PCM playback.
 /// </summary>
 internal static class AlsaNative
 {

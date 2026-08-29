@@ -11,27 +11,27 @@ using SimpleLauncher.Services.InjectEmulatorConfig;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the Azahar emulator configuration injection window.
+///     ViewModel for the Azahar emulator configuration injection window.
 /// </summary>
 public partial class InjectAzaharConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
+    [ObservableProperty] private bool _asyncShader;
+    [ObservableProperty] private bool _audioStretching;
     private string _emulatorPath = "";
+    [ObservableProperty] private bool _fullscreen;
 
     [ObservableProperty] private string _graphicsApi = "";
-    [ObservableProperty] private string _resolution = "";
-    [ObservableProperty] private string _layout = "";
-    [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private bool _vsync;
-    [ObservableProperty] private bool _asyncShader;
     [ObservableProperty] private bool _isNew3Ds;
-    [ObservableProperty] private int _volume;
+    [ObservableProperty] private string _layout = "";
+    [ObservableProperty] private string _resolution = "";
     [ObservableProperty] private bool _showBeforeLaunch;
-    [ObservableProperty] private bool _audioStretching;
+    [ObservableProperty] private int _volume;
+    [ObservableProperty] private bool _vsync;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectAzaharConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectAzaharConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
@@ -44,7 +44,27 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<string?>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Azahar emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -56,17 +76,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -75,16 +85,6 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<string?>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -103,19 +103,12 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     private void SaveSettings()
     {
         if (int.TryParse(GraphicsApi, CultureInfo.InvariantCulture, out var graphicsApi))
-        {
             _settings.Azahar.GraphicsApi = graphicsApi;
-        }
 
         if (int.TryParse(Resolution, CultureInfo.InvariantCulture, out var resolution))
-        {
             _settings.Azahar.ResolutionFactor = resolution;
-        }
 
-        if (int.TryParse(Layout, CultureInfo.InvariantCulture, out var layout))
-        {
-            _settings.Azahar.LayoutOption = layout;
-        }
+        if (int.TryParse(Layout, CultureInfo.InvariantCulture, out var layout)) _settings.Azahar.LayoutOption = layout;
 
         _settings.Azahar.Fullscreen = Fullscreen;
         _settings.Azahar.UseVsync = Vsync;
@@ -132,9 +125,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         try
         {
             if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-            {
                 return Task.FromResult<string?>(_emulatorPath);
-            }
 
             var resolved = EmulatorPathResolver.TryFindEmulatorPath("Azahar", _logger);
             if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

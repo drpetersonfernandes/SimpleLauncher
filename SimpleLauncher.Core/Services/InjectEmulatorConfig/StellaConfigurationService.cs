@@ -1,21 +1,23 @@
 using System.Globalization;
 using Microsoft.Data.Sqlite;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Provides functionality to inject Simple Launcher settings into the Stella emulator configuration database (stella.sqlite3).
+///     Provides functionality to inject Simple Launcher settings into the Stella emulator configuration database
+///     (stella.sqlite3).
 /// </summary>
 public static class StellaConfigurationService
 {
     /// <summary>
-    /// Injects Simple Launcher configuration settings into the Stella emulator's SQLite configuration database.
-    /// Creates the database from a sample if it does not exist, then upserts video, audio, and general settings.
+    ///     Injects Simple Launcher configuration settings into the Stella emulator's SQLite configuration database.
+    ///     Creates the database from a sample if it does not exist, then upserts video, audio, and general settings.
     /// </summary>
     /// <param name="emulatorPath">The full path to the Stella emulator executable.</param>
     /// <param name="settings">The settings manager containing Stella configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -28,7 +30,6 @@ public static class StellaConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Stella", "stella.sqlite3");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -40,11 +41,8 @@ public static class StellaConfigurationService
                     logger.Error(ex, $"[StellaConfig] Failed to create stella.sqlite3 from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("stella.sqlite3 not found and sample is missing.", samplePath);
-            }
         }
 
         logger.Debug($"[StellaConfig] Injecting configuration into: {configPath}");

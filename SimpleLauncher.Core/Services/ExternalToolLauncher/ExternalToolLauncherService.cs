@@ -9,17 +9,17 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Core.Services.ExternalToolLauncher;
 
 /// <summary>
-/// Provides methods to launch external tools such as batch file creators, converters, and ROM utilities.
+///     Provides methods to launch external tools such as batch file creators, converters, and ROM utilities.
 /// </summary>
 public class ExternalToolLauncherService : IExternalToolLauncher
 {
-    private readonly ILogger _logger;
     private readonly IConfiguration _configuration;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IResourceProvider _resourceProvider;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ExternalToolLauncherService"/> class.
+    ///     Initializes a new instance of the <see cref="ExternalToolLauncherService" /> class.
     /// </summary>
     /// <param name="logErrors">The logger instance for error logging.</param>
     /// <param name="configuration">The application configuration for reading settings like log paths.</param>
@@ -35,8 +35,172 @@ public class ExternalToolLauncherService : IExternalToolLauncher
     }
 
     /// <summary>
-    /// Launches an external executable with optional arguments and working directory.
-    /// Handles basic file existence checks, PE validation, and generic launch exceptions.
+    ///     Launches the external tool for creating batch files for Xbox 360 XBLA games.
+    /// </summary>
+    public async Task CreateBatchFilesForXbox360XblaGamesAsync()
+    {
+        var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForXbox360XBLAGames",
+            "CreateBatchFilesForXbox360XBLAGames");
+        if (toolPath == null) return;
+
+        await LaunchExternalToolAsync(toolPath);
+    }
+
+    /// <summary>
+    ///     Launches the external tool for creating batch files for Windows games.
+    /// </summary>
+    public async Task CreateBatchFilesForWindowsGamesAsync()
+    {
+        var toolPath =
+            await GetToolExecutablePathAsync("CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames");
+        if (toolPath == null) return;
+
+        await LaunchExternalToolAsync(toolPath);
+    }
+
+    /// <summary>
+    ///     Launches the ROM cover finder tool with the specified image and ROM folders.
+    /// </summary>
+    /// <param name="selectedImageFolder">The optional path to the image folder to search for covers.</param>
+    /// <param name="selectedRomFolder">The optional path to the ROM folder to match covers against.</param>
+    public async Task FindRomCoverLaunchAsync(string? selectedImageFolder, string? selectedRomFolder)
+    {
+        var toolPath = await GetToolExecutablePathAsync("FindRomCover", "FindRomCover", true);
+        if (toolPath == null) return;
+
+        var arguments = "";
+        var workingDirectory = Path.GetDirectoryName(toolPath);
+
+        var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder)
+            ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder)
+            : null;
+        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder)
+            ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder)
+            : null;
+
+        if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
+            arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
+
+        await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
+    }
+
+    /// <summary>
+    ///     Launches the external tool for creating batch files for PS3 games.
+    /// </summary>
+    public async Task CreateBatchFilesForPs3GamesAsync()
+    {
+        var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games");
+        if (toolPath == null) return;
+
+        await LaunchExternalToolAsync(toolPath);
+    }
+
+    /// <summary>
+    ///     Launches the external tool for batch converting ISO files to XISO format.
+    /// </summary>
+    public async Task BatchConvertIsoToXisoAsync()
+    {
+        var toolPath = await GetToolExecutablePathAsync("BatchConvertIsoToXiso", "BatchConvertIsoToXiso");
+        if (toolPath == null) return;
+
+        await LaunchExternalToolAsync(toolPath);
+    }
+
+    /// <summary>
+    ///     Launches the external tool for batch converting ROM files to CHD format.
+    /// </summary>
+    /// <param name="selectedRomFolder">The optional path to the folder containing ROMs to convert.</param>
+    public async Task BatchConvertToChdAsync(string? selectedRomFolder)
+    {
+        var toolPath = await GetToolExecutablePathAsync("BatchConvertToCHD", "BatchConvertToCHD");
+        if (toolPath == null) return;
+
+        var arguments = "";
+        var workingDirectory = Path.GetDirectoryName(toolPath);
+
+        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder)
+            ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder)
+            : null;
+
+        if (!string.IsNullOrEmpty(absoluteRomFolder)) arguments = $"\"{absoluteRomFolder}\"";
+
+        await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
+    }
+
+    /// <summary>
+    ///     Launches the external tool for batch converting files to compressed archive format.
+    /// </summary>
+    public async Task BatchConvertToCompressedFileAsync()
+    {
+        var toolPath = await GetToolExecutablePathAsync("BatchConvertToCompressedFile", "BatchConvertToCompressedFile");
+        if (toolPath == null) return;
+
+        await LaunchExternalToolAsync(toolPath);
+    }
+
+    /// <summary>
+    ///     Launches the external tool for batch converting files to RVZ format.
+    /// </summary>
+    public async Task BatchConvertToRvzAsync()
+    {
+        var toolPath = await GetToolExecutablePathAsync("BatchConvertToRVZ", "BatchConvertToRVZ");
+        if (toolPath == null) return;
+
+        await LaunchExternalToolAsync(toolPath);
+    }
+
+    /// <summary>
+    ///     Launches the external tool for creating batch files for ScummVM games.
+    /// </summary>
+    public async Task CreateBatchFilesForScummVmGamesAsync()
+    {
+        var toolPath =
+            await GetToolExecutablePathAsync("CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames");
+        if (toolPath == null) return;
+
+        await LaunchExternalToolAsync(toolPath);
+    }
+
+    /// <summary>
+    ///     Launches the ROM validator tool to verify ROM file integrity.
+    /// </summary>
+    public async Task RomValidatorAsync()
+    {
+        var toolPath = await GetToolExecutablePathAsync("RomValidator", "RomValidator");
+        if (toolPath == null) return;
+
+        await LaunchExternalToolAsync(toolPath);
+    }
+
+    /// <summary>
+    ///     Launches the retro game cover downloader tool with the specified ROM and image folders.
+    /// </summary>
+    /// <param name="selectedImageFolder">The optional path to the folder where cover images will be saved.</param>
+    /// <param name="selectedRomFolder">The optional path to the folder containing ROMs to download covers for.</param>
+    public async Task RetroGameCoverDownloaderAsync(string? selectedImageFolder, string? selectedRomFolder)
+    {
+        var toolPath = await GetToolExecutablePathAsync("RetroGameCoverDownloader", "RetroGameCoverDownloader");
+        if (toolPath == null) return;
+
+        var arguments = "";
+        var workingDirectory = Path.GetDirectoryName(toolPath);
+
+        var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder)
+            ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder)
+            : null;
+        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder)
+            ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder)
+            : null;
+
+        if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
+            arguments = $"\"{absoluteRomFolder}\" \"{absoluteImageFolder}\"";
+
+        await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
+    }
+
+    /// <summary>
+    ///     Launches an external executable with optional arguments and working directory.
+    ///     Handles basic file existence checks, PE validation, and generic launch exceptions.
     /// </summary>
     private async Task LaunchExternalToolAsync(string toolPath, string? arguments = null,
         string? workingDirectory = null)
@@ -74,10 +238,7 @@ public class ExternalToolLauncherService : IExternalToolLauncher
             if (!string.IsNullOrEmpty(workingDirectory))
             {
                 var resolvedWorkingDirectory = PathHelper.ResolveRelativeToAppDirectory(workingDirectory);
-                if (Directory.Exists(resolvedWorkingDirectory))
-                {
-                    psi.WorkingDirectory = resolvedWorkingDirectory;
-                }
+                if (Directory.Exists(resolvedWorkingDirectory)) psi.WorkingDirectory = resolvedWorkingDirectory;
             }
 
             Process.Start(psi);
@@ -113,7 +274,7 @@ public class ExternalToolLauncherService : IExternalToolLauncher
     }
 
     /// <summary>
-    /// Validates that a file is a valid PE executable by checking the MZ and PE signatures.
+    ///     Validates that a file is a valid PE executable by checking the MZ and PE signatures.
     /// </summary>
     private static bool IsValidPeFile(string filePath)
     {
@@ -165,176 +326,5 @@ public class ExternalToolLauncherService : IExternalToolLauncher
         }
 
         return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", toolFolder, archPath);
-    }
-
-    /// <summary>
-    /// Launches the external tool for creating batch files for Xbox 360 XBLA games.
-    /// </summary>
-    public async Task CreateBatchFilesForXbox360XblaGamesAsync()
-    {
-        var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForXbox360XBLAGames",
-            "CreateBatchFilesForXbox360XBLAGames");
-        if (toolPath == null) return;
-
-        await LaunchExternalToolAsync(toolPath);
-    }
-
-    /// <summary>
-    /// Launches the external tool for creating batch files for Windows games.
-    /// </summary>
-    public async Task CreateBatchFilesForWindowsGamesAsync()
-    {
-        var toolPath =
-            await GetToolExecutablePathAsync("CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames");
-        if (toolPath == null) return;
-
-        await LaunchExternalToolAsync(toolPath);
-    }
-
-    /// <summary>
-    /// Launches the ROM cover finder tool with the specified image and ROM folders.
-    /// </summary>
-    /// <param name="selectedImageFolder">The optional path to the image folder to search for covers.</param>
-    /// <param name="selectedRomFolder">The optional path to the ROM folder to match covers against.</param>
-    public async Task FindRomCoverLaunchAsync(string? selectedImageFolder, string? selectedRomFolder)
-    {
-        var toolPath = await GetToolExecutablePathAsync("FindRomCover", "FindRomCover", true);
-        if (toolPath == null) return;
-
-        var arguments = "";
-        var workingDirectory = Path.GetDirectoryName(toolPath);
-
-        var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder)
-            ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder)
-            : null;
-        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder)
-            ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder)
-            : null;
-
-        if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
-        {
-            arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
-        }
-
-        await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
-    }
-
-    /// <summary>
-    /// Launches the external tool for creating batch files for PS3 games.
-    /// </summary>
-    public async Task CreateBatchFilesForPs3GamesAsync()
-    {
-        var toolPath = await GetToolExecutablePathAsync("CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games");
-        if (toolPath == null) return;
-
-        await LaunchExternalToolAsync(toolPath);
-    }
-
-    /// <summary>
-    /// Launches the external tool for batch converting ISO files to XISO format.
-    /// </summary>
-    public async Task BatchConvertIsoToXisoAsync()
-    {
-        var toolPath = await GetToolExecutablePathAsync("BatchConvertIsoToXiso", "BatchConvertIsoToXiso");
-        if (toolPath == null) return;
-
-        await LaunchExternalToolAsync(toolPath);
-    }
-
-    /// <summary>
-    /// Launches the external tool for batch converting ROM files to CHD format.
-    /// </summary>
-    /// <param name="selectedRomFolder">The optional path to the folder containing ROMs to convert.</param>
-    public async Task BatchConvertToChdAsync(string? selectedRomFolder)
-    {
-        var toolPath = await GetToolExecutablePathAsync("BatchConvertToCHD", "BatchConvertToCHD");
-        if (toolPath == null) return;
-
-        var arguments = "";
-        var workingDirectory = Path.GetDirectoryName(toolPath);
-
-        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder)
-            ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder)
-            : null;
-
-        if (!string.IsNullOrEmpty(absoluteRomFolder))
-        {
-            arguments = $"\"{absoluteRomFolder}\"";
-        }
-
-        await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
-    }
-
-    /// <summary>
-    /// Launches the external tool for batch converting files to compressed archive format.
-    /// </summary>
-    public async Task BatchConvertToCompressedFileAsync()
-    {
-        var toolPath = await GetToolExecutablePathAsync("BatchConvertToCompressedFile", "BatchConvertToCompressedFile");
-        if (toolPath == null) return;
-
-        await LaunchExternalToolAsync(toolPath);
-    }
-
-    /// <summary>
-    /// Launches the external tool for batch converting files to RVZ format.
-    /// </summary>
-    public async Task BatchConvertToRvzAsync()
-    {
-        var toolPath = await GetToolExecutablePathAsync("BatchConvertToRVZ", "BatchConvertToRVZ");
-        if (toolPath == null) return;
-
-        await LaunchExternalToolAsync(toolPath);
-    }
-
-    /// <summary>
-    /// Launches the external tool for creating batch files for ScummVM games.
-    /// </summary>
-    public async Task CreateBatchFilesForScummVmGamesAsync()
-    {
-        var toolPath =
-            await GetToolExecutablePathAsync("CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames");
-        if (toolPath == null) return;
-
-        await LaunchExternalToolAsync(toolPath);
-    }
-
-    /// <summary>
-    /// Launches the ROM validator tool to verify ROM file integrity.
-    /// </summary>
-    public async Task RomValidatorAsync()
-    {
-        var toolPath = await GetToolExecutablePathAsync("RomValidator", "RomValidator");
-        if (toolPath == null) return;
-
-        await LaunchExternalToolAsync(toolPath);
-    }
-
-    /// <summary>
-    /// Launches the retro game cover downloader tool with the specified ROM and image folders.
-    /// </summary>
-    /// <param name="selectedImageFolder">The optional path to the folder where cover images will be saved.</param>
-    /// <param name="selectedRomFolder">The optional path to the folder containing ROMs to download covers for.</param>
-    public async Task RetroGameCoverDownloaderAsync(string? selectedImageFolder, string? selectedRomFolder)
-    {
-        var toolPath = await GetToolExecutablePathAsync("RetroGameCoverDownloader", "RetroGameCoverDownloader");
-        if (toolPath == null) return;
-
-        var arguments = "";
-        var workingDirectory = Path.GetDirectoryName(toolPath);
-
-        var absoluteImageFolder = !string.IsNullOrEmpty(selectedImageFolder)
-            ? PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder)
-            : null;
-        var absoluteRomFolder = !string.IsNullOrEmpty(selectedRomFolder)
-            ? PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder)
-            : null;
-
-        if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
-        {
-            arguments = $"\"{absoluteRomFolder}\" \"{absoluteImageFolder}\"";
-        }
-
-        await LaunchExternalToolAsync(toolPath, arguments, workingDirectory);
     }
 }

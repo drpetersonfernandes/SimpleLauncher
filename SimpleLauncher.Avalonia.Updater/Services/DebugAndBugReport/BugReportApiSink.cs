@@ -10,8 +10,8 @@ using Serilog.Events;
 namespace SimpleLauncher.Avalonia.Updater.Services.DebugAndBugReport;
 
 /// <summary>
-/// A Serilog sink that sends warning-level and above log events to the bug report API,
-/// with local file fallback when the API is unavailable.
+///     A Serilog sink that sends warning-level and above log events to the bug report API,
+///     with local file fallback when the API is unavailable.
 /// </summary>
 internal class BugReportApiSink : ILogEventSink, IDisposable
 {
@@ -21,12 +21,6 @@ internal class BugReportApiSink : ILogEventSink, IDisposable
         "YUdwb04zbDFOblExTm5SNWNqVTBNRzg1ZFRnM05qYzJOelp5TlRZM05EVXpORFExTXpJek5USTJOR00zTldJMmREZG5aMmRvWjJjM05uUnlaalUyTkdVPQ==";
 
     private static readonly string ApiKey = DecodeApiKey();
-
-    private static string DecodeApiKey()
-    {
-        var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(ApiKeyEncoded));
-        return Encoding.UTF8.GetString(Convert.FromBase64String(decoded));
-    }
 
     private readonly Channel<LogEvent> _channel = Channel.CreateBounded<LogEvent>(new BoundedChannelOptions(100)
     {
@@ -39,7 +33,7 @@ internal class BugReportApiSink : ILogEventSink, IDisposable
     private Task _processTask;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BugReportApiSink"/> class and starts the background queue processor.
+    ///     Initializes a new instance of the <see cref="BugReportApiSink" /> class and starts the background queue processor.
     /// </summary>
     /// <param name="logFolder">The folder where fallback log files will be written.</param>
     public BugReportApiSink(string logFolder)
@@ -49,7 +43,19 @@ internal class BugReportApiSink : ILogEventSink, IDisposable
     }
 
     /// <summary>
-    /// Emits a log event to the bug report queue if its level is Warning or above.
+    ///     Disposes the sink, cancelling the background queue processor.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        _disposed = true;
+        _cts.Cancel();
+        _cts.Dispose();
+    }
+
+    /// <summary>
+    ///     Emits a log event to the bug report queue if its level is Warning or above.
     /// </summary>
     /// <param name="logEvent">The log event to process.</param>
     public void Emit(LogEvent logEvent)
@@ -59,22 +65,24 @@ internal class BugReportApiSink : ILogEventSink, IDisposable
         _channel.Writer.TryWrite(logEvent);
     }
 
+    private static string DecodeApiKey()
+    {
+        var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(ApiKeyEncoded));
+        return Encoding.UTF8.GetString(Convert.FromBase64String(decoded));
+    }
+
     private async Task ProcessQueueAsync(CancellationToken cancellationToken)
     {
         while (await _channel.Reader.WaitToReadAsync(cancellationToken))
-        {
-            while (_channel.Reader.TryRead(out var logEvent))
+        while (_channel.Reader.TryRead(out var logEvent))
+            try
             {
-                try
-                {
-                    await SendReportAsync(logEvent);
-                }
-                catch
-                {
-                    WriteCriticalError(logEvent);
-                }
+                await SendReportAsync(logEvent);
             }
-        }
+            catch
+            {
+                WriteCriticalError(logEvent);
+            }
     }
 
     private async Task SendReportAsync(LogEvent logEvent)
@@ -112,7 +120,6 @@ internal class BugReportApiSink : ILogEventSink, IDisposable
             using var response = await MainWindow.HttpClient.SendAsync(request, cts.Token);
 
             if (response.IsSuccessStatusCode && File.Exists(errorLogPath))
-            {
                 try
                 {
                     File.Delete(errorLogPath);
@@ -121,7 +128,6 @@ internal class BugReportApiSink : ILogEventSink, IDisposable
                 {
                     // Ignore deletion failures
                 }
-            }
         }
         catch
         {
@@ -252,17 +258,5 @@ internal class BugReportApiSink : ILogEventSink, IDisposable
 #else
         return "Release";
 #endif
-    }
-
-    /// <summary>
-    /// Disposes the sink, cancelling the background queue processor.
-    /// </summary>
-    public void Dispose()
-    {
-        if (_disposed) return;
-
-        _disposed = true;
-        _cts.Cancel();
-        _cts.Dispose();
     }
 }

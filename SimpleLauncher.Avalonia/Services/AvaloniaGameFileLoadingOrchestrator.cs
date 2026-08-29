@@ -4,11 +4,11 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
-/// Orchestrates game file loading for the library: resolves system folders, scans
-/// the disk tolerantly (per-directory access failures never abort the scan), and
-/// caches the resulting file lists per system so navigation between systems does
-/// not re-enumerate the disk. Also owns cache invalidation for the file watcher.
-/// Avalonia port of the WPF <c>GameFileLoadingOrchestratorService</c> + cache logic.
+///     Orchestrates game file loading for the library: resolves system folders, scans
+///     the disk tolerantly (per-directory access failures never abort the scan), and
+///     caches the resulting file lists per system so navigation between systems does
+///     not re-enumerate the disk. Also owns cache invalidation for the file watcher.
+///     Avalonia port of the WPF <c>GameFileLoadingOrchestratorService</c> + cache logic.
 /// </summary>
 public class AvaloniaGameFileLoadingOrchestrator
 {
@@ -16,7 +16,7 @@ public class AvaloniaGameFileLoadingOrchestrator
     private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AvaloniaGameFileLoadingOrchestrator"/> class.
+    ///     Initializes a new instance of the <see cref="AvaloniaGameFileLoadingOrchestrator" /> class.
     /// </summary>
     /// <param name="cache">The per-system game file cache.</param>
     /// <param name="logger">The Serilog logger.</param>
@@ -27,9 +27,9 @@ public class AvaloniaGameFileLoadingOrchestrator
     }
 
     /// <summary>
-    /// Returns the game file paths for the system, using the cached list when
-    /// available and scanning the disk otherwise (same rules as the WPF
-    /// GetListOfFilesService: recursion stays on when GroupByFolder is enabled).
+    ///     Returns the game file paths for the system, using the cached list when
+    ///     available and scanning the disk otherwise (same rules as the WPF
+    ///     GetListOfFilesService: recursion stays on when GroupByFolder is enabled).
     /// </summary>
     /// <param name="system">The system configuration.</param>
     public List<string> GetGameFiles(SystemManagerConfig system)
@@ -38,23 +38,20 @@ public class AvaloniaGameFileLoadingOrchestrator
     }
 
     /// <summary>
-    /// Computes per-system game counts from the cached-or-scanned file lists.
+    ///     Computes per-system game counts from the cached-or-scanned file lists.
     /// </summary>
     /// <param name="systems">The systems to count.</param>
     public Dictionary<string, int> ComputeSystemCounts(List<SystemManagerConfig> systems)
     {
         var counts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-        foreach (var system in systems)
-        {
-            counts[system.SystemName] = GetGameFiles(system).Count;
-        }
+        foreach (var system in systems) counts[system.SystemName] = GetGameFiles(system).Count;
 
         return counts;
     }
 
     /// <summary>
-    /// Invalidates the cached file list for one system (called when its files
-    /// change on disk).
+    ///     Invalidates the cached file list for one system (called when its files
+    ///     change on disk).
     /// </summary>
     /// <param name="systemName">The affected system name.</param>
     public void InvalidateSystem(string systemName)
@@ -64,8 +61,8 @@ public class AvaloniaGameFileLoadingOrchestrator
     }
 
     /// <summary>
-    /// Invalidates all cached file lists (called when the system configuration
-    /// changes or a full library refresh is forced).
+    ///     Invalidates all cached file lists (called when the system configuration
+    ///     changes or a full library refresh is forced).
     /// </summary>
     public void InvalidateAll()
     {
@@ -74,8 +71,8 @@ public class AvaloniaGameFileLoadingOrchestrator
     }
 
     /// <summary>
-    /// Enumerates game files for a system from its configured folders,
-    /// resolving %BASEFOLDER% / relative paths to real directories first.
+    ///     Enumerates game files for a system from its configured folders,
+    ///     resolving %BASEFOLDER% / relative paths to real directories first.
     /// </summary>
     private IEnumerable<string> EnumerateSystemFiles(SystemManagerConfig system)
     {
@@ -98,19 +95,15 @@ public class AvaloniaGameFileLoadingOrchestrator
             var doRecurse = system is not { DisableRecursiveSearch: true, GroupByFolder: false };
 
             foreach (var file in EnumerateFilesTolerant(resolvedFolder, doRecurse))
-            {
                 if (extensionSet.Contains(Path.GetExtension(file)))
-                {
                     yield return file;
-                }
-            }
         }
     }
 
     /// <summary>
-    /// Recursively enumerates files, tolerating per-directory access failures instead
-    /// of aborting the whole scan when one subfolder is inaccessible (mirrors the
-    /// per-directory error handling of the WPF GetListOfFilesService).
+    ///     Recursively enumerates files, tolerating per-directory access failures instead
+    ///     of aborting the whole scan when one subfolder is inaccessible (mirrors the
+    ///     per-directory error handling of the WPF GetListOfFilesService).
     /// </summary>
     private IEnumerable<string> EnumerateFilesTolerant(string directory, bool recurse)
     {
@@ -126,10 +119,7 @@ public class AvaloniaGameFileLoadingOrchestrator
             yield break;
         }
 
-        foreach (var file in files)
-        {
-            yield return file;
-        }
+        foreach (var file in files) yield return file;
 
         if (!recurse) yield break;
 
@@ -145,11 +135,7 @@ public class AvaloniaGameFileLoadingOrchestrator
         }
 
         foreach (var subDirectory in subDirectories)
-        {
-            foreach (var file in EnumerateFilesTolerant(subDirectory, true))
-            {
-                yield return file;
-            }
-        }
+        foreach (var file in EnumerateFilesTolerant(subDirectory, true))
+            yield return file;
     }
 }

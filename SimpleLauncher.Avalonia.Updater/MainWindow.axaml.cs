@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -7,20 +8,16 @@ using SimpleLauncher.Avalonia.Updater.Services;
 namespace SimpleLauncher.Avalonia.Updater;
 
 /// <summary>
-/// Main window for the Avalonia Updater that manages the update process for SimpleLauncher.Avalonia.
+///     Main window for the Avalonia Updater that manages the update process for SimpleLauncher.Avalonia.
 /// </summary>
 public partial class MainWindow : Window
 {
     private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
     /// <summary>
-    /// Shared HttpClient instance for the entire Updater application.
+    ///     Shared HttpClient instance for the entire Updater application.
     /// </summary>
     internal static readonly HttpClient HttpClient = new() { Timeout = TimeSpan.FromMinutes(5) };
-
-    private readonly UpdateService _updateService;
-    private readonly string[] _args;
-    private readonly CancellationTokenSource _cts;
 
     // Files to exclude during extraction to prevent self-destruction
     private static readonly string[] IgnoredFiles =
@@ -33,20 +30,25 @@ public partial class MainWindow : Window
         "SimpleLauncher.Avalonia.Updater.runtimeconfig.json"
     ];
 
+    private readonly string[] _args;
+    private readonly CancellationTokenSource _cts;
+
+    private readonly UpdateService _updateService;
+
     static MainWindow()
     {
         HttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SimpleLauncher-Avalonia-Updater");
     }
 
     /// <summary>
-    /// Parameterless constructor for the Avalonia runtime resource loader.
+    ///     Parameterless constructor for the Avalonia runtime resource loader.
     /// </summary>
     public MainWindow() : this([])
     {
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MainWindow"/> class.
+    ///     Initializes a new instance of the <see cref="MainWindow" /> class.
     /// </summary>
     /// <param name="args">Command line arguments, typically containing the process ID of the main application.</param>
     public MainWindow(string[] args)
@@ -73,7 +75,7 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Creates and configures the UpdateService with all required dependencies.
+    ///     Creates and configures the UpdateService with all required dependencies.
     /// </summary>
     private static UpdateService CreateUpdateService()
     {
@@ -88,7 +90,7 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Wires up event handlers for the UpdateService events.
+    ///     Wires up event handlers for the UpdateService events.
     /// </summary>
     private void WireUpServiceEvents()
     {
@@ -123,10 +125,7 @@ public partial class MainWindow : Window
         };
         _updateService.DokanInstallationPrompt += () =>
         {
-            if (!OperatingSystem.IsWindows())
-            {
-                return Task.FromResult(false); // Dokan is Windows-only
-            }
+            if (!OperatingSystem.IsWindows()) return Task.FromResult(false); // Dokan is Windows-only
 
             return Dispatcher.UIThread.InvokeAsync(() => DialogHelper.ShowYesNoAsync(this,
                 "Dokan library is not installed.\n\n" +
@@ -137,7 +136,7 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Gets the version of the currently executing assembly.
+    ///     Gets the version of the currently executing assembly.
     /// </summary>
     private static string GetApplicationVersion()
     {
@@ -146,7 +145,7 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Executes the update process asynchronously with error handling and bug reporting.
+    ///     Executes the update process asynchronously with error handling and bug reporting.
     /// </summary>
     /// <param name="cancellationToken">Token to cancel the update operation.</param>
     private async Task ExecuteUpdateAsync(CancellationToken cancellationToken)
@@ -156,10 +155,8 @@ public partial class MainWindow : Window
             // Parse process ID from command line arguments
             int? processId = null;
             if (_args.Length > 0 &&
-                int.TryParse(_args[0], System.Globalization.CultureInfo.InvariantCulture, out var pid) && pid > 0)
-            {
+                int.TryParse(_args[0], CultureInfo.InvariantCulture, out var pid) && pid > 0)
                 processId = pid;
-            }
 
             CancelButton.IsEnabled = true;
 
@@ -171,10 +168,7 @@ public partial class MainWindow : Window
                 await DialogHelper.ShowMessageAsync(this, "Update installed successfully.", "Success");
 
                 // Check if Dokan is installed and offer to install it if missing (Windows only)
-                if (OperatingSystem.IsWindows())
-                {
-                    await _updateService.CheckAndInstallDokanAsync();
-                }
+                if (OperatingSystem.IsWindows()) await _updateService.CheckAndInstallDokanAsync();
 
                 _updateService.RestartMainApplication();
                 Close();
@@ -213,10 +207,7 @@ public partial class MainWindow : Window
     private async Task RedirectToDownloadPage(string message)
     {
         var result = await DialogHelper.ShowYesNoAsync(this, message, "Error");
-        if (result)
-        {
-            _updateService.OpenManualDownloadPage();
-        }
+        if (result) _updateService.OpenManualDownloadPage();
 
         Close();
     }
@@ -230,7 +221,6 @@ public partial class MainWindow : Window
         }
 
         if (IsLoaded)
-        {
             try
             {
                 LogTextBox.Text += $"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}";
@@ -241,11 +231,10 @@ public partial class MainWindow : Window
                 // Window may have been closed, ignore logging but report bug (fire-and-forget)
                 _ = ReportBugFireAndForgetAsync(ex, "Error logging message to UI");
             }
-        }
     }
 
     /// <summary>
-    /// Fire-and-forget helper for reporting bugs from synchronous contexts.
+    ///     Fire-and-forget helper for reporting bugs from synchronous contexts.
     /// </summary>
     private static async Task ReportBugFireAndForgetAsync(Exception exception, string context)
     {

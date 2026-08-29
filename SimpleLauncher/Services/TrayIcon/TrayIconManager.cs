@@ -8,24 +8,24 @@ using SimpleLauncher.Services.NotificationToast;
 namespace SimpleLauncher.Services.TrayIcon;
 
 /// <summary>
-/// Manages the system tray icon, its context menu, and related actions for the application.
+///     Manages the system tray icon, its context menu, and related actions for the application.
 /// </summary>
 public class TrayIconManager : IDisposable
 {
-    private readonly TaskbarIcon _taskbarIcon;
-    private readonly System.Windows.Controls.ContextMenu _trayMenu;
-    private readonly Window _mainWindow;
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly ILogger _logger;
-    private readonly IToastNotificationService _toastNotificationService;
+    private readonly Window _mainWindow;
+    private readonly RoutedEventHandler _onExitHandler;
+    private readonly RoutedEventHandler _onMinimizeToTrayHandler;
+    private readonly RoutedEventHandler _onOpenDebugWindowHandler;
 
     private readonly RoutedEventHandler _onOpenHandler;
-    private readonly RoutedEventHandler _onMinimizeToTrayHandler;
-    private readonly RoutedEventHandler _onExitHandler;
-    private readonly RoutedEventHandler _onOpenDebugWindowHandler;
+    private readonly TaskbarIcon _taskbarIcon;
+    private readonly IToastNotificationService _toastNotificationService;
+    private readonly System.Windows.Controls.ContextMenu _trayMenu;
     private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
 
-    /// <summary>Initializes a new instance of the <see cref="TrayIconManager"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="TrayIconManager" />.</summary>
     /// <param name="mainWindow">The main application window.</param>
     /// <param name="applicationLifetime">The application lifetime service for shutdown control.</param>
     /// <param name="logger">The logger instance.</param>
@@ -48,6 +48,29 @@ public class TrayIconManager : IDisposable
         _trayMenu = CreateContextMenu();
         _taskbarIcon = CreateTaskbarIcon();
         _taskbarIcon.TrayMouseDoubleClick += _trayMouseDoubleClickHandler;
+    }
+
+    /// <summary>Releases resources used by the tray icon manager.</summary>
+    public void Dispose()
+    {
+        if (_taskbarIcon != null)
+        {
+            _taskbarIcon.TrayMouseDoubleClick -= _trayMouseDoubleClickHandler;
+            _taskbarIcon.Dispose();
+        }
+
+        if (_trayMenu != null)
+            foreach (var item in _trayMenu.Items)
+            {
+                if (item is not MenuItem menuItem) continue;
+
+                menuItem.Click -= _onOpenHandler;
+                menuItem.Click -= _onMinimizeToTrayHandler;
+                menuItem.Click -= _onExitHandler;
+                menuItem.Click -= _onOpenDebugWindowHandler;
+            }
+
+        GC.SuppressFinalize(this);
     }
 
     private System.Windows.Controls.ContextMenu CreateContextMenu()
@@ -157,30 +180,5 @@ public class TrayIconManager : IDisposable
     {
         _taskbarIcon.Visibility = Visibility.Collapsed;
         _applicationLifetime.Shutdown();
-    }
-
-    /// <summary>Releases resources used by the tray icon manager.</summary>
-    public void Dispose()
-    {
-        if (_taskbarIcon != null)
-        {
-            _taskbarIcon.TrayMouseDoubleClick -= _trayMouseDoubleClickHandler;
-            _taskbarIcon.Dispose();
-        }
-
-        if (_trayMenu != null)
-        {
-            foreach (var item in _trayMenu.Items)
-            {
-                if (item is not MenuItem menuItem) continue;
-
-                menuItem.Click -= _onOpenHandler;
-                menuItem.Click -= _onMinimizeToTrayHandler;
-                menuItem.Click -= _onExitHandler;
-                menuItem.Click -= _onOpenDebugWindowHandler;
-            }
-        }
-
-        GC.SuppressFinalize(this);
     }
 }

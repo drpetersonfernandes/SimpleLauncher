@@ -1,4 +1,5 @@
 using System.Globalization;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Avalonia.Converters;
 using SimpleLauncher.Avalonia.Services;
@@ -8,10 +9,10 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the Avalonia port converters (Phase 6). Pure boolean/null converters
-/// need no platform; BooleanToFavoriteStatusConverter and ConsoleToCardHeightConverter
-/// are exercised via their Set* static hooks; PathToImageConverter needs the headless
-/// Avalonia platform (Bitmap decoding).
+///     Tests for the Avalonia port converters (Phase 6). Pure boolean/null converters
+///     need no platform; BooleanToFavoriteStatusConverter and ConsoleToCardHeightConverter
+///     are exercised via their Set* static hooks; PathToImageConverter needs the headless
+///     Avalonia platform (Bitmap decoding).
 /// </summary>
 public class ConverterTests
 {
@@ -190,7 +191,7 @@ public class ConverterTests
     {
         TestEnvironment.EnsurePortableSettings();
         var settings = new SettingsManagerService(
-            new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build(),
+            new ConfigurationBuilder().Build(),
             new Mock<ILogger>().Object,
             new Mock<ICredentialProtector>().Object,
             new Mock<IMessageBoxLibraryService>().Object);

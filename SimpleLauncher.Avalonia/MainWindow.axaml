@@ -26,28 +26,65 @@
             <!-- ── OPTIONS ── -->
             <MenuItem Header="{ext:Translate Options}"
                       ToolTip.Tip="{ext:Translate TooltipOptionsMenu}">
-                <MenuItem x:Name="LanguageMenu" Header="{ext:Translate Language}" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}">
+                <MenuItem x:Name="LanguageMenu" Header="{ext:Translate Language}"
+                          ToolTip.Tip="{ext:Translate TooltipLanguageMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/language.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="LanguageArabic" GroupName="LanguageGroup" Header="العربية" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageBengali" GroupName="LanguageGroup" Header="বাংলা" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageGerman" GroupName="LanguageGroup" Header="Deutsch" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageEnglish" GroupName="LanguageGroup" Header="English" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageSpanish" GroupName="LanguageGroup" Header="Español" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageFrench" GroupName="LanguageGroup" Header="Français" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageHindi" GroupName="LanguageGroup" Header="हिन्दी" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageIndonesianMalay" GroupName="LanguageGroup" Header="Indonesian (Malay)" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageItalian" GroupName="LanguageGroup" Header="Italiano" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageJapanese" GroupName="LanguageGroup" Header="日本語" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageKorean" GroupName="LanguageGroup" Header="한국어" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageDutch" GroupName="LanguageGroup" Header="Nederlands" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguagePortugueseBr" GroupName="LanguageGroup" Header="Português" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageRussian" GroupName="LanguageGroup" Header="Русский" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageTurkish" GroupName="LanguageGroup" Header="Türkçe" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageUrdu" GroupName="LanguageGroup" Header="اردو" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageVietnamese" GroupName="LanguageGroup" Header="Tiếng Việt" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
-                    <MenuItem x:Name="LanguageChineseSimplified" GroupName="LanguageGroup" Header="简体中文" Click="ChangeLanguage_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageArabic" GroupName="LanguageGroup" Header="العربية"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageBengali" GroupName="LanguageGroup" Header="বাংলা"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageGerman" GroupName="LanguageGroup" Header="Deutsch"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageEnglish" GroupName="LanguageGroup" Header="English"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageSpanish" GroupName="LanguageGroup" Header="Español"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageFrench" GroupName="LanguageGroup" Header="Français"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageHindi" GroupName="LanguageGroup" Header="हिन्दी"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageIndonesianMalay" GroupName="LanguageGroup" Header="Indonesian (Malay)"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageItalian" GroupName="LanguageGroup" Header="Italiano"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageJapanese" GroupName="LanguageGroup" Header="日本語"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageKorean" GroupName="LanguageGroup" Header="한국어"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageDutch" GroupName="LanguageGroup" Header="Nederlands"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguagePortugueseBr" GroupName="LanguageGroup" Header="Português"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageRussian" GroupName="LanguageGroup" Header="Русский"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageTurkish" GroupName="LanguageGroup" Header="Türkçe"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageUrdu" GroupName="LanguageGroup" Header="اردو"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageVietnamese" GroupName="LanguageGroup" Header="Tiếng Việt"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
+                    <MenuItem x:Name="LanguageChineseSimplified" GroupName="LanguageGroup" Header="简体中文"
+                              Click="ChangeLanguage_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipLanguageMenu}" />
                 </MenuItem>
                 <MenuItem Header="{ext:Translate Theme}" ToolTip.Tip="{ext:Translate TooltipThemeMenu}">
                     <MenuItem.Icon>
@@ -57,298 +94,452 @@
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/darkmode.png" Width="16" Height="16" />
                         </MenuItem.Icon>
-                        <MenuItem x:Name="ThemeLight" GroupName="BaseThemeGroup" Header="{ext:Translate Light}" Tag="Light" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipBaseThemeMenu}" />
-                        <MenuItem x:Name="ThemeDark" GroupName="BaseThemeGroup" Header="{ext:Translate Dark}" Tag="Dark" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipBaseThemeMenu}" />
-                        <MenuItem x:Name="ThemeAdaptive" GroupName="BaseThemeGroup" Header="{ext:Translate Adaptive}" Tag="Adaptive" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipAdaptiveMenu}" />
-                        <MenuItem x:Name="ThemeHighContrast" GroupName="BaseThemeGroup" Header="{ext:Translate HighContrast}" Tag="HighContrast" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipHighContrastMenu}" />
-                        <MenuItem x:Name="ThemeMidnight" GroupName="BaseThemeGroup" Header="{ext:Translate Midnight}" Tag="Midnight" Click="ChangeBaseTheme_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipMidnightMenu}" />
+                        <MenuItem x:Name="ThemeLight" GroupName="BaseThemeGroup" Header="{ext:Translate Light}"
+                                  Tag="Light" Click="ChangeBaseTheme_Click" ToggleType="CheckBox"
+                                  ToolTip.Tip="{ext:Translate TooltipBaseThemeMenu}" />
+                        <MenuItem x:Name="ThemeDark" GroupName="BaseThemeGroup" Header="{ext:Translate Dark}"
+                                  Tag="Dark" Click="ChangeBaseTheme_Click" ToggleType="CheckBox"
+                                  ToolTip.Tip="{ext:Translate TooltipBaseThemeMenu}" />
+                        <MenuItem x:Name="ThemeAdaptive" GroupName="BaseThemeGroup" Header="{ext:Translate Adaptive}"
+                                  Tag="Adaptive" Click="ChangeBaseTheme_Click" ToggleType="CheckBox"
+                                  ToolTip.Tip="{ext:Translate TooltipAdaptiveMenu}" />
+                        <MenuItem x:Name="ThemeHighContrast" GroupName="BaseThemeGroup"
+                                  Header="{ext:Translate HighContrast}" Tag="HighContrast"
+                                  Click="ChangeBaseTheme_Click" ToggleType="CheckBox"
+                                  ToolTip.Tip="{ext:Translate TooltipHighContrastMenu}" />
+                        <MenuItem x:Name="ThemeMidnight" GroupName="BaseThemeGroup" Header="{ext:Translate Midnight}"
+                                  Tag="Midnight" Click="ChangeBaseTheme_Click" ToggleType="CheckBox"
+                                  ToolTip.Tip="{ext:Translate TooltipMidnightMenu}" />
                     </MenuItem>
-                    <MenuItem x:Name="AccentColorMenu" Header="{ext:Translate AccentColors}" ToolTip.Tip="{ext:Translate TooltipAccentColorsMenu}">
+                    <MenuItem x:Name="AccentColorMenu" Header="{ext:Translate AccentColors}"
+                              ToolTip.Tip="{ext:Translate TooltipAccentColorsMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/theme.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                         <!-- Accent color items are populated at runtime from AvaloniaThemeService.AccentColorNames -->
                     </MenuItem>
                 </MenuItem>
-                <MenuItem x:Name="SizeMenu" Header="{ext:Translate SetButtonSize}" ToolTip.Tip="{ext:Translate TooltipButtonSizeMenu}">
+                <MenuItem x:Name="SizeMenu" Header="{ext:Translate SetButtonSize}"
+                          ToolTip.Tip="{ext:Translate TooltipButtonSizeMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/buttonsize.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="{ext:Translate 50pixels}" Tag="50" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 100pixels}" Tag="100" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 150pixels}" Tag="150" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 200pixels}" Tag="200" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 250pixels}" Tag="250" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 300pixels}" Tag="300" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 350pixels}" Tag="350" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 400pixels}" Tag="400" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 450pixels}" Tag="450" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 500pixels}" Tag="500" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 550pixels}" Tag="550" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 600pixels}" Tag="600" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 650pixels}" Tag="650" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 700pixels}" Tag="700" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 750pixels}" Tag="750" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
-                    <MenuItem Header="{ext:Translate 800pixels}" Tag="800" Click="ButtonSizeClickAsync" ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 50pixels}" Tag="50" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 100pixels}" Tag="100" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 150pixels}" Tag="150" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 200pixels}" Tag="200" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 250pixels}" Tag="250" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 300pixels}" Tag="300" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 350pixels}" Tag="350" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 400pixels}" Tag="400" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 450pixels}" Tag="450" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 500pixels}" Tag="500" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 550pixels}" Tag="550" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 600pixels}" Tag="600" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 650pixels}" Tag="650" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 700pixels}" Tag="700" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 750pixels}" Tag="750" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
+                    <MenuItem Header="{ext:Translate 800pixels}" Tag="800" Click="ButtonSizeClickAsync"
+                              ToggleType="CheckBox" GroupName="ButtonSizeGroup" />
                 </MenuItem>
-                <MenuItem x:Name="AspectRatioMenu" Header="{ext:Translate SetButtonAspectRatio}" ToolTip.Tip="{ext:Translate TooltipAspectRatioMenu}">
+                <MenuItem x:Name="AspectRatioMenu" Header="{ext:Translate SetButtonAspectRatio}"
+                          ToolTip.Tip="{ext:Translate TooltipAspectRatioMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/aspectratio.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="Square" Header="{ext:Translate Square}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
-                    <MenuItem x:Name="Wider" Header="{ext:Translate Wider}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
-                    <MenuItem x:Name="SuperWider" Header="{ext:Translate SuperWider}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
-                    <MenuItem x:Name="SuperWider2" Header="{ext:Translate SuperWider2}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
-                    <MenuItem x:Name="Taller" Header="{ext:Translate Taller}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
-                    <MenuItem x:Name="SuperTaller" Header="{ext:Translate SuperTaller}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
-                    <MenuItem x:Name="SuperTaller2" Header="{ext:Translate SuperTaller2}" Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="Square" Header="{ext:Translate Square}" Click="ButtonAspectRatioClickAsync"
+                              ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="Wider" Header="{ext:Translate Wider}" Click="ButtonAspectRatioClickAsync"
+                              ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="SuperWider" Header="{ext:Translate SuperWider}"
+                              Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="SuperWider2" Header="{ext:Translate SuperWider2}"
+                              Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="Taller" Header="{ext:Translate Taller}" Click="ButtonAspectRatioClickAsync"
+                              ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="SuperTaller" Header="{ext:Translate SuperTaller}"
+                              Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
+                    <MenuItem x:Name="SuperTaller2" Header="{ext:Translate SuperTaller2}"
+                              Click="ButtonAspectRatioClickAsync" ToggleType="CheckBox" GroupName="AspectRatioGroup" />
                 </MenuItem>
-                <MenuItem x:Name="GamesPerPageMenu" Header="{ext:Translate SetNumberOfGamesPerPage}" ToolTip.Tip="{ext:Translate TooltipGamesPerPageMenu}">
+                <MenuItem x:Name="GamesPerPageMenu" Header="{ext:Translate SetNumberOfGamesPerPage}"
+                          ToolTip.Tip="{ext:Translate TooltipGamesPerPageMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/setnumber.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="{ext:Translate 100games}" Tag="100" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
-                    <MenuItem Header="{ext:Translate 200games}" Tag="200" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
-                    <MenuItem Header="{ext:Translate 300games}" Tag="300" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
-                    <MenuItem Header="{ext:Translate 400games}" Tag="400" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
-                    <MenuItem Header="{ext:Translate 500games}" Tag="500" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
-                    <MenuItem Header="{ext:Translate 1000games}" Tag="1000" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
-                    <MenuItem Header="{ext:Translate 10000games}" Tag="10000" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
-                    <MenuItem Header="{ext:Translate 1000000games}" Tag="1000000" Click="GamesPerPageClickAsync" ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 100games}" Tag="100" Click="GamesPerPageClickAsync"
+                              ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 200games}" Tag="200" Click="GamesPerPageClickAsync"
+                              ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 300games}" Tag="300" Click="GamesPerPageClickAsync"
+                              ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 400games}" Tag="400" Click="GamesPerPageClickAsync"
+                              ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 500games}" Tag="500" Click="GamesPerPageClickAsync"
+                              ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 1000games}" Tag="1000" Click="GamesPerPageClickAsync"
+                              ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 10000games}" Tag="10000" Click="GamesPerPageClickAsync"
+                              ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
+                    <MenuItem Header="{ext:Translate 1000000games}" Tag="1000000" Click="GamesPerPageClickAsync"
+                              ToggleType="CheckBox" GroupName="GamesPerPageGroup" />
                 </MenuItem>
                 <MenuItem Header="{ext:Translate ViewMode}" ToolTip.Tip="{ext:Translate TooltipViewModeMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/show.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="GridView" GroupName="ViewModeGroup" Header="{ext:Translate GridView}" Click="ChangeViewMode_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipViewModeMenu}" />
-                    <MenuItem x:Name="ListView" GroupName="ViewModeGroup" Header="{ext:Translate ListView}" Click="ChangeViewMode_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipViewModeMenu}" />
+                    <MenuItem x:Name="GridView" GroupName="ViewModeGroup" Header="{ext:Translate GridView}"
+                              Click="ChangeViewMode_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipViewModeMenu}" />
+                    <MenuItem x:Name="ListView" GroupName="ViewModeGroup" Header="{ext:Translate ListView}"
+                              Click="ChangeViewMode_Click" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipViewModeMenu}" />
                 </MenuItem>
                 <MenuItem Header="{ext:Translate ShowGames}" ToolTip.Tip="{ext:Translate TooltipShowGamesMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/noimage.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="ShowAll" GroupName="ShowGamesGroup" Header="{ext:Translate ShowAllGames}" Click="ShowGamesClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipShowGamesMenu}" />
-                    <MenuItem x:Name="ShowWithCover" GroupName="ShowGamesGroup" Header="{ext:Translate ShowOnlyGamesWithCover}" Click="ShowGamesClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipShowGamesMenu}" />
-                    <MenuItem x:Name="ShowWithoutCover" GroupName="ShowGamesGroup" Header="{ext:Translate ShowOnlyGamesWithoutCover}" Click="ShowGamesClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipShowGamesMenu}" />
+                    <MenuItem x:Name="ShowAll" GroupName="ShowGamesGroup" Header="{ext:Translate ShowAllGames}"
+                              Click="ShowGamesClickAsync" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipShowGamesMenu}" />
+                    <MenuItem x:Name="ShowWithCover" GroupName="ShowGamesGroup"
+                              Header="{ext:Translate ShowOnlyGamesWithCover}" Click="ShowGamesClickAsync"
+                              ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipShowGamesMenu}" />
+                    <MenuItem x:Name="ShowWithoutCover" GroupName="ShowGamesGroup"
+                              Header="{ext:Translate ShowOnlyGamesWithoutCover}" Click="ShowGamesClickAsync"
+                              ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipShowGamesMenu}" />
                 </MenuItem>
-                <MenuItem Header="{ext:Translate FilenamePreferences}" ToolTip.Tip="{ext:Translate TooltipFilenamePreferencesMenu}">
+                <MenuItem Header="{ext:Translate FilenamePreferences}"
+                          ToolTip.Tip="{ext:Translate TooltipFilenamePreferencesMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/filename.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="FilenameDisplayOriginal" GroupName="FilenameGroup" Header="{ext:Translate DisplayOriginalFilenames}" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameDisplayModeMenu}" />
-                    <MenuItem x:Name="FilenameDisplayCleanUp" GroupName="FilenameGroup" Header="{ext:Translate DisplayCleanUpFilenames}" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameDisplayModeMenu}" />
-                    <MenuItem x:Name="FilenameDisplayNoFilename" GroupName="FilenameGroup" Header="{ext:Translate DisplayNoFilename}" Click="FilenameDisplayMode_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameDisplayModeMenu}" />
+                    <MenuItem x:Name="FilenameDisplayOriginal" GroupName="FilenameGroup"
+                              Header="{ext:Translate DisplayOriginalFilenames}" Click="FilenameDisplayMode_ClickAsync"
+                              ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameDisplayModeMenu}" />
+                    <MenuItem x:Name="FilenameDisplayCleanUp" GroupName="FilenameGroup"
+                              Header="{ext:Translate DisplayCleanUpFilenames}" Click="FilenameDisplayMode_ClickAsync"
+                              ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameDisplayModeMenu}" />
+                    <MenuItem x:Name="FilenameDisplayNoFilename" GroupName="FilenameGroup"
+                              Header="{ext:Translate DisplayNoFilename}" Click="FilenameDisplayMode_ClickAsync"
+                              ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameDisplayModeMenu}" />
                     <Separator />
-                    <MenuItem x:Name="DisplayMachineNameToggle" Header="{ext:Translate DisplayMachineName}" Click="DisplayMachineName_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipDisplayMachineNameMenu}" />
+                    <MenuItem x:Name="DisplayMachineNameToggle" Header="{ext:Translate DisplayMachineName}"
+                              Click="DisplayMachineName_ClickAsync" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipDisplayMachineNameMenu}" />
                     <Separator />
-                    <MenuItem x:Name="FilenameFontSizeMenu" Header="{ext:Translate FilenameFontSize}" ToolTip.Tip="{ext:Translate TooltipFilenameFontSizeMenu}">
-                        <MenuItem x:Name="FilenameFontSizeSmall" GroupName="FilenameFontGroup" Header="{ext:Translate Small}" Click="FilenameFontSize_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameFontSizeMenu}" />
-                        <MenuItem x:Name="FilenameFontSizeNormal" GroupName="FilenameFontGroup" Header="{ext:Translate Normal}" Click="FilenameFontSize_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameFontSizeMenu}" />
-                        <MenuItem x:Name="FilenameFontSizeBig" GroupName="FilenameFontGroup" Header="{ext:Translate Big}" Click="FilenameFontSize_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameFontSizeMenu}" />
+                    <MenuItem x:Name="FilenameFontSizeMenu" Header="{ext:Translate FilenameFontSize}"
+                              ToolTip.Tip="{ext:Translate TooltipFilenameFontSizeMenu}">
+                        <MenuItem x:Name="FilenameFontSizeSmall" GroupName="FilenameFontGroup"
+                                  Header="{ext:Translate Small}" Click="FilenameFontSize_ClickAsync"
+                                  ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameFontSizeMenu}" />
+                        <MenuItem x:Name="FilenameFontSizeNormal" GroupName="FilenameFontGroup"
+                                  Header="{ext:Translate Normal}" Click="FilenameFontSize_ClickAsync"
+                                  ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameFontSizeMenu}" />
+                        <MenuItem x:Name="FilenameFontSizeBig" GroupName="FilenameFontGroup"
+                                  Header="{ext:Translate Big}" Click="FilenameFontSize_ClickAsync"
+                                  ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFilenameFontSizeMenu}" />
                     </MenuItem>
-                    <MenuItem x:Name="MachineNameFontSizeMenu" Header="{ext:Translate MachineNameFontSize}" ToolTip.Tip="{ext:Translate TooltipMachineNameFontSizeMenu}">
-                        <MenuItem x:Name="MachineNameFontSizeSmall" GroupName="MachineNameFontGroup" Header="{ext:Translate Small}" Click="MachineNameFontSize_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipMachineNameFontSizeMenu}" />
-                        <MenuItem x:Name="MachineNameFontSizeNormal" GroupName="MachineNameFontGroup" Header="{ext:Translate Normal}" Click="MachineNameFontSize_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipMachineNameFontSizeMenu}" />
-                        <MenuItem x:Name="MachineNameFontSizeBig" GroupName="MachineNameFontGroup" Header="{ext:Translate Big}" Click="MachineNameFontSize_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipMachineNameFontSizeMenu}" />
+                    <MenuItem x:Name="MachineNameFontSizeMenu" Header="{ext:Translate MachineNameFontSize}"
+                              ToolTip.Tip="{ext:Translate TooltipMachineNameFontSizeMenu}">
+                        <MenuItem x:Name="MachineNameFontSizeSmall" GroupName="MachineNameFontGroup"
+                                  Header="{ext:Translate Small}" Click="MachineNameFontSize_ClickAsync"
+                                  ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipMachineNameFontSizeMenu}" />
+                        <MenuItem x:Name="MachineNameFontSizeNormal" GroupName="MachineNameFontGroup"
+                                  Header="{ext:Translate Normal}" Click="MachineNameFontSize_ClickAsync"
+                                  ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipMachineNameFontSizeMenu}" />
+                        <MenuItem x:Name="MachineNameFontSizeBig" GroupName="MachineNameFontGroup"
+                                  Header="{ext:Translate Big}" Click="MachineNameFontSize_ClickAsync"
+                                  ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipMachineNameFontSizeMenu}" />
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{ext:Translate EditLinks}" ToolTip.Tip="{ext:Translate TooltipEditLinksMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/links.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="{ext:Translate EditLinks}" Click="EditLinks_Click" ToolTip.Tip="{ext:Translate TooltipEditLinksMenu}">
+                    <MenuItem Header="{ext:Translate EditLinks}" Click="EditLinks_Click"
+                              ToolTip.Tip="{ext:Translate TooltipEditLinksMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/links.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{ext:Translate GamepadSupport}" ToolTip.Tip="{ext:Translate TooltipGamepadSupportMenu}">
+                <MenuItem Header="{ext:Translate GamepadSupport}"
+                          ToolTip.Tip="{ext:Translate TooltipGamepadSupportMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/gamepad.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="ToggleGamepad" Header="{ext:Translate Enable}" Click="ToggleGamepad_Click" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipGamepadSupportMenu}" />
-                    <MenuItem Header="{ext:Translate SetGamepadDeadZone}" Click="SetGamepadDeadZone_Click" ToolTip.Tip="{ext:Translate TooltipGamepadSupportMenu}">
+                    <MenuItem x:Name="ToggleGamepad" Header="{ext:Translate Enable}" Click="ToggleGamepad_Click"
+                              ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipGamepadSupportMenu}" />
+                    <MenuItem Header="{ext:Translate SetGamepadDeadZone}" Click="SetGamepadDeadZone_Click"
+                              ToolTip.Tip="{ext:Translate TooltipGamepadSupportMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/setdeadzone.png" Width="16" Height="16" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/setdeadzone.png" Width="16"
+                                   Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{ext:Translate FuzzyImageMatching}" ToolTip.Tip="{ext:Translate TooltipFuzzyMatchingMenu}">
+                <MenuItem Header="{ext:Translate FuzzyImageMatching}"
+                          ToolTip.Tip="{ext:Translate TooltipFuzzyMatchingMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/match.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="ToggleFuzzyMatching" Header="{ext:Translate Enable}" Click="ToggleFuzzyMatchingClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipFuzzyMatchingMenu}" />
-                    <MenuItem x:Name="ToggleAnnotationStripping" Header="{ext:Translate StripAnnotations}" Click="ToggleAnnotationStrippingClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipAnnotationStripping}" />
-                    <MenuItem Header="{ext:Translate SetThreshold}" Click="SetFuzzyMatchingThreshold_Click" ToolTip.Tip="{ext:Translate TooltipFuzzyMatchingMenu}">
+                    <MenuItem x:Name="ToggleFuzzyMatching" Header="{ext:Translate Enable}"
+                              Click="ToggleFuzzyMatchingClickAsync" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipFuzzyMatchingMenu}" />
+                    <MenuItem x:Name="ToggleAnnotationStripping" Header="{ext:Translate StripAnnotations}"
+                              Click="ToggleAnnotationStrippingClickAsync" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipAnnotationStripping}" />
+                    <MenuItem Header="{ext:Translate SetThreshold}" Click="SetFuzzyMatchingThreshold_Click"
+                              ToolTip.Tip="{ext:Translate TooltipFuzzyMatchingMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/setthreshold.png" Width="16" Height="16" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/setthreshold.png" Width="16"
+                                   Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{ext:Translate SoundConfiguration}" ToolTip.Tip="{ext:Translate TooltipSoundConfigMenu}">
+                <MenuItem Header="{ext:Translate SoundConfiguration}"
+                          ToolTip.Tip="{ext:Translate TooltipSoundConfigMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/sound.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="{ext:Translate SoundConfiguration}" Click="SoundConfiguration_Click" ToolTip.Tip="{ext:Translate TooltipSoundConfigMenu}">
+                    <MenuItem Header="{ext:Translate SoundConfiguration}" Click="SoundConfiguration_Click"
+                              ToolTip.Tip="{ext:Translate TooltipSoundConfigMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/sound.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{ext:Translate RetroAchievementsSettings}" ToolTip.Tip="{ext:Translate TooltipRaSettingsMenu}">
+                <MenuItem Header="{ext:Translate RetroAchievementsSettings}"
+                          ToolTip.Tip="{ext:Translate TooltipRaSettingsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="{ext:Translate RetroAchievementsSettings}" Click="RetroAchievementsSettings_Click" ToolTip.Tip="{ext:Translate TooltipRaSettingsMenu}">
+                    <MenuItem Header="{ext:Translate RetroAchievementsSettings}"
+                              Click="RetroAchievementsSettings_Click"
+                              ToolTip.Tip="{ext:Translate TooltipRaSettingsMenu}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />
-                    <MenuItem Header="{ext:Translate CalculateHashesForAllGamePaths}" Click="CalculateHashesForAllGamePaths_Click" ToolTip.Tip="{ext:Translate TooltipCalculateHashesForAllGamePaths}">
+                    <MenuItem Header="{ext:Translate CalculateHashesForAllGamePaths}"
+                              Click="CalculateHashesForAllGamePaths_Click"
+                              ToolTip.Tip="{ext:Translate TooltipCalculateHashesForAllGamePaths}">
                         <MenuItem.Icon>
                             <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{ext:Translate InjectEmulatorConfig}" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                <MenuItem Header="{ext:Translate InjectEmulatorConfig}"
+                          ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/inject.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="{ext:Translate AresSettings}" Tag="Ares" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate AresSettings}" Tag="Ares" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/ares.png" Width="16" Height="16" AutomationProperties.Name="Ares" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/ares.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Ares" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate AzaharSettings}" Tag="Azahar" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate AzaharSettings}" Tag="Azahar" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/azahar.png" Width="16" Height="16" AutomationProperties.Name="Azahar" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/azahar.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Azahar" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate BlastemSettings}" Tag="Blastem" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate BlastemSettings}" Tag="Blastem" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/blastem.png" Width="16" Height="16" AutomationProperties.Name="Blastem" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/blastem.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Blastem" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate CemuSettings}" Tag="Cemu" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate CemuSettings}" Tag="Cemu" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/cemu.png" Width="16" Height="16" AutomationProperties.Name="Cemu" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/cemu.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Cemu" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate DaphneSettings}" Tag="Daphne" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate DaphneSettings}" Tag="Daphne" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/daphne.png" Width="16" Height="16" AutomationProperties.Name="Daphne" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/daphne.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Daphne" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate DolphinSettings}" Tag="Dolphin" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate DolphinSettings}" Tag="Dolphin" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/dolphin.png" Width="16" Height="16" AutomationProperties.Name="Dolphin" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/dolphin.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Dolphin" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate DuckStationSettings}" Tag="DuckStation" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate DuckStationSettings}" Tag="DuckStation"
+                              Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/duckstation.png" Width="16" Height="16" AutomationProperties.Name="DuckStation" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/duckstation.png" Width="16"
+                                   Height="16" AutomationProperties.Name="DuckStation" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate FlycastSettings}" Tag="Flycast" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate FlycastSettings}" Tag="Flycast" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/flycast.png" Width="16" Height="16" AutomationProperties.Name="Flycast" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/flycast.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Flycast" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate MameSettings}" Tag="Mame" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate MameSettings}" Tag="Mame" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/mame.png" Width="16" Height="16" AutomationProperties.Name="MAME" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/mame.png" Width="16" Height="16"
+                                   AutomationProperties.Name="MAME" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate MednafenSettings}" Tag="Mednafen" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate MednafenSettings}" Tag="Mednafen" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/mednafen.png" Width="16" Height="16" AutomationProperties.Name="Mednafen" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/mednafen.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Mednafen" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate MesenSettings}" Tag="Mesen" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate MesenSettings}" Tag="Mesen" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/mesen.png" Width="16" Height="16" AutomationProperties.Name="Mesen" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/mesen.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Mesen" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate PCSX2Settings}" Tag="PCSX2" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate PCSX2Settings}" Tag="PCSX2" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/pcsx2.png" Width="16" Height="16" AutomationProperties.Name="PCSX2" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/pcsx2.png" Width="16" Height="16"
+                                   AutomationProperties.Name="PCSX2" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate RaineSettings}" Tag="Raine" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate RaineSettings}" Tag="Raine" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/raine.png" Width="16" Height="16" AutomationProperties.Name="Raine" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/raine.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Raine" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate RedreamSettings}" Tag="Redream" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate RedreamSettings}" Tag="Redream" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/redream.png" Width="16" Height="16" AutomationProperties.Name="Redream" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/redream.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Redream" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate RetroArchSettings}" Tag="RetroArch" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate RetroArchSettings}" Tag="RetroArch"
+                              Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/retroarch.png" Width="16" Height="16" AutomationProperties.Name="RetroArch" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/retroarch.png" Width="16"
+                                   Height="16" AutomationProperties.Name="RetroArch" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate RPCS3Settings}" Tag="RPCS3" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate RPCS3Settings}" Tag="RPCS3" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/rpcs3.png" Width="16" Height="16" AutomationProperties.Name="RPCS3" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/rpcs3.png" Width="16" Height="16"
+                                   AutomationProperties.Name="RPCS3" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate SegaModel2Settings}" Tag="SegaModel2" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate SegaModel2Settings}" Tag="SegaModel2"
+                              Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/supermodel.png" Width="16" Height="16" AutomationProperties.Name="SEGA Model 2" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/supermodel.png" Width="16"
+                                   Height="16" AutomationProperties.Name="SEGA Model 2" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate StellaSettings}" Tag="Stella" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate StellaSettings}" Tag="Stella" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/stella.png" Width="16" Height="16" AutomationProperties.Name="Stella" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/stella.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Stella" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate SupermodelSettings}" Tag="Supermodel" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate SupermodelSettings}" Tag="Supermodel"
+                              Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/supermodel.png" Width="16" Height="16" AutomationProperties.Name="Supermodel" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/supermodel.png" Width="16"
+                                   Height="16" AutomationProperties.Name="Supermodel" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate XeniaSettings}" Tag="Xenia" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate XeniaSettings}" Tag="Xenia" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/xenia.png" Width="16" Height="16" AutomationProperties.Name="Xenia" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/xenia.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Xenia" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <MenuItem Header="{ext:Translate YumirSettings}" Tag="Yumir" Click="ShowEmulatorConfig_Click" ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
+                    <MenuItem Header="{ext:Translate YumirSettings}" Tag="Yumir" Click="ShowEmulatorConfig_Click"
+                              ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
                         <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/yumir.png" Width="16" Height="16" AutomationProperties.Name="Yumir" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/yumir.png" Width="16" Height="16"
+                                   AutomationProperties.Name="Yumir" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{ext:Translate OverlayButtonSettings}" ToolTip.Tip="{ext:Translate TooltipOverlayButtonMenu}">
+                <MenuItem Header="{ext:Translate OverlayButtonSettings}"
+                          ToolTip.Tip="{ext:Translate TooltipOverlayButtonMenu}">
                     <MenuItem.Icon>
-                        <Image Source="avares://SimpleLauncher.Avalonia/images/overlaybutton.png" Width="16" Height="16" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/overlaybutton.png" Width="16"
+                               Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="RetroAchievementButton" Header="{ext:Translate RetroAchievementOverlayButton}" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipOverlayButtonMenu}" />
-                    <MenuItem x:Name="VideoLinkButton" Header="{ext:Translate VideoLinkOverlayButton}" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipOverlayButtonMenu}" />
-                    <MenuItem x:Name="InfoLinkButton" Header="{ext:Translate InfoLinkOverlayButton}" Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox" ToolTip.Tip="{ext:Translate TooltipOverlayButtonMenu}" />
+                    <MenuItem x:Name="RetroAchievementButton" Header="{ext:Translate RetroAchievementOverlayButton}"
+                              Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipOverlayButtonMenu}" />
+                    <MenuItem x:Name="VideoLinkButton" Header="{ext:Translate VideoLinkOverlayButton}"
+                              Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipOverlayButtonMenu}" />
+                    <MenuItem x:Name="InfoLinkButton" Header="{ext:Translate InfoLinkOverlayButton}"
+                              Click="ToggleOverlayButton_ClickAsync" ToggleType="CheckBox"
+                              ToolTip.Tip="{ext:Translate TooltipOverlayButtonMenu}" />
                 </MenuItem>
             </MenuItem>
 
             <!-- ── EDIT SYSTEM ── -->
             <MenuItem Header="{ext:Translate EditSystem}" ToolTip.Tip="{ext:Translate TooltipEditSystem}">
-                <MenuItem Header="{ext:Translate AddNewSystem}" Click="EasyMode_Click" ToolTip.Tip="{ext:Translate TooltipAddNewSystem}">
+                <MenuItem Header="{ext:Translate AddNewSystem}" Click="EasyMode_Click"
+                          ToolTip.Tip="{ext:Translate TooltipAddNewSystem}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/add.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{ext:Translate EditSystem}" Click="ExpertMode_Click" ToolTip.Tip="{ext:Translate TooltipEditSystem}">
+                <MenuItem Header="{ext:Translate EditSystem}" Click="ExpertMode_Click"
+                          ToolTip.Tip="{ext:Translate TooltipEditSystem}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/settings.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{ext:Translate DownloadImagePack}" Click="DownloadImagePack_Click" ToolTip.Tip="{ext:Translate TooltipEditSystem}">
+                <MenuItem Header="{ext:Translate DownloadImagePack}" Click="DownloadImagePack_Click"
+                          ToolTip.Tip="{ext:Translate TooltipEditSystem}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/image.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{ext:Translate ScanForMicrosoftWindowsGames}" Click="ScanForMicrosoftWindowsGames_ClickAsync" ToolTip.Tip="{ext:Translate TooltipEditSystem}">
+                <MenuItem Header="{ext:Translate ScanForMicrosoftWindowsGames}"
+                          Click="ScanForMicrosoftWindowsGames_ClickAsync"
+                          ToolTip.Tip="{ext:Translate TooltipEditSystem}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/search2.png" Width="16" Height="16" />
                     </MenuItem.Icon>
@@ -357,12 +548,14 @@
 
             <!-- ── SELECT WINDOW ── -->
             <MenuItem Header="{ext:Translate SelectWindow}" ToolTip.Tip="{ext:Translate TooltipSelectWindowMenu}">
-                <MenuItem Header="{ext:Translate GlobalStats}" Click="GlobalStats_Click" ToolTip.Tip="{ext:Translate TooltipSelectWindowMenu}">
+                <MenuItem Header="{ext:Translate GlobalStats}" Click="GlobalStats_Click"
+                          ToolTip.Tip="{ext:Translate TooltipSelectWindowMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/stats.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{ext:Translate RetroAchievements}" Click="RetroAchievements_Click" ToolTip.Tip="{ext:Translate TooltipSelectWindowMenu}">
+                <MenuItem Header="{ext:Translate RetroAchievements}" Click="RetroAchievements_Click"
+                          ToolTip.Tip="{ext:Translate TooltipSelectWindowMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
                     </MenuItem.Icon>
@@ -371,57 +564,69 @@
 
             <!-- ── TOOLS ── -->
             <MenuItem Header="{ext:Translate Tools}" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
-                <MenuItem Header="Batch Convert Iso To Xiso" Tag="BatchConvertIsoToXiso" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
+                <MenuItem Header="Batch Convert Iso To Xiso" Tag="BatchConvertIsoToXiso" Click="LaunchTool_Click"
+                          ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/xiso.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Batch Convert To CHD" Tag="BatchConvertToCHD" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
+                <MenuItem Header="Batch Convert To CHD" Tag="BatchConvertToCHD" Click="LaunchTool_Click"
+                          ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/chd.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Batch Convert To Compressed File" Tag="BatchConvertToCompressedFile" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
+                <MenuItem Header="Batch Convert To Compressed File" Tag="BatchConvertToCompressedFile"
+                          Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Batch Convert To RVZ" Tag="BatchConvertToRVZ" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
+                <MenuItem Header="Batch Convert To RVZ" Tag="BatchConvertToRVZ" Click="LaunchTool_Click"
+                          ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/rvz.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Create Batch Files For PS3 Games" Tag="CreateBatchFilesForPS3Games" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
+                <MenuItem Header="Create Batch Files For PS3 Games" Tag="CreateBatchFilesForPS3Games"
+                          Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/ps3.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Create Batch Files For ScummVM Games" Tag="CreateBatchFilesForScummVMGames" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
+                <MenuItem Header="Create Batch Files For ScummVM Games" Tag="CreateBatchFilesForScummVMGames"
+                          Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/scummvm.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Create Batch Files For Windows Games" Tag="CreateBatchFilesForWindowsGames" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
+                <MenuItem Header="Create Batch Files For Windows Games" Tag="CreateBatchFilesForWindowsGames"
+                          Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Create Batch Files For Xbox360 XBLA Games" Tag="CreateBatchFilesForXbox360XBLAGames" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
+                <MenuItem Header="Create Batch Files For Xbox360 XBLA Games" Tag="CreateBatchFilesForXbox360XBLAGames"
+                          Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/xboxxbla.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Find Rom Cover" Tag="FindRomCover" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
+                <MenuItem Header="Find Rom Cover" Tag="FindRomCover" Click="LaunchTool_Click"
+                          ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/findromcover.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Retro Game Cover Downloader" Tag="RetroGameCoverDownloader" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
+                <MenuItem Header="Retro Game Cover Downloader" Tag="RetroGameCoverDownloader" Click="LaunchTool_Click"
+                          ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
-                        <Image Source="avares://SimpleLauncher.Avalonia/images/retrogamecoverdownloader.png" Width="16" Height="16" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/retrogamecoverdownloader.png" Width="16"
+                               Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Rom Validator" Tag="RomValidator" Click="LaunchTool_Click" ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
+                <MenuItem Header="Rom Validator" Tag="RomValidator" Click="LaunchTool_Click"
+                          ToolTip.Tip="{ext:Translate TooltipToolsMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/romvalidator.png" Width="16" Height="16" />
                     </MenuItem.Icon>
@@ -439,23 +644,27 @@
 
             <!-- ── ABOUT ── -->
             <MenuItem Header="{ext:Translate About}" ToolTip.Tip="{ext:Translate TooltipAboutMenu}">
-                <MenuItem Header="{ext:Translate About}" Click="About_Click" ToolTip.Tip="{ext:Translate TooltipAboutMenu}">
+                <MenuItem Header="{ext:Translate About}" Click="About_Click"
+                          ToolTip.Tip="{ext:Translate TooltipAboutMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/about.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{ext:Translate Support}" Click="Support_Click" ToolTip.Tip="{ext:Translate TooltipAboutMenu}">
+                <MenuItem Header="{ext:Translate Support}" Click="Support_Click"
+                          ToolTip.Tip="{ext:Translate TooltipAboutMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/support.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="{ext:Translate OpenAppDataPath}" Click="OpenAppDataPath_Click" ToolTip.Tip="{ext:Translate TooltipOpenAppDataPath}">
+                <MenuItem Header="{ext:Translate OpenAppDataPath}" Click="OpenAppDataPath_Click"
+                          ToolTip.Tip="{ext:Translate TooltipOpenAppDataPath}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/settings.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator />
-                <MenuItem Header="{ext:Translate Exit}" Click="Exit_Click" ToolTip.Tip="{ext:Translate TooltipExitMenu}">
+                <MenuItem Header="{ext:Translate Exit}" Click="Exit_Click"
+                          ToolTip.Tip="{ext:Translate TooltipExitMenu}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/exit.png" Width="16" Height="16" />
                     </MenuItem.Icon>
@@ -481,37 +690,44 @@
                         <Image Source="avares://SimpleLauncher.Avalonia/images/home.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavFavoritesButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipFavorites}"
+                    <Button x:Name="NavFavoritesButton" Classes="nav-icon"
+                            ToolTip.Tip="{ext:Translate TooltipFavorites}"
                             Click="NavFavoritesButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/heart.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavGlobalSearchButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipGlobalSearch}"
+                    <Button x:Name="NavGlobalSearchButton" Classes="nav-icon"
+                            ToolTip.Tip="{ext:Translate TooltipGlobalSearch}"
                             Click="NavGlobalSearchButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/search2.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavHistoryButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipPlayHistory}"
+                    <Button x:Name="NavHistoryButton" Classes="nav-icon"
+                            ToolTip.Tip="{ext:Translate TooltipPlayHistory}"
                             Click="NavHistoryButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/playhistory.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavRetroAchievementsButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipRetroAchievements}"
+                    <Button x:Name="NavRetroAchievementsButton" Classes="nav-icon"
+                            ToolTip.Tip="{ext:Translate TooltipRetroAchievements}"
                             Click="NavRetroAchievementsButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavEditSystemButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipEditSystem}"
+                    <Button x:Name="NavEditSystemButton" Classes="nav-icon"
+                            ToolTip.Tip="{ext:Translate TooltipEditSystem}"
                             Click="NavEditSystemButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/settings.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavToggleViewModeButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipToggleViewMode}"
+                    <Button x:Name="NavToggleViewModeButton" Classes="nav-icon"
+                            ToolTip.Tip="{ext:Translate TooltipToggleViewMode}"
                             Click="NavToggleViewModeButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/show.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
                     </Button>
-                    <Button x:Name="NavToggleButtonAspectRatioButton" Classes="nav-icon" ToolTip.Tip="{ext:Translate TooltipToggleAspectRatio}"
+                    <Button x:Name="NavToggleButtonAspectRatioButton" Classes="nav-icon"
+                            ToolTip.Tip="{ext:Translate TooltipToggleAspectRatio}"
                             Click="NavToggleButtonAspectRatioButton_Click">
                         <Image Source="avares://SimpleLauncher.Avalonia/images/aspectratio.png"
                                Width="27" Height="27" RenderOptions.BitmapInterpolationMode="HighQuality" />
@@ -659,217 +875,242 @@
                         <!-- Game browser (grid / list / empty state) — hidden while a section is open -->
                         <Grid x:Name="GameBrowserPanel">
 
-                        <!-- Game Grid View -->
-                        <ListBox x:Name="GameGridView"
-                                 ItemsSource="{Binding Games}"
-                                 IsVisible="{Binding IsGridView}"
-                                 Background="Transparent"
-                                 BorderThickness="0"
-                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                 ScrollViewer.VerticalScrollBarVisibility="Auto">
-                            <ListBox.Styles>
-                                <!-- Neutralize Fluent ListBoxItem chrome (white hover tint / accent
+                            <!-- Game Grid View -->
+                            <ListBox x:Name="GameGridView"
+                                     ItemsSource="{Binding Games}"
+                                     IsVisible="{Binding IsGridView}"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ListBox.Styles>
+                                    <!-- Neutralize Fluent ListBoxItem chrome (white hover tint / accent
                                      selected fill) — the card Button carries all visual states. -->
-                                <Style Selector="ListBoxItem">
-                                    <Setter Property="Background" Value="Transparent" />
-                                    <Setter Property="Padding" Value="0" />
-                                </Style>
-                                <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                                    <Setter Property="Background" Value="Transparent" />
-                                </Style>
-                                <Style Selector="ListBoxItem:pressed /template/ ContentPresenter#PART_ContentPresenter">
-                                    <Setter Property="Background" Value="Transparent" />
-                                </Style>
-                                <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
-                                    <Setter Property="Background" Value="Transparent" />
-                                </Style>
-                                <Style Selector="ListBoxItem:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                                    <Setter Property="Background" Value="Transparent" />
-                                </Style>
-                                <Style Selector="ListBoxItem:selected:pressed /template/ ContentPresenter#PART_ContentPresenter">
-                                    <Setter Property="Background" Value="Transparent" />
-                                </Style>
-                            </ListBox.Styles>
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel />
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate DataType="{x:Type vm:GameCardViewModel}">
-                                    <!-- Card: width from MainViewModel, height from per-system art ratio.
+                                    <Style Selector="ListBoxItem">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="Padding" Value="0" />
+                                    </Style>
+                                    <Style
+                                        Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                        <Setter Property="Background" Value="Transparent" />
+                                    </Style>
+                                    <Style
+                                        Selector="ListBoxItem:pressed /template/ ContentPresenter#PART_ContentPresenter">
+                                        <Setter Property="Background" Value="Transparent" />
+                                    </Style>
+                                    <Style
+                                        Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+                                        <Setter Property="Background" Value="Transparent" />
+                                    </Style>
+                                    <Style
+                                        Selector="ListBoxItem:selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                        <Setter Property="Background" Value="Transparent" />
+                                    </Style>
+                                    <Style
+                                        Selector="ListBoxItem:selected:pressed /template/ ContentPresenter#PART_ContentPresenter">
+                                        <Setter Property="Background" Value="Transparent" />
+                                    </Style>
+                                </ListBox.Styles>
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type vm:GameCardViewModel}">
+                                        <!-- Card: width from MainViewModel, height from per-system art ratio.
                                          Root is a real Button carrying the WPF GameButton3D 3D effect
                                          (Classes="game-button-3d" — see DarkTheme.axaml). -->
-                                    <Button Classes="game-button-3d"
-                                            Width="{Binding DataContext.CardWidth, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=168}"
-                                            Click="GameCard_Click"
-                                            PointerPressed="GameCard_PointerPressed">
-                                        <Button.Height>
-                                            <MultiBinding Converter="{StaticResource CardHeightConverter}">
-                                                <Binding Path="DataContext.CardWidth" RelativeSource="{RelativeSource AncestorType=ListBox}" FallbackValue="168" />
-                                                <Binding Path="SystemName" />
-                                                <Binding Path="DataContext.IsMixedView" RelativeSource="{RelativeSource AncestorType=ListBox}" FallbackValue="False" />
-                                            </MultiBinding>
-                                        </Button.Height>
+                                        <Button Classes="game-button-3d"
+                                                Width="{Binding DataContext.CardWidth, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=168}"
+                                                Click="GameCard_Click"
+                                                PointerPressed="GameCard_PointerPressed">
+                                            <Button.Height>
+                                                <MultiBinding Converter="{StaticResource CardHeightConverter}">
+                                                    <Binding Path="DataContext.CardWidth"
+                                                             RelativeSource="{RelativeSource AncestorType=ListBox}"
+                                                             FallbackValue="168" />
+                                                    <Binding Path="SystemName" />
+                                                    <Binding Path="DataContext.IsMixedView"
+                                                             RelativeSource="{RelativeSource AncestorType=ListBox}"
+                                                             FallbackValue="False" />
+                                                </MultiBinding>
+                                            </Button.Height>
 
-                                        <Grid RowDefinitions="*,Auto">
+                                            <Grid RowDefinitions="*,Auto">
 
-                                            <!-- Art area -->
-                                            <Border Grid.Row="0"
-                                                    CornerRadius="{DynamicResource CardCornerRadius}"
-                                                    ClipToBounds="True"
-                                                    Margin="2">
-                                                <Grid>
-                                                    <!-- Selection ring -->
-                                                    <Border x:Name="SelectionRing"
-                                                            BorderBrush="{DynamicResource SelectionRingBrush}"
-                                                            BorderThickness="3"
-                                                            CornerRadius="{DynamicResource CardCornerRadius}"
-                                                            IsVisible="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
+                                                <!-- Art area -->
+                                                <Border Grid.Row="0"
+                                                        CornerRadius="{DynamicResource CardCornerRadius}"
+                                                        ClipToBounds="True"
+                                                        Margin="2">
+                                                    <Grid>
+                                                        <!-- Selection ring -->
+                                                        <Border x:Name="SelectionRing"
+                                                                BorderBrush="{DynamicResource SelectionRingBrush}"
+                                                                BorderThickness="3"
+                                                                CornerRadius="{DynamicResource CardCornerRadius}"
+                                                                IsVisible="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
 
-                                                    <!-- Placeholder (no art) -->
-                                                    <Border x:Name="PlaceholderBorder"
-                                                            Background="{DynamicResource PlaceholderFillBrush}"
-                                                            BorderBrush="{DynamicResource PlaceholderStrokeBrush}"
-                                                            BorderThickness="1"
-                                                            CornerRadius="10"
-                                                            IsVisible="{Binding HasCover, Converter={StaticResource InverseBoolToVisibility}}">
-                                                        <TextBlock Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
+                                                        <!-- Placeholder (no art) -->
+                                                        <Border x:Name="PlaceholderBorder"
+                                                                Background="{DynamicResource PlaceholderFillBrush}"
+                                                                BorderBrush="{DynamicResource PlaceholderStrokeBrush}"
+                                                                BorderThickness="1"
+                                                                CornerRadius="10"
+                                                                IsVisible="{Binding HasCover, Converter={StaticResource InverseBoolToVisibility}}">
+                                                            <TextBlock
+                                                                Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
+                                                                Foreground="{DynamicResource TextMutedBrush}"
+                                                                FontSize="12"
+                                                                TextWrapping="Wrap"
+                                                                TextAlignment="Center"
+                                                                VerticalAlignment="Center"
+                                                                Margin="8" />
+                                                        </Border>
+
+                                                        <!-- Cover image -->
+                                                        <Image
+                                                            Source="{Binding CoverPath, Converter={StaticResource PathToImage}}"
+                                                            Stretch="Uniform"
+                                                            IsVisible="{Binding HasCover}"
+                                                            RenderOptions.BitmapInterpolationMode="HighQuality" />
+
+                                                        <!-- Favorite heart -->
+                                                        <Border Background="#99000000"
+                                                                CornerRadius="0,0,8,0"
+                                                                IsVisible="{Binding IsFavorite}"
+                                                                HorizontalAlignment="Right"
+                                                                VerticalAlignment="Top"
+                                                                Padding="4">
+                                                            <TextBlock Text="♥"
+                                                                       Foreground="{DynamicResource FavoriteHeartBrush}"
+                                                                       FontSize="14"
+                                                                       AutomationProperties.Name="{Binding IsFavorite, Converter={StaticResource FavoriteStatusConverter}}" />
+                                                        </Border>
+
+                                                        <!-- RA trophy badge -->
+                                                        <Border Background="#99000000"
+                                                                CornerRadius="8,0,0,0"
+                                                                IsVisible="{Binding IsRaSupported}"
+                                                                HorizontalAlignment="Left"
+                                                                VerticalAlignment="Bottom"
+                                                                Padding="4,2">
+                                                            <TextBlock Text="🏆"
+                                                                       FontSize="12"
+                                                                       ToolTip.Tip="{ext:Translate ViewAchievements}" />
+                                                        </Border>
+                                                    </Grid>
+                                                </Border>
+
+                                                <!-- Caption area -->
+                                                <StackPanel Grid.Row="1" Margin="4,6,4,4">
+                                                    <TextBlock
+                                                        Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
+                                                        Foreground="{DynamicResource TextPrimaryBrush}"
+                                                        FontFamily="{DynamicResource PrimaryFont}"
+                                                        FontSize="{Binding DataContext.CaptionFontSize, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=13}"
+                                                        MaxHeight="32"
+                                                        TextTrimming="CharacterEllipsis"
+                                                        ToolTip.Tip="{Binding DisplayTitle}" />
+                                                    <!-- Rating stars -->
+                                                    <StackPanel Orientation="Horizontal"
+                                                                IsVisible="{Binding Rating, Converter={StaticResource NullToVisibility}}"
+                                                                Margin="0,2,0,0">
+                                                        <TextBlock Text="★★★★★"
                                                                    Foreground="{DynamicResource TextMutedBrush}"
-                                                                   FontSize="12"
-                                                                   TextWrapping="Wrap"
-                                                                   TextAlignment="Center"
-                                                                   VerticalAlignment="Center"
-                                                                   Margin="8" />
-                                                    </Border>
-
-                                                    <!-- Cover image -->
-                                                    <Image Source="{Binding CoverPath, Converter={StaticResource PathToImage}}"
-                                                           Stretch="Uniform"
-                                                           IsVisible="{Binding HasCover}"
-                                                           RenderOptions.BitmapInterpolationMode="HighQuality" />
-
-                                                    <!-- Favorite heart -->
-                                                    <Border Background="#99000000"
-                                                            CornerRadius="0,0,8,0"
-                                                            IsVisible="{Binding IsFavorite}"
-                                                            HorizontalAlignment="Right"
-                                                            VerticalAlignment="Top"
-                                                            Padding="4">
-                                                        <TextBlock Text="♥"
-                                                                   Foreground="{DynamicResource FavoriteHeartBrush}"
-                                                                   FontSize="14"
-                                                                   AutomationProperties.Name="{Binding IsFavorite, Converter={StaticResource FavoriteStatusConverter}}" />
-                                                    </Border>
-
-                                                    <!-- RA trophy badge -->
-                                                    <Border Background="#99000000"
-                                                            CornerRadius="8,0,0,0"
-                                                            IsVisible="{Binding IsRaSupported}"
-                                                            HorizontalAlignment="Left"
-                                                            VerticalAlignment="Bottom"
-                                                            Padding="4,2">
-                                                        <TextBlock Text="🏆"
-                                                                   FontSize="12"
-                                                                   ToolTip.Tip="{ext:Translate ViewAchievements}" />
-                                                    </Border>
-                                                </Grid>
-                                            </Border>
-
-                                            <!-- Caption area -->
-                                            <StackPanel Grid.Row="1" Margin="4,6,4,4">
-                                                <TextBlock Text="{Binding DisplayTitle, Converter={StaticResource SmartTitleCase}}"
-                                                           Foreground="{DynamicResource TextPrimaryBrush}"
-                                                           FontFamily="{DynamicResource PrimaryFont}"
-                                                           FontSize="{Binding DataContext.CaptionFontSize, RelativeSource={RelativeSource AncestorType=ListBox}, FallbackValue=13}"
-                                                           MaxHeight="32"
-                                                           TextTrimming="CharacterEllipsis"
-                                                           ToolTip.Tip="{Binding DisplayTitle}" />
-                                                <!-- Rating stars -->
-                                                <StackPanel Orientation="Horizontal"
-                                                            IsVisible="{Binding Rating, Converter={StaticResource NullToVisibility}}"
-                                                            Margin="0,2,0,0">
-                                                    <TextBlock Text="★★★★★"
-                                                               Foreground="{DynamicResource TextMutedBrush}"
-                                                               FontSize="10" />
+                                                                   FontSize="10" />
+                                                    </StackPanel>
                                                 </StackPanel>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Button>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                                            </Grid>
+                                        </Button>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
 
-                        <!-- Game List View — WPF DataGrid parity (6 columns + splitter + preview) -->
-                        <Grid IsVisible="{Binding IsGridView, Converter={StaticResource InverseBoolToVisibility}}" ColumnDefinitions="4.5*,5,*">
-                            <DataGrid x:Name="GameDataGrid"
-                                      Grid.Column="0"
-                                      ItemsSource="{Binding Games}"
-                                      AutoGenerateColumns="False"
-                                      IsReadOnly="True"
-                                      CanUserSortColumns="True"
-                                      CanUserResizeColumns="True"
-                                      CanUserReorderColumns="False"
-                                      GridLinesVisibility="All"
-                                      BorderThickness="1"
-                                      BorderBrush="{DynamicResource BorderSubtleBrush}"
-                                      Background="{DynamicResource BgPrimaryBrush}"
-                                      Foreground="{DynamicResource TextPrimaryBrush}"
-                                      SelectionMode="Single"
-                                      Sorting="GameDataGrid_Sorting"
-                                      DoubleTapped="GameDataGrid_DoubleTapped"
-                                      SelectionChanged="GameDataGrid_SelectionChanged"
-                                      ToolTip.Tip="{ext:Translate TooltipGameDataGrid}"
-                                      RowHeight="26">
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="{ext:Translate FavoriteColumnHeader}" Width="Auto" CanUserSort="True" SortMemberPath="IsFavorite">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Image Source="avares://SimpleLauncher.Avalonia/images/star.png" Width="16" Height="16"
-                                                       IsVisible="{Binding IsFavorite}"
-                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}" Binding="{Binding FileName}" Width="*" />
-                                    <DataGridTextColumn Header="{ext:Translate MachineDescriptionColumnHeader}" Binding="{Binding MachineDescription}" Width="*" />
-                                    <DataGridTextColumn Header="{ext:Translate FolderPathColumnHeader}" Binding="{Binding FolderPath}" Width="*" />
-                                    <DataGridTextColumn Header="{ext:Translate TimesPlayedColumnHeader}" Binding="{Binding TimesPlayed}" Width="Auto" />
-                                    <DataGridTextColumn Header="{ext:Translate PlayTimeColumnHeader}" Binding="{Binding PlayTime}" Width="Auto" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                            <GridSplitter Grid.Column="1" Width="5" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Stretch" ResizeDirection="Columns" />
-                            <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="1" Padding="5" Margin="5,0">
-                                <Grid RowDefinitions="Auto,*">
-                                    <TextBlock Text="{ext:Translate PreviewImage}" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,5" />
-                                    <Border Grid.Row="1" ClipToBounds="True" CornerRadius="6">
-                                        <Image x:Name="ListViewPreviewImage"
-                                               Stretch="Uniform"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               RenderOptions.BitmapInterpolationMode="HighQuality" />
-                                    </Border>
-                                </Grid>
-                            </Border>
-                        </Grid>
+                            <!-- Game List View — WPF DataGrid parity (6 columns + splitter + preview) -->
+                            <Grid IsVisible="{Binding IsGridView, Converter={StaticResource InverseBoolToVisibility}}"
+                                  ColumnDefinitions="4.5*,5,*">
+                                <DataGrid x:Name="GameDataGrid"
+                                          Grid.Column="0"
+                                          ItemsSource="{Binding Games}"
+                                          AutoGenerateColumns="False"
+                                          IsReadOnly="True"
+                                          CanUserSortColumns="True"
+                                          CanUserResizeColumns="True"
+                                          CanUserReorderColumns="False"
+                                          GridLinesVisibility="All"
+                                          BorderThickness="1"
+                                          BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                          Background="{DynamicResource BgPrimaryBrush}"
+                                          Foreground="{DynamicResource TextPrimaryBrush}"
+                                          SelectionMode="Single"
+                                          Sorting="GameDataGrid_Sorting"
+                                          DoubleTapped="GameDataGrid_DoubleTapped"
+                                          SelectionChanged="GameDataGrid_SelectionChanged"
+                                          ToolTip.Tip="{ext:Translate TooltipGameDataGrid}"
+                                          RowHeight="26">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="{ext:Translate FavoriteColumnHeader}"
+                                                                Width="Auto" CanUserSort="True"
+                                                                SortMemberPath="IsFavorite">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Image Source="avares://SimpleLauncher.Avalonia/images/star.png"
+                                                           Width="16" Height="16"
+                                                           IsVisible="{Binding IsFavorite}"
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}"
+                                                            Binding="{Binding FileName}" Width="*" />
+                                        <DataGridTextColumn Header="{ext:Translate MachineDescriptionColumnHeader}"
+                                                            Binding="{Binding MachineDescription}" Width="*" />
+                                        <DataGridTextColumn Header="{ext:Translate FolderPathColumnHeader}"
+                                                            Binding="{Binding FolderPath}" Width="*" />
+                                        <DataGridTextColumn Header="{ext:Translate TimesPlayedColumnHeader}"
+                                                            Binding="{Binding TimesPlayed}" Width="Auto" />
+                                        <DataGridTextColumn Header="{ext:Translate PlayTimeColumnHeader}"
+                                                            Binding="{Binding PlayTime}" Width="Auto" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <GridSplitter Grid.Column="1" Width="5" Background="Transparent"
+                                              HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                                              ResizeDirection="Columns" />
+                                <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
+                                        BorderThickness="1" Padding="5" Margin="5,0">
+                                    <Grid RowDefinitions="Auto,*">
+                                        <TextBlock Text="{ext:Translate PreviewImage}" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" Margin="0,0,0,5" />
+                                        <Border Grid.Row="1" ClipToBounds="True" CornerRadius="6">
+                                            <Image x:Name="ListViewPreviewImage"
+                                                   Stretch="Uniform"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   RenderOptions.BitmapInterpolationMode="HighQuality" />
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </Grid>
 
-                        <!-- Empty state -->
-                        <StackPanel x:Name="EmptyState"
-                                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                                    IsVisible="{Binding IsEmpty}">
-                            <TextBlock Text="🎮" FontSize="64" HorizontalAlignment="Center"
-                                       Foreground="{DynamicResource TextMutedBrush}" />
-                            <TextBlock Text="{ext:Translate Empty.Title}"
-                                       FontSize="20" FontWeight="Medium"
-                                       Foreground="{DynamicResource TextPrimaryBrush}"
-                                       HorizontalAlignment="Center" Margin="0,16,0,4"
-                                       FontFamily="{DynamicResource PrimaryFont}" />
-                            <TextBlock Text="{ext:Translate Empty.Subtitle}"
-                                       FontSize="13"
-                                       Foreground="{DynamicResource TextSecondaryBrush}"
-                                       HorizontalAlignment="Center"
-                                       FontFamily="{DynamicResource PrimaryFont}" />
-                        </StackPanel>
+                            <!-- Empty state -->
+                            <StackPanel x:Name="EmptyState"
+                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                        IsVisible="{Binding IsEmpty}">
+                                <TextBlock Text="🎮" FontSize="64" HorizontalAlignment="Center"
+                                           Foreground="{DynamicResource TextMutedBrush}" />
+                                <TextBlock Text="{ext:Translate Empty.Title}"
+                                           FontSize="20" FontWeight="Medium"
+                                           Foreground="{DynamicResource TextPrimaryBrush}"
+                                           HorizontalAlignment="Center" Margin="0,16,0,4"
+                                           FontFamily="{DynamicResource PrimaryFont}" />
+                                <TextBlock Text="{ext:Translate Empty.Subtitle}"
+                                           FontSize="13"
+                                           Foreground="{DynamicResource TextSecondaryBrush}"
+                                           HorizontalAlignment="Center"
+                                           FontFamily="{DynamicResource PrimaryFont}" />
+                            </StackPanel>
                         </Grid>
 
                         <!-- Loading overlay — ZIndex 9999 parity with WPF ContentControl Panel.ZIndex=9999 -->
@@ -956,10 +1197,14 @@
                                           DoubleTapped="FavoritesDataGrid_DoubleTapped"
                                           KeyDown="FavoritesDataGrid_KeyDown">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}" Binding="{Binding DisplayName}" Width="*" />
-                                        <DataGridTextColumn Header="{ext:Translate MachineDescriptionMameHeader}" Binding="{Binding MachineDescription}" Width="*" />
-                                        <DataGridTextColumn Header="{ext:Translate DefaultEmulatorHeader}" Binding="{Binding DefaultEmulator}" Width="180" />
-                                        <DataGridTextColumn Header="{ext:Translate SystemNameHeader}" Binding="{Binding SystemName}" Width="200" />
+                                        <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}"
+                                                            Binding="{Binding DisplayName}" Width="*" />
+                                        <DataGridTextColumn Header="{ext:Translate MachineDescriptionMameHeader}"
+                                                            Binding="{Binding MachineDescription}" Width="*" />
+                                        <DataGridTextColumn Header="{ext:Translate DefaultEmulatorHeader}"
+                                                            Binding="{Binding DefaultEmulator}" Width="180" />
+                                        <DataGridTextColumn Header="{ext:Translate SystemNameHeader}"
+                                                            Binding="{Binding SystemName}" Width="200" />
                                     </DataGrid.Columns>
                                 </DataGrid>
                                 <GridSplitter Grid.Column="1" Width="6"
@@ -973,18 +1218,20 @@
                                                Margin="0,0,0,10" />
                                     <Border Grid.Row="1" BorderBrush="{DynamicResource BorderSubtleBrush}"
                                             BorderThickness="1" Padding="5">
-                                        <Image Source="{Binding PreviewImagePath, Converter={StaticResource PathToImage}}"
-                                               Stretch="Uniform"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               RenderOptions.BitmapInterpolationMode="HighQuality" />
+                                        <Image
+                                            Source="{Binding PreviewImagePath, Converter={StaticResource PathToImage}}"
+                                            Stretch="Uniform"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            RenderOptions.BitmapInterpolationMode="HighQuality" />
                                     </Border>
                                 </Grid>
                             </Grid>
                         </Grid>
 
                         <!-- ═══ PLAY HISTORY SECTION (WPF PlayHistoryPage equivalent) ═══ -->
-                        <Grid x:Name="PlayHistorySectionRoot" IsVisible="False" RowDefinitions="Auto,Auto,*" Margin="10">
+                        <Grid x:Name="PlayHistorySectionRoot" IsVisible="False" RowDefinitions="Auto,Auto,*"
+                              Margin="10">
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
                                         Margin="0,4,0,4" VerticalAlignment="Center">
                                 <TextBlock Text="{ext:Translate PlayHistory}" FontSize="22" FontWeight="Bold"
@@ -1023,14 +1270,22 @@
                                           DoubleTapped="PlayHistoryDataGrid_DoubleTapped"
                                           KeyDown="PlayHistoryDataGrid_KeyDown">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}" Binding="{Binding DisplayName}" Width="*" />
-                                        <DataGridTextColumn Header="{ext:Translate MachineDescriptionColumnHeader}" Binding="{Binding MachineDescription}" Width="*" />
-                                        <DataGridTextColumn Header="{ext:Translate SystemNameHeader}" Binding="{Binding SystemName}" Width="160" />
-                                        <DataGridTextColumn Header="{ext:Translate DefaultEmulatorHeader}" Binding="{Binding DefaultEmulator}" Width="180" />
-                                        <DataGridTextColumn Header="{ext:Translate TimesPlayedColumnHeader}" Binding="{Binding TimesPlayed}" Width="110" />
-                                        <DataGridTextColumn Header="{ext:Translate PlayTimeColumnHeader}" Binding="{Binding FormattedPlayTime}" Width="110" />
-                                        <DataGridTextColumn Header="{ext:Translate LastPlayedDateColumnHeader}" Binding="{Binding LastPlayedDate}" Width="130" />
-                                        <DataGridTextColumn Header="{ext:Translate LastPlayedTimeColumnHeader}" Binding="{Binding LastPlayTime}" Width="130" />
+                                        <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}"
+                                                            Binding="{Binding DisplayName}" Width="*" />
+                                        <DataGridTextColumn Header="{ext:Translate MachineDescriptionColumnHeader}"
+                                                            Binding="{Binding MachineDescription}" Width="*" />
+                                        <DataGridTextColumn Header="{ext:Translate SystemNameHeader}"
+                                                            Binding="{Binding SystemName}" Width="160" />
+                                        <DataGridTextColumn Header="{ext:Translate DefaultEmulatorHeader}"
+                                                            Binding="{Binding DefaultEmulator}" Width="180" />
+                                        <DataGridTextColumn Header="{ext:Translate TimesPlayedColumnHeader}"
+                                                            Binding="{Binding TimesPlayed}" Width="110" />
+                                        <DataGridTextColumn Header="{ext:Translate PlayTimeColumnHeader}"
+                                                            Binding="{Binding FormattedPlayTime}" Width="110" />
+                                        <DataGridTextColumn Header="{ext:Translate LastPlayedDateColumnHeader}"
+                                                            Binding="{Binding LastPlayedDate}" Width="130" />
+                                        <DataGridTextColumn Header="{ext:Translate LastPlayedTimeColumnHeader}"
+                                                            Binding="{Binding LastPlayTime}" Width="130" />
                                     </DataGrid.Columns>
                                 </DataGrid>
                                 <GridSplitter Grid.Column="1" Width="6"
@@ -1039,17 +1294,19 @@
                                               VerticalAlignment="Stretch" />
                                 <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
                                         BorderThickness="1" Padding="5">
-                                    <Image Source="{Binding SelectedItem.CoverImage, Converter={StaticResource PathToImage}}"
-                                           Stretch="Uniform"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           RenderOptions.BitmapInterpolationMode="HighQuality" />
+                                    <Image
+                                        Source="{Binding SelectedItem.CoverImage, Converter={StaticResource PathToImage}}"
+                                        Stretch="Uniform"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        RenderOptions.BitmapInterpolationMode="HighQuality" />
                                 </Border>
                             </Grid>
                         </Grid>
 
                         <!-- ═══ GLOBAL SEARCH SECTION (WPF GlobalSearchPage equivalent) ═══ -->
-                        <Grid x:Name="GlobalSearchSectionRoot" IsVisible="False" RowDefinitions="Auto,Auto,*" Margin="10">
+                        <Grid x:Name="GlobalSearchSectionRoot" IsVisible="False" RowDefinitions="Auto,Auto,*"
+                              Margin="10">
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="8"
                                         Margin="0,4,0,4" VerticalAlignment="Center">
                                 <TextBlock Text="{ext:Translate GlobalSearch}" FontSize="22" FontWeight="Bold"
@@ -1066,16 +1323,23 @@
                                 <Button Classes="secondary" Content="{ext:Translate Search}" VerticalAlignment="Center"
                                         ToolTip.Tip="{ext:Translate TooltipGlobalSearchButton}"
                                         Command="{Binding SearchCommand}" />
-                                <Button Classes="primary" Content="{ext:Translate LaunchSelectedGame}" VerticalAlignment="Center"
+                                <Button Classes="primary" Content="{ext:Translate LaunchSelectedGame}"
+                                        VerticalAlignment="Center"
                                         ToolTip.Tip="{ext:Translate TooltipLaunchFromSearch}"
                                         Command="{Binding LaunchSelectedCommand}"
                                         IsEnabled="{Binding LaunchButtonEnabled}" />
                             </StackPanel>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="16" Margin="0,0,0,8">
-                                <CheckBox Content="{ext:Translate Filename}" IsChecked="{Binding SearchFilename}" ToolTip.Tip="{ext:Translate TooltipSearchFilename}" />
-                                <CheckBox Content="{ext:Translate MameDescription}" IsChecked="{Binding SearchMameDescription}" ToolTip.Tip="{ext:Translate TooltipSearchMameDescription}" />
-                                <CheckBox Content="{ext:Translate FolderName}" IsChecked="{Binding SearchFolderName}" ToolTip.Tip="{ext:Translate TooltipSearchFolderName}" />
-                                <CheckBox Content="{ext:Translate SearchRecursively}" IsChecked="{Binding SearchRecursively}" ToolTip.Tip="{ext:Translate TooltipSearchRecursively}" />
+                                <CheckBox Content="{ext:Translate Filename}" IsChecked="{Binding SearchFilename}"
+                                          ToolTip.Tip="{ext:Translate TooltipSearchFilename}" />
+                                <CheckBox Content="{ext:Translate MameDescription}"
+                                          IsChecked="{Binding SearchMameDescription}"
+                                          ToolTip.Tip="{ext:Translate TooltipSearchMameDescription}" />
+                                <CheckBox Content="{ext:Translate FolderName}" IsChecked="{Binding SearchFolderName}"
+                                          ToolTip.Tip="{ext:Translate TooltipSearchFolderName}" />
+                                <CheckBox Content="{ext:Translate SearchRecursively}"
+                                          IsChecked="{Binding SearchRecursively}"
+                                          ToolTip.Tip="{ext:Translate TooltipSearchRecursively}" />
                                 <TextBlock Text="{Binding ResultsCountText}" FontWeight="SemiBold"
                                            VerticalAlignment="Center"
                                            Foreground="{DynamicResource TextSecondaryBrush}" />
@@ -1091,10 +1355,14 @@
                                               BorderThickness="1"
                                               DoubleTapped="GlobalSearchResults_DoubleTapped">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}" Binding="{Binding FileNameWithExtension}" Width="*" />
-                                            <DataGridTextColumn Header="{ext:Translate MachineDescriptionMameHeader}" Binding="{Binding MachineName}" Width="*" />
-                                            <DataGridTextColumn Header="{ext:Translate DefaultEmulatorHeader}" Binding="{Binding DefaultEmulator}" Width="180" />
-                                            <DataGridTextColumn Header="{ext:Translate SystemNameHeader}" Binding="{Binding SystemName}" Width="200" />
+                                            <DataGridTextColumn Header="{ext:Translate FileNameColumnHeader}"
+                                                                Binding="{Binding FileNameWithExtension}" Width="*" />
+                                            <DataGridTextColumn Header="{ext:Translate MachineDescriptionMameHeader}"
+                                                                Binding="{Binding MachineName}" Width="*" />
+                                            <DataGridTextColumn Header="{ext:Translate DefaultEmulatorHeader}"
+                                                                Binding="{Binding DefaultEmulator}" Width="180" />
+                                            <DataGridTextColumn Header="{ext:Translate SystemNameHeader}"
+                                                                Binding="{Binding SystemName}" Width="200" />
                                         </DataGrid.Columns>
                                     </DataGrid>
                                     <Border Background="{DynamicResource BgPrimaryBrush}"
@@ -1114,11 +1382,12 @@
                                               VerticalAlignment="Stretch" />
                                 <Border Grid.Column="2" BorderBrush="{DynamicResource BorderSubtleBrush}"
                                         BorderThickness="1" Padding="5">
-                                    <Image Source="{Binding SelectedResult.CoverImage, Converter={StaticResource PathToImage}}"
-                                           Stretch="Uniform"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           RenderOptions.BitmapInterpolationMode="HighQuality" />
+                                    <Image
+                                        Source="{Binding SelectedResult.CoverImage, Converter={StaticResource PathToImage}}"
+                                        Stretch="Uniform"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        RenderOptions.BitmapInterpolationMode="HighQuality" />
                                 </Border>
                             </Grid>
                         </Grid>
@@ -1172,7 +1441,8 @@
                         <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4"
                                     VerticalAlignment="Center" HorizontalAlignment="Right"
                                     Margin="12,0,8,0">
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/gamepad.png" Width="16" Height="16" VerticalAlignment="Center" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/gamepad.png" Width="16" Height="16"
+                                   VerticalAlignment="Center" />
                             <TextBlock Text="{ext:Translate System}"
                                        Foreground="{DynamicResource TextMutedBrush}"
                                        FontSize="11" VerticalAlignment="Center" />
@@ -1184,7 +1454,8 @@
                         <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="4"
                                     VerticalAlignment="Center" HorizontalAlignment="Right"
                                     IsVisible="{Binding IsPlayTimeVisible}">
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/playhistory.png" Width="16" Height="16" VerticalAlignment="Center" />
+                            <Image Source="avares://SimpleLauncher.Avalonia/images/playhistory.png" Width="16"
+                                   Height="16" VerticalAlignment="Center" />
                             <TextBlock Text="{ext:Translate Playtime}"
                                        Foreground="{DynamicResource TextMutedBrush}"
                                        FontSize="11" VerticalAlignment="Center" />

@@ -6,7 +6,7 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the SetGamepadDeadZoneWindow ViewModel (Phase 4.1 port).
+///     Tests for the SetGamepadDeadZoneWindow ViewModel (Phase 4.1 port).
 /// </summary>
 public class SetGamepadDeadZoneViewModelTests
 {

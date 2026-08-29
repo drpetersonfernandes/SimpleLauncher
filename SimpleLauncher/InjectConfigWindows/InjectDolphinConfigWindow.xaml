@@ -22,29 +22,41 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource DolphinConfig_GfxBackend_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource DolphinConfig_GfxBackend_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding GfxBackendOptions}"
                                       SelectedItem="{Binding GfxBackend}"
                                       ToolTip="{DynamicResource DolphinConfig_GfxBackend_Tooltip}" />
                         </Grid>
-                        <CheckBox IsChecked="{Binding DspThread}" Content="{DynamicResource DolphinConfig_DspThread_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DolphinConfig_DspThread_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DspThread}"
+                                  Content="{DynamicResource DolphinConfig_DspThread_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DolphinConfig_DspThread_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Wiimote Section -->
                 <GroupBox Header="{DynamicResource DolphinConfig_Wiimote_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding WiimoteContinuousScanning}" Content="{DynamicResource DolphinConfig_WiimoteContinuousScanning_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DolphinConfig_WiimoteContinuousScanning_Tooltip}" />
-                        <CheckBox IsChecked="{Binding WiimoteEnableSpeaker}" Content="{DynamicResource DolphinConfig_WiimoteEnableSpeaker_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DolphinConfig_WiimoteEnableSpeaker_Tooltip}" />
+                        <CheckBox IsChecked="{Binding WiimoteContinuousScanning}"
+                                  Content="{DynamicResource DolphinConfig_WiimoteContinuousScanning_Checkbox}"
+                                  Margin="0,5"
+                                  ToolTip="{DynamicResource DolphinConfig_WiimoteContinuousScanning_Tooltip}" />
+                        <CheckBox IsChecked="{Binding WiimoteEnableSpeaker}"
+                                  Content="{DynamicResource DolphinConfig_WiimoteEnableSpeaker_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DolphinConfig_WiimoteEnableSpeaker_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}" Content="{DynamicResource DolphinConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource DolphinConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="{DynamicResource DolphinConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource DolphinConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

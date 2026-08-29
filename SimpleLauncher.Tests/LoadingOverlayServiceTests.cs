@@ -1,3 +1,4 @@
+using System.Windows.Threading;
 using Moq;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.LoadingOverlay;
@@ -7,8 +8,8 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="LoadingOverlayService"/> reference-counted overlay state.
-/// WPF objects are created on a dedicated STA thread with an Application so resource lookups work.
+///     Tests for <see cref="LoadingOverlayService" /> reference-counted overlay state.
+///     WPF objects are created on a dedicated STA thread with an Application so resource lookups work.
 /// </summary>
 public class LoadingOverlayServiceTests
 {
@@ -17,7 +18,7 @@ public class LoadingOverlayServiceTests
     {
         var statusBarMock = new Mock<IUpdateStatusBar>();
         var hostMock = new Mock<ILoadingOverlayHost>();
-        hostMock.SetupGet(x => x.Dispatcher).Returns(() => System.Windows.Threading.Dispatcher.CurrentDispatcher);
+        hostMock.SetupGet(x => x.Dispatcher).Returns(() => Dispatcher.CurrentDispatcher);
         hostMock.SetupGet(x => x.UpdateStatusBarService).Returns(statusBarMock.Object);
         hostMock.Setup(x => x.ResetUiAsync()).Returns(Task.CompletedTask);
 

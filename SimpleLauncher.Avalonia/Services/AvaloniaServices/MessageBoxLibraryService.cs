@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using Avalonia.Controls;
 using Microsoft.Extensions.Configuration;
@@ -12,8 +13,8 @@ namespace SimpleLauncher.Avalonia.Services.AvaloniaServices;
 
 public class MessageBoxLibraryService : IMessageBoxLibraryService
 {
-    private readonly IWindowContext _ctx;
     private readonly IConfiguration _configuration;
+    private readonly IWindowContext _ctx;
 
     public MessageBoxLibraryService(IWindowContext c, IConfiguration configuration)
     {
@@ -204,9 +205,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             "Error", MessageButtons.YesNo, MessageIcon.Question);
 
         if (result == MessageBoxResult.Yes)
-        {
             _ = App.ServiceProvider.GetRequiredService<AvaloniaCheckForUpdatesService>().ReinstallAndShutdownAsync();
-        }
     }
 
     public Task FailedToStartSimpleLauncherMessageBoxAsync()
@@ -326,7 +325,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             "Error", MessageButtons.YesNo, MessageIcon.Error);
 
         if (result == MessageBoxResult.Yes && !string.IsNullOrEmpty(logPath))
-        {
             try
             {
                 Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
@@ -335,7 +333,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             {
                 Log.Error(ex, "Failed to open the error log file.");
             }
-        }
     }
 
 
@@ -416,7 +413,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             "Error", MessageButtons.YesNo, MessageIcon.Error);
 
         if (result == MessageBoxResult.Yes && !string.IsNullOrEmpty(logPath))
-        {
             try
             {
                 Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
@@ -427,7 +423,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await ShowAsync(O, "The file 'error_user.log' was not found!", "Error", MessageButtons.Ok,
                     MessageIcon.Error);
             }
-        }
     }
 
 
@@ -675,10 +670,16 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     {
         if (O == null) return MessageBoxResult.Cancel;
         var loc = App.ServiceProvider?.GetService<LocalizationService>();
-        var areYouSure = loc?.GetString("Areyousureyouwanttodeletethefile") is { } s1 && s1 != "Areyousureyouwanttodeletethefile" ? s1 : "Are you sure you want to delete the file";
-        var thisAction = loc?.GetString("Thisactionwilldelete") is { } s2 && s2 != "Thisactionwilldelete" ? s2 : "This action will delete the file from the HDD and cannot be undone.";
+        var areYouSure =
+            loc?.GetString("Areyousureyouwanttodeletethefile") is { } s1 && s1 != "Areyousureyouwanttodeletethefile"
+                ? s1
+                : "Are you sure you want to delete the file";
+        var thisAction = loc?.GetString("Thisactionwilldelete") is { } s2 && s2 != "Thisactionwilldelete"
+            ? s2
+            : "This action will delete the file from the HDD and cannot be undone.";
         var confirm = loc?.GetString("ConfirmDeletion") is { } s3 && s3 != "ConfirmDeletion" ? s3 : "Confirm Deletion";
-        return await ShowAsync(O, $"{areYouSure} '{fileNameWithExtension}'?\n\n{thisAction}", confirm, MessageButtons.YesNo, MessageIcon.Question);
+        return await ShowAsync(O, $"{areYouSure} '{fileNameWithExtension}'?\n\n{thisAction}", confirm,
+            MessageButtons.YesNo, MessageIcon.Question);
     }
 
 
@@ -708,10 +709,17 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     {
         if (O == null) return MessageBoxResult.Cancel;
         var loc = App.ServiceProvider?.GetService<LocalizationService>();
-        var areYouSure = loc?.GetString("Areyousureyouwanttodeletethecoverimageof") is { } s1 && s1 != "Areyousureyouwanttodeletethecoverimageof" ? s1 : "Are you sure you want to delete the cover image of";
-        var thisAction = loc?.GetString("Thisactionwilldelete") is { } s2 && s2 != "Thisactionwilldelete" ? s2 : "This action will delete the file from the HDD and cannot be undone.";
+        var areYouSure =
+            loc?.GetString("Areyousureyouwanttodeletethecoverimageof") is { } s1 &&
+            s1 != "Areyousureyouwanttodeletethecoverimageof"
+                ? s1
+                : "Are you sure you want to delete the cover image of";
+        var thisAction = loc?.GetString("Thisactionwilldelete") is { } s2 && s2 != "Thisactionwilldelete"
+            ? s2
+            : "This action will delete the file from the HDD and cannot be undone.";
         var confirm = loc?.GetString("ConfirmDeletion") is { } s3 && s3 != "ConfirmDeletion" ? s3 : "Confirm Deletion";
-        return await ShowAsync(O, $"{areYouSure} '{fileNameWithoutExtension}'?\n\n{thisAction}", confirm, MessageButtons.YesNo, MessageIcon.Question);
+        return await ShowAsync(O, $"{areYouSure} '{fileNameWithoutExtension}'?\n\n{thisAction}", confirm,
+            MessageButtons.YesNo, MessageIcon.Question);
     }
 
 
@@ -921,7 +929,8 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     public async Task<MessageBoxResult> AreYouSureDoYouWantToDeleteThisSystemMessageBoxAsync()
     {
         if (O == null) return MessageBoxResult.Cancel;
-        return await ShowAsync(O, "Are you sure you want to delete this system?", "Confirmation", MessageButtons.YesNo, MessageIcon.Question);
+        return await ShowAsync(O, "Are you sure you want to delete this system?", "Confirmation", MessageButtons.YesNo,
+            MessageIcon.Question);
     }
 
 
@@ -1149,7 +1158,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             "Error", MessageButtons.YesNo, MessageIcon.Error);
 
         if (result == MessageBoxResult.Yes && !string.IsNullOrEmpty(logPath))
-        {
             try
             {
                 Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
@@ -1160,7 +1168,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await ShowAsync(O, "The file 'error_user.log' was not found!", "Error", MessageButtons.Ok,
                     MessageIcon.Error);
             }
-        }
     }
 
 
@@ -1272,7 +1279,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await ShowAsync(O, $"{message1}\n\n{message2}\n\n{message3}\n\n{message4}", title,
             MessageButtons.YesNo, MessageIcon.Warning);
         if (result == MessageBoxResult.Yes)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -1287,7 +1293,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await ShowAsync(O, "Could not open browser: " + ex.Message, "Error", MessageButtons.Ok,
                     MessageIcon.Error);
             }
-        }
     }
 
 
@@ -1296,10 +1301,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         if (O == null) return Task.CompletedTask;
         var message =
             "Failed to save system configuration.\n\nPlease check file permissions and ensure the file is not locked.";
-        if (!string.IsNullOrEmpty(details))
-        {
-            message += $"\n\nDetails: {details}";
-        }
+        if (!string.IsNullOrEmpty(details)) message += $"\n\nDetails: {details}";
 
         return ShowAsync(O, message, "Error", MessageButtons.Ok, MessageIcon.Error);
     }
@@ -1444,13 +1446,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             "Error", MessageButtons.YesNo, MessageIcon.Question);
 
         if (result == MessageBoxResult.Yes)
-        {
             _ = App.ServiceProvider.GetRequiredService<AvaloniaCheckForUpdatesService>().ReinstallAndShutdownAsync();
-        }
         else
-        {
             App.ServiceProvider.GetRequiredService<AvaloniaQuitSimpleLauncher>().SimpleQuitApplication();
-        }
     }
 
 
@@ -1570,7 +1568,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     public Task ProtocolHandlerNotRegisteredMessageBoxAsync(string protocol)
     {
         if (O == null) return Task.CompletedTask;
-        var message = string.Format(System.Globalization.CultureInfo.InvariantCulture,
+        var message = string.Format(CultureInfo.InvariantCulture,
             "Protocol handler for '{0}://' is not registered. Please ensure the associated application is installed.",
             protocol);
         return ShowAsync(O, message, "Launch Error", MessageButtons.Ok, MessageIcon.Warning);
@@ -1617,10 +1615,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         if (O == null) return Task.CompletedTask;
         var message =
             "There was an error adding this system.\n\nThe error was reported to the developer who will try to fix the issue.";
-        if (!string.IsNullOrEmpty(details))
-        {
-            message += $"\n\nDetails: {details}";
-        }
+        if (!string.IsNullOrEmpty(details)) message += $"\n\nDetails: {details}";
 
         return ShowAsync(O, message, "Error", MessageButtons.Ok, MessageIcon.Error);
     }
@@ -1906,7 +1901,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             "Unable to Load Image", MessageButtons.YesNo, MessageIcon.Warning);
 
         if (result == MessageBoxResult.Yes)
-        {
             try
             {
                 var url = _configuration.GetValue<string>("Urls:PleasureDomeWebsite") ??
@@ -1917,7 +1911,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             {
                 Log.Error(ex, "Could not open browser");
             }
-        }
     }
 
 
@@ -2118,7 +2111,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             "Unknown System Error", MessageButtons.YesNo, MessageIcon.Warning);
 
         if (result == MessageBoxResult.Yes)
-        {
             try
             {
                 var url = _configuration.GetValue<string>("Urls:PleasureDomeWebsite") ??
@@ -2129,7 +2121,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             {
                 Log.Error(ex, "Could not open browser");
             }
-        }
     }
 
 
@@ -2212,11 +2203,9 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     public async Task<MessageBoxResult> ScanGamePathForRetroAchievementsMessageBoxAsync()
     {
         if (O != null)
-        {
             return await ShowAsync(O,
                 "We need to scan your game path to see what game is compatible with RetroAchievements.",
                 "RetroAchievements", MessageButtons.YesNo, MessageIcon.Question);
-        }
 
         return MessageBoxResult.Cancel;
     }
@@ -2249,7 +2238,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             "ROM Files Not Found", MessageButtons.YesNo, MessageIcon.Warning);
 
         if (result == MessageBoxResult.Yes)
-        {
             try
             {
                 var url = _configuration.GetValue<string>("Urls:PleasureDomeWebsite") ??
@@ -2260,7 +2248,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             {
                 Log.Error(ex, "Could not open browser");
             }
-        }
     }
 
 
@@ -2543,12 +2530,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     public async Task<MessageBoxResult> GameNotSupportedByRetroAchievementsMessageBoxAsync()
     {
         if (O != null)
-        {
             return await ShowAsync(O,
                 "'Simple Launcher' could not calculate the hash value of this game or this game is not yet supported by RetroAchievements.\n\n" +
                 "Do you want to open the global RetroAchievements window?",
                 "RetroAchievements", MessageButtons.YesNo, MessageIcon.Question);
-        }
 
         return MessageBoxResult.Cancel;
     }
@@ -2562,7 +2547,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var batchNameMessage = $"The batch file failed to run.\n\n{batchFileName}";
         var errorMessage = !string.IsNullOrEmpty(errorDetail) ? $"Error: {errorDetail}\n\n" : "";
         var exitCodeMessage = exitCode.HasValue ? $"Exit code: {exitCode.Value}\n\n" : "";
-        var explanation = (exitCode < 0)
+        var explanation = exitCode < 0
             ? "The program launched by this batch file may have crashed or been terminated unexpectedly. Negative exit codes typically indicate system-level failures."
             : "This usually means a path referenced inside the batch file no longer exists or is incorrect.";
         var message = $"{batchNameMessage}\n\n{exitCodeMessage}{errorMessage}{explanation}\n\n" +
@@ -2570,7 +2555,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                       "Do you want to open the file 'error_user.log' to debug the error?";
         var result = await ShowAsync(O, message, "Error", MessageButtons.YesNo, MessageIcon.Error);
         if (result == MessageBoxResult.Yes)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
@@ -2581,7 +2565,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await ShowAsync(O, "The file 'error_user.log' was not found!", "Error", MessageButtons.Ok,
                     MessageIcon.Error);
             }
-        }
     }
 
 
@@ -2619,10 +2602,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         Window? owner, string message, string caption,
         MessageButtons buttons, MessageIcon icon)
     {
-        if (owner is null)
-        {
-            return MessageBoxResult.Cancel;
-        }
+        if (owner is null) return MessageBoxResult.Cancel;
 
         return await MessageDialogWindow.ShowAsync(owner, message, caption, buttons, icon);
     }

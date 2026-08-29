@@ -1,17 +1,20 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Avalonia;
 using Avalonia.Controls;
 using Moq;
+using SimpleLauncher.Avalonia.Converters;
 using SimpleLauncher.Avalonia.InjectConfigWindows;
+using SimpleLauncher.Avalonia.Services;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Headless view smoke tests — constructs each Avalonia Window on the dedicated headless UI thread.
-/// Construction exercises !XamlIlPopulate (Avalonia XAML parsing) and catches invalid property values
-/// (e.g. Cursor="SizeWE"), missing resources or event-handler mismatches without displaying UI.
-/// Where the window constructor pulls services from App.ServiceProvider, a fake provider that returns
-/// uninitialized fakes for any requested type is installed via reflection.
+///     Headless view smoke tests — constructs each Avalonia Window on the dedicated headless UI thread.
+///     Construction exercises !XamlIlPopulate (Avalonia XAML parsing) and catches invalid property values
+///     (e.g. Cursor="SizeWE"), missing resources or event-handler mismatches without displaying UI.
+///     Where the window constructor pulls services from App.ServiceProvider, a fake provider that returns
+///     uninitialized fakes for any requested type is installed via reflection.
 /// </summary>
 public class AvaloniaViewSmokeTests
 {
@@ -23,14 +26,15 @@ public class AvaloniaViewSmokeTests
         if (type.IsValueType) return Activator.CreateInstance(type)!;
 
         // Special-case services that require real initialization for window ctor to succeed
-        if (type == typeof(Services.LocalizationService))
-        {
-            try { return new Services.LocalizationService(); }
+        if (type == typeof(LocalizationService))
+            try
+            {
+                return new LocalizationService();
+            }
             catch
             {
                 // ignored
             }
-        }
 
         // Interface / abstract -> Moq (use base Mock to avoid ambiguous Object property)
         if (type.IsInterface || type.IsAbstract)
@@ -55,21 +59,23 @@ public class AvaloniaViewSmokeTests
 
     private static void EnsureAppResources()
     {
-        var app = global::Avalonia.Application.Current;
+        var app = Application.Current;
         if (app == null) return;
 
         // Converters used via {StaticResource ...} in Inject windows and others
-        AddIfMissing("BoolToVisibility", new Converters.BoolToVisibilityConverter());
-        AddIfMissing("InverseBoolToVisibility", new Converters.InverseBoolToVisibilityConverter());
-        AddIfMissing("NullToVisibility", new Converters.NullToVisibilityConverter());
-        AddIfMissing("PathToImage", new Converters.PathToImageConverter());
-        AddIfMissing("SmartTitleCase", new Converters.SmartTitleCaseConverter());
+        AddIfMissing("BoolToVisibility", new BoolToVisibilityConverter());
+        AddIfMissing("InverseBoolToVisibility", new InverseBoolToVisibilityConverter());
+        AddIfMissing("NullToVisibility", new NullToVisibilityConverter());
+        AddIfMissing("PathToImage", new PathToImageConverter());
+        AddIfMissing("SmartTitleCase", new SmartTitleCaseConverter());
         // CardHeightConverter requires a SystemArtRatioService; provide a dummy via uninitialized
         try
         {
             if (!app.Resources.ContainsKey("CardHeightConverter"))
             {
-                var converter = (Converters.ConsoleToCardHeightConverter)RuntimeHelpers.GetUninitializedObject(typeof(Converters.ConsoleToCardHeightConverter));
+                var converter =
+                    (ConsoleToCardHeightConverter)RuntimeHelpers.GetUninitializedObject(
+                        typeof(ConsoleToCardHeightConverter));
                 app.Resources["CardHeightConverter"] = converter;
             }
         }
@@ -78,27 +84,12 @@ public class AvaloniaViewSmokeTests
             // ignored
         }
 
-        AddIfMissing("FavoriteStatusConverter", new Converters.BooleanToFavoriteStatusConverter());
+        AddIfMissing("FavoriteStatusConverter", new BooleanToFavoriteStatusConverter());
         return;
 
         void AddIfMissing(string key, object value)
         {
             app.Resources.TryAdd(key, value);
-        }
-    }
-
-    private sealed class FakeSmokeServiceProvider : IServiceProvider
-    {
-        public object? GetService(Type serviceType)
-        {
-            try
-            {
-                return CreateFake(serviceType);
-            }
-            catch
-            {
-                return null;
-            }
         }
     }
 
@@ -129,10 +120,7 @@ public class AvaloniaViewSmokeTests
             {
                 var ps = ctor.GetParameters();
                 var args = new object?[ps.Length];
-                for (var i = 0; i < ps.Length; i++)
-                {
-                    args[i] = CreateFake(ps[i].ParameterType);
-                }
+                for (var i = 0; i < ps.Length; i++) args[i] = CreateFake(ps[i].ParameterType);
 
                 try
                 {
@@ -154,13 +142,15 @@ public class AvaloniaViewSmokeTests
             {
                 var win = (Window)RuntimeHelpers.GetUninitializedObject(windowType);
                 // Try to call InitializeComponent reflectively if present
-                var init = windowType.GetMethod("InitializeComponent", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                var init = windowType.GetMethod("InitializeComponent",
+                    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                 init?.Invoke(win, null);
                 return win;
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException($"Failed to construct {windowType.Name}: {last?.Message ?? ex.Message}", last ?? ex);
+                throw new InvalidOperationException(
+                    $"Failed to construct {windowType.Name}: {last?.Message ?? ex.Message}", last ?? ex);
             }
         });
     }
@@ -258,8 +248,21 @@ public class AvaloniaViewSmokeTests
         // here we just ensure the list is not empty and types are loadable.
         Assert.NotEmpty(expectedWindows);
         foreach (var t in expectedWindows)
-        {
             Assert.True(typeof(Window).IsAssignableFrom(t), $"{t.Name} should be a Window");
+    }
+
+    private sealed class FakeSmokeServiceProvider : IServiceProvider
+    {
+        public object? GetService(Type serviceType)
+        {
+            try
+            {
+                return CreateFake(serviceType);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

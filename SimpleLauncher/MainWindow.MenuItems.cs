@@ -1,17 +1,19 @@
 using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Core;
+using SimpleLauncher.Core.Services;
 
 namespace SimpleLauncher;
 
 /// <summary>
-/// Partial MainWindow containing menu item click handlers and system management operations.
+///     Partial MainWindow containing menu item click handlers and system management operations.
 /// </summary>
 public partial class MainWindow
 {
     /// <summary>
-    /// The ordered aspect ratios for cycling through button thumbnail sizes.
+    ///     The ordered aspect ratios for cycling through button thumbnail sizes.
     /// </summary>
     private static readonly string[] AspectRatios =
     [
@@ -21,7 +23,7 @@ public partial class MainWindow
     ];
 
     /// <summary>
-    /// Sets the current view mode (e.g. grid or list) and updates the UI accordingly.
+    ///     Sets the current view mode (e.g. grid or list) and updates the UI accordingly.
     /// </summary>
     /// <param name="viewMode">The view mode identifier to apply.</param>
     internal void SetViewMode(string viewMode)
@@ -66,7 +68,7 @@ public partial class MainWindow
     }
 
     /// <summary>
-    /// Resets the UI to its default state asynchronously.
+    ///     Resets the UI to its default state asynchronously.
     /// </summary>
     /// <returns>A task representing the asynchronous reset operation.</returns>
     internal async Task ResetUiAsync()
@@ -82,7 +84,7 @@ public partial class MainWindow
     }
 
     /// <summary>
-    /// Reloads the system manager and refreshes the system list.
+    ///     Reloads the system manager and refreshes the system list.
     /// </summary>
     public Task LoadOrReloadSystemManagerAsync()
     {
@@ -285,7 +287,7 @@ public partial class MainWindow
 
             var sizeText = clickedItem.Name.Replace("Size", "");
             if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()),
-                    System.Globalization.CultureInfo.InvariantCulture, out var newSize)) return;
+                    CultureInfo.InvariantCulture, out var newSize)) return;
 
             await _menuOrchestrator.HandleButtonSizeAsync(newSize);
         }
@@ -317,7 +319,7 @@ public partial class MainWindow
 
             var pageText = clickedItem.Name.Replace("Page", "");
             if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()),
-                    System.Globalization.CultureInfo.InvariantCulture, out var newPage)) return;
+                    CultureInfo.InvariantCulture, out var newPage)) return;
 
             await _menuOrchestrator.HandleGamesPerPageAsync(newPage);
         }
@@ -348,7 +350,7 @@ public partial class MainWindow
     }
 
     /// <summary>
-    /// Opens the RetroAchievements window when the menu item is clicked.
+    ///     Opens the RetroAchievements window when the menu item is clicked.
     /// </summary>
     /// <param name="sender">The event sender.</param>
     /// <param name="e">The routed event arguments.</param>
@@ -371,10 +373,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isLoadingGames)
-            {
-                return;
-            }
+            if (_isLoadingGames) return;
 
             CancelAndRecreateToken();
 
@@ -614,7 +613,7 @@ public partial class MainWindow
     {
         try
         {
-            var appDataPath = Core.Services.AppDataPaths.SimpleLauncherDataFolder;
+            var appDataPath = AppDataPaths.SimpleLauncherDataFolder;
             if (string.IsNullOrEmpty(appDataPath) || !Directory.Exists(appDataPath))
             {
                 _logger.Debug("AppData path does not exist: " + appDataPath);

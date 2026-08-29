@@ -6,19 +6,19 @@ using TrayIconControl = Avalonia.Controls.TrayIcon;
 namespace SimpleLauncher.Avalonia.Services.TrayIcon;
 
 /// <summary>
-/// Manages the system tray icon, its native context menu, and related actions for the application.
-/// Cross-platform Avalonia port of the WPF TrayIconManager (Avalonia TrayIcon supports Windows and Linux).
+///     Manages the system tray icon, its native context menu, and related actions for the application.
+///     Cross-platform Avalonia port of the WPF TrayIconManager (Avalonia TrayIcon supports Windows and Linux).
 /// </summary>
 public class AvaloniaTrayIconManager : IDisposable
 {
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly ILogger _logger;
+    private bool _isDisposed;
 
     private Window? _mainWindow;
     private TrayIconControl? _trayIcon;
-    private bool _isDisposed;
 
-    /// <summary>Initializes a new instance of the <see cref="AvaloniaTrayIconManager"/> class.</summary>
+    /// <summary>Initializes a new instance of the <see cref="AvaloniaTrayIconManager" /> class.</summary>
     /// <param name="applicationLifetime">The application lifetime service for shutdown control.</param>
     /// <param name="logger">The logger instance.</param>
     public AvaloniaTrayIconManager(IApplicationLifetime applicationLifetime, ILogger logger)
@@ -27,9 +27,29 @@ public class AvaloniaTrayIconManager : IDisposable
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    /// <summary>Releases resources used by the tray icon manager.</summary>
+    public void Dispose()
+    {
+        if (_isDisposed) return;
+
+        _isDisposed = true;
+
+        try
+        {
+            _trayIcon?.Dispose();
+            _trayIcon = null;
+        }
+        catch (Exception ex)
+        {
+            _logger.Debug(ex, "Error disposing the tray icon.");
+        }
+
+        GC.SuppressFinalize(this);
+    }
+
     /// <summary>
-    /// Creates the tray icon and registers it on the application.
-    /// Must be called from the UI thread after the main window is shown.
+    ///     Creates the tray icon and registers it on the application.
+    ///     Must be called from the UI thread after the main window is shown.
     /// </summary>
     /// <param name="mainWindow">The main application window.</param>
     public void Initialize(Window mainWindow)
@@ -123,31 +143,8 @@ public class AvaloniaTrayIconManager : IDisposable
 
     private void OnExit()
     {
-        if (_trayIcon is not null)
-        {
-            _trayIcon.IsVisible = false;
-        }
+        if (_trayIcon is not null) _trayIcon.IsVisible = false;
 
         _applicationLifetime.Shutdown();
-    }
-
-    /// <summary>Releases resources used by the tray icon manager.</summary>
-    public void Dispose()
-    {
-        if (_isDisposed) return;
-
-        _isDisposed = true;
-
-        try
-        {
-            _trayIcon?.Dispose();
-            _trayIcon = null;
-        }
-        catch (Exception ex)
-        {
-            _logger.Debug(ex, "Error disposing the tray icon.");
-        }
-
-        GC.SuppressFinalize(this);
     }
 }

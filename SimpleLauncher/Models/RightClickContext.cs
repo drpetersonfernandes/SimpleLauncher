@@ -6,13 +6,14 @@ using SimpleLauncher.Core.Services.MameManager;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Models;
 
 /// <summary>
-/// Contextual information passed to right-click menu handlers for game buttons.
-/// Aggregates game data, UI controls, and services needed by the context menu.
+///     Contextual information passed to right-click menu handlers for game buttons.
+///     Aggregates game data, UI controls, and services needed by the context menu.
 /// </summary>
 public class RightClickContext(
     string filePath,
@@ -31,7 +32,7 @@ public class RightClickContext(
     MainWindow mainWindow,
     GamePadController gamePadController,
     Action? onFavoriteRemoved = null,
-    Services.GameLauncher.GameLauncherService? gameLauncher = null,
+    GameLauncherService? gameLauncher = null,
     PlaySoundEffects? playSoundEffects = null,
     ILoadingState? loadingStateProvider = null)
 {
@@ -89,15 +90,14 @@ public class RightClickContext(
     public Action? OnFavoriteRemoved { get; } = onFavoriteRemoved;
 
     /// <summary>Gets the game launcher service, if available.</summary>
-    public Services.GameLauncher.GameLauncherService? GameLauncherService { get; } = gameLauncher;
+    public GameLauncherService? GameLauncherService { get; } = gameLauncher;
 
     /// <summary>Gets the sound effects service, if available.</summary>
     public PlaySoundEffects? PlaySoundEffects { get; } = playSoundEffects;
 
     /// <summary>Gets the loading state provider for overlay display.</summary>
     public ILoadingState LoadingStateProvider { get; } = loadingStateProvider
-                                                         ?? (mainWindow as ILoadingState
-                                                             ?? throw new ArgumentException(
-                                                                 $@"{mainWindow.GetType().Name} does not implement {nameof(ILoadingState)}.",
-                                                                 nameof(mainWindow)));
+                                                         ?? mainWindow as ILoadingState ?? throw new ArgumentException(
+                                                             $@"{mainWindow.GetType().Name} does not implement {nameof(ILoadingState)}.",
+                                                             nameof(mainWindow));
 }

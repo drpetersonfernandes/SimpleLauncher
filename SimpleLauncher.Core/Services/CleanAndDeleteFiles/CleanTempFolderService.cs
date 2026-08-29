@@ -3,14 +3,14 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 
 /// <summary>
-/// Provides operations to clean up temporary directories used during file extraction.
+///     Provides operations to clean up temporary directories used during file extraction.
 /// </summary>
 public class CleanTempFolderService : ICleanTempFolderService
 {
     private readonly IDeleteFilesService _deleteFilesService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CleanTempFolderService"/> class.
+    ///     Initializes a new instance of the <see cref="CleanTempFolderService" /> class.
     /// </summary>
     /// <param name="deleteFilesService">The service used to delete individual files.</param>
     public CleanTempFolderService(IDeleteFilesService deleteFilesService)
@@ -19,7 +19,7 @@ public class CleanTempFolderService : ICleanTempFolderService
     }
 
     /// <summary>
-    /// Deletes the specified temporary directory and all its contents.
+    ///     Deletes the specified temporary directory and all its contents.
     /// </summary>
     /// <param name="directoryPath">The path of the temporary directory to delete.</param>
     public async Task CleanupTempDirectoryAsync(string directoryPath)
@@ -37,36 +37,25 @@ public class CleanTempFolderService : ICleanTempFolderService
     }
 
     /// <summary>
-    /// Cleans up a partially extracted directory by removing the tracking file, all files, and subdirectories.
+    ///     Cleans up a partially extracted directory by removing the tracking file, all files, and subdirectories.
     /// </summary>
     /// <param name="directoryPath">The path of the directory to clean up.</param>
     public async Task CleanupPartialExtractionAsync(string directoryPath)
     {
-        if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath))
-        {
-            return;
-        }
+        if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath)) return;
 
         try
         {
             // Delete the tracking file first
             var trackingFile = Path.Combine(directoryPath, ".extraction_in_progress");
-            if (File.Exists(trackingFile))
-            {
-                await _deleteFilesService.TryDeleteFileAsync(trackingFile);
-            }
+            if (File.Exists(trackingFile)) await _deleteFilesService.TryDeleteFileAsync(trackingFile);
 
             // Delete all files in the directory
-            foreach (var file in Directory.GetFiles(directoryPath))
-            {
-                await _deleteFilesService.TryDeleteFileAsync(file);
-            }
+            foreach (var file in Directory.GetFiles(directoryPath)) await _deleteFilesService.TryDeleteFileAsync(file);
 
             // Recursively delete subdirectories
             foreach (var subDir in Directory.GetDirectories(directoryPath))
-            {
                 await Task.Run(() => Directory.Delete(subDir, true));
-            }
         }
         catch (Exception)
         {

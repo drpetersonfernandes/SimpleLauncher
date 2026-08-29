@@ -6,15 +6,15 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Loads every localization resource dictionary (strings.*.xaml) at runtime
-/// using the WPF XAML parser.  The test fails if any file cannot be parsed,
-/// if the root element is not a ResourceDictionary, or if duplicate keys
-/// cause a runtime exception during load.
+///     Loads every localization resource dictionary (strings.*.xaml) at runtime
+///     using the WPF XAML parser.  The test fails if any file cannot be parsed,
+///     if the root element is not a ResourceDictionary, or if duplicate keys
+///     cause a runtime exception during load.
 /// </summary>
 public class ResourceFileLoadingTests
 {
     /// <summary>
-    /// Verifies that all localization resource XAML files can be loaded and parsed without errors.
+    ///     Verifies that all localization resource XAML files can be loaded and parsed without errors.
     /// </summary>
     [Fact]
     public void AllResourceFilesShouldLoadWithoutErrors()
@@ -30,19 +30,16 @@ public class ResourceFileLoadingTests
         var failures = new List<(string FileName, string Error)>();
 
         foreach (var file in resourceFiles)
-        {
             try
             {
                 using var stream = File.OpenRead(file);
                 var loadedObject = XamlReader.Load(stream);
 
                 if (loadedObject is not ResourceDictionary)
-                {
                     failures.Add((
                         Path.GetFileName(file),
                         $"Root element is {loadedObject?.GetType().Name ?? "null"}, expected ResourceDictionary."
                     ));
-                }
             }
             catch (XamlParseException ex)
             {
@@ -52,7 +49,6 @@ public class ResourceFileLoadingTests
             {
                 failures.Add((Path.GetFileName(file), $"{ex.GetType().Name}: {ex.Message}"));
             }
-        }
 
         if (failures.Count == 0)
             return;

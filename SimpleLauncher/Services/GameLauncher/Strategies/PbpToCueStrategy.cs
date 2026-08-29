@@ -8,16 +8,16 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
 /// <summary>
-/// Converts PSP .pbp files to CUE/BIN format for emulators that do not support PBP natively (e.g., Mednafen).
+///     Converts PSP .pbp files to CUE/BIN format for emulators that do not support PBP natively (e.g., Mednafen).
 /// </summary>
 public class PbpToCueStrategy : ILaunchStrategy
 {
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly ILogger _logger;
     private readonly IDiscConverter _discConverter;
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PbpToCueStrategy"/> class.
+    ///     Initializes a new instance of the <see cref="PbpToCueStrategy" /> class.
     /// </summary>
     public PbpToCueStrategy(IMessageBoxLibraryService messageBox, ILogger logger, IDiscConverter discConverter)
     {
@@ -34,15 +34,10 @@ public class PbpToCueStrategy : ILaunchStrategy
     {
         if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
             string.IsNullOrEmpty(context.EmulatorName))
-        {
             return false;
-        }
 
         var isPbp = Path.GetExtension(context.ResolvedFilePath).Equals(".pbp", StringComparison.OrdinalIgnoreCase);
-        if (!isPbp)
-        {
-            return false;
-        }
+        if (!isPbp) return false;
 
         // Check if emulator is Mednafen (which doesn't support PBP files)
         var isMednafen = context.EmulatorName.Contains("Mednafen", StringComparison.OrdinalIgnoreCase) ||

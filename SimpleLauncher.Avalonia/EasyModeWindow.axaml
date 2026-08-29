@@ -1,10 +1,10 @@
 <Window x:Class="SimpleLauncher.Avalonia.EasyModeWindow"
-         xmlns="https://github.com/avaloniaui"
-         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
-         xmlns:models="using:SimpleLauncher.Core.Models"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
-         Title="{ext:Translate AddNewSystem}"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="using:SimpleLauncher.Avalonia.Converters"
+        xmlns:models="using:SimpleLauncher.Core.Models"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        Title="{ext:Translate AddNewSystem}"
         Width="900" MinWidth="700"
         Height="610" MinHeight="550"
         WindowStartupLocation="CenterOwner"
@@ -137,7 +137,8 @@
                             BorderThickness="1" CornerRadius="6"
                             Padding="12">
                         <StackPanel>
-                            <TextBlock Text="{ext:Translate ImagePacksOptionalHeader}" FontWeight="SemiBold" FontSize="12"
+                            <TextBlock Text="{ext:Translate ImagePacksOptionalHeader}" FontWeight="SemiBold"
+                                       FontSize="12"
                                        Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,8" />
                             <UniformGrid Columns="2">
                                 <Button Content="{ext:Translate DownloadImagePack1}"

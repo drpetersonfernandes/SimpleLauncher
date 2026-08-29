@@ -5,7 +5,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the update history window that displays release notes.
+///     ViewModel for the update history window that displays release notes.
 /// </summary>
 public class UpdateHistoryViewModel : ObservableObject
 {
@@ -13,7 +13,7 @@ public class UpdateHistoryViewModel : ObservableObject
     private readonly IResourceProvider _resourceProvider;
     private string _markdownContent = "";
 
-    /// <summary>Initializes a new instance of the <see cref="UpdateHistoryViewModel"/> class.</summary>
+    /// <summary>Initializes a new instance of the <see cref="UpdateHistoryViewModel" /> class.</summary>
     /// <param name="logErrors">The logger for recording errors.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
     public UpdateHistoryViewModel(ILogger logErrors, IResourceProvider resourceProvider)

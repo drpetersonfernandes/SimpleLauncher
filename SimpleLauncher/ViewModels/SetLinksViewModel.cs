@@ -8,19 +8,19 @@ using Application = System.Windows.Application;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the video and info link configuration window.
+///     ViewModel for the video and info link configuration window.
 /// </summary>
 public partial class SetLinksViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settingsManager;
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
-
-    [ObservableProperty] private string _videoUrl;
+    private readonly SettingsManagerService _settingsManager;
     [ObservableProperty] private string _infoUrl;
 
-    /// <summary>Initializes a new instance of the <see cref="SetLinksViewModel"/> class.</summary>
+    [ObservableProperty] private string _videoUrl;
+
+    /// <summary>Initializes a new instance of the <see cref="SetLinksViewModel" /> class.</summary>
     /// <param name="settingsManager">The settings manager for reading and saving link URLs.</param>
     /// <param name="configuration">The application configuration for default URL values.</param>
     /// <param name="messageBox">The message box service for displaying dialogs.</param>

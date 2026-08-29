@@ -3,14 +3,14 @@ using CommunityToolkit.Mvvm.ComponentModel;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the FlashOverlayWindow.
+///     ViewModel for the FlashOverlayWindow.
 /// </summary>
 public class FlashOverlayViewModel : ObservableObject
 {
     private double _opacity;
 
     /// <summary>
-    /// Gets or sets the opacity of the flash rectangle.
+    ///     Gets or sets the opacity of the flash rectangle.
     /// </summary>
     public double Opacity
     {
@@ -19,12 +19,12 @@ public class FlashOverlayViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Event raised when the window should be closed.
+    ///     Event raised when the window should be closed.
     /// </summary>
     public event EventHandler? CloseRequested;
 
     /// <summary>
-    /// Completes the flash animation and requests window close.
+    ///     Completes the flash animation and requests window close.
     /// </summary>
     public void OnAnimationCompleted()
     {

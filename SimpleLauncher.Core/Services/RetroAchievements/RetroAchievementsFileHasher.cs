@@ -7,29 +7,30 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.RetroAchievements;
 
 /// <summary>
-/// Calculates RetroAchievements hashes for game files. All hash computation is
-/// delegated to the bundled RetroAchievementsSharp CLI tool
-/// (<c>tools\RetroAchievementsSharp\RetroAchievementsSharp.exe</c> on x64,
-/// <c>RetroAchievementsSharp_arm64.exe</c> on arm64) — a 1:1 port of the rcheevos
-/// hashing engine that produces the exact same hashes as RAHasher. Single files
-/// use the legacy positional interface; bulk scans use the <c>scan</c> subcommand
-/// with a forced console and JSON manifest output.
+///     Calculates RetroAchievements hashes for game files. All hash computation is
+///     delegated to the bundled RetroAchievementsSharp CLI tool
+///     (<c>tools\RetroAchievementsSharp\RetroAchievementsSharp.exe</c> on x64,
+///     <c>RetroAchievementsSharp_arm64.exe</c> on arm64) — a 1:1 port of the rcheevos
+///     hashing engine that produces the exact same hashes as RAHasher. Single files
+///     use the legacy positional interface; bulk scans use the <c>scan</c> subcommand
+///     with a forced console and JSON manifest output.
 /// </summary>
 public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
 {
     private const string ToolFolderName = "RetroAchievementsSharp";
     private const string ToolBaseName = "RetroAchievementsSharp";
-    private static readonly TimeSpan SingleFileTimeout = TimeSpan.FromMinutes(5);
-    private static readonly TimeSpan BatchTimeout = TimeSpan.FromMinutes(30);
 
     /// <summary>Windows command lines are capped at ~32 K characters; stay safely below.</summary>
     private const int MaxBatchCommandLineLength = 30000;
+
+    private static readonly TimeSpan SingleFileTimeout = TimeSpan.FromMinutes(5);
+    private static readonly TimeSpan BatchTimeout = TimeSpan.FromMinutes(30);
 
     private readonly ILogger _logger;
     private readonly IRetroAchievementsSystemMatcher _systemMatcher;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsFileHasher"/> class.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsFileHasher" /> class.
     /// </summary>
     /// <param name="logErrors">The logger instance for error logging.</param>
     /// <param name="systemMatcher">The system matcher used to resolve system names to RetroAchievements console IDs.</param>
@@ -130,10 +131,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
         CancellationToken cancellationToken = default)
     {
         var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        if (filePaths == null || filePaths.Count == 0)
-        {
-            return result;
-        }
+        if (filePaths == null || filePaths.Count == 0) return result;
 
         var systemId = _systemMatcher.GetSystemId(systemName);
         if (systemId <= 0)
@@ -175,10 +173,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
                 processStartInfo.ArgumentList.Add("json");
                 processStartInfo.ArgumentList.Add("--out");
                 processStartInfo.ArgumentList.Add(outputFile);
-                foreach (var path in chunk)
-                {
-                    processStartInfo.ArgumentList.Add(path);
-                }
+                foreach (var path in chunk) processStartInfo.ArgumentList.Add(path);
 
                 ConfigureEmbeddedToolEnvironment(processStartInfo);
 
@@ -196,10 +191,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
                         timeoutCts.CancelAfter(BatchTimeout);
                         await process.WaitForExitAsync(timeoutCts.Token);
 
-                        foreach (var (path, hash) in ReadScanResults(outputFile))
-                        {
-                            result[path] = hash;
-                        }
+                        foreach (var (path, hash) in ReadScanResults(outputFile)) result[path] = hash;
                     }
                     catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
                     {
@@ -239,8 +231,8 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     }
 
     /// <summary>
-    /// Splits the file list into batches whose combined command line stays below the
-    /// Windows command-line length limit.
+    ///     Splits the file list into batches whose combined command line stays below the
+    ///     Windows command-line length limit.
     /// </summary>
     private static IEnumerable<IReadOnlyList<string>> ChunkPaths(IReadOnlyCollection<string> filePaths)
     {
@@ -262,15 +254,12 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
             length += pathLength;
         }
 
-        if (chunk.Count > 0)
-        {
-            yield return chunk;
-        }
+        if (chunk.Count > 0) yield return chunk;
     }
 
     /// <summary>
-    /// Reads the JSON manifest produced by the CLI <c>scan --format json</c> command
-    /// and maps every hashed file (full path) to its 32-character hash.
+    ///     Reads the JSON manifest produced by the CLI <c>scan --format json</c> command
+    ///     and maps every hashed file (full path) to its 32-character hash.
     /// </summary>
     private Dictionary<string, string> ReadScanResults(string outputFile)
     {
@@ -290,16 +279,11 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
                 if (!row.TryGetProperty("path", out var pathElement) ||
                     !row.TryGetProperty("hash", out var hashElement) ||
                     string.IsNullOrEmpty(hashElement.GetString()))
-                {
                     continue;
-                }
 
                 var path = pathElement.GetString();
                 var hash = ParseHash(hashElement.GetString()!);
-                if (path != null && hash != null)
-                {
-                    results[path] = hash;
-                }
+                if (path != null && hash != null) results[path] = hash;
             }
         }
         catch (Exception ex)
@@ -311,29 +295,23 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     }
 
     /// <summary>
-    /// Validates a 32-character lowercase hex hash, returning null for anything else.
+    ///     Validates a 32-character lowercase hex hash, returning null for anything else.
     /// </summary>
     private static string? ParseHash(string? stdout)
     {
-        if (string.IsNullOrEmpty(stdout))
-        {
-            return null;
-        }
+        if (string.IsNullOrEmpty(stdout)) return null;
 
         var line = stdout.Trim();
-        if (line.Length != 32 || line.IndexOfAny(['?', ' ']) >= 0)
-        {
-            return null;
-        }
+        if (line.Length != 32 || line.IndexOfAny(['?', ' ']) >= 0) return null;
 
         return line.All(Uri.IsHexDigit) ? line : null;
     }
 
     /// <summary>
-    /// Resolves the OS/architecture-appropriate CLI executable under
-    /// <c>tools\RetroAchievementsSharp</c>, or null when unavailable for this platform.
-    /// Windows ships <c>RetroAchievementsSharp.exe</c> / <c>_arm64.exe</c>; Linux
-    /// ships the extension-less <c>RetroAchievementsSharp</c> / <c>_arm64</c>.
+    ///     Resolves the OS/architecture-appropriate CLI executable under
+    ///     <c>tools\RetroAchievementsSharp</c>, or null when unavailable for this platform.
+    ///     Windows ships <c>RetroAchievementsSharp.exe</c> / <c>_arm64.exe</c>; Linux
+    ///     ships the extension-less <c>RetroAchievementsSharp</c> / <c>_arm64</c>.
     /// </summary>
     private static string? GetToolExecutablePath()
     {
@@ -345,10 +323,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
             _ => null
         };
 
-        if (suffix == null)
-        {
-            return null;
-        }
+        if (suffix == null) return null;
 
         var extension = OperatingSystem.IsWindows() ? ".exe" : "";
         var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", ToolFolderName,
@@ -357,8 +332,8 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     }
 
     /// <summary>
-    /// Prepares the child environment for embedding: telemetry (usage stats and
-    /// bug reports) is disabled so background hash runs never hit the tool's API.
+    ///     Prepares the child environment for embedding: telemetry (usage stats and
+    ///     bug reports) is disabled so background hash runs never hit the tool's API.
     /// </summary>
     private static void ConfigureEmbeddedToolEnvironment(ProcessStartInfo processStartInfo)
     {
@@ -370,10 +345,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     {
         try
         {
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
+            if (File.Exists(path)) File.Delete(path);
         }
         catch (Exception ex)
         {
@@ -385,10 +357,7 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     {
         try
         {
-            if (process is { HasExited: false })
-            {
-                process.Kill(entireProcessTree: true);
-            }
+            if (process is { HasExited: false }) process.Kill(true);
         }
         catch
         {

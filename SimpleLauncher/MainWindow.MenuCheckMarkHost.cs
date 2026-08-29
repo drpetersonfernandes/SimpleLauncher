@@ -1,11 +1,10 @@
 using System.Windows.Controls;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 /// <summary>
-/// Partial MainWindow implementing <see cref="IMenuCheckMarkHost"/> for menu check mark state management.
+///     Partial MainWindow implementing <see cref="IMenuCheckMarkHost" /> for menu check mark state management.
 /// </summary>
 public partial class MainWindow
 {

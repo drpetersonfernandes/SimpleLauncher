@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectBlastemConfigWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Blastem Configuration"
         Height="600" Width="700"
@@ -27,14 +27,16 @@
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate BlastemConfig_Scanlines_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="{ext:Translate RPCS3Config_AspectRatio_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate RPCS3Config_AspectRatio_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AspectOptions}"
                                       SelectedItem="{Binding Aspect}"
                                       ToolTip.Tip="{ext:Translate BlastemConfig_Aspect_Tooltip}" />
                         </Grid>
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="{ext:Translate BlastemConfig_Scaling_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate BlastemConfig_Scaling_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ScalingOptions}"
                                       SelectedItem="{Binding Scaling}"
@@ -47,7 +49,8 @@
                 <GroupBox Header="{ext:Translate SupermodelConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="{ext:Translate BlastemConfig_AudioRate_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate BlastemConfig_AudioRate_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AudioRateOptions}"
                                       SelectedItem="{Binding AudioRate}"
@@ -60,7 +63,8 @@
                 <GroupBox Header="{ext:Translate RedreamConfig_System_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="{ext:Translate BlastemConfig_SyncSource_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate BlastemConfig_SyncSource_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding SyncSourceOptions}"
                                       SelectedItem="{Binding SyncSource}"

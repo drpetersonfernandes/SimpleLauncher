@@ -1,22 +1,23 @@
 using System.Globalization;
 using System.Text;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Injects user settings into the Azahar emulator's qt-config.ini configuration file.
+///     Injects user settings into the Azahar emulator's qt-config.ini configuration file.
 /// </summary>
 public static class AzaharConfigurationService
 {
     /// <summary>
-    /// Injects settings into Azahar's qt-config.ini file.
+    ///     Injects settings into Azahar's qt-config.ini file.
     /// </summary>
     /// <param name="emulatorPath">Path to the Azahar executable.</param>
     /// <param name="settings">The settings manager containing Azahar configuration.</param>
     /// <param name="logger"></param>
     /// <exception cref="InvalidOperationException">Thrown when emulator directory is not found.</exception>
     /// <exception cref="FileNotFoundException">Thrown when config file and sample are both missing.</exception>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -37,7 +38,6 @@ public static class AzaharConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Azahar", "qt-config.ini");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -56,11 +56,8 @@ public static class AzaharConfigurationService
                     logger.Error(ex, $"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("qt-config.ini not found and sample is missing.");
-            }
         }
 
         var updates = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase)
@@ -128,10 +125,7 @@ public static class AzaharConfigurationService
 
             // 2. Determine Section Range
             var sectionEndIndex = lines.FindIndex(sectionStartIndex + 1, static l => l.Trim().StartsWith('['));
-            if (sectionEndIndex == -1)
-            {
-                sectionEndIndex = lines.Count;
-            }
+            if (sectionEndIndex == -1) sectionEndIndex = lines.Count;
 
             foreach (var (key, value) in dictionary)
             {
@@ -144,13 +138,9 @@ public static class AzaharConfigurationService
                 {
                     var trimmed = lines[i].Trim();
                     if (trimmed.StartsWith($"{key}=", StringComparison.OrdinalIgnoreCase))
-                    {
                         keyIndex = i;
-                    }
                     else if (trimmed.StartsWith($"{defaultKey}=", StringComparison.OrdinalIgnoreCase))
-                    {
                         defaultKeyIndex = i;
-                    }
                 }
 
                 // 4. Update or Insert Main Key
@@ -191,7 +181,6 @@ public static class AzaharConfigurationService
         }
 
         if (modified)
-        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -209,11 +198,10 @@ public static class AzaharConfigurationService
                 logger.Error(ex, $"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
-        }
     }
 
     /// <summary>
-    /// Checks if a directory is writable by attempting to create a temporary file.
+    ///     Checks if a directory is writable by attempting to create a temporary file.
     /// </summary>
     private static bool IsDirectoryWritable(string dirPath, ILogger logger)
     {

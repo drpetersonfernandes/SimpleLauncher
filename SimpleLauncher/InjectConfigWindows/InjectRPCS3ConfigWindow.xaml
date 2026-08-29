@@ -55,7 +55,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource RPCS3Config_ResolutionScale_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource RPCS3Config_ResolutionScale_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ResolutionScaleOptions}"
                                       SelectedItem="{Binding Rpcs3ResolutionScale}"
@@ -66,13 +67,16 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource RPCS3Config_AnisotropicFilter_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource RPCS3Config_AnisotropicFilter_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AnisotropicFilterOptions}"
                                       SelectedItem="{Binding Rpcs3AnisotropicFilter}"
                                       ToolTip="{DynamicResource RPCS3Config_AnisotropicFilter_Tooltip}" />
                         </Grid>
-                        <CheckBox IsChecked="{Binding Rpcs3Vsync}" Content="{DynamicResource RPCS3Config_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RPCS3Config_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Rpcs3Vsync}"
+                                  Content="{DynamicResource RPCS3Config_Vsync_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RPCS3Config_Vsync_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -112,28 +116,37 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource RPCS3Config_AudioRenderer_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource RPCS3Config_AudioRenderer_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AudioRendererOptions}"
                                       SelectedItem="{Binding Rpcs3AudioRenderer}"
                                       ToolTip="{DynamicResource RPCS3Config_AudioRenderer_Tooltip}" />
                         </Grid>
-                        <CheckBox IsChecked="{Binding Rpcs3AudioBuffering}" Content="{DynamicResource RPCS3Config_AudioBuffering_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RPCS3Config_AudioBuffering_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Rpcs3AudioBuffering}"
+                                  Content="{DynamicResource RPCS3Config_AudioBuffering_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RPCS3Config_AudioBuffering_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Miscellaneous Section -->
                 <GroupBox Header="{DynamicResource RPCS3Config_Misc_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding Rpcs3StartFullscreen}" Content="{DynamicResource RPCS3Config_StartFullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RPCS3Config_StartFullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Rpcs3StartFullscreen}"
+                                  Content="{DynamicResource RPCS3Config_StartFullscreen_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RPCS3Config_StartFullscreen_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding Rpcs3ShowSettingsBeforeLaunch}" Content="{DynamicResource RPCS3Config_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource RPCS3Config_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding Rpcs3ShowSettingsBeforeLaunch}"
+                                  Content="{DynamicResource RPCS3Config_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource RPCS3Config_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

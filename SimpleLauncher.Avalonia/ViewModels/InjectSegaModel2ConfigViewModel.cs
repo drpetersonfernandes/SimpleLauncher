@@ -11,30 +11,30 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the Sega Model 2 emulator configuration injection window.
+///     ViewModel for the Sega Model 2 emulator configuration injection window.
 /// </summary>
 public partial class InjectSegaModel2ConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly EmulatorPathResolver _emulatorPathResolver;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
+    [ObservableProperty] private bool _bilinear;
+    [ObservableProperty] private bool _drawCross;
     private string _emulatorPath = null!;
+    [ObservableProperty] private bool _enableFf;
+    [ObservableProperty] private bool _filterTilemaps;
+    [ObservableProperty] private string _fsaa = null!;
+    [ObservableProperty] private bool _holdGears;
     [ObservableProperty] private int _resX;
     [ObservableProperty] private int _resY;
-    [ObservableProperty] private string _wideScreen = null!;
-    [ObservableProperty] private string _fsaa = null!;
-    [ObservableProperty] private bool _bilinear;
-    [ObservableProperty] private bool _trilinear;
-    [ObservableProperty] private bool _filterTilemaps;
-    [ObservableProperty] private bool _drawCross;
-    [ObservableProperty] private bool _xInput;
-    [ObservableProperty] private bool _enableFf;
-    [ObservableProperty] private bool _holdGears;
-    [ObservableProperty] private bool _useRawInput;
     [ObservableProperty] private bool _showBeforeLaunch;
+    [ObservableProperty] private bool _trilinear;
+    [ObservableProperty] private bool _useRawInput;
+    [ObservableProperty] private string _wideScreen = null!;
+    [ObservableProperty] private bool _xInput;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectSegaModel2ConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectSegaModel2ConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
@@ -52,7 +52,37 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Available widescreen mode options for Sega Model 2.
+    /// </summary>
+    public IList<string> WideScreenOptions { get; } = ["0", "1", "2"];
+
+    /// <summary>
+    ///     Available full-screen anti-aliasing options for Sega Model 2.
+    /// </summary>
+    public IList<string> FsaaOptions { get; } = ["0", "2", "4", "8"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Sega Model 2 emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -64,27 +94,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available widescreen mode options for Sega Model 2.
-    /// </summary>
-    public IList<string> WideScreenOptions { get; } = ["0", "1", "2"];
-
-    /// <summary>
-    /// Available full-screen anti-aliasing options for Sega Model 2.
-    /// </summary>
-    public IList<string> FsaaOptions { get; } = ["0", "2", "4", "8"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -93,16 +103,6 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -126,14 +126,9 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
         _settings.SegaModel2.ResX = ResX;
         _settings.SegaModel2.ResY = ResY;
         if (int.TryParse(WideScreen, CultureInfo.InvariantCulture, out var wideScreen))
-        {
             _settings.SegaModel2.WideScreen = wideScreen;
-        }
 
-        if (int.TryParse(Fsaa, CultureInfo.InvariantCulture, out var fsaa))
-        {
-            _settings.SegaModel2.Fsaa = fsaa;
-        }
+        if (int.TryParse(Fsaa, CultureInfo.InvariantCulture, out var fsaa)) _settings.SegaModel2.Fsaa = fsaa;
 
         _settings.SegaModel2.Bilinear = Bilinear;
         _settings.SegaModel2.Trilinear = Trilinear;
@@ -149,10 +144,7 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = _emulatorPathResolver.TryFindEmulatorPath("SEGA Model 2", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

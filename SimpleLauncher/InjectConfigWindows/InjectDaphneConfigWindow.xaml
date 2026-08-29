@@ -17,10 +17,15 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource DaphneConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding DaphneFullscreen}" Content="{DynamicResource DaphneConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DaphneConfig_Fullscreen_Tooltip}" />
-                        <CheckBox IsChecked="{Binding DaphneBilinear}" Content="{DynamicResource DaphneConfig_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DaphneConfig_Bilinear_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DaphneFullscreen}"
+                                  Content="{DynamicResource DaphneConfig_Fullscreen_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DaphneConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DaphneBilinear}"
+                                  Content="{DynamicResource DaphneConfig_Bilinear_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DaphneConfig_Bilinear_Tooltip}" />
 
-                        <Label Content="{DynamicResource DaphneConfig_Resolution_Label}" Margin="0,5,0,0" ToolTip="{DynamicResource DaphneConfig_Resolution_Tooltip}" />
+                        <Label Content="{DynamicResource DaphneConfig_Resolution_Label}" Margin="0,5,0,0"
+                               ToolTip="{DynamicResource DaphneConfig_Resolution_Tooltip}" />
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -41,23 +46,33 @@
                 <!-- Audio Section -->
                 <GroupBox Header="{DynamicResource DaphneConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding DaphneEnableSound}" Content="{DynamicResource DaphneConfig_EnableSound_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DaphneConfig_EnableSound_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DaphneEnableSound}"
+                                  Content="{DynamicResource DaphneConfig_EnableSound_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DaphneConfig_EnableSound_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Gameplay Section -->
                 <GroupBox Header="{DynamicResource DaphneConfig_Gameplay_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding DaphneDisableCrosshairs}" Content="{DynamicResource DaphneConfig_DisableCrosshairs_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DaphneConfig_DisableCrosshairs_Tooltip}" />
-                        <CheckBox IsChecked="{Binding DaphneUseOverlays}" Content="{DynamicResource DaphneConfig_UseOverlays_Checkbox}" Margin="0,5" ToolTip="{DynamicResource DaphneConfig_UseOverlays_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DaphneDisableCrosshairs}"
+                                  Content="{DynamicResource DaphneConfig_DisableCrosshairs_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DaphneConfig_DisableCrosshairs_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DaphneUseOverlays}"
+                                  Content="{DynamicResource DaphneConfig_UseOverlays_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource DaphneConfig_UseOverlays_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding DaphneShowSettingsBeforeLaunch}" Content="{DynamicResource DaphneConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource DaphneConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding DaphneShowSettingsBeforeLaunch}"
+                                  Content="{DynamicResource DaphneConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource DaphneConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

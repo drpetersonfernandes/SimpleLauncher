@@ -11,8 +11,8 @@ using SimpleLauncher.Core;
 namespace SimpleLauncher.Avalonia.Services.UsageStats;
 
 /// <summary>
-/// Sends anonymous application usage statistics to the remote stats API.
-/// Avalonia port of the WPF ApplicationStats static class.
+///     Sends anonymous application usage statistics to the remote stats API.
+///     Avalonia port of the WPF ApplicationStats static class.
 /// </summary>
 public static class ApplicationStats
 {
@@ -65,13 +65,9 @@ public static class ApplicationStats
             // TLS errors) — log at Information, not as a bug. Only unexpected exceptions
             // are reported.
             if (ex is HttpRequestException or SocketException)
-            {
                 Log.Information(ex, "ApplicationStats API call failed: {Message}", ex.Message);
-            }
             else
-            {
                 logErrors.Error(ex, "ApplicationStats API call failed: {Message}", ex.Message);
-            }
         }
     }
 }

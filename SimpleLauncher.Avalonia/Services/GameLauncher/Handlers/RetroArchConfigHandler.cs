@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the RetroArch (multi-system) emulator before launching a game.
+///     Handles configuration injection for the RetroArch (multi-system) emulator before launching a game.
 /// </summary>
 public class RetroArchConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class RetroArchConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroArchConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="RetroArchConfigHandler" /> class.
     /// </summary>
     public RetroArchConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {

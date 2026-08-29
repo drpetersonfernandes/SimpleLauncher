@@ -1,16 +1,16 @@
 namespace SimpleLauncher.Core.Interfaces;
 
 /// <summary>
-/// Calculates RetroAchievements hashes for game files. All hash computation is
-/// delegated to the bundled RetroAchievementsSharp CLI tool
-/// (<c>tools\RetroAchievementsSharp\RetroAchievementsSharp.exe</c>), which is a
-/// 1:1 port of the rcheevos hashing engine and produces the exact same hashes
-/// as RAHasher.
+///     Calculates RetroAchievements hashes for game files. All hash computation is
+///     delegated to the bundled RetroAchievementsSharp CLI tool
+///     (<c>tools\RetroAchievementsSharp\RetroAchievementsSharp.exe</c>), which is a
+///     1:1 port of the rcheevos hashing engine and produces the exact same hashes
+///     as RAHasher.
 /// </summary>
 public interface IRetroAchievementsFileHasher
 {
     /// <summary>
-    /// Calculates the RetroAchievements hash for a single game file using the console ID of the given system.
+    ///     Calculates the RetroAchievements hash for a single game file using the console ID of the given system.
     /// </summary>
     /// <param name="filePath">The full path to the game file.</param>
     /// <param name="systemName">The RetroAchievements system name (resolved to a console ID internally).</param>
@@ -18,8 +18,8 @@ public interface IRetroAchievementsFileHasher
     Task<string?> CalculateHashAsync(string filePath, string systemName);
 
     /// <summary>
-    /// Calculates the RetroAchievements hashes for a set of game files of the same system
-    /// in a single CLI invocation (batch mode), keyed by full file path.
+    ///     Calculates the RetroAchievements hashes for a set of game files of the same system
+    ///     in a single CLI invocation (batch mode), keyed by full file path.
     /// </summary>
     /// <param name="filePaths">The full paths of the game files to hash.</param>
     /// <param name="systemName">The RetroAchievements system name (resolved to a console ID internally).</param>

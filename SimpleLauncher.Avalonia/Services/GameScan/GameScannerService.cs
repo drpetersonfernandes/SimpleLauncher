@@ -9,24 +9,16 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.GameScan;
 
 /// <summary>
-/// Scans for installed games from various digital storefronts (Steam, Epic, GOG, etc.)
-/// and creates shortcuts in the Microsoft Windows system folder.
+///     Scans for installed games from various digital storefronts (Steam, Epic, GOG, etc.)
+///     and creates shortcuts in the Microsoft Windows system folder.
 /// </summary>
 public class GameScannerService
 {
-    private readonly ILogger _logger;
-    private readonly IMessageBoxLibraryService _messageBoxLibrary;
-    private readonly IConfiguration _configuration;
-    private readonly IHttpClientFactory _httpClientFactory;
-    private readonly IEnumerable<IGamePlatformScanner> _scanners;
-    private readonly IIconExtractor _iconExtractor;
-    private readonly SystemManagerService _systemManager;
-
     /// <summary>Name of the system entry created for storefront-discovered PC games.</summary>
     public const string WindowsSystemName = "Microsoft Windows";
 
     /// <summary>
-    /// Names of storefront titles that should not be scanned as games.
+    ///     Names of storefront titles that should not be scanned as games.
     /// </summary>
     internal static readonly HashSet<string> IgnoredGameNames = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -43,18 +35,21 @@ public class GameScannerService
         "Ubisoft Connect"
     };
 
-    private string _windowsRomsPath = null!;
-    private string _windowsImagesPath = null!;
-
-    /// <summary>
-    /// Gets a value indicating whether a new 'Microsoft Windows' system was created during the scan.
-    /// </summary>
-    internal bool WasNewSystemCreated { get; private set; }
+    private readonly IConfiguration _configuration;
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IIconExtractor _iconExtractor;
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly IEnumerable<IGamePlatformScanner> _scanners;
+    private readonly SystemManagerService _systemManager;
 
     private bool _timeoutMessageShown;
+    private string _windowsImagesPath = null!;
+
+    private string _windowsRomsPath = null!;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GameScannerService"/> class.
+    ///     Initializes a new instance of the <see cref="GameScannerService" /> class.
     /// </summary>
     /// <param name="messageBoxLibrary">The message box service for user notifications.</param>
     /// <param name="configuration">The application configuration.</param>
@@ -77,9 +72,14 @@ public class GameScannerService
     }
 
     /// <summary>
-    /// Scans all registered storefront scanners and creates shortcuts for the games they find.
-    /// Storefront scanning reads the Windows registry and storefront install databases; it is a
-    /// no-op on non-Windows platforms.
+    ///     Gets a value indicating whether a new 'Microsoft Windows' system was created during the scan.
+    /// </summary>
+    internal bool WasNewSystemCreated { get; private set; }
+
+    /// <summary>
+    ///     Scans all registered storefront scanners and creates shortcuts for the games they find.
+    ///     Storefront scanning reads the Windows registry and storefront install databases; it is a
+    ///     no-op on non-Windows platforms.
     /// </summary>
     public async Task<StorefrontScanResult> ScanForStoreGamesAsync()
     {
@@ -93,8 +93,8 @@ public class GameScannerService
     }
 
     /// <summary>
-    /// Platform-agnostic core of <see cref="ScanForStoreGamesAsync"/> (no Windows gate) so the
-    /// orchestration is testable on any OS.
+    ///     Platform-agnostic core of <see cref="ScanForStoreGamesAsync" /> (no Windows gate) so the
+    ///     orchestration is testable on any OS.
     /// </summary>
     internal async Task<StorefrontScanResult> ScanForStoreGamesCoreAsync()
     {
@@ -224,8 +224,8 @@ public class GameScannerService
     }
 
     /// <summary>
-    /// Attempts to download a cover image for the given game name from the image API,
-    /// retrying once after a delay on timeout or network errors.
+    ///     Attempts to download a cover image for the given game name from the image API,
+    ///     retrying once after a delay on timeout or network errors.
     /// </summary>
     /// <param name="gameName">The name of the game to search for.</param>
     /// <param name="destinationPath">The file path where the downloaded image should be saved.</param>
@@ -237,7 +237,6 @@ public class GameScannerService
 
         // Try up to 2 times (initial attempt + 1 retry after 5 seconds)
         for (var attempt = 0; attempt < 2; attempt++)
-        {
             try
             {
                 using var client = _httpClientFactory.CreateClient("GameImageClient");
@@ -248,10 +247,8 @@ public class GameScannerService
                 if (!response.IsSuccessStatusCode)
                 {
                     if (response.StatusCode != HttpStatusCode.NotFound)
-                    {
                         _logger.Debug(
                             $"[GameScannerService] API query for '{gameName}' failed with status: {response.StatusCode}");
-                    }
 
                     return false;
                 }
@@ -313,13 +310,12 @@ public class GameScannerService
                     }
                 }
             }
-        }
 
         return false;
     }
 
     /// <summary>
-    /// Finds or downloads a cover image for a scanned game, falling back to icon extraction from its executable.
+    ///     Finds or downloads a cover image for a scanned game, falling back to icon extraction from its executable.
     /// </summary>
     /// <param name="logErrors">The error logger.</param>
     /// <param name="originalGameName">The original storefront name of the game.</param>
@@ -336,17 +332,11 @@ public class GameScannerService
             if (File.Exists(imagePath)) return;
 
             // 1. Try to download from API
-            if (await TryDownloadImageFromApiAsync(originalGameName, imagePath, logErrors))
-            {
-                return;
-            }
+            if (await TryDownloadImageFromApiAsync(originalGameName, imagePath, logErrors)) return;
 
             // 2. Fallback to extracting icon from EXE
             var mainExe = FindMainExecutable(gameInstallPath, sanitizedGameName, specificExePath);
-            if (mainExe != null)
-            {
-                _iconExtractor.SaveIconFromExe(mainExe, imagePath, logErrors);
-            }
+            if (mainExe != null) _iconExtractor.SaveIconFromExe(mainExe, imagePath, logErrors);
         }
         catch (Exception ex)
         {
@@ -355,7 +345,7 @@ public class GameScannerService
     }
 
     /// <summary>
-    /// Final fallback that extracts the icon from the game's executable when no cover image can be found or downloaded.
+    ///     Final fallback that extracts the icon from the game's executable when no cover image can be found or downloaded.
     /// </summary>
     /// <param name="logErrors">The error logger.</param>
     /// <param name="gameInstallPath">The installation directory of the game.</param>
@@ -373,10 +363,7 @@ public class GameScannerService
                 if (File.Exists(iconPath)) return Task.CompletedTask;
 
                 var mainExe = FindMainExecutable(gameInstallPath, sanitizedGameName, specificExePath);
-                if (mainExe != null)
-                {
-                    _iconExtractor.SaveIconFromExe(mainExe, iconPath, logErrors);
-                }
+                if (mainExe != null) _iconExtractor.SaveIconFromExe(mainExe, iconPath, logErrors);
             }
             catch (Exception ex)
             {
@@ -400,10 +387,7 @@ public class GameScannerService
         if (!Directory.Exists(gameInstallPath)) return null;
 
         // 1. Use the specific path if provided and it exists.
-        if (!string.IsNullOrEmpty(specificExePath) && File.Exists(specificExePath))
-        {
-            return specificExePath;
-        }
+        if (!string.IsNullOrEmpty(specificExePath) && File.Exists(specificExePath)) return specificExePath;
 
         // 2. Heuristics to find the main EXE
         var exeFiles = TryGetExeFiles(gameInstallPath);
@@ -445,10 +429,10 @@ public class GameScannerService
     }
 
     /// <summary>
-    /// Enumerates the executable files in a game folder, returning null if the folder vanished
-    /// or became inaccessible between the <see cref="Directory.Exists"/> check and the enumeration.
-    /// This is a real race for Microsoft Store package folders, which are routinely removed and
-    /// recreated while the Store stages, updates, or uninstalls an app (see bug 61956).
+    ///     Enumerates the executable files in a game folder, returning null if the folder vanished
+    ///     or became inaccessible between the <see cref="Directory.Exists" /> check and the enumeration.
+    ///     This is a real race for Microsoft Store package folders, which are routinely removed and
+    ///     recreated while the Store stages, updates, or uninstalls an app (see bug 61956).
     /// </summary>
     private static string[]? TryGetExeFiles(string gameInstallPath)
     {
@@ -484,6 +468,6 @@ public class GameScannerService
 }
 
 /// <summary>
-/// Result of a storefront scan that materialized games into the "Microsoft Windows" system.
+///     Result of a storefront scan that materialized games into the "Microsoft Windows" system.
 /// </summary>
 public sealed record StorefrontScanResult(int GamesFound, int ShortcutsCreated, bool SystemWasCreated);

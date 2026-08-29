@@ -1,27 +1,21 @@
 namespace SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 
 /// <summary>
-/// Locates the default.xex file (Xbox 360 executable) in a given directory.
+///     Locates the default.xex file (Xbox 360 executable) in a given directory.
 /// </summary>
 public static class FindDefaultXex
 {
     /// <summary>
-    /// Searches for default.xex in the specified root directory.
+    ///     Searches for default.xex in the specified root directory.
     /// </summary>
     public static string? Find(string rootPath, ILogger logErrors)
     {
         try
         {
-            if (string.IsNullOrEmpty(rootPath) || !Directory.Exists(rootPath))
-            {
-                return null;
-            }
+            if (string.IsNullOrEmpty(rootPath) || !Directory.Exists(rootPath)) return null;
 
             var defaultXexPath = Path.Combine(rootPath, "default.xex");
-            if (File.Exists(defaultXexPath))
-            {
-                return defaultXexPath;
-            }
+            if (File.Exists(defaultXexPath)) return defaultXexPath;
 
             return null;
         }

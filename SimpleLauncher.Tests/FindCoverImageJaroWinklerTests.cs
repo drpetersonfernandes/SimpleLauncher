@@ -4,14 +4,14 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the Jaro-Winkler similarity algorithm used in cover image matching.
+///     Tests for the Jaro-Winkler similarity algorithm used in cover image matching.
 /// </summary>
 public class FindCoverImageJaroWinklerTests
 {
     // Jaro-Winkler Similarity Tests
 
     /// <summary>
-    /// Verifies that identical strings return a similarity of 1.0.
+    ///     Verifies that identical strings return a similarity of 1.0.
     /// </summary>
     [Fact]
     public void JaroWinklerIdenticalStringsReturns1()
@@ -21,7 +21,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that two empty strings return a similarity of 1.0.
+    ///     Verifies that two empty strings return a similarity of 1.0.
     /// </summary>
     [Fact]
     public void JaroWinklerEmptyStringsReturns1()
@@ -31,7 +31,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that two null values return a similarity of 1.0.
+    ///     Verifies that two null values return a similarity of 1.0.
     /// </summary>
     [Fact]
     public void JaroWinklerBothNullReturns1()
@@ -41,7 +41,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that one empty and one null string return a similarity of 1.0.
+    ///     Verifies that one empty and one null string return a similarity of 1.0.
     /// </summary>
     [Fact]
     public void JaroWinklerOneEmptyOneNullReturns1()
@@ -51,7 +51,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that comparing a non-empty string with an empty string returns 0.0.
+    ///     Verifies that comparing a non-empty string with an empty string returns 0.0.
     /// </summary>
     [Fact]
     public void JaroWinklerOneEmptyReturns0()
@@ -61,7 +61,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that comparing a non-empty string with null returns 0.0.
+    ///     Verifies that comparing a non-empty string with null returns 0.0.
     /// </summary>
     [Fact]
     public void JaroWinklerOneNullReturns0()
@@ -71,7 +71,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that completely different strings return a low similarity score.
+    ///     Verifies that completely different strings return a low similarity score.
     /// </summary>
     [Fact]
     public void JaroWinklerCompletelyDifferentReturnsLow()
@@ -81,7 +81,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that similar strings return a high similarity score above 0.9.
+    ///     Verifies that similar strings return a high similarity score above 0.9.
     /// </summary>
     [Fact]
     public void JaroWinklerSimilarStringsReturnsHigh()
@@ -91,7 +91,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that the similarity calculation is case-insensitive.
+    ///     Verifies that the similarity calculation is case-insensitive.
     /// </summary>
     [Fact]
     public void JaroWinklerIsCaseInsensitive()
@@ -101,7 +101,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that the prefix bonus is applied consistently for strings with the same prefix.
+    ///     Verifies that the prefix bonus is applied consistently for strings with the same prefix.
     /// </summary>
     [Fact]
     public void JaroWinklerPrefixBonusApplied()
@@ -113,7 +113,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that a single matching character returns 0.0 (edge case for minimum length).
+    ///     Verifies that a single matching character returns 0.0 (edge case for minimum length).
     /// </summary>
     [Fact]
     public void JaroWinklerSingleCharacterMatch()
@@ -123,7 +123,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that a single non-matching character returns 0.0.
+    ///     Verifies that a single non-matching character returns 0.0.
     /// </summary>
     [Fact]
     public void JaroWinklerSingleCharacterMismatch()
@@ -133,7 +133,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that transposed characters still yield a high similarity score.
+    ///     Verifies that transposed characters still yield a high similarity score.
     /// </summary>
     [Fact]
     public void JaroWinklerTranspositions()
@@ -143,7 +143,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that the similarity calculation is symmetric (order of arguments does not matter).
+    ///     Verifies that the similarity calculation is symmetric (order of arguments does not matter).
     /// </summary>
     [Fact]
     public void JaroWinklerSymmetric()
@@ -154,7 +154,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that identical long strings return a similarity of 1.0.
+    ///     Verifies that identical long strings return a similarity of 1.0.
     /// </summary>
     [Fact]
     public void JaroWinklerLongStrings()
@@ -165,7 +165,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that similar game names produce a high similarity score above 0.85.
+    ///     Verifies that similar game names produce a high similarity score above 0.85.
     /// </summary>
     [Fact]
     public void JaroWinklerGameNames()
@@ -176,7 +176,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that strings with numbers produce a high similarity score when close.
+    ///     Verifies that strings with numbers produce a high similarity score when close.
     /// </summary>
     [Fact]
     public void JaroWinklerWithNumbers()
@@ -186,7 +186,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that strings with special characters are handled correctly.
+    ///     Verifies that strings with special characters are handled correctly.
     /// </summary>
     [Fact]
     public void JaroWinklerWithSpecialChars()
@@ -196,7 +196,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that the max prefix length of 4 is applied correctly in the algorithm.
+    ///     Verifies that the max prefix length of 4 is applied correctly in the algorithm.
     /// </summary>
     [Fact]
     public void JaroWinklerMaxLengthPrefixIs4()
@@ -207,7 +207,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that the similarity result is always between 0.0 and 1.0.
+    ///     Verifies that the similarity result is always between 0.0 and 1.0.
     /// </summary>
     [Fact]
     public void JaroWinklerReturnsBetween0And1()
@@ -219,7 +219,7 @@ public class FindCoverImageJaroWinklerTests
     // Annotation Stripping Tests
 
     /// <summary>
-    /// Verifies that parenthetical annotations are removed from filenames.
+    ///     Verifies that parenthetical annotations are removed from filenames.
     /// </summary>
     [Fact]
     public void StripAnnotations_Parentheses_RemovesContent()
@@ -229,7 +229,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that square bracket annotations are removed from filenames.
+    ///     Verifies that square bracket annotations are removed from filenames.
     /// </summary>
     [Fact]
     public void StripAnnotations_SquareBrackets_RemovesContent()
@@ -239,7 +239,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that curly brace annotations are removed from filenames.
+    ///     Verifies that curly brace annotations are removed from filenames.
     /// </summary>
     [Fact]
     public void StripAnnotations_CurlyBraces_RemovesContent()
@@ -249,7 +249,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that mixed annotation types are all removed.
+    ///     Verifies that mixed annotation types are all removed.
     /// </summary>
     [Fact]
     public void StripAnnotations_Mixed_RemovesAll()
@@ -259,7 +259,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that filenames without annotations are returned unchanged.
+    ///     Verifies that filenames without annotations are returned unchanged.
     /// </summary>
     [Fact]
     public void StripAnnotations_NoAnnotations_ReturnsUnchanged()
@@ -269,7 +269,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that null input returns null.
+    ///     Verifies that null input returns null.
     /// </summary>
     [Fact]
     public void StripAnnotations_Null_ReturnsNull()
@@ -279,7 +279,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that empty input returns empty.
+    ///     Verifies that empty input returns empty.
     /// </summary>
     [Fact]
     public void StripAnnotations_Empty_ReturnsEmpty()
@@ -289,7 +289,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that when the entire filename is annotations, the original is returned.
+    ///     Verifies that when the entire filename is annotations, the original is returned.
     /// </summary>
     [Fact]
     public void StripAnnotations_OnlyAnnotations_ReturnsOriginal()
@@ -299,7 +299,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that trailing whitespace and dots are trimmed after stripping.
+    ///     Verifies that trailing whitespace and dots are trimmed after stripping.
     /// </summary>
     [Fact]
     public void StripAnnotations_TrailingDotsAndSpaces_Trims()
@@ -309,7 +309,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that annotation stripping enables high similarity between ROM and image names.
+    ///     Verifies that annotation stripping enables high similarity between ROM and image names.
     /// </summary>
     [Fact]
     public void FuzzyMatch_WithAnnotationStripping_MatchesCorrectly()
@@ -322,7 +322,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that multiple region variants all match the same base name.
+    ///     Verifies that multiple region variants all match the same base name.
     /// </summary>
     [Fact]
     public void StripAnnotations_MultipleRegionVariants_AllMatchBase()
@@ -340,7 +340,7 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that nested parentheses are fully stripped.
+    ///     Verifies that nested parentheses are fully stripped.
     /// </summary>
     [Fact]
     public void StripAnnotations_NestedParentheses_HandlesGracefully()
@@ -350,8 +350,8 @@ public class FindCoverImageJaroWinklerTests
     }
 
     /// <summary>
-    /// Verifies that mixed parentheses and square brackets (GoodTools-style annotations) are all stripped,
-    /// leaving the base ROM name for cover image matching.
+    ///     Verifies that mixed parentheses and square brackets (GoodTools-style annotations) are all stripped,
+    ///     leaving the base ROM name for cover image matching.
     /// </summary>
     [Fact]
     public void StripAnnotations_ParensThenSquareBrackets_AllRemoved()

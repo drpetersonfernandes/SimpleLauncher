@@ -12,9 +12,9 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Models;
 
 /// <summary>
-/// Contextual information passed to right-click menu handlers for game items.
-/// Aggregates game data, UI controls, and services needed by the context menu.
-/// Avalonia port of the WPF RightClickContext.
+///     Contextual information passed to right-click menu handlers for game items.
+///     Aggregates game data, UI controls, and services needed by the context menu.
+///     Avalonia port of the WPF RightClickContext.
 /// </summary>
 public class RightClickContext(
     string filePath,
@@ -98,8 +98,8 @@ public class RightClickContext(
 
     /// <summary>Gets the loading state provider for overlay display.</summary>
     public ILoadingState LoadingStateProvider { get; } = loadingStateProvider
-                                                         ?? (mainWindow.DataContext as ILoadingState
-                                                             ?? throw new ArgumentException(
-                                                                 $"{mainWindow.GetType().Name}'s DataContext does not implement {nameof(ILoadingState)}.",
-                                                                 nameof(mainWindow)));
+                                                         ?? mainWindow.DataContext as ILoadingState ??
+                                                         throw new ArgumentException(
+                                                             $"{mainWindow.GetType().Name}'s DataContext does not implement {nameof(ILoadingState)}.",
+                                                             nameof(mainWindow));
 }

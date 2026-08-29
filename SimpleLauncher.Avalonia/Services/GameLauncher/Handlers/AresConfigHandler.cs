@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Ares emulator before launching a game.
+///     Handles configuration injection for the Ares emulator before launching a game.
 /// </summary>
 public class AresConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class AresConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AresConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="AresConfigHandler" /> class.
     /// </summary>
     public AresConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {
@@ -57,9 +57,7 @@ public class AresConfigHandler : IEmulatorConfigHandler
             {
                 shouldRun = true;
                 if (!string.IsNullOrEmpty(resolvedEmulatorExePath) && File.Exists(resolvedEmulatorExePath))
-                {
                     AresConfigurationService.InjectSettings(resolvedEmulatorExePath, context.Settings!, _logger);
-                }
             }
 
             return shouldRun;

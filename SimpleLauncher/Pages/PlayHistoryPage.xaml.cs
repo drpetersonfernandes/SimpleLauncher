@@ -25,30 +25,30 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 namespace SimpleLauncher.Pages;
 
 /// <summary>
-/// Page displaying the user's game play history with filtering and context menu support.
+///     Page displaying the user's game play history with filtering and context menu support.
 /// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class PlayHistoryPage : ILoadingState, IDisposable
 {
-    private readonly PlayHistoryViewModel _viewModel;
-    private readonly MainWindow _mainWindow;
-    private readonly GamePadController _gamePadController;
-    private readonly GameLauncherService _gameLauncher;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IFindCoverImageService _findCoverImage;
-    private readonly IList<MameManagerService> _machines;
-    private readonly FavoritesManager _favoritesManager;
-    private readonly SettingsManagerService _settings;
-    private readonly PlaySoundEffects _playSoundEffects;
     private readonly IConfiguration _configuration;
-    private readonly PlayHistoryManager _playHistoryManager;
     private readonly IContextMenuFunctions _contextMenuFunctions;
-    private readonly ILogger _logger;
     private readonly IContextMenuService _contextMenuService;
+    private readonly FavoritesManager _favoritesManager;
+    private readonly IFindCoverImageService _findCoverImage;
+    private readonly GameLauncherService _gameLauncher;
+    private readonly GamePadController _gamePadController;
+    private readonly ILogger _logger;
+    private readonly IList<MameManagerService> _machines;
+    private readonly MainWindow _mainWindow;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlayHistoryManager _playHistoryManager;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly SettingsManagerService _settings;
+    private readonly PlayHistoryViewModel _viewModel;
     private CancellationTokenSource? _cancellationTokenSource;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlayHistoryPage"/> class.
+    ///     Initializes a new instance of the <see cref="PlayHistoryPage" /> class.
     /// </summary>
     /// <param name="systemManagers">The list of system manager configurations.</param>
     /// <param name="machines">The list of MAME machine definitions.</param>
@@ -119,6 +119,26 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         Unloaded += PlayHistoryPage_Unloaded;
     }
 
+    /// <summary>
+    ///     Releases all resources used by the PlayHistoryPage.
+    /// </summary>
+    public void Dispose()
+    {
+        _viewModel.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    ///     Sets the loading state of the page, showing or hiding the loading overlay.
+    /// </summary>
+    /// <param name="isLoading">Whether the page is in a loading state.</param>
+    /// <param name="message">The optional message to display while loading.</param>
+    public void SetLoadingState(bool isLoading, string? message = null)
+    {
+        LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+        if (isLoading) LoadingOverlay.Content = message;
+    }
+
     private void PlayHistoryPage_Unloaded(object sender, RoutedEventArgs e)
     {
         _cancellationTokenSource?.Cancel();
@@ -133,9 +153,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
             // Wire Emergency Return Button from Template
             LoadingOverlay.ApplyTemplate();
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
-            {
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
-            }
 
             await _viewModel.LoadHistoryAsync();
 
@@ -251,10 +269,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
                 var itemToRemove = _viewModel.PlayHistoryList.FirstOrDefault(item =>
                     item.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
                     && item.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
-                if (itemToRemove != null)
-                {
-                    _viewModel.RemoveItem(itemToRemove);
-                }
+                if (itemToRemove != null) _viewModel.RemoveItem(itemToRemove);
             }
 
             return;
@@ -325,9 +340,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
             await _viewModel.UpdatePreviewImageAsync(selectedItem.CoverImage);
 
             if (PlayHistoryDataGrid.SelectedItem == selectedItem)
-            {
                 PreviewImage.Source = _viewModel.PreviewImageSource?.ToBitmapImage();
-            }
         }
         catch (Exception ex)
         {
@@ -504,20 +517,6 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         }
     }
 
-    /// <summary>
-    /// Sets the loading state of the page, showing or hiding the loading overlay.
-    /// </summary>
-    /// <param name="isLoading">Whether the page is in a loading state.</param>
-    /// <param name="message">The optional message to display while loading.</param>
-    public void SetLoadingState(bool isLoading, string? message = null)
-    {
-        LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
-        if (isLoading)
-        {
-            LoadingOverlay.Content = message;
-        }
-    }
-
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
     {
         _playSoundEffects.PlayNotificationSound();
@@ -526,14 +525,5 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
 
         _logger.Debug("[Emergency] User forced overlay dismissal in PlayHistoryPage.");
         _mainWindow.UpdateStatusBarService.UpdateContent("Emergency reset performed.");
-    }
-
-    /// <summary>
-    /// Releases all resources used by the PlayHistoryPage.
-    /// </summary>
-    public void Dispose()
-    {
-        _viewModel.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

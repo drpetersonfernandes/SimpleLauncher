@@ -8,16 +8,16 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Window for configuring RetroAchievements credentials and settings.
+///     Window for configuring RetroAchievements credentials and settings.
 /// </summary>
 public partial class RetroAchievementsSettingsWindow : Window
 {
-    private readonly RetroAchievementsSettingsViewModel _viewModel;
-    private readonly EventHandler _saveCompletedHandler;
     private readonly EventHandler _closeRequestedHandler;
+    private readonly EventHandler _saveCompletedHandler;
+    private readonly RetroAchievementsSettingsViewModel _viewModel;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsSettingsWindow"/> class.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsSettingsWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing settings logic.</param>
     public RetroAchievementsSettingsWindow(RetroAchievementsSettingsViewModel viewModel)

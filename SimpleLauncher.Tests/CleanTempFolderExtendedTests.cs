@@ -4,13 +4,13 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Extended tests for <see cref="CleanTempFolder"/> covering nested directories, hidden files,
-/// system files, and repeated cleanup operations.
+///     Extended tests for <see cref="CleanTempFolder" /> covering nested directories, hidden files,
+///     system files, and repeated cleanup operations.
 /// </summary>
 public class CleanTempFolderExtendedTests
 {
     /// <summary>
-    /// Verifies that CleanupTempDirectoryAsync deletes deeply nested directory structures.
+    ///     Verifies that CleanupTempDirectoryAsync deletes deeply nested directory structures.
     /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncWithNestedDirectoriesDeletesAll()
@@ -32,7 +32,7 @@ public class CleanTempFolderExtendedTests
     }
 
     /// <summary>
-    /// Verifies that CleanupTempDirectoryAsync deletes all files when the directory contains many files.
+    ///     Verifies that CleanupTempDirectoryAsync deletes all files when the directory contains many files.
     /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncWithMultipleFilesDeletesAll()
@@ -41,9 +41,7 @@ public class CleanTempFolderExtendedTests
         Directory.CreateDirectory(tempDir);
 
         for (var i = 0; i < 100; i++)
-        {
             await File.WriteAllTextAsync(Path.Combine(tempDir, $"file{i}.txt"), $"content {i}");
-        }
 
         Assert.Equal(100, Directory.GetFiles(tempDir).Length);
 
@@ -53,7 +51,7 @@ public class CleanTempFolderExtendedTests
     }
 
     /// <summary>
-    /// Verifies that CleanupPartialExtractionAsync removes all files and subdirectories from multiple subdirectories.
+    ///     Verifies that CleanupPartialExtractionAsync removes all files and subdirectories from multiple subdirectories.
     /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncWithMultipleSubdirectories()
@@ -79,7 +77,7 @@ public class CleanTempFolderExtendedTests
     }
 
     /// <summary>
-    /// Verifies that CleanupPartialExtractionAsync removes the tracking file and all other files.
+    ///     Verifies that CleanupPartialExtractionAsync removes the tracking file and all other files.
     /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncWithTrackingFileAndOtherFiles()
@@ -100,7 +98,7 @@ public class CleanTempFolderExtendedTests
     }
 
     /// <summary>
-    /// Verifies that CleanupPartialExtractionAsync handles an empty directory without throwing.
+    ///     Verifies that CleanupPartialExtractionAsync handles an empty directory without throwing.
     /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncEmptyDirectoryDoesNotThrow()
@@ -114,7 +112,7 @@ public class CleanTempFolderExtendedTests
     }
 
     /// <summary>
-    /// Verifies that CleanupTempDirectoryAsync deletes hidden files.
+    ///     Verifies that CleanupTempDirectoryAsync deletes hidden files.
     /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncWithHiddenFiles()
@@ -132,7 +130,7 @@ public class CleanTempFolderExtendedTests
     }
 
     /// <summary>
-    /// Verifies that CleanupTempDirectoryAsync deletes files with the System attribute.
+    ///     Verifies that CleanupTempDirectoryAsync deletes files with the System attribute.
     /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncWithSystemFiles()
@@ -150,17 +148,14 @@ public class CleanTempFolderExtendedTests
     }
 
     /// <summary>
-    /// Verifies that CleanupPartialExtractionAsync handles a deeply nested directory structure.
+    ///     Verifies that CleanupPartialExtractionAsync handles a deeply nested directory structure.
     /// </summary>
     [Fact]
     public async Task CleanupPartialExtractionAsyncWithDeeplyNestedStructure()
     {
         var tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         var current = tempDir;
-        for (var i = 0; i < 10; i++)
-        {
-            current = Path.Combine(current, $"level{i}");
-        }
+        for (var i = 0; i < 10; i++) current = Path.Combine(current, $"level{i}");
 
         Directory.CreateDirectory(current);
 
@@ -173,7 +168,7 @@ public class CleanTempFolderExtendedTests
     }
 
     /// <summary>
-    /// Verifies that calling CleanupTempDirectoryAsync twice on the same directory does not throw.
+    ///     Verifies that calling CleanupTempDirectoryAsync twice on the same directory does not throw.
     /// </summary>
     [Fact]
     public async Task CleanupTempDirectoryAsyncTwiceDoesNotThrow()

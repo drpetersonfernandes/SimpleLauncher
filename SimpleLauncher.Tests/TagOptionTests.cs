@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="TagOption"/> record covering equality, initialization, and display properties.
+///     Tests for <see cref="TagOption" /> record covering equality, initialization, and display properties.
 /// </summary>
 public class TagOptionTests
 {
     /// <summary>
-    /// Verifies that a TagOption can be created with Tag and Display properties.
+    ///     Verifies that a TagOption can be created with Tag and Display properties.
     /// </summary>
     [Fact]
     public void TagOptionCanBeCreatedWithProperties()
@@ -21,7 +21,7 @@ public class TagOptionTests
     }
 
     /// <summary>
-    /// Verifies that two TagOption records with the same values are equal.
+    ///     Verifies that two TagOption records with the same values are equal.
     /// </summary>
     [Fact]
     public void TagOptionRecordEquality()
@@ -33,7 +33,7 @@ public class TagOptionTests
     }
 
     /// <summary>
-    /// Verifies that two TagOption records with different Tag values are not equal.
+    ///     Verifies that two TagOption records with different Tag values are not equal.
     /// </summary>
     [Fact]
     public void TagOptionRecordInequalityDifferentTag()
@@ -45,7 +45,7 @@ public class TagOptionTests
     }
 
     /// <summary>
-    /// Verifies that two TagOption records with different Display values are not equal.
+    ///     Verifies that two TagOption records with different Display values are not equal.
     /// </summary>
     [Fact]
     public void TagOptionRecordInequalityDifferentDisplay()
@@ -57,7 +57,7 @@ public class TagOptionTests
     }
 
     /// <summary>
-    /// Verifies that TagOption supports empty string values.
+    ///     Verifies that TagOption supports empty string values.
     /// </summary>
     [Fact]
     public void TagOptionSupportsEmptyStrings()
@@ -69,7 +69,7 @@ public class TagOptionTests
     }
 
     /// <summary>
-    /// Verifies that TagOption supports Unicode characters in both Tag and Display.
+    ///     Verifies that TagOption supports Unicode characters in both Tag and Display.
     /// </summary>
     [Fact]
     public void TagOptionSupportsUnicode()
@@ -81,7 +81,7 @@ public class TagOptionTests
     }
 
     /// <summary>
-    /// Verifies that TagOption supports special characters in Tag and Display.
+    ///     Verifies that TagOption supports special characters in Tag and Display.
     /// </summary>
     [Fact]
     public void TagOptionSupportsSpecialCharacters()
@@ -93,7 +93,7 @@ public class TagOptionTests
     }
 
     /// <summary>
-    /// Verifies that two TagOption records with the same values produce the same hash code.
+    ///     Verifies that two TagOption records with the same values produce the same hash code.
     /// </summary>
     [Fact]
     public void TagOptionWithMatchingValuesHaveSameHashCode()
@@ -105,7 +105,7 @@ public class TagOptionTests
     }
 
     /// <summary>
-    /// Verifies that TagOption instances can be stored in a list and queried.
+    ///     Verifies that TagOption instances can be stored in a list and queried.
     /// </summary>
     [Fact]
     public void TagOptionCanBeUsedInList()
@@ -124,7 +124,7 @@ public class TagOptionTests
     }
 
     /// <summary>
-    /// Verifies that TagOption can be used as a dictionary key.
+    ///     Verifies that TagOption can be used as a dictionary key.
     /// </summary>
     [Fact]
     public void TagOptionCanBeUsedAsDictionaryKey()
@@ -140,7 +140,7 @@ public class TagOptionTests
     }
 
     /// <summary>
-    /// Verifies that TagOption supports deconstruction into its Tag and Display components.
+    ///     Verifies that TagOption supports deconstruction into its Tag and Display components.
     /// </summary>
     [Fact]
     public void TagOptionCanBeDeconstructed()

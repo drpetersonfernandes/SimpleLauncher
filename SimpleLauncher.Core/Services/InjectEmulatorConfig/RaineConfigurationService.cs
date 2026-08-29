@@ -1,27 +1,33 @@
 using System.Globalization;
 using System.Text;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Provides functionality to inject Simple Launcher settings into the Raine emulator configuration file (raine32_sdl.cfg).
+///     Provides functionality to inject Simple Launcher settings into the Raine emulator configuration file
+///     (raine32_sdl.cfg).
 /// </summary>
 public static class RaineConfigurationService
 {
     /// <summary>
-    /// Injects Simple Launcher configuration settings into the Raine emulator's raine32_sdl.cfg file.
-    /// Creates the config from a sample if it does not exist, then updates display, sound, general, and directory settings.
-    /// Also handles Neo Geo CD specific settings when a disc image is detected.
+    ///     Injects Simple Launcher configuration settings into the Raine emulator's raine32_sdl.cfg file.
+    ///     Creates the config from a sample if it does not exist, then updates display, sound, general, and directory
+    ///     settings.
+    ///     Also handles Neo Geo CD specific settings when a disc image is detected.
     /// </summary>
     /// <param name="emulatorPath">The full path to the Raine emulator executable.</param>
     /// <param name="settings">The settings manager containing Raine configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    /// <param name="gameFilePath">The optional path to the game file being launched, used to detect Neo Geo CD mode and determine the ROM directory.</param>
+    /// <param name="gameFilePath">
+    ///     The optional path to the game file being launched, used to detect Neo Geo CD mode and
+    ///     determine the ROM directory.
+    /// </param>
     /// <param name="systemRomPath">The optional system-level ROM directory path as a fallback for the ROM directory setting.</param>
     /// <param name="raineCustomRomDirectory">The optional custom ROM directory configured specifically for Raine.</param>
     public static void InjectSettings(
         string emulatorPath,
-        SettingsManager.SettingsManagerService settings,
+        SettingsManagerService settings,
         ILogger logger,
         string? gameFilePath = null,
         string? systemRomPath = null,
@@ -32,17 +38,13 @@ public static class RaineConfigurationService
 
         var configPath = Path.Combine(emuDir, "config", "raine32_sdl.cfg");
         var configDir = Path.GetDirectoryName(configPath);
-        if (!string.IsNullOrEmpty(configDir) && !Directory.Exists(configDir))
-        {
-            Directory.CreateDirectory(configDir);
-        }
+        if (!string.IsNullOrEmpty(configDir) && !Directory.Exists(configDir)) Directory.CreateDirectory(configDir);
 
         // If config is missing, copy from sample
         if (!File.Exists(configPath))
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Raine", "raine32_sdl.cfg");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -53,7 +55,6 @@ public static class RaineConfigurationService
                     logger.Error(ex, "Failed to create Raine config from sample.");
                     throw;
                 }
-            }
             else
                 throw new FileNotFoundException("Raine configuration file not found and sample is missing.",
                     samplePath);
@@ -92,34 +93,23 @@ public static class RaineConfigurationService
         // Priority: 1. Custom RaineRomDirectory from settings, 2. Game directory (if arcade), 3. System PrimarySystemFolder
         string? effectiveRomDir = null;
         if (!string.IsNullOrEmpty(raineCustomRomDirectory) && Directory.Exists(raineCustomRomDirectory))
-        {
             effectiveRomDir = raineCustomRomDirectory;
-        }
         else if (!isNeoGeoCd && !string.IsNullOrEmpty(gameDir))
-        {
             effectiveRomDir = gameDir;
-        }
-        else if (!string.IsNullOrEmpty(systemRomPath))
-        {
-            effectiveRomDir = systemRomPath;
-        }
+        else if (!string.IsNullOrEmpty(systemRomPath)) effectiveRomDir = systemRomPath;
 
         if (!string.IsNullOrEmpty(effectiveRomDir))
-        {
             updates["Directories"]["rom_dir_0"] = effectiveRomDir.EndsWith(Path.DirectorySeparatorChar)
                 ? effectiveRomDir
                 : effectiveRomDir + Path.DirectorySeparatorChar;
-        }
 
         // Inject NeoGeo CD specific settings
         if (isNeoGeoCd)
         {
             if (!string.IsNullOrEmpty(gameDir))
-            {
                 updates["neocd"]["neocd_dir"] = gameDir.EndsWith(Path.DirectorySeparatorChar)
                     ? gameDir
                     : gameDir + Path.DirectorySeparatorChar;
-            }
 
             updates["neocd"]["neocd_bios"] = settings.Raine.NeoCdBios;
             updates["neocd"]["music_volume"] = settings.Raine.MusicVolume.ToString(CultureInfo.InvariantCulture);
@@ -186,7 +176,6 @@ public static class RaineConfigurationService
 
         // Add missing keys/sections
         foreach (var section in updates)
-        {
             if (section.Value.Count > 0)
             {
                 modified = true;
@@ -200,15 +189,10 @@ public static class RaineConfigurationService
                     sectionIndex = lines.Count - 1;
                 }
 
-                foreach (var kvp in section.Value)
-                {
-                    lines.Insert(sectionIndex + 1, $"{kvp.Key} = {kvp.Value}");
-                }
+                foreach (var kvp in section.Value) lines.Insert(sectionIndex + 1, $"{kvp.Key} = {kvp.Value}");
             }
-        }
 
         if (modified)
-        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -219,6 +203,5 @@ public static class RaineConfigurationService
                 logger.Error(ex, "Failed to inject Raine configuration.");
                 throw;
             }
-        }
     }
 }

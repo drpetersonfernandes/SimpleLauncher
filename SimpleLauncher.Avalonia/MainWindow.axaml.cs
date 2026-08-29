@@ -1,14 +1,14 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text.Json;
-using SimpleLauncher.Avalonia.Services.Theme;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Layout;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -18,15 +18,20 @@ using SimpleLauncher.Avalonia.Converters;
 using SimpleLauncher.Avalonia.InjectConfigWindows;
 using SimpleLauncher.Avalonia.Models;
 using SimpleLauncher.Avalonia.Services;
-using SimpleLauncher.Avalonia.Services.GameScan;
-using SimpleLauncher.Avalonia.Services.SystemSelectionOrchestrator;
-using SimpleLauncher.Avalonia.Services.UIReset;
 using SimpleLauncher.Avalonia.Services.ContextMenus;
+using SimpleLauncher.Avalonia.Services.Favorites;
+using SimpleLauncher.Avalonia.Services.GameScan;
 using SimpleLauncher.Avalonia.Services.LoadingOverlay;
 using SimpleLauncher.Avalonia.Services.QuitOrReinstall;
+using SimpleLauncher.Avalonia.Services.SystemManager;
+using SimpleLauncher.Avalonia.Services.SystemSelectionOrchestrator;
+using SimpleLauncher.Avalonia.Services.Theme;
+using SimpleLauncher.Avalonia.Services.UIReset;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services;
+using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.ExternalToolLauncher;
 using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.PlaySound;
@@ -35,52 +40,43 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Main application window — OpenEmu-inspired shell with sidebar, toolbar, and game content area.
-/// Avalonia port of the WPF-UI MainWindow.
+///     Main application window — OpenEmu-inspired shell with sidebar, toolbar, and game content area.
+///     Avalonia port of the WPF-UI MainWindow.
 /// </summary>
 public partial class MainWindow : Window, IPaginationHost
 {
-    private readonly MainViewModel _viewModel;
-    private readonly Services.SystemManager.SystemManagerService _systemManagerService;
-    private readonly SettingsManagerService _settings;
-    private readonly LocalizationService _localization;
-    private readonly ExternalToolLauncherService _externalToolLauncher;
-    private readonly PlaySoundEffects _playSound;
-    private readonly GameScannerService _gameScannerService;
-    private readonly IPaginationService _pagination;
-    private readonly AvaloniaGameFileWatcherService _fileWatcher;
-    private readonly AvaloniaLanguageMenuService _languageMenu;
-    private readonly AvaloniaMenuCheckMarkService _menuCheckMarks;
-    private readonly GamePadController _gamePadController;
-    private readonly UiResetService _uiResetService;
-    private readonly AvaloniaSystemSelectionOrchestratorService _systemSelectionOrchestrator;
-    private readonly AvaloniaContextMenuService _contextMenuService;
-    private readonly AvaloniaLoadingOverlayService _loadingOverlay;
-    private readonly AvaloniaQuitSimpleLauncher _quitSimpleLauncher;
-
-    /// <summary>Favorites page section ViewModel (WPF FavoritesPage equivalent).</summary>
-    public FavoritesSectionViewModel FavoritesSection { get; }
-
-    /// <summary>Play history page section ViewModel (WPF PlayHistoryPage equivalent).</summary>
-    public PlayHistorySectionViewModel PlayHistorySection { get; }
-
-    /// <summary>Global search page section ViewModel (WPF GlobalSearchPage equivalent).</summary>
-    public GlobalSearchSectionViewModel GlobalSearchSection { get; }
-
     // Bounds persistence (separate file from the WPF app)
     private static readonly string BoundsFilePath = Path.Combine(
-        Core.Services.AppDataPaths.SimpleLauncherDataFolder, "window_bounds_avalonia.json");
+        AppDataPaths.SimpleLauncherDataFolder, "window_bounds_avalonia.json");
+
+    private readonly AvaloniaContextMenuService _contextMenuService;
+    private readonly ExternalToolLauncherService _externalToolLauncher;
+    private readonly AvaloniaGameFileWatcherService _fileWatcher;
+    private readonly EventHandler<EventArgs<string>> _gameFilesChangedHandler;
+    private readonly GamePadController _gamePadController;
+    private readonly GameScannerService _gameScannerService;
+    private readonly AvaloniaLanguageMenuService _languageMenu;
+    private readonly AvaloniaLoadingOverlayService _loadingOverlay;
+    private readonly LocalizationService _localization;
+    private readonly AvaloniaMenuCheckMarkService _menuCheckMarks;
+    private readonly IPaginationService _pagination;
+    private readonly PlaySoundEffects _playSound;
+    private readonly EventHandler<PointerWheelEventArgs> _pointerWheelChangedHandler;
+    private readonly AvaloniaQuitSimpleLauncher _quitSimpleLauncher;
+    private readonly SettingsManagerService _settings;
+    private readonly SystemManagerService _systemManagerService;
+    private readonly AvaloniaSystemSelectionOrchestratorService _systemSelectionOrchestrator;
 
     // Event handler references for cleanup
     private readonly Action<string, string> _toastRequestedHandler;
-    private readonly EventHandler<EventArgs<string>> _gameFilesChangedHandler;
-    private readonly EventHandler<PointerWheelEventArgs> _pointerWheelChangedHandler;
+    private readonly UiResetService _uiResetService;
+    private readonly MainViewModel _viewModel;
     private bool _wasControllerRunningBeforeDeactivation;
 
     public MainWindow(
         MainViewModel viewModel,
         SystemArtRatioService ratioService,
-        Services.SystemManager.SystemManagerService systemManagerService,
+        SystemManagerService systemManagerService,
         SettingsManagerService settings,
         LocalizationService localization,
         ExternalToolLauncherService externalToolLauncher,
@@ -209,17 +205,12 @@ public partial class MainWindow : Window, IPaginationHost
                 _fileWatcher.GameFilesChanged -= _gameFilesChangedHandler;
                 RemoveHandler(PointerWheelChangedEvent, _pointerWheelChangedHandler);
 
-                if (_gamePadController.IsRunning)
-                {
-                    _ = _gamePadController.StopAsync();
-                }
+                if (_gamePadController.IsRunning) _ = _gamePadController.StopAsync();
 
                 _fileWatcher.StopWatching();
 
                 if (App.ServiceProvider?.GetService<IMountChdFiles>() is { } mountChdFiles)
-                {
                     mountChdFiles.KillAllChdMounterProcesses(Log.Logger);
-                }
             }
             catch (Exception ex)
             {
@@ -276,7 +267,8 @@ public partial class MainWindow : Window, IPaginationHost
         GameDataGrid.AddHandler(PointerReleasedEvent, GameDataGrid_RightClick, handledEventsToo: true);
         FavoritesDataGrid.AddHandler(PointerReleasedEvent, FavoritesDataGrid_RightClick, handledEventsToo: true);
         PlayHistoryDataGrid.AddHandler(PointerReleasedEvent, PlayHistoryDataGrid_RightClick, handledEventsToo: true);
-        GlobalSearchResultsDataGrid.AddHandler(PointerReleasedEvent, GlobalSearchResults_RightClick, handledEventsToo: true);
+        GlobalSearchResultsDataGrid.AddHandler(PointerReleasedEvent, GlobalSearchResults_RightClick,
+            handledEventsToo: true);
 
         // Live library refresh: when a watched ROM folder changes on disk, reload the
         // current view on the UI thread (same debounced behavior as the WPF app).
@@ -291,10 +283,8 @@ public partial class MainWindow : Window, IPaginationHost
                     var selectedSystem = _viewModel.SelectedSystem;
                     if (!string.IsNullOrEmpty(selectedSystem)
                         && !string.Equals(selectedSystem, e.Value, StringComparison.OrdinalIgnoreCase))
-                    {
                         // File change is for a different system — ignore it.
                         return;
-                    }
 
                     // The affected system's cached file list is stale — drop it so the
                     // refresh below re-scans that system's folders from disk.
@@ -313,88 +303,18 @@ public partial class MainWindow : Window, IPaginationHost
         _fileWatcher.GameFilesChanged += _gameFilesChangedHandler;
     }
 
-    #region IPaginationHost
+    /// <summary>Favorites page section ViewModel (WPF FavoritesPage equivalent).</summary>
+    public FavoritesSectionViewModel FavoritesSection { get; }
 
-    /// <inheritdoc />
-    public void SetPrevPageButtonEnabled(bool enabled)
-    {
-        PrevPageButton.IsEnabled = enabled;
-    }
+    /// <summary>Play history page section ViewModel (WPF PlayHistoryPage equivalent).</summary>
+    public PlayHistorySectionViewModel PlayHistorySection { get; }
 
-    /// <inheritdoc />
-    public void SetNextPageButtonEnabled(bool enabled)
-    {
-        NextPageButton.IsEnabled = enabled;
-    }
-
-    /// <inheritdoc />
-    public void ScrollToTop()
-    {
-        if (GameGridView.Items.Count > 0)
-        {
-            GameGridView.ScrollIntoView(GameGridView.Items[0]!);
-        }
-
-        if (_viewModel.Games.Count > 0)
-        {
-            GameDataGrid.ScrollIntoView(_viewModel.Games[0], null);
-        }
-    }
-
-    /// <inheritdoc />
-    public void UpdateTotalFilesLabel(string? text)
-    {
-        PaginationPanel.IsVisible = !string.IsNullOrEmpty(text);
-        PaginationLabel.Text = text;
-    }
-
-    /// <inheritdoc />
-    public void AddNoFilesMessage()
-    {
-        PaginationLabel.Text = "";
-        StatusRight.Text = _localization.GetString("Empty.Title", "No Games Found");
-    }
+    /// <summary>Global search page section ViewModel (WPF GlobalSearchPage equivalent).</summary>
+    public GlobalSearchSectionViewModel GlobalSearchSection { get; }
 
     /// <summary>
-    /// Clears the status text (wired to the status-bar timeout timer of the startup
-    /// initialization service).
-    /// </summary>
-    public void ResetStatusText()
-    {
-        StatusRight.Text = "";
-    }
-
-    private void PrevPage_Click(object? sender, RoutedEventArgs e)
-    {
-        try
-        {
-            _viewModel.GoToPreviousPage();
-            _playSound.PlayNotificationSound();
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, "Error navigating to the previous page");
-        }
-    }
-
-    private void NextPage_Click(object? sender, RoutedEventArgs e)
-    {
-        try
-        {
-            _viewModel.GoToNextPage();
-            _playSound.PlayNotificationSound();
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, "Error navigating to the next page");
-        }
-    }
-
-    #endregion
-
-    /// <summary>
-    /// Loads the game library after the window is shown so the UI thread is not
-    /// blocked during window construction. Refreshes sidebar count badges when done.
+    ///     Loads the game library after the window is shown so the UI thread is not
+    ///     blocked during window construction. Refreshes sidebar count badges when done.
     /// </summary>
     private async void Window_Opened(object? sender, EventArgs e)
     {
@@ -413,10 +333,7 @@ public partial class MainWindow : Window, IPaginationHost
             // First-run experience (parity with WPF MainWindow.HandleLoadedAsync):
             // if no systems are configured yet, try to auto-discover Windows Store
             // games and, failing that, offer Easy Mode to bootstrap configuration.
-            if (systems.Count == 0)
-            {
-                await RunFirstRunExperienceAsync();
-            }
+            if (systems.Count == 0) await RunFirstRunExperienceAsync();
 
             // WPF parity: show system selection screen at startup instead of
             // the All Games browser. User picks a system from the grid to begin.
@@ -429,8 +346,8 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Mirrors WPF MainWindow.HandleLoadedAsync first-run flow: scans for Windows
-    /// Store games when no systems exist, then offers Easy Mode if still empty.
+    ///     Mirrors WPF MainWindow.HandleLoadedAsync first-run flow: scans for Windows
+    ///     Store games when no systems exist, then offers Easy Mode if still empty.
     /// </summary>
     private async Task RunFirstRunExperienceAsync()
     {
@@ -478,8 +395,8 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Builds the Theme menu: populates the accent-color submenu and applies the
-    /// saved check marks. Parity with WPF ThemeMenuService.
+    ///     Builds the Theme menu: populates the accent-color submenu and applies the
+    ///     saved check marks. Parity with WPF ThemeMenuService.
     /// </summary>
     private void InitializeThemeMenu()
     {
@@ -503,9 +420,7 @@ public partial class MainWindow : Window, IPaginationHost
 
         var currentBase = _settings.BaseTheme;
         foreach (var item in BaseThemeMenu.Items.OfType<MenuItem>())
-        {
             item.IsChecked = string.Equals(item.Tag?.ToString(), currentBase, StringComparison.OrdinalIgnoreCase);
-        }
     }
 
     private void ChangeBaseTheme_Click(object? sender, RoutedEventArgs e)
@@ -518,10 +433,7 @@ public partial class MainWindow : Window, IPaginationHost
         _ = _settings.SaveAsync();
         AvaloniaThemeService.ApplyTheme(_settings.BaseTheme, _settings.AccentColor);
 
-        foreach (var child in BaseThemeMenu.Items.OfType<MenuItem>())
-        {
-            child.IsChecked = child == item;
-        }
+        foreach (var child in BaseThemeMenu.Items.OfType<MenuItem>()) child.IsChecked = child == item;
     }
 
     private void ChangeAccentColor_Click(object? sender, RoutedEventArgs e)
@@ -534,15 +446,12 @@ public partial class MainWindow : Window, IPaginationHost
         _ = _settings.SaveAsync();
         AvaloniaThemeService.ApplyTheme(_settings.BaseTheme, _settings.AccentColor);
 
-        foreach (var child in AccentColorMenu.Items.OfType<MenuItem>())
-        {
-            child.IsChecked = child == item;
-        }
+        foreach (var child in AccentColorMenu.Items.OfType<MenuItem>()) child.IsChecked = child == item;
     }
 
     /// <summary>
-    /// Populates the sidebar system groups (manufacturer mapping, icons, counts)
-    /// from system.xml — logic lives in SidebarViewModel.
+    ///     Populates the sidebar system groups (manufacturer mapping, icons, counts)
+    ///     from system.xml — logic lives in SidebarViewModel.
     /// </summary>
     private void PopulateSidebarFromSystemXml()
     {
@@ -560,12 +469,186 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Refreshes count badges on sidebar system entries after scanning.
+    ///     Refreshes count badges on sidebar system entries after scanning.
     /// </summary>
     public void RefreshSidebarCounts()
     {
         _viewModel.Sidebar.RefreshCounts(_viewModel.SystemGameCounts);
     }
+
+    #region Keyboard Shortcuts
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
+
+        switch (e.Key)
+        {
+            case Key.Escape:
+                SearchBox.Text = "";
+                _viewModel.SearchText = "";
+                _ = _uiResetService.ResetUiAsync();
+                e.Handled = true;
+                break;
+            case Key.F when e.KeyModifiers.HasFlag(KeyModifiers.Control):
+                SearchBox.Focus();
+                SearchBox.SelectAll();
+                e.Handled = true;
+                break;
+            case Key.Enter:
+                switch (_viewModel.IsGridView)
+                {
+                    case true when GameGridView.SelectedItem is GameCardViewModel gridGame:
+                        _viewModel.PlayGameCommand.Execute(gridGame);
+                        break;
+                    case false when GameDataGrid.SelectedItem is GameCardViewModel listGame:
+                        _viewModel.PlayGameCommand.Execute(listGame);
+                        break;
+                }
+
+                e.Handled = true;
+                break;
+            case Key.F5:
+                _viewModel.NavigateToAllGamesCommand.Execute(null);
+                RefreshSidebarCounts();
+                ShowToast("Refreshed", "Game list reloaded.");
+                e.Handled = true;
+                break;
+        }
+    }
+
+    #endregion
+
+    #region Emergency Return Button
+
+    private void EmergencyReturnButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _loadingOverlay.EmergencyRelease();
+            ShowToast("Emergency Reset", _localization.GetString("Toast.EmergencyReset"));
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in EmergencyReturnButton_Click");
+        }
+    }
+
+    #endregion
+
+    #region EasyMode
+
+    private async void AddSystem_Click()
+    {
+        try
+        {
+            var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();
+            // Avalonia ShowDialog returns immediately without a nested pump — must await it
+            // before reading the result (otherwise the SystemAdded refresh below never runs).
+            await easyModeWindow.ShowDialog(this);
+
+            // If a system was added, refresh the UI
+            if (easyModeWindow.DataContext is EasyModeViewModel { SystemAdded: true })
+            {
+                _viewModel.InvalidateAllGameFileCaches();
+                _viewModel.NavigateToAllGamesCommand.Execute(null);
+
+                // Rebuild the sidebar so the new system (e.g. Atari 2600) appears in the
+                // left menu immediately and can be clicked to filter its games.
+                await _systemSelectionOrchestrator.ReloadAfterConfigurationChangeAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error in method AddSystem_Click");
+        }
+    }
+
+    #endregion
+
+    #region Emulator Settings (config injection)
+
+    private void OpenInjectWindow<T>(Action<T> initialize) where T : Window
+    {
+        var win = App.ServiceProvider.GetRequiredService<T>();
+        initialize(win);
+        win.ShowDialog(this);
+    }
+
+    #endregion
+
+    #region IPaginationHost
+
+    /// <inheritdoc />
+    public void SetPrevPageButtonEnabled(bool enabled)
+    {
+        PrevPageButton.IsEnabled = enabled;
+    }
+
+    /// <inheritdoc />
+    public void SetNextPageButtonEnabled(bool enabled)
+    {
+        NextPageButton.IsEnabled = enabled;
+    }
+
+    /// <inheritdoc />
+    public void ScrollToTop()
+    {
+        if (GameGridView.Items.Count > 0) GameGridView.ScrollIntoView(GameGridView.Items[0]!);
+
+        if (_viewModel.Games.Count > 0) GameDataGrid.ScrollIntoView(_viewModel.Games[0], null);
+    }
+
+    /// <inheritdoc />
+    public void UpdateTotalFilesLabel(string? text)
+    {
+        PaginationPanel.IsVisible = !string.IsNullOrEmpty(text);
+        PaginationLabel.Text = text;
+    }
+
+    /// <inheritdoc />
+    public void AddNoFilesMessage()
+    {
+        PaginationLabel.Text = "";
+        StatusRight.Text = _localization.GetString("Empty.Title", "No Games Found");
+    }
+
+    /// <summary>
+    ///     Clears the status text (wired to the status-bar timeout timer of the startup
+    ///     initialization service).
+    /// </summary>
+    public void ResetStatusText()
+    {
+        StatusRight.Text = "";
+    }
+
+    private void PrevPage_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _viewModel.GoToPreviousPage();
+            _playSound.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error navigating to the previous page");
+        }
+    }
+
+    private void NextPage_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            _viewModel.GoToNextPage();
+            _playSound.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error navigating to the next page");
+        }
+    }
+
+    #endregion
 
     #region Window Bounds Persistence
 
@@ -648,10 +731,7 @@ public partial class MainWindow : Window, IPaginationHost
                 }
             }
 
-            if (data.State is not null && Enum.TryParse<WindowState>(data.State, out var state))
-            {
-                WindowState = state;
-            }
+            if (data.State is not null && Enum.TryParse<WindowState>(data.State, out var state)) WindowState = state;
         }
         catch (Exception ex)
         {
@@ -682,10 +762,8 @@ public partial class MainWindow : Window, IPaginationHost
         var column = e.Column;
         var sortMember = column.SortMemberPath;
         if (string.IsNullOrEmpty(sortMember))
-        {
             // Map header translate fallback
             sortMember = column.Header?.ToString() ?? "";
-        }
 
         // Map WPF header keys to sort fields
         var columnName = sortMember switch
@@ -728,8 +806,12 @@ public partial class MainWindow : Window, IPaginationHost
                 ? collection.OrderBy(g => g.FileName, StringComparer.OrdinalIgnoreCase)
                 : collection.OrderByDescending(g => g.FileName, StringComparer.OrdinalIgnoreCase),
             "MachineDescription" => _sortAscending
-                ? collection.OrderBy(g => string.IsNullOrEmpty(g.MachineDescription) ? g.FileName : g.MachineDescription, StringComparer.OrdinalIgnoreCase)
-                : collection.OrderByDescending(g => string.IsNullOrEmpty(g.MachineDescription) ? g.FileName : g.MachineDescription, StringComparer.OrdinalIgnoreCase),
+                ? collection.OrderBy(
+                    g => string.IsNullOrEmpty(g.MachineDescription) ? g.FileName : g.MachineDescription,
+                    StringComparer.OrdinalIgnoreCase)
+                : collection.OrderByDescending(
+                    g => string.IsNullOrEmpty(g.MachineDescription) ? g.FileName : g.MachineDescription,
+                    StringComparer.OrdinalIgnoreCase),
             "FolderPath" => _sortAscending
                 ? collection.OrderBy(g => g.FolderPath, StringComparer.OrdinalIgnoreCase)
                 : collection.OrderByDescending(g => g.FolderPath, StringComparer.OrdinalIgnoreCase),
@@ -767,7 +849,8 @@ public partial class MainWindow : Window, IPaginationHost
             if (GameDataGrid.SelectedItem is GameCardViewModel game && !string.IsNullOrEmpty(game.CoverPath))
             {
                 var converter = new PathToImageConverter();
-                var bmp = converter.Convert(game.CoverPath, typeof(Bitmap), null, System.Globalization.CultureInfo.InvariantCulture) as Bitmap;
+                var bmp =
+                    converter.Convert(game.CoverPath, typeof(Bitmap), null, CultureInfo.InvariantCulture) as Bitmap;
                 ListViewPreviewImage.Source = bmp;
             }
             else
@@ -811,66 +894,6 @@ public partial class MainWindow : Window, IPaginationHost
         GameGridView.SelectedItem = game;
         ShowGameContextMenu(game, GameGridView);
         e.Handled = true;
-    }
-
-    #endregion
-
-    #region Keyboard Shortcuts
-
-    protected override void OnKeyDown(KeyEventArgs e)
-    {
-        base.OnKeyDown(e);
-
-        switch (e.Key)
-        {
-            case Key.Escape:
-                SearchBox.Text = "";
-                _viewModel.SearchText = "";
-                _ = _uiResetService.ResetUiAsync();
-                e.Handled = true;
-                break;
-            case Key.F when e.KeyModifiers.HasFlag(KeyModifiers.Control):
-                SearchBox.Focus();
-                SearchBox.SelectAll();
-                e.Handled = true;
-                break;
-            case Key.Enter:
-                switch (_viewModel.IsGridView)
-                {
-                    case true when GameGridView.SelectedItem is GameCardViewModel gridGame:
-                        _viewModel.PlayGameCommand.Execute(gridGame);
-                        break;
-                    case false when GameDataGrid.SelectedItem is GameCardViewModel listGame:
-                        _viewModel.PlayGameCommand.Execute(listGame);
-                        break;
-                }
-
-                e.Handled = true;
-                break;
-            case Key.F5:
-                _viewModel.NavigateToAllGamesCommand.Execute(null);
-                RefreshSidebarCounts();
-                ShowToast("Refreshed", "Game list reloaded.");
-                e.Handled = true;
-                break;
-        }
-    }
-
-    #endregion
-
-    #region Emergency Return Button
-
-    private void EmergencyReturnButton_Click(object? sender, RoutedEventArgs e)
-    {
-        try
-        {
-            _loadingOverlay.EmergencyRelease();
-            ShowToast("Emergency Reset", _localization.GetString("Toast.EmergencyReset"));
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, "Error in EmergencyReturnButton_Click");
-        }
     }
 
     #endregion
@@ -995,9 +1018,7 @@ public partial class MainWindow : Window, IPaginationHost
             AddLetterButton("All", "");
             AddLetterButton("#", "#");
             foreach (var c in Enumerable.Range('A', 26).Select(static x => (char)x))
-            {
                 AddLetterButton(c.ToString(), c.ToString());
-            }
         }
         catch (Exception ex)
         {
@@ -1039,7 +1060,7 @@ public partial class MainWindow : Window, IPaginationHost
         {
             if (child is not Button button) continue;
 
-            var isActive = string.Equals((button.Tag as string) ?? "", letter, StringComparison.Ordinal);
+            var isActive = string.Equals(button.Tag as string ?? "", letter, StringComparison.Ordinal);
             button.Classes.Set("active", isActive);
         }
     }
@@ -1047,7 +1068,6 @@ public partial class MainWindow : Window, IPaginationHost
     private void OnPointerWheelChangedForZoom(object? sender, PointerWheelEventArgs e)
     {
         if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
-        {
             switch (e.Delta.Y)
             {
                 case > 0:
@@ -1059,7 +1079,6 @@ public partial class MainWindow : Window, IPaginationHost
                     e.Handled = true;
                     break;
             }
-        }
     }
 
     #endregion
@@ -1067,8 +1086,8 @@ public partial class MainWindow : Window, IPaginationHost
     #region Category Tabs
 
     /// <summary>
-    /// The page sections embedded in the content area (WPF FavoritesPage /
-    /// PlayHistoryPage / GlobalSearchPage equivalents).
+    ///     The page sections embedded in the content area (WPF FavoritesPage /
+    ///     PlayHistoryPage / GlobalSearchPage equivalents).
     /// </summary>
     private enum MainSection
     {
@@ -1079,8 +1098,8 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Shows the requested section and hides the others (including the game browser).
-    /// Favorites and Play History reload their data every time they are opened.
+    ///     Shows the requested section and hides the others (including the game browser).
+    ///     Favorites and Play History reload their data every time they are opened.
     /// </summary>
     private async Task ShowSectionAsync(MainSection section)
     {
@@ -1128,8 +1147,8 @@ public partial class MainWindow : Window, IPaginationHost
     #region System & Emulator Selection (Top Bar)
 
     /// <summary>
-    /// Top System ComboBox: delegates to the system selection orchestrator
-    /// which navigates to the selected system and refreshes the Emulator ComboBox.
+    ///     Top System ComboBox: delegates to the system selection orchestrator
+    ///     which navigates to the selected system and refreshes the Emulator ComboBox.
     /// </summary>
     private void SystemComboBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
@@ -1137,8 +1156,8 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Top Emulator ComboBox: stores the chosen emulator so launches use it instead
-    /// of the system's first emulator.
+    ///     Top Emulator ComboBox: stores the chosen emulator so launches use it instead
+    ///     of the system's first emulator.
     /// </summary>
     private void EmulatorComboBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
@@ -1222,10 +1241,7 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             // WPF parity: ignore the toggle while a game-library load is in progress.
-            if (_viewModel.IsLoading)
-            {
-                return;
-            }
+            if (_viewModel.IsLoading) return;
 
             var aspectRatios = new List<string>
                 { "Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2" };
@@ -1271,10 +1287,7 @@ public partial class MainWindow : Window, IPaginationHost
         if (sender is Control { DataContext: GameCardViewModel game } card)
         {
             var listBoxItem = FindParent<ListBoxItem>(card);
-            if (listBoxItem is not null)
-            {
-                listBoxItem.IsSelected = true;
-            }
+            if (listBoxItem is not null) listBoxItem.IsSelected = true;
 
             _viewModel.PlayGameCommand.Execute(game);
         }
@@ -1311,17 +1324,17 @@ public partial class MainWindow : Window, IPaginationHost
         var safeFilePath = filePath ?? "";
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(safeFilePath);
         return new AvaloniaRightClickContext(
-            filePath: safeFilePath,
-            fileNameWithExtension: fileNameWithExtension,
-            fileNameWithoutExtension: fileNameWithoutExtension,
-            selectedSystemName: systemName,
-            selectedSystemManager: _systemManagerService,
-            settings: sp.GetRequiredService<SettingsManagerService>(),
-            favoritesManager: sp.GetRequiredService<Services.Favorites.FavoritesManager>(),
-            ownerWindow: this,
-            mainViewModel: _viewModel,
-            sourceCard: card,
-            onFavoriteRemoved: onFavoriteRemoved);
+            safeFilePath,
+            fileNameWithExtension,
+            fileNameWithoutExtension,
+            systemName,
+            _systemManagerService,
+            sp.GetRequiredService<SettingsManagerService>(),
+            sp.GetRequiredService<FavoritesManager>(),
+            this,
+            _viewModel,
+            card,
+            onFavoriteRemoved);
     }
 
     /// <summary>Avalonia-only extras appended to the WPF-parity context menu.</summary>
@@ -1347,8 +1360,8 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Reveals the game's containing folder in the OS file manager.
-    /// Windows uses explorer's /select to highlight the file; other platforms open the folder.
+    ///     Reveals the game's containing folder in the OS file manager.
+    ///     Windows uses explorer's /select to highlight the file; other platforms open the folder.
     /// </summary>
     private async Task ShowGameInFolderAsync(GameCardViewModel game)
     {
@@ -1362,18 +1375,14 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             if (OperatingSystem.IsWindows())
-            {
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = "explorer.exe",
                     Arguments = $"/select,\"{game.FilePath}\"",
                     UseShellExecute = true
                 });
-            }
             else if (GetTopLevel(this)?.Launcher is { } launcher)
-            {
                 await launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(directory));
-            }
         }
         catch (Exception ex)
         {
@@ -1383,7 +1392,7 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Opens the Edit System window (Expert Mode) pre-selected to the game's system.
+    ///     Opens the Edit System window (Expert Mode) pre-selected to the game's system.
     /// </summary>
     private void OpenEditSystemForGame(GameCardViewModel game)
     {
@@ -1418,7 +1427,7 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Opens the GameDetailWindow for the given game.
+    ///     Opens the GameDetailWindow for the given game.
     /// </summary>
     private void OpenGameDetail(GameCardViewModel game)
     {
@@ -1472,9 +1481,7 @@ public partial class MainWindow : Window, IPaginationHost
 
             if (e.Source is not Visual favoritesVisual
                 || FindParent<DataGridRow>(favoritesVisual) is not { DataContext: FavoriteRowViewModel favorite })
-            {
                 return;
-            }
 
             // WPF stores favorites as a file NAME resolved against the system folders;
             // resolve it for launch/media actions while keeping the stored name for
@@ -1503,9 +1510,7 @@ public partial class MainWindow : Window, IPaginationHost
 
             if (e.Source is not Visual historyVisual
                 || FindParent<DataGridRow>(historyVisual) is not { DataContext: PlayHistoryItem item })
-            {
                 return;
-            }
 
             var context = BuildRightClickContext(item.FileName, item.SystemName);
             _contextMenuService.ShowContextMenu(context, PlayHistoryDataGrid);
@@ -1526,9 +1531,7 @@ public partial class MainWindow : Window, IPaginationHost
 
             if (e.Source is not Visual searchVisual
                 || FindParent<DataGridRow>(searchVisual) is not { DataContext: SearchResult result })
-            {
                 return;
-            }
 
             var context = BuildRightClickContext(result.FilePath, result.SystemName);
             _contextMenuService.ShowContextMenu(context, GlobalSearchResultsDataGrid);
@@ -1626,51 +1629,10 @@ public partial class MainWindow : Window, IPaginationHost
 
     #endregion
 
-    #region EasyMode
-
-    private async void AddSystem_Click()
-    {
-        try
-        {
-            var easyModeWindow = App.ServiceProvider.GetRequiredService<EasyModeWindow>();
-            // Avalonia ShowDialog returns immediately without a nested pump — must await it
-            // before reading the result (otherwise the SystemAdded refresh below never runs).
-            await easyModeWindow.ShowDialog(this);
-
-            // If a system was added, refresh the UI
-            if (easyModeWindow.DataContext is EasyModeViewModel { SystemAdded: true })
-            {
-                _viewModel.InvalidateAllGameFileCaches();
-                _viewModel.NavigateToAllGamesCommand.Execute(null);
-
-                // Rebuild the sidebar so the new system (e.g. Atari 2600) appears in the
-                // left menu immediately and can be clicked to filter its games.
-                await _systemSelectionOrchestrator.ReloadAfterConfigurationChangeAsync();
-            }
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, "Error in method AddSystem_Click");
-        }
-    }
-
-    #endregion
-
-    #region Emulator Settings (config injection)
-
-    private void OpenInjectWindow<T>(Action<T> initialize) where T : Window
-    {
-        var win = App.ServiceProvider.GetRequiredService<T>();
-        initialize(win);
-        win.ShowDialog(this);
-    }
-
-    #endregion
-
     #region RetroAchievements
 
     /// <summary>
-    /// Opens the RetroAchievements profile window.
+    ///     Opens the RetroAchievements profile window.
     /// </summary>
     private void RetroAchievements_Click(object? sender, RoutedEventArgs e)
     {
@@ -1685,7 +1647,7 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// ILoadingState adapter that surfaces loading messages as toasts.
+    ///     ILoadingState adapter that surfaces loading messages as toasts.
     /// </summary>
     private sealed class ToastLoadingState(Action<string, string> showToast) : ILoadingState
     {
@@ -1693,10 +1655,7 @@ public partial class MainWindow : Window, IPaginationHost
 
         public void SetLoadingState(bool isLoading, string? message = null)
         {
-            if (isLoading && !string.IsNullOrEmpty(message))
-            {
-                _showToast("RetroAchievements", message);
-            }
+            if (isLoading && !string.IsNullOrEmpty(message)) _showToast("RetroAchievements", message);
         }
     }
 
@@ -1705,8 +1664,8 @@ public partial class MainWindow : Window, IPaginationHost
     #region Menu Bar
 
     /// <summary>
-    /// Initializes check marks on all menu items from the saved settings (settings.xml).
-    /// Called once after the window is constructed.
+    ///     Initializes check marks on all menu items from the saved settings (settings.xml).
+    ///     Called once after the window is constructed.
     /// </summary>
     private void UpdateMenuCheckMarks()
     {
@@ -1747,10 +1706,8 @@ public partial class MainWindow : Window, IPaginationHost
         // Check exactly the language menu item whose code matches the active language
         var checkedName = _languageMenu.GetMenuItemNameForLanguageCode(lang);
         foreach (var item in LanguageMenu.Items.OfType<MenuItem>())
-        {
             item.IsChecked = _languageMenu.IsLanguageMenuItem(item.Name) &&
                              string.Equals(item.Name, checkedName, StringComparison.Ordinal);
-        }
     }
 
     private void UpdateThumbnailSizeCheckMarks(int size)
@@ -2217,17 +2174,11 @@ public partial class MainWindow : Window, IPaginationHost
 
             var isChecked = item.IsChecked;
             if (ReferenceEquals(item, RetroAchievementButton))
-            {
                 _settings.OverlayRetroAchievementButton = isChecked;
-            }
             else if (ReferenceEquals(item, VideoLinkButton))
-            {
                 _settings.OverlayOpenVideoButton = isChecked;
-            }
             else
-            {
                 _settings.OverlayOpenInfoButton = isChecked;
-            }
 
             await _settings.SaveAsync();
             _playSound.PlayNotificationSound();
@@ -2332,10 +2283,10 @@ public partial class MainWindow : Window, IPaginationHost
                 var detail = _localization.GetString("FoundPcGamesDetail",
                     $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).");
                 // Fallback when translation still contains placeholder English
-                if (detail.Contains("{0}") || detail == $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).")
-                {
-                    detail = $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).";
-                }
+                if (detail.Contains("{0}") || detail ==
+                    $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).")
+                    detail =
+                        $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).";
                 _viewModel.StatusText = detail;
                 ShowToast(scanCompleteTitle, detail);
             }
@@ -2343,7 +2294,8 @@ public partial class MainWindow : Window, IPaginationHost
         catch (Exception ex)
         {
             Log.Error(ex, "Error in the method ScanForMicrosoftWindowsGames_ClickAsync");
-            _viewModel.StatusText = _localization.GetString("ErrorScanningForWindowsGames", "Error scanning for Windows games");
+            _viewModel.StatusText =
+                _localization.GetString("ErrorScanningForWindowsGames", "Error scanning for Windows games");
         }
         finally
         {
@@ -2355,9 +2307,9 @@ public partial class MainWindow : Window, IPaginationHost
     // ── System Selection Screen (WPF DisplaySystemSelectionScreenAsync parity) ──
 
     /// <summary>
-    /// Shows the system selection grid and hides all other content panels.
-    /// Mirrors WPF's DisplaySystemSelectionScreenAsync which populates the
-    /// GameFileGrid with clickable system icon buttons.
+    ///     Shows the system selection grid and hides all other content panels.
+    ///     Mirrors WPF's DisplaySystemSelectionScreenAsync which populates the
+    ///     GameFileGrid with clickable system icon buttons.
     /// </summary>
     private async Task ShowSystemSelectionScreenAsync()
     {
@@ -2374,8 +2326,8 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Populates the system selection grid with clickable system cards
-    /// (icon + name), mirroring WPF PopulateSystemSelectionGridAsync.
+    ///     Populates the system selection grid with clickable system cards
+    ///     (icon + name), mirroring WPF PopulateSystemSelectionGridAsync.
     /// </summary>
     private async Task PopulateSystemSelectionGridAsync()
     {
@@ -2411,7 +2363,6 @@ public partial class MainWindow : Window, IPaginationHost
 
             // System icon image — or fallback glyph if no icon resolved
             if (!string.IsNullOrEmpty(iconPath) && File.Exists(iconPath))
-            {
                 try
                 {
                     await using var stream = File.OpenRead(iconPath);
@@ -2436,9 +2387,7 @@ public partial class MainWindow : Window, IPaginationHost
                         Margin = new Thickness(0, 10, 0, 0)
                     });
                 }
-            }
             else
-            {
                 buttonContentPanel.Children.Add(new TextBlock
                 {
                     Text = "🎮",
@@ -2446,7 +2395,6 @@ public partial class MainWindow : Window, IPaginationHost
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Margin = new Thickness(0, 10, 0, 0)
                 });
-            }
 
             buttonContentPanel.Children.Add(new TextBlock
             {
@@ -2505,9 +2453,9 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// System card click — sets the System ComboBox to the clicked system,
-    /// which fires the orchestrator pipeline that loads games and returns
-    /// to the game browser.
+    ///     System card click — sets the System ComboBox to the clicked system,
+    ///     which fires the orchestrator pipeline that loads games and returns
+    ///     to the game browser.
     /// </summary>
     private void SystemCard_Click(object? sender, RoutedEventArgs e)
     {
@@ -2521,7 +2469,7 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Opens Edit System for the specified system, then refreshes the grid.
+    ///     Opens Edit System for the specified system, then refreshes the grid.
     /// </summary>
     private async void EditSystemFromGrid(string systemName)
     {
@@ -2542,7 +2490,7 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Deletes a system after confirmation, then refreshes the grid.
+    ///     Deletes a system after confirmation, then refreshes the grid.
     /// </summary>
     private async Task DeleteSystemFromGrid(string systemName)
     {
@@ -2614,10 +2562,7 @@ public partial class MainWindow : Window, IPaginationHost
                     {
                         var result = await hasher.GetGameHashForRetroAchievementsAsync(
                             game.FilePath, game.SystemName, formats, loading, logger);
-                        if (!string.IsNullOrEmpty(result.Hash))
-                        {
-                            successCount++;
-                        }
+                        if (!string.IsNullOrEmpty(result.Hash)) successCount++;
                     }
                     catch (Exception ex)
                     {
@@ -2796,7 +2741,7 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Resolves the first ROM folder of the currently selected system (null when none).
+    ///     Resolves the first ROM folder of the currently selected system (null when none).
     /// </summary>
     private string? GetSelectedRomFolder()
     {
@@ -2804,7 +2749,7 @@ public partial class MainWindow : Window, IPaginationHost
         {
             var system = _systemManagerService.GetSystem(_viewModel.SelectedSystem);
             var folder = system?.SystemFolders.FirstOrDefault();
-            return folder is null ? null : Core.Services.CheckPaths.PathHelper.ResolveRelativeToAppDirectory(folder);
+            return folder is null ? null : PathHelper.ResolveRelativeToAppDirectory(folder);
         }
         catch (Exception ex)
         {
@@ -2814,7 +2759,7 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     /// <summary>
-    /// Resolves the image folder of the currently selected system (null when none).
+    ///     Resolves the image folder of the currently selected system (null when none).
     /// </summary>
     private string? GetSelectedImageFolder()
     {
@@ -2824,7 +2769,7 @@ public partial class MainWindow : Window, IPaginationHost
             var folder = system?.SystemImageFolder;
             return string.IsNullOrEmpty(folder)
                 ? null
-                : Core.Services.CheckPaths.PathHelper.ResolveRelativeToAppDirectory(folder);
+                : PathHelper.ResolveRelativeToAppDirectory(folder);
         }
         catch (Exception ex)
         {
@@ -2853,7 +2798,7 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
-            var appDataPath = Core.Services.AppDataPaths.SimpleLauncherDataFolder;
+            var appDataPath = AppDataPaths.SimpleLauncherDataFolder;
             if (string.IsNullOrEmpty(appDataPath) || !Directory.Exists(appDataPath))
             {
                 Log.Debug("AppData path does not exist: {Path}", appDataPath);
@@ -2930,7 +2875,7 @@ public partial class MainWindow : Window, IPaginationHost
 
     private IBrush? GetBrush(string key)
     {
-        return ResourceNodeExtensions.TryFindResource(this, key, out var resource) ? resource as IBrush : null;
+        return this.TryFindResource(key, out var resource) ? resource as IBrush : null;
     }
 
     private async Task DismissToastAsync(Border toast)
@@ -2939,10 +2884,7 @@ public partial class MainWindow : Window, IPaginationHost
         await Dispatcher.UIThread.InvokeAsync(() =>
         {
             ToastStack.Children.Remove(toast);
-            if (ToastStack.Children.Count == 0)
-            {
-                ToastStack.IsVisible = false;
-            }
+            if (ToastStack.Children.Count == 0) ToastStack.IsVisible = false;
         });
     }
 

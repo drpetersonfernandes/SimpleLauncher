@@ -5,7 +5,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="GameCacheService"/> class.
+///     Tests for the <see cref="GameCacheService" /> class.
 /// </summary>
 public class GameCacheServiceTests : IDisposable
 {
@@ -14,7 +14,7 @@ public class GameCacheServiceTests : IDisposable
 
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GameCacheServiceTests"/> class, setting up the cache service.
+    ///     Initializes a new instance of the <see cref="GameCacheServiceTests" /> class, setting up the cache service.
     /// </summary>
     public GameCacheServiceTests()
     {
@@ -23,7 +23,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Disposes the cache service and restores the original service provider.
+    ///     Disposes the cache service and restores the original service provider.
     /// </summary>
     public void Dispose()
     {
@@ -33,7 +33,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that GetAllGamesAsync returns an empty list when no games are cached.
+    ///     Verifies that GetAllGamesAsync returns an empty list when no games are cached.
     /// </summary>
     [Fact]
     public async Task GetAllGamesAsyncReturnsEmptyListInitially()
@@ -43,7 +43,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that GetSearchResultsAsync returns an empty list when no results are cached.
+    ///     Verifies that GetSearchResultsAsync returns an empty list when no results are cached.
     /// </summary>
     [Fact]
     public async Task GetSearchResultsAsyncReturnsEmptyListInitially()
@@ -53,7 +53,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SetAllGamesAsync stores and retrieves games correctly.
+    ///     Verifies that SetAllGamesAsync stores and retrieves games correctly.
     /// </summary>
     [Fact]
     public async Task SetAllGamesAsyncStoresGames()
@@ -68,7 +68,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SetSearchResultsAsync stores and retrieves search results.
+    ///     Verifies that SetSearchResultsAsync stores and retrieves search results.
     /// </summary>
     [Fact]
     public async Task SetSearchResultsAsyncStoresResults()
@@ -81,7 +81,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IsCachePopulatedForSystemAsync returns false when cache is empty.
+    ///     Verifies that IsCachePopulatedForSystemAsync returns false when cache is empty.
     /// </summary>
     [Fact]
     public async Task IsCachePopulatedForSystemAsyncReturnsFalseWhenEmpty()
@@ -91,7 +91,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IsCachePopulatedForSystemAsync returns true for the matching system.
+    ///     Verifies that IsCachePopulatedForSystemAsync returns true for the matching system.
     /// </summary>
     [Fact]
     public async Task IsCachePopulatedForSystemAsyncReturnsTrueForMatchingSystem()
@@ -102,7 +102,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IsCachePopulatedForSystemAsync returns false for a different system.
+    ///     Verifies that IsCachePopulatedForSystemAsync returns false for a different system.
     /// </summary>
     [Fact]
     public async Task IsCachePopulatedForSystemAsyncReturnsFalseForDifferentSystem()
@@ -113,7 +113,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IsCachePopulatedForSystemAsync performs case-insensitive system name comparison.
+    ///     Verifies that IsCachePopulatedForSystemAsync performs case-insensitive system name comparison.
     /// </summary>
     [Fact]
     public async Task IsCachePopulatedForSystemAsyncCaseInsensitive()
@@ -124,7 +124,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that InvalidateAsync clears the cached games.
+    ///     Verifies that InvalidateAsync clears the cached games.
     /// </summary>
     [Fact]
     public async Task InvalidateAsyncClearsCache()
@@ -137,7 +137,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that InvalidateAsync clears the cached search results.
+    ///     Verifies that InvalidateAsync clears the cached search results.
     /// </summary>
     [Fact]
     public async Task InvalidateAsyncClearsSearchResults()
@@ -150,7 +150,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that ClearSync does not throw when called.
+    ///     Verifies that ClearSync does not throw when called.
     /// </summary>
     [Fact]
     public void ClearSyncDoesNotThrow()
@@ -160,7 +160,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that ClearSync clears all cached data.
+    ///     Verifies that ClearSync clears all cached data.
     /// </summary>
     [Fact]
     public async Task ClearSyncClearsData()
@@ -173,7 +173,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that GetAllGamesAsync returns a defensive copy of the cached games.
+    ///     Verifies that GetAllGamesAsync returns a defensive copy of the cached games.
     /// </summary>
     [Fact]
     public async Task GetAllGamesAsyncReturnsCopy()
@@ -189,7 +189,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that GetSearchResultsAsync returns a defensive copy of the cached results.
+    ///     Verifies that GetSearchResultsAsync returns a defensive copy of the cached results.
     /// </summary>
     [Fact]
     public async Task GetSearchResultsAsyncReturnsCopy()
@@ -205,7 +205,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that GetResortSourceAsync without filter returns all games.
+    ///     Verifies that GetResortSourceAsync without filter returns all games.
     /// </summary>
     [Fact]
     public async Task GetResortSourceAsyncWithoutFilterReturnsAllGames()
@@ -218,7 +218,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that GetResortSourceAsync with filter returns search results.
+    ///     Verifies that GetResortSourceAsync with filter returns search results.
     /// </summary>
     [Fact]
     public async Task GetResortSourceAsyncWithFilterReturnsSearchResults()
@@ -232,7 +232,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SelectedSystem defaults to an empty string.
+    ///     Verifies that SelectedSystem defaults to an empty string.
     /// </summary>
     [Fact]
     public void SelectedSystemDefaultsToEmpty()
@@ -241,7 +241,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SelectedSystem is updated when SetAllGamesAsync is called.
+    ///     Verifies that SelectedSystem is updated when SetAllGamesAsync is called.
     /// </summary>
     [Fact]
     public async Task SelectedSystemUpdatesOnSetAllGames()
@@ -251,7 +251,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Dispose does not throw.
+    ///     Verifies that Dispose does not throw.
     /// </summary>
     [Fact]
     public void DisposeDoesNotThrow()
@@ -262,7 +262,7 @@ public class GameCacheServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SetAllGamesAsync with an empty list results in empty cache.
+    ///     Verifies that SetAllGamesAsync with an empty list results in empty cache.
     /// </summary>
     [Fact]
     public async Task SetAllGamesWithEmptyList()

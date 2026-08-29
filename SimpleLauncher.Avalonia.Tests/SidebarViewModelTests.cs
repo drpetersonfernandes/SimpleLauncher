@@ -4,9 +4,9 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the headerless flat sidebar: the sidebar groups all systems in one
-/// flat list (no manufacturer headers), and running Populate again after a system
-/// is added via Easy/Expert Mode makes it appear immediately.
+///     Tests for the headerless flat sidebar: the sidebar groups all systems in one
+///     flat list (no manufacturer headers), and running Populate again after a system
+///     is added via Easy/Expert Mode makes it appear immediately.
 /// </summary>
 public class SidebarViewModelTests
 {

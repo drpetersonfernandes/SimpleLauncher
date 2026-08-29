@@ -7,14 +7,14 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="CreateDefaultSystemFoldersService"/> using real temp directories,
-/// a mocked <see cref="IMessageBoxLibraryService"/> and a mocked logger.
+///     Tests for <see cref="CreateDefaultSystemFoldersService" /> using real temp directories,
+///     a mocked <see cref="IMessageBoxLibraryService" /> and a mocked logger.
 /// </summary>
 public class CreateDefaultSystemFoldersServiceTests : IDisposable
 {
-    private readonly string _testRoot;
-    private readonly Mock<IMessageBoxLibraryService> _messageBoxMock = new();
     private readonly ILogger _logger = new NoOpLogger();
+    private readonly Mock<IMessageBoxLibraryService> _messageBoxMock = new();
+    private readonly string _testRoot;
 
     public CreateDefaultSystemFoldersServiceTests()
     {
@@ -26,10 +26,7 @@ public class CreateDefaultSystemFoldersServiceTests : IDisposable
     {
         try
         {
-            if (Directory.Exists(_testRoot))
-            {
-                Directory.Delete(_testRoot, true);
-            }
+            if (Directory.Exists(_testRoot)) Directory.Delete(_testRoot, true);
         }
         catch
         {
@@ -40,10 +37,7 @@ public class CreateDefaultSystemFoldersServiceTests : IDisposable
     private static IConfiguration ConfigWithAdditionalFolders(params string[] folders)
     {
         var dictionary = new Dictionary<string, string?>(StringComparer.Ordinal);
-        for (var i = 0; i < folders.Length; i++)
-        {
-            dictionary[$"AdditionalFolders:{i}"] = folders[i];
-        }
+        for (var i = 0; i < folders.Length; i++) dictionary[$"AdditionalFolders:{i}"] = folders[i];
 
         return new ConfigurationBuilder().AddInMemoryCollection(dictionary).Build();
     }
@@ -110,10 +104,7 @@ public class CreateDefaultSystemFoldersServiceTests : IDisposable
         finally
         {
             var romsRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", uniqueSystemName);
-            if (Directory.Exists(romsRoot))
-            {
-                Directory.Delete(romsRoot, true);
-            }
+            if (Directory.Exists(romsRoot)) Directory.Delete(romsRoot, true);
         }
     }
 

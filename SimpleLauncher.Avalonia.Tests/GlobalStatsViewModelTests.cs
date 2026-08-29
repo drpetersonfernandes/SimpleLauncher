@@ -7,8 +7,8 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the GlobalStatsWindow ViewModel (Phase 4.1 port). UI-thread work is
-/// pumped by the dedicated headless UI thread, and file listing is mocked.
+///     Tests for the GlobalStatsWindow ViewModel (Phase 4.1 port). UI-thread work is
+///     pumped by the dedicated headless UI thread, and file listing is mocked.
 /// </summary>
 public class GlobalStatsViewModelTests
 {
@@ -94,7 +94,7 @@ public class GlobalStatsViewModelTests
         }
         finally
         {
-            Directory.Delete(tempDir, recursive: true);
+            Directory.Delete(tempDir, true);
         }
     }
 
@@ -131,7 +131,7 @@ public class GlobalStatsViewModelTests
         }
         finally
         {
-            Directory.Delete(tempDir, recursive: true);
+            Directory.Delete(tempDir, true);
         }
     }
 
@@ -167,7 +167,7 @@ public class GlobalStatsViewModelTests
         var requestClose = await vm.RequestCloseAsync();
 
         Assert.False(requestClose); // window stays open, closes when processing ends
-        await HeadlessAvalonia.WaitUntilAsync(() => vm.IsCancelOverlayVisible == false);
+        await HeadlessAvalonia.WaitUntilAsync(() => !vm.IsCancelOverlayVisible);
 
         gate.SetResult(new List<string> { "a.nes" });
         await startTask;

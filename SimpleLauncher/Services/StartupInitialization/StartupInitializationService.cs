@@ -15,24 +15,25 @@ using TrayIconManager = SimpleLauncher.Services.TrayIcon.TrayIconManager;
 namespace SimpleLauncher.Services.StartupInitialization;
 
 /// <summary>
-/// Orchestrates application startup initialization, including theme, language, tray icon, gamepad, and required file checks.
+///     Orchestrates application startup initialization, including theme, language, tray icon, gamepad, and required file
+///     checks.
 /// </summary>
 public class StartupInitializationService
 {
-    private readonly IConfiguration _configuration;
-    private readonly Settings _settings;
-    private readonly GamePadController _gamePadController;
-    private readonly ThemeMenuService _themeMenuService;
-    private readonly LanguageMenuService _languageMenuService;
-    private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly IApplicationLifetime _applicationLifetime;
+    private readonly IConfiguration _configuration;
+    private readonly GamePadController _gamePadController;
+    private readonly LanguageMenuService _languageMenuService;
     private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly RequiredFiles _requiredFiles;
+    private readonly Settings _settings;
+    private readonly ThemeMenuService _themeMenuService;
     private readonly IToastNotificationService _toastNotificationService;
     private IStartupInitializationHost _host = null!;
 
     /// <summary>
-    /// Initializes a new instance of the StartupInitializationService with the specified dependencies.
+    ///     Initializes a new instance of the StartupInitializationService with the specified dependencies.
     /// </summary>
     public StartupInitializationService(
         IConfiguration configuration,
@@ -59,7 +60,7 @@ public class StartupInitializationService
     }
 
     /// <summary>
-    /// Performs all startup initialization steps using the provided host for UI interaction.
+    ///     Performs all startup initialization steps using the provided host for UI interaction.
     /// </summary>
     public async Task InitializeAsync(IStartupInitializationHost host)
     {
@@ -167,13 +168,9 @@ public class StartupInitializationService
     {
         _gamePadController.ErrorLogger = (ex, msg) => { _logger.Error(ex, msg); };
         if (_settings.EnableGamePadNavigation)
-        {
             _ = _gamePadController.StartAsync();
-        }
         else
-        {
             _ = _gamePadController.StopAsync();
-        }
 
         _gamePadController.DeadZoneX = _settings.DeadZoneX;
         _gamePadController.DeadZoneY = _settings.DeadZoneY;

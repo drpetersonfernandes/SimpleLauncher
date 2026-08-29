@@ -12,14 +12,15 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for <see cref="RetroAchievementsSettingsViewModel"/> (Avalonia) — save, validation,
-/// login/token flow, emulator configuration dispatch and error handling.
+///     Tests for <see cref="RetroAchievementsSettingsViewModel" /> (Avalonia) — save, validation,
+///     login/token flow, emulator configuration dispatch and error handling.
 /// </summary>
 public class RetroAchievementsSettingsViewModelTests
 {
     private static IConfiguration Config => new ConfigurationBuilder().Build();
 
-    private static (RetroAchievementsSettingsViewModel Vm, SettingsManagerService Settings, Mock<IMessageBoxLibraryService> MessageBox,
+    private static (RetroAchievementsSettingsViewModel Vm, SettingsManagerService Settings,
+        Mock<IMessageBoxLibraryService> MessageBox,
         Mock<IRetroAchievementsEmulatorConfiguratorService> Configurator, Mock<ILogger> Logger)
         CreateVm(
             Func<HttpRequestMessage, HttpResponseMessage> httpResponder,
@@ -46,7 +47,8 @@ public class RetroAchievementsSettingsViewModelTests
         var manager = new RetroAchievementsManager();
         var raService = new RetroAchievementsService(factory.Object, manager, Config, logger.Object);
         var configurator = new Mock<IRetroAchievementsEmulatorConfiguratorService>();
-        var vm = new RetroAchievementsSettingsViewModel(settings, logger.Object, messageBox.Object, raService, rp.Object, configurator.Object);
+        var vm = new RetroAchievementsSettingsViewModel(settings, logger.Object, messageBox.Object, raService,
+            rp.Object, configurator.Object);
         return (vm, settings, messageBox, configurator, logger);
     }
 
@@ -54,7 +56,8 @@ public class RetroAchievementsSettingsViewModelTests
     {
         return new HttpResponseMessage(HttpStatusCode.OK)
         {
-            Content = new StringContent(JsonSerializer.Serialize(new { Success = true, Token = token }), Encoding.UTF8, "application/json")
+            Content = new StringContent(JsonSerializer.Serialize(new { Success = true, Token = token }), Encoding.UTF8,
+                "application/json")
         };
     }
 
@@ -62,14 +65,15 @@ public class RetroAchievementsSettingsViewModelTests
     {
         return new HttpResponseMessage(HttpStatusCode.OK)
         {
-            Content = new StringContent(JsonSerializer.Serialize(new { Success = false }), Encoding.UTF8, "application/json")
+            Content = new StringContent(JsonSerializer.Serialize(new { Success = false }), Encoding.UTF8,
+                "application/json")
         };
     }
 
     [Fact]
     public void Ctor_InitializesFromSettings()
     {
-        var (vm, _, _, _, _) = CreateVm(_ => LoginSuccess(), initialUsername: "alice", initialApiKey: "k1", initialPassword: "p1");
+        var (vm, _, _, _, _) = CreateVm(_ => LoginSuccess(), "alice", "k1", "p1");
         Assert.Equal("alice", vm.Username);
         Assert.Equal("k1", vm.ApiKey);
         Assert.Equal("p1", vm.Password);
@@ -129,7 +133,8 @@ public class RetroAchievementsSettingsViewModelTests
         var (vm, _, messageBox, configurator, _) = CreateVm(_ => LoginFailure());
         vm.Username = "user";
         vm.Password = "pass";
-        configurator.Setup(c => c.ConfigureRetroArch(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+        configurator.Setup(c => c.ConfigureRetroArch(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
         vm.RequestExePath = () => Task.FromResult<string?>(@"C:\emu\retroarch.exe");
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("RetroArch");
@@ -151,7 +156,8 @@ public class RetroAchievementsSettingsViewModelTests
         }, initialToken: "", initialApiKey: "");
         vm.Username = "user";
         vm.Password = "pass";
-        configurator.Setup(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+        configurator.Setup(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
         vm.RequestExePath = () => Task.FromResult<string?>(@"C:\emu\pcsx2.exe");
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("PCSX2");
@@ -186,7 +192,8 @@ public class RetroAchievementsSettingsViewModelTests
         }, initialToken: "existingToken", initialApiKey: "key");
         vm.Username = "user";
         vm.Password = "pass";
-        configurator.Setup(c => c.ConfigureDuckStation(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+        configurator.Setup(c => c.ConfigureDuckStation(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
         vm.RequestExePath = () => Task.FromResult<string?>(@"C:\duck\exe");
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("DuckStation");
@@ -206,7 +213,8 @@ public class RetroAchievementsSettingsViewModelTests
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("PCSX2");
 
-        configurator.Verify(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+        configurator.Verify(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
+            Times.Never);
     }
 
     [Fact]
@@ -219,7 +227,8 @@ public class RetroAchievementsSettingsViewModelTests
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("Dolphin");
 
-        configurator.Verify(c => c.ConfigureDolphin(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+        configurator.Verify(c => c.ConfigureDolphin(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
+            Times.Never);
     }
 
     [Fact]
@@ -232,7 +241,8 @@ public class RetroAchievementsSettingsViewModelTests
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("PCSX2");
 
-        configurator.Verify(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+        configurator.Verify(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
+            Times.Never);
     }
 
     [Fact]
@@ -241,7 +251,8 @@ public class RetroAchievementsSettingsViewModelTests
         var (vm, _, messageBox, configurator, _) = CreateVm(_ => LoginSuccess(), initialToken: "tok");
         vm.Username = "user";
         vm.Password = "pass";
-        configurator.Setup(c => c.ConfigureFlycast(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(false);
+        configurator.Setup(c => c.ConfigureFlycast(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(false);
         vm.RequestExePath = () => Task.FromResult<string?>("C:\\flycast.exe");
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("Flycast");
@@ -277,13 +288,20 @@ public class RetroAchievementsSettingsViewModelTests
         var (vm, _, _, configurator, _) = CreateVm(_ => LoginSuccess(), initialToken: "tok");
         vm.Username = "user";
         vm.Password = "pass";
-        configurator.Setup(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
-        configurator.Setup(c => c.ConfigureDolphin(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
-        configurator.Setup(c => c.ConfigurePpspp(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
-        configurator.Setup(c => c.ConfigureFlycast(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
-        configurator.Setup(c => c.ConfigureBizHawk(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
-        configurator.Setup(c => c.ConfigureRetroArch(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
-        configurator.Setup(c => c.ConfigureDuckStation(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+        configurator.Setup(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+        configurator.Setup(c => c.ConfigureDolphin(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+        configurator.Setup(c => c.ConfigurePpspp(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+        configurator.Setup(c => c.ConfigureFlycast(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+        configurator.Setup(c => c.ConfigureBizHawk(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+        configurator.Setup(c => c.ConfigureRetroArch(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
+        configurator.Setup(c => c.ConfigureDuckStation(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
         vm.RequestExePath = () => Task.FromResult<string?>("C:\\emu.exe");
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync(emulator);

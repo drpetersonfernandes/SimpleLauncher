@@ -4,10 +4,10 @@ using SimpleLauncher.Avalonia.Services;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for <see cref="AvaloniaHelpUserService"/> (Phase 3). The alias-to-canonical
-/// mapping is tested via text equality: an alias must resolve to the same details
-/// text as its canonical system name, regardless of whether parameters.md is
-/// present in the test output (both fall back identically when the file is absent).
+///     Tests for <see cref="AvaloniaHelpUserService" /> (Phase 3). The alias-to-canonical
+///     mapping is tested via text equality: an alias must resolve to the same details
+///     text as its canonical system name, regardless of whether parameters.md is
+///     present in the test output (both fall back identically when the file is absent).
 /// </summary>
 public class AvaloniaHelpUserServiceTests
 {
@@ -100,10 +100,8 @@ public class AvaloniaHelpUserServiceTests
         {
             var json = File.ReadAllText(file);
             foreach (var key in keys)
-            {
                 Assert.True(json.Contains($"\"{key}\"", StringComparison.Ordinal),
                     $"{Path.GetFileName(file)} is missing key '{key}'");
-            }
         }
     }
 }

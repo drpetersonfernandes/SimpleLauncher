@@ -5,28 +5,23 @@ using System.Text.RegularExpressions;
 namespace SimpleLauncher.Avalonia.Updater.Services;
 
 /// <summary>
-/// Service for interacting with the GitHub API to fetch release information,
-/// with fallback to a secondary server.
+///     Service for interacting with the GitHub API to fetch release information,
+///     with fallback to a secondary server.
 /// </summary>
 internal partial class GitHubService
 {
     private const string RepoName = "SimpleLauncher";
-    private static readonly string[] RepoOwners = ["drpetersonfernandes", "purelogiccode"];
 
     private const string SecondaryServerBaseUrl =
         "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
 
     private const int GitHubTimeoutSeconds = 5;
+    private static readonly string[] RepoOwners = ["drpetersonfernandes", "purelogiccode"];
 
     private readonly HttpClient _httpClient;
 
     /// <summary>
-    /// Event raised when a log message needs to be displayed.
-    /// </summary>
-    public event EventHandler<EventArgs<string>>? LogMessage;
-
-    /// <summary>
-    /// Initializes a new instance of the GitHubService class.
+    ///     Initializes a new instance of the GitHubService class.
     /// </summary>
     /// <param name="httpClient">The HTTP client to use for API requests.</param>
     public GitHubService(HttpClient httpClient)
@@ -35,29 +30,33 @@ internal partial class GitHubService
     }
 
     /// <summary>
-    /// Gets the current runtime identifier based on the process architecture.
+    ///     Gets the current runtime identifier based on the process architecture.
     /// </summary>
     public static string CurrentRuntimeIdentifier
     {
         get
         {
             var arch = RuntimeInformation.ProcessArchitecture;
-            if (OperatingSystem.IsWindows())
-            {
-                return arch == Architecture.Arm64 ? "win-arm64" : "win-x64";
-            }
+            if (OperatingSystem.IsWindows()) return arch == Architecture.Arm64 ? "win-arm64" : "win-x64";
 
             return arch == Architecture.Arm64 ? "linux-arm64" : "linux-x64";
         }
     }
 
     /// <summary>
-    /// Fetches the latest release asset URL from GitHub with a timeout,
-    /// falling back to the secondary server if GitHub is not available.
+    ///     Event raised when a log message needs to be displayed.
+    /// </summary>
+    public event EventHandler<EventArgs<string>>? LogMessage;
+
+    /// <summary>
+    ///     Fetches the latest release asset URL from GitHub with a timeout,
+    ///     falling back to the secondary server if GitHub is not available.
     /// </summary>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
-    /// <returns>A tuple containing the normalized version string, the asset download URL, and the
-    /// secondary-server fallback URL for the same asset (null when the fallback was already used).</returns>
+    /// <returns>
+    ///     A tuple containing the normalized version string, the asset download URL, and the
+    ///     secondary-server fallback URL for the same asset (null when the fallback was already used).
+    /// </returns>
     /// <exception cref="HttpRequestException">Thrown when both GitHub and fallback requests fail.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the release data is invalid or the asset is not found.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
@@ -69,10 +68,7 @@ internal partial class GitHubService
         {
             var gitHubResult = await TryGetGitHubReleaseAsync(repoOwner, cancellationToken);
 
-            if (gitHubResult != null)
-            {
-                return gitHubResult.Value;
-            }
+            if (gitHubResult != null) return gitHubResult.Value;
 
             LogMessage?.Invoke(this,
                 new EventArgs<string>(
@@ -87,7 +83,7 @@ internal partial class GitHubService
     }
 
     /// <summary>
-    /// Attempts to get the release from a GitHub repository with a 5-second timeout.
+    ///     Attempts to get the release from a GitHub repository with a 5-second timeout.
     /// </summary>
     /// <param name="repoOwner">The GitHub repository owner (organization or user) to query.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
@@ -151,7 +147,6 @@ internal partial class GitHubService
             LogMessage?.Invoke(this, new EventArgs<string>($"Searching for asset: {expectedAssetName}"));
 
             if (root.TryGetProperty("assets", out var assetsElement))
-            {
                 foreach (var asset in assetsElement.EnumerateArray())
                 {
                     var assetName = asset.GetProperty("name").GetString();
@@ -169,7 +164,6 @@ internal partial class GitHubService
                         }
                     }
                 }
-            }
 
             LogMessage?.Invoke(this,
                 new EventArgs<string>(
@@ -194,7 +188,7 @@ internal partial class GitHubService
     }
 
     /// <summary>
-    /// Gets the release from the secondary server when GitHub is unavailable.
+    ///     Gets the release from the secondary server when GitHub is unavailable.
     /// </summary>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>A tuple containing the normalized version string and the asset download URL.</returns>
@@ -213,27 +207,21 @@ internal partial class GitHubService
 
             var versionResponse = await _httpClient.GetAsync(versionUrl, cancellationToken);
             if (!versionResponse.IsSuccessStatusCode)
-            {
                 throw new HttpRequestException(
                     $"Failed to fetch version from secondary server. Status Code: {versionResponse.StatusCode}");
-            }
 
             var versionText = (await versionResponse.Content.ReadAsStringAsync(cancellationToken)).Trim();
 
             // Remove "release" prefix if present
             var rawVersionString = ExtractVersionFromTag(versionText);
             if (string.IsNullOrEmpty(rawVersionString))
-            {
                 throw new InvalidOperationException($"Invalid version format in version.txt: '{versionText}'");
-            }
 
             // Validate that version has at least major.minor format
             var versionParts = rawVersionString.Split('.');
             if (versionParts.Length < 2)
-            {
                 throw new InvalidOperationException(
                     $"Invalid version format: '{rawVersionString}'. Version must have at least major.minor components.");
-            }
 
             var normalizedVersion = NormalizeVersion(rawVersionString);
             var expectedAssetName = $"release_{rawVersionString}_{CurrentRuntimeIdentifier}.zip";
@@ -254,8 +242,8 @@ internal partial class GitHubService
     }
 
     /// <summary>
-    /// Extracts the version number from a tag or version string.
-    /// Handles formats like "release5.3.1", "v5.3.1", or just "5.3.1".
+    ///     Extracts the version number from a tag or version string.
+    ///     Handles formats like "release5.3.1", "v5.3.1", or just "5.3.1".
     /// </summary>
     /// <param name="tag">The tag or version string.</param>
     /// <returns>The extracted version string, or null if extraction failed.</returns>
@@ -263,10 +251,7 @@ internal partial class GitHubService
     {
         // Try to match version pattern (digits separated by dots)
         var match = VersionRegex().Match(tag);
-        if (match.Success)
-        {
-            return match.Value;
-        }
+        if (match.Success) return match.Value;
 
         // Fallback: if tag starts with "release" or "v", try to extract after that
         var normalizedTag = tag.Trim().ToLowerInvariant();
@@ -274,26 +259,20 @@ internal partial class GitHubService
         {
             var versionPart = tag[7..]; // Remove "release" prefix
             match = VersionRegex().Match(versionPart);
-            if (match.Success)
-            {
-                return match.Value;
-            }
+            if (match.Success) return match.Value;
         }
         else if (normalizedTag.StartsWith('v'))
         {
             var versionPart = tag[1..]; // Remove "v" prefix
             match = VersionRegex().Match(versionPart);
-            if (match.Success)
-            {
-                return match.Value;
-            }
+            if (match.Success) return match.Value;
         }
 
         return null;
     }
 
     /// <summary>
-    /// Gets the GitHub releases page URL for manual downloads (uses the primary repository).
+    ///     Gets the GitHub releases page URL for manual downloads (uses the primary repository).
     /// </summary>
     public static string GetReleasesPageUrl()
     {
@@ -301,7 +280,7 @@ internal partial class GitHubService
     }
 
     /// <summary>
-    /// Normalizes a version string to ensure it has exactly 4 version components (major.minor.build.revision).
+    ///     Normalizes a version string to ensure it has exactly 4 version components (major.minor.build.revision).
     /// </summary>
     /// <param name="version">The version string to normalize.</param>
     /// <returns>A normalized version string with 4 components, or "0.0.0.0" if the input is null or empty.</returns>
@@ -310,10 +289,7 @@ internal partial class GitHubService
         if (string.IsNullOrEmpty(version)) return "0.0.0.0";
 
         var parts = new List<string>(version.Split('.'));
-        while (parts.Count < 4)
-        {
-            parts.Add("0");
-        }
+        while (parts.Count < 4) parts.Add("0");
 
         return string.Join(".", parts.Take(4));
     }

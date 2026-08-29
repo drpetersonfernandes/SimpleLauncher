@@ -1,25 +1,26 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.ViewModels;
 
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Window that downloads and installs image packs for game systems.
+///     Window that downloads and installs image packs for game systems.
 /// </summary>
 public partial class DownloadImagePackWindow : Window, IDisposable
 {
-    private readonly DownloadImagePackViewModel _viewModel;
     private readonly ILogger _logger;
+    private readonly DownloadImagePackViewModel _viewModel;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DownloadImagePackWindow"/> class.
+    ///     Initializes a new instance of the <see cref="DownloadImagePackWindow" /> class.
     /// </summary>
     /// <param name="logErrors">The logger instance for error logging.</param>
     /// <param name="viewModel">The view model providing download and extraction logic.</param>
     /// <param name="localization">The localization service used to set localized UI strings.</param>
     public DownloadImagePackWindow(ILogger logErrors, DownloadImagePackViewModel viewModel,
-        Services.LocalizationService localization)
+        LocalizationService localization)
     {
         InitializeComponent();
         _logger = logErrors;
@@ -34,6 +35,15 @@ public partial class DownloadImagePackWindow : Window, IDisposable
 
         Closing += CloseWindowRoutineAsync;
         Loaded += DownloadImagePackWindowLoadedAsync;
+    }
+
+    /// <summary>
+    ///     Disposes of resources used by the window.
+    /// </summary>
+    public void Dispose()
+    {
+        _viewModel.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private async void DownloadImagePackWindowLoadedAsync(object? sender, EventArgs e)
@@ -67,14 +77,5 @@ public partial class DownloadImagePackWindow : Window, IDisposable
     private void EmergencyOverlayRelease_Click(object? sender, RoutedEventArgs e)
     {
         _viewModel.EmergencyOverlayRelease();
-    }
-
-    /// <summary>
-    /// Disposes of resources used by the window.
-    /// </summary>
-    public void Dispose()
-    {
-        _viewModel.Dispose();
-        GC.SuppressFinalize(this);
     }
 }

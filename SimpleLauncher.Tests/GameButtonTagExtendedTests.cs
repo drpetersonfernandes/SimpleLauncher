@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Extended tests for the <see cref="GameButtonTag"/> model class covering additional edge cases.
+///     Extended tests for the <see cref="GameButtonTag" /> model class covering additional edge cases.
 /// </summary>
 public class GameButtonTagExtendedTests
 {
     /// <summary>
-    /// Verifies that the default value of IsDefaultImage is false.
+    ///     Verifies that the default value of IsDefaultImage is false.
     /// </summary>
     [Fact]
     public void GameButtonTagDefaultIsDefaultImageIsFalse()
@@ -19,7 +19,7 @@ public class GameButtonTagExtendedTests
     }
 
     /// <summary>
-    /// Verifies that the default value of Key is an empty string.
+    ///     Verifies that the default value of Key is an empty string.
     /// </summary>
     [Fact]
     public void GameButtonTagDefaultKeyIsEmpty()
@@ -29,7 +29,7 @@ public class GameButtonTagExtendedTests
     }
 
     /// <summary>
-    /// Verifies that GameButtonTag properties can be set.
+    ///     Verifies that GameButtonTag properties can be set.
     /// </summary>
     [Fact]
     public void GameButtonTagPropertiesCanBeSet()
@@ -45,7 +45,7 @@ public class GameButtonTagExtendedTests
     }
 
     /// <summary>
-    /// Verifies that the Key property supports special characters like parentheses and brackets.
+    ///     Verifies that the Key property supports special characters like parentheses and brackets.
     /// </summary>
     [Fact]
     public void GameButtonTagKeyWithSpecialCharacters()
@@ -60,7 +60,7 @@ public class GameButtonTagExtendedTests
     }
 
     /// <summary>
-    /// Verifies that the Key property supports the pipe separator character.
+    ///     Verifies that the Key property supports the pipe separator character.
     /// </summary>
     [Fact]
     public void GameButtonTagKeyWithPipe()
@@ -74,7 +74,7 @@ public class GameButtonTagExtendedTests
     }
 
     /// <summary>
-    /// Verifies that the Key property supports Unicode characters.
+    ///     Verifies that the Key property supports Unicode characters.
     /// </summary>
     [Fact]
     public void GameButtonTagKeyWithUnicode()
@@ -88,7 +88,7 @@ public class GameButtonTagExtendedTests
     }
 
     /// <summary>
-    /// Verifies that IsDefaultImage can be toggled between true and false.
+    ///     Verifies that IsDefaultImage can be toggled between true and false.
     /// </summary>
     [Fact]
     public void GameButtonTagIsDefaultImageCanBeToggled()
@@ -101,7 +101,7 @@ public class GameButtonTagExtendedTests
     }
 
     /// <summary>
-    /// Verifies that the Key property supports an empty system prefix.
+    ///     Verifies that the Key property supports an empty system prefix.
     /// </summary>
     [Fact]
     public void GameButtonTagKeyWithEmptySystem()
@@ -115,7 +115,7 @@ public class GameButtonTagExtendedTests
     }
 
     /// <summary>
-    /// Verifies that the Key property supports long file names.
+    ///     Verifies that the Key property supports long file names.
     /// </summary>
     [Fact]
     public void GameButtonTagKeyWithLongFileName()

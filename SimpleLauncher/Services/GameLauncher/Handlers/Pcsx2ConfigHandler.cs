@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the PCSX2 (PS2) emulator before launching a game.
+///     Handles configuration injection for the PCSX2 (PS2) emulator before launching a game.
 /// </summary>
 public class Pcsx2ConfigHandler : IEmulatorConfigHandler
 {
@@ -18,7 +18,7 @@ public class Pcsx2ConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Pcsx2ConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="Pcsx2ConfigHandler" /> class.
     /// </summary>
     public Pcsx2ConfigHandler(IMessageBoxLibraryService messageBox, ILogger logger, IServiceScopeFactory scopeFactory)
     {

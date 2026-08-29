@@ -3,32 +3,17 @@ using System.Diagnostics;
 namespace SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 
 /// <summary>
-/// Represents a temporarily mounted CHD drive.
-/// Disposing this object will unmount the drive by terminating the CHDMounter process.
+///     Represents a temporarily mounted CHD drive.
+///     Disposing this object will unmount the drive by terminating the CHDMounter process.
 /// </summary>
 public class MountChdDrive : IAsyncDisposable
 {
+    private readonly ILogger _logger;
     private readonly Process? _mountProcess;
     private readonly int _mountProcessId;
-    private readonly ILogger _logger;
 
     /// <summary>
-    /// Gets the path where the CHD was mounted.
-    /// </summary>
-    public string MountedPath { get; } = "";
-
-    /// <summary>
-    /// Gets the drive letter assigned to the mounted CHD.
-    /// </summary>
-    public string MountedDriveLetter { get; } = "";
-
-    /// <summary>
-    /// Gets a value indicating whether the CHD was successfully mounted.
-    /// </summary>
-    public bool IsMounted { get; }
-
-    /// <summary>
-    /// Constructor for a successful mount.
+    ///     Constructor for a successful mount.
     /// </summary>
     public MountChdDrive(Process mountProcess, string mountedPath, string mountedDriveLetter, ILogger logErrors,
         ILogger logger)
@@ -43,7 +28,7 @@ public class MountChdDrive : IAsyncDisposable
     }
 
     /// <summary>
-    /// Constructor for a failed mount.
+    ///     Constructor for a failed mount.
     /// </summary>
     public MountChdDrive(ILogger logErrors, ILogger logger)
     {
@@ -53,14 +38,26 @@ public class MountChdDrive : IAsyncDisposable
     }
 
     /// <summary>
-    /// Unmounts the CHD drive by terminating the CHDMounter process and waiting for it to exit.
+    ///     Gets the path where the CHD was mounted.
+    /// </summary>
+    public string MountedPath { get; } = "";
+
+    /// <summary>
+    ///     Gets the drive letter assigned to the mounted CHD.
+    /// </summary>
+    public string MountedDriveLetter { get; } = "";
+
+    /// <summary>
+    ///     Gets a value indicating whether the CHD was successfully mounted.
+    /// </summary>
+    public bool IsMounted { get; }
+
+    /// <summary>
+    ///     Unmounts the CHD drive by terminating the CHDMounter process and waiting for it to exit.
     /// </summary>
     public async ValueTask DisposeAsync()
     {
-        if (!IsMounted || _mountProcess == null)
-        {
-            return;
-        }
+        if (!IsMounted || _mountProcess == null) return;
 
         var processExitedBeforeKill = false;
         try
@@ -100,15 +97,11 @@ public class MountChdDrive : IAsyncDisposable
                 }
 
                 if (_mountProcess.HasExited)
-                {
                     _logger.Debug(
                         $"[MountChdDrive.DisposeAsync] CHDMounter (ID: {_mountProcessId}) terminated. Exit code: {_mountProcess.ExitCode}.");
-                }
                 else
-                {
                     _logger.Debug(
                         $"[MountChdDrive.DisposeAsync] CHDMounter (ID: {_mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
-                }
             }
         }
         catch (Exception termEx)
@@ -127,14 +120,10 @@ public class MountChdDrive : IAsyncDisposable
             var driveRoot = $"{MountedDriveLetter}:\\";
             await Task.Delay(1000);
             if (Directory.Exists(driveRoot))
-            {
                 _logger.Debug(
                     $"[MountChdDrive.DisposeAsync] WARNING: Drive {driveRoot} still exists after attempting to unmount.");
-            }
             else
-            {
                 _logger.Debug($"[MountChdDrive.DisposeAsync] Drive {driveRoot} successfully unmounted.");
-            }
         }
 
         GC.SuppressFinalize(this);

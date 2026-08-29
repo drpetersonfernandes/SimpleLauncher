@@ -3,20 +3,20 @@ using System.Runtime.Serialization;
 namespace SimpleLauncher.Core.Models;
 
 /// <summary>
-/// Exception thrown when the RetroAchievements API returns an Unauthorized (401) response.
+///     Exception thrown when the RetroAchievements API returns an Unauthorized (401) response.
 /// </summary>
 [Serializable]
 public class RaUnauthorizedException : Exception
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="RaUnauthorizedException"/> class.
+    ///     Initializes a new instance of the <see cref="RaUnauthorizedException" /> class.
     /// </summary>
     public RaUnauthorizedException()
     {
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RaUnauthorizedException"/> class with a specified error message.
+    ///     Initializes a new instance of the <see cref="RaUnauthorizedException" /> class with a specified error message.
     /// </summary>
     /// <param name="message">The message that describes the error.</param>
     public RaUnauthorizedException(string message) : base(message)
@@ -24,7 +24,8 @@ public class RaUnauthorizedException : Exception
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RaUnauthorizedException"/> class with a specified error message and inner exception.
+    ///     Initializes a new instance of the <see cref="RaUnauthorizedException" /> class with a specified error message and
+    ///     inner exception.
     /// </summary>
     /// <param name="message">The message that describes the error.</param>
     /// <param name="innerException">The exception that caused this exception.</param>

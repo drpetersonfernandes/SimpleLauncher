@@ -4,28 +4,32 @@ using System.Windows;
 using MessagePack;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services;
+using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.PlayHistory;
 
 /// <summary>
-/// Manages play history tracking, persistence, and date format migration using MessagePack serialization.
+///     Manages play history tracking, persistence, and date format migration using MessagePack serialization.
 /// </summary>
 [MessagePackObject(AllowPrivate = true)]
 public class PlayHistoryManager
 {
+    // Constants for date and time formats
+    private const string IsoDateFormat = "yyyy-MM-dd";
+    private const string IsoTimeFormat = "HH:mm:ss";
+    [IgnoreMember] private static readonly DataFileLocation FileLocation = new("playhistory.dat");
     [IgnoreMember] private readonly Lock _historyLock = new();
     [IgnoreMember] private ILogger _logger = null!;
-    [IgnoreMember] private static readonly DataFileLocation FileLocation = new("playhistory.dat");
 
     /// <summary>
-    /// Gets or sets the collection of play history entries.
+    ///     Gets or sets the collection of play history entries.
     /// </summary>
     [Key(0)]
     public ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
 
     /// <summary>
-    /// Gets or sets the data format version for migration purposes.
+    ///     Gets or sets the data format version for migration purposes.
     /// </summary>
     [Key(1)]
     public int Version { get; set; } = 1;
@@ -34,16 +38,12 @@ public class PlayHistoryManager
     private static string TempFilePath => FileLocation.TempFilePath;
 
     /// <summary>
-    /// Gets whether the application is running in portable mode.
+    ///     Gets whether the application is running in portable mode.
     /// </summary>
     public static bool IsPortableMode => FileLocation.IsPortableMode;
 
-    // Constants for date and time formats
-    private const string IsoDateFormat = "yyyy-MM-dd";
-    private const string IsoTimeFormat = "HH:mm:ss";
-
     /// <summary>
-    /// Loads play history from the MessagePack file. If the file doesn't exist, creates and saves a new instance.
+    ///     Loads play history from the MessagePack file. If the file doesn't exist, creates and saves a new instance.
     /// </summary>
     internal static PlayHistoryManager LoadPlayHistory(ILogger? logErrors = null)
     {
@@ -75,7 +75,7 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Migrates any records with old date formats to the new culture-invariant ISO format.
+    ///     Migrates any records with old date formats to the new culture-invariant ISO format.
     /// </summary>
     private void MigrateOldDateFormats()
     {
@@ -98,14 +98,11 @@ public class PlayHistoryManager
             needsSaving = true;
         }
 
-        if (needsSaving)
-        {
-            SavePlayHistoryAsync();
-        }
+        if (needsSaving) SavePlayHistoryAsync();
     }
 
     /// <summary>
-    /// Checks if a date string is in ISO format (yyyy-MM-dd).
+    ///     Checks if a date string is in ISO format (yyyy-MM-dd).
     /// </summary>
     private static bool IsIsoDateFormat(string dateStr)
     {
@@ -114,7 +111,7 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Checks if a time string is in ISO time format (HH:mm:ss).
+    ///     Checks if a time string is in ISO time format (HH:mm:ss).
     /// </summary>
     private static bool IsIsoTimeFormat(string timeStr)
     {
@@ -123,7 +120,7 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Attempts to parse a date/time from any format and convert to ISO format.
+    ///     Attempts to parse a date/time from any format and convert to ISO format.
     /// </summary>
     private bool TryParseAndConvertDate(string dateStr, string timeStr,
         out string newDateStr, out string newTimeStr)
@@ -153,7 +150,6 @@ public class PlayHistoryManager
                 "MM/dd/yyyy", "dd/MM/yyyy", "d", "D"
             ];
             foreach (var df in dateFormats)
-            {
                 if (DateTime.TryParseExact($"{dateStr} {timeStr}",
                         $"{df} {IsoTimeFormat}", CultureInfo.InvariantCulture,
                         DateTimeStyles.None, out dateTime))
@@ -162,7 +158,6 @@ public class PlayHistoryManager
                     newTimeStr = dateTime.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
                     return true;
                 }
-            }
 
             // Fallback: Try with InvariantCulture (assumes US format for ambiguous dates like 01/02/2024 -> Jan 2)
             if (DateTime.TryParse($"{dateStr} {timeStr}",
@@ -183,13 +178,9 @@ public class PlayHistoryManager
 
                 // Try to parse time part separately
                 if (TimeSpan.TryParse(timeStr, out var timeSpan))
-                {
                     newTimeStr = timeSpan.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
-                }
                 else
-                {
                     newTimeStr = "00:00:00"; // Default if time can't be parsed
-                }
 
                 return true;
             }
@@ -217,7 +208,7 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Saves the play history to the MessagePack file asynchronously with retry logic.
+    ///     Saves the play history to the MessagePack file asynchronously with retry logic.
     /// </summary>
     internal Task SavePlayHistoryAsync()
     {
@@ -231,7 +222,6 @@ public class PlayHistoryManager
             var attempt = 0;
 
             while (attempt < maxRetries)
-            {
                 try
                 {
                     // Notify user
@@ -260,7 +250,6 @@ public class PlayHistoryManager
 
                     // If in portable mode, try falling back to LocalAppData and reset retries
                     if (FileLocation.IsPortableMode && attempt >= maxRetries)
-                    {
                         try
                         {
                             if (FileLocation.TryFallbackToLocalAppData())
@@ -273,17 +262,13 @@ public class PlayHistoryManager
                         {
                             Log.Debug($"[PlayHistoryManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                         }
-                    }
 
                     if (attempt < maxRetries)
                     {
                         // Attempt to clean up temp file before retrying
                         try
                         {
-                            if (File.Exists(TempFilePath))
-                            {
-                                File.Delete(TempFilePath);
-                            }
+                            if (File.Exists(TempFilePath)) File.Delete(TempFilePath);
                         }
                         catch (Exception cleanupEx)
                         {
@@ -299,7 +284,6 @@ public class PlayHistoryManager
                     lastException = ex;
                     break; // Don't retry non-transient errors
                 }
-            }
 
             // All retries exhausted or non-transient error
             _logger?.Error(lastException, "Error saving playhistory.dat");
@@ -307,10 +291,7 @@ public class PlayHistoryManager
             // Attempt to clean up temp file if it exists
             try
             {
-                if (File.Exists(TempFilePath))
-                {
-                    File.Delete(TempFilePath);
-                }
+                if (File.Exists(TempFilePath)) File.Delete(TempFilePath);
             }
             catch (Exception cleanupEx)
             {
@@ -320,7 +301,7 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Renames the system in all play history entries (used when a system is renamed in Edit System).
+    ///     Renames the system in all play history entries (used when a system is renamed in Edit System).
     /// </summary>
     /// <param name="oldSystemName">The previous system name.</param>
     /// <param name="newSystemName">The new system name.</param>
@@ -331,20 +312,18 @@ public class PlayHistoryManager
         lock (_historyLock)
         {
             foreach (var item in PlayHistoryList)
-            {
                 if (item.SystemName.Equals(oldSystemName, StringComparison.OrdinalIgnoreCase))
                 {
                     item.SystemName = newSystemName;
                     changed = true;
                 }
-            }
         }
 
         return changed ? SavePlayHistoryAsync() : Task.CompletedTask;
     }
 
     /// <summary>
-    /// Adds or updates a play history item based on the game info and play time.
+    ///     Adds or updates a play history item based on the game info and play time.
     /// </summary>
     internal void AddOrUpdatePlayHistoryItem(string fullPath, string systemName, TimeSpan playTime)
     {
@@ -398,10 +377,7 @@ public class PlayHistoryManager
             }
 
             // Add to the ObservableCollection outside the lock to prevent deadlock
-            if (itemToAdd != null)
-            {
-                Application.Current.Dispatcher.Invoke(() => PlayHistoryList.Add(itemToAdd));
-            }
+            if (itemToAdd != null) Application.Current.Dispatcher.Invoke(() => PlayHistoryList.Add(itemToAdd));
 
             // Save on a background thread (SavePlayHistoryAsync already uses Task.Run internally)
             _ = SavePlayHistoryAsync();
@@ -415,15 +391,14 @@ public class PlayHistoryManager
     }
 
     /// <summary>
-    /// Migrates old records that only contain filenames to full absolute paths.
+    ///     Migrates old records that only contain filenames to full absolute paths.
     /// </summary>
-    internal void MigrateFilenamesToFullPaths(List<SystemManager.SystemManagerService> systemManagers)
+    internal void MigrateFilenamesToFullPaths(List<SystemManagerService> systemManagers)
     {
         var needsSave = false;
         lock (_historyLock)
         {
             foreach (var item in PlayHistoryList)
-            {
                 // If the path is not rooted, it's an old "filename only" record
                 if (!Path.IsPathRooted(item.FileName))
                 {
@@ -439,12 +414,8 @@ public class PlayHistoryManager
                         }
                     }
                 }
-            }
         }
 
-        if (needsSave)
-        {
-            SavePlayHistoryAsync();
-        }
+        if (needsSave) SavePlayHistoryAsync();
     }
 }

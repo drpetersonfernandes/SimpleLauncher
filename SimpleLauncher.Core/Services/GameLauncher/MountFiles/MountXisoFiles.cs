@@ -7,57 +7,22 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 
 /// <summary>
-/// Mounts original Xbox ISO (XISO) images using SimpleXisoDrive.exe and the Dokan filesystem driver.
+///     Mounts original Xbox ISO (XISO) images using SimpleXisoDrive.exe and the Dokan filesystem driver.
 /// </summary>
 public class MountXisoFiles : IMountXisoFiles
 {
     private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MountXisoFiles"/> class.
+    ///     Initializes a new instance of the <see cref="MountXisoFiles" /> class.
     /// </summary>
     public MountXisoFiles(ILogger logger)
     {
         _logger = logger;
     }
 
-    private static string GetToolPath()
-    {
-        var exeName = RuntimeInformation.OSArchitecture == Architecture.Arm64
-            ? "SimpleXisoDrive_arm64.exe"
-            : "SimpleXisoDrive.exe";
-
-        return Path.Combine("tools", "SimpleXisoDrive", exeName);
-    }
-
-    private char? GetAvailableDriveLetter(ILogger logErrors)
-    {
-        try
-        {
-            var existingDrives = Environment.GetLogicalDrives()
-                .Select(static d => char.ToUpper(d[0], CultureInfo.InvariantCulture))
-                .ToHashSet();
-
-            for (var letter = 'Z'; letter >= 'D'; letter--)
-            {
-                if (!existingDrives.Contains(letter))
-                {
-                    return letter;
-                }
-            }
-
-            return null;
-        }
-        catch (Exception ex)
-        {
-            _logger.Debug($"[MountXisoFiles.GetAvailableDriveLetter] Error enumerating drives: {ex.Message}");
-            logErrors.Error(ex, "Error enumerating available drive letters.");
-            return null;
-        }
-    }
-
     /// <summary>
-    /// Mounts an XISO file and returns a disposable drive handle with the mounted default.xbe path.
+    ///     Mounts an XISO file and returns a disposable drive handle with the mounted default.xbe path.
     /// </summary>
     public async Task<MountXisoDrive> MountAsync(string resolvedIsoFilePath, string? logPath, ILogger logErrors,
         IMessageBoxLibraryService messageBox)
@@ -121,10 +86,7 @@ public class MountXisoFiles : IMountXisoFiles
 
         try
         {
-            if (!mountProcess.Start())
-            {
-                throw new InvalidOperationException($"Failed to start the {toolName} process.");
-            }
+            if (!mountProcess.Start()) throw new InvalidOperationException($"Failed to start the {toolName} process.");
 
             _logger.Debug($"[MountXisoFiles.MountAsync] {toolName} process started (ID: {mountProcess.Id}).");
 
@@ -133,10 +95,7 @@ public class MountXisoFiles : IMountXisoFiles
 
             if (!mountSuccessful)
             {
-                if (!mountProcess.HasExited)
-                {
-                    mountProcess.Kill(true);
-                }
+                if (!mountProcess.HasExited) mountProcess.Kill(true);
 
                 mountProcess.Dispose();
                 await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
@@ -153,7 +112,6 @@ public class MountXisoFiles : IMountXisoFiles
             logErrors.Error(ex, contextMessage);
 
             if (!mountProcess.HasExited)
-            {
                 try
                 {
                     mountProcess.Kill(true);
@@ -162,12 +120,42 @@ public class MountXisoFiles : IMountXisoFiles
                 {
                     /* ignore */
                 }
-            }
 
             mountProcess.Dispose();
 
             await messageBox.ThereWasAnErrorMountingTheFileMessageBoxAsync();
             return new MountXisoDrive(logErrors, _logger);
+        }
+    }
+
+    private static string GetToolPath()
+    {
+        var exeName = RuntimeInformation.OSArchitecture == Architecture.Arm64
+            ? "SimpleXisoDrive_arm64.exe"
+            : "SimpleXisoDrive.exe";
+
+        return Path.Combine("tools", "SimpleXisoDrive", exeName);
+    }
+
+    private char? GetAvailableDriveLetter(ILogger logErrors)
+    {
+        try
+        {
+            var existingDrives = Environment.GetLogicalDrives()
+                .Select(static d => char.ToUpper(d[0], CultureInfo.InvariantCulture))
+                .ToHashSet();
+
+            for (var letter = 'Z'; letter >= 'D'; letter--)
+                if (!existingDrives.Contains(letter))
+                    return letter;
+
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.Debug($"[MountXisoFiles.GetAvailableDriveLetter] Error enumerating drives: {ex.Message}");
+            logErrors.Error(ex, "Error enumerating available drive letters.");
+            return null;
         }
     }
 
@@ -191,10 +179,8 @@ public class MountXisoFiles : IMountXisoFiles
             }
 
             if (Directory.Exists(driveRoot))
-            {
                 _logger.Debug(
                     $"[MountXisoFiles.WaitForDriveMountAsync] {driveRoot} drive exists after {retryCount * pollIntervalMs / 1000.0:F1} seconds, but '{defaultXbePath}' not found. Continuing to poll...");
-            }
 
             if (mountProcess.HasExited)
             {

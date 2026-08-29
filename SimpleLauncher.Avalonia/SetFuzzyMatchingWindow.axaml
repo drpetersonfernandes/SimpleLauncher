@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.SetFuzzyMatchingWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Set Fuzzy Matching Threshold"
         Height="350" Width="500"
@@ -10,7 +10,8 @@
         <!-- Current Threshold -->
         <TextBlock Grid.Row="0" Grid.Column="0" Text="{ext:Translate CurrentThresholdLabel}"
                    Classes="form-label" FontWeight="Bold" VerticalAlignment="Center" />
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CurrentThresholdText}" Margin="10,0,0,0" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CurrentThresholdText}" Margin="10,0,0,0"
+                   VerticalAlignment="Center" />
 
         <!-- New Threshold Input (Slider) -->
         <TextBlock Grid.Row="1" Grid.Column="0" Text="{ext:Translate NewThresholdLabel}"
@@ -27,7 +28,8 @@
         </StackPanel>
 
         <!-- Description -->
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="{ext:Translate SetFuzzyMatchingWindow_Lower_values_make_matching_more_lenient_}"
+        <TextBlock Grid.Row="2" Grid.Column="1"
+                   Text="{ext:Translate SetFuzzyMatchingWindow_Lower_values_make_matching_more_lenient_}"
                    TextWrapping="Wrap" FontStyle="Italic"
                    Foreground="{DynamicResource TextSecondaryBrush}" />
 
@@ -42,7 +44,8 @@
         </TextBlock>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20,10,10">
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal"
+                    HorizontalAlignment="Center" Margin="10,20,10,10">
             <Button Content="{ext:Translate OkButtonText}" Command="{Binding SaveCommand}"
                     Classes="primary" Padding="10" Margin="0,0,10,0" IsDefault="True" />
             <Button Content="{ext:Translate YumirConfig_Cancel_Button}" Command="{Binding CancelCommand}"

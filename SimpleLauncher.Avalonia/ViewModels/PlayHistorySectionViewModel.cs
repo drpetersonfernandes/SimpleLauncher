@@ -11,27 +11,27 @@ using SimpleLauncher.Core.Services.PlaySound;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the Play History section of the main window, showing the play
-/// history table with sorting, removal, and launching (WPF PlayHistoryPage equivalent).
+///     ViewModel for the Play History section of the main window, showing the play
+///     history table with sorting, removal, and launching (WPF PlayHistoryPage equivalent).
 /// </summary>
 public partial class PlayHistorySectionViewModel : ObservableObject
 {
-    private readonly PlayHistoryManager _playHistoryManager;
-    private readonly SystemManagerService _systemManager;
     private readonly IFindCoverImageService _findCoverImage;
-    private readonly IMameDataService _mameData;
-    private readonly PlaySoundEffects _playSoundEffects;
-    private readonly MainViewModel _mainViewModel;
-    private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logErrors;
-
-    [ObservableProperty] private ObservableCollection<PlayHistoryItem> _playHistoryList = [];
-
-    [ObservableProperty] private PlayHistoryItem? _selectedItem;
+    private readonly MainViewModel _mainViewModel;
+    private readonly IMameDataService _mameData;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlayHistoryManager _playHistoryManager;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly SystemManagerService _systemManager;
 
     [ObservableProperty] private bool _isLoading;
 
     [ObservableProperty] private string _loadingMessage = "";
+
+    [ObservableProperty] private ObservableCollection<PlayHistoryItem> _playHistoryList = [];
+
+    [ObservableProperty] private PlayHistoryItem? _selectedItem;
 
     public PlayHistorySectionViewModel(
         PlayHistoryManager playHistoryManager,
@@ -54,8 +54,8 @@ public partial class PlayHistorySectionViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Loads the play history from the manager and enriches each item with machine
-    /// description, default emulator, and cover image.
+    ///     Loads the play history from the manager and enriches each item with machine
+    ///     description, default emulator, and cover image.
     /// </summary>
     public async Task LoadHistoryAsync()
     {
@@ -69,10 +69,7 @@ public partial class PlayHistorySectionViewModel : ObservableObject
             PlayHistoryList = await Task.Run(() =>
             {
                 var processedList = new List<PlayHistoryItem>(_playHistoryManager.PlayHistoryList.Count);
-                foreach (var item in _playHistoryManager.PlayHistoryList)
-                {
-                    processedList.Add(CreateProcessedItem(item));
-                }
+                foreach (var item in _playHistoryManager.PlayHistoryList) processedList.Add(CreateProcessedItem(item));
 
                 return new ObservableCollection<PlayHistoryItem>(processedList);
             });
@@ -251,9 +248,7 @@ public partial class PlayHistorySectionViewModel : ObservableObject
         {
             if (DateTime.TryParseExact($"{dateStr} {timeStr}", "yyyy-MM-dd HH:mm:ss",
                     CultureInfo.InvariantCulture, DateTimeStyles.None, out var result))
-            {
                 return result;
-            }
 
             string[] dateFormats =
             [
@@ -262,13 +257,9 @@ public partial class PlayHistorySectionViewModel : ObservableObject
                 "d", "D"
             ];
             foreach (var format in dateFormats)
-            {
                 if (DateTime.TryParseExact($"{dateStr} {timeStr}",
                         $"{format} HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
-                {
                     return result;
-                }
-            }
 
             return DateTime.TryParse($"{dateStr} {timeStr}", CultureInfo.InvariantCulture, DateTimeStyles.None,
                 out result)

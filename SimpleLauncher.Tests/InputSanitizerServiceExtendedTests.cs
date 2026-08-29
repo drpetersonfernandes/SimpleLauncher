@@ -4,15 +4,15 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Extended tests for <see cref="InputSanitizerService"/> covering additional edge cases
-/// for reserved names, special characters, and sanitization behavior.
+///     Extended tests for <see cref="InputSanitizerService" /> covering additional edge cases
+///     for reserved names, special characters, and sanitization behavior.
 /// </summary>
 public class InputSanitizerServiceExtendedTests
 {
     private readonly InputSanitizerService _sanitizer = new();
 
     /// <summary>
-    /// Verifies that reserved name AUX is escaped with underscores regardless of casing.
+    ///     Verifies that reserved name AUX is escaped with underscores regardless of casing.
     /// </summary>
     /// <param name="name">The reserved AUX name variant to sanitize.</param>
     [Theory]
@@ -27,7 +27,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that all reserved COM port names (COM2-COM9) are escaped with underscores.
+    ///     Verifies that all reserved COM port names (COM2-COM9) are escaped with underscores.
     /// </summary>
     /// <param name="name">The reserved COM port name to sanitize.</param>
     [Theory]
@@ -47,7 +47,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that all reserved LPT port names (LPT2-LPT9) are escaped with underscores.
+    ///     Verifies that all reserved LPT port names (LPT2-LPT9) are escaped with underscores.
     /// </summary>
     /// <param name="name">The reserved LPT port name to sanitize.</param>
     [Theory]
@@ -67,7 +67,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that multiple double dots in folder names are all replaced.
+    ///     Verifies that multiple double dots in folder names are all replaced.
     /// </summary>
     [Fact]
     public void SanitizeFolderNameDoubleDotsMultipleReplaced()
@@ -77,7 +77,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that leading and trailing dots are trimmed from folder names.
+    ///     Verifies that leading and trailing dots are trimmed from folder names.
     /// </summary>
     [Fact]
     public void SanitizeFolderNameLeadingTrailingDotsTrimmed()
@@ -87,7 +87,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that leading and trailing spaces are trimmed from folder names.
+    ///     Verifies that leading and trailing spaces are trimmed from folder names.
     /// </summary>
     [Fact]
     public void SanitizeFolderNameLeadingTrailingSpacesTrimmed()
@@ -97,7 +97,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that a folder name consisting only of dots becomes the invalid placeholder.
+    ///     Verifies that a folder name consisting only of dots becomes the invalid placeholder.
     /// </summary>
     [Fact]
     public void SanitizeFolderNameOnlyDotsBecomesEmpty()
@@ -108,7 +108,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that a folder name consisting only of spaces becomes the invalid placeholder.
+    ///     Verifies that a folder name consisting only of spaces becomes the invalid placeholder.
     /// </summary>
     [Fact]
     public void SanitizeFolderNameOnlySpacesBecomesPlaceholder()
@@ -118,7 +118,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that colons in folder names are replaced.
+    ///     Verifies that colons in folder names are replaced.
     /// </summary>
     [Fact]
     public void SanitizeFolderNameColonReplaced()
@@ -128,7 +128,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that asterisks in folder names are replaced.
+    ///     Verifies that asterisks in folder names are replaced.
     /// </summary>
     [Fact]
     public void SanitizeFolderNameAsteriskReplaced()
@@ -138,7 +138,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that question marks in folder names are replaced.
+    ///     Verifies that question marks in folder names are replaced.
     /// </summary>
     [Fact]
     public void SanitizeFolderNameQuestionMarkReplaced()
@@ -148,7 +148,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that pipe characters in folder names are replaced.
+    ///     Verifies that pipe characters in folder names are replaced.
     /// </summary>
     [Fact]
     public void SanitizeFolderNamePipeReplaced()
@@ -158,7 +158,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that angle brackets in folder names are replaced.
+    ///     Verifies that angle brackets in folder names are replaced.
     /// </summary>
     [Fact]
     public void SanitizeFolderNameAngleBracketsReplaced()
@@ -169,7 +169,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that double quotes in folder names are replaced.
+    ///     Verifies that double quotes in folder names are replaced.
     /// </summary>
     [Fact]
     public void SanitizeFolderNameQuotesReplaced()
@@ -179,7 +179,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that tab characters are detected as invalid characters.
+    ///     Verifies that tab characters are detected as invalid characters.
     /// </summary>
     [Fact]
     public void ContainsInvalidCharactersTabCharacterReturnsTrue()
@@ -190,7 +190,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that newline characters are detected as invalid characters.
+    ///     Verifies that newline characters are detected as invalid characters.
     /// </summary>
     [Fact]
     public void ContainsInvalidCharactersNewlineReturnsTrue()
@@ -201,7 +201,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that valid UNC paths are not detected as containing invalid path characters.
+    ///     Verifies that valid UNC paths are not detected as containing invalid path characters.
     /// </summary>
     [Fact]
     public void ContainsInvalidPathCharactersValidUncPathReturnsFalse()
@@ -211,7 +211,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that dashes and underscores are preserved in sanitized folder names.
+    ///     Verifies that dashes and underscores are preserved in sanitized folder names.
     /// </summary>
     [Fact]
     public void SanitizeFolderNamePreservesDashesAndUnderscores()
@@ -221,7 +221,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that spaces are preserved in sanitized folder names.
+    ///     Verifies that spaces are preserved in sanitized folder names.
     /// </summary>
     [Fact]
     public void SanitizeFolderNamePreservesSpaces()
@@ -231,7 +231,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that parentheses are preserved in sanitized folder names.
+    ///     Verifies that parentheses are preserved in sanitized folder names.
     /// </summary>
     [Fact]
     public void SanitizeFolderNamePreservesParentheses()
@@ -241,7 +241,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that brackets are preserved in sanitized folder names.
+    ///     Verifies that brackets are preserved in sanitized folder names.
     /// </summary>
     [Fact]
     public void SanitizeFolderNamePreservesBrackets()
@@ -251,7 +251,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that multiple invalid characters are all returned in the output.
+    ///     Verifies that multiple invalid characters are all returned in the output.
     /// </summary>
     [Fact]
     public void ContainsInvalidCharactersMultipleInvalidCharsReturnsAll()
@@ -264,7 +264,7 @@ public class InputSanitizerServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that duplicate invalid characters are all returned in the output.
+    ///     Verifies that duplicate invalid characters are all returned in the output.
     /// </summary>
     [Fact]
     public void ContainsInvalidCharactersDuplicateInvalidCharsReturnsAll()

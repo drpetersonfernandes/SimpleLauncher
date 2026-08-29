@@ -8,38 +8,11 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="ParameterResolverService"/> using a fake <see cref="HttpMessageHandler"/>
-/// so no real network access is required.
+///     Tests for <see cref="ParameterResolverService" /> using a fake <see cref="HttpMessageHandler" />
+///     so no real network access is required.
 /// </summary>
 public class ParameterResolverServiceTests
 {
-    private sealed class FakeHttpMessageHandler : HttpMessageHandler
-    {
-        private readonly Func<HttpRequestMessage, HttpResponseMessage> _responder;
-
-        public FakeHttpMessageHandler(Func<HttpRequestMessage, HttpResponseMessage> responder)
-        {
-            _responder = responder;
-        }
-
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
-            CancellationToken cancellationToken)
-        {
-            return Task.FromResult(_responder(request));
-        }
-    }
-
-    private sealed class FakeHttpClientFactory(HttpMessageHandler handler) : IHttpClientFactory
-    {
-        private readonly HttpMessageHandler _handler = handler;
-
-        // The real app registers the client with a BaseAddress; the service sends relative URIs
-        public HttpClient CreateClient(string name)
-        {
-            return new HttpClient(_handler) { BaseAddress = new Uri("http://localhost") };
-        }
-    }
-
     private static ParameterResolverRequest CreateRequest()
     {
         return new ParameterResolverRequest
@@ -157,5 +130,32 @@ public class ParameterResolverServiceTests
         var result = await service.ResolveParametersAsync(CreateRequest());
 
         Assert.NotNull(result);
+    }
+
+    private sealed class FakeHttpMessageHandler : HttpMessageHandler
+    {
+        private readonly Func<HttpRequestMessage, HttpResponseMessage> _responder;
+
+        public FakeHttpMessageHandler(Func<HttpRequestMessage, HttpResponseMessage> responder)
+        {
+            _responder = responder;
+        }
+
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
+        {
+            return Task.FromResult(_responder(request));
+        }
+    }
+
+    private sealed class FakeHttpClientFactory(HttpMessageHandler handler) : IHttpClientFactory
+    {
+        private readonly HttpMessageHandler _handler = handler;
+
+        // The real app registers the client with a BaseAddress; the service sends relative URIs
+        public HttpClient CreateClient(string name)
+        {
+            return new HttpClient(_handler) { BaseAddress = new Uri("http://localhost") };
+        }
     }
 }

@@ -7,65 +7,11 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="MenuCheckMarkService"/> check-mark invariants:
-/// exactly one item checked per group, matching the selected value.
+///     Tests for <see cref="MenuCheckMarkService" /> check-mark invariants:
+///     exactly one item checked per group, matching the selected value.
 /// </summary>
 public class MenuCheckMarkServiceTests
 {
-    /// <summary>
-    /// Concrete host exposing real <see cref="MenuItem"/> instances for every property,
-    /// so the service can toggle IsChecked without WPF application infrastructure.
-    /// </summary>
-    private sealed class FakeMenuCheckMarkHost : IMenuCheckMarkHost
-    {
-        public MenuItem Size50 { get; } = new();
-        public MenuItem Size100 { get; } = new();
-        public MenuItem Size150 { get; } = new();
-        public MenuItem Size200 { get; } = new();
-        public MenuItem Size250 { get; } = new();
-        public MenuItem Size300 { get; } = new();
-        public MenuItem Size350 { get; } = new();
-        public MenuItem Size400 { get; } = new();
-        public MenuItem Size450 { get; } = new();
-        public MenuItem Size500 { get; } = new();
-        public MenuItem Size550 { get; } = new();
-        public MenuItem Size600 { get; } = new();
-        public MenuItem Size650 { get; } = new();
-        public MenuItem Size700 { get; } = new();
-        public MenuItem Size750 { get; } = new();
-        public MenuItem Size800 { get; } = new();
-        public MenuItem Page100 { get; } = new();
-        public MenuItem Page200 { get; } = new();
-        public MenuItem Page300 { get; } = new();
-        public MenuItem Page400 { get; } = new();
-        public MenuItem Page500 { get; } = new();
-        public MenuItem Page1000 { get; } = new();
-        public MenuItem Page10000 { get; } = new();
-        public MenuItem Page1000000 { get; } = new();
-        public MenuItem ShowAll { get; } = new();
-        public MenuItem ShowWithCover { get; } = new();
-        public MenuItem ShowWithoutCover { get; } = new();
-        public MenuItem Square { get; } = new();
-        public MenuItem Wider { get; } = new();
-        public MenuItem SuperWider { get; } = new();
-        public MenuItem SuperWider2 { get; } = new();
-        public MenuItem Taller { get; } = new();
-        public MenuItem SuperTaller { get; } = new();
-        public MenuItem SuperTaller2 { get; } = new();
-        public MenuItem FilenameDisplayOriginal { get; } = new();
-        public MenuItem FilenameDisplayCleanUp { get; } = new();
-        public MenuItem FilenameDisplayNoFilename { get; } = new();
-        public MenuItem DisplayMachineNameToggle { get; } = new();
-        public MenuItem FilenameFontSizeSmall { get; } = new();
-        public MenuItem FilenameFontSizeNormal { get; } = new();
-        public MenuItem FilenameFontSizeBig { get; } = new();
-        public MenuItem MachineNameFontSizeSmall { get; } = new();
-        public MenuItem MachineNameFontSizeNormal { get; } = new();
-        public MenuItem MachineNameFontSizeBig { get; } = new();
-        public MenuItem GridView { get; } = new();
-        public MenuItem ListView { get; } = new();
-    }
-
     private static int CountChecked(params MenuItem[] items)
     {
         return items.Count(static i => i.IsChecked);
@@ -271,5 +217,59 @@ public class MenuCheckMarkServiceTests
             Assert.True(host.GridView.IsChecked);
             Assert.False(host.ListView.IsChecked);
         });
+    }
+
+    /// <summary>
+    ///     Concrete host exposing real <see cref="MenuItem" /> instances for every property,
+    ///     so the service can toggle IsChecked without WPF application infrastructure.
+    /// </summary>
+    private sealed class FakeMenuCheckMarkHost : IMenuCheckMarkHost
+    {
+        public MenuItem Size50 { get; } = new();
+        public MenuItem Size100 { get; } = new();
+        public MenuItem Size150 { get; } = new();
+        public MenuItem Size200 { get; } = new();
+        public MenuItem Size250 { get; } = new();
+        public MenuItem Size300 { get; } = new();
+        public MenuItem Size350 { get; } = new();
+        public MenuItem Size400 { get; } = new();
+        public MenuItem Size450 { get; } = new();
+        public MenuItem Size500 { get; } = new();
+        public MenuItem Size550 { get; } = new();
+        public MenuItem Size600 { get; } = new();
+        public MenuItem Size650 { get; } = new();
+        public MenuItem Size700 { get; } = new();
+        public MenuItem Size750 { get; } = new();
+        public MenuItem Size800 { get; } = new();
+        public MenuItem Page100 { get; } = new();
+        public MenuItem Page200 { get; } = new();
+        public MenuItem Page300 { get; } = new();
+        public MenuItem Page400 { get; } = new();
+        public MenuItem Page500 { get; } = new();
+        public MenuItem Page1000 { get; } = new();
+        public MenuItem Page10000 { get; } = new();
+        public MenuItem Page1000000 { get; } = new();
+        public MenuItem ShowAll { get; } = new();
+        public MenuItem ShowWithCover { get; } = new();
+        public MenuItem ShowWithoutCover { get; } = new();
+        public MenuItem Square { get; } = new();
+        public MenuItem Wider { get; } = new();
+        public MenuItem SuperWider { get; } = new();
+        public MenuItem SuperWider2 { get; } = new();
+        public MenuItem Taller { get; } = new();
+        public MenuItem SuperTaller { get; } = new();
+        public MenuItem SuperTaller2 { get; } = new();
+        public MenuItem FilenameDisplayOriginal { get; } = new();
+        public MenuItem FilenameDisplayCleanUp { get; } = new();
+        public MenuItem FilenameDisplayNoFilename { get; } = new();
+        public MenuItem DisplayMachineNameToggle { get; } = new();
+        public MenuItem FilenameFontSizeSmall { get; } = new();
+        public MenuItem FilenameFontSizeNormal { get; } = new();
+        public MenuItem FilenameFontSizeBig { get; } = new();
+        public MenuItem MachineNameFontSizeSmall { get; } = new();
+        public MenuItem MachineNameFontSizeNormal { get; } = new();
+        public MenuItem MachineNameFontSizeBig { get; } = new();
+        public MenuItem GridView { get; } = new();
+        public MenuItem ListView { get; } = new();
     }
 }

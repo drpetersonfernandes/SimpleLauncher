@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Avalonia.Views;
 using SimpleLauncher.Core.Models;
@@ -12,9 +13,9 @@ namespace SimpleLauncher.Avalonia;
 public partial class GameDetailWindow : Window
 {
     private readonly GameCardViewModel _game;
+    private readonly LocalizationService _localization;
     private readonly MainViewModel _mainViewModel;
     private readonly MameDataService? _mameData;
-    private readonly Services.LocalizationService _localization;
 
     public GameDetailWindow(GameCardViewModel game, MainViewModel mainViewModel)
     {
@@ -36,7 +37,7 @@ public partial class GameDetailWindow : Window
 
         try
         {
-            _localization = App.ServiceProvider.GetRequiredService<Services.LocalizationService>();
+            _localization = App.ServiceProvider.GetRequiredService<LocalizationService>();
         }
         catch (Exception ex)
         {
@@ -97,8 +98,8 @@ public partial class GameDetailWindow : Window
     }
 
     /// <summary>
-    /// Opens the full-size cover in the ImageViewerWindow (parity with the WPF
-    /// "Open Cover" context-menu action).
+    ///     Opens the full-size cover in the ImageViewerWindow (parity with the WPF
+    ///     "Open Cover" context-menu action).
     /// </summary>
     private void CoverImage_PointerPressed(object? sender, PointerPressedEventArgs e)
     {

@@ -3,34 +3,34 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Interfaces;
 
 /// <summary>
-/// Scans game paths in the background and calculates RetroAchievements hashes
-/// for every game file, persisting the results through <see cref="IRetroAchievementsHashStore"/>.
-/// Only one scan can run at a time; concurrent requests are rejected.
+///     Scans game paths in the background and calculates RetroAchievements hashes
+///     for every game file, persisting the results through <see cref="IRetroAchievementsHashStore" />.
+///     Only one scan can run at a time; concurrent requests are rejected.
 /// </summary>
 public interface IRetroAchievementsHashScanner
 {
     /// <summary>
-    /// Gets a value indicating whether a hash scan is currently running.
+    ///     Gets a value indicating whether a hash scan is currently running.
     /// </summary>
     bool IsScanning { get; }
 
     /// <summary>
-    /// Determines whether the given system can be hashed for RetroAchievements.
+    ///     Determines whether the given system can be hashed for RetroAchievements.
     /// </summary>
     /// <param name="systemName">The name of the system.</param>
     /// <returns>True if the system has a valid RetroAchievements console ID; otherwise, false.</returns>
     bool IsSystemScannable(string systemName);
 
     /// <summary>
-    /// Determines whether an existing hash scan for the given system was produced by the
-    /// current hash logic (same <see cref="RaSystemHashes.HashVersion"/>).
+    ///     Determines whether an existing hash scan for the given system was produced by the
+    ///     current hash logic (same <see cref="RaSystemHashes.HashVersion" />).
     /// </summary>
     /// <param name="systemName">The name of the system.</param>
     /// <returns>True if the stored scan is up to date; false if missing or stale.</returns>
     bool IsScanUpToDate(string systemName);
 
     /// <summary>
-    /// Scans the game folders of a single system and persists the calculated hashes.
+    ///     Scans the game folders of a single system and persists the calculated hashes.
     /// </summary>
     /// <param name="systemName">The name of the system to scan.</param>
     /// <param name="systemFolders">The list of configured system folders (relative or absolute).</param>
@@ -52,7 +52,7 @@ public interface IRetroAchievementsHashScanner
         CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Scans the game folders of multiple systems sequentially and persists the calculated hashes.
+    ///     Scans the game folders of multiple systems sequentially and persists the calculated hashes.
     /// </summary>
     /// <param name="targets">The systems to scan, in order.</param>
     /// <param name="onCompleted">Optional callback invoked (on a background thread) after each system completes.</param>

@@ -4,9 +4,9 @@ using SimpleLauncher.Avalonia.Services;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Localization parity tests: every strings.{lang}.json must ship the exact same
-/// key set as strings.en.json, and the LocalizationService must resolve all of
-/// them (including the case-insensitive lookup for WPF-style codes like 'pt-br').
+///     Localization parity tests: every strings.{lang}.json must ship the exact same
+///     key set as strings.en.json, and the LocalizationService must resolve all of
+///     them (including the case-insensitive lookup for WPF-style codes like 'pt-br').
 /// </summary>
 public class LocalizationTests
 {

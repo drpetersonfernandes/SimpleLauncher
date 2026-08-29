@@ -10,27 +10,27 @@ using SimpleLauncher.Services.InjectEmulatorConfig;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the PCSX2 emulator configuration injection window.
+///     ViewModel for the PCSX2 emulator configuration injection window.
 /// </summary>
 public partial class InjectPcsx2ConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    [ObservableProperty] private int _pcsx2Renderer;
-    [ObservableProperty] private int _pcsx2UpscaleMultiplier;
-    [ObservableProperty] private string _pcsx2AspectRatio = null!;
-    [ObservableProperty] private bool _pcsx2Vsync;
-    [ObservableProperty] private bool _pcsx2EnableWidescreenPatches;
-    [ObservableProperty] private bool _pcsx2StartFullscreen;
-    [ObservableProperty] private bool _pcsx2EnableCheats;
-    [ObservableProperty] private int _pcsx2Volume;
     [ObservableProperty] private bool _pcsx2AchievementsEnabled;
     [ObservableProperty] private bool _pcsx2AchievementsHardcore;
+    [ObservableProperty] private string _pcsx2AspectRatio = null!;
+    [ObservableProperty] private bool _pcsx2EnableCheats;
+    [ObservableProperty] private bool _pcsx2EnableWidescreenPatches;
+    [ObservableProperty] private int _pcsx2Renderer;
     [ObservableProperty] private bool _pcsx2ShowSettingsBeforeLaunch;
+    [ObservableProperty] private bool _pcsx2StartFullscreen;
+    [ObservableProperty] private int _pcsx2UpscaleMultiplier;
+    [ObservableProperty] private int _pcsx2Volume;
+    [ObservableProperty] private bool _pcsx2Vsync;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectPcsx2ConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectPcsx2ConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
@@ -43,7 +43,52 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Available renderer ID options for PCSX2.
+    /// </summary>
+    public IList<string> RendererOptions { get; } = ["14", "13", "12", "15", "11"];
+
+    /// <summary>
+    ///     Display names corresponding to the renderer options for PCSX2.
+    /// </summary>
+    public IList<string> RendererDisplayNames { get; } = ["Vulkan", "Direct3D 12", "Direct3D 11", "OpenGL", "Software"];
+
+    /// <summary>
+    ///     Available upscale multiplier options for PCSX2.
+    /// </summary>
+    public IList<string> UpscaleOptions { get; } = ["1", "2", "3", "4", "5", "6", "8"];
+
+    /// <summary>
+    ///     Display names corresponding to the upscale multiplier options for PCSX2.
+    /// </summary>
+    public IList<string> UpscaleDisplayNames { get; } = ["1x (Native)", "2x", "3x", "4x", "5x", "6x", "8x"];
+
+    /// <summary>
+    ///     Available aspect ratio options for PCSX2.
+    /// </summary>
+    public IList<string> AspectOptions { get; } = ["4:3", "16:9", "Stretch"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<string?>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the PCSX2 emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -55,42 +100,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available renderer ID options for PCSX2.
-    /// </summary>
-    public IList<string> RendererOptions { get; } = ["14", "13", "12", "15", "11"];
-
-    /// <summary>
-    /// Display names corresponding to the renderer options for PCSX2.
-    /// </summary>
-    public IList<string> RendererDisplayNames { get; } = ["Vulkan", "Direct3D 12", "Direct3D 11", "OpenGL", "Software"];
-
-    /// <summary>
-    /// Available upscale multiplier options for PCSX2.
-    /// </summary>
-    public IList<string> UpscaleOptions { get; } = ["1", "2", "3", "4", "5", "6", "8"];
-
-    /// <summary>
-    /// Display names corresponding to the upscale multiplier options for PCSX2.
-    /// </summary>
-    public IList<string> UpscaleDisplayNames { get; } = ["1x (Native)", "2x", "3x", "4x", "5x", "6x", "8x"];
-
-    /// <summary>
-    /// Available aspect ratio options for PCSX2.
-    /// </summary>
-    public IList<string> AspectOptions { get; } = ["4:3", "16:9", "Stretch"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -99,16 +109,6 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<string?>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -146,9 +146,7 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
         try
         {
             if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-            {
                 return Task.FromResult<string?>(_emulatorPath);
-            }
 
             var resolved = EmulatorPathResolver.TryFindEmulatorPath("PCSX2", _logger);
             if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.GlobalStatsWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Global Stats"
         Width="1000" Height="700"
@@ -26,9 +26,12 @@
                       GridLinesVisibility="All"
                       BorderThickness="1">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{ext:Translate SystemNameHeader}" Binding="{Binding SystemName}" Width="*" />
-                    <DataGridTextColumn Header="{ext:Translate GlobalStatsWindow_ROM_Count}" Binding="{Binding NumberOfFiles}" Width="Auto" />
-                    <DataGridTextColumn Header="{ext:Translate GlobalStatsWindow_Matched_Images}" Binding="{Binding NumberOfImages}" Width="Auto" />
+                    <DataGridTextColumn Header="{ext:Translate SystemNameHeader}" Binding="{Binding SystemName}"
+                                        Width="*" />
+                    <DataGridTextColumn Header="{ext:Translate GlobalStatsWindow_ROM_Count}"
+                                        Binding="{Binding NumberOfFiles}" Width="Auto" />
+                    <DataGridTextColumn Header="{ext:Translate GlobalStatsWindow_Matched_Images}"
+                                        Binding="{Binding NumberOfImages}" Width="Auto" />
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>

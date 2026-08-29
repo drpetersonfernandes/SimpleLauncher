@@ -1,18 +1,18 @@
-// ReSharper disable once RedundantUsingDirective
-
-using NAudio.SoundFile;
 using NAudio.Wave;
+using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.SettingsManager;
+// ReSharper disable once RedundantUsingDirective
+using NAudio.SoundFile;
 // ReSharper disable once RedundantUsingDirective
 using NAudio.Wave.Alsa;
-using SimpleLauncher.Core.Interfaces;
 
 namespace SimpleLauncher.Core.Services.PlaySound;
 
 /// <summary>
-/// Plays UI sound effects such as click, shutter, and trash sounds using NAudio 3.
-/// Decoding and output are platform-specific (Windows: Media Foundation + WaveOut;
-/// Linux: libsndfile via NAudio.SoundFile + ALSA via NAudio.Alsa), but the playback
-/// pipeline itself is a single cross-platform path built on <see cref="IWavePlayer"/>.
+///     Plays UI sound effects such as click, shutter, and trash sounds using NAudio 3.
+///     Decoding and output are platform-specific (Windows: Media Foundation + WaveOut;
+///     Linux: libsndfile via NAudio.SoundFile + ALSA via NAudio.Alsa), but the playback
+///     pipeline itself is a single cross-platform path built on <see cref="IWavePlayer" />.
 /// </summary>
 public class PlaySoundEffects : IPlaySoundEffects, IDisposable
 {
@@ -21,36 +21,46 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     private const string TrashSoundFile = "trash.mp3";
 
     private static readonly Lock Lock = new();
-    private readonly SettingsManager.SettingsManagerService _settingsManager;
     private readonly ILogger _logger;
+    private readonly SettingsManagerService _settingsManager;
 
     private IWavePlayer? _player;
     private WaveStream? _reader;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PlaySoundEffects"/> class.
+    ///     Initializes a new instance of the <see cref="PlaySoundEffects" /> class.
     /// </summary>
-    public PlaySoundEffects(SettingsManager.SettingsManagerService settings, ILogger logger)
+    public PlaySoundEffects(SettingsManagerService settings, ILogger logger)
     {
         _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     /// <summary>
-    /// Plays the configured notification sound if notifications are enabled.
+    ///     Stops any current playback and releases audio resources.
+    /// </summary>
+    public void Dispose()
+    {
+        lock (Lock)
+        {
+            StopCurrentPlayback();
+        }
+
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    ///     Plays the configured notification sound if notifications are enabled.
     /// </summary>
     public void PlayNotificationSound()
     {
-        if (!_settingsManager.EnableNotificationSound)
-        {
-            return;
-        }
+        if (!_settingsManager.EnableNotificationSound) return;
 
         PlaySound(_settingsManager.CustomNotificationSoundFile ?? ClickSoundFile);
     }
 
     /// <summary>
-    /// Plays the shutter sound effect.
+    ///     Plays the shutter sound effect.
     /// </summary>
     public void PlayShutterSound()
     {
@@ -58,7 +68,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     }
 
     /// <summary>
-    /// Plays the trash/delete sound effect.
+    ///     Plays the trash/delete sound effect.
     /// </summary>
     public void PlayTrashSound()
     {
@@ -66,7 +76,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     }
 
     /// <summary>
-    /// Plays a sound file by name from the audio directory.
+    ///     Plays a sound file by name from the audio directory.
     /// </summary>
     public void PlayConfiguredSound(string soundFileName)
     {
@@ -130,8 +140,8 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     }
 
     /// <summary>
-    /// Creates the sound decoder: Media Foundation on Windows (built into the OS,
-    /// no extra dependencies) and libsndfile on Linux via NAudio.SoundFile.
+    ///     Creates the sound decoder: Media Foundation on Windows (built into the OS,
+    ///     no extra dependencies) and libsndfile on Linux via NAudio.SoundFile.
     /// </summary>
     private static WaveStream CreateReader(string soundPath)
     {
@@ -143,7 +153,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
     }
 
     /// <summary>
-    /// Creates the output device: WaveOut (winmm) on Windows, ALSA on Linux.
+    ///     Creates the output device: WaveOut (winmm) on Windows, ALSA on Linux.
     /// </summary>
     private static IWavePlayer CreatePlayer()
     {
@@ -151,9 +161,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
         return new WaveOut();
 #else
         if (!OperatingSystem.IsLinux())
-        {
             throw new PlatformNotSupportedException("Audio playback is only supported on Windows and Linux.");
-        }
 
         return new AlsaOut();
 #endif
@@ -191,7 +199,6 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
         }
 
         if (player != null)
-        {
             try
             {
                 player.Dispose();
@@ -200,30 +207,13 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
             {
                 _logger.Debug($"[PlaySoundEffects] Error disposing player: {ex.Message}");
             }
-        }
     }
 
     private void OnPlaybackStopped(object? sender, StoppedEventArgs e)
     {
         lock (Lock)
         {
-            if (_player == sender)
-            {
-                StopCurrentPlayback();
-            }
+            if (_player == sender) StopCurrentPlayback();
         }
-    }
-
-    /// <summary>
-    /// Stops any current playback and releases audio resources.
-    /// </summary>
-    public void Dispose()
-    {
-        lock (Lock)
-        {
-            StopCurrentPlayback();
-        }
-
-        GC.SuppressFinalize(this);
     }
 }

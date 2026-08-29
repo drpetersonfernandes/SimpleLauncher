@@ -4,7 +4,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 
 /// <summary>
-/// Configuration settings for the Xenia (Xbox 360) emulator, including GPU, audio, scaling, and input options.
+///     Configuration settings for the Xenia (Xbox 360) emulator, including GPU, audio, scaling, and input options.
 /// </summary>
 public class XeniaSettings : IEmulatorSettings
 {

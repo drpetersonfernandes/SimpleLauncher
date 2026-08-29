@@ -5,9 +5,11 @@ using System.Runtime.InteropServices;
 using System.Security.Authentication;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Threading;
 using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Polly;
 using Serilog.Events;
 using SimpleLauncher.Core;
 using SimpleLauncher.Core.Interfaces;
@@ -43,20 +45,24 @@ using SimpleLauncher.Services.ContextMenu;
 using SimpleLauncher.Services.DebugAndBugReport;
 using SimpleLauncher.Services.DisplaySystemInfo;
 using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.GameBrowser;
 using SimpleLauncher.Services.GameCache;
+using SimpleLauncher.Services.GameFileLoadingOrchestrator;
 using SimpleLauncher.Services.GameFilter;
 using SimpleLauncher.Services.GameItemRender;
 using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GameLauncher.Handlers;
-using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.GameLauncher.Strategies;
-using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.GameListUI;
+using SimpleLauncher.Services.GameScan;
+using SimpleLauncher.Services.HelpUser;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.LoadingOverlay;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.MenuCheckMark;
+using SimpleLauncher.Services.MenuOrchestrator;
 using SimpleLauncher.Services.MessageBox;
+using SimpleLauncher.Services.NotificationToast;
 using SimpleLauncher.Services.Pagination;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.QuitOrReinstall;
@@ -65,14 +71,13 @@ using SimpleLauncher.Services.SearchOrchestrator;
 using SimpleLauncher.Services.StartupInitialization;
 using SimpleLauncher.Services.SystemConfiguration;
 using SimpleLauncher.Services.SystemImageResolver;
-using SimpleLauncher.Services.ThemeMenu;
-using SimpleLauncher.Services.UpdateStatusBar;
-using SimpleLauncher.Services.UIReset;
-using SimpleLauncher.Services.UiOrchestrator;
-using SimpleLauncher.Services.UsageStats;
 using SimpleLauncher.Services.SystemSelectionOrchestrator;
-using SimpleLauncher.Services.GameFileLoadingOrchestrator;
-using SimpleLauncher.Services.NotificationToast;
+using SimpleLauncher.Services.TakeScreenshot;
+using SimpleLauncher.Services.ThemeMenu;
+using SimpleLauncher.Services.UiOrchestrator;
+using SimpleLauncher.Services.UIReset;
+using SimpleLauncher.Services.UpdateStatusBar;
+using SimpleLauncher.Services.UsageStats;
 using SimpleLauncher.Services.WpfServices;
 using SimpleLauncher.ViewModels;
 using DosBoxFileSelectionViewModel = SimpleLauncher.ViewModels.DosBoxFileSelectionViewModel;
@@ -82,24 +87,38 @@ using UpdateChecker = SimpleLauncher.Services.CheckForUpdatesService;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Application entry point handling DI container setup, single-instance enforcement, theming, and global error handling.
+///     Application entry point handling DI container setup, single-instance enforcement, theming, and global error
+///     handling.
 /// </summary>
 public partial class App : IDisposable
 {
-    /// <summary>
-    /// Gets the application's dependency injection service provider.
-    /// </summary>
-    public static IServiceProvider ServiceProvider { get; private set; } = null!;
-
-    private Mutex _singleInstanceMutex = null!;
-    private bool _isFirstInstance;
     private const string UniqueMutexIdentifier = "A8E2B9C1-F5D7-4E0A-8B3C-6D1E9F0A7B4C";
     private const string MutexName = "SimpleLauncher_SingleInstanceMutex_" + UniqueMutexIdentifier;
     private const string EventName = "SimpleLauncher_SingleInstanceEvent_" + UniqueMutexIdentifier;
+
+    private const int SwRestore = 9;
     private EventWaitHandle _instanceSignal = null!;
+    private bool _isFirstInstance;
+
+    private Mutex _singleInstanceMutex = null!;
 
     /// <summary>
-    /// Handles application startup including DI registration, single-instance check, and theme initialization.
+    ///     Gets the application's dependency injection service provider.
+    /// </summary>
+    public static IServiceProvider ServiceProvider { get; private set; } = null!;
+
+    /// <summary>
+    ///     Disposes application resources including the single-instance mutex and signal event.
+    /// </summary>
+    public void Dispose()
+    {
+        _instanceSignal?.Dispose();
+        _singleInstanceMutex?.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    ///     Handles application startup including DI registration, single-instance check, and theme initialization.
     /// </summary>
     /// <param name="e">The startup event arguments.</param>
     protected override void OnStartup(StartupEventArgs e)
@@ -174,10 +193,7 @@ public partial class App : IDisposable
             // Set the base address for the EasyMode configuration API
             var easyModeUrl = configuration.GetValue<string>("Urls:EasyModeApi") ??
                               "https://www.purelogiccode.com/simplelauncheradmin/";
-            if (!easyModeUrl.EndsWith('/'))
-            {
-                easyModeUrl += "/";
-            }
+            if (!easyModeUrl.EndsWith('/')) easyModeUrl += "/";
 
             client.BaseAddress = new Uri(easyModeUrl);
         }).ConfigurePrimaryHttpMessageHandler(CreateHttpHandler);
@@ -195,10 +211,7 @@ public partial class App : IDisposable
         {
             var resolverUrl = configuration.GetValue<string>("Urls:ParameterResolverApi") ??
                               "https://www.purelogiccode.com/simplelauncheradmin/";
-            if (!resolverUrl.EndsWith('/'))
-            {
-                resolverUrl += "/";
-            }
+            if (!resolverUrl.EndsWith('/')) resolverUrl += "/";
 
             client.BaseAddress = new Uri(resolverUrl);
             client.Timeout = TimeSpan.FromSeconds(60);
@@ -212,7 +225,7 @@ public partial class App : IDisposable
             {
                 options.Retry.MaxRetryAttempts = 5;
                 options.Retry.Delay = TimeSpan.FromSeconds(2);
-                options.Retry.BackoffType = Polly.DelayBackoffType.Exponential;
+                options.Retry.BackoffType = DelayBackoffType.Exponential;
                 options.Retry.UseJitter = true;
             });
 
@@ -377,12 +390,12 @@ public partial class App : IDisposable
         // Facade services
         serviceCollection.AddSingleton<IAudioInputService, AudioInputService>();
         serviceCollection.AddSingleton<IApplicationLifecycleService, ApplicationLifecycleService>();
-        serviceCollection.AddSingleton<IMenuOrchestrator, Services.MenuOrchestrator.MenuOrchestratorService>();
-        serviceCollection.AddSingleton<IGameBrowserService, Services.GameBrowser.GameBrowserService>();
+        serviceCollection.AddSingleton<IMenuOrchestrator, MenuOrchestratorService>();
+        serviceCollection.AddSingleton<IGameBrowserService, GameBrowserService>();
 
         // F8 Screenshot Hotkey
-        serviceCollection.AddSingleton<Services.TakeScreenshot.GlobalHotkeyService>();
-        serviceCollection.AddSingleton<Services.TakeScreenshot.ActiveWindowScreenshotService>();
+        serviceCollection.AddSingleton<GlobalHotkeyService>();
+        serviceCollection.AddSingleton<ActiveWindowScreenshotService>();
 
         // ViewModels
         serviceCollection.AddTransient<AboutViewModel>();
@@ -648,10 +661,7 @@ public partial class App : IDisposable
         Current.MainWindow = mainWindow;
         mainWindow.Show();
 
-        if (isDebugMode)
-        {
-            DebugWindow.ShowDebugWindow();
-        }
+        if (isDebugMode) DebugWindow.ShowDebugWindow();
 
         // Call ApplicationStats API on startup
         _ = Task.Run(async () =>
@@ -670,7 +680,6 @@ public partial class App : IDisposable
         // Show UpdateHistoryWindow if -whatsnew argument is present
         // This is done after ensuring we're the single instance and after initialization
         if (displayHistoryWindow)
-        {
             // Use Dispatcher.BeginInvoke to show the window after the main window is loaded
             Dispatcher.BeginInvoke(new Action(static () =>
             {
@@ -686,7 +695,6 @@ public partial class App : IDisposable
                     ServiceProvider.GetRequiredService<ILogger>().Error(ex, contextMessage);
                 }
             }));
-        }
 
         return;
 
@@ -707,7 +715,7 @@ public partial class App : IDisposable
     }
 
     /// <summary>
-    /// Displays the failed-to-start message box and waits it to be dismissed before shutting the application down.
+    ///     Displays the failed-to-start message box and waits it to be dismissed before shutting the application down.
     /// </summary>
     /// <param name="messageBox">The message box library service.</param>
     private async void ShowStartupFailureAndShutdown(IMessageBoxLibraryService messageBox)
@@ -737,10 +745,8 @@ public partial class App : IDisposable
         try
         {
             if (ex is COMException { HResult: unchecked((int)0x88980406) })
-            {
                 contextMessage =
                     $"[RenderingEngineFailure] {contextMessage} | HResult=0x88980406 (UCEERR_RENDERTHREADFAILURE). Commonly triggered by GPU driver issues or WPF per-pixel transparency.";
-            }
 
             Log.Error(ex, contextMessage);
         }
@@ -759,15 +765,12 @@ public partial class App : IDisposable
     }
 
     private static void App_DispatcherUnhandledException(object sender,
-        System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        DispatcherUnhandledExceptionEventArgs e)
     {
         ReportException(e.Exception, "Unhandled dispatcher exception.");
 
         // Don't swallow critical exceptions that indicate memory corruption or resource exhaustion
-        if (e.Exception is OutOfMemoryException or AccessViolationException or InvalidProgramException)
-        {
-            return;
-        }
+        if (e.Exception is OutOfMemoryException or AccessViolationException or InvalidProgramException) return;
 
         e.Handled = true;
     }
@@ -779,7 +782,7 @@ public partial class App : IDisposable
     }
 
     /// <summary>
-    /// Handles application exit, cleaning up gamepad resources, CHD mounter processes, and the single-instance mutex.
+    ///     Handles application exit, cleaning up gamepad resources, CHD mounter processes, and the single-instance mutex.
     /// </summary>
     /// <param name="e">The exit event arguments.</param>
     protected override void OnExit(ExitEventArgs e)
@@ -812,15 +815,11 @@ public partial class App : IDisposable
             // shutdown, so only log the fault and let the app exit.
             var stopTask = gamePadController.StopAsync();
             if (!stopTask.IsCompleted)
-            {
                 _ = stopTask.ContinueWith(static (t, state) =>
                 {
                     if (t.IsFaulted)
-                    {
                         (state as ILogger)?.Error(t.Exception, "Failed to stop the gamepad controller on exit.");
-                    }
                 }, ServiceProvider.GetRequiredService<ILogger>(), TaskContinuationOptions.OnlyOnFaulted);
-            }
 
             // Dispose gamepad resources
             gamePadController.Dispose();
@@ -840,7 +839,6 @@ public partial class App : IDisposable
         // The new instance (started with --restarting) didn't acquire the mutex, so _isFirstInstance will be false,
         // and it won't try to release it.
         if (_isFirstInstance)
-        {
             try
             {
                 _singleInstanceMutex.ReleaseMutex();
@@ -867,7 +865,6 @@ public partial class App : IDisposable
             {
                 _singleInstanceMutex?.Dispose();
             }
-        }
 
         DebugWindow.ShutdownWindow();
         Log.CloseAndFlush();
@@ -876,7 +873,7 @@ public partial class App : IDisposable
     }
 
     /// <summary>
-    /// Extracts a language code from the "--language"/"-language"/"--language=" launch argument.
+    ///     Extracts a language code from the "--language"/"-language"/"--language=" launch argument.
     /// </summary>
     /// <param name="args">The command-line arguments.</param>
     /// <returns>The language code, or null when no language argument is present.</returns>
@@ -885,29 +882,22 @@ public partial class App : IDisposable
         for (var i = 0; i < args.Length; i++)
         {
             var arg = args[i];
-            if (arg.StartsWith("--language=", StringComparison.OrdinalIgnoreCase))
-            {
-                return arg["--language=".Length..];
-            }
+            if (arg.StartsWith("--language=", StringComparison.OrdinalIgnoreCase)) return arg["--language=".Length..];
 
             if (arg.Equals("--language", StringComparison.OrdinalIgnoreCase) ||
                 arg.Equals("-language", StringComparison.OrdinalIgnoreCase))
-            {
                 if (i + 1 < args.Length)
-                {
                     return args[i + 1];
-                }
-            }
         }
 
         return null;
     }
 
     /// <summary>
-    /// Resolves the startup language: an explicit --language launch argument wins
-    /// (validated against the supported languages, case-insensitive), otherwise the
-    /// configured language is used. Unsupported argument codes fall back to English
-    /// directly (an expected user-input condition — logged at Information level).
+    ///     Resolves the startup language: an explicit --language launch argument wins
+    ///     (validated against the supported languages, case-insensitive), otherwise the
+    ///     configured language is used. Unsupported argument codes fall back to English
+    ///     directly (an expected user-input condition — logged at Information level).
     /// </summary>
     /// <param name="args">The command-line arguments.</param>
     /// <param name="configuredLanguage">The language from the settings.</param>
@@ -919,10 +909,7 @@ public partial class App : IDisposable
         {
             var canonical = LanguageMenuService.NameToCode.Values
                 .FirstOrDefault(code => string.Equals(code, argLanguage, StringComparison.OrdinalIgnoreCase));
-            if (canonical is not null)
-            {
-                return canonical;
-            }
+            if (canonical is not null) return canonical;
 
             // Expected user input (e.g. --language zz): fall back to English without
             // going through ApplyLanguage, which would log an Error for the missing
@@ -955,10 +942,7 @@ public partial class App : IDisposable
                     d.Source.OriginalString.Contains("/resources/strings.", StringComparison.Ordinal))
                 .ToList();
 
-            foreach (var dict in existingLanguageDictionaries)
-            {
-                Current.Resources.MergedDictionaries.Remove(dict);
-            }
+            foreach (var dict in existingLanguageDictionaries) Current.Resources.MergedDictionaries.Remove(dict);
 
             Current.Resources.MergedDictionaries.Add(resourceDictionary);
         }
@@ -1104,10 +1088,7 @@ public partial class App : IDisposable
                  d.Source.OriginalString.Contains("Theme.Midnight.xaml", StringComparison.Ordinal)))
             .ToList();
 
-        foreach (var dict in customThemes)
-        {
-            Current.Resources.MergedDictionaries.Remove(dict);
-        }
+        foreach (var dict in customThemes) Current.Resources.MergedDictionaries.Remove(dict);
     }
 
     private static void ApplyCustomThemeOverrideToWindow(Window window, string fileName)
@@ -1137,14 +1118,11 @@ public partial class App : IDisposable
                  d.Source.OriginalString.Contains("Theme.Midnight.xaml", StringComparison.Ordinal)))
             .ToList();
 
-        foreach (var dict in customThemes)
-        {
-            window.Resources.MergedDictionaries.Remove(dict);
-        }
+        foreach (var dict in customThemes) window.Resources.MergedDictionaries.Remove(dict);
     }
 
     /// <summary>
-    /// Applies the current theme to the specified window based on application settings.
+    ///     Applies the current theme to the specified window based on application settings.
     /// </summary>
     /// <param name="window">The window to apply the theme to.</param>
     public static void ApplyThemeToWindow(Window window)
@@ -1159,10 +1137,7 @@ public partial class App : IDisposable
             {
                 case "Adaptive":
                     var detectedTheme = ThemeManager.Current.DetectTheme();
-                    if (detectedTheme != null)
-                    {
-                        ThemeManager.Current.ChangeTheme(window, detectedTheme);
-                    }
+                    if (detectedTheme != null) ThemeManager.Current.ChangeTheme(window, detectedTheme);
 
                     return;
                 case "HighContrast":
@@ -1213,7 +1188,7 @@ public partial class App : IDisposable
     }
 
     /// <summary>
-    /// Changes the application theme and applies it to all open windows.
+    ///     Changes the application theme and applies it to all open windows.
     /// </summary>
     /// <param name="baseTheme">The base theme name (e.g., "Light", "Dark", "Adaptive").</param>
     /// <param name="accentColor">The accent color name.</param>
@@ -1228,23 +1203,10 @@ public partial class App : IDisposable
         ApplyTheme(baseTheme, accentColor);
 
         // Apply theme to all currently open windows
-        foreach (Window window in Current.Windows)
-        {
-            ApplyThemeToWindow(window);
-        }
+        foreach (Window window in Current.Windows) ApplyThemeToWindow(window);
 
         Log.Logger.Debug("Theme has been applied to all windows.");
         Log.Logger.Debug($"Saved theme settings: {baseTheme}.{accentColor}");
-    }
-
-    /// <summary>
-    /// Disposes application resources including the single-instance mutex and signal event.
-    /// </summary>
-    public void Dispose()
-    {
-        _instanceSignal?.Dispose();
-        _singleInstanceMutex?.Dispose();
-        GC.SuppressFinalize(this);
     }
 
     private void InstanceSignalListener()
@@ -1277,8 +1239,6 @@ public partial class App : IDisposable
         }
     }
 
-    private const int SwRestore = 9;
-
     [DllImport("user32.dll")]
     private static extern bool SetForegroundWindow(IntPtr hWnd);
 
@@ -1294,7 +1254,6 @@ public partial class App : IDisposable
         {
             var currentProcess = Process.GetCurrentProcess();
             foreach (var process in Process.GetProcessesByName(currentProcess.ProcessName))
-            {
                 if (process.Id != currentProcess.Id && process.MainWindowHandle != IntPtr.Zero)
                 {
                     var hWnd = process.MainWindowHandle;
@@ -1303,7 +1262,6 @@ public partial class App : IDisposable
                     SetForegroundWindow(hWnd);
                     break;
                 }
-            }
         }
         catch (Exception ex)
         {

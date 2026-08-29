@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text;
 using Moq;
 using SimpleLauncher.Avalonia.ViewModels;
@@ -6,8 +7,8 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the SupportWindow ViewModel (Phase 4.1 port). HTTP traffic goes
-/// through a fake handler; audio is disabled via settings.
+///     Tests for the SupportWindow ViewModel (Phase 4.1 port). HTTP traffic goes
+///     through a fake handler; audio is disabled via settings.
 /// </summary>
 public class SupportViewModelTests
 {
@@ -25,7 +26,7 @@ public class SupportViewModelTests
                 """{"EmailApiBaseUrl": "https://example.com/api", "SupportEmailTo": "support@example.com"}""");
 
         var factory = TestDependencies.HttpFactory(httpClient ?? TestDependencies.HttpClientWith(_ =>
-            new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+            new HttpResponseMessage(HttpStatusCode.OK)
                 { Content = new StringContent("{}", Encoding.UTF8, "application/json") }));
 
         var resourceProvider = TestDependencies.ResourceProvider();
@@ -102,11 +103,11 @@ public class SupportViewModelTests
     {
         var messageBox = TestDependencies.MessageBox();
         var client = TestDependencies.HttpClientWith(_ =>
-            new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError)
+            new HttpResponseMessage(HttpStatusCode.InternalServerError)
             {
                 Content = new StringContent("oops", Encoding.UTF8, "application/json")
             });
-        var vm = CreateVm(messageBox, httpClient: client);
+        var vm = CreateVm(messageBox, client);
         vm.Name = "Tester";
         vm.Email = "tester@example.com";
         vm.SupportRequest = "Broken.";
@@ -123,7 +124,7 @@ public class SupportViewModelTests
     {
         var messageBox = TestDependencies.MessageBox();
         var client = TestDependencies.HttpClientWith(_ => throw new HttpRequestException("network down"));
-        var vm = CreateVm(messageBox, httpClient: client);
+        var vm = CreateVm(messageBox, client);
         vm.Name = "Tester";
         vm.Email = "tester@example.com";
         vm.SupportRequest = "Broken.";

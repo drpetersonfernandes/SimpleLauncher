@@ -4,12 +4,12 @@ using System.Text.RegularExpressions;
 namespace SimpleLauncher.ResourceTranslator.Services;
 
 /// <summary>
-/// Provides functionality to update XAML resource files with translations.
+///     Provides functionality to update XAML resource files with translations.
 /// </summary>
 public static class XamlResourceWriter
 {
     /// <summary>
-    /// Updates a XAML resource file with new translations and removes duplicate keys.
+    ///     Updates a XAML resource file with new translations and removes duplicate keys.
     /// </summary>
     /// <param name="filePath">The path to the XAML resource file.</param>
     /// <param name="newTranslations">Dictionary of key-value pairs to add or update.</param>
@@ -47,16 +47,11 @@ public static class XamlResourceWriter
         {
             var key = match.Groups[1].Value;
             if (!duplicatesRemoved.Contains(key) && !existingEntries.ContainsKey(key))
-            {
                 existingEntries[key] = XmlHelper.UnescapeXml(match.Groups[2].Value);
-            }
         }
 
         // Merge new translations
-        foreach (var kvp in newTranslations)
-        {
-            existingEntries[kvp.Key] = kvp.Value;
-        }
+        foreach (var kvp in newTranslations) existingEntries[kvp.Key] = kvp.Value;
 
         // Sort by key and build output
         var sb = new StringBuilder();

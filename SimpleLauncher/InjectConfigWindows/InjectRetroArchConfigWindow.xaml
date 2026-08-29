@@ -22,50 +22,82 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource RetroArchConfig_VideoDriver_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource RetroArchConfig_VideoDriver_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding VideoDriverOptions}"
                                       SelectedItem="{Binding VideoDriver}"
                                       ToolTip="{DynamicResource RetroArchConfig_VideoDriver_Tooltip}" />
                         </Grid>
-                        <CheckBox IsChecked="{Binding Fullscreen}" Content="{DynamicResource RetroArchConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_Fullscreen_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Vsync}" Content="{DynamicResource RetroArchConfig_VSync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_VSync_Tooltip}" />
-                        <CheckBox IsChecked="{Binding ThreadedVideo}" Content="{DynamicResource RetroArchConfig_ThreadedVideo_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_ThreadedVideo_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Bilinear}" Content="{DynamicResource RetroArchConfig_Bilinear_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_Bilinear_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Fullscreen}"
+                                  Content="{DynamicResource RetroArchConfig_Fullscreen_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Vsync}"
+                                  Content="{DynamicResource RetroArchConfig_VSync_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_VSync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding ThreadedVideo}"
+                                  Content="{DynamicResource RetroArchConfig_ThreadedVideo_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_ThreadedVideo_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Bilinear}"
+                                  Content="{DynamicResource RetroArchConfig_Bilinear_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_Bilinear_Tooltip}" />
                         <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource RetroArchConfig_AspectRatio_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource RetroArchConfig_AspectRatio_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding AspectRatioIndexOptions}"
                                       SelectedItem="{Binding AspectRatioIndex}"
                                       ToolTip="{DynamicResource RetroArchConfig_AspectRatio_Tooltip}" />
                         </Grid>
-                        <CheckBox IsChecked="{Binding ScaleInteger}" Content="{DynamicResource RetroArchConfig_IntegerScale_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_IntegerScale_Tooltip}" />
-                        <CheckBox IsChecked="{Binding ShaderEnable}" Content="{DynamicResource RetroArchConfig_Shaders_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_Shaders_Tooltip}" />
-                        <CheckBox IsChecked="{Binding HardSync}" Content="{DynamicResource RetroArchConfig_HardSync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_HardSync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding ScaleInteger}"
+                                  Content="{DynamicResource RetroArchConfig_IntegerScale_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_IntegerScale_Tooltip}" />
+                        <CheckBox IsChecked="{Binding ShaderEnable}"
+                                  Content="{DynamicResource RetroArchConfig_Shaders_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_Shaders_Tooltip}" />
+                        <CheckBox IsChecked="{Binding HardSync}"
+                                  Content="{DynamicResource RetroArchConfig_HardSync_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_HardSync_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Audio Section -->
                 <GroupBox Header="{DynamicResource RetroArchConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding AudioEnable}" Content="{DynamicResource RetroArchConfig_AudioEnable_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AudioEnable_Tooltip}" />
-                        <CheckBox IsChecked="{Binding AudioMute}" Content="{DynamicResource RetroArchConfig_AudioMute_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AudioMute_Tooltip}" />
+                        <CheckBox IsChecked="{Binding AudioEnable}"
+                                  Content="{DynamicResource RetroArchConfig_AudioEnable_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_AudioEnable_Tooltip}" />
+                        <CheckBox IsChecked="{Binding AudioMute}"
+                                  Content="{DynamicResource RetroArchConfig_AudioMute_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_AudioMute_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Automation & Misc -->
                 <GroupBox Header="{DynamicResource RetroArchConfig_AutomationBehavior_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding PauseNonActive}" Content="{DynamicResource RetroArchConfig_PauseNonActive_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_PauseNonActive_Tooltip}" />
-                        <CheckBox IsChecked="{Binding SaveOnExit}" Content="{DynamicResource RetroArchConfig_SaveOnExit_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_SaveOnExit_Tooltip}" />
-                        <CheckBox IsChecked="{Binding AutoSaveState}" Content="{DynamicResource RetroArchConfig_AutoSaveState_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AutoSaveState_Tooltip}" />
-                        <CheckBox IsChecked="{Binding AutoLoadState}" Content="{DynamicResource RetroArchConfig_AutoLoadState_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AutoLoadState_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Rewind}" Content="{DynamicResource RetroArchConfig_Rewind_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_Rewind_Tooltip}" />
-                        <CheckBox IsChecked="{Binding RunAhead}" Content="{DynamicResource RetroArchConfig_RunAhead_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_RunAhead_Tooltip}" />
+                        <CheckBox IsChecked="{Binding PauseNonActive}"
+                                  Content="{DynamicResource RetroArchConfig_PauseNonActive_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_PauseNonActive_Tooltip}" />
+                        <CheckBox IsChecked="{Binding SaveOnExit}"
+                                  Content="{DynamicResource RetroArchConfig_SaveOnExit_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_SaveOnExit_Tooltip}" />
+                        <CheckBox IsChecked="{Binding AutoSaveState}"
+                                  Content="{DynamicResource RetroArchConfig_AutoSaveState_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_AutoSaveState_Tooltip}" />
+                        <CheckBox IsChecked="{Binding AutoLoadState}"
+                                  Content="{DynamicResource RetroArchConfig_AutoLoadState_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_AutoLoadState_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Rewind}"
+                                  Content="{DynamicResource RetroArchConfig_Rewind_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_Rewind_Tooltip}" />
+                        <CheckBox IsChecked="{Binding RunAhead}"
+                                  Content="{DynamicResource RetroArchConfig_RunAhead_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_RunAhead_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -77,31 +109,45 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource RetroArchConfig_MenuDriver_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource RetroArchConfig_MenuDriver_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding MenuDriverOptions}"
                                       SelectedItem="{Binding MenuDriver}"
                                       ToolTip="{DynamicResource RetroArchConfig_MenuDriver_Tooltip}" />
                         </Grid>
-                        <CheckBox IsChecked="{Binding ShowAdvancedSettings}" Content="{DynamicResource RetroArchConfig_AdvancedSettings_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_AdvancedSettings_Tooltip}" />
+                        <CheckBox IsChecked="{Binding ShowAdvancedSettings}"
+                                  Content="{DynamicResource RetroArchConfig_AdvancedSettings_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_AdvancedSettings_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- RetroAchievements -->
                 <GroupBox Header="{DynamicResource RetroArchConfig_RetroAchievements_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <TextBlock Text="{DynamicResource RetroArchConfig_CredentialsManaged_Text}" FontStyle="Italic" Margin="0,0,0,5" TextWrapping="Wrap" />
-                        <CheckBox IsChecked="{Binding CheevosEnable}" Content="{DynamicResource RetroArchConfig_EnableCheevos_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_EnableCheevos_Tooltip}" />
-                        <CheckBox IsChecked="{Binding CheevosHardcore}" Content="{DynamicResource RetroArchConfig_HardcoreMode_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_HardcoreMode_Tooltip}" />
-                        <CheckBox IsChecked="{Binding DiscordAllow}" Content="{DynamicResource RetroArchConfig_DiscordPresence_Checkbox}" Margin="0,5" ToolTip="{DynamicResource RetroArchConfig_DiscordPresence_Tooltip}" />
+                        <TextBlock Text="{DynamicResource RetroArchConfig_CredentialsManaged_Text}" FontStyle="Italic"
+                                   Margin="0,0,0,5" TextWrapping="Wrap" />
+                        <CheckBox IsChecked="{Binding CheevosEnable}"
+                                  Content="{DynamicResource RetroArchConfig_EnableCheevos_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_EnableCheevos_Tooltip}" />
+                        <CheckBox IsChecked="{Binding CheevosHardcore}"
+                                  Content="{DynamicResource RetroArchConfig_HardcoreMode_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_HardcoreMode_Tooltip}" />
+                        <CheckBox IsChecked="{Binding DiscordAllow}"
+                                  Content="{DynamicResource RetroArchConfig_DiscordPresence_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource RetroArchConfig_DiscordPresence_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}" Content="{DynamicResource RetroArchConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource RetroArchConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="{DynamicResource RetroArchConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource RetroArchConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

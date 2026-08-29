@@ -10,71 +10,50 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Core.Services.GamePad;
 
 /// <summary>
-/// Manages gamepad input from Xbox (XInput) and PlayStation (DirectInput) controllers,
-/// translating thumbstick and button events into mouse movement, clicks, and scrolling.
+///     Manages gamepad input from Xbox (XInput) and PlayStation (DirectInput) controllers,
+///     translating thumbstick and button events into mouse movement, clicks, and scrolling.
 /// </summary>
 public class GamePadController : IDisposable
 {
-    private readonly SemaphoreSlim _updateLock = new(1, 1);
-    private readonly Lock _stateLock = new();
-    private readonly Timer _timer;
-    private readonly IMessageBoxLibraryService _messageBoxLibrary;
-    private readonly IConfiguration _configuration;
-    private readonly ILogger _logger;
-    private bool _isDisposed;
-
-    /// <summary>
-    /// Gets or sets the action used to log gamepad-related errors and notify the developer.
-    /// </summary>
-    internal Action<Exception?, string> ErrorLogger { get; set; } = null!;
-
     private const int RefreshRate = 60;
 
     // Normalize XInput values
     private const float MaxThumbValue = 32767.0f;
-
-    private readonly Controller _xinputController;
-    private Joystick? _directInputController;
-    private readonly IMouseSimulator _mouseSimulator;
-    private readonly InputSimulator _inputSimulator;
-
-    // DirectInput object needs to be managed for its lifetime
-    private DirectInput? _directInput;
-
-    // For XInput
-    private volatile bool _wasADown;
-    private volatile bool _wasBDown;
-
-    // For DirectInput
-    private volatile bool _wasCrossDown;
-    private volatile bool _wasCircleDown;
-
-    /// <summary>
-    /// Gets or sets the dead zone for the X axis of the thumbsticks.
-    /// </summary>
-    internal float DeadZoneX { get; set; } = 0.05f;
-
-    /// <summary>
-    /// Gets or sets the dead zone for the Y axis of the thumbsticks.
-    /// </summary>
-    internal float DeadZoneY { get; set; } = 0.02f;
-
-    /// <summary>
-    /// Gets a value indicating whether the controller polling loop is running.
-    /// </summary>
-    internal bool IsRunning { get; private set; }
-
-    // Handle DirectInput reconnection
-    private Guid _playStationControllerGuid; // Store the GUID of the connected PlayStation controller
-    private DateTime _lastReconnectAttempt = DateTime.MinValue; // Track the last reconnection attempt
     private const int ReconnectDelayMilliseconds = 5000; // Delay between reconnection attempts
 
     private const int XInputScalingFactor = 7;
     private const int DirectInputLeftThumbStickScalingFactor = 7;
     private const int DirectInputRightThumbStickScalingFactor = 1;
+    private readonly IConfiguration _configuration;
+    private readonly InputSimulator _inputSimulator;
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly IMouseSimulator _mouseSimulator;
+    private readonly Lock _stateLock = new();
+    private readonly Timer _timer;
+    private readonly SemaphoreSlim _updateLock = new(1, 1);
+
+    private readonly Controller _xinputController;
+
+    // DirectInput object needs to be managed for its lifetime
+    private DirectInput? _directInput;
+    private Joystick? _directInputController;
+    private bool _isDisposed;
+    private DateTime _lastReconnectAttempt = DateTime.MinValue; // Track the last reconnection attempt
+
+    // Handle DirectInput reconnection
+    private Guid _playStationControllerGuid; // Store the GUID of the connected PlayStation controller
+
+    // For XInput
+    private volatile bool _wasADown;
+    private volatile bool _wasBDown;
+    private volatile bool _wasCircleDown;
+
+    // For DirectInput
+    private volatile bool _wasCrossDown;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GamePadController"/> class with the specified dependencies.
+    ///     Initializes a new instance of the <see cref="GamePadController" /> class with the specified dependencies.
     /// </summary>
     /// <param name="messageBoxLibrary">The message box service for error notifications.</param>
     /// <param name="configuration">The application configuration.</param>
@@ -121,7 +100,36 @@ public class GamePadController : IDisposable
     }
 
     /// <summary>
-    /// Starts the gamepad polling timer and marks the controller as running.
+    ///     Gets or sets the action used to log gamepad-related errors and notify the developer.
+    /// </summary>
+    internal Action<Exception?, string> ErrorLogger { get; set; } = null!;
+
+    /// <summary>
+    ///     Gets or sets the dead zone for the X axis of the thumbsticks.
+    /// </summary>
+    internal float DeadZoneX { get; set; } = 0.05f;
+
+    /// <summary>
+    ///     Gets or sets the dead zone for the Y axis of the thumbsticks.
+    /// </summary>
+    internal float DeadZoneY { get; set; } = 0.02f;
+
+    /// <summary>
+    ///     Gets a value indicating whether the controller polling loop is running.
+    /// </summary>
+    internal bool IsRunning { get; private set; }
+
+    /// <summary>
+    ///     Releases all resources used by the gamepad controller, including the polling timer and DirectInput devices.
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    ///     Starts the gamepad polling timer and marks the controller as running.
     /// </summary>
     /// <returns>A task that completes when the controller has started, or a message box task if starting failed.</returns>
     internal Task StartAsync()
@@ -132,10 +140,8 @@ public class GamePadController : IDisposable
             // Enforce proper disposal semantics: do not allow restarting a disposed instance.
             // Once disposed, a new instance must be created. This prevents resource leaks and undefined behavior.
             if (_isDisposed)
-            {
                 throw new ObjectDisposedException(nameof(GamePadController),
                     "Cannot start a disposed GamePadController. A new instance must be created.");
-            }
 
             try
             {
@@ -154,16 +160,14 @@ public class GamePadController : IDisposable
 
         // Notify user (outside lock to allow async/await)
         if (startException != null)
-        {
             return _messageBoxLibrary.GamePadErrorMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
-        }
 
         return Task.CompletedTask;
     }
 
     /// <summary>
-    /// Stops the gamepad polling timer and marks the controller as not running.
+    ///     Stops the gamepad polling timer and marks the controller as not running.
     /// </summary>
     /// <returns>A task that completes when the controller has stopped, or a message box task if stopping failed.</returns>
     internal Task StopAsync()
@@ -189,21 +193,10 @@ public class GamePadController : IDisposable
 
         // Notify user (outside lock to allow async/await)
         if (stopException != null)
-        {
             return _messageBoxLibrary.GamePadErrorMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
-        }
 
         return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Releases all resources used by the gamepad controller, including the polling timer and DirectInput devices.
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 
     protected virtual void Dispose(bool disposing)
@@ -257,14 +250,10 @@ public class GamePadController : IDisposable
             // Only wait if Dispose returns true (meaning a callback was pending and needs to signal completion).
             // If timer is null or already disposed, Dispose returns false and we skip WaitOne to prevent blocking.
             if (_timer?.Dispose(waitHandle) ?? false)
-            {
                 // Use a generous timeout (2-3s) to account for slower systems
                 if (!waitHandle.WaitOne(TimeSpan.FromSeconds(2)))
-                {
                     ErrorLogger?.Invoke(null,
                         "GamePadController timer disposal timed out. A callback may be stuck.");
-                }
-            }
         }
         catch (Exception ex)
         {
@@ -298,10 +287,7 @@ public class GamePadController : IDisposable
                 lock (_stateLock)
                 {
                     // Check if disposed or not running before processing
-                    if (_isDisposed || !IsRunning)
-                    {
-                        return;
-                    }
+                    if (_isDisposed || !IsRunning) return;
 
                     try
                     {
@@ -465,7 +451,7 @@ public class GamePadController : IDisposable
     }
 
     /// <summary>
-    /// Checks for available gamepad controllers and attempts to reconnect a DirectInput device if disconnected.
+    ///     Checks for available gamepad controllers and attempts to reconnect a DirectInput device if disconnected.
     /// </summary>
     private void CheckAndReconnectControllers()
     {
@@ -480,10 +466,7 @@ public class GamePadController : IDisposable
                 if (_xinputController.IsConnected)
                 {
                     // Ensure DirectInput controller is released if XInput is active
-                    if (_directInputController == null)
-                    {
-                        return;
-                    }
+                    if (_directInputController == null) return;
 
                     // Safely dispose DirectInput controller
                     _directInputController?.Unacquire();
@@ -496,7 +479,6 @@ public class GamePadController : IDisposable
 
                 // If DirectInput object is null or disposed, try to recreate it
                 if (_directInput == null || _directInput.IsDisposed)
-                {
                     // Recreate DirectInput object
                     try
                     {
@@ -520,7 +502,6 @@ public class GamePadController : IDisposable
                         _directInput = null; // Ensure it's null if creation failed
                         return; // Cannot proceed without a valid DirectInput object
                     }
-                }
 
                 // Find and reconnect DirectInput devices
                 // Check if the previously connected PlayStation controller is attached
@@ -531,7 +512,6 @@ public class GamePadController : IDisposable
 
                 // First, try to find the specific controller by GUID if we had one
                 if (_playStationControllerGuid != Guid.Empty)
-                {
                     foreach (var deviceInstance in devices)
                     {
                         if (deviceInstance.InstanceGuid != _playStationControllerGuid) continue;
@@ -540,7 +520,6 @@ public class GamePadController : IDisposable
                         found = true;
                         break;
                     }
-                }
 
                 // If the specific GUID wasn't found or we didn't have one, just take the first available gamepad
                 if (!found && devices.Count > 0)
@@ -599,10 +578,7 @@ public class GamePadController : IDisposable
                 {
                     // No gamepad device found
                     // Clean up if no device is found
-                    if (_directInputController == null)
-                    {
-                        return;
-                    }
+                    if (_directInputController == null) return;
 
                     _directInputController?.Unacquire();
                     _directInputController?.Dispose();
@@ -689,15 +665,9 @@ public class GamePadController : IDisposable
         resultX *= XInputScalingFactor;
         resultY *= XInputScalingFactor;
 
-        if (dzX > 0)
-        {
-            resultX *= 1.0f / (1.0f - dzX); // Scale up to full range
-        }
+        if (dzX > 0) resultX *= 1.0f / (1.0f - dzX); // Scale up to full range
 
-        if (dzY > 0)
-        {
-            resultY *= 1.0f / (1.0f - dzY); // Scale up to full range
-        }
+        if (dzY > 0) resultY *= 1.0f / (1.0f - dzY); // Scale up to full range
 
         return (resultX, resultY);
     }
@@ -783,29 +753,19 @@ public class GamePadController : IDisposable
 
         float resultX = 0;
         if (Math.Abs(normalizedX) > dzX)
-        {
             resultX = (Math.Abs(normalizedX) - dzX) * (normalizedX / Math.Abs(normalizedX));
-        }
 
         float resultY = 0;
         if (Math.Abs(normalizedY) > dzY)
-        {
             resultY = (Math.Abs(normalizedY) - dzY) * (normalizedY / Math.Abs(normalizedY));
-        }
 
         // Always apply base scaling, then additional scaling based on the deadzone
         resultX *= DirectInputLeftThumbStickScalingFactor;
         resultY *= DirectInputLeftThumbStickScalingFactor;
 
-        if (dzX > 0)
-        {
-            resultX *= 1.0f / (1.0f - dzX); // Scale up to full range
-        }
+        if (dzX > 0) resultX *= 1.0f / (1.0f - dzX); // Scale up to full range
 
-        if (dzY > 0)
-        {
-            resultY *= 1.0f / (1.0f - dzY); // Scale up to full range
-        }
+        if (dzY > 0) resultY *= 1.0f / (1.0f - dzY); // Scale up to full range
 
         return (resultX, resultY);
     }
@@ -818,30 +778,20 @@ public class GamePadController : IDisposable
         // Apply the dead zone for X
         float resultX = 0;
         if (Math.Abs(normalizedX) > dzX)
-        {
             resultX = (Math.Abs(normalizedX) - dzX) * (normalizedX / Math.Abs(normalizedX));
-        }
 
         // Apply the dead zone for Y
         float resultY = 0;
         if (Math.Abs(normalizedY) > dzY)
-        {
             resultY = (Math.Abs(normalizedY) - dzY) * (normalizedY / Math.Abs(normalizedY));
-        }
 
         // Scale the values after dead zone adjustment
         resultX *= DirectInputRightThumbStickScalingFactor;
         resultY *= DirectInputRightThumbStickScalingFactor;
 
-        if (dzX > 0)
-        {
-            resultX *= 1.0f / (1.0f - dzX); // Scale up to full range
-        }
+        if (dzX > 0) resultX *= 1.0f / (1.0f - dzX); // Scale up to full range
 
-        if (dzY > 0)
-        {
-            resultY *= 1.0f / (1.0f - dzY); // Scale up to full range
-        }
+        if (dzY > 0) resultY *= 1.0f / (1.0f - dzY); // Scale up to full range
 
         return (resultX, resultY);
     }

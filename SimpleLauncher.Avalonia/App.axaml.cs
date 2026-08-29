@@ -1,3 +1,5 @@
+using System.Net.Security;
+using System.Security.Authentication;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -6,36 +8,33 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Serilog.Events;
-using System.Net.Security;
-using System.Security.Authentication;
-using SimpleLauncher.Core;
+using SimpleLauncher.Avalonia.InjectConfigWindows;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.AvaloniaServices;
+using SimpleLauncher.Avalonia.Services.ContextMenus;
+using SimpleLauncher.Avalonia.Services.DisplaySystemInfo;
 using SimpleLauncher.Avalonia.Services.Favorites;
+using SimpleLauncher.Avalonia.Services.GameFilter;
 using SimpleLauncher.Avalonia.Services.GameLauncher;
 using SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
+using SimpleLauncher.Avalonia.Services.GameLauncher.Strategies;
 using SimpleLauncher.Avalonia.Services.GameScan;
 using SimpleLauncher.Avalonia.Services.InjectEmulatorConfig;
-using SimpleLauncher.Avalonia.InjectConfigWindows;
+using SimpleLauncher.Avalonia.Services.LoadingOverlay;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Avalonia.Services.QuitOrReinstall;
 using SimpleLauncher.Avalonia.Services.RetroAchievements;
+using SimpleLauncher.Avalonia.Services.SearchOrchestrator;
+using SimpleLauncher.Avalonia.Services.SystemImageResolver;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Avalonia.Services.SystemSelectionOrchestrator;
-using SimpleLauncher.Avalonia.Services.SystemImageResolver;
+using SimpleLauncher.Avalonia.Services.Theme;
 using SimpleLauncher.Avalonia.Services.TrayIcon;
 using SimpleLauncher.Avalonia.Services.UIReset;
-using SimpleLauncher.Avalonia.Services.GameFilter;
 using SimpleLauncher.Avalonia.Services.UpdateStatusBar;
-using SimpleLauncher.Avalonia.Services.SearchOrchestrator;
-// ReSharper disable once RedundantUsingDirective
-using SimpleLauncher.Avalonia.Views;
-using SimpleLauncher.Avalonia.Services.ContextMenus;
-using SimpleLauncher.Avalonia.Services.DisplaySystemInfo;
-using SimpleLauncher.Avalonia.Services.LoadingOverlay;
-using SimpleLauncher.Avalonia.Services.Theme;
 using SimpleLauncher.Avalonia.Services.UsageStats;
 using SimpleLauncher.Avalonia.ViewModels;
+using SimpleLauncher.Core;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services;
 using SimpleLauncher.Core.Services.CheckForFileLock;
@@ -49,10 +48,11 @@ using SimpleLauncher.Core.Services.ExtractFiles;
 using SimpleLauncher.Core.Services.FindCoverImage;
 using SimpleLauncher.Core.Services.GameFileWatcher;
 using SimpleLauncher.Core.Services.GameLauncher.MountFiles;
+using SimpleLauncher.Core.Services.GameLauncher.Strategies;
+using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.GetListOfFiles;
 using SimpleLauncher.Core.Services.MameData;
 using SimpleLauncher.Core.Services.ParameterResolver;
-using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.RetroAchievements;
 using SimpleLauncher.Core.Services.SanitizeInputString;
@@ -60,8 +60,10 @@ using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Core.Services.SystemConfiguration;
 using SimpleLauncher.Core.Services.UsageStats;
 using SimpleLauncher.Core.Services.WpfServices;
-using SimpleLauncher.Avalonia.Services.GameLauncher.Strategies;
-using SimpleLauncher.Core.Services.GameLauncher.Strategies;
+using IApplicationLifetime = SimpleLauncher.Core.Interfaces.IApplicationLifetime;
+using IResourceProvider = SimpleLauncher.Core.Interfaces.IResourceProvider;
+// ReSharper disable once RedundantUsingDirective
+using SimpleLauncher.Avalonia.Views;
 #if WINDOWS
 using SimpleLauncher.Avalonia.Services.TakeScreenshot;
 #endif
@@ -69,34 +71,83 @@ using SimpleLauncher.Avalonia.Services.TakeScreenshot;
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Application entry point handling DI container setup, single-instance enforcement, and global error handling.
+///     Application entry point handling DI container setup, single-instance enforcement, and global error handling.
 /// </summary>
 public class App : Application, IDisposable
 {
-    /// <summary>
-    /// Gets the application's dependency injection service provider.
-    /// </summary>
-    public static IServiceProvider ServiceProvider { get; private set; } = null!;
-
-    private Mutex? _singleInstanceMutex;
-    private bool _isFirstInstance;
     private const string UniqueMutexIdentifier = "D7F1A8B2-C4E6-9D0F-7A3B-5C1E2F8A6D9B";
     private const string MutexName = "SimpleLauncherNew_SingleInstanceMutex_" + UniqueMutexIdentifier;
     private const string EventName = "SimpleLauncherNew_SingleInstanceEvent_" + UniqueMutexIdentifier;
     private EventWaitHandle? _instanceSignal;
+    private bool _isFirstInstance;
+
+    private Mutex? _singleInstanceMutex;
 
     /// <summary>
-    /// Handles application startup including DI registration, single-instance check, and theme initialization.
+    ///     Gets the application's dependency injection service provider.
+    /// </summary>
+    public static IServiceProvider ServiceProvider { get; private set; } = null!;
+
+    #region IDisposable
+
+    /// <summary>
+    ///     Cleans up the single-instance mutex and event handle, and disposes the tray icon.
+    /// </summary>
+    public void Dispose()
+    {
+        // Unsubscribe global exception handlers
+        AppDomain.CurrentDomain.UnhandledException -= CurrentDomain_UnhandledException;
+        Dispatcher.UIThread.UnhandledException -= App_DispatcherUnhandledException;
+        TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+
+        try
+        {
+            ServiceProvider?.GetService<AvaloniaTrayIconManager>()?.Dispose();
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Error disposing the tray icon manager.");
+        }
+
+        try
+        {
+            var gamePadController = ServiceProvider?.GetService<GamePadController>();
+            if (gamePadController is not null)
+            {
+                _ = gamePadController.StopAsync();
+                gamePadController.Dispose();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Error disposing the gamepad controller.");
+        }
+
+        try
+        {
+            ServiceProvider?.GetService<AvaloniaGameFileWatcherService>()?.Dispose();
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Error disposing the game file watcher service.");
+        }
+
+        _singleInstanceMutex?.Dispose();
+        _instanceSignal?.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
+    #endregion
+
+    /// <summary>
+    ///     Handles application startup including DI registration, single-instance check, and theme initialization.
     /// </summary>
     public override void OnFrameworkInitializationCompleted()
     {
         // The XAML Previewer (Avalonia.Designer.HostApp) runs this App class too.
         // It must never acquire the single-instance mutex or start DI/logging,
         // otherwise real launches silently exit as "second instance".
-        if (Design.IsDesignMode)
-        {
-            return;
-        }
+        if (Design.IsDesignMode) return;
 
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         Dispatcher.UIThread.UnhandledException += App_DispatcherUnhandledException;
@@ -121,9 +172,7 @@ public class App : Application, IDisposable
         // Named EventWaitHandle is Windows-only; on Linux the named Mutex still enforces
         // single-instance, only the "bring first instance to foreground" signal is lost.
         if (OperatingSystem.IsWindows())
-        {
             _instanceSignal = new EventWaitHandle(false, EventResetMode.AutoReset, EventName);
-        }
 
         if (!_isFirstInstance)
         {
@@ -138,7 +187,6 @@ public class App : Application, IDisposable
             }
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime nonFirstInstanceLifetime)
-            {
                 // Do NOT call Shutdown() synchronously here: the dispatcher main loop has not
                 // started yet, and DoShutdown() -> Dispatcher.UIThread.InvokeShutdown() leaves
                 // the dispatcher permanently shut down, so StartCore() then throws
@@ -146,7 +194,6 @@ public class App : Application, IDisposable
                 // calls Dispatcher.UIThread.MainLoop(...). Post the shutdown instead so it runs
                 // once the main loop is pumping (same clean-exit path as closing the main window).
                 Dispatcher.UIThread.Post(() => nonFirstInstanceLifetime.Shutdown());
-            }
 
             return;
         }
@@ -259,9 +306,11 @@ public class App : Application, IDisposable
                 {
                     var localization = ServiceProvider.GetService<LocalizationService>();
                     var msg = localization?.GetString("F8ShortcutInUse")
-                              ?? "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.";
+                              ??
+                              "The F8 shortcut key is already in use by another program. Because of this, the screenshot functionality is turned off.";
                     _ =
- MessageDialogWindow.ShowAsync(mainWindow, msg, "SimpleLauncher", MessageButtons.Ok, MessageIcon.Warning);
+                        MessageDialogWindow.ShowAsync(mainWindow, msg, "SimpleLauncher", MessageButtons.Ok,
+                            MessageIcon.Warning);
                 }
             }
             catch (Exception ex)
@@ -320,7 +369,7 @@ public class App : Application, IDisposable
     }
 
     /// <summary>
-    /// Registers all services, ViewModels, and windows in the DI container.
+    ///     Registers all services, ViewModels, and windows in the DI container.
     /// </summary>
     internal static void ConfigureServices(IServiceCollection services, IConfiguration configuration,
         BugReportApiSink? bugReportSink = null)
@@ -361,10 +410,7 @@ public class App : Application, IDisposable
             // Set the base address for the EasyMode configuration API
             var easyModeUrl = configuration.GetValue<string>("Urls:EasyModeApi")
                               ?? "https://www.purelogiccode.com/simplelauncheradmin/";
-            if (!easyModeUrl.EndsWith('/'))
-            {
-                easyModeUrl += '/';
-            }
+            if (!easyModeUrl.EndsWith('/')) easyModeUrl += '/';
 
             client.BaseAddress = new Uri(easyModeUrl);
             client.Timeout = TimeSpan.FromSeconds(30);
@@ -383,10 +429,7 @@ public class App : Application, IDisposable
             // Set the base address for the parameter resolver API (same as the WPF app)
             var resolverUrl = configuration.GetValue<string>("Urls:ParameterResolverApi")
                               ?? "https://www.purelogiccode.com/simplelauncheradmin/";
-            if (!resolverUrl.EndsWith('/'))
-            {
-                resolverUrl += '/';
-            }
+            if (!resolverUrl.EndsWith('/')) resolverUrl += '/';
 
             client.BaseAddress = new Uri(resolverUrl);
             client.Timeout = TimeSpan.FromSeconds(60);
@@ -411,9 +454,9 @@ public class App : Application, IDisposable
         // ── Host services (implement Core interfaces) ──
         services.AddSingleton<IDispatcherService, AvaloniaDispatcherService>();
         services.AddSingleton<IFilePickerService, AvaloniaFilePickerService>();
-        services.AddSingleton<Core.Interfaces.IResourceProvider, AvaloniaResourceProvider>();
+        services.AddSingleton<IResourceProvider, AvaloniaResourceProvider>();
         services.AddSingleton<IWindowContext, AvaloniaWindowContext>();
-        services.AddSingleton<Core.Interfaces.IApplicationLifetime, AvaloniaApplicationLifetime>();
+        services.AddSingleton<IApplicationLifetime, AvaloniaApplicationLifetime>();
         services.AddSingleton<IMessageBoxLibraryService, MessageBoxLibraryService>();
 
         // ── Core services (from SimpleLauncher.Core) ──
@@ -422,10 +465,7 @@ public class App : Application, IDisposable
         services.AddSingleton<WindowsVersionService>();
         // Register the SAME instance wired to Serilog (see OnFrameworkInitializationCompleted)
         // so DI consumers share one sink instead of an uninitialized dead instance.
-        if (bugReportSink is not null)
-        {
-            services.AddSingleton(bugReportSink);
-        }
+        if (bugReportSink is not null) services.AddSingleton(bugReportSink);
 
         services.AddSingleton<SettingsManagerService>(sp =>
         {
@@ -561,9 +601,7 @@ public class App : Application, IDisposable
             var savedLanguage = sp.GetRequiredService<SettingsManagerService>().Language;
             if (!string.IsNullOrEmpty(savedLanguage) &&
                 !string.Equals(savedLanguage, "en", StringComparison.OrdinalIgnoreCase))
-            {
                 localization.LoadLanguage(savedLanguage);
-            }
 
             return localization;
         });
@@ -776,9 +814,9 @@ public class App : Application, IDisposable
     }
 
     /// <summary>
-    /// Creates the primary handler for named HttpClients: explicit TLS 1.2/1.3,
-    /// 5-minute pooled connection lifetime, and a 20-second connect timeout.
-    /// Mirror of the WPF App.xaml.cs CreateHttpHandler.
+    ///     Creates the primary handler for named HttpClients: explicit TLS 1.2/1.3,
+    ///     5-minute pooled connection lifetime, and a 20-second connect timeout.
+    ///     Mirror of the WPF App.xaml.cs CreateHttpHandler.
     /// </summary>
     private static HttpMessageHandler CreateHttpHandler()
     {
@@ -794,7 +832,7 @@ public class App : Application, IDisposable
     }
 
     /// <summary>
-    /// Listens for a signal from a second instance and brings the main window to foreground.
+    ///     Listens for a signal from a second instance and brings the main window to foreground.
     /// </summary>
     private async Task ListenForSecondInstanceAsync(IClassicDesktopStyleApplicationLifetime lifetime)
     {
@@ -814,10 +852,7 @@ public class App : Application, IDisposable
             {
                 if (lifetime.MainWindow is { } window)
                 {
-                    if (window.WindowState == WindowState.Minimized)
-                    {
-                        window.WindowState = WindowState.Normal;
-                    }
+                    if (window.WindowState == WindowState.Minimized) window.WindowState = WindowState.Normal;
 
                     window.Activate();
                     window.Topmost = true;
@@ -829,9 +864,9 @@ public class App : Application, IDisposable
     }
 
     /// <summary>
-    /// Runs the startup sequence in the background: play-history migration, startup
-    /// initialization checks, usage stats, and the silent update check. All failures
-    /// are logged — none of them should block the main window from showing.
+    ///     Runs the startup sequence in the background: play-history migration, startup
+    ///     initialization checks, usage stats, and the silent update check. All failures
+    ///     are logged — none of them should block the main window from showing.
     /// </summary>
     private static async Task RunStartupTasksAsync(AvaloniaApplicationLifecycleService lifecycle,
         IServiceProvider services)
@@ -912,7 +947,7 @@ public class App : Application, IDisposable
         Log.Error(e.Exception, "Unhandled dispatcher exception");
         LogExceptionToFile(e.Exception);
 
-        var lifetime = (Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime);
+        var lifetime = Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
 
         // If the main window is no longer visible (startup template crash, window already
         // closed, etc.), shutting down avoids a headless process running in the background.
@@ -946,57 +981,6 @@ public class App : Application, IDisposable
         {
             Log.Error(logEx, "Failed to write crash log");
         }
-    }
-
-    #endregion
-
-    #region IDisposable
-
-    /// <summary>
-    /// Cleans up the single-instance mutex and event handle, and disposes the tray icon.
-    /// </summary>
-    public void Dispose()
-    {
-        // Unsubscribe global exception handlers
-        AppDomain.CurrentDomain.UnhandledException -= CurrentDomain_UnhandledException;
-        Dispatcher.UIThread.UnhandledException -= App_DispatcherUnhandledException;
-        TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
-
-        try
-        {
-            ServiceProvider?.GetService<AvaloniaTrayIconManager>()?.Dispose();
-        }
-        catch (Exception ex)
-        {
-            Log.Debug(ex, "Error disposing the tray icon manager.");
-        }
-
-        try
-        {
-            var gamePadController = ServiceProvider?.GetService<GamePadController>();
-            if (gamePadController is not null)
-            {
-                _ = gamePadController.StopAsync();
-                gamePadController.Dispose();
-            }
-        }
-        catch (Exception ex)
-        {
-            Log.Debug(ex, "Error disposing the gamepad controller.");
-        }
-
-        try
-        {
-            ServiceProvider?.GetService<AvaloniaGameFileWatcherService>()?.Dispose();
-        }
-        catch (Exception ex)
-        {
-            Log.Debug(ex, "Error disposing the game file watcher service.");
-        }
-
-        _singleInstanceMutex?.Dispose();
-        _instanceSignal?.Dispose();
-        GC.SuppressFinalize(this);
     }
 
     #endregion

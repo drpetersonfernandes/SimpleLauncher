@@ -3,14 +3,14 @@ using System.Text.RegularExpressions;
 namespace SimpleLauncher.Core.Services.GameLauncher;
 
 /// <summary>
-/// Provides methods to validate batch file contents by checking that referenced file paths exist.
+///     Provides methods to validate batch file contents by checking that referenced file paths exist.
 /// </summary>
 public partial class ValidateBatchFile
 {
     private static readonly Regex QuotedPathRegex = MyRegex1();
 
     /// <summary>
-    /// Reads a batch file and returns a list of quoted paths that do not exist on disk.
+    ///     Reads a batch file and returns a list of quoted paths that do not exist on disk.
     /// </summary>
     public static IList<string> ValidateBatchFileContents(string batchFilePath)
     {
@@ -50,7 +50,7 @@ public partial class ValidateBatchFile
     }
 
     /// <summary>
-    /// Parses quoted strings from a batch file and returns those that look like paths but do not exist.
+    ///     Parses quoted strings from a batch file and returns those that look like paths but do not exist.
     /// </summary>
     public static IList<string> FindInvalidQuotedPathsSimple(string batchFilePath)
     {
@@ -81,10 +81,7 @@ public partial class ValidateBatchFile
                     if (!string.IsNullOrWhiteSpace(quotedText) && LooksLikePath(quotedText))
                     {
                         var expanded = Environment.ExpandEnvironmentVariables(quotedText);
-                        if (!File.Exists(expanded) && !Directory.Exists(expanded))
-                        {
-                            invalidPaths.Add(expanded);
-                        }
+                        if (!File.Exists(expanded) && !Directory.Exists(expanded)) invalidPaths.Add(expanded);
                     }
 
                     currentIndex = endQuote + 1;

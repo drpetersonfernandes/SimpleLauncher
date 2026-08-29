@@ -12,26 +12,24 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the Global Search section of the main window, providing
-/// cross-system ROM search with logical operators and scoring (WPF GlobalSearchPage equivalent).
+///     ViewModel for the Global Search section of the main window, providing
+///     cross-system ROM search with logical operators and scoring (WPF GlobalSearchPage equivalent).
 /// </summary>
 public partial class GlobalSearchSectionViewModel : ObservableObject
 {
-    private readonly SystemManagerService _systemManagerService;
-    private readonly IGetListOfFilesService _getListOfFiles;
     private readonly IFindCoverImageService _findCoverImage;
-    private readonly IMameDataService _mameData;
-    private readonly PlaySoundEffects _playSoundEffects;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly MainViewModel _mainViewModel;
+    private readonly IGetListOfFilesService _getListOfFiles;
     private readonly ILogger _logErrors;
+    private readonly MainViewModel _mainViewModel;
+    private readonly IMameDataService _mameData;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly SystemManagerService _systemManagerService;
     private CancellationTokenSource _cancellationTokenSource = new();
 
-    [ObservableProperty] private ObservableCollection<SearchResult> _searchResults = [];
-
-    [ObservableProperty] private SearchResult? _selectedResult;
-
     [ObservableProperty] private bool _isLoading;
+
+    [ObservableProperty] private bool _launchButtonEnabled;
 
     [ObservableProperty] private string _loadingMessage = "";
 
@@ -39,21 +37,23 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
 
     [ObservableProperty] private string _resultsCountText = "";
 
-    [ObservableProperty] private bool _launchButtonEnabled;
-
-    [ObservableProperty] private List<string> _systemNames = [];
-
-    [ObservableProperty] private int _selectedSystemIndex;
-
-    [ObservableProperty] private string _searchText = "";
-
     [ObservableProperty] private bool _searchFilename = true;
-
-    [ObservableProperty] private bool _searchMameDescription = true;
 
     [ObservableProperty] private bool _searchFolderName;
 
+    [ObservableProperty] private bool _searchMameDescription = true;
+
     [ObservableProperty] private bool _searchRecursively;
+
+    [ObservableProperty] private ObservableCollection<SearchResult> _searchResults = [];
+
+    [ObservableProperty] private string _searchText = "";
+
+    [ObservableProperty] private SearchResult? _selectedResult;
+
+    [ObservableProperty] private int _selectedSystemIndex;
+
+    [ObservableProperty] private List<string> _systemNames = [];
 
     public GlobalSearchSectionViewModel(
         SystemManagerService systemManagerService,
@@ -167,10 +167,7 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
             }
             finally
             {
-                if (!_cancellationTokenSource.IsCancellationRequested)
-                {
-                    IsLoading = false;
-                }
+                if (!_cancellationTokenSource.IsCancellationRequested) IsLoading = false;
             }
         }
         catch (Exception ex)
@@ -191,10 +188,8 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
         IEnumerable<SystemManagerConfig> systemsToSearch = systems;
         if (!string.IsNullOrEmpty(selectedSystem) &&
             !string.Equals(selectedSystem, "All Systems", StringComparison.Ordinal))
-        {
             systemsToSearch = systems.Where(sm =>
                 sm.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
-        }
 
         foreach (var systemManager in systemsToSearch)
         {
@@ -203,9 +198,9 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
             var effectiveSystem = searchRecursively switch
             {
                 true when systemManager.DisableRecursiveSearch =>
-                    CloneWithRecursion(systemManager, disableRecursive: false),
+                    CloneWithRecursion(systemManager, false),
                 false when !systemManager.DisableRecursiveSearch =>
-                    CloneWithRecursion(systemManager, disableRecursive: true),
+                    CloneWithRecursion(systemManager, true),
                 _ => systemManager
             };
 
@@ -214,10 +209,7 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
                 token.ThrowIfCancellationRequested();
 
                 var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
-                if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath))
-                {
-                    continue;
-                }
+                if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath)) continue;
 
                 var matchedFilesList = await _getListOfFiles.GetFilesAsync(
                     systemFolderPath, systemManager.FileFormatsToSearch,
@@ -275,8 +267,8 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Clones the system config with an overridden recursive-search setting
-    /// (SystemManagerConfig is immutable, mirroring the WPF page behavior).
+    ///     Clones the system config with an overridden recursive-search setting
+    ///     (SystemManagerConfig is immutable, mirroring the WPF page behavior).
     /// </summary>
     private static SystemManagerConfig CloneWithRecursion(SystemManagerConfig source, bool disableRecursive)
     {
@@ -376,15 +368,9 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
         var hasAndOperator = searchTerms.Any(static t => t.Equals("and", StringComparison.OrdinalIgnoreCase));
         var hasOrOperator = searchTerms.Any(static t => t.Equals("or", StringComparison.OrdinalIgnoreCase));
 
-        if (hasAndOperator)
-        {
-            return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
-        }
+        if (hasAndOperator) return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
 
-        if (hasOrOperator)
-        {
-            return keywords.Any(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
-        }
+        if (hasOrOperator) return keywords.Any(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
 
         return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
     }
@@ -392,10 +378,7 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
     private static List<string> ParseSearchTerms(string searchTerm)
     {
         var terms = new List<string>();
-        foreach (Match match in MyRegex().Matches(searchTerm))
-        {
-            terms.Add(match.Value.Trim('"').ToLowerInvariant());
-        }
+        foreach (Match match in MyRegex().Matches(searchTerm)) terms.Add(match.Value.Trim('"').ToLowerInvariant());
 
         return terms.Where(static t => !string.IsNullOrWhiteSpace(t)).ToList();
     }

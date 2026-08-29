@@ -11,32 +11,32 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the Supermodel emulator configuration injection window.
+///     ViewModel for the Supermodel emulator configuration injection window.
 /// </summary>
 public partial class InjectSupermodelConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly EmulatorPathResolver _emulatorPathResolver;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    [ObservableProperty] private bool _new3DEngine;
-    [ObservableProperty] private bool _quadRendering;
     [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private bool _vsync;
-    [ObservableProperty] private bool _wideScreen;
-    [ObservableProperty] private bool _stretch;
+    [ObservableProperty] private string _inputSystem = null!;
+    [ObservableProperty] private bool _multiThreaded;
+    [ObservableProperty] private int _musicVolume;
+    [ObservableProperty] private bool _new3DEngine;
+    [ObservableProperty] private string _powerPcFrequency = null!;
+    [ObservableProperty] private bool _quadRendering;
     [ObservableProperty] private int _resX;
     [ObservableProperty] private int _resY;
-    [ObservableProperty] private int _musicVolume;
-    [ObservableProperty] private int _soundVolume;
-    [ObservableProperty] private bool _throttle;
-    [ObservableProperty] private bool _multiThreaded;
-    [ObservableProperty] private string _inputSystem = null!;
-    [ObservableProperty] private string _powerPcFrequency = null!;
     [ObservableProperty] private bool _showBeforeLaunch;
+    [ObservableProperty] private int _soundVolume;
+    [ObservableProperty] private bool _stretch;
+    [ObservableProperty] private bool _throttle;
+    [ObservableProperty] private bool _vsync;
+    [ObservableProperty] private bool _wideScreen;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectSupermodelConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectSupermodelConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
@@ -54,7 +54,37 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Available input system options for Supermodel.
+    /// </summary>
+    public IList<string> InputSystemOptions { get; } = ["xinput", "dinput", "rawinput"];
+
+    /// <summary>
+    ///     Available PowerPC frequency options for Supermodel.
+    /// </summary>
+    public IList<string> PpcFrequencyOptions { get; } = ["50", "60", "75", "100"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Supermodel emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -66,27 +96,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available input system options for Supermodel.
-    /// </summary>
-    public IList<string> InputSystemOptions { get; } = ["xinput", "dinput", "rawinput"];
-
-    /// <summary>
-    /// Available PowerPC frequency options for Supermodel.
-    /// </summary>
-    public IList<string> PpcFrequencyOptions { get; } = ["50", "60", "75", "100"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -95,16 +105,6 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -141,9 +141,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
         _settings.Supermodel.MultiThreaded = MultiThreaded;
         _settings.Supermodel.InputSystem = InputSystem;
         if (int.TryParse(PowerPcFrequency, CultureInfo.InvariantCulture, out var powerPcFrequency))
-        {
             _settings.Supermodel.PowerPcFrequency = powerPcFrequency;
-        }
 
         _settings.Supermodel.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
         _ = _settings.SaveAsync();
@@ -151,10 +149,7 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = _emulatorPathResolver.TryFindEmulatorPath("Supermodel", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

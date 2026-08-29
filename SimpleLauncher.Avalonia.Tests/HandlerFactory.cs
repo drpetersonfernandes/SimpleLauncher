@@ -5,7 +5,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Builds any IEmulatorConfigHandler from mocks, matching its constructor by parameter type.
+///     Builds any IEmulatorConfigHandler from mocks, matching its constructor by parameter type.
 /// </summary>
 internal static class HandlerFactory
 {

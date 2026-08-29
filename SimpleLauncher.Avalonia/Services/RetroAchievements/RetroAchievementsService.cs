@@ -1,31 +1,27 @@
 using System.Net;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Avalonia.Models;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.RetroAchievements;
-using SimpleLauncher.Avalonia.Models;
 
 namespace SimpleLauncher.Avalonia.Services.RetroAchievements;
 
 /// <summary>
-/// Provides methods to interact with the RetroAchievements REST API for user authentication, game progress, and leaderboard data.
+///     Provides methods to interact with the RetroAchievements REST API for user authentication, game progress, and
+///     leaderboard data.
 /// </summary>
 public class RetroAchievementsService
 {
     private readonly string _apiBaseUrl;
-    private readonly string _requestBaseUrl;
-    private readonly string _siteBaseUrl;
 
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
+    private readonly string _requestBaseUrl;
+    private readonly string _siteBaseUrl;
 
     /// <summary>
-    /// Gets the RetroAchievements manager containing the local game database.
-    /// </summary>
-    public RetroAchievementsManager RaManager { get; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsService"/> class.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsService" /> class.
     /// </summary>
     public RetroAchievementsService(
         IHttpClientFactory httpClientFactory,
@@ -47,7 +43,12 @@ public class RetroAchievementsService
     }
 
     /// <summary>
-    /// Logs in to RetroAchievements to retrieve a session token.
+    ///     Gets the RetroAchievements manager containing the local game database.
+    /// </summary>
+    public RetroAchievementsManager RaManager { get; }
+
+    /// <summary>
+    ///     Logs in to RetroAchievements to retrieve a session token.
     /// </summary>
     public async Task<string?> GetSessionTokenAsync(string username, string password)
     {
@@ -85,7 +86,7 @@ public class RetroAchievementsService
     }
 
     /// <summary>
-    /// Fetches the user's progress and achievement list for a specific game ID.
+    ///     Fetches the user's progress and achievement list for a specific game ID.
     /// </summary>
     public async Task<(RaUserGameProgress? Progress, List<RaAchievement>? Achievements)>
         GetGameInfoAndUserProgressAsync(int gameId, string username, string apiKey)
@@ -111,10 +112,8 @@ public class RetroAchievementsService
                     $"[RA Service] API_GetGameInfoAndUserProgress failed with status {response.StatusCode} for gameId {gameId}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
-                {
                     throw new RaUnauthorizedException(
                         "RetroAchievements API returned Unauthorized. Check username and API key.");
-                }
 
                 return (null, null);
             }
@@ -187,7 +186,7 @@ public class RetroAchievementsService
     }
 
     /// <summary>
-    /// Fetches extended game details including achievements, metadata, and player statistics.
+    ///     Fetches extended game details including achievements, metadata, and player statistics.
     /// </summary>
     public async Task<RaGameExtendedDetails?> GetGameExtendedAsync(int gameId, string username, string apiKey)
     {
@@ -221,7 +220,7 @@ public class RetroAchievementsService
     }
 
     /// <summary>
-    /// Retrieves the user's rank and score for a specific game.
+    ///     Retrieves the user's rank and score for a specific game.
     /// </summary>
     public async Task<IList<RaUserGameRank>?> GetUserGameRankAndScoreAsync(int gameId, string username, string apiKey)
     {
@@ -255,7 +254,7 @@ public class RetroAchievementsService
     }
 
     /// <summary>
-    /// Retrieves the global leaderboard rank and score data for a specific game.
+    ///     Retrieves the global leaderboard rank and score data for a specific game.
     /// </summary>
     public async Task<IList<RaGameRankAndScore>?> GetGameRankAndScoreAsync(int gameId, string username, string apiKey,
         bool latestMasters = false)
@@ -291,7 +290,7 @@ public class RetroAchievementsService
     }
 
     /// <summary>
-    /// Retrieves the RetroAchievements profile for the specified user.
+    ///     Retrieves the RetroAchievements profile for the specified user.
     /// </summary>
     public async Task<RaProfile?> GetUserProfileAsync(string username, string apiKey)
     {
@@ -325,7 +324,7 @@ public class RetroAchievementsService
     }
 
     /// <summary>
-    /// Retrieves the user's recently played games with achievement progress.
+    ///     Retrieves the user's recently played games with achievement progress.
     /// </summary>
     public async Task<IList<RaRecentlyPlayedGame>?> GetUserRecentlyPlayedGamesAsync(string username, string apiKey,
         int count = 10, int offset = 0)
@@ -360,7 +359,7 @@ public class RetroAchievementsService
     }
 
     /// <summary>
-    /// Retrieves achievements earned by the user within a specified date range.
+    ///     Retrieves achievements earned by the user within a specified date range.
     /// </summary>
     public async Task<IList<RaEarnedAchievement>?> GetAchievementsEarnedBetweenAsync(string username, string apiKey,
         DateTime fromDate, DateTime toDate)
@@ -398,7 +397,7 @@ public class RetroAchievementsService
     }
 
     /// <summary>
-    /// Retrieves the user's game completion progress with award information.
+    ///     Retrieves the user's game completion progress with award information.
     /// </summary>
     public async Task<IList<RaUserCompletionGame>?> GetUserCompletionProgressAsync(string username, string apiKey,
         int count = 100, int offset = 0)
@@ -424,13 +423,9 @@ public class RetroAchievementsService
             if (apiResponse?.Results == null) return null;
 
             foreach (var game in apiResponse.Results)
-            {
                 if (!string.IsNullOrEmpty(game.ImageIcon) &&
                     !game.ImageIcon.StartsWith(_siteBaseUrl, StringComparison.OrdinalIgnoreCase))
-                {
                     game.ImageIcon = $"{_siteBaseUrl}{game.ImageIcon}";
-                }
-            }
 
             return apiResponse.Results;
         }

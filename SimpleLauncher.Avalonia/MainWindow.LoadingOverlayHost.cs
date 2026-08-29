@@ -3,8 +3,8 @@ using SimpleLauncher.Avalonia.Services.LoadingOverlay;
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Partial MainWindow implementing <see cref="IAvaloniaLoadingOverlayHost"/> for loading
-/// overlay coordination (WPF MainWindow.LoadingOverlayHost.cs parity).
+///     Partial MainWindow implementing <see cref="IAvaloniaLoadingOverlayHost" /> for loading
+///     overlay coordination (WPF MainWindow.LoadingOverlayHost.cs parity).
 /// </summary>
 public partial class MainWindow : IAvaloniaLoadingOverlayHost
 {

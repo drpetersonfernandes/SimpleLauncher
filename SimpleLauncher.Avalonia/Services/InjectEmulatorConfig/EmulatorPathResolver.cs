@@ -1,27 +1,28 @@
+using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Avalonia.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Resolves the file path of an emulator executable by searching the configured systems.
-/// Registered in DI and reuses the shared SystemManagerService (cached system.xml read).
+///     Resolves the file path of an emulator executable by searching the configured systems.
+///     Registered in DI and reuses the shared SystemManagerService (cached system.xml read).
 /// </summary>
 public class EmulatorPathResolver
 {
-    private readonly SystemManager.SystemManagerService _systemManager;
+    private readonly SystemManagerService _systemManager;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmulatorPathResolver"/> class.
+    ///     Initializes a new instance of the <see cref="EmulatorPathResolver" /> class.
     /// </summary>
     /// <param name="systemManager">The shared system manager service (DI singleton).</param>
-    public EmulatorPathResolver(SystemManager.SystemManagerService systemManager)
+    public EmulatorPathResolver(SystemManagerService systemManager)
     {
         _systemManager = systemManager;
     }
 
     /// <summary>
-    /// Tries to find the resolved executable path of an emulator whose name contains the given hint.
+    ///     Tries to find the resolved executable path of an emulator whose name contains the given hint.
     /// </summary>
     /// <param name="emulatorNameHint">A name fragment used to identify the emulator.</param>
     /// <param name="logErrors">The error logger.</param>
@@ -50,10 +51,7 @@ public class EmulatorPathResolver
                     if (emulator.EmulatorName?.Contains(emulatorNameHint, StringComparison.OrdinalIgnoreCase) == true)
                     {
                         var resolved = PathHelper.ResolveRelativeToAppDirectory(emulator.EmulatorLocation);
-                        if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))
-                        {
-                            return resolved;
-                        }
+                        if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved)) return resolved;
                     }
                 }
             }

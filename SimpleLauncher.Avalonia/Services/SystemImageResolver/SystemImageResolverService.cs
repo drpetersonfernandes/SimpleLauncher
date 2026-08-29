@@ -6,9 +6,9 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Services.SystemImageResolver;
 
 /// <summary>
-/// Resolves display images for system configurations using exact name matching with
-/// optional annotation-stripped and fuzzy matching fallbacks (port of the WPF
-/// SystemImageResolverService).
+///     Resolves display images for system configurations using exact name matching with
+///     optional annotation-stripped and fuzzy matching fallbacks (port of the WPF
+///     SystemImageResolverService).
 /// </summary>
 public class SystemImageResolverService : ISystemImageResolverService
 {
@@ -18,7 +18,7 @@ public class SystemImageResolverService : ISystemImageResolverService
     private readonly SettingsManagerService _settings;
 
     /// <summary>
-    /// Initializes a new instance of the SystemImageResolverService with the specified dependencies.
+    ///     Initializes a new instance of the SystemImageResolverService with the specified dependencies.
     /// </summary>
     public SystemImageResolverService(IConfiguration configuration, SettingsManagerService settings)
     {
@@ -30,10 +30,7 @@ public class SystemImageResolverService : ISystemImageResolverService
     public Task<string> ResolveDisplayImageAsync(SystemManagerConfig config)
     {
         var match = FindBestMatch(config.SystemName);
-        if (match is not null)
-        {
-            return Task.FromResult(match);
-        }
+        if (match is not null) return Task.FromResult(match);
 
         var appBaseDir = AppContext.BaseDirectory;
         var defaultImagePath = Path.Combine(appBaseDir, "images", "systems", "default.png");
@@ -49,9 +46,9 @@ public class SystemImageResolverService : ISystemImageResolverService
     }
 
     /// <summary>
-    /// Finds the best image for a system name: exact file name, annotation-stripped
-    /// exact match (both directions), then Jaro-Winkler fuzzy match above the
-    /// configured threshold. Null when nothing matches.
+    ///     Finds the best image for a system name: exact file name, annotation-stripped
+    ///     exact match (both directions), then Jaro-Winkler fuzzy match above the
+    ///     configured threshold. Null when nothing matches.
     /// </summary>
     private string? FindBestMatch(string? systemName)
     {
@@ -65,16 +62,10 @@ public class SystemImageResolverService : ISystemImageResolverService
         foreach (var ext in imageExtensions)
         {
             var systemImagePath = Path.Combine(systemImageFolder, $"{systemName}{ext}");
-            if (File.Exists(systemImagePath))
-            {
-                return systemImagePath;
-            }
+            if (File.Exists(systemImagePath)) return systemImagePath;
         }
 
-        if (!Directory.Exists(systemImageFolder))
-        {
-            return null;
-        }
+        if (!Directory.Exists(systemImageFolder)) return null;
 
         var enableAnnotationStripping = _settings.EnableAnnotationStripping;
 
@@ -87,10 +78,7 @@ public class SystemImageResolverService : ISystemImageResolverService
                 foreach (var ext in imageExtensions)
                 {
                     var systemImagePath = Path.Combine(systemImageFolder, $"{strippedSystemName}{ext}");
-                    if (File.Exists(systemImagePath))
-                    {
-                        return systemImagePath;
-                    }
+                    if (File.Exists(systemImagePath)) return systemImagePath;
                 }
 
                 // Try stripping annotations from image filenames too

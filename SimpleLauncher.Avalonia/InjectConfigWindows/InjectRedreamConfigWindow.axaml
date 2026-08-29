@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectRedreamConfigWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Redream Configuration"
         Height="850" Width="700"
@@ -74,7 +74,8 @@
                             <TextBlock Text="{ext:Translate RedreamConfig_Volume}" Classes="form-label" />
                             <DockPanel Grid.Column="1">
                                 <TextBlock Text="{Binding ElementName=SldVolume, Path=Value, StringFormat={}{0}%}"
-                                           Width="40" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5,0,0,0" />
+                                           Width="40" DockPanel.Dock="Right" VerticalAlignment="Center"
+                                           Margin="5,0,0,0" />
                                 <Slider x:Name="SldVolume"
                                         Value="{Binding RedreamVolume}"
                                         Minimum="0" Maximum="100"

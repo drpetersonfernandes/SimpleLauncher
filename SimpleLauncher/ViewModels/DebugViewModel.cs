@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Services.DebugAndBugReport;
@@ -6,16 +7,15 @@ using SimpleLauncher.Services.DebugAndBugReport;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the debug window, managing log message collection and display.
+///     ViewModel for the debug window, managing log message collection and display.
 /// </summary>
 public partial class DebugViewModel : ObservableObject
 {
+    private const int MaxMessageCount = 5000;
     private readonly Lock _logLock = new();
     private string _logText = "";
 
-    private const int MaxMessageCount = 5000;
-
-    /// <summary>Initializes a new instance of the <see cref="DebugViewModel"/> and connects to the debug window sink.</summary>
+    /// <summary>Initializes a new instance of the <see cref="DebugViewModel" /> and connects to the debug window sink.</summary>
     public DebugViewModel()
     {
         DebugWindowSink.Connect(this);
@@ -41,7 +41,7 @@ public partial class DebugViewModel : ObservableObject
     /// <param name="formattedMessage">The formatted log message to append.</param>
     public void AppendLogMessage(string formattedMessage)
     {
-        var dispatcher = System.Windows.Application.Current?.Dispatcher;
+        var dispatcher = Application.Current?.Dispatcher;
         if (dispatcher is not null && !dispatcher.CheckAccess())
         {
             dispatcher.BeginInvoke(() => AppendLogMessage(formattedMessage));
@@ -52,10 +52,7 @@ public partial class DebugViewModel : ObservableObject
         {
             LogMessages.Add(formattedMessage);
 
-            while (LogMessages.Count > MaxMessageCount)
-            {
-                LogMessages.RemoveAt(0);
-            }
+            while (LogMessages.Count > MaxMessageCount) LogMessages.RemoveAt(0);
 
             LogText = string.Join(Environment.NewLine, LogMessages) + Environment.NewLine;
             OnPropertyChanged(nameof(CanClearLog));
@@ -69,7 +66,7 @@ public partial class DebugViewModel : ObservableObject
     /// <param name="formattedMessages">The collection of formatted messages to load.</param>
     public void LoadBufferedMessages(IEnumerable<string> formattedMessages)
     {
-        var dispatcher = System.Windows.Application.Current?.Dispatcher;
+        var dispatcher = Application.Current?.Dispatcher;
         if (dispatcher is not null && !dispatcher.CheckAccess())
         {
             dispatcher.Invoke(() => LoadBufferedMessages(formattedMessages));
@@ -78,15 +75,9 @@ public partial class DebugViewModel : ObservableObject
 
         lock (_logLock)
         {
-            foreach (var msg in formattedMessages)
-            {
-                LogMessages.Add(msg);
-            }
+            foreach (var msg in formattedMessages) LogMessages.Add(msg);
 
-            while (LogMessages.Count > MaxMessageCount)
-            {
-                LogMessages.RemoveAt(0);
-            }
+            while (LogMessages.Count > MaxMessageCount) LogMessages.RemoveAt(0);
 
             LogText = string.Join(Environment.NewLine, LogMessages) + Environment.NewLine;
             OnPropertyChanged(nameof(CanClearLog));
@@ -99,7 +90,7 @@ public partial class DebugViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanClearLog))]
     private void ClearLog()
     {
-        var dispatcher = System.Windows.Application.Current?.Dispatcher;
+        var dispatcher = Application.Current?.Dispatcher;
         if (dispatcher is not null && !dispatcher.CheckAccess())
         {
             dispatcher.Invoke(ClearLog);
@@ -122,10 +113,7 @@ public partial class DebugViewModel : ObservableObject
     {
         try
         {
-            if (!string.IsNullOrEmpty(LogText))
-            {
-                System.Windows.Clipboard.SetText(LogText);
-            }
+            if (!string.IsNullOrEmpty(LogText)) Clipboard.SetText(LogText);
         }
         catch (Exception ex)
         {

@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -10,9 +11,9 @@ using SimpleLauncher.Core.Services.EasyMode;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the DownloadImagePackWindow ViewModel (Phase 4.1 port). The EasyMode
-/// configuration is served by a fake HTTP handler (no live endpoints), downloads are
-/// never started, and the temp extraction service is a no-op mock.
+///     Tests for the DownloadImagePackWindow ViewModel (Phase 4.1 port). The EasyMode
+///     configuration is served by a fake HTTP handler (no live endpoints), downloads are
+///     never started, and the temp extraction service is a no-op mock.
 /// </summary>
 public class DownloadImagePackViewModelTests
 {
@@ -216,7 +217,7 @@ public class DownloadImagePackViewModelTests
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            return Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new StringContent(_json, Encoding.UTF8, "application/json")
             });

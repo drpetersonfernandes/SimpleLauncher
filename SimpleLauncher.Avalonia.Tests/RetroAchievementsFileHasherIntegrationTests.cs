@@ -4,10 +4,10 @@ using SimpleLauncher.Core.Services.RetroAchievements;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Integration tests for the RetroAchievementsSharp CLI tool-backed file hasher
-/// (the bundled single-file binary that replaced the in-process library and the
-/// old RAHasher executable). These tests run the real hashing path through the
-/// CLI on the current platform.
+///     Integration tests for the RetroAchievementsSharp CLI tool-backed file hasher
+///     (the bundled single-file binary that replaced the in-process library and the
+///     old RAHasher executable). These tests run the real hashing path through the
+///     CLI on the current platform.
 /// </summary>
 public class RetroAchievementsFileHasherIntegrationTests
 {

@@ -5,55 +5,19 @@ using System.Net.NetworkInformation;
 namespace SimpleLauncher.Updater.Services;
 
 /// <summary>
-/// Service that orchestrates the entire update process using other specialized services.
+///     Service that orchestrates the entire update process using other specialized services.
 /// </summary>
 internal class UpdateService
 {
-    private readonly GitHubService _gitHubService;
-    private readonly DownloadService _downloadService;
-    private readonly ZipService _zipService;
-    private readonly ProcessService _processService;
-    private readonly DokanService _dokanService;
     private readonly string _appDirectory;
+    private readonly DokanService _dokanService;
+    private readonly DownloadService _downloadService;
+    private readonly GitHubService _gitHubService;
+    private readonly ProcessService _processService;
+    private readonly ZipService _zipService;
 
     /// <summary>
-    /// Event raised when a log message should be displayed.
-    /// </summary>
-    public event EventHandler<EventArgs<string>>? LogMessage;
-
-    /// <summary>
-    /// Event raised when download progress changes.
-    /// </summary>
-    public event EventHandler<DownloadProgressEventArgs>? DownloadProgressChanged;
-
-    /// <summary>
-    /// Event raised when download progress should be reset.
-    /// </summary>
-    public event EventHandler? DownloadProgressReset;
-
-    /// <summary>
-    /// Event raised when extraction progress changes.
-    /// </summary>
-    public event EventHandler<ExtractionProgressEventArgs>? ExtractionProgressChanged;
-
-    /// <summary>
-    /// Event raised when extraction starts (to configure progress bar).
-    /// </summary>
-    public event EventHandler? ExtractionStarted;
-
-    /// <summary>
-    /// Event raised when extraction completes.
-    /// </summary>
-    public event EventHandler? ExtractionCompleted;
-
-    /// <summary>
-    /// Event raised when Dokan is not installed and the user should be prompted.
-    /// Returns true if the user wants to install Dokan, false otherwise.
-    /// </summary>
-    public Func<Task<bool>>? DokanInstallationPrompt { get; set; }
-
-    /// <summary>
-    /// Initializes a new instance of the UpdateService class.
+    ///     Initializes a new instance of the UpdateService class.
     /// </summary>
     public UpdateService(
         GitHubService gitHubService,
@@ -82,7 +46,43 @@ internal class UpdateService
     }
 
     /// <summary>
-    /// Executes the complete update process.
+    ///     Event raised when Dokan is not installed and the user should be prompted.
+    ///     Returns true if the user wants to install Dokan, false otherwise.
+    /// </summary>
+    public Func<Task<bool>>? DokanInstallationPrompt { get; set; }
+
+    /// <summary>
+    ///     Event raised when a log message should be displayed.
+    /// </summary>
+    public event EventHandler<EventArgs<string>>? LogMessage;
+
+    /// <summary>
+    ///     Event raised when download progress changes.
+    /// </summary>
+    public event EventHandler<DownloadProgressEventArgs>? DownloadProgressChanged;
+
+    /// <summary>
+    ///     Event raised when download progress should be reset.
+    /// </summary>
+    public event EventHandler? DownloadProgressReset;
+
+    /// <summary>
+    ///     Event raised when extraction progress changes.
+    /// </summary>
+    public event EventHandler<ExtractionProgressEventArgs>? ExtractionProgressChanged;
+
+    /// <summary>
+    ///     Event raised when extraction starts (to configure progress bar).
+    /// </summary>
+    public event EventHandler? ExtractionStarted;
+
+    /// <summary>
+    ///     Event raised when extraction completes.
+    /// </summary>
+    public event EventHandler? ExtractionCompleted;
+
+    /// <summary>
+    ///     Executes the complete update process.
     /// </summary>
     /// <param name="processId">The process ID of the main application to wait for, or null.</param>
     /// <param name="ignoredFiles">Files to exclude during extraction (typically updater files).</param>
@@ -92,24 +92,20 @@ internal class UpdateService
         CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(_appDirectory))
-        {
             return new UpdateResult
             {
                 Success = false,
                 ErrorMessage = "Could not determine the application directory.",
                 RequiresManualUpdate = true
             };
-        }
 
         if (!NetworkInterface.GetIsNetworkAvailable())
-        {
             return new UpdateResult
             {
                 Success = false,
                 ErrorMessage = "No network connection available. Please check your internet connection and try again.",
                 RequiresManualUpdate = true
             };
-        }
 
         try
         {
@@ -219,13 +215,9 @@ internal class UpdateService
             // user conditions — log at Information, not as a bug. Only unexpected
             // exceptions are errors.
             if (ex is HttpRequestException or IOException)
-            {
                 Log.Information(ex, "Automatic update failed");
-            }
             else
-            {
                 Log.Error(ex, "Automatic update failed");
-            }
 
             LogMessage?.Invoke(this, new EventArgs<string>($"Automatic update failed: {ex.Message}"));
             return new UpdateResult
@@ -238,7 +230,7 @@ internal class UpdateService
     }
 
     /// <summary>
-    /// Downloads the update file, retrying from the secondary server when the primary download fails.
+    ///     Downloads the update file, retrying from the secondary server when the primary download fails.
     /// </summary>
     private async Task<MemoryStream> DownloadWithFallbackAsync(string assetUrl, string? fallbackAssetUrl,
         CancellationToken cancellationToken)
@@ -267,7 +259,7 @@ internal class UpdateService
     }
 
     /// <summary>
-    /// Restarts the main application after a successful update.
+    ///     Restarts the main application after a successful update.
     /// </summary>
     /// <returns>True if the restart was successful, false otherwise.</returns>
     public bool RestartMainApplication()
@@ -276,7 +268,7 @@ internal class UpdateService
     }
 
     /// <summary>
-    /// Opens the manual download page for the user to download the update manually.
+    ///     Opens the manual download page for the user to download the update manually.
     /// </summary>
     public void OpenManualDownloadPage()
     {
@@ -284,7 +276,7 @@ internal class UpdateService
     }
 
     /// <summary>
-    /// Checks if Dokan is installed and offers to install it if missing.
+    ///     Checks if Dokan is installed and offers to install it if missing.
     /// </summary>
     public async Task CheckAndInstallDokanAsync()
     {
@@ -357,13 +349,9 @@ internal class UpdateService
         var info = e.Value;
         string statusText;
         if (info.CurrentFile != null)
-        {
             statusText = $"Extracting ({info.ExtractedCount}): {info.CurrentFile}";
-        }
         else
-        {
             statusText = "Extraction complete";
-        }
 
         ExtractionProgressChanged?.Invoke(this, new ExtractionProgressEventArgs
         {

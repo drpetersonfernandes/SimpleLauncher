@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the FormatFileSize utility covering MB formatting and human-readable file size formatting.
+///     Tests for the FormatFileSize utility covering MB formatting and human-readable file size formatting.
 /// </summary>
 public class FormatFileSizeTests
 {
     /// <summary>
-    /// Verifies that FormatToMb returns the expected MB string for various byte values.
+    ///     Verifies that FormatToMb returns the expected MB string for various byte values.
     /// </summary>
     /// <param name="bytes">The size in bytes to format.</param>
     /// <param name="expected">The expected MB-formatted string.</param>
@@ -30,7 +30,7 @@ public class FormatFileSizeTests
     }
 
     /// <summary>
-    /// Verifies that FormatToHumanReadable returns the expected string with appropriate unit suffixes.
+    ///     Verifies that FormatToHumanReadable returns the expected string with appropriate unit suffixes.
     /// </summary>
     /// <param name="bytes">The size in bytes to format.</param>
     /// <param name="expected">The expected human-readable string including the unit suffix.</param>
@@ -57,7 +57,7 @@ public class FormatFileSizeTests
     }
 
     /// <summary>
-    /// Verifies that FormatToHumanReadable returns KB unit for just under 1 MB.
+    ///     Verifies that FormatToHumanReadable returns KB unit for just under 1 MB.
     /// </summary>
     [Fact]
     public void FormatToHumanReadableJustUnder1MbUsesKbUnit()
@@ -67,7 +67,7 @@ public class FormatFileSizeTests
     }
 
     /// <summary>
-    /// Verifies that FormatToHumanReadable returns MB unit for just under 1 GB.
+    ///     Verifies that FormatToHumanReadable returns MB unit for just under 1 GB.
     /// </summary>
     [Fact]
     public void FormatToHumanReadableJustUnder1GbUsesMbUnit()
@@ -77,7 +77,7 @@ public class FormatFileSizeTests
     }
 
     /// <summary>
-    /// Verifies that FormatToMb output contains the "MB" suffix.
+    ///     Verifies that FormatToMb output contains the "MB" suffix.
     /// </summary>
     [Fact]
     public void FormatToMbContainsMbSuffix()
@@ -87,7 +87,7 @@ public class FormatFileSizeTests
     }
 
     /// <summary>
-    /// Verifies that FormatToHumanReadable returns TB unit for very large values.
+    ///     Verifies that FormatToHumanReadable returns TB unit for very large values.
     /// </summary>
     [Fact]
     public void FormatToHumanReadableLargeValueUsesTbUnit()

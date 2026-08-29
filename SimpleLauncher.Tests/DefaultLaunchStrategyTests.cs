@@ -7,7 +7,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="DefaultLaunchStrategy"/> class.
+///     Tests for the <see cref="DefaultLaunchStrategy" /> class.
 /// </summary>
 public class DefaultLaunchStrategyTests
 {
@@ -17,7 +17,7 @@ public class DefaultLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that the default launch strategy has a priority of 999.
+    ///     Verifies that the default launch strategy has a priority of 999.
     /// </summary>
     [Fact]
     public void PriorityIs999()
@@ -27,7 +27,7 @@ public class DefaultLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch always returns true regardless of context.
+    ///     Verifies that IsMatch always returns true regardless of context.
     /// </summary>
     [Fact]
     public void IsMatchAlwaysReturnsTrue()
@@ -43,7 +43,7 @@ public class DefaultLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that IsMatch returns true even with an empty LaunchContext.
+    ///     Verifies that IsMatch returns true even with an empty LaunchContext.
     /// </summary>
     [Fact]
     public void IsMatchWithEmptyContextReturnsTrue()
@@ -55,7 +55,7 @@ public class DefaultLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that executing a .bat file calls RunBatchFileAsync on the launcher service.
+    ///     Verifies that executing a .bat file calls RunBatchFileAsync on the launcher service.
     /// </summary>
     [Fact]
     public async Task ExecuteAsyncBatFileCallsRunBatchFileAsync()
@@ -77,7 +77,7 @@ public class DefaultLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that executing a .lnk file calls LaunchShortcutFileAsync on the launcher service.
+    ///     Verifies that executing a .lnk file calls LaunchShortcutFileAsync on the launcher service.
     /// </summary>
     [Fact]
     public async Task ExecuteAsyncLnkFileCallsLaunchShortcutFileAsync()
@@ -99,7 +99,7 @@ public class DefaultLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that executing a .url file calls LaunchShortcutFileAsync on the launcher service.
+    ///     Verifies that executing a .url file calls LaunchShortcutFileAsync on the launcher service.
     /// </summary>
     [Fact]
     public async Task ExecuteAsyncUrlFileCallsLaunchShortcutFileAsync()
@@ -121,7 +121,7 @@ public class DefaultLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that executing an .exe file calls LaunchExecutableAsync on the launcher service.
+    ///     Verifies that executing an .exe file calls LaunchExecutableAsync on the launcher service.
     /// </summary>
     [Fact]
     public async Task ExecuteAsyncExeFileCallsLaunchExecutableAsync()
@@ -143,7 +143,7 @@ public class DefaultLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that executing a ROM file calls LaunchRegularEmulatorAsync on the launcher service.
+    ///     Verifies that executing a ROM file calls LaunchRegularEmulatorAsync on the launcher service.
     /// </summary>
     /// <param name="extension">The ROM file extension to test.</param>
     [Theory]
@@ -189,7 +189,7 @@ public class DefaultLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that executing a file with an uppercase extension calls the correct launcher method.
+    ///     Verifies that executing a file with an uppercase extension calls the correct launcher method.
     /// </summary>
     [Fact]
     public async Task ExecuteAsyncUpperCaseExtensionCallsCorrectMethod()
@@ -211,7 +211,7 @@ public class DefaultLaunchStrategyTests
     }
 
     /// <summary>
-    /// Verifies that executing a file with a mixed-case extension calls the correct launcher method.
+    ///     Verifies that executing a file with a mixed-case extension calls the correct launcher method.
     /// </summary>
     [Fact]
     public async Task ExecuteAsyncMixedCaseExtensionCallsCorrectMethod()

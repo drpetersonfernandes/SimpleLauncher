@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.Favorites;
@@ -8,32 +9,31 @@ using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Services.UsageStats;
-using SimpleLauncher.Core.Services.RetroAchievements;
-using SimpleLauncher.Core.Services.SettingsManager;
-using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Services.GameLauncher.Strategies;
 using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.RetroAchievements;
+using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Core.Services.UsageStats;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the WPF-parity quick actions added to MainViewModel (Phase 11):
-/// the letter filter bar, Feeling Lucky (random game), the MAME sort-order toggle,
-/// and Ctrl+wheel card-size zoom. All I/O is isolated to temp ROM folders and a
-/// temp system.xml (the same pattern as GameScannerServiceTests).
+///     Tests for the WPF-parity quick actions added to MainViewModel (Phase 11):
+///     the letter filter bar, Feeling Lucky (random game), the MAME sort-order toggle,
+///     and Ctrl+wheel card-size zoom. All I/O is isolated to temp ROM folders and a
+///     temp system.xml (the same pattern as GameScannerServiceTests).
 /// </summary>
 public class MainViewModelQuickActionsTests : IDisposable
 {
-    private readonly string _tempRoot = Path.Combine(Path.GetTempPath(), $"SL_QuickActionsTest_{Guid.NewGuid():N}");
-    private readonly string _romsFolder;
-    private readonly string _systemXmlPath;
     private readonly IConfiguration _config;
-    private readonly MainViewModel _viewModel;
-    private readonly Mock<IMessageBoxLibraryService> _messageBox = new();
     private readonly Mock<ILogger> _logger = new();
     private readonly Mock<IMameDataService> _mameData = new();
+    private readonly Mock<IMessageBoxLibraryService> _messageBox = new();
+    private readonly string _romsFolder;
+    private readonly string _systemXmlPath;
+    private readonly string _tempRoot = Path.Combine(Path.GetTempPath(), $"SL_QuickActionsTest_{Guid.NewGuid():N}");
+    private readonly MainViewModel _viewModel;
 
     public MainViewModelQuickActionsTests()
     {
@@ -106,7 +106,7 @@ public class MainViewModelQuickActionsTests : IDisposable
     {
         try
         {
-            if (Directory.Exists(_tempRoot)) Directory.Delete(_tempRoot, recursive: true);
+            if (Directory.Exists(_tempRoot)) Directory.Delete(_tempRoot, true);
         }
         catch
         {

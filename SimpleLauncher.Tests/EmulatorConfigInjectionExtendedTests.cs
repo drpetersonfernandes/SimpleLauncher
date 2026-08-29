@@ -12,18 +12,19 @@ using BlastemConfigurationService = SimpleLauncher.Core.Services.InjectEmulatorC
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Extended tests for emulator configuration injection covering disabled/false-value edge cases for all emulators.
+///     Extended tests for emulator configuration injection covering disabled/false-value edge cases for all emulators.
 /// </summary>
 [SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class EmulatorConfigInjectionExtendedTests : IDisposable
 {
-    private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
-    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
+    private readonly ILogger _logErrors = new NoOpLogger();
+    private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="EmulatorConfigInjectionExtendedTests"/> with in-memory configuration and a temporary test directory.
+    ///     Initializes a new instance of <see cref="EmulatorConfigInjectionExtendedTests" /> with in-memory configuration and
+    ///     a temporary test directory.
     /// </summary>
     public EmulatorConfigInjectionExtendedTests()
     {
@@ -41,7 +42,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the test directory and restores the service provider mock.
+    ///     Cleans up the test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
@@ -82,7 +83,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
     // DuckStation edge cases
 
     /// <summary>
-    /// Verifies that DuckStation writes false values for all boolean options when disabled.
+    ///     Verifies that DuckStation writes false values for all boolean options when disabled.
     /// </summary>
     [Fact]
     public void DuckStationDisabledOptionsUsesFalseValues()
@@ -118,7 +119,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
     // PCSX2 edge cases
 
     /// <summary>
-    /// Verifies that PCSX2 writes false values for all boolean options when disabled.
+    ///     Verifies that PCSX2 writes false values for all boolean options when disabled.
     /// </summary>
     [Fact]
     public void Pcsx2DisabledOptionsUsesFalseValues()
@@ -152,7 +153,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
     // Mesen edge cases
 
     /// <summary>
-    /// Verifies that Mesen writes false values for all boolean options when disabled.
+    ///     Verifies that Mesen writes false values for all boolean options when disabled.
     /// </summary>
     [Fact]
     public void MesenDisabledOptionsUsesFalseValues()
@@ -189,7 +190,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
     // Xenia edge cases
 
     /// <summary>
-    /// Verifies that Xenia writes false values for all boolean options when disabled.
+    ///     Verifies that Xenia writes false values for all boolean options when disabled.
     /// </summary>
     [Fact]
     public void XeniaDisabledOptionsUsesFalseValues()
@@ -236,7 +237,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
     // RPCS3 edge cases
 
     /// <summary>
-    /// Verifies that RPCS3 writes false values for all boolean options when disabled.
+    ///     Verifies that RPCS3 writes false values for all boolean options when disabled.
     /// </summary>
     [Fact]
     public void Rpcs3DisabledOptionsUsesFalseValues()
@@ -262,7 +263,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
     // Redream edge cases
 
     /// <summary>
-    /// Verifies that Redream uses numeric zero/false values for disabled boolean options.
+    ///     Verifies that Redream uses numeric zero/false values for disabled boolean options.
     /// </summary>
     [Fact]
     public void RedreamDisabledOptionsUsesZeroValues()
@@ -282,10 +283,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
         foreach (var line in lines)
         {
             var parts = line.Split('=', 2);
-            if (parts.Length == 2)
-            {
-                values[parts[0].Trim()] = parts[1].Trim();
-            }
+            if (parts.Length == 2) values[parts[0].Trim()] = parts[1].Trim();
         }
 
         Assert.Equal("1", values["vsync"]);
@@ -296,7 +294,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
     // RetroArch edge cases
 
     /// <summary>
-    /// Verifies that RetroArch writes false values for all boolean options when disabled.
+    ///     Verifies that RetroArch writes false values for all boolean options when disabled.
     /// </summary>
     [Fact]
     public void RetroArchDisabledOptionsUsesFalseValues()
@@ -335,10 +333,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
             if (string.IsNullOrWhiteSpace(trimmed) || trimmed.StartsWith('#')) continue;
 
             var parts = trimmed.Split('=', 2);
-            if (parts.Length >= 1)
-            {
-                values[parts[0].Trim()] = parts.Length > 1 ? parts[1].Trim() : "";
-            }
+            if (parts.Length >= 1) values[parts[0].Trim()] = parts.Length > 1 ? parts[1].Trim() : "";
         }
 
         Assert.Equal("\"false\"", values["video_fullscreen"]);
@@ -365,7 +360,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
     // Blastem edge cases
 
     /// <summary>
-    /// Verifies that Blastem uses "off" values for disabled boolean options.
+    ///     Verifies that Blastem uses "off" values for disabled boolean options.
     /// </summary>
     [Fact]
     public void BlastemDisabledOptionsUsesOffValues()
@@ -391,7 +386,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
     // Helper
 
     /// <summary>
-    /// Parses an INI file with sections into a dictionary keyed by (section, key).
+    ///     Parses an INI file with sections into a dictionary keyed by (section, key).
     /// </summary>
     private static Dictionary<(string Section, string Key), string> ParseIniSections(List<string> lines)
     {
@@ -411,10 +406,7 @@ public class EmulatorConfigInjectionExtendedTests : IDisposable
                 continue;
 
             var parts = trimmed.Split('=', 2);
-            if (parts.Length == 2)
-            {
-                result[(currentSection, parts[0].Trim())] = parts[1].Trim();
-            }
+            if (parts.Length == 2) result[(currentSection, parts[0].Trim())] = parts[1].Trim();
         }
 
         return result;

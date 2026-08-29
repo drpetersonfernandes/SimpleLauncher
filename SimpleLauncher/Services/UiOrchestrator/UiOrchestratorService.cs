@@ -6,28 +6,27 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.GameListUI;
 using SimpleLauncher.Services.LoadingOverlay;
 
 namespace SimpleLauncher.Services.UiOrchestrator;
 
-using Interfaces;
-
 /// <summary>
-/// Orchestrates UI operations including loading overlays, game list rendering, pagination, and page navigation.
+///     Orchestrates UI operations including loading overlays, game list rendering, pagination, and page navigation.
 /// </summary>
 public class UiOrchestratorService : IUiOrchestrator, ILoadingOverlayHost, IGameListUiHost, IPaginationHost
 {
-    private IUiOrchestratorHost _host = null!;
-    private readonly LoadingOverlayService _loadingOverlayService;
     private readonly GameListUiService _gameListUiService;
+    private readonly LoadingOverlayService _loadingOverlayService;
     private readonly IPaginationService _paginationService;
-    private readonly IUiResetService _uiResetService;
-    private readonly IUpdateStatusBar _updateStatusBarService;
     private readonly PlaySoundEffects _playSoundEffects;
 
     // ReSharper disable once NotAccessedField.Local
     private readonly SettingsManagerService _settings;
+    private readonly IUiResetService _uiResetService;
+    private readonly IUpdateStatusBar _updateStatusBarService;
+    private IUiOrchestratorHost _host = null!;
 
     /// <summary>Initializes a new instance of the UiOrchestratorService with the specified dependencies.</summary>
     public UiOrchestratorService(
@@ -46,6 +45,88 @@ public class UiOrchestratorService : IUiOrchestrator, ILoadingOverlayHost, IGame
         _updateStatusBarService = updateStatusBarService;
         _playSoundEffects = playSoundEffects;
         _settings = settings;
+    }
+
+    Dispatcher IGameListUiHost.Dispatcher => _host.Dispatcher;
+    ScrollViewer IGameListUiHost.Scroller => _host.Scroller;
+    Image IGameListUiHost.PreviewImage => _host.PreviewImage;
+    WrapPanel IGameListUiHost.GameFileGrid => _host.GameFileGrid;
+    Grid IGameListUiHost.ListViewPreviewArea => _host.ListViewPreviewArea;
+
+    ObservableCollection<GameListViewItem> IGameListUiHost.GameListItems => _host.GameListItems;
+
+    void IGameListUiHost.SetGameFileGridVisible(bool isVisible)
+    {
+        _host.GameFileGrid.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    void IGameListUiHost.SetListViewPreviewAreaVisible(bool isVisible)
+    {
+        _host.ListViewPreviewArea.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    void IGameListUiHost.SetPaginationButtonsVisible(bool isVisible)
+    {
+        SetPaginationButtonsVisible(isVisible);
+    }
+
+    Dispatcher ILoadingOverlayHost.Dispatcher => _host.Dispatcher;
+
+    void ILoadingOverlayHost.SetIsLoadingGamesInternal(bool value)
+    {
+        _host.SetIsLoadingGamesInternal(value);
+    }
+
+    void ILoadingOverlayHost.SetLoadingOverlayVisible(bool isVisible)
+    {
+        _host.LoadingOverlay.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    void ILoadingOverlayHost.SetLoadingOverlayContent(object content)
+    {
+        if (_host.LoadingOverlay is ContentControl contentControl) contentControl.Content = content;
+    }
+
+    void ILoadingOverlayHost.SetMainContentGridEnabled(bool enabled)
+    {
+        _host.MainContentGrid.IsEnabled = enabled;
+    }
+
+    void ILoadingOverlayHost.CancelAndRecreateToken()
+    {
+        _host.CancelAndRecreateToken();
+    }
+
+    Task ILoadingOverlayHost.ResetUiAsync()
+    {
+        return _host.ResetUiAsync();
+    }
+
+    IUpdateStatusBar ILoadingOverlayHost.UpdateStatusBarService => _updateStatusBarService;
+
+    void IPaginationHost.SetPrevPageButtonEnabled(bool enabled)
+    {
+        _host.PrevPageButton2.IsEnabled = enabled;
+    }
+
+    void IPaginationHost.SetNextPageButtonEnabled(bool enabled)
+    {
+        _host.NextPageButton2.IsEnabled = enabled;
+    }
+
+    void IPaginationHost.ScrollToTop()
+    {
+        _host.Scroller.ScrollToTop();
+    }
+
+    void IPaginationHost.UpdateTotalFilesLabel(string? text)
+    {
+        _host.TotalFilesLabel.Dispatcher.Invoke(() => _host.TotalFilesLabel.Content = text);
+    }
+
+    void IPaginationHost.AddNoFilesMessage()
+    {
+        _gameListUiService.AddNoFilesMessage();
     }
 
     /// <summary>Initializes the orchestrator and its child services with the specified UI host.</summary>
@@ -237,90 +318,5 @@ public class UiOrchestratorService : IUiOrchestrator, ILoadingOverlayHost, IGame
     public void GoToNextPage()
     {
         _paginationService.GoToNextPage();
-    }
-
-    Dispatcher ILoadingOverlayHost.Dispatcher => _host.Dispatcher;
-
-    void ILoadingOverlayHost.SetIsLoadingGamesInternal(bool value)
-    {
-        _host.SetIsLoadingGamesInternal(value);
-    }
-
-    void ILoadingOverlayHost.SetLoadingOverlayVisible(bool isVisible)
-    {
-        _host.LoadingOverlay.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
-    }
-
-    void ILoadingOverlayHost.SetLoadingOverlayContent(object content)
-    {
-        if (_host.LoadingOverlay is ContentControl contentControl)
-        {
-            contentControl.Content = content;
-        }
-    }
-
-    void ILoadingOverlayHost.SetMainContentGridEnabled(bool enabled)
-    {
-        _host.MainContentGrid.IsEnabled = enabled;
-    }
-
-    void ILoadingOverlayHost.CancelAndRecreateToken()
-    {
-        _host.CancelAndRecreateToken();
-    }
-
-    Task ILoadingOverlayHost.ResetUiAsync()
-    {
-        return _host.ResetUiAsync();
-    }
-
-    IUpdateStatusBar ILoadingOverlayHost.UpdateStatusBarService => _updateStatusBarService;
-
-    Dispatcher IGameListUiHost.Dispatcher => _host.Dispatcher;
-    ScrollViewer IGameListUiHost.Scroller => _host.Scroller;
-    Image IGameListUiHost.PreviewImage => _host.PreviewImage;
-    WrapPanel IGameListUiHost.GameFileGrid => _host.GameFileGrid;
-    Grid IGameListUiHost.ListViewPreviewArea => _host.ListViewPreviewArea;
-
-    ObservableCollection<GameListViewItem> IGameListUiHost.GameListItems => _host.GameListItems;
-
-    void IGameListUiHost.SetGameFileGridVisible(bool isVisible)
-    {
-        _host.GameFileGrid.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
-    }
-
-    void IGameListUiHost.SetListViewPreviewAreaVisible(bool isVisible)
-    {
-        _host.ListViewPreviewArea.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
-    }
-
-    void IGameListUiHost.SetPaginationButtonsVisible(bool isVisible)
-    {
-        SetPaginationButtonsVisible(isVisible);
-    }
-
-    void IPaginationHost.SetPrevPageButtonEnabled(bool enabled)
-    {
-        _host.PrevPageButton2.IsEnabled = enabled;
-    }
-
-    void IPaginationHost.SetNextPageButtonEnabled(bool enabled)
-    {
-        _host.NextPageButton2.IsEnabled = enabled;
-    }
-
-    void IPaginationHost.ScrollToTop()
-    {
-        _host.Scroller.ScrollToTop();
-    }
-
-    void IPaginationHost.UpdateTotalFilesLabel(string? text)
-    {
-        _host.TotalFilesLabel.Dispatcher.Invoke(() => _host.TotalFilesLabel.Content = text);
-    }
-
-    void IPaginationHost.AddNoFilesMessage()
-    {
-        _gameListUiService.AddNoFilesMessage();
     }
 }

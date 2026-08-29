@@ -8,33 +8,27 @@ using SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 namespace SimpleLauncher.Core.Services.SettingsManager;
 
 /// <summary>
-/// Manages application and emulator settings, providing thread-safe load/save operations against an XML configuration file.
+///     Manages application and emulator settings, providing thread-safe load/save operations against an XML configuration
+///     file.
 /// </summary>
 public class SettingsManagerService : IDisposable
 {
+    /// <summary>Gets or sets the default horizontal dead zone value.</summary>
+    public const float DefaultDeadZoneX = 0.05f;
+
+    /// <summary>Gets or sets the default vertical dead zone value.</summary>
+    public const float DefaultDeadZoneY = 0.02f;
+
+    private const string DefaultSettingsFilePath = "settings.xml";
+    private const string DefaultNotificationSoundFileName = "click.mp3";
+    private const string EncryptedPrefix = "DPAPI:";
     private readonly IConfiguration _configuration;
-    private readonly ILogger _logger;
-    private readonly IMessageBoxLibraryService _messageBox;
     private readonly ICredentialProtector _credentialProtector;
 
     private readonly DataFileLocation _fileLocation;
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
     private readonly ReaderWriterLockSlim _settingsLock = new(LockRecursionPolicy.SupportsRecursion);
-
-    private readonly HashSet<int> _validThumbnailSizes =
-        [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
-
-    private readonly HashSet<int> _validThumbnailSizesForSystem = [50, 100, 150];
-    private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 1000, 10000, 1000000];
-    private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
-    private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
-
-    private readonly HashSet<string> _validButtonAspectRatio =
-        ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
-
-    private readonly HashSet<string> _validFilenameDisplayModes = ["Original", "CleanUp", "NoFilename"];
-    private readonly HashSet<string> _validFontSizes = ["Small", "Normal", "Big"];
-    private readonly HashSet<string> _validStyleVariants = ["Default"];
-    private readonly HashSet<string> _validBaseThemes = ["Light", "Dark", "Adaptive", "HighContrast", "Midnight"];
 
     private readonly HashSet<string> _validAccentColors =
     [
@@ -43,7 +37,41 @@ public class SettingsManagerService : IDisposable
         "Steel", "Taupe", "Teal", "Violet", "Yellow"
     ];
 
+    private readonly HashSet<string> _validBaseThemes = ["Light", "Dark", "Adaptive", "HighContrast", "Midnight"];
+
+    private readonly HashSet<string> _validButtonAspectRatio =
+        ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
+
+    private readonly HashSet<string> _validFilenameDisplayModes = ["Original", "CleanUp", "NoFilename"];
+    private readonly HashSet<string> _validFontSizes = ["Small", "Normal", "Big"];
+    private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500, 1000, 10000, 1000000];
+    private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
+    private readonly HashSet<string> _validStyleVariants = ["Default"];
+
+    private readonly HashSet<int> _validThumbnailSizes =
+        [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
+
+    private readonly HashSet<int> _validThumbnailSizesForSystem = [50, 100, 150];
+    private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
+
     private bool _disposed;
+
+    /// <summary>
+    ///     Initializes a new instance of the SettingsManagerService with the specified dependencies.
+    /// </summary>
+    public SettingsManagerService(IConfiguration configuration, ILogger logErrors,
+        ICredentialProtector credentialProtector, IMessageBoxLibraryService? messageBox = null)
+    {
+        _configuration = configuration;
+        _logger = logErrors;
+        _credentialProtector = credentialProtector;
+        _messageBox = messageBox!;
+        _fileLocation = new DataFileLocation(DefaultSettingsFilePath);
+
+        VideoUrl = configuration.GetValue<string>("Urls:YouTubeSearch") ??
+                   "https://www.youtube.com/results?search_query=";
+        InfoUrl = configuration.GetValue<string>("Urls:IgdbSearch") ?? "https://www.igdb.com/search?q=";
+    }
 
     // Application Settings
     /// <summary>Gets or sets the thumbnail size in pixels for game grid items.</summary>
@@ -109,14 +137,11 @@ public class SettingsManagerService : IDisposable
     /// <summary>Gets or sets the Jaro-Winkler similarity threshold for fuzzy matching (0.0–1.0).</summary>
     public double FuzzyMatchingThreshold { get; set; } = 0.80;
 
-    /// <summary>Gets or sets whether parenthetical annotations (e.g. region, language) are stripped from filenames before matching images.</summary>
+    /// <summary>
+    ///     Gets or sets whether parenthetical annotations (e.g. region, language) are stripped from filenames before
+    ///     matching images.
+    /// </summary>
     public bool EnableAnnotationStripping { get; set; } = true;
-
-    /// <summary>Gets or sets the default horizontal dead zone value.</summary>
-    public const float DefaultDeadZoneX = 0.05f;
-
-    /// <summary>Gets or sets the default vertical dead zone value.</summary>
-    public const float DefaultDeadZoneY = 0.02f;
 
     /// <summary>Gets or sets whether notification sounds are enabled.</summary>
     public bool EnableNotificationSound { get; set; } = true;
@@ -230,9 +255,22 @@ public class SettingsManagerService : IDisposable
     /// <summary>Gets or sets the Yumir emulator configuration.</summary>
     public YumirSettings Yumir { get; set; } = new();
 
-    private const string DefaultSettingsFilePath = "settings.xml";
-    private const string DefaultNotificationSoundFileName = "click.mp3";
-    private const string EncryptedPrefix = "DPAPI:";
+    /// <summary>Gets whether the settings file is stored in portable mode (next to the executable).</summary>
+    public bool IsPortableMode => _fileLocation.IsPortableMode;
+
+    /// <summary>
+    ///     Releases resources used by the SettingsManagerService.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        _disposed = true;
+
+        _settingsLock?.Dispose();
+
+        GC.SuppressFinalize(this);
+    }
 
     private string EncryptString(string plainText)
     {
@@ -276,27 +314,7 @@ public class SettingsManagerService : IDisposable
     }
 
     /// <summary>
-    /// Initializes a new instance of the SettingsManagerService with the specified dependencies.
-    /// </summary>
-    public SettingsManagerService(IConfiguration configuration, ILogger logErrors,
-        ICredentialProtector credentialProtector, IMessageBoxLibraryService? messageBox = null)
-    {
-        _configuration = configuration;
-        _logger = logErrors;
-        _credentialProtector = credentialProtector;
-        _messageBox = messageBox!;
-        _fileLocation = new DataFileLocation(DefaultSettingsFilePath);
-
-        VideoUrl = configuration.GetValue<string>("Urls:YouTubeSearch") ??
-                   "https://www.youtube.com/results?search_query=";
-        InfoUrl = configuration.GetValue<string>("Urls:IgdbSearch") ?? "https://www.igdb.com/search?q=";
-    }
-
-    /// <summary>Gets whether the settings file is stored in portable mode (next to the executable).</summary>
-    public bool IsPortableMode => _fileLocation.IsPortableMode;
-
-    /// <summary>
-    /// Loads settings from the XML configuration file, applying defaults if the file does not exist.
+    ///     Loads settings from the XML configuration file, applying defaults if the file does not exist.
     /// </summary>
     public void Load()
     {
@@ -305,7 +323,6 @@ public class SettingsManagerService : IDisposable
         // Read from disk without holding any lock — disk I/O is slow and
         // does not mutate shared state, so concurrent readers are unaffected.
         if (File.Exists(_fileLocation.FilePath))
-        {
             try
             {
                 settings = XElement.Load(_fileLocation.FilePath);
@@ -314,20 +331,15 @@ public class SettingsManagerService : IDisposable
             {
                 _logger.Error(ex, "Error loading settings.xml.");
             }
-        }
 
         // Take a write lock only for the in-memory property updates.
         _settingsLock.EnterWriteLock();
         try
         {
             if (settings != null)
-            {
                 LoadFromXml(settings);
-            }
             else
-            {
                 SetDefaultsAndSave();
-            }
         }
         finally
         {
@@ -427,9 +439,7 @@ public class SettingsManagerService : IDisposable
         if (bool.TryParse(
                 app?.Element("EnableGamePadNavigation")?.Value ?? settings.Element("EnableGamePadNavigation")?.Value,
                 out var gp))
-        {
             EnableGamePadNavigation = gp;
-        }
 
         VideoUrl = app?.Element("VideoUrl")?.Value ?? settings.Element("VideoUrl")?.Value ?? VideoUrl;
         InfoUrl = app?.Element("InfoUrl")?.Value ?? settings.Element("InfoUrl")?.Value ?? InfoUrl;
@@ -446,9 +456,7 @@ public class SettingsManagerService : IDisposable
                                                           settings.Element("FilenameDisplayMode")?.Value ?? "");
         if (bool.TryParse(app?.Element("DisplayMachineName")?.Value ?? settings.Element("DisplayMachineName")?.Value,
                 out var dmn))
-        {
             DisplayMachineName = dmn;
-        }
 
         FilenameFontSize = ValidateFontSize(app?.Element("FilenameFontSize")?.Value ??
                                             settings.Element("FilenameFontSize")?.Value ?? "");
@@ -467,42 +475,30 @@ public class SettingsManagerService : IDisposable
 
         if (float.TryParse(app?.Element("DeadZoneX")?.Value ?? settings.Element("DeadZoneX")?.Value, NumberStyles.Any,
                 CultureInfo.InvariantCulture, out var dzx))
-        {
             DeadZoneX = dzx;
-        }
 
         if (float.TryParse(app?.Element("DeadZoneY")?.Value ?? settings.Element("DeadZoneY")?.Value, NumberStyles.Any,
                 CultureInfo.InvariantCulture, out var dzy))
-        {
             DeadZoneY = dzy;
-        }
 
         if (bool.TryParse(app?.Element("EnableFuzzyMatching")?.Value ?? settings.Element("EnableFuzzyMatching")?.Value,
                 out var fm))
-        {
             EnableFuzzyMatching = fm;
-        }
 
         if (double.TryParse(
                 app?.Element("FuzzyMatchingThreshold")?.Value ?? settings.Element("FuzzyMatchingThreshold")?.Value,
                 NumberStyles.Any, CultureInfo.InvariantCulture, out var fmt))
-        {
             FuzzyMatchingThreshold = fmt;
-        }
 
         if (bool.TryParse(
                 app?.Element("EnableAnnotationStripping")?.Value ??
                 settings.Element("EnableAnnotationStripping")?.Value, out var ans))
-        {
             EnableAnnotationStripping = ans;
-        }
 
         if (bool.TryParse(
                 app?.Element("EnableNotificationSound")?.Value ?? settings.Element("EnableNotificationSound")?.Value,
                 out var ens))
-        {
             EnableNotificationSound = ens;
-        }
 
         CustomNotificationSoundFile = app?.Element("CustomNotificationSoundFile")?.Value ??
                                       settings.Element("CustomNotificationSoundFile")?.Value ??
@@ -510,60 +506,42 @@ public class SettingsManagerService : IDisposable
         if (bool.TryParse(
                 app?.Element("OverlayRetroAchievementButton")?.Value ??
                 settings.Element("OverlayRetroAchievementButton")?.Value, out var ora))
-        {
             OverlayRetroAchievementButton = ora;
-        }
 
         if (bool.TryParse(
                 app?.Element("OverlayOpenVideoButton")?.Value ?? settings.Element("OverlayOpenVideoButton")?.Value,
                 out var ovb))
-        {
             OverlayOpenVideoButton = ovb;
-        }
 
         if (bool.TryParse(
                 app?.Element("OverlayOpenInfoButton")?.Value ?? settings.Element("OverlayOpenInfoButton")?.Value,
                 out var oib))
-        {
             OverlayOpenInfoButton = oib;
-        }
 
         if (bool.TryParse(
                 app?.Element("AdditionalSystemFoldersExpanded")?.Value ??
                 settings.Element("AdditionalSystemFoldersExpanded")?.Value, out var asfe))
-        {
             AdditionalSystemFoldersExpanded = asfe;
-        }
 
         if (bool.TryParse(app?.Element("Emulator1Expanded")?.Value ?? settings.Element("Emulator1Expanded")?.Value,
                 out var e1E))
-        {
             Emulator1Expanded = e1E;
-        }
 
         if (bool.TryParse(app?.Element("Emulator2Expanded")?.Value ?? settings.Element("Emulator2Expanded")?.Value,
                 out var e2E))
-        {
             Emulator2Expanded = e2E;
-        }
 
         if (bool.TryParse(app?.Element("Emulator3Expanded")?.Value ?? settings.Element("Emulator3Expanded")?.Value,
                 out var e3E))
-        {
             Emulator3Expanded = e3E;
-        }
 
         if (bool.TryParse(app?.Element("Emulator4Expanded")?.Value ?? settings.Element("Emulator4Expanded")?.Value,
                 out var e4E))
-        {
             Emulator4Expanded = e4E;
-        }
 
         if (bool.TryParse(app?.Element("Emulator5Expanded")?.Value ?? settings.Element("Emulator5Expanded")?.Value,
                 out var e5E))
-        {
             Emulator5Expanded = e5E;
-        }
 
         // Delegate emulator settings loading to each emulator's LoadFromXml
         Ares.LoadFromXml(settings);
@@ -619,7 +597,7 @@ public class SettingsManagerService : IDisposable
     }
 
     /// <summary>
-    /// Asynchronously saves the current settings to the XML configuration file with retry logic.
+    ///     Asynchronously saves the current settings to the XML configuration file with retry logic.
     /// </summary>
     public Task SaveAsync()
     {
@@ -644,7 +622,6 @@ public class SettingsManagerService : IDisposable
 
             var settingsDirectory = Path.GetDirectoryName(_fileLocation.FilePath);
             if (!string.IsNullOrEmpty(settingsDirectory) && !Directory.Exists(settingsDirectory))
-            {
                 try
                 {
                     Directory.CreateDirectory(settingsDirectory);
@@ -653,11 +630,9 @@ public class SettingsManagerService : IDisposable
                 {
                     _logger.Error(ex, "Error creating settings directory.");
                 }
-            }
 
             var attempt = 0;
             while (attempt < maxRetries)
-            {
                 try
                 {
                     var root = BuildXElement(snapshot);
@@ -669,10 +644,7 @@ public class SettingsManagerService : IDisposable
                         xmlBytes = ms.ToArray();
                     }
 
-                    if (xmlBytes.Length == 0)
-                    {
-                        throw new InvalidOperationException("Generated settings XML is empty.");
-                    }
+                    if (xmlBytes.Length == 0) throw new InvalidOperationException("Generated settings XML is empty.");
 
                     await File.WriteAllBytesAsync(tempPath, xmlBytes);
                     File.Move(tempPath, _fileLocation.FilePath, true);
@@ -684,7 +656,6 @@ public class SettingsManagerService : IDisposable
                     attempt++;
 
                     if (IsPortableMode && attempt >= maxRetries)
-                    {
                         try
                         {
                             if (_fileLocation.TryFallbackToLocalAppData())
@@ -698,16 +669,12 @@ public class SettingsManagerService : IDisposable
                         {
                             // Fallback failed
                         }
-                    }
 
                     if (attempt < maxRetries)
                     {
                         try
                         {
-                            if (File.Exists(tempPath))
-                            {
-                                File.Delete(tempPath);
-                            }
+                            if (File.Exists(tempPath)) File.Delete(tempPath);
                         }
                         catch
                         {
@@ -723,16 +690,12 @@ public class SettingsManagerService : IDisposable
                     lastException = ex;
                     break;
                 }
-            }
 
             _logger.Error(lastException, "Error saving settings.xml");
 
             try
             {
-                if (File.Exists(tempPath))
-                {
-                    File.Delete(tempPath);
-                }
+                if (File.Exists(tempPath)) File.Delete(tempPath);
             }
             catch
             {
@@ -885,7 +848,7 @@ public class SettingsManagerService : IDisposable
     }
 
     /// <summary>
-    /// Resets all settings to their default values.
+    ///     Resets all settings to their default values.
     /// </summary>
     public void ResetToDefaults()
     {
@@ -899,7 +862,7 @@ public class SettingsManagerService : IDisposable
     }
 
     /// <summary>
-    /// Updates the cumulative play time for the specified system.
+    ///     Updates the cumulative play time for the specified system.
     /// </summary>
     public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)
     {
@@ -922,19 +885,5 @@ public class SettingsManagerService : IDisposable
         {
             _settingsLock.ExitWriteLock();
         }
-    }
-
-    /// <summary>
-    /// Releases resources used by the SettingsManagerService.
-    /// </summary>
-    public void Dispose()
-    {
-        if (_disposed) return;
-
-        _disposed = true;
-
-        _settingsLock?.Dispose();
-
-        GC.SuppressFinalize(this);
     }
 }

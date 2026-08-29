@@ -7,9 +7,9 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Common mock/builders for ViewModel tests. All dependencies are isolated mocks
-/// (no real I/O), except SettingsManagerService / PlaySoundEffects which are real
-/// classes constructed with mocked collaborators.
+///     Common mock/builders for ViewModel tests. All dependencies are isolated mocks
+///     (no real I/O), except SettingsManagerService / PlaySoundEffects which are real
+///     classes constructed with mocked collaborators.
 /// </summary>
 internal static class TestDependencies
 {
@@ -29,8 +29,8 @@ internal static class TestDependencies
     }
 
     /// <summary>
-    /// IResourceProvider mock that returns the supplied fallback (default-value) string,
-    /// mirroring the app behavior when a key is missing.
+    ///     IResourceProvider mock that returns the supplied fallback (default-value) string,
+    ///     mirroring the app behavior when a key is missing.
     /// </summary>
     public static Mock<IResourceProvider> ResourceProvider()
     {

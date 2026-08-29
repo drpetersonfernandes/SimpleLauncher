@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 using MessagePack;
 using XmlToBinaryConverter.Models;
@@ -8,12 +9,12 @@ using XmlToBinaryConverter.Models;
 namespace XmlToBinaryConverter.Services;
 
 /// <summary>
-/// Provides XML to binary and binary to XML conversion functionality.
+///     Provides XML to binary and binary to XML conversion functionality.
 /// </summary>
 public class ConverterService
 {
     /// <summary>
-    /// Converts an XML file to binary MessagePack format asynchronously.
+    ///     Converts an XML file to binary MessagePack format asynchronously.
     /// </summary>
     /// <param name="inputPath">The path to the input XML file.</param>
     /// <param name="outputPath">The path to save the output binary file.</param>
@@ -33,9 +34,9 @@ public class ConverterService
             var serializer = new XmlSerializer(typeof(History));
             History? history;
             using (var reader = new StringReader(xmlContent))
-            using (var xmlReader = System.Xml.XmlReader.Create(reader, new System.Xml.XmlReaderSettings
+            using (var xmlReader = XmlReader.Create(reader, new XmlReaderSettings
                    {
-                       DtdProcessing = System.Xml.DtdProcessing.Prohibit,
+                       DtdProcessing = DtdProcessing.Prohibit,
                        XmlResolver = null
                    }))
             {
@@ -50,10 +51,7 @@ public class ConverterService
                 }
             }
 
-            if (history == null)
-            {
-                throw new InvalidOperationException("Failed to deserialize XML content.");
-            }
+            if (history == null) throw new InvalidOperationException("Failed to deserialize XML content.");
 
             progress.Report("Serializing to binary format...");
 
@@ -79,7 +77,7 @@ public class ConverterService
 
 
     /// <summary>
-    /// Converts a binary MessagePack file to XML format asynchronously.
+    ///     Converts a binary MessagePack file to XML format asynchronously.
     /// </summary>
     /// <param name="inputPath">The path to the input binary file.</param>
     /// <param name="outputPath">The path to save the output XML file.</param>

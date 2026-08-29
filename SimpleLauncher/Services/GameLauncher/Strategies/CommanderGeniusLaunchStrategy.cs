@@ -16,16 +16,11 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
 /// <summary>
-/// Launch strategy for Commander Genius that extracts compressed game files into the
-/// Commander Genius games directory and launches the emulator with the game data path.
+///     Launch strategy for Commander Genius that extracts compressed game files into the
+///     Commander Genius games directory and launches the emulator with the game data path.
 /// </summary>
 public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 {
-    private readonly IExtractionService _extractionService;
-    private readonly IConfiguration _configuration;
-    private readonly IUpdateStatusBar _updateStatusBar;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IToastNotificationService _toastNotificationService;
     private static ILogger _logger = null!;
 
     private static readonly string[] KeenDataExtensions =
@@ -33,8 +28,14 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         ".CK1", ".CK2", ".CK3", ".CK4", ".CK5", ".CK6"
     ];
 
+    private readonly IConfiguration _configuration;
+    private readonly IExtractionService _extractionService;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IToastNotificationService _toastNotificationService;
+    private readonly IUpdateStatusBar _updateStatusBar;
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="CommanderGeniusLaunchStrategy"/> class.
+    ///     Initializes a new instance of the <see cref="CommanderGeniusLaunchStrategy" /> class.
     /// </summary>
     public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration,
         IUpdateStatusBar updateStatusBar, IMessageBoxLibraryService messageBox, ILogger logger,
@@ -84,10 +85,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             var gamesDir = Path.Combine(cgDataPath, "games");
             extractionDir = Path.Combine(gamesDir, zipName);
 
-            if (Directory.Exists(extractionDir))
-            {
-                await CleanTempFolder.CleanupTempDirectoryAsync(extractionDir);
-            }
+            if (Directory.Exists(extractionDir)) await CleanTempFolder.CleanupTempDirectoryAsync(extractionDir);
 
             var extracted = await _extractionService.ExtractToFolderAsync(
                 context.ResolvedFilePath, extractionDir);
@@ -151,27 +149,19 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
                 process.OutputDataReceived += (_, args) =>
                 {
-                    if (!string.IsNullOrEmpty(args.Data))
-                    {
-                        output.AppendLine(args.Data);
-                    }
+                    if (!string.IsNullOrEmpty(args.Data)) output.AppendLine(args.Data);
                 };
 
                 process.ErrorDataReceived += (_, args) =>
                 {
-                    if (!string.IsNullOrEmpty(args.Data))
-                    {
-                        error.AppendLine(args.Data);
-                    }
+                    if (!string.IsNullOrEmpty(args.Data)) error.AppendLine(args.Data);
                 };
 
                 try
                 {
                     var processStarted = process.Start();
                     if (!processStarted)
-                    {
                         throw new InvalidOperationException("Failed to start Commander Genius process.");
-                    }
 
                     if (!process.HasExited)
                     {
@@ -191,11 +181,9 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                     _logger.Error(ex, errorDetail);
 
                     if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
-                    {
                         await _messageBox.CouldNotLaunchGameMessageBoxAsync(
                             PathHelper.ResolveLogFilePath(
                                 _configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                    }
                 }
                 catch (Exception ex)
                 {
@@ -210,11 +198,9 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                     _logger.Error(ex, errorDetail);
 
                     if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
-                    {
                         await _messageBox.CouldNotLaunchGameMessageBoxAsync(
                             PathHelper.ResolveLogFilePath(
                                 _configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                    }
                 }
             }
         }
@@ -226,9 +212,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         finally
         {
             if (extractionDir != null && Directory.Exists(extractionDir))
-            {
                 await CleanTempFolder.CleanupTempDirectoryAsync(extractionDir);
-            }
         }
     }
 
@@ -303,10 +287,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                 if (!inFileHandlingSection) continue;
 
                 var match = MyRegex().Match(trimmed);
-                if (match.Success)
-                {
-                    return match.Groups[1].Value.Trim();
-                }
+                if (match.Success) return match.Groups[1].Value.Trim();
             }
         }
         catch (Exception ex)
@@ -335,9 +316,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             {
                 var binDir = Path.GetDirectoryName(emulatorLocation);
                 if (!string.IsNullOrEmpty(binDir))
-                {
                     resolved = resolved.Replace("${BIN}", binDir, StringComparison.OrdinalIgnoreCase);
-                }
             }
             else
             {
@@ -347,12 +326,8 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
 
         if (resolved.Equals(".", StringComparison.Ordinal))
-        {
             if (!string.IsNullOrEmpty(emulatorLocation))
-            {
                 resolved = Path.GetDirectoryName(emulatorLocation) ?? resolved;
-            }
-        }
 
         return Path.GetFullPath(resolved);
     }
@@ -372,22 +347,17 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
         var dirScores = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         foreach (var dir in dirsToScore)
-        {
             try
             {
                 var count = Directory.EnumerateFiles(dir)
                     .Count(static f => KeenDataExtensions.Contains(
                         Path.GetExtension(f).ToUpperInvariant()));
-                if (count > 0)
-                {
-                    dirScores[dir] = count;
-                }
+                if (count > 0) dirScores[dir] = count;
             }
             catch (Exception ex)
             {
                 _logger.Debug($"[CommanderGenius] Error scanning directory '{dir}': {ex.Message}");
             }
-        }
 
         string bestDir;
         if (dirScores.Count > 0)
@@ -400,16 +370,12 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         {
             bestDir = ResolveSingleFolderChain(extractionDir);
             if (!string.Equals(bestDir, extractionDir, StringComparison.Ordinal))
-            {
                 _logger.Debug($"[CommanderGenius] Game root identified by single-folder chain: {bestDir}");
-            }
         }
 
         if (!string.IsNullOrEmpty(bestDir) &&
             !string.Equals(bestDir, extractionDir, StringComparison.OrdinalIgnoreCase))
-        {
             MoveDirectoryContentsToRoot(bestDir, extractionDir);
-        }
 
         CleanEmptySubdirectories(extractionDir);
     }
@@ -486,19 +452,14 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         try
         {
             foreach (var subdir in Directory.GetDirectories(rootDir))
-            {
                 try
                 {
-                    if (!Directory.EnumerateFileSystemEntries(subdir).Any())
-                    {
-                        Directory.Delete(subdir, false);
-                    }
+                    if (!Directory.EnumerateFileSystemEntries(subdir).Any()) Directory.Delete(subdir, false);
                 }
                 catch
                 {
                     // ignored
                 }
-            }
         }
         catch (Exception ex)
         {

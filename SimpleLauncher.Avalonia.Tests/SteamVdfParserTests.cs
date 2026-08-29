@@ -3,16 +3,16 @@ using SimpleLauncher.Avalonia.Services.GameScan;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests the SteamVdfParser for parsing Valve Data Format (VDF) files used by Steam.
+///     Tests the SteamVdfParser for parsing Valve Data Format (VDF) files used by Steam.
 /// </summary>
 public class SteamVdfParserTests : IDisposable
 {
-    private readonly string _testDirectory;
     private readonly SteamVdfParser _parser = new();
+    private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SteamVdfParserTests"/> class,
-    /// creating a temporary test directory.
+    ///     Initializes a new instance of the <see cref="SteamVdfParserTests" /> class,
+    ///     creating a temporary test directory.
     /// </summary>
     public SteamVdfParserTests()
     {
@@ -21,7 +21,7 @@ public class SteamVdfParserTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory.
+    ///     Cleans up the temporary test directory.
     /// </summary>
     public void Dispose()
     {
@@ -39,7 +39,7 @@ public class SteamVdfParserTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that simple key-value pairs in a VDF file are parsed into the correct dictionary structure.
+    ///     Verifies that simple key-value pairs in a VDF file are parsed into the correct dictionary structure.
     /// </summary>
     [Fact]
     public void ParseSimpleKeyValuePairsReturnsCorrectDictionary()
@@ -65,7 +65,7 @@ public class SteamVdfParserTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that nested dictionary blocks in VDF format are parsed with correct hierarchy.
+    ///     Verifies that nested dictionary blocks in VDF format are parsed with correct hierarchy.
     /// </summary>
     [Fact]
     public void ParseNestedDictionariesReturnsCorrectStructure()
@@ -88,7 +88,7 @@ public class SteamVdfParserTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that escaped quote characters in VDF values are unescaped properly.
+    ///     Verifies that escaped quote characters in VDF values are unescaped properly.
     /// </summary>
     [Fact]
     public void ParseEscapedQuotesInValuesUnescapesCorrectly()
@@ -103,7 +103,7 @@ public class SteamVdfParserTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that escaped backslash characters in VDF values are preserved correctly.
+    ///     Verifies that escaped backslash characters in VDF values are preserved correctly.
     /// </summary>
     [Fact]
     public void ParseEscapedBackslashesUnescapesCorrectly()
@@ -119,7 +119,7 @@ public class SteamVdfParserTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Windows-style backslash paths in VDF values are preserved.
+    ///     Verifies that Windows-style backslash paths in VDF values are preserved.
     /// </summary>
     [Fact]
     public void ParseWindowsBackslashPathsPreservesBackslashes()
@@ -134,7 +134,7 @@ public class SteamVdfParserTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that parsing an empty VDF file returns an empty dictionary.
+    ///     Verifies that parsing an empty VDF file returns an empty dictionary.
     /// </summary>
     [Fact]
     public void ParseEmptyFileReturnsEmptyDictionary()
@@ -149,7 +149,7 @@ public class SteamVdfParserTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that parsing a non-existent file returns an empty dictionary.
+    ///     Verifies that parsing a non-existent file returns an empty dictionary.
     /// </summary>
     [Fact]
     public void ParseNonExistentFileReturnsEmptyDictionary()
@@ -163,7 +163,7 @@ public class SteamVdfParserTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that comment lines starting with // are ignored during parsing.
+    ///     Verifies that comment lines starting with // are ignored during parsing.
     /// </summary>
     [Fact]
     public void ParseCommentsAreIgnored()
@@ -183,7 +183,7 @@ public class SteamVdfParserTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that VDF dictionary key lookups are case-insensitive.
+    ///     Verifies that VDF dictionary key lookups are case-insensitive.
     /// </summary>
     [Fact]
     public void ParseIsCaseInsensitiveForKeys()
@@ -204,7 +204,7 @@ public class SteamVdfParserTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that escaped newline characters in VDF values are unescaped properly.
+    ///     Verifies that escaped newline characters in VDF values are unescaped properly.
     /// </summary>
     [Fact]
     public void ParseNewlineEscapesInValuesUnescapesCorrectly()
@@ -219,7 +219,7 @@ public class SteamVdfParserTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that escaped tab characters in VDF values are unescaped properly.
+    ///     Verifies that escaped tab characters in VDF values are unescaped properly.
     /// </summary>
     [Fact]
     public void ParseTabEscapesInValuesUnescapesCorrectly()

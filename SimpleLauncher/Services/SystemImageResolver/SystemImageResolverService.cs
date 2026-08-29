@@ -4,11 +4,12 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.FindCoverImage;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.SystemImageResolver;
 
 /// <summary>
-/// Resolves display images for system configurations using exact name matching with optional fuzzy matching fallback.
+///     Resolves display images for system configurations using exact name matching with optional fuzzy matching fallback.
 /// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public class SystemImageResolverService : ISystemImageResolverService
@@ -18,7 +19,7 @@ public class SystemImageResolverService : ISystemImageResolverService
     private readonly SettingsManagerService _settings;
 
     /// <summary>
-    /// Initializes a new instance of the SystemImageResolverService with the specified dependencies.
+    ///     Initializes a new instance of the SystemImageResolverService with the specified dependencies.
     /// </summary>
     public SystemImageResolverService(IConfiguration configuration, IFindCoverImageService findCoverImage,
         SettingsManagerService settings)
@@ -29,9 +30,9 @@ public class SystemImageResolverService : ISystemImageResolverService
     }
 
     /// <summary>
-    /// Asynchronously resolves the display image path for a system, using fuzzy matching if enabled.
+    ///     Asynchronously resolves the display image path for a system, using fuzzy matching if enabled.
     /// </summary>
-    public Task<string> ResolveDisplayImageAsync(SystemManager.SystemManagerService config)
+    public Task<string> ResolveDisplayImageAsync(SystemManagerService config)
     {
         var appBaseDir = AppDomain.CurrentDomain.BaseDirectory;
         var systemImageFolder = Path.Combine(appBaseDir, "images", "systems");
@@ -41,10 +42,7 @@ public class SystemImageResolverService : ISystemImageResolverService
         foreach (var ext in imageExtensions)
         {
             var systemImagePath = Path.Combine(systemImageFolder, $"{systemName}{ext}");
-            if (File.Exists(systemImagePath))
-            {
-                return Task.FromResult(systemImagePath);
-            }
+            if (File.Exists(systemImagePath)) return Task.FromResult(systemImagePath);
         }
 
         var enableAnnotationStripping = _settings.EnableAnnotationStripping;
@@ -59,10 +57,7 @@ public class SystemImageResolverService : ISystemImageResolverService
                 foreach (var ext in imageExtensions)
                 {
                     var systemImagePath = Path.Combine(systemImageFolder, $"{strippedSystemName}{ext}");
-                    if (File.Exists(systemImagePath))
-                    {
-                        return Task.FromResult(systemImagePath);
-                    }
+                    if (File.Exists(systemImagePath)) return Task.FromResult(systemImagePath);
                 }
 
                 // Try stripping annotations from image filenames too
@@ -116,9 +111,7 @@ public class SystemImageResolverService : ISystemImageResolverService
             }
 
             if (bestMatchPath != null && highestSimilarity >= similarityThreshold)
-            {
                 return Task.FromResult(bestMatchPath);
-            }
         }
 
         var defaultImagePath = Path.Combine(systemImageFolder, "default.png");

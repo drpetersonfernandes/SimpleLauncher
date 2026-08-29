@@ -9,22 +9,22 @@ using Application = System.Windows.Application;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the RetroAchievements settings window.
+///     ViewModel for the RetroAchievements settings window.
 /// </summary>
 public partial class RetroAchievementsSettingsViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
+    private readonly IRetroAchievementsEmulatorConfiguratorService _configurator;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly RetroAchievementsService _raService;
     private readonly IResourceProvider _resourceProvider;
-    private readonly IRetroAchievementsEmulatorConfiguratorService _configurator;
-
-    [ObservableProperty] private string _username;
+    private readonly SettingsManagerService _settings;
     [ObservableProperty] private string _apiKey;
     [ObservableProperty] private string _password;
 
-    /// <summary>Initializes a new instance of the <see cref="RetroAchievementsSettingsViewModel"/>.</summary>
+    [ObservableProperty] private string _username;
+
+    /// <summary>Initializes a new instance of the <see cref="RetroAchievementsSettingsViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -47,11 +47,11 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
         _password = _settings.RaPassword;
     }
 
-    /// <summary>Event raised when settings have been saved successfully.</summary>
-    public event EventHandler SaveCompleted = null!;
-
     /// <summary>Event raised to request the emulator executable path from the view.</summary>
     public Func<string?>? RequestExePath { get; set; }
+
+    /// <summary>Event raised when settings have been saved successfully.</summary>
+    public event EventHandler SaveCompleted = null!;
 
     [RelayCommand]
     private async Task SaveAsync()
@@ -61,7 +61,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
             (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
                 _resourceProvider.GetString("SavingRetroAchievementsSettings", "Saving RetroAchievements settings..."));
 
-            _settings.RaUsername = (Username).Trim();
+            _settings.RaUsername = Username.Trim();
             _settings.RaApiKey = ApiKey;
             _settings.RaPassword = Password;
             await _settings.SaveAsync();
@@ -83,7 +83,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     {
         try
         {
-            var username = (Username).Trim();
+            var username = Username.Trim();
             var password = Password;
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
@@ -96,7 +96,6 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
 
             var token = _settings.RaToken;
             if (!string.Equals(emulatorName, "RetroArch", StringComparison.Ordinal))
-            {
                 if (string.IsNullOrEmpty(token) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
                 {
                     (Application.Current.MainWindow as MainWindow)?.UpdateStatusBarService.UpdateContent(
@@ -115,7 +114,6 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
                         return;
                     }
                 }
-            }
 
             var exePath = RequestExePath?.Invoke();
             if (string.IsNullOrEmpty(exePath)) return;
@@ -135,13 +133,9 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
                 }
 
                 if (success)
-                {
                     await _messageBox.EmulatorConfiguredSuccessfullyMessageBoxAsync();
-                }
                 else
-                {
                     await _messageBox.FailedToConfigureTheEmulatorMessageBoxAsync();
-                }
             }
             catch (Exception ex)
             {
@@ -157,7 +151,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
 
     private void SaveCurrentSettings()
     {
-        _settings.RaUsername = (Username).Trim();
+        _settings.RaUsername = Username.Trim();
         _settings.RaApiKey = ApiKey;
         _settings.RaPassword = Password;
         _ = _settings.SaveAsync();

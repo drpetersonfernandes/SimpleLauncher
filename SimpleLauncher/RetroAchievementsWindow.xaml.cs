@@ -12,18 +12,18 @@ using SimpleLauncher.ViewModels;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Window for browsing RetroAchievements user profile, unlocks, and completion progress.
+///     Window for browsing RetroAchievements user profile, unlocks, and completion progress.
 /// </summary>
 public partial class RetroAchievementsWindow : ILoadingState
 {
-    private readonly RetroAchievementsViewModel _viewModel;
-    private readonly PlaySoundEffects _playSoundEffects;
-    private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly RetroAchievementsViewModel _viewModel;
     private Button? _emergencyReturnButton;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsWindow"/> class.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsWindow" /> class.
     /// </summary>
     /// <param name="playSoundEffects">The sound effects service.</param>
     /// <param name="logger">The error logging service.</param>
@@ -69,6 +69,20 @@ public partial class RetroAchievementsWindow : ILoadingState
                 _emergencyReturnButton = null;
             }
         };
+    }
+
+    /// <summary>
+    ///     Toggles the loading overlay with an optional message.
+    /// </summary>
+    /// <param name="isLoading">Whether to show or hide the loading overlay.</param>
+    /// <param name="message">Optional message to display while loading.</param>
+    public void SetLoadingState(bool isLoading, string? message = null)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+            if (isLoading) LoadingOverlay.Content = message;
+        });
     }
 
     private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -164,13 +178,9 @@ public partial class RetroAchievementsWindow : ILoadingState
 
         // Update WPF-specific UI (profile image as BitmapImage)
         if (_viewModel.ProfileImageUrl != null)
-        {
             UserProfilePic.Source = new BitmapImage(new Uri(_viewModel.ProfileImageUrl));
-        }
         else
-        {
             UserProfilePic.Source = null;
-        }
 
         // Bind recently played games
         UserProfileRecentlyPlayed.ItemsSource = _viewModel.RecentlyPlayedGames;
@@ -200,10 +210,7 @@ public partial class RetroAchievementsWindow : ILoadingState
 
         // Toggle overlay
         NoUnlocksOverlay.Visibility = _viewModel.NoUnlocksVisible ? Visibility.Visible : Visibility.Collapsed;
-        if (_viewModel.NoUnlocksVisible)
-        {
-            NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
-        }
+        if (_viewModel.NoUnlocksVisible) NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
 
         FetchUnlocksButton.IsEnabled = _viewModel.FetchUnlocksEnabled;
 
@@ -223,10 +230,7 @@ public partial class RetroAchievementsWindow : ILoadingState
             TotalUnlocksInRangeText.Text = _viewModel.TotalUnlocksInRange;
             TotalPointsEarnedInRangeText.Text = _viewModel.TotalPointsEarnedInRange;
             NoUnlocksOverlay.Visibility = _viewModel.NoUnlocksVisible ? Visibility.Visible : Visibility.Collapsed;
-            if (_viewModel.NoUnlocksVisible)
-            {
-                NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
-            }
+            if (_viewModel.NoUnlocksVisible) NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
 
             FetchUnlocksButton.IsEnabled = _viewModel.FetchUnlocksEnabled;
         }
@@ -249,10 +253,7 @@ public partial class RetroAchievementsWindow : ILoadingState
             TotalUnlocksInRangeText.Text = _viewModel.TotalUnlocksInRange;
             TotalPointsEarnedInRangeText.Text = _viewModel.TotalPointsEarnedInRange;
             NoUnlocksOverlay.Visibility = _viewModel.NoUnlocksVisible ? Visibility.Visible : Visibility.Collapsed;
-            if (_viewModel.NoUnlocksVisible)
-            {
-                NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
-            }
+            if (_viewModel.NoUnlocksVisible) NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
 
             FromDatePicker.SelectedDate = _viewModel.FromDate;
             ToDatePicker.SelectedDate = _viewModel.ToDate;
@@ -304,10 +305,7 @@ public partial class RetroAchievementsWindow : ILoadingState
     private void ViewProfileOnRaButton_Click(object sender, RoutedEventArgs e)
     {
         var url = _viewModel.GetProfileUrl();
-        if (!string.IsNullOrWhiteSpace(url))
-        {
-            OpenUrlInBrowserAsync(url);
-        }
+        if (!string.IsNullOrWhiteSpace(url)) OpenUrlInBrowserAsync(url);
     }
 
     private void OpenRaSettings_Click(object sender, RoutedEventArgs e)
@@ -337,23 +335,6 @@ public partial class RetroAchievementsWindow : ILoadingState
                     break;
             }
         }
-    }
-
-    /// <summary>
-    /// Toggles the loading overlay with an optional message.
-    /// </summary>
-    /// <param name="isLoading">Whether to show or hide the loading overlay.</param>
-    /// <param name="message">Optional message to display while loading.</param>
-    public void SetLoadingState(bool isLoading, string? message = null)
-    {
-        Dispatcher.Invoke(() =>
-        {
-            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
-            if (isLoading)
-            {
-                LoadingOverlay.Content = message;
-            }
-        });
     }
 
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)

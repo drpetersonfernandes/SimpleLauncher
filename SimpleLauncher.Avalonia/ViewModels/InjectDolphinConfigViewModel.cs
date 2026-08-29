@@ -10,23 +10,23 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the Dolphin emulator configuration injection window.
+///     ViewModel for the Dolphin emulator configuration injection window.
 /// </summary>
 public partial class InjectDolphinConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly EmulatorPathResolver _emulatorPathResolver;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
+    [ObservableProperty] private bool _dspThread;
     private string _emulatorPath = "";
 
     [ObservableProperty] private string _gfxBackend = "";
-    [ObservableProperty] private bool _dspThread;
+    [ObservableProperty] private bool _showBeforeLaunch;
     [ObservableProperty] private bool _wiimoteContinuousScanning;
     [ObservableProperty] private bool _wiimoteEnableSpeaker;
-    [ObservableProperty] private bool _showBeforeLaunch;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectDolphinConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectDolphinConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
@@ -44,7 +44,32 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Available graphics backend options for Dolphin.
+    /// </summary>
+    public IList<string> GfxBackendOptions { get; } = ["Vulkan", "D3D12", "D3D11", "OpenGL", "Software Renderer"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Dolphin emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -56,22 +81,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available graphics backend options for Dolphin.
-    /// </summary>
-    public IList<string> GfxBackendOptions { get; } = ["Vulkan", "D3D12", "D3D11", "OpenGL", "Software Renderer"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -80,16 +90,6 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -112,10 +112,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = _emulatorPathResolver.TryFindEmulatorPath("Dolphin", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

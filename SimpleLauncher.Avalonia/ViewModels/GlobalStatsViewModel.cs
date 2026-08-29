@@ -11,32 +11,32 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the GlobalStatsWindow.
+///     ViewModel for the GlobalStatsWindow.
 /// </summary>
 public class GlobalStatsViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
-    private IList<SystemManagerConfig> _systemManagers = [];
-    private readonly ILogger _logger;
-    private readonly IGetListOfFilesService _getListOfFiles;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IResourceProvider _resourceProvider;
     private readonly IFilePickerService _filePicker;
-    private CancellationTokenSource? _cancellationTokenSource = new();
+    private readonly IGetListOfFilesService _getListOfFiles;
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
     private readonly Lock _processingLock = new();
-
-    private ObservableCollection<SystemStatsData> _systemStats = [];
+    private readonly IResourceProvider _resourceProvider;
+    private string _busyOverlayText = "";
+    private CancellationTokenSource? _cancellationTokenSource = new();
+    private bool _forceClose;
     private GlobalStatsData _globalStats = new();
     private string _infoText = "";
-    private string _busyOverlayText = "";
-    private bool _isProcessing;
     private bool _isBusyOverlayVisible;
     private bool _isCancelOverlayVisible;
+    private bool _isProcessing;
     private bool _isSaveButtonVisible;
     private bool _isStartButtonVisible = true;
-    private bool _forceClose;
+    private IList<SystemManagerConfig> _systemManagers = [];
 
-    /// <summary>Initializes a new instance of the <see cref="GlobalStatsViewModel"/>.</summary>
+    private ObservableCollection<SystemStatsData> _systemStats = [];
+
+    /// <summary>Initializes a new instance of the <see cref="GlobalStatsViewModel" />.</summary>
     /// <param name="configuration">The application configuration.</param>
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="getListOfFiles">The file listing service.</param>
@@ -58,6 +58,22 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         SaveReportCommand = new AsyncRelayCommand(SaveReportAsync, () => CanSaveReport);
     }
 
+    /// <summary>Gets the command to start the statistics calculation.</summary>
+    public IAsyncRelayCommand StartCommand { get; }
+
+    /// <summary>Gets the command to cancel the statistics calculation.</summary>
+    public IRelayCommand CancelCommand { get; }
+
+    /// <summary>Gets the command to save the statistics report to a file.</summary>
+    public IAsyncRelayCommand SaveReportCommand { get; }
+
+    /// <summary>Releases resources used by this ViewModel.</summary>
+    public void Dispose()
+    {
+        _cancellationTokenSource?.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
     /// <summary>Initializes the ViewModel with the system managers to analyze.</summary>
     /// <param name="systemManagers">The list of configured system managers.</param>
     public void Initialize(IList<SystemManagerConfig> systemManagers)
@@ -69,120 +85,14 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         BusyOverlayText = _resourceProvider.GetString("Processingpleasewait", "Processing");
     }
 
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets the system statistics data.
-    /// </summary>
-    public ObservableCollection<SystemStatsData> SystemStats
-    {
-        get => _systemStats;
-        private set => SetProperty(ref _systemStats, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the info text displayed at the top.
-    /// </summary>
-    public string InfoText
-    {
-        get => _infoText;
-        private set => SetProperty(ref _infoText, value);
-    }
-
-    /// <summary>
-    /// Gets or sets the busy overlay text.
-    /// </summary>
-    public string BusyOverlayText
-    {
-        get => _busyOverlayText;
-        private set => SetProperty(ref _busyOverlayText, value);
-    }
-
-    /// <summary>
-    /// Gets or sets whether processing is in progress.
-    /// </summary>
-    public bool IsProcessing
-    {
-        get => _isProcessing;
-        private set
-        {
-            if (SetProperty(ref _isProcessing, value))
-            {
-                StartCommand.NotifyCanExecuteChanged();
-                CancelCommand.NotifyCanExecuteChanged();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets whether the busy overlay is visible.
-    /// </summary>
-    public bool IsBusyOverlayVisible
-    {
-        get => _isBusyOverlayVisible;
-        private set => SetProperty(ref _isBusyOverlayVisible, value);
-    }
-
-    /// <summary>
-    /// Gets or sets whether the cancel overlay is visible.
-    /// </summary>
-    public bool IsCancelOverlayVisible
-    {
-        get => _isCancelOverlayVisible;
-        private set => SetProperty(ref _isCancelOverlayVisible, value);
-    }
-
-    /// <summary>
-    /// Gets or sets whether the save button is visible.
-    /// </summary>
-    public bool IsSaveButtonVisible
-    {
-        get => _isSaveButtonVisible;
-        private set
-        {
-            if (SetProperty(ref _isSaveButtonVisible, value))
-            {
-                SaveReportCommand.NotifyCanExecuteChanged();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets whether the start button is visible.
-    /// </summary>
-    public bool IsStartButtonVisible
-    {
-        get => _isStartButtonVisible;
-        private set => SetProperty(ref _isStartButtonVisible, value);
-    }
-
-    #endregion
-
-    #region CanExecute Properties
-
-    private bool CanStart => !IsProcessing;
-    private bool CanCancel => IsProcessing;
-    private bool CanSaveReport => IsSaveButtonVisible;
-
-    #endregion
-
     #region Events
 
     /// <summary>
-    /// Event raised when the window should be closed.
+    ///     Event raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
     #endregion
-
-    /// <summary>Gets the command to start the statistics calculation.</summary>
-    public IAsyncRelayCommand StartCommand { get; }
-
-    /// <summary>Gets the command to cancel the statistics calculation.</summary>
-    public IRelayCommand CancelCommand { get; }
-
-    /// <summary>Gets the command to save the statistics report to a file.</summary>
-    public IAsyncRelayCommand SaveReportCommand { get; }
 
     private async Task StartAsync()
     {
@@ -217,10 +127,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
             }
             catch (OperationCanceledException)
             {
-                if (!_forceClose)
-                {
-                    await _messageBox.OperationCancelledMessageBoxAsync();
-                }
+                if (!_forceClose) await _messageBox.OperationCancelledMessageBoxAsync();
 
                 ResetUiAfterProcessing();
             }
@@ -228,7 +135,6 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
             {
                 _logger.Error(ex, "An error occurred while calculating Global Statistics.");
                 if (!_forceClose)
-                {
                     try
                     {
                         await _messageBox.ErrorCalculatingStatsMessageBoxAsync();
@@ -237,7 +143,6 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                     {
                         // Swallow message-box failures to ensure UI is always reset
                     }
-                }
 
                 ResetUiAfterProcessing();
             }
@@ -248,10 +153,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                 _cancellationTokenSource = null;
 
                 // Close window if user requested it during processing
-                if (_forceClose)
-                {
-                    CloseRequested?.Invoke(this, EventArgs.Empty);
-                }
+                if (_forceClose) CloseRequested?.Invoke(this, EventArgs.Empty);
             }
         }
         catch (Exception ex)
@@ -357,10 +259,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                     try
                     {
                         var longPath = PathHelper.GetLongPath(file);
-                        if (longPath != null)
-                        {
-                            totalDiskSize += new FileInfo(longPath).Length;
-                        }
+                        if (longPath != null) totalDiskSize += new FileInfo(longPath).Length;
                     }
                     catch
                     {
@@ -429,10 +328,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         try
         {
             var result = await _messageBox.WouldYouLikeToSaveAReportMessageBoxAsync();
-            if (result == MessageBoxResult.Yes)
-            {
-                await SaveReportAsync();
-            }
+            if (result == MessageBoxResult.Yes) await SaveReportAsync();
         }
         catch (Exception ex)
         {
@@ -445,10 +341,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         if (_globalStats == null) return;
 
         var savePath = await _filePicker.SaveFileAsync("Save Global Stats Report", "Text documents (.txt)|*.txt");
-        if (string.IsNullOrEmpty(savePath))
-        {
-            return;
-        }
+        if (string.IsNullOrEmpty(savePath)) return;
 
         try
         {
@@ -501,8 +394,8 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
     }
 
     /// <summary>
-    /// Requests to close the window while processing, asking the user to confirm.
-    /// Returns true when the window may close.
+    ///     Requests to close the window while processing, asking the user to confirm.
+    ///     Returns true when the window may close.
     /// </summary>
     public async Task<bool> RequestCloseAsync()
     {
@@ -511,10 +404,8 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
             lock (_processingLock)
             {
                 if (!IsProcessing)
-                {
                     // Not processing, allow normal close
                     return true;
-                }
             }
 
             // Processing is active - ask the user to confirm
@@ -535,10 +426,97 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         }
     }
 
-    /// <summary>Releases resources used by this ViewModel.</summary>
-    public void Dispose()
+    #region Properties
+
+    /// <summary>
+    ///     Gets or sets the system statistics data.
+    /// </summary>
+    public ObservableCollection<SystemStatsData> SystemStats
     {
-        _cancellationTokenSource?.Dispose();
-        GC.SuppressFinalize(this);
+        get => _systemStats;
+        private set => SetProperty(ref _systemStats, value);
     }
+
+    /// <summary>
+    ///     Gets or sets the info text displayed at the top.
+    /// </summary>
+    public string InfoText
+    {
+        get => _infoText;
+        private set => SetProperty(ref _infoText, value);
+    }
+
+    /// <summary>
+    ///     Gets or sets the busy overlay text.
+    /// </summary>
+    public string BusyOverlayText
+    {
+        get => _busyOverlayText;
+        private set => SetProperty(ref _busyOverlayText, value);
+    }
+
+    /// <summary>
+    ///     Gets or sets whether processing is in progress.
+    /// </summary>
+    public bool IsProcessing
+    {
+        get => _isProcessing;
+        private set
+        {
+            if (SetProperty(ref _isProcessing, value))
+            {
+                StartCommand.NotifyCanExecuteChanged();
+                CancelCommand.NotifyCanExecuteChanged();
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Gets or sets whether the busy overlay is visible.
+    /// </summary>
+    public bool IsBusyOverlayVisible
+    {
+        get => _isBusyOverlayVisible;
+        private set => SetProperty(ref _isBusyOverlayVisible, value);
+    }
+
+    /// <summary>
+    ///     Gets or sets whether the cancel overlay is visible.
+    /// </summary>
+    public bool IsCancelOverlayVisible
+    {
+        get => _isCancelOverlayVisible;
+        private set => SetProperty(ref _isCancelOverlayVisible, value);
+    }
+
+    /// <summary>
+    ///     Gets or sets whether the save button is visible.
+    /// </summary>
+    public bool IsSaveButtonVisible
+    {
+        get => _isSaveButtonVisible;
+        private set
+        {
+            if (SetProperty(ref _isSaveButtonVisible, value)) SaveReportCommand.NotifyCanExecuteChanged();
+        }
+    }
+
+    /// <summary>
+    ///     Gets or sets whether the start button is visible.
+    /// </summary>
+    public bool IsStartButtonVisible
+    {
+        get => _isStartButtonVisible;
+        private set => SetProperty(ref _isStartButtonVisible, value);
+    }
+
+    #endregion
+
+    #region CanExecute Properties
+
+    private bool CanStart => !IsProcessing;
+    private bool CanCancel => IsProcessing;
+    private bool CanSaveReport => IsSaveButtonVisible;
+
+    #endregion
 }

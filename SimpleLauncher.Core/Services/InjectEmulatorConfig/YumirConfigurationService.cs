@@ -1,21 +1,22 @@
+using SimpleLauncher.Core.Services.SettingsManager;
 using Tomlyn;
 using Tomlyn.Model;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Provides functionality to inject Simple Launcher settings into the Ymir emulator configuration file (Ymir.toml).
+///     Provides functionality to inject Simple Launcher settings into the Ymir emulator configuration file (Ymir.toml).
 /// </summary>
 public static class YumirConfigurationService
 {
     /// <summary>
-    /// Injects Simple Launcher configuration settings into the Ymir emulator's Ymir.toml file.
-    /// Creates the config from a sample if it does not exist, then updates video, audio, system, and general settings.
+    ///     Injects Simple Launcher configuration settings into the Ymir emulator's Ymir.toml file.
+    ///     Creates the config from a sample if it does not exist, then updates video, audio, system, and general settings.
     /// </summary>
     /// <param name="emulatorPath">The full path to the Ymir emulator executable.</param>
     /// <param name="settings">The settings manager containing Ymir configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -28,7 +29,6 @@ public static class YumirConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Yumir", "Ymir.toml");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -40,11 +40,8 @@ public static class YumirConfigurationService
                     logger.Error(ex, $"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("Ymir.toml not found and sample is missing.", samplePath);
-            }
         }
 
         logger.Debug($"[YumirConfig] Injecting configuration into: {configPath}");

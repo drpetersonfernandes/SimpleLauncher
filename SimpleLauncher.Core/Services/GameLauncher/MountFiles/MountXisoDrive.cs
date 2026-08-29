@@ -4,27 +4,17 @@ namespace SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 
 /// <inheritdoc />
 /// <summary>
-/// Represents a temporarily mounted XISO drive.
-/// Disposing this object will unmount the drive by terminating the mounting process.
+///     Represents a temporarily mounted XISO drive.
+///     Disposing this object will unmount the drive by terminating the mounting process.
 /// </summary>
 public class MountXisoDrive : IAsyncDisposable
 {
+    private readonly ILogger _logger;
     private readonly Process? _mountProcess;
     private readonly int _mountProcessId;
-    private readonly ILogger _logger;
 
     /// <summary>
-    /// Gets the path where the XISO was mounted.
-    /// </summary>
-    public string MountedPath { get; } = "";
-
-    /// <summary>
-    /// Gets a value indicating whether the XISO was successfully mounted.
-    /// </summary>
-    public bool IsMounted { get; }
-
-    /// <summary>
-    /// Constructor for a successful mount.
+    ///     Constructor for a successful mount.
     /// </summary>
     public MountXisoDrive(Process mountProcess, string mountedPath, ILogger logErrors, ILogger logger)
     {
@@ -37,7 +27,7 @@ public class MountXisoDrive : IAsyncDisposable
     }
 
     /// <summary>
-    /// Constructor for a failed mount.
+    ///     Constructor for a failed mount.
     /// </summary>
     public MountXisoDrive(ILogger logErrors, ILogger logger)
     {
@@ -47,14 +37,21 @@ public class MountXisoDrive : IAsyncDisposable
     }
 
     /// <summary>
-    /// Unmounts the XISO drive by terminating the mounting process and waiting for it to exit.
+    ///     Gets the path where the XISO was mounted.
+    /// </summary>
+    public string MountedPath { get; } = "";
+
+    /// <summary>
+    ///     Gets a value indicating whether the XISO was successfully mounted.
+    /// </summary>
+    public bool IsMounted { get; }
+
+    /// <summary>
+    ///     Unmounts the XISO drive by terminating the mounting process and waiting for it to exit.
     /// </summary>
     public async ValueTask DisposeAsync()
     {
-        if (!IsMounted || _mountProcess == null)
-        {
-            return;
-        }
+        if (!IsMounted || _mountProcess == null) return;
 
         var processExitedBeforeKill = false;
         try
@@ -102,15 +99,11 @@ public class MountXisoDrive : IAsyncDisposable
                 }
 
                 if (_mountProcess.HasExited)
-                {
                     _logger.Debug(
                         $"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) terminated. Exit code: {_mountProcess.ExitCode}.");
-                }
                 else
-                {
                     _logger.Debug(
                         $"[MountXisoDrive.DisposeAsync] xbox-iso-vfs.exe (ID: {_mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
-                }
             }
         }
         catch (Exception termEx)
@@ -130,14 +123,10 @@ public class MountXisoDrive : IAsyncDisposable
             var driveRoot = Path.GetPathRoot(MountedPath);
             await Task.Delay(1000); // Give OS a moment to release the drive
             if (Directory.Exists(driveRoot))
-            {
                 _logger.Debug(
                     $"[MountXisoDrive.DisposeAsync] WARNING: {driveRoot} drive still exists after attempting to unmount.");
-            }
             else
-            {
                 _logger.Debug($"[MountXisoDrive.DisposeAsync] {driveRoot} drive successfully unmounted.");
-            }
         }
 
         GC.SuppressFinalize(this);

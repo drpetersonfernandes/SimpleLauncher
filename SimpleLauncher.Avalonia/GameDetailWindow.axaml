@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.GameDetailWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Game Details"
         Width="500" Height="450"
@@ -45,9 +45,12 @@
                                TextTrimming="CharacterEllipsis"
                                ToolTip.Tip="{Binding FilePath}" />
                     <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
-                        <TextBlock Text="{ext:Translate GameDetailWindow_Played}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
-                        <TextBlock Text="{Binding PlayCount}" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="12" FontWeight="SemiBold" />
-                        <TextBlock Text="{ext:Translate GameDetailWindow_times}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                        <TextBlock Text="{ext:Translate GameDetailWindow_Played}"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                        <TextBlock Text="{Binding PlayCount}" Foreground="{DynamicResource TextPrimaryBrush}"
+                                   FontSize="12" FontWeight="SemiBold" />
+                        <TextBlock Text="{ext:Translate GameDetailWindow_times}"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
                     </StackPanel>
                     <TextBlock x:Name="LastPlayedText"
                                Foreground="{DynamicResource TextMutedBrush}"

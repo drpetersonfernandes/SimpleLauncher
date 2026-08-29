@@ -7,7 +7,7 @@ using SimpleLauncher.ResourceTranslator.Models;
 namespace SimpleLauncher.ResourceTranslator.Services;
 
 /// <summary>
-/// Provides translation services using the Google Gemini API.
+///     Provides translation services using the Google Gemini API.
 /// </summary>
 public class GeminiTranslationService
 {
@@ -17,11 +17,11 @@ public class GeminiTranslationService
     };
 
     private readonly string _apiKey;
-    private readonly string _modelId;
     private readonly string _apiVersion;
+    private readonly string _modelId;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GeminiTranslationService"/> class.
+    ///     Initializes a new instance of the <see cref="GeminiTranslationService" /> class.
     /// </summary>
     /// <param name="apiKey">The Google Gemini API key.</param>
     /// <param name="modelId">The model identifier to use for translations.</param>
@@ -34,7 +34,7 @@ public class GeminiTranslationService
     }
 
     /// <summary>
-    /// Returns the list of available Gemini models for translation.
+    ///     Returns the list of available Gemini models for translation.
     /// </summary>
     /// <returns>A list of available model information.</returns>
     public static IList<GeminiModelInfo> GetAvailableModels()
@@ -109,7 +109,7 @@ public class GeminiTranslationService
     }
 
     /// <summary>
-    /// Translates a batch of key-value pairs to the target language using Gemini API.
+    ///     Translates a batch of key-value pairs to the target language using Gemini API.
     /// </summary>
     /// <param name="targetLanguageName">The name of the target language.</param>
     /// <param name="entries">The list of key-value pairs to translate.</param>
@@ -162,9 +162,7 @@ public class GeminiTranslationService
             var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);
 
             if (!response.IsSuccessStatusCode)
-            {
                 throw new HttpRequestException($"Gemini API error ({response.StatusCode}): {responseJson}");
-            }
 
             var text = ExtractTextFromResponse(responseJson);
             return ParseTranslations(text, entries.Select(static e => e.Key).ToList());
@@ -199,18 +197,14 @@ public class GeminiTranslationService
         if (!doc.RootElement.TryGetProperty("candidates", out var candidates) ||
             candidates.ValueKind != JsonValueKind.Array ||
             candidates.GetArrayLength() == 0)
-        {
             throw new InvalidOperationException("No candidates in Gemini response.");
-        }
 
         var first = candidates[0];
         if (first.TryGetProperty("finishReason", out var finishReason))
         {
             var reason = finishReason.GetString();
             if (!string.Equals(reason, "STOP", StringComparison.Ordinal))
-            {
                 throw new InvalidOperationException($"Gemini generation stopped. Reason: {reason}");
-            }
         }
 
         if (!first.TryGetProperty("content", out var content) ||
@@ -218,9 +212,7 @@ public class GeminiTranslationService
             parts.ValueKind != JsonValueKind.Array ||
             parts.GetArrayLength() == 0 ||
             !parts[0].TryGetProperty("text", out var textElement))
-        {
             throw new InvalidOperationException("Unable to extract text from Gemini response.");
-        }
 
         return textElement.GetString() ?? "";
     }
@@ -252,10 +244,7 @@ public class GeminiTranslationService
         }
 
         // Fill any missing translations with empty string
-        foreach (var key in remainingKeys)
-        {
-            result[key] = "";
-        }
+        foreach (var key in remainingKeys) result[key] = "";
 
         return result;
     }

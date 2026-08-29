@@ -1,11 +1,13 @@
+using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the SetLinksWindow ViewModel (Phase 4.1 port).
+///     Tests for the SetLinksWindow ViewModel (Phase 4.1 port).
 /// </summary>
 public class SetLinksViewModelTests
 {
@@ -13,14 +15,14 @@ public class SetLinksViewModelTests
     private const string DefaultIgdb = "https://www.igdb.com/search?q=";
 
     private static SetLinksViewModel CreateVm(out Mock<IMessageBoxLibraryService> messageBox,
-        out SimpleLauncher.Core.Services.SettingsManager.SettingsManagerService settings)
+        out SettingsManagerService settings)
     {
         messageBox = TestDependencies.MessageBox();
         settings = TestDependencies.Settings(
             TestEnvironment.ConfigurationFromJson(
                 """{"Urls": {"YouTubeSearch": "https://www.youtube.com/results?search_query=", "IgdbSearch": "https://www.igdb.com/search?q="}}"""),
             messageBox);
-        var vm = new SetLinksViewModel(settings, new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build(),
+        var vm = new SetLinksViewModel(settings, new ConfigurationBuilder().Build(),
             messageBox.Object, TestDependencies.ResourceProvider().Object);
         return vm;
     }
@@ -33,7 +35,7 @@ public class SetLinksViewModelTests
         settings.VideoUrl = "https://custom.example/videos";
         settings.InfoUrl = "https://custom.example/info";
 
-        var vm = new SetLinksViewModel(settings, new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build(),
+        var vm = new SetLinksViewModel(settings, new ConfigurationBuilder().Build(),
             messageBox.Object, TestDependencies.ResourceProvider().Object);
 
         Assert.Equal("https://custom.example/videos", vm.VideoUrl);

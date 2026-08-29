@@ -3,12 +3,13 @@ using System.ComponentModel;
 namespace SimpleLauncher.Core.Services;
 
 /// <summary>
-/// Provides methods to identify specific Win32 error conditions, such as application control policy blocks and elevation requirements.
+///     Provides methods to identify specific Win32 error conditions, such as application control policy blocks and
+///     elevation requirements.
 /// </summary>
 public static class CheckApplicationControlPolicyService
 {
     /// <summary>
-    /// Checks if the given exception is a Win32Exception indicating an application control policy block.
+    ///     Checks if the given exception is a Win32Exception indicating an application control policy block.
     /// </summary>
     /// <param name="ex">The exception to check.</param>
     /// <returns>True if the exception indicates an application control policy block, false otherwise.</returns>
@@ -28,7 +29,7 @@ public static class CheckApplicationControlPolicyService
     }
 
     /// <summary>
-    /// Checks if the given exception is a Win32Exception indicating that elevation is required.
+    ///     Checks if the given exception is a Win32Exception indicating that elevation is required.
     /// </summary>
     /// <param name="ex">The exception to check.</param>
     /// <returns>True if elevation is required, false otherwise.</returns>
@@ -38,9 +39,9 @@ public static class CheckApplicationControlPolicyService
     }
 
     /// <summary>
-    /// Checks if the given exception is a Win32Exception indicating the executable is not a valid
-    /// application for the current OS platform (e.g., a non-Win32 or wrong-architecture binary).
-    /// This is an expected user-error condition, not a bug.
+    ///     Checks if the given exception is a Win32Exception indicating the executable is not a valid
+    ///     application for the current OS platform (e.g., a non-Win32 or wrong-architecture binary).
+    ///     This is an expected user-error condition, not a bug.
     /// </summary>
     /// <param name="ex">The exception to check.</param>
     /// <returns>True if the executable is not a valid application for this OS platform, false otherwise.</returns>
@@ -52,8 +53,8 @@ public static class CheckApplicationControlPolicyService
     }
 
     /// <summary>
-    /// Checks if the given exception is a Win32Exception indicating the operation was canceled by the user.
-    /// This typically occurs when a user cancels a UAC (User Account Control) prompt.
+    ///     Checks if the given exception is a Win32Exception indicating the operation was canceled by the user.
+    ///     This typically occurs when a user cancels a UAC (User Account Control) prompt.
     /// </summary>
     /// <param name="ex">The exception to check.</param>
     /// <returns>True if the operation was canceled by the user, false otherwise.</returns>

@@ -1,16 +1,16 @@
+using SimpleLauncher.Interfaces;
+
 namespace SimpleLauncher.Services.MenuCheckMark;
 
-using Interfaces;
-
 /// <summary>
-/// Manages the checked state of menu items for thumbnail size, games per page, display options, and view mode.
+///     Manages the checked state of menu items for thumbnail size, games per page, display options, and view mode.
 /// </summary>
 public class MenuCheckMarkService : IMenuCheckMarkService
 {
     private IMenuCheckMarkHost _host = null!;
 
     /// <summary>
-    /// Initializes the service with the specified host that provides access to menu check mark controls.
+    ///     Initializes the service with the specified host that provides access to menu check mark controls.
     /// </summary>
     /// <param name="host">The host providing menu check mark UI elements.</param>
     public void Initialize(IMenuCheckMarkHost host)
@@ -19,7 +19,7 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     }
 
     /// <summary>
-    /// Updates the thumbnail size menu check marks to reflect the currently selected size.
+    ///     Updates the thumbnail size menu check marks to reflect the currently selected size.
     /// </summary>
     /// <param name="selectedSize">The currently selected thumbnail size in pixels.</param>
     public void UpdateThumbnailSizeCheckMarks(int selectedSize)
@@ -43,7 +43,7 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     }
 
     /// <summary>
-    /// Updates the games-per-page menu check marks to reflect the currently selected count.
+    ///     Updates the games-per-page menu check marks to reflect the currently selected count.
     /// </summary>
     /// <param name="selectedSize">The currently selected number of games per page.</param>
     public void UpdateNumberOfGamesPerPageCheckMarks(int selectedSize)
@@ -59,7 +59,7 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     }
 
     /// <summary>
-    /// Updates the show-games filter menu check marks to reflect the selected filter mode.
+    ///     Updates the show-games filter menu check marks to reflect the selected filter mode.
     /// </summary>
     public void UpdateShowGamesCheckMarks(string selectedValue)
     {
@@ -69,7 +69,7 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     }
 
     /// <summary>
-    /// Updates the button aspect ratio menu check marks to reflect the selected aspect ratio.
+    ///     Updates the button aspect ratio menu check marks to reflect the selected aspect ratio.
     /// </summary>
     public void UpdateButtonAspectRatioCheckMarks(string selectedValue)
     {
@@ -83,7 +83,7 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     }
 
     /// <summary>
-    /// Updates the filename display mode menu check marks to reflect the selected display mode.
+    ///     Updates the filename display mode menu check marks to reflect the selected display mode.
     /// </summary>
     public void UpdateFilenameDisplayModeCheckMarks(string selectedValue)
     {
@@ -94,7 +94,7 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     }
 
     /// <summary>
-    /// Updates the filename font size menu check marks to reflect the selected font size.
+    ///     Updates the filename font size menu check marks to reflect the selected font size.
     /// </summary>
     public void UpdateFilenameFontSizeCheckMarks(string selectedValue)
     {
@@ -104,7 +104,7 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     }
 
     /// <summary>
-    /// Updates the machine name font size menu check marks to reflect the selected font size.
+    ///     Updates the machine name font size menu check marks to reflect the selected font size.
     /// </summary>
     public void UpdateMachineNameFontSizeCheckMarks(string selectedValue)
     {
@@ -114,7 +114,7 @@ public class MenuCheckMarkService : IMenuCheckMarkService
     }
 
     /// <summary>
-    /// Sets the view mode check marks to indicate whether list view or grid view is active.
+    ///     Sets the view mode check marks to indicate whether list view or grid view is active.
     /// </summary>
     /// <param name="viewMode">The view mode to set ("ListView" or "GridView").</param>
     public void SetViewMode(string viewMode)

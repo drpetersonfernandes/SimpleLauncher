@@ -8,18 +8,18 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the Stella emulator configuration injection service that writes settings into a SQLite database.
+///     Tests the Stella emulator configuration injection service that writes settings into a SQLite database.
 /// </summary>
 public class StellaConfigInjectionTests : IDisposable
 {
-    private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
-    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
+    private readonly ILogger _logErrors = new NoOpLogger();
+    private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StellaConfigInjectionTests"/> class,
-    /// creating a temporary test directory and configuration for each test.
+    ///     Initializes a new instance of the <see cref="StellaConfigInjectionTests" /> class,
+    ///     creating a temporary test directory and configuration for each test.
     /// </summary>
     public StellaConfigInjectionTests()
     {
@@ -37,7 +37,7 @@ public class StellaConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory and restores the service provider mock.
+    ///     Cleans up the temporary test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
@@ -85,16 +85,13 @@ public class StellaConfigInjectionTests : IDisposable
         using var command = connection.CreateCommand();
         command.CommandText = "SELECT setting, value FROM settings";
         using var reader = command.ExecuteReader();
-        while (reader.Read())
-        {
-            result[reader.GetString(0)] = reader.GetString(1);
-        }
+        while (reader.Read()) result[reader.GetString(0)] = reader.GetString(1);
 
         return result;
     }
 
     /// <summary>
-    /// Verifies that all Stella settings are correctly injected into the SQLite configuration database.
+    ///     Verifies that all Stella settings are correctly injected into the SQLite configuration database.
     /// </summary>
     [Fact]
     public void StellaInjectsSettingsCorrectly()
@@ -134,7 +131,7 @@ public class StellaConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that disabled boolean options are encoded as zero/false values in the database.
+    ///     Verifies that disabled boolean options are encoded as zero/false values in the database.
     /// </summary>
     [Fact]
     public void StellaDisabledOptionsUsesZeroValues()
@@ -164,7 +161,7 @@ public class StellaConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a new configuration database is created from a sample when none exists.
+    ///     Verifies that a new configuration database is created from a sample when none exists.
     /// </summary>
     [Fact]
     public void StellaCreatesConfigFromSampleIfMissing()
@@ -189,7 +186,7 @@ public class StellaConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that re-injecting settings overwrites existing values in the database.
+    ///     Verifies that re-injecting settings overwrites existing values in the database.
     /// </summary>
     [Fact]
     public void StellaUpsertOverwritesExistingValues()
@@ -221,7 +218,7 @@ public class StellaConfigInjectionTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies the observed encoding differences where some booleans use 1/0 and others use true/false.
+    ///     Verifies the observed encoding differences where some booleans use 1/0 and others use true/false.
     /// </summary>
     [Fact]
     public void StellaBooleanEncodingIsInconsistent()

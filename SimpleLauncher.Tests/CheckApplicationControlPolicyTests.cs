@@ -5,15 +5,15 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="CheckApplicationControlPolicyService"/> static utility methods
-/// covering application control policy detection, elevation requirements, and UAC cancellation.
+///     Tests for <see cref="CheckApplicationControlPolicyService" /> static utility methods
+///     covering application control policy detection, elevation requirements, and UAC cancellation.
 /// </summary>
 public class CheckApplicationControlPolicyTests
 {
     // IsApplicationControlPolicyBlocked tests
 
     /// <summary>
-    /// Verifies that an InvalidOperationException returns false for policy block detection.
+    ///     Verifies that an InvalidOperationException returns false for policy block detection.
     /// </summary>
     [Fact]
     public void IsApplicationControlPolicyBlockedWithInvalidOperationExceptionReturnsFalse()
@@ -23,7 +23,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that a Win32 error code 5 with an English policy-blocked message returns true.
+    ///     Verifies that a Win32 error code 5 with an English policy-blocked message returns true.
     /// </summary>
     [Fact]
     public void IsApplicationControlPolicyBlockedWithWin32AccessDeniedAndEnglishMessageReturnsTrue()
@@ -33,7 +33,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that a Win32 error code 5 with a Spanish policy-blocked message returns true.
+    ///     Verifies that a Win32 error code 5 with a Spanish policy-blocked message returns true.
     /// </summary>
     [Fact]
     public void IsApplicationControlPolicyBlockedWithWin32AccessDeniedAndSpanishMessageReturnsTrue()
@@ -43,7 +43,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that a Win32 error code 5 with an unrelated message returns false.
+    ///     Verifies that a Win32 error code 5 with an unrelated message returns false.
     /// </summary>
     [Fact]
     public void IsApplicationControlPolicyBlockedWithWin32AccessDeniedButUnrelatedMessageReturnsFalse()
@@ -53,7 +53,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that a Win32 error code other than 5 returns false for policy block detection.
+    ///     Verifies that a Win32 error code other than 5 returns false for policy block detection.
     /// </summary>
     [Fact]
     public void IsApplicationControlPolicyBlockedWithWin32NonAccessDeniedCodeReturnsFalse()
@@ -63,7 +63,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that policy block detection is case-insensitive for English messages.
+    ///     Verifies that policy block detection is case-insensitive for English messages.
     /// </summary>
     [Fact]
     public void IsApplicationControlPolicyBlockedWithWin32AccessDeniedCaseInsensitiveReturnsTrue()
@@ -73,7 +73,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that policy block detection is case-insensitive for Spanish messages.
+    ///     Verifies that policy block detection is case-insensitive for Spanish messages.
     /// </summary>
     [Fact]
     public void IsApplicationControlPolicyBlockedWithWin32AccessDeniedMixedCaseSpanishReturnsTrue()
@@ -83,7 +83,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that a Win32 exception with a null message returns false for policy block detection.
+    ///     Verifies that a Win32 exception with a null message returns false for policy block detection.
     /// </summary>
     [Fact]
     public void IsApplicationControlPolicyBlockedWithNullMessageReturnsFalse()
@@ -95,7 +95,7 @@ public class CheckApplicationControlPolicyTests
     // IsElevationRequired tests
 
     /// <summary>
-    /// Verifies that Win32 error code 740 indicates elevation is required.
+    ///     Verifies that Win32 error code 740 indicates elevation is required.
     /// </summary>
     [Fact]
     public void IsElevationRequiredWithWin32Exception740ReturnsTrue()
@@ -105,7 +105,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that Win32 error codes other than 740 return false for elevation detection.
+    ///     Verifies that Win32 error codes other than 740 return false for elevation detection.
     /// </summary>
     [Fact]
     public void IsElevationRequiredWithWin32ExceptionOtherCodeReturnsFalse()
@@ -115,7 +115,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that an InvalidOperationException returns false for elevation detection.
+    ///     Verifies that an InvalidOperationException returns false for elevation detection.
     /// </summary>
     [Fact]
     public void IsElevationRequiredWithInvalidOperationExceptionReturnsFalse()
@@ -125,7 +125,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that Win32 error code 740 with a message still indicates elevation is required.
+    ///     Verifies that Win32 error code 740 with a message still indicates elevation is required.
     /// </summary>
     [Fact]
     public void IsElevationRequiredWithWin32Exception740AndMessageReturnsTrue()
@@ -137,7 +137,7 @@ public class CheckApplicationControlPolicyTests
     // IsOperationCanceledByUser tests
 
     /// <summary>
-    /// Verifies that Win32 error code 1223 indicates the operation was canceled by the user.
+    ///     Verifies that Win32 error code 1223 indicates the operation was canceled by the user.
     /// </summary>
     [Fact]
     public void IsOperationCanceledByUserWithWin32Exception1223ReturnsTrue()
@@ -147,7 +147,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that Win32 error codes other than 1223 return false for user cancellation detection.
+    ///     Verifies that Win32 error codes other than 1223 return false for user cancellation detection.
     /// </summary>
     [Fact]
     public void IsOperationCanceledByUserWithWin32ExceptionOtherCodeReturnsFalse()
@@ -157,7 +157,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that an InvalidOperationException returns false for user cancellation detection.
+    ///     Verifies that an InvalidOperationException returns false for user cancellation detection.
     /// </summary>
     [Fact]
     public void IsOperationCanceledByUserWithInvalidOperationExceptionReturnsFalse()
@@ -167,7 +167,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that Win32 error code 1223 with a message still indicates user cancellation.
+    ///     Verifies that Win32 error code 1223 with a message still indicates user cancellation.
     /// </summary>
     [Fact]
     public void IsOperationCanceledByUserWithWin32Exception1223AndMessageReturnsTrue()
@@ -179,7 +179,7 @@ public class CheckApplicationControlPolicyTests
     // Edge case tests
 
     /// <summary>
-    /// Verifies that an AggregateException returns false for policy block detection.
+    ///     Verifies that an AggregateException returns false for policy block detection.
     /// </summary>
     [Fact]
     public void IsApplicationControlPolicyBlockedWithAggregateExceptionReturnsFalse()
@@ -189,7 +189,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that an AggregateException returns false for elevation detection.
+    ///     Verifies that an AggregateException returns false for elevation detection.
     /// </summary>
     [Fact]
     public void IsElevationRequiredWithAggregateExceptionReturnsFalse()
@@ -199,7 +199,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that an AggregateException returns false for user cancellation detection.
+    ///     Verifies that an AggregateException returns false for user cancellation detection.
     /// </summary>
     [Fact]
     public void IsOperationCanceledByUserWithAggregateExceptionReturnsFalse()
@@ -209,7 +209,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that all policy methods return false for a FileNotFoundException.
+    ///     Verifies that all policy methods return false for a FileNotFoundException.
     /// </summary>
     [Fact]
     public void AllMethodsReturnFalseForFileNotFoundException()
@@ -221,7 +221,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that all policy methods return false for a DirectoryNotFoundException.
+    ///     Verifies that all policy methods return false for a DirectoryNotFoundException.
     /// </summary>
     [Fact]
     public void AllMethodsReturnFalseForDirectoryNotFoundException()
@@ -233,7 +233,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that a partial English match in the error message detects a policy block.
+    ///     Verifies that a partial English match in the error message detects a policy block.
     /// </summary>
     [Fact]
     public void IsApplicationControlPolicyBlockedWithPartialEnglishMatchReturnsTrue()
@@ -243,7 +243,7 @@ public class CheckApplicationControlPolicyTests
     }
 
     /// <summary>
-    /// Verifies that a partial Spanish match in the error message detects a policy block.
+    ///     Verifies that a partial Spanish match in the error message detects a policy block.
     /// </summary>
     [Fact]
     public void IsApplicationControlPolicyBlockedWithPartialSpanishMatchReturnsTrue()

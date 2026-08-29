@@ -4,15 +4,15 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="GameClassificationItem"/> and <see cref="GameClassificationResponse"/> models
-/// covering default values, property assignment, and collection behavior.
+///     Tests for <see cref="GameClassificationItem" /> and <see cref="GameClassificationResponse" /> models
+///     covering default values, property assignment, and collection behavior.
 /// </summary>
 public class GameClassificationModelsTests
 {
     // GameClassificationItem tests
 
     /// <summary>
-    /// Verifies that the default Name property of a new GameClassificationItem is an empty string.
+    ///     Verifies that the default Name property of a new GameClassificationItem is an empty string.
     /// </summary>
     [Fact]
     public void GameClassificationItemDefaultNameIsEmpty()
@@ -22,7 +22,7 @@ public class GameClassificationModelsTests
     }
 
     /// <summary>
-    /// Verifies that the default properties of a new GameClassificationItem are null.
+    ///     Verifies that the default properties of a new GameClassificationItem are null.
     /// </summary>
     [Fact]
     public void GameClassificationItemDefaultPropertiesAreNull()
@@ -35,7 +35,7 @@ public class GameClassificationModelsTests
     }
 
     /// <summary>
-    /// Verifies that all GameClassificationItem properties can be set and retrieved correctly.
+    ///     Verifies that all GameClassificationItem properties can be set and retrieved correctly.
     /// </summary>
     [Fact]
     public void GameClassificationItemAllPropertiesCanBeSet()
@@ -57,7 +57,7 @@ public class GameClassificationModelsTests
     }
 
     /// <summary>
-    /// Verifies that GameClassificationItem supports Unicode characters in the Name property.
+    ///     Verifies that GameClassificationItem supports Unicode characters in the Name property.
     /// </summary>
     [Fact]
     public void GameClassificationItemSupportsUnicode()
@@ -67,7 +67,7 @@ public class GameClassificationModelsTests
     }
 
     /// <summary>
-    /// Verifies that GameClassificationItem supports long name strings.
+    ///     Verifies that GameClassificationItem supports long name strings.
     /// </summary>
     [Fact]
     public void GameClassificationItemSupportsLongName()
@@ -78,7 +78,7 @@ public class GameClassificationModelsTests
     }
 
     /// <summary>
-    /// Verifies that GameClassificationItem supports special characters in the Name property.
+    ///     Verifies that GameClassificationItem supports special characters in the Name property.
     /// </summary>
     [Fact]
     public void GameClassificationItemSupportsSpecialCharacters()
@@ -90,7 +90,7 @@ public class GameClassificationModelsTests
     // GameClassificationResponse tests
 
     /// <summary>
-    /// Verifies that the default Games property of a new GameClassificationResponse is an empty list.
+    ///     Verifies that the default Games property of a new GameClassificationResponse is an empty list.
     /// </summary>
     [Fact]
     public void GameClassificationResponseDefaultGamesIsEmptyList()
@@ -101,7 +101,7 @@ public class GameClassificationModelsTests
     }
 
     /// <summary>
-    /// Verifies that GameClassificationResponse Games list can be populated with multiple items.
+    ///     Verifies that GameClassificationResponse Games list can be populated with multiple items.
     /// </summary>
     [Fact]
     public void GameClassificationResponseGamesCanBePopulated()
@@ -123,7 +123,7 @@ public class GameClassificationModelsTests
     }
 
     /// <summary>
-    /// Verifies that games can be added dynamically to the GameClassificationResponse Games list.
+    ///     Verifies that games can be added dynamically to the GameClassificationResponse Games list.
     /// </summary>
     [Fact]
     public void GameClassificationResponseCanAddGamesDynamically()
@@ -136,7 +136,7 @@ public class GameClassificationModelsTests
     }
 
     /// <summary>
-    /// Verifies that the Games list can be cleared on a GameClassificationResponse.
+    ///     Verifies that the Games list can be cleared on a GameClassificationResponse.
     /// </summary>
     [Fact]
     public void GameClassificationResponseCanClearGames()
@@ -151,7 +151,7 @@ public class GameClassificationModelsTests
     }
 
     /// <summary>
-    /// Verifies that the Games list supports LINQ queries for filtering.
+    ///     Verifies that the Games list supports LINQ queries for filtering.
     /// </summary>
     [Fact]
     public void GameClassificationResponseGamesListSupportsLinq()

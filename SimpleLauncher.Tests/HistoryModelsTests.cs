@@ -4,15 +4,15 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for ROM history data models: <see cref="HistoryData"/>, <see cref="EntryData"/>,
-/// <see cref="SystemsData"/>, <see cref="SystemItemData"/>, <see cref="SoftwareData"/>, <see cref="ItemData"/>.
+///     Tests for ROM history data models: <see cref="HistoryData" />, <see cref="EntryData" />,
+///     <see cref="SystemsData" />, <see cref="SystemItemData" />, <see cref="SoftwareData" />, <see cref="ItemData" />.
 /// </summary>
 public class HistoryModelsTests
 {
     // HistoryData tests
 
     /// <summary>
-    /// Verifies that a new HistoryData has Version and Date defaulting to null and Entries to an empty array.
+    ///     Verifies that a new HistoryData has Version and Date defaulting to null and Entries to an empty array.
     /// </summary>
     [Fact]
     public void HistoryDataDefaultValues()
@@ -25,7 +25,7 @@ public class HistoryModelsTests
     }
 
     /// <summary>
-    /// Verifies that HistoryData properties can be set and retrieved correctly.
+    ///     Verifies that HistoryData properties can be set and retrieved correctly.
     /// </summary>
     [Fact]
     public void HistoryDataPropertiesCanBeSet()
@@ -43,7 +43,7 @@ public class HistoryModelsTests
     }
 
     /// <summary>
-    /// Verifies that HistoryData Entries supports multiple items.
+    ///     Verifies that HistoryData Entries supports multiple items.
     /// </summary>
     [Fact]
     public void HistoryDataEntriesSupportsMultipleItems()
@@ -67,7 +67,7 @@ public class HistoryModelsTests
     // EntryData tests
 
     /// <summary>
-    /// Verifies that a new EntryData has all properties defaulting to null.
+    ///     Verifies that a new EntryData has all properties defaulting to null.
     /// </summary>
     [Fact]
     public void EntryDataDefaultValues()
@@ -79,7 +79,7 @@ public class HistoryModelsTests
     }
 
     /// <summary>
-    /// Verifies that EntryData properties can be set and retrieved correctly.
+    ///     Verifies that EntryData properties can be set and retrieved correctly.
     /// </summary>
     [Fact]
     public void EntryDataPropertiesCanBeSet()
@@ -99,7 +99,7 @@ public class HistoryModelsTests
     // SystemsData tests
 
     /// <summary>
-    /// Verifies that a new SystemsData has SystemItems defaulting to an empty array.
+    ///     Verifies that a new SystemsData has SystemItems defaulting to an empty array.
     /// </summary>
     [Fact]
     public void SystemsDataDefaultSystemItemsIsEmptyArray()
@@ -110,7 +110,7 @@ public class HistoryModelsTests
     }
 
     /// <summary>
-    /// Verifies that SystemsData SystemItems can be populated with multiple items.
+    ///     Verifies that SystemsData SystemItems can be populated with multiple items.
     /// </summary>
     [Fact]
     public void SystemsDataSystemItemsCanBePopulated()
@@ -132,7 +132,7 @@ public class HistoryModelsTests
     // SystemItemData tests
 
     /// <summary>
-    /// Verifies that a new SystemItemData has all properties defaulting to null.
+    ///     Verifies that a new SystemItemData has all properties defaulting to null.
     /// </summary>
     [Fact]
     public void SystemItemDataDefaultValues()
@@ -143,7 +143,7 @@ public class HistoryModelsTests
     }
 
     /// <summary>
-    /// Verifies that SystemItemData properties can be set and retrieved correctly.
+    ///     Verifies that SystemItemData properties can be set and retrieved correctly.
     /// </summary>
     [Fact]
     public void SystemItemDataPropertiesCanBeSet()
@@ -159,7 +159,7 @@ public class HistoryModelsTests
     }
 
     /// <summary>
-    /// Verifies that SystemItemData supports Unicode characters in Name and Game properties.
+    ///     Verifies that SystemItemData supports Unicode characters in Name and Game properties.
     /// </summary>
     [Fact]
     public void SystemItemDataSupportsUnicode()
@@ -177,7 +177,7 @@ public class HistoryModelsTests
     // SoftwareData tests
 
     /// <summary>
-    /// Verifies that a new SoftwareData has Items defaulting to an empty array.
+    ///     Verifies that a new SoftwareData has Items defaulting to an empty array.
     /// </summary>
     [Fact]
     public void SoftwareDataDefaultItemsIsEmptyArray()
@@ -188,7 +188,7 @@ public class HistoryModelsTests
     }
 
     /// <summary>
-    /// Verifies that SoftwareData Items can be populated with multiple items.
+    ///     Verifies that SoftwareData Items can be populated with multiple items.
     /// </summary>
     [Fact]
     public void SoftwareDataItemsCanBePopulated()
@@ -210,7 +210,7 @@ public class HistoryModelsTests
     // ItemData tests
 
     /// <summary>
-    /// Verifies that a new ItemData has all properties defaulting to null.
+    ///     Verifies that a new ItemData has all properties defaulting to null.
     /// </summary>
     [Fact]
     public void ItemDataDefaultValues()
@@ -222,7 +222,7 @@ public class HistoryModelsTests
     }
 
     /// <summary>
-    /// Verifies that ItemData properties can be set and retrieved correctly.
+    ///     Verifies that ItemData properties can be set and retrieved correctly.
     /// </summary>
     [Fact]
     public void ItemDataPropertiesCanBeSet()
@@ -240,7 +240,7 @@ public class HistoryModelsTests
     }
 
     /// <summary>
-    /// Verifies that ItemData supports special characters in Name and Game properties.
+    ///     Verifies that ItemData supports special characters in Name and Game properties.
     /// </summary>
     [Fact]
     public void ItemDataSupportsSpecialCharacters()
@@ -259,7 +259,7 @@ public class HistoryModelsTests
     // Full hierarchy integration test
 
     /// <summary>
-    /// Verifies that a full HistoryData hierarchy can be constructed and accessed correctly.
+    ///     Verifies that a full HistoryData hierarchy can be constructed and accessed correctly.
     /// </summary>
     [Fact]
     public void FullHistoryDataHierarchy()
@@ -310,7 +310,7 @@ public class HistoryModelsTests
     }
 
     /// <summary>
-    /// Verifies that an empty HistoryData is a valid object with an empty Entries array.
+    ///     Verifies that an empty HistoryData is a valid object with an empty Entries array.
     /// </summary>
     [Fact]
     public void EmptyHistoryDataIsValid()

@@ -1,5 +1,5 @@
-using System.Reflection;
 using System.Diagnostics;
+using System.Reflection;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -9,7 +9,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the AboutWindow.
+///     ViewModel for the AboutWindow.
 /// </summary>
 public partial class AboutViewModel : ObservableObject
 {
@@ -18,7 +18,9 @@ public partial class AboutViewModel : ObservableObject
     private readonly AvaloniaCheckForUpdatesService _updateChecker;
     private string _appVersion = "";
 
-    /// <summary>Initializes a new instance of the <see cref="AboutViewModel"/>.</summary>
+    private bool _isCheckingForUpdates;
+
+    /// <summary>Initializes a new instance of the <see cref="AboutViewModel" />.</summary>
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
     /// <param name="updateChecker">The update checker service.</param>
@@ -34,7 +36,7 @@ public partial class AboutViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Gets the application version string.
+    ///     Gets the application version string.
     /// </summary>
     public string AppVersion
     {
@@ -43,43 +45,38 @@ public partial class AboutViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Gets the path to the application logo image.
+    ///     Gets the path to the application logo image.
     /// </summary>
     public string LogoPath { get; }
 
-    private bool _isCheckingForUpdates;
-
     /// <summary>
-    /// Gets whether an update check is in progress.
+    ///     Gets whether an update check is in progress.
     /// </summary>
     public bool IsCheckingForUpdates
     {
         get => _isCheckingForUpdates;
         private set
         {
-            if (SetProperty(ref _isCheckingForUpdates, value))
-            {
-                CheckForUpdatesCommand.NotifyCanExecuteChanged();
-            }
+            if (SetProperty(ref _isCheckingForUpdates, value)) CheckForUpdatesCommand.NotifyCanExecuteChanged();
         }
     }
 
     /// <summary>
-    /// Event raised when the window should be closed.
-    /// </summary>
-    public event EventHandler? CloseRequested;
-
-    /// <summary>
-    /// Event raised when the update history window should be opened.
-    /// </summary>
-    public event EventHandler? OpenUpdateHistoryRequested;
-
-    /// <summary>
-    /// Event raised to request the owner window for dialogs.
+    ///     Event raised to request the owner window for dialogs.
     /// </summary>
     public Func<Window>? GetOwnerWindow { get; set; }
 
     private bool CanCheckForUpdates => !IsCheckingForUpdates;
+
+    /// <summary>
+    ///     Event raised when the window should be closed.
+    /// </summary>
+    public event EventHandler? CloseRequested;
+
+    /// <summary>
+    ///     Event raised when the update history window should be opened.
+    /// </summary>
+    public event EventHandler? OpenUpdateHistoryRequested;
 
     [RelayCommand]
     private void Close()

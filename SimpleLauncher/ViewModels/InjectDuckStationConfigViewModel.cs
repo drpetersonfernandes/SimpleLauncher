@@ -11,32 +11,32 @@ using SimpleLauncher.Services.InjectEmulatorConfig;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the DuckStation emulator configuration injection window.
+///     ViewModel for the DuckStation emulator configuration injection window.
 /// </summary>
 public partial class InjectDuckStationConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private string _emulatorPath = "";
-
-    [ObservableProperty] private bool _duckStationStartFullscreen;
-    [ObservableProperty] private bool _duckStationPauseOnFocusLoss;
-    [ObservableProperty] private bool _duckStationSaveStateOnExit;
-    [ObservableProperty] private bool _duckStationRewindEnable;
-    [ObservableProperty] private int _duckStationRunaheadFrameCount;
-    [ObservableProperty] private string _duckStationRenderer = "";
-    [ObservableProperty] private int _duckStationResolutionScale;
-    [ObservableProperty] private string _duckStationTextureFilter = "";
+    private readonly SettingsManagerService _settings;
     [ObservableProperty] private string _duckStationAspectRatio = "";
-    [ObservableProperty] private bool _duckStationWidescreenHack;
-    [ObservableProperty] private bool _duckStationPgxpEnable;
-    [ObservableProperty] private bool _duckStationVsync;
     [ObservableProperty] private bool _duckStationOutputMuted;
     [ObservableProperty] private int _duckStationOutputVolume;
+    [ObservableProperty] private bool _duckStationPauseOnFocusLoss;
+    [ObservableProperty] private bool _duckStationPgxpEnable;
+    [ObservableProperty] private string _duckStationRenderer = "";
+    [ObservableProperty] private int _duckStationResolutionScale;
+    [ObservableProperty] private bool _duckStationRewindEnable;
+    [ObservableProperty] private int _duckStationRunaheadFrameCount;
+    [ObservableProperty] private bool _duckStationSaveStateOnExit;
     [ObservableProperty] private bool _duckStationShowSettingsBeforeLaunch;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectDuckStationConfigViewModel"/>.</summary>
+    [ObservableProperty] private bool _duckStationStartFullscreen;
+    [ObservableProperty] private string _duckStationTextureFilter = "";
+    [ObservableProperty] private bool _duckStationVsync;
+    [ObservableProperty] private bool _duckStationWidescreenHack;
+    private string _emulatorPath = "";
+
+    /// <summary>Initializes a new instance of the <see cref="InjectDuckStationConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
@@ -49,25 +49,13 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
-    /// </summary>
-    /// <param name="emulatorPath">The file path to the DuckStation emulator executable.</param>
-    /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
-    public void Initialize(string? emulatorPath, bool isLauncherMode)
-    {
-        _emulatorPath = emulatorPath ?? "";
-        IsLauncherMode = isLauncherMode;
-        LoadSettings();
-    }
-
-    /// <summary>
-    /// Available renderer options for DuckStation.
+    ///     Available renderer options for DuckStation.
     /// </summary>
     public IList<string> RendererOptions { get; } =
         ["Automatic", "Vulkan", "Direct3D 11", "Direct3D 12", "OpenGL", "Software"];
 
     /// <summary>
-    /// Available resolution scale options for DuckStation.
+    ///     Available resolution scale options for DuckStation.
     /// </summary>
     public IList<TagOption> ResolutionScaleOptions { get; } =
     [
@@ -82,27 +70,49 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     ];
 
     /// <summary>
-    /// Available texture filter options for DuckStation.
+    ///     Available texture filter options for DuckStation.
     /// </summary>
     public IList<string> TextureFilterOptions { get; } = ["Nearest", "Bilinear", "Bilinear(Bilinear)"];
 
     /// <summary>
-    /// Available aspect ratio options for DuckStation.
+    ///     Available aspect ratio options for DuckStation.
     /// </summary>
     public IList<string> AspectRatioOptions { get; } = ["Auto", "4:3", "16:9", "16:10", "Crop"];
 
     /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
+    ///     Gets whether the configuration is being injected from launcher mode.
     /// </summary>
     public bool IsLauncherMode { get; private set; }
 
     /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
+    ///     Gets whether the emulator should be launched after configuration injection.
     /// </summary>
     public bool ShouldRun { get; private set; }
 
     /// <summary>
-    /// Raised when the window should be closed.
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<string?>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
+    /// </summary>
+    /// <param name="emulatorPath">The file path to the DuckStation emulator executable.</param>
+    /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
+    public void Initialize(string? emulatorPath, bool isLauncherMode)
+    {
+        _emulatorPath = emulatorPath ?? "";
+        IsLauncherMode = isLauncherMode;
+        LoadSettings();
+    }
+
+    /// <summary>
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -111,16 +121,6 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<string?>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -163,10 +163,7 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = EmulatorPathResolver.TryFindEmulatorPath("DuckStation", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

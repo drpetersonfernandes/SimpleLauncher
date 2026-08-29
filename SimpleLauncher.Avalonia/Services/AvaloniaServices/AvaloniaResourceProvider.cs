@@ -3,7 +3,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Services.AvaloniaServices;
 
 /// <summary>
-/// Implementation of IResourceProvider — delegates to LocalizationService.
+///     Implementation of IResourceProvider — delegates to LocalizationService.
 /// </summary>
 public class AvaloniaResourceProvider : IResourceProvider
 {

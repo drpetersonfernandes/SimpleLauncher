@@ -11,26 +11,26 @@ using BlastemConfigurationService = SimpleLauncher.Core.Services.InjectEmulatorC
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the BlastEm emulator configuration injection window.
+///     ViewModel for the BlastEm emulator configuration injection window.
 /// </summary>
 public partial class InjectBlastemConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly EmulatorPathResolver _emulatorPathResolver;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
+    [ObservableProperty] private string _aspect = "";
+    [ObservableProperty] private string _audioRate = "";
     private string _emulatorPath = "";
 
     [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private bool _vsync;
-    [ObservableProperty] private bool _scanlines;
-    [ObservableProperty] private string _aspect = "";
     [ObservableProperty] private string _scaling = "";
-    [ObservableProperty] private string _audioRate = "";
-    [ObservableProperty] private string _syncSource = "";
+    [ObservableProperty] private bool _scanlines;
     [ObservableProperty] private bool _showBeforeLaunch;
+    [ObservableProperty] private string _syncSource = "";
+    [ObservableProperty] private bool _vsync;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectBlastemConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectBlastemConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
@@ -48,7 +48,47 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Available aspect ratio options for BlastEm.
+    /// </summary>
+    public IList<string> AspectOptions { get; } = ["4:3", "16:9", "stretch"];
+
+    /// <summary>
+    ///     Available scaling options for BlastEm.
+    /// </summary>
+    public IList<string> ScalingOptions { get; } = ["linear", "nearest"];
+
+    /// <summary>
+    ///     Available audio sample rate options for BlastEm.
+    /// </summary>
+    public IList<string> AudioRateOptions { get; } = ["48000", "44100", "22050"];
+
+    /// <summary>
+    ///     Available sync source options for BlastEm.
+    /// </summary>
+    public IList<string> SyncSourceOptions { get; } = ["audio", "video"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the BlastEm emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -60,37 +100,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available aspect ratio options for BlastEm.
-    /// </summary>
-    public IList<string> AspectOptions { get; } = ["4:3", "16:9", "stretch"];
-
-    /// <summary>
-    /// Available scaling options for BlastEm.
-    /// </summary>
-    public IList<string> ScalingOptions { get; } = ["linear", "nearest"];
-
-    /// <summary>
-    /// Available audio sample rate options for BlastEm.
-    /// </summary>
-    public IList<string> AudioRateOptions { get; } = ["48000", "44100", "22050"];
-
-    /// <summary>
-    /// Available sync source options for BlastEm.
-    /// </summary>
-    public IList<string> SyncSourceOptions { get; } = ["audio", "video"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -99,16 +109,6 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -130,9 +130,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
         _settings.Blastem.Aspect = Aspect;
         _settings.Blastem.Scaling = Scaling;
         if (int.TryParse(AudioRate, CultureInfo.InvariantCulture, out var audioRate))
-        {
             _settings.Blastem.AudioRate = audioRate;
-        }
 
         _settings.Blastem.SyncSource = SyncSource;
         _settings.Blastem.ShowSettingsBeforeLaunch = ShowBeforeLaunch;
@@ -141,10 +139,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = _emulatorPathResolver.TryFindEmulatorPath("Blastem", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

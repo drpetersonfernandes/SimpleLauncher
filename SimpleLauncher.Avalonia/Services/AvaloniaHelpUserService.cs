@@ -10,20 +10,16 @@ using SimpleLauncher.Core.Services.HelpUser;
 namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
-/// Provides emulator parameter help text for systems, sourced from parameters.md
-/// (loaded by the Core <see cref="HelpUserManager"/>). Avalonia port of the WPF
-/// <c>HelpUserService</c> — the markdown is rendered by Markdown.Avalonia viewers
-/// (no RichTextBox dependency).
+///     Provides emulator parameter help text for systems, sourced from parameters.md
+///     (loaded by the Core <see cref="HelpUserManager" />). Avalonia port of the WPF
+///     <c>HelpUserService</c> — the markdown is rendered by Markdown.Avalonia viewers
+///     (no RichTextBox dependency).
 /// </summary>
 public class AvaloniaHelpUserService
 {
-    private readonly HelpUserManager _manager;
-    private readonly ILogger _logger;
-    private readonly LocalizationService? _localization;
-
     /// <summary>
-    /// Maps system-name aliases (user-typed names) to the canonical names used by parameters.md.
-    /// Same alias set as the WPF HelpUserService.
+    ///     Maps system-name aliases (user-typed names) to the canonical names used by parameters.md.
+    ///     Same alias set as the WPF HelpUserService.
     /// </summary>
     private static readonly Dictionary<string, string> AliasToCanonicalName = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -305,14 +301,32 @@ public class AvaloniaHelpUserService
         { "Zeebo", "Zeebo" }
     };
 
+    private static readonly Regex HeadingRegex = new(@"^##\s*(.*?)$", RegexOptions.Multiline | RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(1000));
+
+    private static readonly Regex BoldRegex = new(@"\*\*(.*?)\*\*", RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(1000));
+
+    private static readonly Regex MarkdownLinkRegex = new(@"\[(?<text>[^\]]+?)\]\((?<url>https?://\S+?)\)",
+        RegexOptions.Compiled, TimeSpan.FromMilliseconds(1000));
+
+    private static readonly Regex RawUrlRegex =
+        new(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled, TimeSpan.FromMilliseconds(1000));
+
+    private readonly LocalizationService? _localization;
+    private readonly ILogger _logger;
+    private readonly HelpUserManager _manager;
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="AvaloniaHelpUserService"/> class
-    /// and starts loading the parameters file.
+    ///     Initializes a new instance of the <see cref="AvaloniaHelpUserService" /> class
+    ///     and starts loading the parameters file.
     /// </summary>
     /// <param name="logger">The Serilog logger.</param>
     /// <param name="messageBoxLibrary">The message box service for user notifications.</param>
-    /// <param name="localization">Optional localization service for fallback messages
-    /// (WPF DynamicResource Nosystemnameprovided / Nodetailsavailablefor parity).</param>
+    /// <param name="localization">
+    ///     Optional localization service for fallback messages
+    ///     (WPF DynamicResource Nosystemnameprovided / Nodetailsavailablefor parity).
+    /// </param>
     public AvaloniaHelpUserService(
         ILogger logger,
         IMessageBoxLibraryService messageBoxLibrary,
@@ -332,23 +346,16 @@ public class AvaloniaHelpUserService
         }
     }
 
-    private static readonly Regex HeadingRegex = new(@"^##\s*(.*?)$", RegexOptions.Multiline | RegexOptions.Compiled, TimeSpan.FromMilliseconds(1000));
-    private static readonly Regex BoldRegex = new(@"\*\*(.*?)\*\*", RegexOptions.Compiled, TimeSpan.FromMilliseconds(1000));
-    private static readonly Regex MarkdownLinkRegex = new(@"\[(?<text>[^\]]+?)\]\((?<url>https?://\S+?)\)", RegexOptions.Compiled, TimeSpan.FromMilliseconds(1000));
-    private static readonly Regex RawUrlRegex = new(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled, TimeSpan.FromMilliseconds(1000));
-
     /// <summary>
-    /// Gets the help text for the given system name (alias-aware), falling back to
-    /// a message when no information is available for the system.
+    ///     Gets the help text for the given system name (alias-aware), falling back to
+    ///     a message when no information is available for the system.
     /// </summary>
     /// <param name="systemName">The name of the system to get help for.</param>
     /// <returns>The help text for the system.</returns>
     public string GetHelpText(string systemName)
     {
         if (string.IsNullOrEmpty(systemName))
-        {
             return _localization?.GetString("Nosystemnameprovided") ?? "No system name provided.";
-        }
 
         var canonicalName = AliasToCanonicalName.GetValueOrDefault(systemName, systemName);
         // parameters.md uses <br> tags; strip them like the WPF renderer does and convert
@@ -360,9 +367,9 @@ public class AvaloniaHelpUserService
     }
 
     /// <summary>
-    /// Updates a <see cref="SelectableTextBlock"/> with WPF-parity formatted help text.
-    /// Uses the same regex pipeline as WPF HelpUserService.SetTextWithMarkdownInternal:
-    /// headings→bold, **bold**, [text](url) links, and raw URLs become clickable hyperlinks.
+    ///     Updates a <see cref="SelectableTextBlock" /> with WPF-parity formatted help text.
+    ///     Uses the same regex pipeline as WPF HelpUserService.SetTextWithMarkdownInternal:
+    ///     headings→bold, **bold**, [text](url) links, and raw URLs become clickable hyperlinks.
     /// </summary>
     public void UpdateHelpTextBlock(SelectableTextBlock textBlock, string systemName)
     {
@@ -373,13 +380,9 @@ public class AvaloniaHelpUserService
     private static void SetTextWithMarkdown(SelectableTextBlock textBlock, string text)
     {
         if (textBlock.Inlines == null)
-        {
             textBlock.Inlines = new InlineCollection();
-        }
         else
-        {
             textBlock.Inlines.Clear();
-        }
 
         textBlock.TextWrapping = TextWrapping.Wrap;
 
@@ -388,15 +391,9 @@ public class AvaloniaHelpUserService
         text = HeadingRegex.Replace(text, static m => $"**{m.Groups[1].Value.Trim()}**");
 
         var matches = new List<(Match Match, string Type)>();
-        foreach (Match m in BoldRegex.Matches(text))
-        {
-            matches.Add((m, "bold"));
-        }
+        foreach (Match m in BoldRegex.Matches(text)) matches.Add((m, "bold"));
 
-        foreach (Match m in MarkdownLinkRegex.Matches(text))
-        {
-            matches.Add((m, "markdownLink"));
-        }
+        foreach (Match m in MarkdownLinkRegex.Matches(text)) matches.Add((m, "markdownLink"));
 
         matches.Sort(static (a, b) => a.Match.Index.CompareTo(b.Match.Index));
 
@@ -436,25 +433,16 @@ public class AvaloniaHelpUserService
 
     private static void AddRawUrlsToInlines(InlineCollection inlines, string text)
     {
-        if (string.IsNullOrEmpty(text))
-        {
-            return;
-        }
+        if (string.IsNullOrEmpty(text)) return;
 
         // Preserve line breaks like WPF's FlowDocument: split on \n and insert LineBreak between lines
         var lines = text.Split('\n');
         for (var lineIdx = 0; lineIdx < lines.Length; lineIdx++)
         {
             var line = lines[lineIdx];
-            if (lineIdx > 0)
-            {
-                inlines.Add(new LineBreak());
-            }
+            if (lineIdx > 0) inlines.Add(new LineBreak());
 
-            if (string.IsNullOrEmpty(line))
-            {
-                continue;
-            }
+            if (string.IsNullOrEmpty(line)) continue;
 
             var parts = RawUrlRegex.Split(line);
             var matches = RawUrlRegex.Matches(line);
@@ -462,15 +450,14 @@ public class AvaloniaHelpUserService
 
             foreach (var part in parts)
             {
-                if (!string.IsNullOrEmpty(part))
-                {
-                    inlines.Add(new Run(part));
-                }
+                if (!string.IsNullOrEmpty(part)) inlines.Add(new Run(part));
 
                 if (matchIndex < matches.Count)
                 {
                     var rawUrl = matches[matchIndex].Value;
-                    var navigateUrl = rawUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? rawUrl : "http://" + rawUrl;
+                    var navigateUrl = rawUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+                        ? rawUrl
+                        : "http://" + rawUrl;
                     inlines.Add(CreateHyperlinkInline(rawUrl, navigateUrl));
                     matchIndex++;
                 }
@@ -480,10 +467,7 @@ public class AvaloniaHelpUserService
 
     private static Inline CreateHyperlinkInline(string linkText, string url)
     {
-        if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
-        {
-            return new Run(linkText);
-        }
+        if (!Uri.TryCreate(url, UriKind.Absolute, out var uri)) return new Run(linkText);
 
         var linkButton = new HyperlinkButton
         {
@@ -495,7 +479,7 @@ public class AvaloniaHelpUserService
             BorderThickness = new Thickness(0),
             Foreground = new SolidColorBrush(Color.Parse("#4FC3F7")),
             FontSize = 12,
-            VerticalAlignment = VerticalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center
         };
 
         // Remove default button chrome for inline appearance
@@ -505,7 +489,7 @@ public class AvaloniaHelpUserService
     }
 
     /// <summary>
-    /// Determines whether the help file has been loaded and contains the system.
+    ///     Determines whether the help file has been loaded and contains the system.
     /// </summary>
     /// <param name="systemName">The name of the system to check.</param>
     public bool HasSystemDetails(string systemName)

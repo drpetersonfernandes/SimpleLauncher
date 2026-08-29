@@ -3,13 +3,14 @@ using SimpleLauncher.Core;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.SystemManager;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameFilter;
 
 /// <summary>
-/// Provides game file filtering and sorting operations including letter filtering,
-/// search query matching, cover image presence filtering, and MAME description sorting.
+///     Provides game file filtering and sorting operations including letter filtering,
+///     search query matching, cover image presence filtering, and MAME description sorting.
 /// </summary>
 public partial class GameFilterService : IGameFilterService
 {
@@ -17,7 +18,7 @@ public partial class GameFilterService : IGameFilterService
     private readonly SettingsManagerService _settings;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GameFilterService"/>.
+    ///     Initializes a new instance of <see cref="GameFilterService" />.
     /// </summary>
     public GameFilterService(IFindCoverImageService findCoverImage, SettingsManagerService settings)
     {
@@ -26,11 +27,11 @@ public partial class GameFilterService : IGameFilterService
     }
 
     /// <summary>
-    /// Filters the game file list based on the "ShowGames" setting, keeping only games
-    /// with or without cover images depending on the configured mode.
+    ///     Filters the game file list based on the "ShowGames" setting, keeping only games
+    ///     with or without cover images depending on the configured mode.
     /// </summary>
     public Task<IList<string>> FilterByShowGamesSettingAsync(
-        IList<string> files, string selectedSystem, SystemManager.SystemManagerService config)
+        IList<string> files, string selectedSystem, SystemManagerService config)
     {
         if (files.Count == 0 || string.Equals(_settings.ShowGames, "ShowAll", StringComparison.Ordinal))
             return Task.FromResult(files);
@@ -70,7 +71,7 @@ public partial class GameFilterService : IGameFilterService
     }
 
     /// <summary>
-    /// Filters game files whose names start with the specified letter, or digits if "#" is provided.
+    ///     Filters game files whose names start with the specified letter, or digits if "#" is provided.
     /// </summary>
     public Task<IList<string>> FilterByLetterAsync(IList<string> files, string startLetter)
     {
@@ -80,11 +81,9 @@ public partial class GameFilterService : IGameFilterService
                 return files;
 
             if (string.Equals(startLetter, "#", StringComparison.Ordinal))
-            {
                 return files.Where(static file => !string.IsNullOrEmpty(file) &&
                                                   file.Length > 0 &&
                                                   char.IsDigit(Path.GetFileName(file)[0])).ToList();
-            }
 
             return files.Where(file => !string.IsNullOrEmpty(file) &&
                                        Path.GetFileName(file)
@@ -93,13 +92,12 @@ public partial class GameFilterService : IGameFilterService
     }
 
     /// <summary>
-    /// Sorts the game file list by MAME machine description or by filename, depending on the sort order setting.
+    ///     Sorts the game file list by MAME machine description or by filename, depending on the sort order setting.
     /// </summary>
     public IList<string> SortByMameDescription(
         IList<string> files, string mameSortOrder, IDictionary<string, string> mameLookup)
     {
         if (string.Equals(mameSortOrder, AppConstants.MameSortOrderMachineDescription, StringComparison.Ordinal))
-        {
             return files.OrderBy(f =>
             {
                 var fileName = Path.GetFileNameWithoutExtension(f);
@@ -107,15 +105,14 @@ public partial class GameFilterService : IGameFilterService
                     ? description
                     : fileName;
             }, StringComparer.OrdinalIgnoreCase).ToList();
-        }
 
         return files.OrderBy(static f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase).ToList();
     }
 
     /// <summary>
-    /// Filters game files whose filename or MAME description matches the search query (case-insensitive).
-    /// Supports logical operators AND, OR, and quoted phrases.
-    /// Examples: "mario kart" (AND by default), "mario AND kart", "mario OR kart", "\"super mario\""
+    ///     Filters game files whose filename or MAME description matches the search query (case-insensitive).
+    ///     Supports logical operators AND, OR, and quoted phrases.
+    ///     Examples: "mario kart" (AND by default), "mario AND kart", "mario OR kart", "\"super mario\""
     /// </summary>
     public Task<IList<string>> FilterBySearchQueryAsync(
         IList<string> files, string searchQuery, IDictionary<string, string> mameLookup)
@@ -132,9 +129,7 @@ public partial class GameFilterService : IGameFilterService
                 var searchText = fileName;
                 if (mameLookup != null && mameLookup.TryGetValue(fileName, out var description)
                                        && !string.IsNullOrWhiteSpace(description))
-                {
                     searchText = string.Concat(fileName, " ", description);
-                }
 
                 return MatchesSearchQuery(searchText, searchTerms);
             }).ToList());
@@ -144,10 +139,7 @@ public partial class GameFilterService : IGameFilterService
     {
         var terms = new List<string>();
         var matches = SearchTermsRegex().Matches(searchTerm);
-        foreach (Match match in matches)
-        {
-            terms.Add(match.Value.Trim('"').ToLowerInvariant());
-        }
+        foreach (Match match in matches) terms.Add(match.Value.Trim('"').ToLowerInvariant());
 
         return terms.Where(static t => !string.IsNullOrWhiteSpace(t)).ToList();
     }
@@ -166,15 +158,9 @@ public partial class GameFilterService : IGameFilterService
         var hasAndOperator = searchTerms.Any(static t => t.Equals("and", StringComparison.OrdinalIgnoreCase));
         var hasOrOperator = searchTerms.Any(static t => t.Equals("or", StringComparison.OrdinalIgnoreCase));
 
-        if (hasAndOperator)
-        {
-            return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
-        }
+        if (hasAndOperator) return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
 
-        if (hasOrOperator)
-        {
-            return keywords.Any(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
-        }
+        if (hasOrOperator) return keywords.Any(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
 
         return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
     }

@@ -10,35 +10,35 @@ using MameConfigurationService = SimpleLauncher.Core.Services.InjectEmulatorConf
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the MAME emulator configuration injection window.
+///     ViewModel for the MAME emulator configuration injection window.
 /// </summary>
 public partial class InjectMameConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
+    private readonly EmulatorPathResolver _emulatorPathResolver;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
-    private readonly EmulatorPathResolver _emulatorPathResolver;
+    private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    private string _systemRomPath = null!;
     private string[] _listOfSecondarySystemFolders = null!;
-    [ObservableProperty] private string _mameVideo = null!;
+    [ObservableProperty] private bool _mameAutoframeskip;
+    [ObservableProperty] private bool _mameAutosave;
     [ObservableProperty] private string _mameBgfxBackend = null!;
     [ObservableProperty] private string _mameBgfxScreenChains = null!;
-    [ObservableProperty] private bool _mameFilter;
-    [ObservableProperty] private bool _mameAutoframeskip;
     [ObservableProperty] private bool _mameCheat;
-    [ObservableProperty] private bool _mameRewind;
-    [ObservableProperty] private bool _mameNvramSave;
-    [ObservableProperty] private bool _mameWindow;
-    [ObservableProperty] private bool _mameMaximize;
-    [ObservableProperty] private bool _mameKeepAspect;
-    [ObservableProperty] private bool _mameSkipGameInfo;
-    [ObservableProperty] private bool _mameAutosave;
     [ObservableProperty] private bool _mameConfirmQuit;
+    [ObservableProperty] private bool _mameFilter;
     [ObservableProperty] private bool _mameJoystick;
+    [ObservableProperty] private bool _mameKeepAspect;
+    [ObservableProperty] private bool _mameMaximize;
+    [ObservableProperty] private bool _mameNvramSave;
+    [ObservableProperty] private bool _mameRewind;
     [ObservableProperty] private bool _mameShowSettingsBeforeLaunch;
+    [ObservableProperty] private bool _mameSkipGameInfo;
+    [ObservableProperty] private string _mameVideo = null!;
+    [ObservableProperty] private bool _mameWindow;
+    private string _systemRomPath = null!;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectMameConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectMameConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="emulatorPathResolver">The emulator path resolver service.</param>
@@ -53,7 +53,42 @@ public partial class InjectMameConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path, launcher mode, and optional ROM paths.
+    ///     Available video output options for MAME.
+    /// </summary>
+    public IList<string> VideoOptions { get; } = ["auto", "d3d", "opengl", "bgfx", "gdi"];
+
+    /// <summary>
+    ///     Available BGFX backend options for MAME.
+    /// </summary>
+    public IList<string> BgfxBackendOptions { get; } = ["auto", "d3d11", "vulkan", "opengl"];
+
+    /// <summary>
+    ///     Available BGFX screen chain options for MAME.
+    /// </summary>
+    public IList<string> BgfxChainsOptions { get; } = ["default", "crt-geom"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path, launcher mode, and optional ROM paths.
     /// </summary>
     /// <param name="emulatorPath">The file path to the MAME emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -70,32 +105,7 @@ public partial class InjectMameConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available video output options for MAME.
-    /// </summary>
-    public IList<string> VideoOptions { get; } = ["auto", "d3d", "opengl", "bgfx", "gdi"];
-
-    /// <summary>
-    /// Available BGFX backend options for MAME.
-    /// </summary>
-    public IList<string> BgfxBackendOptions { get; } = ["auto", "d3d11", "vulkan", "opengl"];
-
-    /// <summary>
-    /// Available BGFX screen chain options for MAME.
-    /// </summary>
-    public IList<string> BgfxChainsOptions { get; } = ["default", "crt-geom"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -104,16 +114,6 @@ public partial class InjectMameConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<Task<string?>>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -158,10 +158,7 @@ public partial class InjectMameConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = _emulatorPathResolver.TryFindEmulatorPath("MAME", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

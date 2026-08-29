@@ -8,7 +8,7 @@ using SimpleLauncher.Interfaces;
 namespace SimpleLauncher.Services.GameScan;
 
 /// <summary>
-/// Scans for installed Battle.net games and creates shortcuts for them.
+///     Scans for installed Battle.net games and creates shortcuts for them.
 /// </summary>
 public partial class ScanBattleNetGames : IGamePlatformScanner
 {
@@ -70,7 +70,6 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
                 if (baseKey == null) continue;
 
                 foreach (var subKeyName in baseKey.GetSubKeyNames())
-                {
                     try
                     {
                         using var subKey = baseKey.OpenSubKey(subKeyName);
@@ -103,16 +102,13 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
                                 // We can try protocol: battlenet://{uid} (works for some, but exec is safer for login)
                                 // Let's use protocol for simplicity in .url file, or create .bat if needed.
                                 // Protocol: battlenet://{InternalId} usually works.
-
                                 var launchId = !string.IsNullOrEmpty(def.ProductId) ? def.ProductId : def.InternalId;
                                 var shortcutContent = $"[InternetShortcut]\nURL=battlenet://{launchId}";
                                 await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
                                 if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
-                                {
                                     await gameScannerService.FindAndSaveGameImageAsync(logErrors, def.Name,
                                         installLocation, sanitizedGameName, windowsImagesPath);
-                                }
                             }
                         }
                         else if (displayName != null && AppDefinitions.Any(a =>
@@ -142,7 +138,6 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Error processing Battle.net game registry key: {subKeyName}");
                     }
-                }
             }
         }
         catch (Exception ex)

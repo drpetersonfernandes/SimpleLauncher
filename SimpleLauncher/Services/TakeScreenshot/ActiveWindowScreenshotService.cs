@@ -1,24 +1,25 @@
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
+using Point = System.Drawing.Point;
+using Size = System.Drawing.Size;
 
 namespace SimpleLauncher.Services.TakeScreenshot;
 
 /// <summary>
-/// Captures a screenshot of the currently active (foreground) window and saves it
-/// to the .\screenshot folder relative to the application directory.
+///     Captures a screenshot of the currently active (foreground) window and saves it
+///     to the .\screenshot folder relative to the application directory.
 /// </summary>
 public partial class ActiveWindowScreenshotService
 {
-    [LibraryImport("user32.dll")]
-    private static partial IntPtr GetForegroundWindow();
-
     private readonly ILogger _logger;
     private readonly IPlaySoundEffects _playSoundEffects;
     private readonly IServiceProvider _serviceProvider;
 
-    /// <summary>Initializes a new instance of the <see cref="ActiveWindowScreenshotService"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="ActiveWindowScreenshotService" />.</summary>
     /// <param name="logger">The logger instance.</param>
     /// <param name="playSoundEffects">The sound effects service for shutter sound.</param>
     /// <param name="serviceProvider">The service provider for resolving dependencies.</param>
@@ -32,9 +33,12 @@ public partial class ActiveWindowScreenshotService
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
     }
 
+    [LibraryImport("user32.dll")]
+    private static partial IntPtr GetForegroundWindow();
+
     /// <summary>
-    /// Captures a screenshot of the current foreground window and saves it as a PNG file
-    /// in the .\screenshot directory (relative to the application base directory).
+    ///     Captures a screenshot of the current foreground window and saves it as a PNG file
+    ///     in the .\screenshot directory (relative to the application base directory).
     /// </summary>
     public Task CaptureActiveWindowAsync()
     {
@@ -49,7 +53,7 @@ public partial class ActiveWindowScreenshotService
                     return Task.CompletedTask;
                 }
 
-                SimpleLauncher.Models.WindowScreenshot.Rectangle rectangle;
+                Models.WindowScreenshot.Rectangle rectangle;
 
                 if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
                 {
@@ -81,17 +85,17 @@ public partial class ActiveWindowScreenshotService
                 var screenshotPath = Path.Combine(screenshotDir, fileName);
 
                 using (var bitmap =
-                       new System.Drawing.Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb))
+                       new Bitmap(width, height, PixelFormat.Format32bppArgb))
                 {
-                    using (var graphics = System.Drawing.Graphics.FromImage(bitmap))
+                    using (var graphics = Graphics.FromImage(bitmap))
                     {
                         graphics.CopyFromScreen(
-                            new System.Drawing.Point(rectangle.Left, rectangle.Top),
-                            System.Drawing.Point.Empty,
-                            new System.Drawing.Size(width, height));
+                            new Point(rectangle.Left, rectangle.Top),
+                            Point.Empty,
+                            new Size(width, height));
                     }
 
-                    bitmap.Save(screenshotPath, System.Drawing.Imaging.ImageFormat.Png);
+                    bitmap.Save(screenshotPath, ImageFormat.Png);
                 }
 
                 _logger.Debug($"[ActiveWindowScreenshot] Screenshot saved: {screenshotPath}");

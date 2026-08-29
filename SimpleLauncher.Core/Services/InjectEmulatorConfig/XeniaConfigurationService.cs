@@ -1,22 +1,24 @@
+using SimpleLauncher.Core.Services.SettingsManager;
 using Tomlyn;
 using Tomlyn.Model;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Provides functionality to inject Simple Launcher settings into the Xenia emulator configuration files (TOML format).
+///     Provides functionality to inject Simple Launcher settings into the Xenia emulator configuration files (TOML
+///     format).
 /// </summary>
 public static class XeniaConfigurationService
 {
     /// <summary>
-    /// Injects Simple Launcher configuration settings into the Xenia emulator's TOML config files.
-    /// Processes both xenia-canary.config.toml and xenia.config.toml if found, creating them from samples if missing.
-    /// Updates APU, GPU, display, HID, general, storage, and language settings.
+    ///     Injects Simple Launcher configuration settings into the Xenia emulator's TOML config files.
+    ///     Processes both xenia-canary.config.toml and xenia.config.toml if found, creating them from samples if missing.
+    ///     Updates APU, GPU, display, HID, general, storage, and language settings.
     /// </summary>
     /// <param name="emulatorPath">The full path to the Xenia emulator executable.</param>
     /// <param name="settings">The settings manager containing Xenia configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -39,31 +41,23 @@ public static class XeniaConfigurationService
                     Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                     "Xenia",
                     fileName);
-                if (File.Exists(documentsPath))
-                {
-                    configPath = documentsPath;
-                }
+                if (File.Exists(documentsPath)) configPath = documentsPath;
             }
 
             // The UpdateSingleConfigFile now handles creation from sample if missing.
             // So we don't need to check File.Exists(configPath) here anymore,
             // as it will attempt to create it if not found.
-            if (UpdateSingleConfigFile(configPath, settings, logger))
-            {
-                processedCount++;
-            }
+            if (UpdateSingleConfigFile(configPath, settings, logger)) processedCount++;
         }
 
         if (processedCount == 0)
-        {
             // Log the issue instead of throwing to prevent crash when samples are missing
             // or no config files exist. Xenia will use its default settings.
             logger.Debug(
                 "[XeniaConfig] WARNING: No configuration files found to inject into. Expected xenia.config.toml or xenia-canary.config.toml in emulator directory or Documents\\Xenia. Xenia will use default settings.");
-        }
     }
 
-    private static bool UpdateSingleConfigFile(string configPath, SettingsManager.SettingsManagerService settings,
+    private static bool UpdateSingleConfigFile(string configPath, SettingsManagerService settings,
         ILogger logger)
     {
         // Backup logic: Create from sample if missing

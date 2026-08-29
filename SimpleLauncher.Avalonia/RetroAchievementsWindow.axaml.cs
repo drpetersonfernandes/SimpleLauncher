@@ -2,27 +2,29 @@ using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.RetroAchievements;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.SettingsManager;
+using IResourceProvider = SimpleLauncher.Core.Interfaces.IResourceProvider;
 
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Window for browsing RetroAchievements user profile, unlocks, and completion progress.
+///     Window for browsing RetroAchievements user profile, unlocks, and completion progress.
 /// </summary>
 public partial class RetroAchievementsWindow : Window
 {
-    private readonly RetroAchievementsViewModel _viewModel;
-    private readonly PlaySoundEffects _playSoundEffects;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly Core.Interfaces.IResourceProvider _resourceProvider;
     private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly IResourceProvider _resourceProvider;
+    private readonly RetroAchievementsViewModel _viewModel;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsWindow"/> class.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsWindow" /> class.
     /// </summary>
     /// <param name="playSoundEffects">The sound effects service.</param>
     /// <param name="logger">The error logging service.</param>
@@ -36,17 +38,17 @@ public partial class RetroAchievementsWindow : Window
         _playSoundEffects = playSoundEffects;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _messageBox = App.ServiceProvider.GetRequiredService<IMessageBoxLibraryService>();
-        _resourceProvider = App.ServiceProvider.GetRequiredService<Core.Interfaces.IResourceProvider>();
+        _resourceProvider = App.ServiceProvider.GetRequiredService<IResourceProvider>();
 
         // Localize the emergency return button (WPF DynamicResource ReturnButton parity)
-        var localization = App.ServiceProvider.GetRequiredService<Services.LocalizationService>();
+        var localization = App.ServiceProvider.GetRequiredService<LocalizationService>();
         EmergencyReturnButton.Content = localization.GetString("ReturnButton");
         ToolTip.SetTip(EmergencyReturnButton,
             localization.GetString("ClickHereIfTheLoadingScreenIsStuckToReturnToTheMainMenu"));
 
         _viewModel = new RetroAchievementsViewModel(
             _messageBox,
-            App.ServiceProvider.GetRequiredService<Core.Interfaces.IResourceProvider>(),
+            App.ServiceProvider.GetRequiredService<IResourceProvider>(),
             settings,
             raService,
             logger);
@@ -167,10 +169,7 @@ public partial class RetroAchievementsWindow : Window
 
         // Toggle overlay
         NoUnlocksOverlay.IsVisible = _viewModel.NoUnlocksVisible;
-        if (_viewModel.NoUnlocksVisible)
-        {
-            NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
-        }
+        if (_viewModel.NoUnlocksVisible) NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
 
         FetchUnlocksButton.IsEnabled = _viewModel.FetchUnlocksEnabled;
 
@@ -190,10 +189,7 @@ public partial class RetroAchievementsWindow : Window
             TotalUnlocksInRangeText.Text = _viewModel.TotalUnlocksInRange;
             TotalPointsEarnedInRangeText.Text = _viewModel.TotalPointsEarnedInRange;
             NoUnlocksOverlay.IsVisible = _viewModel.NoUnlocksVisible;
-            if (_viewModel.NoUnlocksVisible)
-            {
-                NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
-            }
+            if (_viewModel.NoUnlocksVisible) NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
 
             FetchUnlocksButton.IsEnabled = _viewModel.FetchUnlocksEnabled;
         }
@@ -214,10 +210,7 @@ public partial class RetroAchievementsWindow : Window
             TotalUnlocksInRangeText.Text = _viewModel.TotalUnlocksInRange;
             TotalPointsEarnedInRangeText.Text = _viewModel.TotalPointsEarnedInRange;
             NoUnlocksOverlay.IsVisible = _viewModel.NoUnlocksVisible;
-            if (_viewModel.NoUnlocksVisible)
-            {
-                NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
-            }
+            if (_viewModel.NoUnlocksVisible) NoUnlocksMessage.Text = _viewModel.NoUnlocksMessage;
 
             FromDatePicker.SelectedDate = ToDateTimeOffset(_viewModel.FromDate);
             ToDatePicker.SelectedDate = ToDateTimeOffset(_viewModel.ToDate);
@@ -267,10 +260,7 @@ public partial class RetroAchievementsWindow : Window
     private void ViewProfileOnRaButton_Click(object? sender, RoutedEventArgs e)
     {
         var url = _viewModel.GetProfileUrl();
-        if (!string.IsNullOrWhiteSpace(url))
-        {
-            OpenUrlInBrowserAsync(url);
-        }
+        if (!string.IsNullOrWhiteSpace(url)) OpenUrlInBrowserAsync(url);
     }
 
     private async void OpenRaSettings_Click(object? sender, RoutedEventArgs e)
@@ -283,7 +273,6 @@ public partial class RetroAchievementsWindow : Window
 
             // Reload current tab
             if (TabControl.SelectedItem is TabItem selectedTab)
-            {
                 switch (selectedTab.Tag?.ToString())
                 {
                     case "MyProfile":
@@ -299,7 +288,6 @@ public partial class RetroAchievementsWindow : Window
                         _ = LoadUserProgressAsync();
                         break;
                 }
-            }
         }
         catch (Exception ex)
         {
@@ -308,17 +296,14 @@ public partial class RetroAchievementsWindow : Window
     }
 
     /// <summary>
-    /// Toggles the loading overlay with an optional message.
+    ///     Toggles the loading overlay with an optional message.
     /// </summary>
     /// <param name="isLoading">Whether to show or hide the loading overlay.</param>
     /// <param name="message">Optional message to display while loading.</param>
     public void SetLoadingState(bool isLoading, string? message = null)
     {
         LoadingOverlay.IsVisible = isLoading;
-        if (isLoading)
-        {
-            LoadingOverlayMessage.Text = message ?? _resourceProvider.GetString("Loading", "Loading...");
-        }
+        if (isLoading) LoadingOverlayMessage.Text = message ?? _resourceProvider.GetString("Loading", "Loading...");
     }
 
     private void EmergencyOverlayRelease_Click(object? sender, RoutedEventArgs e)

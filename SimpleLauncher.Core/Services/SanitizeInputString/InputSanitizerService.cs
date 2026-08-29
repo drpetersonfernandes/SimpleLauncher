@@ -4,7 +4,8 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.SanitizeInputString;
 
 /// <summary>
-/// Provides input sanitization for folder names and path validation to prevent invalid or dangerous file system operations.
+///     Provides input sanitization for folder names and path validation to prevent invalid or dangerous file system
+///     operations.
 /// </summary>
 public class InputSanitizerService : IInputSanitizerService
 {
@@ -15,7 +16,7 @@ public class InputSanitizerService : IInputSanitizerService
     ];
 
     /// <summary>
-    /// Checks whether a name contains characters that are invalid for file names.
+    ///     Checks whether a name contains characters that are invalid for file names.
     /// </summary>
     public bool ContainsInvalidCharacters(string name, out char[] invalidChars)
     {
@@ -27,17 +28,15 @@ public class InputSanitizerService : IInputSanitizerService
         var foundInvalidChars = new List<char>();
 
         foreach (var c in name)
-        {
             if (invalidFileNameChars.Contains(c))
                 foundInvalidChars.Add(c);
-        }
 
         invalidChars = [.. foundInvalidChars];
         return invalidChars.Length > 0;
     }
 
     /// <summary>
-    /// Checks whether a path contains characters that are invalid for file system paths.
+    ///     Checks whether a path contains characters that are invalid for file system paths.
     /// </summary>
     public bool ContainsInvalidPathCharacters(string path, out char[] invalidChars)
     {
@@ -49,17 +48,15 @@ public class InputSanitizerService : IInputSanitizerService
         var foundInvalidChars = new List<char>();
 
         foreach (var c in path)
-        {
             if (invalidPathChars.Contains(c) && !foundInvalidChars.Contains(c))
                 foundInvalidChars.Add(c);
-        }
 
         invalidChars = [.. foundInvalidChars];
         return invalidChars.Length > 0;
     }
 
     /// <summary>
-    /// Sanitizes a string for use as a folder name by replacing invalid characters and directory traversal sequences.
+    ///     Sanitizes a string for use as a folder name by replacing invalid characters and directory traversal sequences.
     /// </summary>
     public string SanitizeFolderName(string name)
     {
@@ -80,9 +77,7 @@ public class InputSanitizerService : IInputSanitizerService
             return "_invalid_sanitized_name_";
 
         if (Enumerable.Contains(ReservedNames, sanitizedName, StringComparer.OrdinalIgnoreCase))
-        {
             sanitizedName = $"_{sanitizedName}_";
-        }
 
         return sanitizedName;
     }

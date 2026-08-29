@@ -7,19 +7,19 @@ using ILogger = Serilog.ILogger;
 namespace SimpleLauncher.Avalonia.Services.Favorites;
 
 /// <summary>
-/// Manages the user's favorite games list with MessagePack serialization.
-/// Compatible with the existing favorites.dat format from SimpleLauncher.
-/// Mirrors the WPF FavoritesManager save/load logic: favorites are sorted by
-/// file name before writing, serialization uses a snapshot, and writes retry
-/// with exponential backoff on transient IO errors, falling back to the
-/// LocalAppData folder when a portable-mode write fails.
+///     Manages the user's favorite games list with MessagePack serialization.
+///     Compatible with the existing favorites.dat format from SimpleLauncher.
+///     Mirrors the WPF FavoritesManager save/load logic: favorites are sorted by
+///     file name before writing, serialization uses a snapshot, and writes retry
+///     with exponential backoff on transient IO errors, falling back to the
+///     LocalAppData folder when a portable-mode write fails.
 /// </summary>
 [MessagePackObject(AllowPrivate = true)]
 public class FavoritesManager
 {
     [IgnoreMember] private static readonly Lock ListLock = new();
-    [IgnoreMember] private ILogger? _logger;
     [IgnoreMember] private static readonly DataFileLocation FileLocation = new("favorites.dat");
+    [IgnoreMember] private ILogger? _logger;
 
     [Key(0)] public ObservableCollection<Favorite> FavoriteList { get; set; } = [];
 
@@ -30,12 +30,11 @@ public class FavoritesManager
     public static bool IsPortableMode => FileLocation.IsPortableMode;
 
     /// <summary>
-    /// Loads favorites from the DAT file, or creates a new instance if none exists.
+    ///     Loads favorites from the DAT file, or creates a new instance if none exists.
     /// </summary>
     public static FavoritesManager LoadFavorites(ILogger? logErrors = null)
     {
         if (File.Exists(DatFilePath))
-        {
             try
             {
                 var bytes = File.ReadAllBytes(DatFilePath);
@@ -47,7 +46,6 @@ public class FavoritesManager
             {
                 logErrors?.Error(ex, "Error loading favorites.dat");
             }
-        }
 
         var newManager = new FavoritesManager { _logger = logErrors };
         // Write the initial file synchronously. This runs on the UI thread at startup —
@@ -58,8 +56,8 @@ public class FavoritesManager
     }
 
     /// <summary>
-    /// Synchronous initial save (startup path only). Mirrors <see cref="SaveFavoritesAsync"/>
-    /// with retry logic, but never awaits — safe to call on the UI thread.
+    ///     Synchronous initial save (startup path only). Mirrors <see cref="SaveFavoritesAsync" />
+    ///     with retry logic, but never awaits — safe to call on the UI thread.
     /// </summary>
     private void SaveFavoritesSync()
     {
@@ -78,7 +76,6 @@ public class FavoritesManager
         var attempt = 0;
 
         while (attempt < maxRetries)
-        {
             try
             {
                 // Serialize the sorted snapshot
@@ -104,7 +101,6 @@ public class FavoritesManager
 
                 // If in portable mode, try falling back to LocalAppData and reset retries
                 if (IsPortableMode && attempt >= maxRetries)
-                {
                     try
                     {
                         if (FileLocation.TryFallbackToLocalAppData())
@@ -117,17 +113,13 @@ public class FavoritesManager
                     {
                         Log.Debug($"[FavoritesManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                     }
-                }
 
                 if (attempt < maxRetries)
                 {
                     // Attempt to clean up temp file before retrying
                     try
                     {
-                        if (File.Exists(TempDatFilePath))
-                        {
-                            File.Delete(TempDatFilePath);
-                        }
+                        if (File.Exists(TempDatFilePath)) File.Delete(TempDatFilePath);
                     }
                     catch (Exception cleanupEx)
                     {
@@ -143,7 +135,6 @@ public class FavoritesManager
                 lastException = ex;
                 break; // Don't retry non-transient errors
             }
-        }
 
         // All retries exhausted or non-transient error
         _logger?.Error(lastException, "Error saving favorites.dat");
@@ -151,10 +142,7 @@ public class FavoritesManager
         // Attempt to clean up temp file if it exists
         try
         {
-            if (File.Exists(TempDatFilePath))
-            {
-                File.Delete(TempDatFilePath);
-            }
+            if (File.Exists(TempDatFilePath)) File.Delete(TempDatFilePath);
         }
         catch (Exception cleanupEx)
         {
@@ -163,7 +151,7 @@ public class FavoritesManager
     }
 
     /// <summary>
-    /// Saves favorites atomically to the DAT file with retry logic.
+    ///     Saves favorites atomically to the DAT file with retry logic.
     /// </summary>
     public async Task SaveFavoritesAsync()
     {
@@ -182,7 +170,6 @@ public class FavoritesManager
         var attempt = 0;
 
         while (attempt < maxRetries)
-        {
             try
             {
                 // Serialize using the sorted snapshot
@@ -206,7 +193,6 @@ public class FavoritesManager
 
                 // If in portable mode, try falling back to LocalAppData and reset retries
                 if (IsPortableMode && attempt >= maxRetries)
-                {
                     try
                     {
                         if (FileLocation.TryFallbackToLocalAppData())
@@ -219,17 +205,13 @@ public class FavoritesManager
                     {
                         Log.Debug($"[FavoritesManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                     }
-                }
 
                 if (attempt < maxRetries)
                 {
                     // Attempt to clean up temp file before retrying
                     try
                     {
-                        if (File.Exists(TempDatFilePath))
-                        {
-                            File.Delete(TempDatFilePath);
-                        }
+                        if (File.Exists(TempDatFilePath)) File.Delete(TempDatFilePath);
                     }
                     catch (Exception cleanupEx)
                     {
@@ -245,7 +227,6 @@ public class FavoritesManager
                 lastException = ex;
                 break; // Don't retry non-transient errors
             }
-        }
 
         // All retries exhausted or non-transient error
         _logger?.Error(lastException, "Error saving favorites.dat");
@@ -253,10 +234,7 @@ public class FavoritesManager
         // Attempt to clean up temp file if it exists
         try
         {
-            if (File.Exists(TempDatFilePath))
-            {
-                File.Delete(TempDatFilePath);
-            }
+            if (File.Exists(TempDatFilePath)) File.Delete(TempDatFilePath);
         }
         catch (Exception cleanupEx)
         {
@@ -265,8 +243,8 @@ public class FavoritesManager
     }
 
     /// <summary>
-    /// Gets the bare file name of a stored favorite (legacy entries may hold
-    /// a full path; matching in the WPF app is always by bare file name).
+    ///     Gets the bare file name of a stored favorite (legacy entries may hold
+    ///     a full path; matching in the WPF app is always by bare file name).
     /// </summary>
     private static string ToBareName(string? fileName)
     {
@@ -276,7 +254,7 @@ public class FavoritesManager
     }
 
     /// <summary>
-    /// Checks whether a game is in the favorites list (WPF compares bare file names).
+    ///     Checks whether a game is in the favorites list (WPF compares bare file names).
     /// </summary>
     public bool IsFavorite(string filePath)
     {
@@ -289,8 +267,8 @@ public class FavoritesManager
     }
 
     /// <summary>
-    /// Adds a game to favorites. Returns true if added, false if already present.
-    /// Stores the bare file name (WPF parity); legacy full-path entries still match.
+    ///     Adds a game to favorites. Returns true if added, false if already present.
+    ///     Stores the bare file name (WPF parity); legacy full-path entries still match.
     /// </summary>
     public async Task<bool> AddFavoriteAsync(string filePath, string systemName)
     {
@@ -313,8 +291,8 @@ public class FavoritesManager
     }
 
     /// <summary>
-    /// Removes a game from favorites. Returns true if removed, false if not found.
-    /// Matches by bare file name so legacy full-path entries are found too.
+    ///     Removes a game from favorites. Returns true if removed, false if not found.
+    ///     Matches by bare file name so legacy full-path entries are found too.
     /// </summary>
     public async Task<bool> RemoveFavoriteAsync(string filePath)
     {
@@ -333,7 +311,7 @@ public class FavoritesManager
     }
 
     /// <summary>
-    /// Toggles favorite status for a game. Returns the new state (true = favorited).
+    ///     Toggles favorite status for a game. Returns the new state (true = favorited).
     /// </summary>
     public async Task<bool> ToggleAsync(string filePath, string systemName)
     {
@@ -348,9 +326,9 @@ public class FavoritesManager
     }
 
     /// <summary>
-    /// Renames the system in all favorites (used when a system is renamed in Edit System).
-    /// Favorites store the system name as a plain string, so without this migration they
-    /// would keep the old name and point at a system that no longer exists.
+    ///     Renames the system in all favorites (used when a system is renamed in Edit System).
+    ///     Favorites store the system name as a plain string, so without this migration they
+    ///     would keep the old name and point at a system that no longer exists.
     /// </summary>
     public async Task RenameSystemAsync(string oldSystemName, string newSystemName)
     {
@@ -358,24 +336,19 @@ public class FavoritesManager
         lock (ListLock)
         {
             foreach (var favorite in FavoriteList)
-            {
                 if (favorite.SystemName.Equals(oldSystemName, StringComparison.OrdinalIgnoreCase))
                 {
                     favorite.SystemName = newSystemName;
                     changed = true;
                 }
-            }
         }
 
-        if (changed)
-        {
-            await SaveFavoritesAsync();
-        }
+        if (changed) await SaveFavoritesAsync();
     }
 
     /// <summary>
-    /// Removes favorites whose system no longer exists in the current configuration
-    /// (e.g., the system was renamed without migration, or deleted).
+    ///     Removes favorites whose system no longer exists in the current configuration
+    ///     (e.g., the system was renamed without migration, or deleted).
     /// </summary>
     /// <param name="validSystemNames">The system names that currently exist in the configuration.</param>
     /// <returns>The number of removed favorites.</returns>
@@ -387,30 +360,20 @@ public class FavoritesManager
         lock (ListLock)
         {
             foreach (var favorite in FavoriteList)
-            {
                 if (!validNames.Any(name => name.Equals(favorite.SystemName, StringComparison.OrdinalIgnoreCase)))
-                {
                     toRemove.Add(favorite);
-                }
-            }
 
-            foreach (var favorite in toRemove)
-            {
-                FavoriteList.Remove(favorite);
-            }
+            foreach (var favorite in toRemove) FavoriteList.Remove(favorite);
         }
 
-        if (toRemove.Count > 0)
-        {
-            await SaveFavoritesAsync();
-        }
+        if (toRemove.Count > 0) await SaveFavoritesAsync();
 
         return toRemove.Count;
     }
 
     /// <summary>
-    /// Gets all stored favorite file names as bare names (legacy full-path entries
-    /// are normalized so the game grid can match against Path.GetFileName).
+    ///     Gets all stored favorite file names as bare names (legacy full-path entries
+    ///     are normalized so the game grid can match against Path.GetFileName).
     /// </summary>
     public HashSet<string> GetFavoritePaths()
     {

@@ -1,11 +1,11 @@
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.SystemConfiguration;
 
-using Interfaces;
-
 /// <summary>
-/// Loads system manager configurations from the application configuration source.
+///     Loads system manager configurations from the application configuration source.
 /// </summary>
 public class SystemConfigurationService : ISystemConfigurationService
 {
@@ -15,7 +15,7 @@ public class SystemConfigurationService : ISystemConfigurationService
     private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the SystemConfigurationService with the specified dependencies.
+    ///     Initializes a new instance of the SystemConfigurationService with the specified dependencies.
     /// </summary>
     public SystemConfigurationService(IConfiguration configuration, ILogger logErrors)
     {
@@ -24,18 +24,18 @@ public class SystemConfigurationService : ISystemConfigurationService
     }
 
     /// <summary>
-    /// Loads and returns the list of configured system managers.
+    ///     Loads and returns the list of configured system managers.
     /// </summary>
-    public IList<SystemManager.SystemManagerService> LoadSystemManagers()
+    public IList<SystemManagerService> LoadSystemManagers()
     {
-        return SystemManager.SystemManagerService.LoadSystemManagers(_configuration);
+        return SystemManagerService.LoadSystemManagers(_configuration);
     }
 
     /// <summary>
-    /// Asynchronously loads and returns the list of configured system managers.
+    ///     Asynchronously loads and returns the list of configured system managers.
     /// </summary>
-    public Task<IList<SystemManager.SystemManagerService>> LoadSystemManagersAsync()
+    public Task<IList<SystemManagerService>> LoadSystemManagersAsync()
     {
-        return SystemManager.SystemManagerService.LoadSystemManagersAsync(_configuration, _logger);
+        return SystemManagerService.LoadSystemManagersAsync(_configuration, _logger);
     }
 }

@@ -12,29 +12,29 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
-/// Checks for new application releases on GitHub, falling back to the secondary
-/// server when GitHub is unreachable. Avalonia port of the WPF CheckForUpdatesService.
-/// When the user accepts an update, the Avalonia updater
-/// (SimpleLauncher.Avalonia.Updater, downloaded from the release assets when not
-/// shipped next to the app) is launched and the application shuts down.
+///     Checks for new application releases on GitHub, falling back to the secondary
+///     server when GitHub is unreachable. Avalonia port of the WPF CheckForUpdatesService.
+///     When the user accepts an update, the Avalonia updater
+///     (SimpleLauncher.Avalonia.Updater, downloaded from the release assets when not
+///     shipped next to the app) is launched and the application shuts down.
 /// </summary>
 public partial class AvaloniaCheckForUpdatesService
 {
     private const string RepoName = "SimpleLauncher";
-    private static readonly string[] RepoOwners = ["drpetersonfernandes", "purelogiccode"];
 
     private const string SecondaryServerBaseUrl =
         "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
 
     private const string UpdaterFileName = "SimpleLauncher.Avalonia.Updater";
-    private readonly string _updaterDirectory;
+    private static readonly string[] RepoOwners = ["drpetersonfernandes", "purelogiccode"];
+    private readonly IApplicationLifetime _applicationLifetime;
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
-    private readonly IApplicationLifetime _applicationLifetime;
+    private readonly string _updaterDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AvaloniaCheckForUpdatesService"/> class.
+    ///     Initializes a new instance of the <see cref="AvaloniaCheckForUpdatesService" /> class.
     /// </summary>
     /// <param name="httpClientFactory">The factory used to create the HTTP client for GitHub API requests.</param>
     /// <param name="messageBoxLibrary">The message box service used to prompt the user about updates.</param>
@@ -47,8 +47,8 @@ public partial class AvaloniaCheckForUpdatesService
     }
 
     /// <summary>
-    /// Test seam: resolves the updater against an isolated directory so tests never
-    /// touch (or launch) the real updater shipped in the application output.
+    ///     Test seam: resolves the updater against an isolated directory so tests never
+    ///     touch (or launch) the real updater shipped in the application output.
     /// </summary>
     internal AvaloniaCheckForUpdatesService(IHttpClientFactory httpClientFactory,
         IMessageBoxLibraryService messageBoxLibrary, ILogger logger, IApplicationLifetime applicationLifetime,
@@ -63,25 +63,22 @@ public partial class AvaloniaCheckForUpdatesService
     }
 
     /// <summary>
-    /// Name of the updater executable shipped next to the application.
+    ///     Name of the updater executable shipped next to the application.
     /// </summary>
     internal static string UpdaterExecutableName => OperatingSystem.IsWindows()
         ? $"{UpdaterFileName}.exe"
         : UpdaterFileName;
 
     /// <summary>
-    /// Gets the current runtime identifier used for release/updater asset names,
-    /// mirroring the updater's GitHubService (win-x64/win-arm64/linux-x64/linux-arm64).
+    ///     Gets the current runtime identifier used for release/updater asset names,
+    ///     mirroring the updater's GitHubService (win-x64/win-arm64/linux-x64/linux-arm64).
     /// </summary>
     internal static string CurrentRuntimeIdentifier
     {
         get
         {
             var arch = RuntimeInformation.ProcessArchitecture;
-            if (OperatingSystem.IsWindows())
-            {
-                return arch == Architecture.Arm64 ? "win-arm64" : "win-x64";
-            }
+            if (OperatingSystem.IsWindows()) return arch == Architecture.Arm64 ? "win-arm64" : "win-x64";
 
             return arch == Architecture.Arm64 ? "linux-arm64" : "linux-x64";
         }
@@ -104,8 +101,8 @@ public partial class AvaloniaCheckForUpdatesService
     }
 
     /// <summary>
-    /// Checks for updates silently and prompts the user if an update is available.
-    /// WPF parity: always shows the update window when a newer version is found.
+    ///     Checks for updates silently and prompts the user if an update is available.
+    ///     WPF parity: always shows the update window when a newer version is found.
     /// </summary>
     /// <returns>A task representing the asynchronous update check operation.</returns>
     public async Task SilentCheckForUpdatesAsync()
@@ -148,7 +145,7 @@ public partial class AvaloniaCheckForUpdatesService
     }
 
     /// <summary>
-    /// Checks for updates manually and notifies the user whether an update is available or not.
+    ///     Checks for updates manually and notifies the user whether an update is available or not.
     /// </summary>
     /// <param name="owner">The owner window for update dialogs (may be null).</param>
     /// <returns>A task representing the asynchronous update check operation.</returns>
@@ -193,16 +190,15 @@ public partial class AvaloniaCheckForUpdatesService
     }
 
     /// <summary>
-    /// Launches the updater (downloading it from the release assets first when it is
-    /// not shipped next to the app) and shuts the application down. Port of the WPF
-    /// ReinstallSimpleLauncher flow — the updater replaces the app files while the
-    /// application process is exiting, then restarts it.
+    ///     Launches the updater (downloading it from the release assets first when it is
+    ///     not shipped next to the app) and shuts the application down. Port of the WPF
+    ///     ReinstallSimpleLauncher flow — the updater replaces the app files while the
+    ///     application process is exiting, then restarts it.
     /// </summary>
     /// <param name="updaterZipAssetUrl">URL of the updater package, or null when unknown.</param>
     public async Task ReinstallAndShutdownAsync(string? updaterZipAssetUrl = null)
     {
         if (string.IsNullOrWhiteSpace(updaterZipAssetUrl))
-        {
             try
             {
                 var (_, _, foundUpdaterUrl, _) = await GetLatestReleaseInfoAsync();
@@ -212,7 +208,6 @@ public partial class AvaloniaCheckForUpdatesService
             {
                 _logger.Error(ex, "Failed to resolve the updater package URL for reinstall.");
             }
-        }
 
         await LaunchUpdaterAndShutdownAsync(updaterZipAssetUrl);
     }
@@ -269,9 +264,9 @@ public partial class AvaloniaCheckForUpdatesService
     }
 
     /// <summary>
-    /// Downloads and extracts the updater package into the application directory,
-    /// guarding against zip-slip path traversal. Expected network/IO failures are
-    /// logged at Information level (the caller falls back to a manual update).
+    ///     Downloads and extracts the updater package into the application directory,
+    ///     guarding against zip-slip path traversal. Expected network/IO failures are
+    ///     logged at Information level (the caller falls back to a manual update).
     /// </summary>
     private async Task<bool> DownloadAndExtractUpdaterAsync(string url, string destinationPath)
     {
@@ -285,9 +280,7 @@ public partial class AvaloniaCheckForUpdatesService
 
             var fullDestinationPath = Path.GetFullPath(destinationPath);
             if (!fullDestinationPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
-            {
                 fullDestinationPath += Path.DirectorySeparatorChar;
-            }
 
             foreach (var entry in archive.Entries)
             {
@@ -304,11 +297,9 @@ public partial class AvaloniaCheckForUpdatesService
 
                 var entryDirectory = Path.GetDirectoryName(destinationFileFullPath);
                 if (!string.IsNullOrEmpty(entryDirectory) && !Directory.Exists(entryDirectory))
-                {
                     Directory.CreateDirectory(entryDirectory);
-                }
 
-                entry.ExtractToFile(destinationFileFullPath, overwrite: true);
+                entry.ExtractToFile(destinationFileFullPath, true);
             }
 
             return true;
@@ -321,9 +312,9 @@ public partial class AvaloniaCheckForUpdatesService
     }
 
     /// <summary>
-    /// Gets the latest release info from the GitHub API (trying each repository in order),
-    /// falling back to the secondary server (assets.purelogiccode.com) when GitHub is
-    /// unreachable.
+    ///     Gets the latest release info from the GitHub API (trying each repository in order),
+    ///     falling back to the secondary server (assets.purelogiccode.com) when GitHub is
+    ///     unreachable.
     /// </summary>
     /// <returns>A tuple with the latest version, release package URL, updater zip URL, and whether the fallback was used.</returns>
     private async
@@ -333,7 +324,6 @@ public partial class AvaloniaCheckForUpdatesService
         _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
 
         foreach (var repoOwner in RepoOwners)
-        {
             try
             {
                 var response =
@@ -357,7 +347,6 @@ public partial class AvaloniaCheckForUpdatesService
                 _logger.Debug(
                     $"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed: {ex.Message}; trying the next source.");
             }
-        }
 
         // Fallback: the secondary server hosts a version.txt file and the release packages.
         try
@@ -426,10 +415,8 @@ public partial class AvaloniaCheckForUpdatesService
             if (currentVersion == null) return false;
 
             if (latestVersion != null)
-            {
                 _logger.Error(ex,
                     $"Invalid version number format after normalization. Current: '{currentVersion}', Latest: '{latestVersion}'.");
-            }
 
             return false;
         }
@@ -496,36 +483,28 @@ public partial class AvaloniaCheckForUpdatesService
                     if (assetName?.Equals(expectedUpdaterFileName, StringComparison.OrdinalIgnoreCase) == true)
                     {
                         if (asset.TryGetProperty("browser_download_url", out var downloadUrlElement))
-                        {
                             foundUpdaterZipUrl = downloadUrlElement.GetString();
-                        }
                     }
                     else if (assetName?.Equals(expectedReleaseFileName, StringComparison.OrdinalIgnoreCase) == true)
                     {
                         if (asset.TryGetProperty("browser_download_url", out var downloadUrlElement))
-                        {
                             foundReleasePackageUrl = downloadUrlElement.GetString();
-                        }
                     }
 
                     if (foundUpdaterZipUrl != null && foundReleasePackageUrl != null) break;
                 }
 
                 if (foundUpdaterZipUrl == null)
-                {
                     _logger.Error(
                         new FileNotFoundException(
                             $"'{expectedUpdaterFileName}' asset not found in release '{versionTag}'.",
                             expectedUpdaterFileName), "GitHub API Asset Info");
-                }
 
                 if (foundReleasePackageUrl == null)
-                {
                     _logger.Error(
                         new FileNotFoundException(
                             $"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.",
                             expectedReleaseFileName), "GitHub API Asset Info");
-                }
 
                 return (extractedNormalizedVersion, foundReleasePackageUrl, foundUpdaterZipUrl);
             }
@@ -555,15 +534,9 @@ public partial class AvaloniaCheckForUpdatesService
 
         var parts = new List<string>(numericVersion.Split('.', StringSplitOptions.RemoveEmptyEntries));
 
-        while (parts.Count < 4)
-        {
-            parts.Add("0");
-        }
+        while (parts.Count < 4) parts.Add("0");
 
-        if (parts.Count > 4)
-        {
-            parts = parts.GetRange(0, 4);
-        }
+        if (parts.Count > 4) parts = parts.GetRange(0, 4);
 
         return string.Join(".", parts);
     }

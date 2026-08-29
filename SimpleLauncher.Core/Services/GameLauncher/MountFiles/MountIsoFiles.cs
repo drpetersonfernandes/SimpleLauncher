@@ -6,14 +6,14 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 
 /// <summary>
-/// Handles mounting ISO disc images using PowerShell and launching games from the mounted drive.
+///     Handles mounting ISO disc images using PowerShell and launching games from the mounted drive.
 /// </summary>
 public class MountIsoFiles : IMountIsoFiles
 {
     private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MountIsoFiles"/> class.
+    ///     Initializes a new instance of the <see cref="MountIsoFiles" /> class.
     /// </summary>
     /// <param name="logger">The logger instance.</param>
     public MountIsoFiles(ILogger logger)
@@ -22,7 +22,7 @@ public class MountIsoFiles : IMountIsoFiles
     }
 
     /// <summary>
-    /// Mounts an ISO file, locates EBOOT.BIN, and launches it with the specified emulator.
+    ///     Mounts an ISO file, locates EBOOT.BIN, and launches it with the specified emulator.
     /// </summary>
     public async Task MountIsoFileAsync(
         string resolvedIsoFilePath,
@@ -145,22 +145,18 @@ public class MountIsoFiles : IMountIsoFiles
                 {
                     await Task.Delay(1000);
                     if (Directory.Exists(mountPath))
-                    {
                         _logger.Debug(
                             $"[MountIsoFiles] WARNING: Mount path {mountPath} still exists after dismount attempt for ISO: {resolvedIsoFilePath}. Manual dismount might be needed.");
-                    }
                     else
-                    {
                         _logger.Debug(
                             $"[MountIsoFiles] Mount path {mountPath} successfully unmounted or no longer detected for ISO: {resolvedIsoFilePath}.");
-                    }
                 }
             }
         }
     }
 
     /// <summary>
-    /// Waits for a directory to exist by polling at regular intervals until a timeout is reached.
+    ///     Waits for a directory to exist by polling at regular intervals until a timeout is reached.
     /// </summary>
     /// <param name="directoryPath">The directory path to wait for.</param>
     /// <param name="maxWaitTimeMs">Maximum wait time in milliseconds.</param>
@@ -193,7 +189,7 @@ public class MountIsoFiles : IMountIsoFiles
     }
 
     /// <summary>
-    /// Mounts an ISO file using a PowerShell command and returns the assigned drive letter.
+    ///     Mounts an ISO file using a PowerShell command and returns the assigned drive letter.
     /// </summary>
     /// <param name="isoPath">The path to the ISO file to mount.</param>
     /// <param name="logErrors">The error logger.</param>
@@ -284,10 +280,7 @@ public class MountIsoFiles : IMountIsoFiles
         {
             // Check if the error output contains execution policy restrictions
             var errorOutput = errorBuilder.ToString().Trim();
-            if (IsExecutionPolicyRestricted(errorOutput))
-            {
-                await messageBox.UnabletomountIsOfileMessageBoxAsync();
-            }
+            if (IsExecutionPolicyRestricted(errorOutput)) await messageBox.UnabletomountIsOfileMessageBoxAsync();
 
             // Notify developer
             var timeoutMessage = $"PowerShell mount command timed out (30s) for ISO {isoPath}.";
@@ -310,10 +303,7 @@ public class MountIsoFiles : IMountIsoFiles
         catch (Exception ex)
         {
             // Check if the exception message indicates execution policy restrictions
-            if (IsExecutionPolicyRestricted(ex.Message))
-            {
-                await messageBox.UnabletomountIsOfileMessageBoxAsync();
-            }
+            if (IsExecutionPolicyRestricted(ex.Message)) await messageBox.UnabletomountIsOfileMessageBoxAsync();
 
             // Notify developer
             var errorMessage =
@@ -326,7 +316,7 @@ public class MountIsoFiles : IMountIsoFiles
     }
 
     /// <summary>
-    /// Dismounts a previously mounted ISO file using a PowerShell command.
+    ///     Dismounts a previously mounted ISO file using a PowerShell command.
     /// </summary>
     /// <param name="isoPath">The path to the ISO file to dismount.</param>
     /// <param name="logErrors">The error logger.</param>
@@ -370,10 +360,7 @@ public class MountIsoFiles : IMountIsoFiles
             if (process.ExitCode != 0 || !string.IsNullOrEmpty(errors))
             {
                 // Check for execution policy restrictions
-                if (IsExecutionPolicyRestricted(errors))
-                {
-                    await messageBox.UnabletoDismountIsOfileMessageBoxAsync();
-                }
+                if (IsExecutionPolicyRestricted(errors)) await messageBox.UnabletoDismountIsOfileMessageBoxAsync();
 
                 var warningMessage =
                     $"PowerShell dismount command for ISO {isoPath} finished with Exit Code: {process.ExitCode} or reported errors (ErrorAction SilentlyContinue was used).\nErrors: {errors}";
@@ -388,10 +375,7 @@ public class MountIsoFiles : IMountIsoFiles
         {
             // Check if the error output contains execution policy restrictions
             var errorOutput = errorBuilder.ToString().Trim();
-            if (IsExecutionPolicyRestricted(errorOutput))
-            {
-                await messageBox.UnabletoDismountIsOfileMessageBoxAsync();
-            }
+            if (IsExecutionPolicyRestricted(errorOutput)) await messageBox.UnabletoDismountIsOfileMessageBoxAsync();
 
             // Notify developer
             var timeoutMessage = $"PowerShell dismount command timed out (30s) for ISO {isoPath}.";
@@ -399,7 +383,6 @@ public class MountIsoFiles : IMountIsoFiles
             logErrors.Warning(timeoutMessage); // Log timeout as an error
 
             if (!process.HasExited)
-            {
                 try
                 {
                     process.Kill(true);
@@ -408,15 +391,11 @@ public class MountIsoFiles : IMountIsoFiles
                 {
                     /* Ignore */
                 }
-            }
         }
         catch (Exception ex)
         {
             // Check if the exception message indicates execution policy restrictions
-            if (IsExecutionPolicyRestricted(ex.Message))
-            {
-                await messageBox.UnabletoDismountIsOfileMessageBoxAsync();
-            }
+            if (IsExecutionPolicyRestricted(ex.Message)) await messageBox.UnabletoDismountIsOfileMessageBoxAsync();
 
             // Notify developer
             var errorMessage = $"Exception while executing PowerShell dismount command for ISO {isoPath}: {ex.Message}";
@@ -426,7 +405,7 @@ public class MountIsoFiles : IMountIsoFiles
     }
 
     /// <summary>
-    /// Detects if PowerShell error output indicates execution policy restrictions
+    ///     Detects if PowerShell error output indicates execution policy restrictions
     /// </summary>
     private static bool IsExecutionPolicyRestricted(string errorOutput)
     {

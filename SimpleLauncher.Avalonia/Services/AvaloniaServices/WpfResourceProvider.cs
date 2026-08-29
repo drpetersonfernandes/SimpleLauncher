@@ -3,7 +3,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Services.AvaloniaServices;
 
 /// <summary>
-/// WPF implementation of IResourceProvider — delegates to LocalizationService.
+///     WPF implementation of IResourceProvider — delegates to LocalizationService.
 /// </summary>
 public class WpfResourceProvider : IResourceProvider
 {

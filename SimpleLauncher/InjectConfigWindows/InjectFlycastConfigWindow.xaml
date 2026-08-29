@@ -17,19 +17,28 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource FlycastConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding Fullscreen}" Content="{DynamicResource FlycastConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource FlycastConfig_Fullscreen_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Maximized}" Content="{DynamicResource FlycastConfig_Maximized_Checkbox}" Margin="0,5" ToolTip="{DynamicResource FlycastConfig_Maximized_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Fullscreen}"
+                                  Content="{DynamicResource FlycastConfig_Fullscreen_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource FlycastConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Maximized}"
+                                  Content="{DynamicResource FlycastConfig_Maximized_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource FlycastConfig_Maximized_Tooltip}" />
 
-                        <Label Content="{DynamicResource FlycastConfig_Resolution_Label}" Margin="0,5,0,0" ToolTip="{DynamicResource FlycastConfig_Resolution_Tooltip}" />
+                        <Label Content="{DynamicResource FlycastConfig_Resolution_Label}" Margin="0,5,0,0"
+                               ToolTip="{DynamicResource FlycastConfig_Resolution_Tooltip}" />
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <controls:NumericUpDown Value="{Binding Width}" Grid.Column="0" Minimum="640" Maximum="7680" Interval="1" ToolTip="{DynamicResource FlycastConfig_ResolutionX_Tooltip}" />
+                            <controls:NumericUpDown Value="{Binding Width}" Grid.Column="0" Minimum="640"
+                                                    Maximum="7680" Interval="1"
+                                                    ToolTip="{DynamicResource FlycastConfig_ResolutionX_Tooltip}" />
                             <TextBlock Text="x" Grid.Column="1" VerticalAlignment="Center" Margin="10,0" />
-                            <controls:NumericUpDown Value="{Binding Height}" Grid.Column="2" Minimum="480" Maximum="4320" Interval="1" ToolTip="{DynamicResource FlycastConfig_ResolutionY_Tooltip}" />
+                            <controls:NumericUpDown Value="{Binding Height}" Grid.Column="2" Minimum="480"
+                                                    Maximum="4320" Interval="1"
+                                                    ToolTip="{DynamicResource FlycastConfig_ResolutionY_Tooltip}" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
@@ -37,8 +46,12 @@
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}" Content="{DynamicResource FlycastConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource FlycastConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="{DynamicResource FlycastConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource FlycastConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

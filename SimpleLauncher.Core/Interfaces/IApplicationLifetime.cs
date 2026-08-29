@@ -1,17 +1,17 @@
 namespace SimpleLauncher.Core.Interfaces;
 
 /// <summary>
-/// Provides methods to control the application lifecycle, such as shutting down or restarting.
+///     Provides methods to control the application lifecycle, such as shutting down or restarting.
 /// </summary>
 public interface IApplicationLifetime
 {
     /// <summary>
-    /// Shuts down the application.
+    ///     Shuts down the application.
     /// </summary>
     void Shutdown();
 
     /// <summary>
-    /// Restarts the application.
+    ///     Restarts the application.
     /// </summary>
     void Restart();
 }

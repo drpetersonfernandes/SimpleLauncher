@@ -4,14 +4,14 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Integration-style tests for <see cref="GameFileWatcherService"/> using real temp directories
-/// and the OS <see cref="FileSystemWatcher"/>. These are inherently timing-based; the debounce
-/// delay is shortened to keep the tests fast.
+///     Integration-style tests for <see cref="GameFileWatcherService" /> using real temp directories
+///     and the OS <see cref="FileSystemWatcher" />. These are inherently timing-based; the debounce
+///     delay is shortened to keep the tests fast.
 /// </summary>
 public class GameFileWatcherServiceTests : IDisposable
 {
-    private readonly string _watchDir;
     private readonly GameFileWatcherService _service;
+    private readonly string _watchDir;
 
     public GameFileWatcherServiceTests()
     {
@@ -28,10 +28,7 @@ public class GameFileWatcherServiceTests : IDisposable
         _service.Dispose();
         try
         {
-            if (Directory.Exists(_watchDir))
-            {
-                Directory.Delete(_watchDir, true);
-            }
+            if (Directory.Exists(_watchDir)) Directory.Delete(_watchDir, true);
         }
         catch
         {

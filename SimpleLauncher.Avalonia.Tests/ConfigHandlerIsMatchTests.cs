@@ -3,8 +3,8 @@ using SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Verifies IsMatch name/path detection for all 21 emulator config handlers
-/// (patterns taken verbatim from each handler's IsMatch implementation).
+///     Verifies IsMatch name/path detection for all 21 emulator config handlers
+///     (patterns taken verbatim from each handler's IsMatch implementation).
 /// </summary>
 public class ConfigHandlerIsMatchTests
 {

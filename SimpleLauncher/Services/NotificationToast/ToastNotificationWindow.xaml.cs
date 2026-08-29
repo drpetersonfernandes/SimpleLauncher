@@ -5,8 +5,8 @@ using System.Windows.Threading;
 namespace SimpleLauncher.Services.NotificationToast;
 
 /// <summary>
-/// Non-activating overlay window that displays a toast notification in the
-/// bottom-right corner of the screen and dismisses itself after a few seconds.
+///     Non-activating overlay window that displays a toast notification in the
+///     bottom-right corner of the screen and dismisses itself after a few seconds.
 /// </summary>
 public partial class ToastNotificationWindow : IDisposable
 {
@@ -16,7 +16,7 @@ public partial class ToastNotificationWindow : IDisposable
     private bool _isDisposed;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ToastNotificationWindow"/> class.
+    ///     Initializes a new instance of the <see cref="ToastNotificationWindow" /> class.
     /// </summary>
     public ToastNotificationWindow()
     {
@@ -30,7 +30,21 @@ public partial class ToastNotificationWindow : IDisposable
     }
 
     /// <summary>
-    /// Shows the toast with the given title and message, replacing any previous toast.
+    ///     Disposes the dismiss timer and suppresses finalization.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_isDisposed) return;
+
+        _isDisposed = true;
+        _dismissTimer.Stop();
+        _dismissTimer.Tick -= DismissTimer_Tick;
+        Close();
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    ///     Shows the toast with the given title and message, replacing any previous toast.
     /// </summary>
     /// <param name="title">The toast title.</param>
     /// <param name="message">The toast message.</param>
@@ -74,19 +88,5 @@ public partial class ToastNotificationWindow : IDisposable
 
         var fadeIn = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromMilliseconds(250)));
         ToastBorder.BeginAnimation(OpacityProperty, fadeIn);
-    }
-
-    /// <summary>
-    /// Disposes the dismiss timer and suppresses finalization.
-    /// </summary>
-    public void Dispose()
-    {
-        if (_isDisposed) return;
-
-        _isDisposed = true;
-        _dismissTimer.Stop();
-        _dismissTimer.Tick -= DismissTimer_Tick;
-        Close();
-        GC.SuppressFinalize(this);
     }
 }

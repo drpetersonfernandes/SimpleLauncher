@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Avalonia.Services.InjectEmulatorConfig;
@@ -6,17 +7,17 @@ using SimpleLauncher.Avalonia.Services.SystemManager;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for EmulatorPathResolver — config-driven via a temporary system.xml,
-/// so no real user configuration is touched.
+///     Tests for EmulatorPathResolver — config-driven via a temporary system.xml,
+///     so no real user configuration is touched.
 /// </summary>
 public class EmulatorPathResolverTests : IDisposable
 {
-    private readonly string _tempDir;
     private readonly string _fakeExePath;
-    private readonly string _systemXmlPath;
-    private readonly SystemManagerService _systemManager;
-    private readonly EmulatorPathResolver _resolver;
     private readonly Mock<ILogger> _logger = new();
+    private readonly EmulatorPathResolver _resolver;
+    private readonly SystemManagerService _systemManager;
+    private readonly string _systemXmlPath;
+    private readonly string _tempDir;
 
     public EmulatorPathResolverTests()
     {
@@ -31,7 +32,7 @@ public class EmulatorPathResolverTests : IDisposable
 
         var config = new ConfigurationBuilder()
             .AddJsonStream(new MemoryStream(
-                System.Text.Encoding.UTF8.GetBytes(
+                Encoding.UTF8.GetBytes(
                     $$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", @"\\")}}"}""")))
             .Build();
 
@@ -43,7 +44,7 @@ public class EmulatorPathResolverTests : IDisposable
     {
         try
         {
-            Directory.Delete(_tempDir, recursive: true);
+            Directory.Delete(_tempDir, true);
         }
         catch
         {
@@ -52,7 +53,7 @@ public class EmulatorPathResolverTests : IDisposable
     }
 
     /// <summary>
-    /// Writes a system.xml with one system carrying the given emulators.
+    ///     Writes a system.xml with one system carrying the given emulators.
     /// </summary>
     private void WriteSystemXml(params (string Name, string Path)[] emulators)
     {

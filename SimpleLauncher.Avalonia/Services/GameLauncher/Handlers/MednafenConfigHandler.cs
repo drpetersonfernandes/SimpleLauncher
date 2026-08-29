@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Mednafen (multi-system) emulator before launching a game.
+///     Handles configuration injection for the Mednafen (multi-system) emulator before launching a game.
 /// </summary>
 public class MednafenConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class MednafenConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MednafenConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="MednafenConfigHandler" /> class.
     /// </summary>
     public MednafenConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {

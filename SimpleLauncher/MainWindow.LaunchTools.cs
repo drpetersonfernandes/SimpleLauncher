@@ -4,7 +4,7 @@ using Application = System.Windows.Application;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Partial MainWindow containing launch tool click handlers for batch file creation and emulator utilities.
+///     Partial MainWindow containing launch tool click handlers for batch file creation and emulator utilities.
 /// </summary>
 public partial class MainWindow
 {

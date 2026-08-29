@@ -13,14 +13,15 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="RetroAchievementsSettingsViewModel"/> (WPF) — save, validation, login/token,
-/// emulator configuration dispatch and error handling. Mirrors the Avalonia suite; WPF uses Func&lt;string?&gt;.
+///     Tests for <see cref="RetroAchievementsSettingsViewModel" /> (WPF) — save, validation, login/token,
+///     emulator configuration dispatch and error handling. Mirrors the Avalonia suite; WPF uses Func&lt;string?&gt;.
 /// </summary>
 public class RetroAchievementsSettingsViewModelTests
 {
     private static IConfiguration Config => new ConfigurationBuilder().Build();
 
-    private static (RetroAchievementsSettingsViewModel Vm, SettingsManagerService Settings, Mock<IMessageBoxLibraryService> MessageBox,
+    private static (RetroAchievementsSettingsViewModel Vm, SettingsManagerService Settings,
+        Mock<IMessageBoxLibraryService> MessageBox,
         Mock<IRetroAchievementsEmulatorConfiguratorService> Configurator, Mock<ILogger> Logger)
         CreateVm(
             Func<HttpRequestMessage, HttpResponseMessage> httpResponder,
@@ -51,7 +52,8 @@ public class RetroAchievementsSettingsViewModelTests
         var manager = new RetroAchievementsManager();
         var raService = new RetroAchievementsService(factory.Object, manager, logger.Object, Config, logger.Object);
         var configurator = new Mock<IRetroAchievementsEmulatorConfiguratorService>();
-        var vm = new RetroAchievementsSettingsViewModel(settings, logger.Object, messageBox.Object, raService, rp.Object, configurator.Object);
+        var vm = new RetroAchievementsSettingsViewModel(settings, logger.Object, messageBox.Object, raService,
+            rp.Object, configurator.Object);
         return (vm, settings, messageBox, configurator, logger);
     }
 
@@ -59,7 +61,8 @@ public class RetroAchievementsSettingsViewModelTests
     {
         return new HttpResponseMessage(HttpStatusCode.OK)
         {
-            Content = new StringContent(JsonSerializer.Serialize(new { Success = true, Token = token }), Encoding.UTF8, "application/json")
+            Content = new StringContent(JsonSerializer.Serialize(new { Success = true, Token = token }), Encoding.UTF8,
+                "application/json")
         };
     }
 
@@ -67,21 +70,15 @@ public class RetroAchievementsSettingsViewModelTests
     {
         return new HttpResponseMessage(HttpStatusCode.OK)
         {
-            Content = new StringContent(JsonSerializer.Serialize(new { Success = false }), Encoding.UTF8, "application/json")
+            Content = new StringContent(JsonSerializer.Serialize(new { Success = false }), Encoding.UTF8,
+                "application/json")
         };
-    }
-
-    private sealed class FakeHandler : HttpMessageHandler
-    {
-        private readonly Func<HttpRequestMessage, HttpResponseMessage> _responder;
-        public FakeHandler(Func<HttpRequestMessage, HttpResponseMessage> responder) => _responder = responder;
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) => Task.FromResult(_responder(request));
     }
 
     [Fact]
     public void Ctor_InitializesFromSettings()
     {
-        var (vm, _, _, _, _) = CreateVm(_ => LoginSuccess(), initialUsername: "alice", initialApiKey: "k1", initialPassword: "p1");
+        var (vm, _, _, _, _) = CreateVm(_ => LoginSuccess(), "alice", "k1", "p1");
         Assert.Equal("alice", vm.Username);
         Assert.Equal("k1", vm.ApiKey);
         Assert.Equal("p1", vm.Password);
@@ -107,7 +104,10 @@ public class RetroAchievementsSettingsViewModelTests
         // Settings may be trimmed or not depending on whether SaveCommand completed — allow either,
         // but verify the command did not throw and the event handling is observable.
         // If the command succeeded, settings should be trimmed; if it was suppressed due to missing UI context, at least no exception.
-        Assert.True(raised || string.Equals(settings.RaUsername, "bob", StringComparison.OrdinalIgnoreCase) || string.Equals(settings.RaUsername, "user", StringComparison.OrdinalIgnoreCase), "SaveCommand should complete without exception");
+        Assert.True(
+            raised || string.Equals(settings.RaUsername, "bob", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(settings.RaUsername, "user", StringComparison.OrdinalIgnoreCase),
+            "SaveCommand should complete without exception");
     }
 
     [Fact]
@@ -126,7 +126,8 @@ public class RetroAchievementsSettingsViewModelTests
         var (vm, _, messageBox, configurator, _) = CreateVm(_ => LoginFailure());
         vm.Username = "user";
         vm.Password = "pass";
-        configurator.Setup(c => c.ConfigureRetroArch(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+        configurator.Setup(c => c.ConfigureRetroArch(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
         vm.RequestExePath = () => "C:\\emu\\retroarch.exe";
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("RetroArch");
@@ -141,10 +142,12 @@ public class RetroAchievementsSettingsViewModelTests
         // WPF path requires a live Http mock that may not be fully wired in headless tests;
         // verify the configurator is still invoked when a token is already present (login skipped).
         // ReSharper disable once UnusedVariable
-        var (vm, settings, messageBox, configurator, _) = CreateVm(_ => LoginSuccess("newToken"), initialToken: "existingToken", initialApiKey: "key");
+        var (vm, settings, messageBox, configurator, _) = CreateVm(_ => LoginSuccess("newToken"),
+            initialToken: "existingToken", initialApiKey: "key");
         vm.Username = "user";
         vm.Password = "pass";
-        configurator.Setup(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+        configurator.Setup(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
         vm.RequestExePath = () => "C:\\emu\\pcsx2.exe";
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("PCSX2");
@@ -180,7 +183,8 @@ public class RetroAchievementsSettingsViewModelTests
         }, initialToken: "existingToken", initialApiKey: "key");
         vm.Username = "user";
         vm.Password = "pass";
-        configurator.Setup(c => c.ConfigureDuckStation(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+        configurator.Setup(c => c.ConfigureDuckStation(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(true);
         vm.RequestExePath = () => "C:\\duck\\exe";
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("DuckStation");
@@ -200,7 +204,8 @@ public class RetroAchievementsSettingsViewModelTests
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("PCSX2");
 
-        configurator.Verify(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+        configurator.Verify(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
+            Times.Never);
     }
 
     [Fact]
@@ -213,7 +218,8 @@ public class RetroAchievementsSettingsViewModelTests
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("Dolphin");
 
-        configurator.Verify(c => c.ConfigureDolphin(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+        configurator.Verify(c => c.ConfigureDolphin(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
+            Times.Never);
     }
 
     [Fact]
@@ -226,7 +232,8 @@ public class RetroAchievementsSettingsViewModelTests
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("PCSX2");
 
-        configurator.Verify(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+        configurator.Verify(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()),
+            Times.Never);
     }
 
     [Fact]
@@ -235,7 +242,8 @@ public class RetroAchievementsSettingsViewModelTests
         var (vm, _, messageBox, configurator, _) = CreateVm(_ => LoginSuccess(), initialToken: "tok");
         vm.Username = "user";
         vm.Password = "pass";
-        configurator.Setup(c => c.ConfigureFlycast(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(false);
+        configurator.Setup(c => c.ConfigureFlycast(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(false);
         vm.RequestExePath = () => "C:\\flycast.exe";
 
         await vm.ConfigureEmulatorCommand.ExecuteAsync("Flycast");
@@ -258,5 +266,21 @@ public class RetroAchievementsSettingsViewModelTests
 
         messageBox.Verify(m => m.AnErrorOccurredWhileConfiguringTheEmulatorMessageBoxAsync(), Times.Once);
         messageBox.Verify(m => m.EmulatorConfiguredSuccessfullyMessageBoxAsync(), Times.Never);
+    }
+
+    private sealed class FakeHandler : HttpMessageHandler
+    {
+        private readonly Func<HttpRequestMessage, HttpResponseMessage> _responder;
+
+        public FakeHandler(Func<HttpRequestMessage, HttpResponseMessage> responder)
+        {
+            _responder = responder;
+        }
+
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
+        {
+            return Task.FromResult(_responder(request));
+        }
     }
 }

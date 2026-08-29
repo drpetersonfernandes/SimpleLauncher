@@ -50,34 +50,51 @@
                                       SelectedItem="{Binding Pcsx2AspectRatio}"
                                       ToolTip="{DynamicResource Pcsx2Config_Aspect_Tooltip}" />
                         </Grid>
-                        <CheckBox IsChecked="{Binding Pcsx2Vsync}" Content="{DynamicResource Pcsx2Config_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_Vsync_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Pcsx2EnableWidescreenPatches}" Content="{DynamicResource Pcsx2Config_WidescreenPatches_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_WidescreenPatches_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2Vsync}"
+                                  Content="{DynamicResource Pcsx2Config_Vsync_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource Pcsx2Config_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2EnableWidescreenPatches}"
+                                  Content="{DynamicResource Pcsx2Config_WidescreenPatches_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource Pcsx2Config_WidescreenPatches_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- General Section -->
                 <GroupBox Header="{DynamicResource Pcsx2Config_General_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding Pcsx2StartFullscreen}" Content="{DynamicResource Pcsx2Config_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_Fullscreen_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Pcsx2EnableCheats}" Content="{DynamicResource Pcsx2Config_Cheats_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_Cheats_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2StartFullscreen}"
+                                  Content="{DynamicResource Pcsx2Config_Fullscreen_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource Pcsx2Config_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2EnableCheats}"
+                                  Content="{DynamicResource Pcsx2Config_Cheats_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource Pcsx2Config_Cheats_Tooltip}" />
                         <Label Content="{DynamicResource Pcsx2Config_Volume_Label}" VerticalAlignment="Center" />
-                        <Slider Value="{Binding Pcsx2Volume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource Pcsx2Config_Volume_Tooltip}" />
+                        <Slider Value="{Binding Pcsx2Volume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True"
+                                TickFrequency="1" ToolTip="{DynamicResource Pcsx2Config_Volume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- Achievements Section -->
                 <GroupBox Header="{DynamicResource Pcsx2Config_Achievements_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding Pcsx2AchievementsEnabled}" Content="{DynamicResource Pcsx2Config_AchEnabled_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_AchEnabled_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Pcsx2AchievementsHardcore}" Content="{DynamicResource Pcsx2Config_AchHardcore_Checkbox}" Margin="0,5" ToolTip="{DynamicResource Pcsx2Config_AchHardcore_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2AchievementsEnabled}"
+                                  Content="{DynamicResource Pcsx2Config_AchEnabled_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource Pcsx2Config_AchEnabled_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Pcsx2AchievementsHardcore}"
+                                  Content="{DynamicResource Pcsx2Config_AchHardcore_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource Pcsx2Config_AchHardcore_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding Pcsx2ShowSettingsBeforeLaunch}" Content="{DynamicResource Pcsx2Config_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource Pcsx2Config_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding Pcsx2ShowSettingsBeforeLaunch}"
+                                  Content="{DynamicResource Pcsx2Config_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource Pcsx2Config_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

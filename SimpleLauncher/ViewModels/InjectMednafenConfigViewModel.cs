@@ -10,28 +10,28 @@ using SimpleLauncher.Services.InjectEmulatorConfig;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the Mednafen emulator configuration injection window.
+///     ViewModel for the Mednafen emulator configuration injection window.
 /// </summary>
 public partial class InjectMednafenConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    [ObservableProperty] private string _mednafenVideoDriver = null!;
-    [ObservableProperty] private string _mednafenStretch = null!;
-    [ObservableProperty] private string _mednafenShader = null!;
-    [ObservableProperty] private string _mednafenSpecial = null!;
-    [ObservableProperty] private bool _mednafenFullscreen;
-    [ObservableProperty] private bool _mednafenVsync;
     [ObservableProperty] private bool _mednafenBilinear;
-    [ObservableProperty] private int _mednafenScanlines;
-    [ObservableProperty] private int _mednafenVolume;
     [ObservableProperty] private bool _mednafenCheats;
+    [ObservableProperty] private bool _mednafenFullscreen;
     [ObservableProperty] private bool _mednafenRewind;
+    [ObservableProperty] private int _mednafenScanlines;
+    [ObservableProperty] private string _mednafenShader = null!;
     [ObservableProperty] private bool _mednafenShowSettingsBeforeLaunch;
+    [ObservableProperty] private string _mednafenSpecial = null!;
+    [ObservableProperty] private string _mednafenStretch = null!;
+    [ObservableProperty] private string _mednafenVideoDriver = null!;
+    [ObservableProperty] private int _mednafenVolume;
+    [ObservableProperty] private bool _mednafenVsync;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectMednafenConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectMednafenConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
@@ -44,7 +44,42 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Available video driver options for Mednafen.
+    /// </summary>
+    public IList<string> VideoDriverOptions { get; } = ["opengl", "soft", "default"];
+
+    /// <summary>
+    ///     Available stretch mode options for Mednafen.
+    /// </summary>
+    public IList<string> StretchOptions { get; } = ["0", "full", "aspect", "aspect_int"];
+
+    /// <summary>
+    ///     Available shader options for Mednafen.
+    /// </summary>
+    public IList<string> ShaderOptions { get; } = ["none", "ip", "ipsharper", "scale2x", "snes_ntsc", "goat"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<string?>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Mednafen emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -56,32 +91,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available video driver options for Mednafen.
-    /// </summary>
-    public IList<string> VideoDriverOptions { get; } = ["opengl", "soft", "default"];
-
-    /// <summary>
-    /// Available stretch mode options for Mednafen.
-    /// </summary>
-    public IList<string> StretchOptions { get; } = ["0", "full", "aspect", "aspect_int"];
-
-    /// <summary>
-    /// Available shader options for Mednafen.
-    /// </summary>
-    public IList<string> ShaderOptions { get; } = ["none", "ip", "ipsharper", "scale2x", "snes_ntsc", "goat"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -91,16 +101,6 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
 
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<string?>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
-
     private void LoadSettings()
     {
         MednafenVideoDriver = _settings.Mednafen.VideoDriver;
@@ -108,13 +108,9 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
 
         if (!string.IsNullOrEmpty(_settings.Mednafen.Special) &&
             !string.Equals(_settings.Mednafen.Special, "none", StringComparison.Ordinal))
-        {
             MednafenShader = _settings.Mednafen.Special;
-        }
         else
-        {
             MednafenShader = _settings.Mednafen.Shader;
-        }
 
         MednafenSpecial = _settings.Mednafen.Special;
         MednafenFullscreen = _settings.Mednafen.Fullscreen;
@@ -156,10 +152,7 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = EmulatorPathResolver.TryFindEmulatorPath("Mednafen", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

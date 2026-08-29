@@ -5,7 +5,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Partial MainWindow containing search button handlers and search text box interaction logic.
+///     Partial MainWindow containing search button handlers and search text box interaction logic.
 /// </summary>
 public partial class MainWindow
 {
@@ -84,13 +84,9 @@ public partial class MainWindow
             if (!result.IsValid)
             {
                 if (SystemComboBox.SelectedItem == null)
-                {
                     await _messageBox.SelectSystemBeforeSearchMessageBoxAsync();
-                }
                 else
-                {
                     await _messageBox.EnterSearchQueryMessageBoxAsync();
-                }
 
                 return;
             }

@@ -6,15 +6,15 @@ using SimpleLauncher.ViewModels;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Window displaying the application's update history in markdown format.
+///     Window displaying the application's update history in markdown format.
 /// </summary>
 public partial class UpdateHistoryWindow
 {
-    private readonly UpdateHistoryViewModel _viewModel;
     private readonly ILogger _logger;
+    private readonly UpdateHistoryViewModel _viewModel;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UpdateHistoryWindow"/> class.
+    ///     Initializes a new instance of the <see cref="UpdateHistoryWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing update history data.</param>
     /// <param name="logger">The debug logger.</param>

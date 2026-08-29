@@ -5,13 +5,13 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.WpfServices;
 
 /// <summary>
-/// Implementation of <see cref="ICredentialProtector"/> using DPAPI (Data Protection API)
-/// on Windows, with a portable fallback on non-Windows platforms (Linux).
+///     Implementation of <see cref="ICredentialProtector" /> using DPAPI (Data Protection API)
+///     on Windows, with a portable fallback on non-Windows platforms (Linux).
 /// </summary>
 /// <remarks>
-/// DPAPI is Windows-only. On Linux there is no OS key store available to this app,
-/// so the portable fallback stores the data Base64-encoded (obfuscation only) and
-/// logs a warning on first use — equivalent security to storing the plaintext.
+///     DPAPI is Windows-only. On Linux there is no OS key store available to this app,
+///     so the portable fallback stores the data Base64-encoded (obfuscation only) and
+///     logs a warning on first use — equivalent security to storing the plaintext.
 /// </remarks>
 public class WindowsCredentialProtector : ICredentialProtector
 {

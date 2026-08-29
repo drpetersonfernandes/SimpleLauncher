@@ -10,7 +10,7 @@ using Serilog.Events;
 namespace SimpleLauncher.ResourceTranslator.Services.DebugAndBugReport;
 
 /// <summary>
-/// A Serilog log event sink that sends bug reports to a remote API.
+///     A Serilog log event sink that sends bug reports to a remote API.
 /// </summary>
 public class BugReportApiSink : ILogEventSink, IDisposable
 {
@@ -21,25 +21,19 @@ public class BugReportApiSink : ILogEventSink, IDisposable
 
     private static readonly string ApiKey = DecodeApiKey();
 
-    private static string DecodeApiKey()
-    {
-        var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(ApiKeyEncoded));
-        return Encoding.UTF8.GetString(Convert.FromBase64String(decoded));
-    }
-
     private readonly Channel<LogEvent> _channel = Channel.CreateBounded<LogEvent>(new BoundedChannelOptions(100)
     {
         FullMode = BoundedChannelFullMode.DropOldest
     });
 
     private readonly CancellationTokenSource _cts = new();
-    private readonly string _logFolder;
     private readonly HttpClient _httpClient = new() { Timeout = TimeSpan.FromSeconds(30) };
+    private readonly string _logFolder;
     private bool _disposed;
     private Task _processTask;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BugReportApiSink"/> class.
+    ///     Initializes a new instance of the <see cref="BugReportApiSink" /> class.
     /// </summary>
     /// <param name="logFolder">The folder path where log files are stored.</param>
     public BugReportApiSink(string logFolder)
@@ -49,7 +43,20 @@ public class BugReportApiSink : ILogEventSink, IDisposable
     }
 
     /// <summary>
-    /// Emits a log event by queuing it for bug report submission.
+    ///     Disposes of resources used by this sink.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        _disposed = true;
+        _cts.Cancel();
+        _cts.Dispose();
+        _httpClient.Dispose();
+    }
+
+    /// <summary>
+    ///     Emits a log event by queuing it for bug report submission.
     /// </summary>
     /// <param name="logEvent">The log event to process.</param>
     public void Emit(LogEvent logEvent)
@@ -59,22 +66,24 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         _channel.Writer.TryWrite(logEvent);
     }
 
+    private static string DecodeApiKey()
+    {
+        var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(ApiKeyEncoded));
+        return Encoding.UTF8.GetString(Convert.FromBase64String(decoded));
+    }
+
     private async Task ProcessQueueAsync(CancellationToken cancellationToken)
     {
         while (await _channel.Reader.WaitToReadAsync(cancellationToken))
-        {
-            while (_channel.Reader.TryRead(out var logEvent))
+        while (_channel.Reader.TryRead(out var logEvent))
+            try
             {
-                try
-                {
-                    await SendReportAsync(logEvent);
-                }
-                catch
-                {
-                    WriteCriticalError(logEvent);
-                }
+                await SendReportAsync(logEvent);
             }
-        }
+            catch
+            {
+                WriteCriticalError(logEvent);
+            }
     }
 
     private async Task SendReportAsync(LogEvent logEvent)
@@ -107,7 +116,6 @@ public class BugReportApiSink : ILogEventSink, IDisposable
             using var response = await _httpClient.SendAsync(request, cts.Token);
 
             if (response.IsSuccessStatusCode && File.Exists(errorLogPath))
-            {
                 try
                 {
                     File.Delete(errorLogPath);
@@ -116,7 +124,6 @@ public class BugReportApiSink : ILogEventSink, IDisposable
                 {
                     /* Ignore */
                 }
-            }
         }
         catch
         {
@@ -153,10 +160,7 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         sb.AppendLine("=== Error Details ===");
         sb.AppendLine(CultureInfo.InvariantCulture, $"Level: {logEvent.Level}");
         sb.AppendLine(CultureInfo.InvariantCulture, $"Message: {logEvent.RenderMessage()}");
-        if (logEvent.Exception != null)
-        {
-            sb.AppendLine(CultureInfo.InvariantCulture, $"Exception: {logEvent.Exception}");
-        }
+        if (logEvent.Exception != null) sb.AppendLine(CultureInfo.InvariantCulture, $"Exception: {logEvent.Exception}");
 
         sb.AppendLine();
         return sb.ToString();
@@ -181,18 +185,5 @@ public class BugReportApiSink : ILogEventSink, IDisposable
 #else
         return "Release";
 #endif
-    }
-
-    /// <summary>
-    /// Disposes of resources used by this sink.
-    /// </summary>
-    public void Dispose()
-    {
-        if (_disposed) return;
-
-        _disposed = true;
-        _cts.Cancel();
-        _cts.Dispose();
-        _httpClient.Dispose();
     }
 }

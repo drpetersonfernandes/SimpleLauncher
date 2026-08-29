@@ -1,3 +1,9 @@
+#if WINDOWS
+using SimpleLauncher.Avalonia.Services.TakeScreenshot;
+using AvaloniaWindowScreenshot = SimpleLauncher.Avalonia.Services.TakeScreenshot.WindowScreenshot;
+#endif
+// ReSharper disable once RedundantUsingDirective
+using CoreWindowManager = SimpleLauncher.Core.Services.TakeScreenshot.WindowManager;
 using System.ComponentModel;
 using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -8,20 +14,14 @@ using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.RetroAchievements;
-#if WINDOWS
-using SimpleLauncher.Avalonia.Services.TakeScreenshot;
-using AvaloniaWindowScreenshot = SimpleLauncher.Avalonia.Services.TakeScreenshot.WindowScreenshot;
-#endif
-// ReSharper disable once RedundantUsingDirective
-using CoreWindowManager = SimpleLauncher.Core.Services.TakeScreenshot.WindowManager;
 using ILogger = Serilog.ILogger;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Avalonia.Services.ContextMenus;
 
 /// <summary>
-/// Implements context menu actions for game items such as favorites, media viewing,
-/// screenshots, and deletion (port of the WPF ContextMenuFunctions).
+///     Implements context menu actions for game items such as favorites, media viewing,
+///     screenshots, and deletion (port of the WPF ContextMenuFunctions).
 /// </summary>
 public class AvaloniaContextMenuFunctions(
     ILogger logErrors,
@@ -32,16 +32,16 @@ public class AvaloniaContextMenuFunctions(
     IFindCoverImageService findCoverImage,
     LocalizationService localization)
 {
-    private RetroAchievementsManager? _raManager;
-    private IRetroAchievementsHasherTool? _raHasherTool;
-    private IRetroAchievementsSystemMatcher? _raSystemMatcher;
-    private readonly LocalizationService _localization = localization;
-    private readonly PlaySoundEffects _playSoundEffects = playSoundEffects;
-    private readonly IMessageBoxLibraryService _messageBox = messageBox;
-    private readonly ILogger _logErrors = logErrors;
     private readonly IConfiguration _configuration = configuration;
     private readonly IFindCoverImageService _findCoverImage = findCoverImage;
+    private readonly LocalizationService _localization = localization;
+    private readonly ILogger _logErrors = logErrors;
     private readonly IMameDataService _mameData = mameData;
+    private readonly IMessageBoxLibraryService _messageBox = messageBox;
+    private readonly PlaySoundEffects _playSoundEffects = playSoundEffects;
+    private IRetroAchievementsHasherTool? _raHasherTool;
+    private RetroAchievementsManager? _raManager;
+    private IRetroAchievementsSystemMatcher? _raSystemMatcher;
 
     private RetroAchievementsManager RaManager =>
         _raManager ??= App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
@@ -58,22 +58,20 @@ public class AvaloniaContextMenuFunctions(
     }
 
     /// <summary>
-    /// Resolves the emulator to use: the emulator selected in the toolbar combo box
-    /// when present, otherwise the system's first configured emulator.
+    ///     Resolves the emulator to use: the emulator selected in the toolbar combo box
+    ///     when present, otherwise the system's first configured emulator.
     /// </summary>
     public string? ResolveEmulatorName(AvaloniaRightClickContext context)
     {
         if (!string.IsNullOrWhiteSpace(context.MainViewModel.SelectedEmulatorName))
-        {
             return context.MainViewModel.SelectedEmulatorName;
-        }
 
         return context.SelectedSystemManager.GetSystem(context.SelectedSystemName)?.Emulators.FirstOrDefault()
             ?.EmulatorName;
     }
 
     /// <summary>
-    /// Adds a game to the favorites list, updates the UI, and notifies the user.
+    ///     Adds a game to the favorites list, updates the UI, and notifies the user.
     /// </summary>
     public async Task AddToFavoritesAsync(AvaloniaRightClickContext context)
     {
@@ -96,10 +94,7 @@ public class AvaloniaContextMenuFunctions(
 
                 await context.FavoritesManager.SaveFavoritesAsync();
 
-                if (context.SourceCard is { } card)
-                {
-                    card.IsFavorite = true;
-                }
+                if (context.SourceCard is { } card) card.IsFavorite = true;
 
                 context.MainViewModel.StatusText = GetStatus("FileAddedToFavorites", "File added to favorites.");
                 await _messageBox.FileAddedToFavoritesMessageBoxAsync(context.FileNameWithExtension);
@@ -120,7 +115,7 @@ public class AvaloniaContextMenuFunctions(
     }
 
     /// <summary>
-    /// Removes a game from the favorites list, updates the UI, and notifies the user.
+    ///     Removes a game from the favorites list, updates the UI, and notifies the user.
     /// </summary>
     public async Task RemoveFromFavoritesAsync(AvaloniaRightClickContext context)
     {
@@ -130,10 +125,7 @@ public class AvaloniaContextMenuFunctions(
                 f.FileName.Equals(context.FileNameWithExtension, StringComparison.OrdinalIgnoreCase)
                 && f.SystemName.Equals(context.SelectedSystemName, StringComparison.OrdinalIgnoreCase));
 
-            if (favoriteToRemove == null)
-            {
-                return;
-            }
+            if (favoriteToRemove == null) return;
 
             context.FavoritesManager.FavoriteList.Remove(favoriteToRemove);
 
@@ -141,10 +133,7 @@ public class AvaloniaContextMenuFunctions(
 
             await context.FavoritesManager.SaveFavoritesAsync();
 
-            if (context.SourceCard is { } card)
-            {
-                card.IsFavorite = false;
-            }
+            if (context.SourceCard is { } card) card.IsFavorite = false;
 
             context.MainViewModel.StatusText = GetStatus("FileRemovedFromFavorites", "File removed from favorites.");
             await _messageBox.FileRemovedFromFavoritesMessageBoxAsync(context.FileNameWithExtension);
@@ -160,7 +149,7 @@ public class AvaloniaContextMenuFunctions(
     }
 
     /// <summary>
-    /// Launches the game using the currently selected (or first configured) emulator.
+    ///     Launches the game using the currently selected (or first configured) emulator.
     /// </summary>
     public async Task LaunchGameAsync(AvaloniaRightClickContext context)
     {
@@ -198,7 +187,7 @@ public class AvaloniaContextMenuFunctions(
     }
 
     /// <summary>
-    /// Opens a video link for the specified game in the default browser.
+    ///     Opens a video link for the specified game in the default browser.
     /// </summary>
     public async Task OpenVideoLinkAsync(AvaloniaRightClickContext context)
     {
@@ -228,7 +217,7 @@ public class AvaloniaContextMenuFunctions(
     }
 
     /// <summary>
-    /// Opens an information link for the specified game in the default browser.
+    ///     Opens an information link for the specified game in the default browser.
     /// </summary>
     public async Task OpenInfoLinkAsync(AvaloniaRightClickContext context)
     {
@@ -258,7 +247,7 @@ public class AvaloniaContextMenuFunctions(
     }
 
     /// <summary>
-    /// Opens the ROM history window for the specified game.
+    ///     Opens the ROM history window for the specified game.
     /// </summary>
     public async Task OpenRomHistoryWindowAsync(AvaloniaRightClickContext context)
     {
@@ -280,8 +269,8 @@ public class AvaloniaContextMenuFunctions(
     }
 
     /// <summary>
-    /// Opens the RetroAchievements window for the specified game, performing hash
-    /// calculation and game lookup (full WPF flow).
+    ///     Opens the RetroAchievements window for the specified game, performing hash
+    ///     calculation and game lookup (full WPF flow).
     /// </summary>
     public async Task OpenRetroAchievementsWindowAsync(AvaloniaRightClickContext context)
     {
@@ -308,10 +297,8 @@ public class AvaloniaContextMenuFunctions(
                 await raSettingsWindow.ShowDialog(context.OwnerWindow);
 
                 // If user didn't save credentials, or saved empty ones, return
-                if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
-                {
-                    return;
-                }
+                if (string.IsNullOrWhiteSpace(settings.RaApiKey) ||
+                    string.IsNullOrWhiteSpace(settings.RaUsername)) return;
             }
 
             _logErrors.Debug($"[RA Service] Original system name: {context.SelectedSystemName}");
@@ -585,8 +572,8 @@ public class AvaloniaContextMenuFunctions(
     }
 
     /// <summary>
-    /// Launches the specified game, waits for its window to appear, lets the user pick
-    /// the window, captures a screenshot, and saves it as the game's cover image.
+    ///     Launches the specified game, waits for its window to appear, lets the user pick
+    ///     the window, captures a screenshot, and saves it as the game's cover image.
     /// </summary>
     public async Task TakeScreenshotOfSelectedWindowAsync(AvaloniaRightClickContext context)
     {
@@ -596,11 +583,9 @@ public class AvaloniaContextMenuFunctions(
             var system = context.SelectedSystemManager.GetSystem(context.SelectedSystemName);
             var systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(system?.SystemImageFolder);
             if (string.IsNullOrEmpty(systemImageFolder))
-            {
                 // Fallback to default if resolution fails or path is empty
                 systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images",
                     context.SelectedSystemName);
-            }
 
             try
             {
@@ -653,7 +638,8 @@ public class AvaloniaContextMenuFunctions(
             if (currentCount > initialCount)
             {
                 // New window(s) appeared - assume game/emulator launched
-                _logErrors.Debug($"[Screenshot] New window detected. Current count: {currentCount} (initial: {initialCount})");
+                _logErrors.Debug(
+                    $"[Screenshot] New window detected. Current count: {currentCount} (initial: {initialCount})");
                 newWindowDetected = true;
                 break;
             }
@@ -664,7 +650,8 @@ public class AvaloniaContextMenuFunctions(
         if (!newWindowDetected)
         {
             // Timeout - no new windows appeared
-            _logErrors.Debug($"[Screenshot] Timeout after {stopwatch.Elapsed.TotalSeconds:F1}s. No new windows detected.");
+            _logErrors.Debug(
+                $"[Screenshot] Timeout after {stopwatch.Elapsed.TotalSeconds:F1}s. No new windows detected.");
             await _messageBox.GameLaunchTimeoutMessageBoxAsync();
             return;
         }
@@ -673,19 +660,14 @@ public class AvaloniaContextMenuFunctions(
         var openWindows = CoreWindowManager.GetOpenWindows();
         var dialog = App.ServiceProvider.GetRequiredService<WindowSelectionDialogWindow>();
         dialog.Initialize(openWindows);
-        if (await dialog.ShowDialog<bool>(context.OwnerWindow) != true || dialog.SelectedWindowHandle == IntPtr.Zero)
-        {
-            return;
-        }
+        if (!await dialog.ShowDialog<bool>(context.OwnerWindow) || dialog.SelectedWindowHandle == IntPtr.Zero) return;
 
         var hWnd = dialog.SelectedWindowHandle;
 
         // Try to get the client area dimensions; fall back to the full window dimensions
         if (!AvaloniaWindowScreenshot.GetClientAreaRect(hWnd, out var rectangle)
             && !AvaloniaWindowScreenshot.GetWindowRect(hWnd, out rectangle))
-        {
             throw new InvalidOperationException("Failed to retrieve window dimensions.");
-        }
 
         var width = rectangle.Right - rectangle.Left;
         var height = rectangle.Bottom - rectangle.Top;
@@ -702,7 +684,8 @@ public class AvaloniaContextMenuFunctions(
         var screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
 
         // Capture the window into a bitmap and save it
-        AvaloniaWindowCapture.CaptureRectangleToPng(rectangle.Left, rectangle.Top, width, height, screenshotPath, _logErrors);
+        AvaloniaWindowCapture.CaptureRectangleToPng(rectangle.Left, rectangle.Top, width, height, screenshotPath,
+            _logErrors);
 
         _playSoundEffects.PlayShutterSound();
 
@@ -717,7 +700,7 @@ public class AvaloniaContextMenuFunctions(
 #endif
 
     /// <summary>
-    /// Deletes the specified game file from disk and reloads the game list.
+    ///     Deletes the specified game file from disk and reloads the game list.
     /// </summary>
     public async Task DeleteGameAsync(AvaloniaRightClickContext context)
     {
@@ -758,7 +741,7 @@ public class AvaloniaContextMenuFunctions(
     }
 
     /// <summary>
-    /// Deletes the cover image for the specified game and reloads the game list.
+    ///     Deletes the cover image for the specified game and reloads the game list.
     /// </summary>
     public async Task DeleteCoverImageAsync(AvaloniaRightClickContext context)
     {
@@ -772,12 +755,10 @@ public class AvaloniaContextMenuFunctions(
         {
             _playSoundEffects.PlayTrashSound();
 
-            if ((string.Equals(Path.GetFileNameWithoutExtension(coverPath), context.FileNameWithoutExtension,
-                    StringComparison.Ordinal))
-                && (!string.Equals(Path.GetFileNameWithoutExtension(coverPath), "default", StringComparison.Ordinal)))
-            {
+            if (string.Equals(Path.GetFileNameWithoutExtension(coverPath), context.FileNameWithoutExtension,
+                    StringComparison.Ordinal)
+                && !string.Equals(Path.GetFileNameWithoutExtension(coverPath), "default", StringComparison.Ordinal))
                 await DeleteFiles.TryDeleteFileAsync(coverPath);
-            }
 
             await Task.Delay(400);
 
@@ -806,7 +787,7 @@ public class AvaloniaContextMenuFunctions(
     }
 
     /// <summary>
-    /// Resolves the MAME machine description for the file name (falls back to the raw name).
+    ///     Resolves the MAME machine description for the file name (falls back to the raw name).
     /// </summary>
     private string ResolveSearchTerm(AvaloniaRightClickContext context)
     {
@@ -842,10 +823,7 @@ public class AvaloniaContextMenuFunctions(
         out string? foundPath)
     {
         foundPath = null;
-        if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
-        {
-            return false;
-        }
+        if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory)) return false;
 
         foreach (var extension in extensions)
         {
@@ -909,7 +887,7 @@ public class AvaloniaContextMenuFunctions(
     }
 
     /// <summary>
-    /// Removes the favorite entry for this game without notifications (used on game deletion).
+    ///     Removes the favorite entry for this game without notifications (used on game deletion).
     /// </summary>
     private async Task RemoveFromFavoritesSilentlyAsync(AvaloniaRightClickContext context)
     {
@@ -933,7 +911,7 @@ public class AvaloniaContextMenuFunctions(
     }
 
     /// <summary>
-    /// Reloads the currently displayed game list (WPF LoadGameFilesAsync parity).
+    ///     Reloads the currently displayed game list (WPF LoadGameFilesAsync parity).
     /// </summary>
     private Task RefreshCurrentGameListAsync(AvaloniaRightClickContext context)
     {
@@ -943,9 +921,7 @@ public class AvaloniaContextMenuFunctions(
             {
                 var mainViewModel = context.MainViewModel;
                 if (!string.IsNullOrEmpty(mainViewModel.SelectedSystem))
-                {
                     mainViewModel.NavigateToSystemCommand.Execute(mainViewModel.SelectedSystem);
-                }
             }
             catch (Exception ex)
             {

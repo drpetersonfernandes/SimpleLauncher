@@ -1,16 +1,17 @@
 using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.Win32;
 
 namespace SimpleLauncher.Core.Services.RetroAchievements;
 
 /// <summary>
-/// Provides DuckStation-compatible AES encryption for RetroAchievements API tokens.
+///     Provides DuckStation-compatible AES encryption for RetroAchievements API tokens.
 /// </summary>
 public class EncryptDuckStationToken
 {
     /// <summary>
-    /// Encrypts a RetroAchievements token using DuckStation's AES-128-CBC scheme with a user-derived key.
+    ///     Encrypts a RetroAchievements token using DuckStation's AES-128-CBC scheme with a user-derived key.
     /// </summary>
     public static string EncryptDuckStationTokenMethod(string token, string username, bool isPortable,
         ILogger logErrors)
@@ -58,10 +59,7 @@ public class EncryptDuckStationToken
         if (!isPortable && OperatingSystem.IsWindows())
         {
             var machineGuid = GetWindowsMachineGuid();
-            if (!string.IsNullOrEmpty(machineGuid))
-            {
-                inputBytes.AddRange(Encoding.UTF8.GetBytes(machineGuid));
-            }
+            if (!string.IsNullOrEmpty(machineGuid)) inputBytes.AddRange(Encoding.UTF8.GetBytes(machineGuid));
         }
 
         inputBytes.AddRange(Encoding.UTF8.GetBytes(username));
@@ -69,10 +67,7 @@ public class EncryptDuckStationToken
         var key = SHA256.HashData(inputBytes.ToArray());
 
         // Extra rounds (100)
-        for (var i = 0; i < 100; i++)
-        {
-            key = SHA256.HashData(key);
-        }
+        for (var i = 0; i < 100; i++) key = SHA256.HashData(key);
 
         return key;
     }
@@ -82,7 +77,7 @@ public class EncryptDuckStationToken
     {
         try
         {
-            using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Cryptography");
+            using var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Cryptography");
             return key?.GetValue("MachineGuid") as string;
         }
         catch

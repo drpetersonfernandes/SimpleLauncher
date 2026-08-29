@@ -4,7 +4,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Services.WpfServices;
 
 /// <summary>
-/// WPF implementation of IFilePickerService, providing file open, folder open, and save file dialogs.
+///     WPF implementation of IFilePickerService, providing file open, folder open, and save file dialogs.
 /// </summary>
 public class WpfFilePickerService : IFilePickerService
 {

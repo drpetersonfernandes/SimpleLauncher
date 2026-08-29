@@ -1,20 +1,21 @@
 using System.Text;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Injects user settings into the Dolphin emulator's Dolphin.ini configuration file.
+///     Injects user settings into the Dolphin emulator's Dolphin.ini configuration file.
 /// </summary>
 public static class DolphinConfigurationService
 {
     /// <summary>
-    /// Determines the active Dolphin configuration paths (portable or global) and
-    /// injects the saved settings into each of them.
+    ///     Determines the active Dolphin configuration paths (portable or global) and
+    ///     injects the saved settings into each of them.
     /// </summary>
     /// <param name="emulatorPath">Path to the Dolphin executable.</param>
     /// <param name="settings">The settings manager containing Dolphin configuration.</param>
     /// <param name="logger">The logger instance.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -37,25 +38,16 @@ public static class DolphinConfigurationService
         var globalConfigPath = Path.Combine(globalConfigDir, "Dolphin.ini");
 
         // Only add global path if the directory exists (Dolphin has been run in non-portable mode)
-        if (Directory.Exists(globalConfigDir))
-        {
-            configPaths.Add(globalConfigPath);
-        }
+        if (Directory.Exists(globalConfigDir)) configPaths.Add(globalConfigPath);
 
         // If neither exists (first run scenario), default to creating the global configuration
-        if (configPaths.Count == 0)
-        {
-            configPaths.Add(globalConfigPath);
-        }
+        if (configPaths.Count == 0) configPaths.Add(globalConfigPath);
 
         // Inject into all determined paths
-        foreach (var configPath in configPaths)
-        {
-            InjectIntoConfigFile(configPath, settings, logger);
-        }
+        foreach (var configPath in configPaths) InjectIntoConfigFile(configPath, settings, logger);
     }
 
-    private static void InjectIntoConfigFile(string configPath, SettingsManager.SettingsManagerService settings,
+    private static void InjectIntoConfigFile(string configPath, SettingsManagerService settings,
         ILogger logger)
     {
         var configDir = Path.GetDirectoryName(configPath);
@@ -65,7 +57,6 @@ public static class DolphinConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Dolphin", "Dolphin.ini");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     if (configDir != null) Directory.CreateDirectory(configDir);
@@ -78,11 +69,8 @@ public static class DolphinConfigurationService
                     logger.Error(ex, contextMessage);
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("Dolphin.ini not found and sample is missing.", samplePath);
-            }
         }
 
         logger.Debug($"[DolphinConfig] Injecting configuration into: {configPath}");
@@ -139,13 +127,8 @@ public static class DolphinConfigurationService
             Dictionary<string, string>? currentUpdates = null;
 
             if (currentSection.Equals("[Core]", StringComparison.OrdinalIgnoreCase))
-            {
                 currentUpdates = coreUpdates;
-            }
-            else if (currentSection.Equals("[DSP]", StringComparison.OrdinalIgnoreCase))
-            {
-                currentUpdates = dspUpdates;
-            }
+            else if (currentSection.Equals("[DSP]", StringComparison.OrdinalIgnoreCase)) currentUpdates = dspUpdates;
 
             if (currentUpdates != null && currentUpdates.Remove(key, out var newValue))
             {
@@ -172,7 +155,6 @@ public static class DolphinConfigurationService
         }
 
         if (modified)
-        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -184,11 +166,8 @@ public static class DolphinConfigurationService
                 logger.Error(ex, $"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
-        }
         else
-        {
             logger.Debug("[DolphinConfig] No changes needed.");
-        }
     }
 
     private static void ApplyUpdatesToSection(List<string> lines, string sectionName,
@@ -203,9 +182,6 @@ public static class DolphinConfigurationService
         }
 
         var insertIndex = sectionIndex + 1;
-        foreach (var kvp in updates)
-        {
-            lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
-        }
+        foreach (var kvp in updates) lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
     }
 }

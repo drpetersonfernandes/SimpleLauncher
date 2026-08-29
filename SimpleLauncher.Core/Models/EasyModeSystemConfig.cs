@@ -6,41 +6,54 @@ using System.Xml.Serialization;
 namespace SimpleLauncher.Core.Models;
 
 /// <summary>
-/// Configuration for a system in Easy Mode, including file formats and emulator settings.
+///     Configuration for a system in Easy Mode, including file formats and emulator settings.
 /// </summary>
 public class EasyModeSystemConfig
 {
     /// <summary>
-    /// Gets or sets the display name of the system.
+    ///     Gets or sets the display name of the system.
     /// </summary>
     public string SystemName { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the folder path containing ROM files.
+    ///     Gets or sets the folder path containing ROM files.
     /// </summary>
     public string SystemFolder { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the folder path containing system images.
+    ///     Gets or sets the folder path containing system images.
     /// </summary>
     public string SystemImageFolder { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets the file extensions to search for ROMs.
+    ///     Gets or sets the file extensions to search for ROMs.
     /// </summary>
     [XmlArray("FileFormatsToSearch")]
     [XmlArrayItem("FormatToSearch")]
     public List<string> FileFormatsToSearch { get; set; } = null!;
 
     /// <summary>
-    /// Gets or sets whether compressed files should be extracted before launching.
+    ///     Gets or sets whether compressed files should be extracted before launching.
     /// </summary>
     [XmlElement("ExtractFileBeforeLaunch")]
     [DefaultValue(false)]
     public bool ExtractFileBeforeLaunch { get; set; }
 
     /// <summary>
-    /// Determines whether <see cref="ExtractFileBeforeLaunch"/> should be serialized to XML.
+    ///     Gets or sets the file extensions used to identify launchable files.
+    /// </summary>
+    [XmlArray("FileFormatsToLaunch")]
+    [XmlArrayItem("FormatToLaunch")]
+    public List<string> FileFormatsToLaunch { get; set; } = null!;
+
+    /// <summary>
+    ///     Gets or sets the emulator configuration for this system.
+    /// </summary>
+    [XmlElement("Emulators")]
+    public EmulatorsConfig Emulators { get; set; } = null!;
+
+    /// <summary>
+    ///     Determines whether <see cref="ExtractFileBeforeLaunch" /> should be serialized to XML.
     /// </summary>
     public bool ShouldSerializeExtractFileBeforeLaunch()
     {
@@ -48,20 +61,7 @@ public class EasyModeSystemConfig
     }
 
     /// <summary>
-    /// Gets or sets the file extensions used to identify launchable files.
-    /// </summary>
-    [XmlArray("FileFormatsToLaunch")]
-    [XmlArrayItem("FormatToLaunch")]
-    public List<string> FileFormatsToLaunch { get; set; } = null!;
-
-    /// <summary>
-    /// Gets or sets the emulator configuration for this system.
-    /// </summary>
-    [XmlElement("Emulators")]
-    public EmulatorsConfig Emulators { get; set; } = null!;
-
-    /// <summary>
-    /// Validates that the configuration has the minimum required fields.
+    ///     Validates that the configuration has the minimum required fields.
     /// </summary>
     public bool IsValid()
     {

@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace SimpleLauncher.Services.Converters;
 
 /// <summary>
-/// Provides conversion of disc image files (RVZ, WBFS, GCZ, CISO, WIA) to ISO format using DolphinTool.exe.
+///     Provides conversion of disc image files (RVZ, WBFS, GCZ, CISO, WIA) to ISO format using DolphinTool.exe.
 /// </summary>
 public static class ConvertDiscImageToIso
 {
@@ -19,7 +19,7 @@ public static class ConvertDiscImageToIso
     private static ILogger Logger => DebugLogger2.Value;
 
     /// <summary>
-    /// Converts a disc image file (RVZ, WBFS, GCZ, CISO, WIA) to a temporary ISO using DolphinTool.exe.
+    ///     Converts a disc image file (RVZ, WBFS, GCZ, CISO, WIA) to a temporary ISO using DolphinTool.exe.
     /// </summary>
     public static async Task<string?> ConvertToIsoAsync(string discImagePath)
     {

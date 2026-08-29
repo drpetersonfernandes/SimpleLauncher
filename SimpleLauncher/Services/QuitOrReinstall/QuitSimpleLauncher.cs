@@ -7,17 +7,17 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Services.QuitOrReinstall;
 
 /// <summary>
-/// Handles application shutdown, restart, and update-related exit operations.
+///     Handles application shutdown, restart, and update-related exit operations.
 /// </summary>
 public class QuitSimpleLauncher
 {
-    private readonly ILogger _logger;
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly IDispatcherService _dispatcherService;
+    private readonly ILogger _logger;
     private readonly IServiceProvider _serviceProvider;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="QuitSimpleLauncher"/> class.
+    ///     Initializes a new instance of the <see cref="QuitSimpleLauncher" /> class.
     /// </summary>
     public QuitSimpleLauncher(ILogger logErrors, IApplicationLifetime applicationLifetime,
         IDispatcherService dispatcherService, IServiceProvider serviceProvider)
@@ -29,7 +29,7 @@ public class QuitSimpleLauncher
     }
 
     /// <summary>
-    /// Restarts the application by launching a new process and shutting down the current one.
+    ///     Restarts the application by launching a new process and shutting down the current one.
     /// </summary>
     public async Task RestartApplicationAsync(IMessageBoxLibraryService messageBox)
     {
@@ -66,7 +66,7 @@ public class QuitSimpleLauncher
     }
 
     /// <summary>
-    /// Shuts down the application immediately.
+    ///     Shuts down the application immediately.
     /// </summary>
     public void SimpleQuitApplication()
     {
@@ -74,7 +74,7 @@ public class QuitSimpleLauncher
     }
 
     /// <summary>
-    /// Downloads a fresh Updater.exe, launches it, and forcefully shuts down the application for an update.
+    ///     Downloads a fresh Updater.exe, launches it, and forcefully shuts down the application for an update.
     /// </summary>
     public async Task ShutdownForUpdateAsync(string updaterPath, IMessageBoxLibraryService messageBox)
     {
@@ -92,10 +92,7 @@ public class QuitSimpleLauncher
                 using var memoryStream = new MemoryStream();
                 await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
                 CheckForUpdatesService.ExtractAllFromZip(memoryStream, appDirectory, null, _logger);
-                if (File.Exists(updaterPath))
-                {
-                    downloaded = true;
-                }
+                if (File.Exists(updaterPath)) downloaded = true;
             }
         }
         catch

@@ -6,38 +6,35 @@ namespace SimpleLauncher.Core.Services.DownloadService;
 
 /// <inheritdoc />
 /// <summary>
-/// Manages the download and extraction of files with progress reporting and cancellation support.
+///     Manages the download and extraction of files with progress reporting and cancellation support.
 /// </summary>
 public class DownloadManager : IDisposable
 {
-    // Events
-    /// <summary>
-    /// Event raised when download progress changes.
-    /// </summary>
-    public event EventHandler<DownloadProgressEventArgs> DownloadProgressChanged = null!;
-
-    // Volatile backing fields for thread-safe state access across async/thread boundaries
-    private volatile bool _isDownloadCompleted;
-    private volatile bool _isUserCancellation;
-    private volatile bool _isFileLockedDuringDownload;
-
     // Constants
     private const int RetryMaxAttempts = 3;
     private const int RetryBaseDelayMs = 1000;
 
+
+    private const long DefaultRequiredSpaceBytes = 5L * 1024 * 1024 * 1024; // 5 GB
+    private readonly IDispatcherService _dispatcherService;
+    private readonly IExtractionService _extractionService;
+
     // Private fields
     private readonly HttpClient _httpClient;
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly IExtractionService _extractionService;
+    private readonly Lock _lock = new();
     private readonly ILogger _logger;
     private readonly IResourceProvider _resourceProvider;
-    private readonly IDispatcherService _dispatcherService;
     private CancellationTokenSource? _cancellationTokenSource;
-    private readonly Lock _lock = new();
     private bool _disposed;
 
+    // Volatile backing fields for thread-safe state access across async/thread boundaries
+    private volatile bool _isDownloadCompleted;
+    private volatile bool _isFileLockedDuringDownload;
+    private volatile bool _isUserCancellation;
+
     /// <summary>
-    /// Initializes a new instance of the DownloadManager.
+    ///     Initializes a new instance of the DownloadManager.
     /// </summary>
     public DownloadManager(IHttpClientFactory httpClientFactory, IExtractionService extractionService,
         ILogger logErrors, IResourceProvider resourceProvider, IDispatcherService dispatcherService)
@@ -72,7 +69,7 @@ public class DownloadManager : IDisposable
 
     // Properties
     /// <summary>
-    /// Gets a value indicating whether the download was completed successfully.
+    ///     Gets a value indicating whether the download was completed successfully.
     /// </summary>
     internal bool IsDownloadCompleted
     {
@@ -81,7 +78,7 @@ public class DownloadManager : IDisposable
     }
 
     /// <summary>
-    /// Gets a value indicating whether the download was canceled by the user.
+    ///     Gets a value indicating whether the download was canceled by the user.
     /// </summary>
     internal bool IsUserCancellation
     {
@@ -90,13 +87,63 @@ public class DownloadManager : IDisposable
     }
 
     /// <summary>
-    /// Gets the temporary folder used for downloads.
+    ///     Gets the temporary folder used for downloads.
     /// </summary>
     internal string TempFolder { get; }
 
+    /// <summary>
+    ///     Gets a value indicating whether the file was locked during the download attempt.
+    /// </summary>
+    internal bool IsFileLockedDuringDownload
+    {
+        get => _isFileLockedDuringDownload;
+        private set => _isFileLockedDuringDownload = value;
+    }
+
+    /// <summary>
+    ///     Releases all resources used by the DownloadManager, canceling any ongoing download.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        CancellationTokenSource? cts;
+        lock (_lock)
+        {
+            if (_disposed)
+                return;
+
+            _disposed = true;
+            cts = _cancellationTokenSource;
+            _cancellationTokenSource = null;
+        }
+
+        // Cancel and dispose outside the lock to prevent deadlock
+        try
+        {
+            cts?.Cancel();
+        }
+        catch (ObjectDisposedException)
+        {
+            // Ignore
+        }
+
+        cts?.Dispose();
+
+        _httpClient?.Dispose();
+
+        GC.SuppressFinalize(this);
+    }
+
+    // Events
+    /// <summary>
+    ///     Event raised when download progress changes.
+    /// </summary>
+    public event EventHandler<DownloadProgressEventArgs> DownloadProgressChanged = null!;
+
     // Methods
     /// <summary>
-    /// Cancels any ongoing download operation.
+    ///     Cancels any ongoing download operation.
     /// </summary>
     internal void CancelDownload()
     {
@@ -119,15 +166,6 @@ public class DownloadManager : IDisposable
         {
             // Ignore - the CTS was already disposed
         }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether the file was locked during the download attempt.
-    /// </summary>
-    internal bool IsFileLockedDuringDownload
-    {
-        get => _isFileLockedDuringDownload;
-        private set => _isFileLockedDuringDownload = value;
     }
 
     private void ResetCancellationToken()
@@ -154,7 +192,7 @@ public class DownloadManager : IDisposable
     }
 
     /// <summary>
-    /// Downloads a file from the specified URL to a temporary location.
+    ///     Downloads a file from the specified URL to a temporary location.
     /// </summary>
     /// <param name="downloadUrl">The URL to download from.</param>
     /// <param name="fileName">Optional custom file name to use.</param>
@@ -170,20 +208,15 @@ public class DownloadManager : IDisposable
 
         // Determine file name if not provided
         if (string.IsNullOrEmpty(fileName))
-        {
             try
             {
                 fileName = Path.GetFileName(downloadUrl);
-                if (string.IsNullOrEmpty(fileName))
-                {
-                    fileName = "download_" + Guid.NewGuid().ToString("N");
-                }
+                if (string.IsNullOrEmpty(fileName)) fileName = "download_" + Guid.NewGuid().ToString("N");
             }
             catch
             {
                 fileName = "download_" + Guid.NewGuid().ToString("N");
             }
-        }
 
         // Create temp file path
         var downloadFilePath = Path.Combine(TempFolder, fileName);
@@ -191,7 +224,6 @@ public class DownloadManager : IDisposable
         // Attempt to delete any existing file to avoid file-lock issues
         // from a previous failed or cancelled download
         if (File.Exists(downloadFilePath))
-        {
             try
             {
                 File.Delete(downloadFilePath);
@@ -200,7 +232,6 @@ public class DownloadManager : IDisposable
             {
                 // File may be locked by another process; proceed and let FileStream report the error
             }
-        }
 
         // Check disk space
         var diskSpaceCheckResult = CheckAvailableDiskSpace(TempFolder);
@@ -236,24 +267,17 @@ public class DownloadManager : IDisposable
         var currentRetry = 0;
 
         while (currentRetry <= RetryMaxAttempts && !IsUserCancellation)
-        {
             try
             {
                 await DownloadWithProgressAsync(downloadUrl, downloadFilePath, token);
 
-                if (IsDownloadCompleted)
-                {
-                    return downloadFilePath;
-                }
+                if (IsDownloadCompleted) return downloadFilePath;
 
                 currentRetry++;
             }
             catch (Exception ex) when (ex is HttpRequestException or IOException or TaskCanceledException)
             {
-                if (IsUserCancellation)
-                {
-                    return null;
-                }
+                if (IsUserCancellation) return null;
 
                 // Check for file lock specifically
                 if (ex.Message.Contains("being used by another process", StringComparison.OrdinalIgnoreCase))
@@ -291,14 +315,13 @@ public class DownloadManager : IDisposable
                     return null;
                 }
             }
-        }
 
         return null;
     }
 
 
     /// <summary>
-    /// Extracts a compressed file to the specified destination.
+    ///     Extracts a compressed file to the specified destination.
     /// </summary>
     /// <param name="filePath">The path to the compressed file.</param>
     /// <param name="destinationPath">The destination path to extract to.</param>
@@ -320,7 +343,6 @@ public class DownloadManager : IDisposable
             var result = await _extractionService.ExtractToFolderAsync(filePath, destinationPath);
 
             if (result)
-            {
                 await _dispatcherService.InvokeAsync(() =>
                 {
                     OnProgressChanged(new DownloadProgressEventArgs
@@ -329,9 +351,7 @@ public class DownloadManager : IDisposable
                         StatusMessage = GetResourceString("ExtractionCompleted", "Extraction completed successfully.")
                     });
                 });
-            }
             else
-            {
                 await _dispatcherService.InvokeAsync(() =>
                 {
                     OnProgressChanged(new DownloadProgressEventArgs
@@ -340,7 +360,6 @@ public class DownloadManager : IDisposable
                         StatusMessage = GetResourceString("ExtractionFailed", "Extraction failed.")
                     });
                 });
-            }
 
             return result;
         }
@@ -433,11 +452,8 @@ public class DownloadManager : IDisposable
         }
     }
 
-
-    private const long DefaultRequiredSpaceBytes = 5L * 1024 * 1024 * 1024; // 5 GB
-
     /// <summary>
-    /// Checks if there is enough disk space available in the specified folder.
+    ///     Checks if there is enough disk space available in the specified folder.
     /// </summary>
     private static bool? CheckAvailableDiskSpace(string folderPath, long requiredSpace = DefaultRequiredSpaceBytes)
     {
@@ -457,7 +473,7 @@ public class DownloadManager : IDisposable
     }
 
     /// <summary>
-    /// Gets a localized string from resources.
+    ///     Gets a localized string from resources.
     /// </summary>
     /// <param name="resourceKey">The resource key.</param>
     /// <param name="defaultValue">The default value if the resource is not found.</param>
@@ -468,49 +484,11 @@ public class DownloadManager : IDisposable
     }
 
     /// <summary>
-    /// Raises the DownloadProgressChanged event.
+    ///     Raises the DownloadProgressChanged event.
     /// </summary>
     /// <param name="e">The event arguments.</param>
     protected virtual void OnProgressChanged(DownloadProgressEventArgs e)
     {
         DownloadProgressChanged?.Invoke(this, e);
-    }
-
-    /// <summary>
-    /// Releases all resources used by the DownloadManager, canceling any ongoing download.
-    /// </summary>
-    public void Dispose()
-    {
-        if (_disposed)
-        {
-            return;
-        }
-
-        CancellationTokenSource? cts;
-        lock (_lock)
-        {
-            if (_disposed)
-                return;
-
-            _disposed = true;
-            cts = _cancellationTokenSource;
-            _cancellationTokenSource = null;
-        }
-
-        // Cancel and dispose outside the lock to prevent deadlock
-        try
-        {
-            cts?.Cancel();
-        }
-        catch (ObjectDisposedException)
-        {
-            // Ignore
-        }
-
-        cts?.Dispose();
-
-        _httpClient?.Dispose();
-
-        GC.SuppressFinalize(this);
     }
 }

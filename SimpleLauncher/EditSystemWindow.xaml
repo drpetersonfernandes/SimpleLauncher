@@ -123,7 +123,8 @@
                             Height="60"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            AutomationProperties.Name="{DynamicResource Help}" ToolTip="{DynamicResource TooltipHelpDeskImage}" />
+                            AutomationProperties.Name="{DynamicResource Help}"
+                            ToolTip="{DynamicResource TooltipHelpDeskImage}" />
                     </Button>
 
                     <!-- Close Button -->
@@ -175,7 +176,8 @@
                             Grid.Column="0" Grid.Row="0"
                             Margin="10,20,10,10"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource SystemImageLabel}" ToolTip="{DynamicResource TooltipSystemImageLabel}" />
+                            Content="{DynamicResource SystemImageLabel}"
+                            ToolTip="{DynamicResource TooltipSystemImageLabel}" />
                         <Border Grid.Column="1" Grid.Row="0"
                                 VerticalAlignment="Stretch"
                                 HorizontalAlignment="Left"
@@ -212,8 +214,8 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource SystemNameRequired}" ToolTip="{DynamicResource TooltipSystemNameRequiredLabel}">
-                        </Label>
+                            Content="{DynamicResource SystemNameRequired}"
+                            ToolTip="{DynamicResource TooltipSystemNameRequiredLabel}" />
                         <TextBox
                             Margin="0,20,10,10"
                             x:Name="SystemNameTextBox"
@@ -231,8 +233,8 @@
                             Grid.Row="2"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource SystemFolderRequired}" ToolTip="{DynamicResource TooltipSystemFolderRequiredLabel}">
-                        </Label>
+                            Content="{DynamicResource SystemFolderRequired}"
+                            ToolTip="{DynamicResource TooltipSystemFolderRequiredLabel}" />
                         <TextBox
                             Margin="0,0,10,10"
                             x:Name="SystemFolderTextBox"
@@ -253,16 +255,23 @@
                             ToolTip="{DynamicResource TooltipChooseSystemFolder}" />
 
                         <!-- Additional System Folders -->
-                        <Expander x:Name="AdditionalFoldersExpander" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Header="{DynamicResource AdditionalSystemFoldersOptional}" Margin="10" IsExpanded="True" ToolTip="{DynamicResource TooltipAdditionalFoldersExpander}">
+                        <Expander x:Name="AdditionalFoldersExpander" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                                  Header="{DynamicResource AdditionalSystemFoldersOptional}" Margin="10"
+                                  IsExpanded="True" ToolTip="{DynamicResource TooltipAdditionalFoldersExpander}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <ListBox x:Name="AdditionalFoldersListBox" Margin="5" IsEnabled="False" ToolTip="{DynamicResource TooltipAddAdditionalFolder2}" />
+                                <ListBox x:Name="AdditionalFoldersListBox" Margin="5" IsEnabled="False"
+                                         ToolTip="{DynamicResource TooltipAddAdditionalFolder2}" />
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <Button x:Name="AddFolderButton" Content="{DynamicResource Add}" Margin="5" Click="AddFolderButton_Click" IsEnabled="False" ToolTip="{DynamicResource TooltipAddAdditionalFolder2}" />
-                                    <Button x:Name="RemoveFolderButton" Content="{DynamicResource Remove}" Margin="5" Click="RemoveFolderButton_Click" IsEnabled="False" ToolTip="{DynamicResource TooltipRemoveAdditionalFolder2}" />
+                                    <Button x:Name="AddFolderButton" Content="{DynamicResource Add}" Margin="5"
+                                            Click="AddFolderButton_Click" IsEnabled="False"
+                                            ToolTip="{DynamicResource TooltipAddAdditionalFolder2}" />
+                                    <Button x:Name="RemoveFolderButton" Content="{DynamicResource Remove}" Margin="5"
+                                            Click="RemoveFolderButton_Click" IsEnabled="False"
+                                            ToolTip="{DynamicResource TooltipRemoveAdditionalFolder2}" />
                                 </StackPanel>
                             </Grid>
                         </Expander>
@@ -273,8 +282,8 @@
                             Grid.Row="4"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource SystemImageFolderOptional}" ToolTip="{DynamicResource TooltipSystemImageFolderOptionalLabel}">
-                        </Label>
+                            Content="{DynamicResource SystemImageFolderOptional}"
+                            ToolTip="{DynamicResource TooltipSystemImageFolderOptionalLabel}" />
                         <TextBox
                             Margin="0,0,10,10"
                             x:Name="SystemImageFolderTextBox"
@@ -300,8 +309,8 @@
                             Grid.Row="5"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource ExtensiontoSearchintheSystemFolderRequired}" ToolTip="{DynamicResource TooltipExtensionSearchRequiredLabel}">
-                        </Label>
+                            Content="{DynamicResource ExtensiontoSearchintheSystemFolderRequired}"
+                            ToolTip="{DynamicResource TooltipExtensionSearchRequiredLabel}" />
                         <TextBox
                             Margin="0,0,10,10"
                             x:Name="FormatToSearchTextBox"
@@ -315,8 +324,8 @@
                             Grid.Row="5"
                             Grid.Column="2"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource Useacommatoaddmultipleextensions}" ToolTip="{DynamicResource TooltipMultipleExtensionsLabel}">
-                        </Label>
+                            Content="{DynamicResource Useacommatoaddmultipleextensions}"
+                            ToolTip="{DynamicResource TooltipMultipleExtensionsLabel}" />
 
                         <!-- Extract File Before Launch -->
                         <Label
@@ -324,7 +333,8 @@
                             Grid.Row="6"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource ExtractFileBeforeLaunch}" ToolTip="{DynamicResource TooltipExtractFileBeforeLaunchLabel}" />
+                            Content="{DynamicResource ExtractFileBeforeLaunch}"
+                            ToolTip="{DynamicResource TooltipExtractFileBeforeLaunchLabel}" />
                         <ComboBox
                             Margin="0,0,10,10"
                             x:Name="ExtractFileBeforeLaunchComboBox"
@@ -343,8 +353,8 @@
                             Grid.Row="7"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource ExtensiontoLaunchAfterExtractionMaybeRequired}" ToolTip="{DynamicResource TooltipExtensionLaunchLabel}">
-                        </Label>
+                            Content="{DynamicResource ExtensiontoLaunchAfterExtractionMaybeRequired}"
+                            ToolTip="{DynamicResource TooltipExtensionLaunchLabel}" />
                         <TextBox
                             Margin="0,0,10,10"
                             x:Name="FormatToLaunchTextBox"
@@ -358,8 +368,8 @@
                             Grid.Row="7"
                             Grid.Column="2"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource Useacommatoaddmultipleextensions}" ToolTip="{DynamicResource TooltipMultipleExtensionsLabel}">
-                        </Label>
+                            Content="{DynamicResource Useacommatoaddmultipleextensions}"
+                            ToolTip="{DynamicResource TooltipMultipleExtensionsLabel}" />
 
                         <!-- Group Files by Folder -->
                         <Label
@@ -367,8 +377,8 @@
                             Grid.Row="8"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource GroupFilesByFolder}" ToolTip="{DynamicResource TooltipGroupFilesByFolderLabel}">
-                        </Label>
+                            Content="{DynamicResource GroupFilesByFolder}"
+                            ToolTip="{DynamicResource TooltipGroupFilesByFolderLabel}" />
                         <ComboBox
                             Margin="0,0,10,10"
                             x:Name="GroupByFolderComboBox"
@@ -387,7 +397,8 @@
                             Grid.Row="9"
                             Grid.Column="0"
                             VerticalAlignment="Center"
-                            Content="{DynamicResource DisableRecursiveSearch}" ToolTip="{DynamicResource TooltipDisableRecursiveSearchLabel}" />
+                            Content="{DynamicResource DisableRecursiveSearch}"
+                            ToolTip="{DynamicResource TooltipDisableRecursiveSearchLabel}" />
                         <ComboBox
                             Margin="0,0,10,10"
                             x:Name="DisableRecursiveSearchComboBox"
@@ -401,7 +412,9 @@
                         </ComboBox>
 
                         <!-- Emulator 1 -->
-                        <Expander x:Name="Emulator1Expander" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator1}" IsExpanded="True" ToolTip="{DynamicResource TooltipEmulator1Expander}">
+                        <Expander x:Name="Emulator1Expander" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3"
+                                  Margin="10" Header="{DynamicResource Emulator1}" IsExpanded="True"
+                                  ToolTip="{DynamicResource TooltipEmulator1Expander}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -419,8 +432,8 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator1NameRequired}" ToolTip="{DynamicResource TooltipEmulator1NameLabel}">
-                                </Label>
+                                    Content="{DynamicResource Emulator1NameRequired}"
+                                    ToolTip="{DynamicResource TooltipEmulator1NameLabel}" />
                                 <TextBox
                                     Margin="0,10,10,10"
                                     x:Name="Emulator1NameTextBox"
@@ -434,7 +447,8 @@
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator1Path}" ToolTip="{DynamicResource TooltipEmulator1PathLabel}" />
+                                    Content="{DynamicResource Emulator1Path}"
+                                    ToolTip="{DynamicResource TooltipEmulator1PathLabel}" />
                                 <TextBox
                                     Margin="0,0,10,10"
                                     x:Name="Emulator1PathTextBox"
@@ -459,7 +473,8 @@
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator1Parameters}" ToolTip="{DynamicResource TooltipEmulator1ParametersLabel}" />
+                                    Content="{DynamicResource Emulator1Parameters}"
+                                    ToolTip="{DynamicResource TooltipEmulator1ParametersLabel}" />
                                 <TextBox
                                     Margin="0,0,10,10"
                                     x:Name="Emulator1ParametersTextBox"
@@ -484,7 +499,8 @@
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}" ToolTip="{DynamicResource TooltipEmulator1NotificationLabel}" />
+                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}"
+                                    ToolTip="{DynamicResource TooltipEmulator1NotificationLabel}" />
                                 <ComboBox
                                     Margin="0,0,10,10"
                                     x:Name="ReceiveANotificationOnEmulatorError1"
@@ -501,7 +517,9 @@
                         </Expander>
 
                         <!-- Emulator 2 -->
-                        <Expander x:Name="Emulator2Expander" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator2}" IsExpanded="True" ToolTip="{DynamicResource TooltipEmulator2Expander}">
+                        <Expander x:Name="Emulator2Expander" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3"
+                                  Margin="10" Header="{DynamicResource Emulator2}" IsExpanded="True"
+                                  ToolTip="{DynamicResource TooltipEmulator2Expander}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -519,8 +537,8 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator2NameMaybeRequired}" ToolTip="{DynamicResource TooltipEmulator2NameLabel}">
-                                </Label>
+                                    Content="{DynamicResource Emulator2NameMaybeRequired}"
+                                    ToolTip="{DynamicResource TooltipEmulator2NameLabel}" />
                                 <TextBox
                                     Margin="0,10,10,10"
                                     x:Name="Emulator2NameTextBox"
@@ -534,7 +552,8 @@
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator2Path}" ToolTip="{DynamicResource TooltipEmulator2PathLabel}" />
+                                    Content="{DynamicResource Emulator2Path}"
+                                    ToolTip="{DynamicResource TooltipEmulator2PathLabel}" />
                                 <TextBox
                                     Margin="0,0,10,10"
                                     x:Name="Emulator2PathTextBox"
@@ -559,7 +578,8 @@
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator2Parameters}" ToolTip="{DynamicResource TooltipEmulator2ParametersLabel}" />
+                                    Content="{DynamicResource Emulator2Parameters}"
+                                    ToolTip="{DynamicResource TooltipEmulator2ParametersLabel}" />
                                 <TextBox
                                     Margin="0,0,10,10"
                                     x:Name="Emulator2ParametersTextBox"
@@ -584,7 +604,8 @@
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}" ToolTip="{DynamicResource TooltipEmulator2NotificationLabel}" />
+                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}"
+                                    ToolTip="{DynamicResource TooltipEmulator2NotificationLabel}" />
                                 <ComboBox
                                     Margin="0,0,10,10"
                                     x:Name="ReceiveANotificationOnEmulatorError2"
@@ -600,7 +621,9 @@
                         </Expander>
 
                         <!-- Emulator 3 -->
-                        <Expander x:Name="Emulator3Expander" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator3}" IsExpanded="True" ToolTip="{DynamicResource TooltipEmulator3Expander}">
+                        <Expander x:Name="Emulator3Expander" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3"
+                                  Margin="10" Header="{DynamicResource Emulator3}" IsExpanded="True"
+                                  ToolTip="{DynamicResource TooltipEmulator3Expander}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -618,8 +641,8 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator3NameMaybeRequired}" ToolTip="{DynamicResource TooltipEmulator3NameLabel}">
-                                </Label>
+                                    Content="{DynamicResource Emulator3NameMaybeRequired}"
+                                    ToolTip="{DynamicResource TooltipEmulator3NameLabel}" />
                                 <TextBox
                                     Margin="0,10,10,10"
                                     x:Name="Emulator3NameTextBox"
@@ -633,7 +656,8 @@
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator3Path}" ToolTip="{DynamicResource TooltipEmulator3PathLabel}" />
+                                    Content="{DynamicResource Emulator3Path}"
+                                    ToolTip="{DynamicResource TooltipEmulator3PathLabel}" />
                                 <TextBox
                                     Margin="0,0,10,10"
                                     x:Name="Emulator3PathTextBox"
@@ -658,7 +682,8 @@
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator3Parameters}" ToolTip="{DynamicResource TooltipEmulator3ParametersLabel}" />
+                                    Content="{DynamicResource Emulator3Parameters}"
+                                    ToolTip="{DynamicResource TooltipEmulator3ParametersLabel}" />
                                 <TextBox
                                     Margin="0,0,10,10"
                                     x:Name="Emulator3ParametersTextBox"
@@ -683,7 +708,8 @@
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}" ToolTip="{DynamicResource TooltipEmulator3NotificationLabel}" />
+                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}"
+                                    ToolTip="{DynamicResource TooltipEmulator3NotificationLabel}" />
                                 <ComboBox
                                     Margin="0,0,10,10"
                                     x:Name="ReceiveANotificationOnEmulatorError3"
@@ -699,7 +725,9 @@
                         </Expander>
 
                         <!-- Emulator 4 -->
-                        <Expander x:Name="Emulator4Expander" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator4}" IsExpanded="True" ToolTip="{DynamicResource TooltipEmulator4Expander}">
+                        <Expander x:Name="Emulator4Expander" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3"
+                                  Margin="10" Header="{DynamicResource Emulator4}" IsExpanded="True"
+                                  ToolTip="{DynamicResource TooltipEmulator4Expander}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -717,8 +745,8 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator4NameMaybeRequired}" ToolTip="{DynamicResource TooltipEmulator4NameLabel}">
-                                </Label>
+                                    Content="{DynamicResource Emulator4NameMaybeRequired}"
+                                    ToolTip="{DynamicResource TooltipEmulator4NameLabel}" />
                                 <TextBox
                                     Margin="0,10,10,10"
                                     x:Name="Emulator4NameTextBox"
@@ -732,7 +760,8 @@
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator4Path}" ToolTip="{DynamicResource TooltipEmulator4PathLabel}" />
+                                    Content="{DynamicResource Emulator4Path}"
+                                    ToolTip="{DynamicResource TooltipEmulator4PathLabel}" />
                                 <TextBox
                                     Margin="0,0,10,10"
                                     x:Name="Emulator4PathTextBox"
@@ -757,7 +786,8 @@
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator4Parameters}" ToolTip="{DynamicResource TooltipEmulator4ParametersLabel}" />
+                                    Content="{DynamicResource Emulator4Parameters}"
+                                    ToolTip="{DynamicResource TooltipEmulator4ParametersLabel}" />
                                 <TextBox
                                     Margin="0,0,10,10"
                                     x:Name="Emulator4ParametersTextBox"
@@ -782,7 +812,8 @@
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}" ToolTip="{DynamicResource TooltipEmulator4NotificationLabel}" />
+                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}"
+                                    ToolTip="{DynamicResource TooltipEmulator4NotificationLabel}" />
                                 <ComboBox
                                     Margin="0,0,10,10"
                                     x:Name="ReceiveANotificationOnEmulatorError4"
@@ -798,7 +829,9 @@
                         </Expander>
 
                         <!-- Emulator 5 -->
-                        <Expander x:Name="Emulator5Expander" Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator5}" IsExpanded="True" ToolTip="{DynamicResource TooltipEmulator5Expander}">
+                        <Expander x:Name="Emulator5Expander" Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="3"
+                                  Margin="10" Header="{DynamicResource Emulator5}" IsExpanded="True"
+                                  ToolTip="{DynamicResource TooltipEmulator5Expander}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -816,8 +849,8 @@
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator5NameMaybeRequired}" ToolTip="{DynamicResource TooltipEmulator5NameLabel}">
-                                </Label>
+                                    Content="{DynamicResource Emulator5NameMaybeRequired}"
+                                    ToolTip="{DynamicResource TooltipEmulator5NameLabel}" />
                                 <TextBox
                                     Margin="0,10,10,10"
                                     x:Name="Emulator5NameTextBox"
@@ -831,7 +864,8 @@
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator5Path}" ToolTip="{DynamicResource TooltipEmulator5PathLabel}" />
+                                    Content="{DynamicResource Emulator5Path}"
+                                    ToolTip="{DynamicResource TooltipEmulator5PathLabel}" />
                                 <TextBox
                                     Margin="0,0,10,10"
                                     x:Name="Emulator5PathTextBox"
@@ -856,7 +890,8 @@
                                     Grid.Row="2"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource Emulator5Parameters}" ToolTip="{DynamicResource TooltipEmulator5ParametersLabel}" />
+                                    Content="{DynamicResource Emulator5Parameters}"
+                                    ToolTip="{DynamicResource TooltipEmulator5ParametersLabel}" />
                                 <TextBox
                                     Margin="0,0,10,10"
                                     x:Name="Emulator5ParametersTextBox"
@@ -881,7 +916,8 @@
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     VerticalAlignment="Center"
-                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}" ToolTip="{DynamicResource TooltipEmulator5NotificationLabel}" />
+                                    Content="{DynamicResource ReceiveANotificationOnEmulatorError}"
+                                    ToolTip="{DynamicResource TooltipEmulator5NotificationLabel}" />
                                 <ComboBox
                                     Margin="0,0,10,10"
                                     x:Name="ReceiveANotificationOnEmulatorError5"
@@ -922,7 +958,8 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     FontWeight="Bold"
-                    Content="{DynamicResource DeveloperSuggestion}" ToolTip="{DynamicResource TooltipDeveloperSuggestionLabel}" />
+                    Content="{DynamicResource DeveloperSuggestion}"
+                    ToolTip="{DynamicResource TooltipDeveloperSuggestionLabel}" />
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <RichTextBox
                         x:Name="HelpUserTextBlock"

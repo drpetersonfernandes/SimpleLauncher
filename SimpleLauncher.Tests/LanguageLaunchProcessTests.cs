@@ -11,10 +11,8 @@ public class LanguageLaunchProcessTests
     [Fact]
     public async Task Launch_AllSupportedLanguages_Succeeds()
     {
-        if (Process.GetProcessesByName("SimpleLauncher").Length > 0)
-        {
-            return; // an instance is already running — the single-instance mutex would interfere
-        }
+        if (Process.GetProcessesByName("SimpleLauncher").Length >
+            0) return; // an instance is already running — the single-instance mutex would interfere
 
         var exe = LanguageLaunchTestsBase.FindAppExecutable();
 
@@ -43,10 +41,7 @@ public class LanguageLaunchProcessTests
     [Fact]
     public async Task Launch_UnsupportedLanguage_FallsBackToEnglish()
     {
-        if (Process.GetProcessesByName("SimpleLauncher").Length > 0)
-        {
-            return;
-        }
+        if (Process.GetProcessesByName("SimpleLauncher").Length > 0) return;
 
         var exe = LanguageLaunchTestsBase.FindAppExecutable();
         var failedBefore = LanguageLaunchTestsBase.CountLogMarker(FailedToApplyMarker);
@@ -70,17 +65,10 @@ public class LanguageLaunchProcessTests
         }
     }
 
-    private enum Outcome
-    {
-        Success,
-        FellBackToEnglish,
-        ProcessExited
-    }
-
     /// <summary>
-    /// Waits until the app either logs a language failure (fallback markers), exits,
-    /// or has been running stably for <paramref name="settleTime"/> with no markers
-    /// (success) — whichever comes first.
+    ///     Waits until the app either logs a language failure (fallback markers), exits,
+    ///     or has been running stably for <paramref name="settleTime" /> with no markers
+    ///     (success) — whichever comes first.
     /// </summary>
     private static async Task<Outcome> WaitForOutcomeAsync(Process process, int failedBefore, int fallbackBefore,
         TimeSpan settleTime)
@@ -89,21 +77,14 @@ public class LanguageLaunchProcessTests
         var deadline = started.AddSeconds(40);
         while (DateTime.UtcNow < deadline)
         {
-            if (process.HasExited)
-            {
-                return Outcome.ProcessExited;
-            }
+            if (process.HasExited) return Outcome.ProcessExited;
 
             if (LanguageLaunchTestsBase.CountLogMarker(FailedToApplyMarker) > failedBefore ||
                 LanguageLaunchTestsBase.CountLogMarker(FallbackMarker) > fallbackBefore)
-            {
                 return Outcome.FellBackToEnglish;
-            }
 
             if (DateTime.UtcNow - started > settleTime)
-            {
                 return Outcome.Success; // app stable for the settle period with no language failure
-            }
 
             await Task.Delay(300);
         }
@@ -127,7 +108,7 @@ public class LanguageLaunchProcessTests
         {
             if (!process.HasExited)
             {
-                process.Kill(entireProcessTree: true);
+                process.Kill(true);
                 process.WaitForExit(5000);
             }
         }
@@ -135,5 +116,12 @@ public class LanguageLaunchProcessTests
         {
             // already gone
         }
+    }
+
+    private enum Outcome
+    {
+        Success,
+        FellBackToEnglish,
+        ProcessExited
     }
 }

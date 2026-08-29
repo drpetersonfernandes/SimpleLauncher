@@ -1,17 +1,25 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.TrayIcon;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 /// <summary>
-/// Partial MainWindow implementing host interfaces for startup initialization, theming, language, status bar, and tray icon.
+///     Partial MainWindow implementing host interfaces for startup initialization, theming, language, status bar, and tray
+///     icon.
 /// </summary>
 public partial class MainWindow
 {
+    // ILanguageMenuHost
+    MenuItem? ILanguageMenuHost.FindMenuItemByName(string name)
+    {
+        return FindName(name) as MenuItem;
+    }
+
+    IUpdateStatusBar ILanguageMenuHost.UpdateStatusBarService => UpdateStatusBarService;
+
     // IStartupInitializationHost
     DispatcherTimer? IStartupInitializationHost.StatusBarTimer
     {
@@ -40,22 +48,14 @@ public partial class MainWindow
         SetTrayIconManager(manager);
     }
 
+    // IStatusBarHost
+    Dispatcher IStatusBarHost.Dispatcher => Dispatcher;
+    Label IStatusBarHost.StatusBarText => StatusBarText;
+    DispatcherTimer? IStatusBarHost.StatusBarTimer => StatusBarTimer;
+
     // IThemeMenuHost
     MenuItem? IThemeMenuHost.FindMenuItemByName(string name)
     {
         return FindName(name) as MenuItem;
     }
-
-    // ILanguageMenuHost
-    MenuItem? ILanguageMenuHost.FindMenuItemByName(string name)
-    {
-        return FindName(name) as MenuItem;
-    }
-
-    IUpdateStatusBar ILanguageMenuHost.UpdateStatusBarService => UpdateStatusBarService;
-
-    // IStatusBarHost
-    Dispatcher IStatusBarHost.Dispatcher => Dispatcher;
-    Label IStatusBarHost.StatusBarText => StatusBarText;
-    DispatcherTimer? IStatusBarHost.StatusBarTimer => StatusBarTimer;
 }

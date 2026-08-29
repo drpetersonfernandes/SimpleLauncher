@@ -6,24 +6,24 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the Daphne emulator configuration injection window.
+///     ViewModel for the Daphne emulator configuration injection window.
 /// </summary>
 public partial class InjectDaphneConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
-    private readonly IMessageBoxLibraryService _messageBox;
     private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
+    [ObservableProperty] private bool _daphneBilinear;
+    [ObservableProperty] private bool _daphneDisableCrosshairs;
+    [ObservableProperty] private bool _daphneEnableSound;
 
     [ObservableProperty] private bool _daphneFullscreen;
-    [ObservableProperty] private bool _daphneBilinear;
     [ObservableProperty] private int _daphneResX;
     [ObservableProperty] private int _daphneResY;
-    [ObservableProperty] private bool _daphneEnableSound;
-    [ObservableProperty] private bool _daphneDisableCrosshairs;
-    [ObservableProperty] private bool _daphneUseOverlays;
     [ObservableProperty] private bool _daphneShowSettingsBeforeLaunch;
+    [ObservableProperty] private bool _daphneUseOverlays;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectDaphneConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectDaphneConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logErrors">The logger instance.</param>
@@ -36,7 +36,17 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the launcher mode.
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the launcher mode.
     /// </summary>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
     public void Initialize(bool isLauncherMode)
@@ -46,17 +56,7 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 

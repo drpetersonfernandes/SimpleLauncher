@@ -8,20 +8,20 @@ using SimpleLauncher.Avalonia.Services.SystemSelectionOrchestrator;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the Avalonia SystemSelectionOrchestratorService: verifies system.xml
-/// loading into the combo box, system selection coordination, and the full
-/// ReloadAfterConfigurationChangeAsync flow (WPF SystemSelectionOrchestratorService parity).
+///     Tests for the Avalonia SystemSelectionOrchestratorService: verifies system.xml
+///     loading into the combo box, system selection coordination, and the full
+///     ReloadAfterConfigurationChangeAsync flow (WPF SystemSelectionOrchestratorService parity).
 /// </summary>
 public class AvaloniaSystemSelectionOrchestratorServiceTests : IDisposable
 {
-    private readonly string _tempRoot = Path.Combine(Path.GetTempPath(), $"SL_SysOrch_{Guid.NewGuid():N}");
-    private readonly string _systemXmlPath;
     private readonly IConfiguration _config;
     private readonly Mock<ISystemSelectionHost> _host;
-    private readonly Mock<ILogger> _logger;
-    private readonly SystemManagerService _systemManager;
     private readonly AvaloniaGameFileLoadingOrchestrator _loadingOrchestrator;
+    private readonly Mock<ILogger> _logger;
     private readonly AvaloniaSystemSelectionOrchestratorService _service;
+    private readonly SystemManagerService _systemManager;
+    private readonly string _systemXmlPath;
+    private readonly string _tempRoot = Path.Combine(Path.GetTempPath(), $"SL_SysOrch_{Guid.NewGuid():N}");
 
     public AvaloniaSystemSelectionOrchestratorServiceTests()
     {
@@ -99,7 +99,7 @@ public class AvaloniaSystemSelectionOrchestratorServiceTests : IDisposable
         try
         {
             if (Directory.Exists(_tempRoot))
-                Directory.Delete(_tempRoot, recursive: true);
+                Directory.Delete(_tempRoot, true);
         }
         catch
         {

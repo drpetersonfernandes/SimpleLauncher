@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Linq;
 using SimpleLauncher.Tests.TestHelpers;
@@ -6,10 +7,10 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Treats strings.en.xaml as the master resource file. Any key present in a
-/// non-English resource file that is missing from the English file is
-/// automatically deleted. After cleanup, every file should have exactly the
-/// same number of keys as the English base file.
+///     Treats strings.en.xaml as the master resource file. Any key present in a
+///     non-English resource file that is missing from the English file is
+///     automatically deleted. After cleanup, every file should have exactly the
+///     same number of keys as the English base file.
 /// </summary>
 [SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class DetectResourceKeyCountMismatchTests
@@ -17,8 +18,8 @@ public class DetectResourceKeyCountMismatchTests
     private static readonly XNamespace XNamespace = "http://schemas.microsoft.com/winfx/2006/xaml";
 
     /// <summary>
-    /// Removes extra keys from non-English resource files so they match the
-    /// English base file, then asserts that all files have the same key count.
+    ///     Removes extra keys from non-English resource files so they match the
+    ///     English base file, then asserts that all files have the same key count.
     /// </summary>
     [Fact]
     public void AllLanguageFilesShouldHaveSameKeyCountAsEnglish()
@@ -44,10 +45,8 @@ public class DetectResourceKeyCountMismatchTests
         {
             var removed = DeleteExtraKeys(file, englishKeys);
             if (removed.Count > 0)
-            {
-                System.Diagnostics.Trace.WriteLine(
+                Trace.WriteLine(
                     $"Removed extra keys from {Path.GetFileName(file)}: {string.Join(", ", removed)}");
-            }
         }
 
         // Verify all files now have the same key count as English.
@@ -76,9 +75,9 @@ public class DetectResourceKeyCountMismatchTests
     }
 
     /// <summary>
-    /// Removes every element whose x:Key value is not present in the supplied
-    /// <paramref name="englishKeys"/> set. Returns the list of keys that were
-    /// removed.
+    ///     Removes every element whose x:Key value is not present in the supplied
+    ///     <paramref name="englishKeys" /> set. Returns the list of keys that were
+    ///     removed.
     /// </summary>
     private static List<string> DeleteExtraKeys(string filePath, HashSet<string> englishKeys)
     {

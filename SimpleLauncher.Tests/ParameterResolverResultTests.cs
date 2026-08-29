@@ -4,13 +4,13 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="ParameterResolverResult"/> model property defaults,
-/// setters, special characters, multiline values, and instance independence.
+///     Tests for <see cref="ParameterResolverResult" /> model property defaults,
+///     setters, special characters, multiline values, and instance independence.
 /// </summary>
 public class ParameterResolverResultTests
 {
     /// <summary>
-    /// Verifies that the default SuggestedParameter is an empty string.
+    ///     Verifies that the default SuggestedParameter is an empty string.
     /// </summary>
     [Fact]
     public void DefaultSuggestedParameterIsEmpty()
@@ -20,7 +20,7 @@ public class ParameterResolverResultTests
     }
 
     /// <summary>
-    /// Verifies that the default Explanation is null.
+    ///     Verifies that the default Explanation is null.
     /// </summary>
     [Fact]
     public void DefaultExplanationIsNull()
@@ -30,7 +30,7 @@ public class ParameterResolverResultTests
     }
 
     /// <summary>
-    /// Verifies that SuggestedParameter can be set and retrieved.
+    ///     Verifies that SuggestedParameter can be set and retrieved.
     /// </summary>
     [Fact]
     public void SuggestedParameterCanBeSet()
@@ -40,7 +40,7 @@ public class ParameterResolverResultTests
     }
 
     /// <summary>
-    /// Verifies that Explanation can be set and retrieved.
+    ///     Verifies that Explanation can be set and retrieved.
     /// </summary>
     [Fact]
     public void ExplanationCanBeSet()
@@ -50,7 +50,7 @@ public class ParameterResolverResultTests
     }
 
     /// <summary>
-    /// Verifies that both properties can be set together via object initializer.
+    ///     Verifies that both properties can be set together via object initializer.
     /// </summary>
     [Fact]
     public void BothPropertiesCanBeSetTogether()
@@ -66,7 +66,7 @@ public class ParameterResolverResultTests
     }
 
     /// <summary>
-    /// Verifies that SuggestedParameter supports special characters such as paths and DLL names.
+    ///     Verifies that SuggestedParameter supports special characters such as paths and DLL names.
     /// </summary>
     [Fact]
     public void SuggestedParameterSupportsSpecialCharacters()
@@ -80,7 +80,7 @@ public class ParameterResolverResultTests
     }
 
     /// <summary>
-    /// Verifies that Explanation supports multiline strings with newline characters.
+    ///     Verifies that Explanation supports multiline strings with newline characters.
     /// </summary>
     [Fact]
     public void ExplanationSupportsMultiline()
@@ -94,7 +94,7 @@ public class ParameterResolverResultTests
     }
 
     /// <summary>
-    /// Verifies that multiple instances maintain independent property values.
+    ///     Verifies that multiple instances maintain independent property values.
     /// </summary>
     [Fact]
     public void CanCreateMultipleInstances()

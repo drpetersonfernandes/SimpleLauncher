@@ -1,4 +1,5 @@
 using System.IO.Compression;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using Moq;
@@ -9,10 +10,10 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for <see cref="AvaloniaCheckForUpdatesService"/> (Phase 3 service).
-/// All HTTP traffic is served by a fake HttpMessageHandler, so no live endpoints are hit.
-/// The updater launch flow is exercised against an isolated temp directory — the real
-/// updater shipped in the application output is never launched.
+///     Tests for <see cref="AvaloniaCheckForUpdatesService" /> (Phase 3 service).
+///     All HTTP traffic is served by a fake HttpMessageHandler, so no live endpoints are hit.
+///     The updater launch flow is exercised against an isolated temp directory — the real
+///     updater shipped in the application output is never launched.
 /// </summary>
 public class AvaloniaCheckForUpdatesServiceTests : IDisposable
 {
@@ -20,6 +21,18 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         Path.GetTempPath(), "SimpleLauncherUpdateTests", Guid.NewGuid().ToString("N"));
 
     private static string Rid => AvaloniaCheckForUpdatesService.CurrentRuntimeIdentifier;
+
+    public void Dispose()
+    {
+        try
+        {
+            if (Directory.Exists(_updaterDir)) Directory.Delete(_updaterDir, true);
+        }
+        catch
+        {
+            // Temp cleanup best-effort
+        }
+    }
 
     private static string GitHubReleaseJson(string versionTag, params string[] assetNames)
     {
@@ -64,7 +77,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
 
     private static HttpResponseMessage Json(string content, int status = 200)
     {
-        return new HttpResponseMessage((System.Net.HttpStatusCode)status)
+        return new HttpResponseMessage((HttpStatusCode)status)
         {
             Content = new StringContent(content, Encoding.UTF8, "application/json")
         };
@@ -72,7 +85,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
 
     private static HttpResponseMessage Text(string content, int status = 200)
     {
-        return new HttpResponseMessage((System.Net.HttpStatusCode)status)
+        return new HttpResponseMessage((HttpStatusCode)status)
         {
             Content = new StringContent(content, Encoding.UTF8, "text/plain")
         };
@@ -80,7 +93,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
 
     private static HttpResponseMessage Zip(byte[] bytes, int status = 200)
     {
-        return new HttpResponseMessage((System.Net.HttpStatusCode)status)
+        return new HttpResponseMessage((HttpStatusCode)status)
         {
             Content = new ByteArrayContent(bytes)
         };
@@ -89,7 +102,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
     private static byte[] CreateZip(params (string EntryName, byte[] Content)[] entries)
     {
         using var ms = new MemoryStream();
-        using (var archive = new ZipArchive(ms, ZipArchiveMode.Create, leaveOpen: true))
+        using (var archive = new ZipArchive(ms, ZipArchiveMode.Create, true))
         {
             foreach (var (entryName, content) in entries)
             {
@@ -102,36 +115,22 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         return ms.ToArray();
     }
 
-    public void Dispose()
-    {
-        try
-        {
-            if (Directory.Exists(_updaterDir)) Directory.Delete(_updaterDir, true);
-        }
-        catch
-        {
-            // Temp cleanup best-effort
-        }
-    }
-
     [Fact]
     public async Task ManualCheck_NewerVersionOnGitHub_UserAccepts_UpdaterDownloadFails_GuidesToManualDownload()
     {
         var (service, messageBox, lifetime) = CreateService(request =>
         {
             if (request.RequestUri!.Host.StartsWith("api.github.com", StringComparison.Ordinal))
-            {
                 return Json(LatestReleaseAssetsJson("v9.9.9"));
-            }
 
             // Updater zip download fails
-            return new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
+            return new HttpResponseMessage(HttpStatusCode.NotFound);
         });
 
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.Yes);
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         messageBox.Verify(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"), Times.Once);
         messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Once);
@@ -145,9 +144,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         var (service, messageBox, lifetime) = CreateService(request =>
         {
             if (request.RequestUri!.Host.StartsWith("api.github.com", StringComparison.Ordinal))
-            {
                 return Json(LatestReleaseAssetsJson("v9.9.9"));
-            }
 
             return Zip(CreateZip(("dir/", [])));
         });
@@ -155,7 +152,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.Yes);
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Once);
         lifetime.Verify(m => m.Shutdown(), Times.Never);
@@ -167,9 +164,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         var (service, messageBox, lifetime) = CreateService(request =>
         {
             if (request.RequestUri!.Host.StartsWith("api.github.com", StringComparison.Ordinal))
-            {
                 return Json(LatestReleaseAssetsJson("v9.9.9"));
-            }
 
             // A valid zip carrying a broken "updater" executable — extraction succeeds,
             // the launch attempt then fails (not a valid executable).
@@ -181,7 +176,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.Yes);
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         // The updater was extracted next to the (test) app directory
         Assert.True(File.Exists(Path.Combine(_updaterDir, AvaloniaCheckForUpdatesService.UpdaterExecutableName)));
@@ -204,7 +199,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.Yes);
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         messageBox.Verify(m => m.UpdaterLaunchFailedMessageBoxAsync(), Times.Once);
         messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Never);
@@ -217,9 +212,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         var (service, messageBox, lifetime) = CreateService(request =>
         {
             if (request.RequestUri!.Host.StartsWith("api.github.com", StringComparison.Ordinal))
-            {
                 return Json(LatestReleaseAssetsJson("v9.9.9"));
-            }
 
             return Zip(CreateZip(("../evil.txt", "pwned"u8.ToArray())));
         });
@@ -227,7 +220,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.Yes);
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         // The traversal entry must never be written outside the updater directory
         Assert.False(File.Exists(Path.Combine(Path.GetDirectoryName(_updaterDir)!, "evil.txt")));
@@ -244,7 +237,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.Yes);
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Once);
         lifetime.Verify(m => m.Shutdown(), Times.Never);
@@ -259,7 +252,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.No);
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         messageBox.Verify(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"), Times.Once);
         messageBox.Verify(m => m.InstallUpdateManuallyMessageBoxAsync(), Times.Never);
@@ -273,7 +266,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         var (service, messageBox, _) = CreateService(_ =>
             Json(LatestReleaseAssetsJson("v5.6.1")));
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         messageBox.Verify(m => m.ThereIsNoUpdateAvailableMessageBoxAsync(It.IsAny<string>()), Times.Once);
         messageBox.Verify(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
@@ -286,14 +279,9 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         {
             var uri = request.RequestUri!;
             if (uri.Host.StartsWith("api.github.com", StringComparison.Ordinal))
-            {
-                return new HttpResponseMessage(System.Net.HttpStatusCode.NotFound);
-            }
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
 
-            if (uri.Host.StartsWith("assets.purelogiccode.com", StringComparison.Ordinal))
-            {
-                return Text("Version 9.9.9");
-            }
+            if (uri.Host.StartsWith("assets.purelogiccode.com", StringComparison.Ordinal)) return Text("Version 9.9.9");
 
             throw new InvalidOperationException("Unexpected request: " + uri);
         });
@@ -301,7 +289,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.Yes);
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         messageBox.Verify(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"), Times.Once);
         messageBox.Verify(m => m.ErrorCheckingForUpdatesMessageBoxAsync(), Times.Never);
@@ -315,14 +303,9 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         {
             var uri = request.RequestUri!;
             if (uri.Host.StartsWith("api.github.com", StringComparison.Ordinal))
-            {
                 throw new HttpRequestException("network down");
-            }
 
-            if (uri.Host.StartsWith("assets.purelogiccode.com", StringComparison.Ordinal))
-            {
-                return Text("Version 9.9.9");
-            }
+            if (uri.Host.StartsWith("assets.purelogiccode.com", StringComparison.Ordinal)) return Text("Version 9.9.9");
 
             throw new InvalidOperationException("Unexpected request: " + uri);
         });
@@ -330,7 +313,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         messageBox.Setup(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"))
             .ReturnsAsync(CoreMessageBoxResult.Yes);
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         messageBox.Verify(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), "9.9.9.0"), Times.Once);
     }
@@ -339,9 +322,9 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
     public async Task ManualCheck_AllSourcesUnreachable_ShowsError()
     {
         var (service, messageBox, _) = CreateService(_ =>
-            new HttpResponseMessage(System.Net.HttpStatusCode.NotFound));
+            new HttpResponseMessage(HttpStatusCode.NotFound));
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         messageBox.Verify(m => m.ErrorCheckingForUpdatesMessageBoxAsync(), Times.Once);
         messageBox.Verify(m => m.DoYouWantToUpdateMessageBoxAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
@@ -352,10 +335,10 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
     {
         var (service, messageBox, _) = CreateService(request =>
             request.RequestUri!.Host.StartsWith("api.github.com", StringComparison.Ordinal)
-                ? new HttpResponseMessage(System.Net.HttpStatusCode.NotFound)
+                ? new HttpResponseMessage(HttpStatusCode.NotFound)
                 : Text("no version information here"));
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         messageBox.Verify(m => m.ErrorCheckingForUpdatesMessageBoxAsync(), Times.Once);
     }
@@ -366,7 +349,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         var (service, messageBox, _) = CreateService(_ =>
             Json("""{"message": "no tag_name here"}"""));
 
-        await service.ManualCheckForUpdatesAsync(owner: null);
+        await service.ManualCheckForUpdatesAsync(null);
 
         messageBox.Verify(m => m.ErrorCheckingForUpdatesMessageBoxAsync(), Times.Once);
     }

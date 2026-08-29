@@ -8,12 +8,14 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Services.EasyMode;
 
 /// <summary>
-/// Manages EasyMode system configuration by loading emulator definitions from local XML,
-/// a remote API, or a fallback URL. Supports XML serialization for persistence.
+///     Manages EasyMode system configuration by loading emulator definitions from local XML,
+///     a remote API, or a fallback URL. Supports XML serialization for persistence.
 /// </summary>
 [XmlRoot("EasyMode")]
 public class EasyModeManager : IDisposable
 {
+    private const int DefaultCacheDurationMinutes = 60;
+
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNameCaseInsensitive = true
@@ -22,20 +24,14 @@ public class EasyModeManager : IDisposable
     // Session cache for API data (in-memory, per application instance)
     private static (EasyModeManager Manager, DateTime Timestamp) _apiCache;
     private static readonly SemaphoreSlim CacheLock = new(1, 1);
-    private const int DefaultCacheDurationMinutes = 60;
-
-    private readonly ILogger _logger = null!;
     private readonly IConfiguration _configuration = null!;
     private readonly IHttpClientFactory _httpClientFactory = null!;
 
-    /// <summary>
-    /// Gets or sets the list of EasyMode system configurations.
-    /// </summary>
-    [XmlElement("EasyModeSystemConfig")]
-    public List<EasyModeSystemConfig> Systems { get; set; } = null!;
+    private readonly ILogger _logger = null!;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="EasyModeManager"/> with the specified dependencies for API loading and error logging.
+    ///     Initializes a new instance of <see cref="EasyModeManager" /> with the specified dependencies for API loading and
+    ///     error logging.
     /// </summary>
     public EasyModeManager(ILogger logErrors, IConfiguration configuration, IHttpClientFactory httpClientFactory,
         ILogger logger)
@@ -46,16 +42,30 @@ public class EasyModeManager : IDisposable
     }
 
     /// <summary>
-    /// Initializes a new instance of <see cref="EasyModeManager"/> with default settings (used for XML deserialization).
+    ///     Initializes a new instance of <see cref="EasyModeManager" /> with default settings (used for XML deserialization).
     /// </summary>
     public EasyModeManager()
     {
     }
 
     /// <summary>
-    /// Asynchronously loads the EasyMode configuration. It first tries to load from a local XML file.
-    /// If the file is not found or is empty, it falls back to loading from the web API.
-    /// If the API also fails, it attempts to download from a fallback XML URL.
+    ///     Gets or sets the list of EasyMode system configurations.
+    /// </summary>
+    [XmlElement("EasyModeSystemConfig")]
+    public List<EasyModeSystemConfig> Systems { get; set; } = null!;
+
+    /// <summary>
+    ///     Releases resources used by this <see cref="EasyModeManager" />.
+    /// </summary>
+    public void Dispose()
+    {
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    ///     Asynchronously loads the EasyMode configuration. It first tries to load from a local XML file.
+    ///     If the file is not found or is empty, it falls back to loading from the web API.
+    ///     If the API also fails, it attempts to download from a fallback XML URL.
     /// </summary>
     /// <returns>An EasyModeManager instance if successful, otherwise null.</returns>
     public async Task<EasyModeManager?> LoadAsync()
@@ -105,10 +115,7 @@ public class EasyModeManager : IDisposable
         var xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
 
         // Check if xmlFile exists before proceeding.
-        if (!File.Exists(xmlFilePath))
-        {
-            return null; // File not found, which is an expected scenario for API fallback.
-        }
+        if (!File.Exists(xmlFilePath)) return null; // File not found, which is an expected scenario for API fallback.
 
         try
         {
@@ -288,7 +295,7 @@ public class EasyModeManager : IDisposable
     }
 
     /// <summary>
-    /// Validates all loaded system configurations, removing any that are invalid.
+    ///     Validates all loaded system configurations, removing any that are invalid.
     /// </summary>
     public void Validate()
     {
@@ -296,15 +303,7 @@ public class EasyModeManager : IDisposable
     }
 
     /// <summary>
-    /// Releases resources used by this <see cref="EasyModeManager"/>.
-    /// </summary>
-    public void Dispose()
-    {
-        GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
-    /// Defines constants representing the types of downloadable assets for EasyMode systems.
+    ///     Defines constants representing the types of downloadable assets for EasyMode systems.
     /// </summary>
     public static class DownloadType
     {

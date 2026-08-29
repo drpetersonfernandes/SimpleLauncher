@@ -1,320 +1,53 @@
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Navigation;
-using Microsoft.Win32;
-using Application = System.Windows.Application;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Controls;
+using Microsoft.Win32;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services;
 using SimpleLauncher.Core.Services.DownloadService;
 using SimpleLauncher.Core.Services.EasyMode;
 using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Services.SystemManager;
+using Application = System.Windows.Application;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher;
 
 /// <summary>
-/// Window that guides users through downloading, configuring, and launching emulators in easy mode.
+///     Window that guides users through downloading, configuring, and launching emulators in easy mode.
 /// </summary>
 internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILoadingState
 {
-    private readonly PlaySoundEffects _playSoundEffects;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly ILogger _logger;
-    private readonly EasyModeManager _easyModeManager;
-    private EasyModeManager? _manager;
     private readonly IConfiguration _configuration;
-    private Button? _emergencyReturnButton;
+
+    private readonly DownloadManager _downloadManager;
 
     // Track download states for all components
     private readonly Dictionary<string, DownloadButtonState> _downloadStates = new(StringComparer.Ordinal);
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the emulator has been downloaded.
-    /// </summary>
-    public bool IsEmulatorDownloaded
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-            UpdateAddSystemButtonState();
-        }
-    } = true;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the core has been downloaded.
-    /// </summary>
-    public bool IsCoreDownloaded
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-            UpdateAddSystemButtonState();
-        }
-    } = true;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether image pack 1 has been downloaded.
-    /// </summary>
-    public bool IsImagePack1Downloaded
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    } = true;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether image pack 2 has been downloaded.
-    /// </summary>
-    public bool IsImagePack2Downloaded
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    } = true;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether image pack 3 has been downloaded.
-    /// </summary>
-    public bool IsImagePack3Downloaded
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    } = true;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether image pack 4 has been downloaded.
-    /// </summary>
-    public bool IsImagePack4Downloaded
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    } = true;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether image pack 5 has been downloaded.
-    /// </summary>
-    public bool IsImagePack5Downloaded
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    } = true;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether image pack 1 is available for download.
-    /// </summary>
-    public bool IsImagePack1Available
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether image pack 2 is available for download.
-    /// </summary>
-    public bool IsImagePack2Available
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether image pack 3 is available for download.
-    /// </summary>
-    public bool IsImagePack3Available
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether image pack 4 is available for download.
-    /// </summary>
-    public bool IsImagePack4Available
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether image pack 5 is available for download.
-    /// </summary>
-    public bool IsImagePack5Available
-    {
-        get;
-        set
-        {
-            field = value;
-            OnPropertyChanged();
-        }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether an operation is currently in progress.
-    /// </summary>
-    public bool IsOperationInProgress
-    {
-        get;
-        private set
-        {
-            field = value;
-            OnPropertyChanged();
-            UpdateAddSystemButtonState();
-        }
-    }
-
-    private readonly DownloadManager _downloadManager;
-    private bool _disposed;
-
-    // Helper to get/set download state with notification
-    private DownloadButtonState GetDownloadState(string type)
-    {
-        return _downloadStates.GetValueOrDefault(type, DownloadButtonState.Idle);
-    }
-
-    private void SetDownloadState(string type, DownloadButtonState state)
-    {
-        _downloadStates[type] = state;
-        // Update legacy boolean properties for XAML binding
-        switch (type)
-        {
-            case EasyModeManager.DownloadType.Emulator:
-                IsEmulatorDownloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
-                break;
-            case EasyModeManager.DownloadType.Core:
-                IsCoreDownloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
-                break;
-            case EasyModeManager.DownloadType.ImagePack1:
-                IsImagePack1Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
-                break;
-            case EasyModeManager.DownloadType.ImagePack2:
-                IsImagePack2Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
-                break;
-            case EasyModeManager.DownloadType.ImagePack3:
-                IsImagePack3Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
-                break;
-            case EasyModeManager.DownloadType.ImagePack4:
-                IsImagePack4Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
-                break;
-            case EasyModeManager.DownloadType.ImagePack5:
-                IsImagePack5Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
-                break;
-        }
-    }
+    private readonly EasyModeManager _easyModeManager;
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlaySoundEffects _playSoundEffects;
 
     private string? _currentDownloadType;
+    private bool _disposed;
 
     // Backing field for DownloadStatus property
     private string _downloadStatus = "";
-
-    public string DownloadStatus
-    {
-        get => _downloadStatus;
-        set
-        {
-            if (string.Equals(_downloadStatus, value, StringComparison.Ordinal)) return;
-
-            _downloadStatus = value;
-            OnPropertyChanged();
-        }
-    }
-
-    /// <summary>
-    /// Occurs when a property value changes.
-    /// </summary>
-    public event PropertyChangedEventHandler? PropertyChanged; // INotifyPropertyChanged implementation
+    private Button? _emergencyReturnButton;
+    private EasyModeManager? _manager;
 
     // Thread-safe operation tracking
     private int _operationInProgressFlag;
 
-    private bool TryStartOperation()
-    {
-        // Returns true if we successfully started (was 0, now 1)
-        if (Interlocked.CompareExchange(ref _operationInProgressFlag, 1, 0) != 0)
-            return false;
-
-        IsOperationInProgress = true;
-        return true;
-    }
-
-    private void EndOperation()
-    {
-        IsOperationInProgress = false;
-        Interlocked.Exchange(ref _operationInProgressFlag, 0);
-    }
-
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
     /// <summary>
-    /// Sets the loading state of the window, showing or hiding the loading overlay.
-    /// </summary>
-    /// <param name="isLoading">Whether the window is in a loading state.</param>
-    /// <param name="message">Optional message to display on the loading overlay.</param>
-    public void SetLoadingState(bool isLoading, string? message = null)
-    {
-        Dispatcher.Invoke(() =>
-        {
-            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
-
-            // Ensure the main content area is disabled to prevent Tab-key navigation
-            MainContentGrid?.IsEnabled = !isLoading;
-
-            if (isLoading)
-            {
-                LoadingOverlay.Content =
-                    message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
-            }
-        });
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="EasyModeWindow"/> class.
+    ///     Initializes a new instance of the <see cref="EasyModeWindow" /> class.
     /// </summary>
     /// <param name="playSoundEffects">The sound effects service for notification sounds.</param>
     /// <param name="configuration">The application configuration.</param>
@@ -352,6 +85,287 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 emergencyBtn.Click += EmergencyOverlayRelease_Click;
             }
         };
+    }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether the emulator has been downloaded.
+    /// </summary>
+    public bool IsEmulatorDownloaded
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+            UpdateAddSystemButtonState();
+        }
+    } = true;
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether the core has been downloaded.
+    /// </summary>
+    public bool IsCoreDownloaded
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+            UpdateAddSystemButtonState();
+        }
+    } = true;
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether image pack 1 has been downloaded.
+    /// </summary>
+    public bool IsImagePack1Downloaded
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    } = true;
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether image pack 2 has been downloaded.
+    /// </summary>
+    public bool IsImagePack2Downloaded
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    } = true;
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether image pack 3 has been downloaded.
+    /// </summary>
+    public bool IsImagePack3Downloaded
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    } = true;
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether image pack 4 has been downloaded.
+    /// </summary>
+    public bool IsImagePack4Downloaded
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    } = true;
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether image pack 5 has been downloaded.
+    /// </summary>
+    public bool IsImagePack5Downloaded
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    } = true;
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether image pack 1 is available for download.
+    /// </summary>
+    public bool IsImagePack1Available
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether image pack 2 is available for download.
+    /// </summary>
+    public bool IsImagePack2Available
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether image pack 3 is available for download.
+    /// </summary>
+    public bool IsImagePack3Available
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether image pack 4 is available for download.
+    /// </summary>
+    public bool IsImagePack4Available
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether image pack 5 is available for download.
+    /// </summary>
+    public bool IsImagePack5Available
+    {
+        get;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>
+    ///     Gets a value indicating whether an operation is currently in progress.
+    /// </summary>
+    public bool IsOperationInProgress
+    {
+        get;
+        private set
+        {
+            field = value;
+            OnPropertyChanged();
+            UpdateAddSystemButtonState();
+        }
+    }
+
+    public string DownloadStatus
+    {
+        get => _downloadStatus;
+        set
+        {
+            if (string.Equals(_downloadStatus, value, StringComparison.Ordinal)) return;
+
+            _downloadStatus = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>
+    ///     Disposes of resources used by the window.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        _downloadManager.DownloadProgressChanged -= DownloadManager_ProgressChanged;
+        _downloadManager?.Dispose();
+        _manager?.Dispose();
+        _easyModeManager?.Dispose();
+
+        _disposed = true;
+    }
+
+    /// <summary>
+    ///     Sets the loading state of the window, showing or hiding the loading overlay.
+    /// </summary>
+    /// <param name="isLoading">Whether the window is in a loading state.</param>
+    /// <param name="message">Optional message to display on the loading overlay.</param>
+    public void SetLoadingState(bool isLoading, string? message = null)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+
+            // Ensure the main content area is disabled to prevent Tab-key navigation
+            MainContentGrid?.IsEnabled = !isLoading;
+
+            if (isLoading)
+                LoadingOverlay.Content =
+                    message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+        });
+    }
+
+    /// <summary>
+    ///     Occurs when a property value changes.
+    /// </summary>
+    public event PropertyChangedEventHandler? PropertyChanged; // INotifyPropertyChanged implementation
+
+    // Helper to get/set download state with notification
+    private DownloadButtonState GetDownloadState(string type)
+    {
+        return _downloadStates.GetValueOrDefault(type, DownloadButtonState.Idle);
+    }
+
+    private void SetDownloadState(string type, DownloadButtonState state)
+    {
+        _downloadStates[type] = state;
+        // Update legacy boolean properties for XAML binding
+        switch (type)
+        {
+            case EasyModeManager.DownloadType.Emulator:
+                IsEmulatorDownloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.Core:
+                IsCoreDownloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack1:
+                IsImagePack1Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack2:
+                IsImagePack2Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack3:
+                IsImagePack3Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack4:
+                IsImagePack4Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+            case EasyModeManager.DownloadType.ImagePack5:
+                IsImagePack5Downloaded = state is DownloadButtonState.Downloaded or DownloadButtonState.Downloading;
+                break;
+        }
+    }
+
+    private bool TryStartOperation()
+    {
+        // Returns true if we successfully started (was 0, now 1)
+        if (Interlocked.CompareExchange(ref _operationInProgressFlag, 1, 0) != 0)
+            return false;
+
+        IsOperationInProgress = true;
+        return true;
+    }
+
+    private void EndOperation()
+    {
+        IsOperationInProgress = false;
+        Interlocked.Exchange(ref _operationInProgressFlag, 0);
+    }
+
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     private async void EasyModeWindowLoadedAsync(object sender, RoutedEventArgs e)
@@ -467,10 +481,8 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         var selectedSystem = _manager?.Systems.FirstOrDefault(system =>
             system.SystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase));
         if (selectedSystem == null)
-        {
             // This should ideally not happen if PopulateSystemDropdown is correct, but handle defensively
             return;
-        }
 
         var emulator = selectedSystem.Emulators?.Emulator;
         // Determine if download links exist for image packs (for visibility)
@@ -561,15 +573,11 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             {
                 SetDownloadState(EasyModeManager.DownloadType.Emulator, DownloadButtonState.Failed);
                 OnPropertyChanged(nameof(IsEmulatorDownloaded));
-                if (!_disposed)
-                {
-                    _logger.Error(ex, "Error in DownloadEmulatorButtonClickAsync.");
-                }
+                if (!_disposed) _logger.Error(ex, "Error in DownloadEmulatorButtonClickAsync.");
             }
             finally
             {
                 if (!_disposed)
-                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     // Only reset to Failed if still in Downloading state (not if successfully Downloaded)
                     if (GetDownloadState(EasyModeManager.DownloadType.Emulator) == DownloadButtonState.Downloading)
@@ -577,7 +585,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                         SetDownloadState(EasyModeManager.DownloadType.Emulator, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsEmulatorDownloaded));
                     }
-                }
             }
         }
         catch (Exception ex)
@@ -605,22 +612,17 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             {
                 SetDownloadState(EasyModeManager.DownloadType.Core, DownloadButtonState.Failed);
                 OnPropertyChanged(nameof(IsCoreDownloaded));
-                if (!_disposed)
-                {
-                    _logger.Error(ex, "Error in DownloadCoreButtonClickAsync.");
-                }
+                if (!_disposed) _logger.Error(ex, "Error in DownloadCoreButtonClickAsync.");
             }
             finally
             {
                 if (!_disposed)
-                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     if (GetDownloadState(EasyModeManager.DownloadType.Core) == DownloadButtonState.Downloading)
                     {
                         SetDownloadState(EasyModeManager.DownloadType.Core, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsCoreDownloaded));
                     }
-                }
             }
         }
         catch (Exception ex)
@@ -648,22 +650,17 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             {
                 SetDownloadState(EasyModeManager.DownloadType.ImagePack1, DownloadButtonState.Failed);
                 OnPropertyChanged(nameof(IsImagePack1Downloaded));
-                if (!_disposed)
-                {
-                    _logger.Error(ex, "Error in DownloadImagePackButton1ClickAsync.");
-                }
+                if (!_disposed) _logger.Error(ex, "Error in DownloadImagePackButton1ClickAsync.");
             }
             finally
             {
                 if (!_disposed)
-                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     if (GetDownloadState(EasyModeManager.DownloadType.ImagePack1) == DownloadButtonState.Downloading)
                     {
                         SetDownloadState(EasyModeManager.DownloadType.ImagePack1, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsImagePack1Downloaded));
                     }
-                }
             }
         }
         catch (Exception ex)
@@ -691,22 +688,17 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             {
                 SetDownloadState(EasyModeManager.DownloadType.ImagePack2, DownloadButtonState.Failed);
                 OnPropertyChanged(nameof(IsImagePack2Downloaded));
-                if (!_disposed)
-                {
-                    _logger.Error(ex, "Error in DownloadImagePackButton2ClickAsync.");
-                }
+                if (!_disposed) _logger.Error(ex, "Error in DownloadImagePackButton2ClickAsync.");
             }
             finally
             {
                 if (!_disposed)
-                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     if (GetDownloadState(EasyModeManager.DownloadType.ImagePack2) == DownloadButtonState.Downloading)
                     {
                         SetDownloadState(EasyModeManager.DownloadType.ImagePack2, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsImagePack2Downloaded));
                     }
-                }
             }
         }
         catch (Exception ex)
@@ -734,22 +726,17 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             {
                 SetDownloadState(EasyModeManager.DownloadType.ImagePack3, DownloadButtonState.Failed);
                 OnPropertyChanged(nameof(IsImagePack3Downloaded));
-                if (!_disposed)
-                {
-                    _logger.Error(ex, "Error in DownloadImagePackButton3ClickAsync.");
-                }
+                if (!_disposed) _logger.Error(ex, "Error in DownloadImagePackButton3ClickAsync.");
             }
             finally
             {
                 if (!_disposed)
-                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     if (GetDownloadState(EasyModeManager.DownloadType.ImagePack3) == DownloadButtonState.Downloading)
                     {
                         SetDownloadState(EasyModeManager.DownloadType.ImagePack3, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsImagePack3Downloaded));
                     }
-                }
             }
         }
         catch (Exception ex)
@@ -777,22 +764,17 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             {
                 SetDownloadState(EasyModeManager.DownloadType.ImagePack4, DownloadButtonState.Failed);
                 OnPropertyChanged(nameof(IsImagePack4Downloaded));
-                if (!_disposed)
-                {
-                    _logger.Error(ex, "Error in DownloadImagePackButton4ClickAsync.");
-                }
+                if (!_disposed) _logger.Error(ex, "Error in DownloadImagePackButton4ClickAsync.");
             }
             finally
             {
                 if (!_disposed)
-                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     if (GetDownloadState(EasyModeManager.DownloadType.ImagePack4) == DownloadButtonState.Downloading)
                     {
                         SetDownloadState(EasyModeManager.DownloadType.ImagePack4, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsImagePack4Downloaded));
                     }
-                }
             }
         }
         catch (Exception ex)
@@ -820,22 +802,17 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             {
                 SetDownloadState(EasyModeManager.DownloadType.ImagePack5, DownloadButtonState.Failed);
                 OnPropertyChanged(nameof(IsImagePack5Downloaded));
-                if (!_disposed)
-                {
-                    _logger.Error(ex, "Error in DownloadImagePackButton5ClickAsync.");
-                }
+                if (!_disposed) _logger.Error(ex, "Error in DownloadImagePackButton5ClickAsync.");
             }
             finally
             {
                 if (!_disposed)
-                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     if (GetDownloadState(EasyModeManager.DownloadType.ImagePack5) == DownloadButtonState.Downloading)
                     {
                         SetDownloadState(EasyModeManager.DownloadType.ImagePack5, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsImagePack5Downloaded));
                     }
-                }
             }
         }
         catch (Exception ex)
@@ -1168,10 +1145,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                 SetDownloadState(_currentDownloadType, DownloadButtonState.Failed);
                 // Force UI update for the specific button
                 var propertyName = GetBooleanPropertyNameForType(_currentDownloadType);
-                if (!string.IsNullOrEmpty(propertyName))
-                {
-                    OnPropertyChanged(propertyName);
-                }
+                if (!string.IsNullOrEmpty(propertyName)) OnPropertyChanged(propertyName);
             }
 
             _currentDownloadType = null;
@@ -1199,13 +1173,9 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
 
                 string systemFolderRaw;
                 if (!string.IsNullOrWhiteSpace(SystemFolderTextBox.Text))
-                {
                     systemFolderRaw = SystemFolderTextBox.Text;
-                }
                 else
-                {
                     systemFolderRaw = Path.Combine("%BASEFOLDER%", "roms", selectedSystem.SystemName);
-                }
 
                 var systemImageFolderRaw = selectedSystem.SystemImageFolder;
 
@@ -1219,7 +1189,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     LoadingOverlay.Visibility = Visibility.Visible;
                     await Task.Yield();
 
-                    await Services.SystemManager.SystemManagerService.AddOrUpdateSystemFromEasyModeAsync(selectedSystem,
+                    await SystemManagerService.AddOrUpdateSystemFromEasyModeAsync(selectedSystem,
                         systemFolderRaw);
                     LoadingOverlay.Content = (string)Application.Current.TryFindResource("Creatingsystemfolders") ??
                                              "Creating system folders...";
@@ -1270,10 +1240,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                     LoadingOverlay.Visibility = Visibility.Collapsed;
                     await Task.Yield();
 
-                    if (IsLoaded)
-                    {
-                        AddSystemButton.IsEnabled = true;
-                    }
+                    if (IsLoaded) AddSystemButton.IsEnabled = true;
 
                     EndOperation();
                 }
@@ -1344,20 +1311,15 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             _downloadManager.DownloadProgressChanged -= DownloadManager_ProgressChanged;
 
             var wasDownloading = StopDownloadButton.IsEnabled;
-            if (wasDownloading)
-            {
-                StopDownloadButton_Click(null, null);
-            }
+            if (wasDownloading) StopDownloadButton_Click(null, null);
 
             _manager = null;
             Dispose();
 
             if (wasDownloading)
-            {
                 // Give the cancelled download time to observe the token and release its
                 // resources; cleanup itself has already run, so this delay is non-critical.
                 await Task.Delay(200);
-            }
         }
         catch (Exception ex)
         {
@@ -1379,10 +1341,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         };
 
         // Show the dialog and handle the result
-        if (openFolderDialog.ShowDialog() == true)
-        {
-            SystemFolderTextBox.Text = openFolderDialog.FolderName;
-        }
+        if (openFolderDialog.ShowDialog() == true) SystemFolderTextBox.Text = openFolderDialog.FolderName;
     }
 
     private async void Hyperlink_RequestNavigateAsync(object sender, RequestNavigateEventArgs e)
@@ -1404,21 +1363,6 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             // Notify user
             await _messageBox.CouldNotOpenTheDownloadLinkMessageBoxAsync();
         }
-    }
-
-    /// <summary>
-    /// Disposes of resources used by the window.
-    /// </summary>
-    public void Dispose()
-    {
-        if (_disposed) return;
-
-        _downloadManager.DownloadProgressChanged -= DownloadManager_ProgressChanged;
-        _downloadManager?.Dispose();
-        _manager?.Dispose();
-        _easyModeManager?.Dispose();
-
-        _disposed = true;
     }
 
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Text.Json;
@@ -12,23 +13,23 @@ using Application = System.Windows.Application;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the support request submission window.
+///     ViewModel for the support request submission window.
 /// </summary>
 public partial class SupportViewModel : ObservableObject
 {
-    private readonly PlaySoundEffects _playSoundEffects;
-    private readonly IHttpClientFactory _httpClientFactory;
     private readonly IConfiguration _configuration;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IResourceProvider _resourceProvider;
+    private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogger _logger;
-
-    [ObservableProperty] private string _name = "";
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly IResourceProvider _resourceProvider;
     [ObservableProperty] private string _email = "";
-    [ObservableProperty] private string _supportRequest = "";
     [ObservableProperty] private bool _isLoading;
 
-    /// <summary>Initializes a new instance of the <see cref="SupportViewModel"/> class.</summary>
+    [ObservableProperty] private string _name = "";
+    [ObservableProperty] private string _supportRequest = "";
+
+    /// <summary>Initializes a new instance of the <see cref="SupportViewModel" /> class.</summary>
     /// <param name="playSoundEffects">The sound effects service for playing notification sounds.</param>
     /// <param name="httpClientFactory">The HTTP client factory for sending support requests.</param>
     /// <param name="configuration">The application configuration for API settings.</param>
@@ -164,7 +165,7 @@ public partial class SupportViewModel : ObservableObject
             request.Headers.Add("X-API-KEY", apiKey);
 
             _logger.Debug("[Support] Sending HTTP POST request...");
-            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            var stopwatch = Stopwatch.StartNew();
 
             using var response = await httpClient.SendAsync(request, cts.Token);
 
@@ -173,17 +174,11 @@ public partial class SupportViewModel : ObservableObject
             _logger.Debug($"[Support] StatusCode: {(int)response.StatusCode} ({response.StatusCode})");
             _logger.Debug("[Support] Response Headers:");
             foreach (var header in response.Headers)
-            {
                 _logger.Debug($"[Support]   {header.Key}: {string.Join(", ", header.Value)}");
-            }
 
             if (response.Content != null)
-            {
                 foreach (var header in response.Content.Headers)
-                {
                     _logger.Debug($"[Support]   {header.Key}: {string.Join(", ", header.Value)}");
-                }
-            }
 
             if (response.Content != null)
             {

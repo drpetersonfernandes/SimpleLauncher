@@ -1,10 +1,12 @@
 using System.Globalization;
 using System.Text;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Provides functionality to inject Simple Launcher settings into the Mednafen emulator configuration file (mednafen.cfg).
+///     Provides functionality to inject Simple Launcher settings into the Mednafen emulator configuration file
+///     (mednafen.cfg).
 /// </summary>
 public static class MednafenConfigurationService
 {
@@ -18,13 +20,13 @@ public static class MednafenConfigurationService
     private static readonly char[] Separator = [' ', '\t'];
 
     /// <summary>
-    /// Injects Simple Launcher configuration settings into the Mednafen emulator's mednafen.cfg file.
-    /// Creates the config from a sample if it does not exist, then updates or appends key-value pairs.
+    ///     Injects Simple Launcher configuration settings into the Mednafen emulator's mednafen.cfg file.
+    ///     Creates the config from a sample if it does not exist, then updates or appends key-value pairs.
     /// </summary>
     /// <param name="emulatorPath">The full path to the Mednafen emulator executable.</param>
     /// <param name="settings">The settings manager containing Mednafen configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -37,7 +39,6 @@ public static class MednafenConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Mednafen", "mednafen.cfg");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -49,12 +50,9 @@ public static class MednafenConfigurationService
                     logger.Error(ex, $"[MednafenConfig] Failed to create mednafen.cfg from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 // If no config and no sample, we can't proceed.
                 throw new FileNotFoundException("mednafen.cfg not found and sample is missing.", samplePath);
-            }
         }
 
         logger.Debug($"[MednafenConfig] Injecting configuration into: {configPath}");
@@ -126,16 +124,13 @@ public static class MednafenConfigurationService
 
         // Append any keys that were not found in the file
         foreach (var kvp in updates)
-        {
             if (!keysFound.Contains(kvp.Key))
             {
                 lines.Add($"{kvp.Key} {kvp.Value}");
                 modified = true;
             }
-        }
 
         if (modified)
-        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -147,10 +142,7 @@ public static class MednafenConfigurationService
                 logger.Error(ex, $"[MednafenConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
-        }
         else
-        {
             logger.Debug("[MednafenConfig] No changes needed.");
-        }
     }
 }

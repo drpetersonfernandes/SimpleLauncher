@@ -4,9 +4,9 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="WindowsCredentialProtector"/> (DPAPI-based credential protection).
-/// These tests require the logged-in Windows user profile and are therefore Windows-only,
-/// matching the net10.0-windows target of the test project.
+///     Tests for <see cref="WindowsCredentialProtector" /> (DPAPI-based credential protection).
+///     These tests require the logged-in Windows user profile and are therefore Windows-only,
+///     matching the net10.0-windows target of the test project.
 /// </summary>
 public class WindowsCredentialProtectorTests
 {

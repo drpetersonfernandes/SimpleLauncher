@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -6,14 +7,14 @@ using System.Windows.Media.Imaging;
 namespace SimpleLauncher.Services.Converters;
 
 /// <summary>
-/// Converts an image URL string to a BitmapImage, with fallback to a placeholder if the URL is null or empty.
+///     Converts an image URL string to a BitmapImage, with fallback to a placeholder if the URL is null or empty.
 /// </summary>
 public class ImageUrlConverter : IValueConverter
 {
     private static readonly BitmapImage PlaceholderImage = CreatePlaceholderImage();
 
     /// <summary>
-    /// Converts an image URL string to a BitmapImage, falling back to a placeholder image for invalid or missing URLs.
+    ///     Converts an image URL string to a BitmapImage, falling back to a placeholder image for invalid or missing URLs.
     /// </summary>
     /// <param name="value">The image URL string to convert.</param>
     /// <param name="targetType">The target type of the conversion (unused).</param>
@@ -23,7 +24,6 @@ public class ImageUrlConverter : IValueConverter
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is string url && !string.IsNullOrWhiteSpace(url))
-        {
             try
             {
                 return new BitmapImage(new Uri(url, UriKind.Absolute));
@@ -33,14 +33,13 @@ public class ImageUrlConverter : IValueConverter
                 // If URL is invalid, return placeholder
                 return PlaceholderImage;
             }
-        }
 
         // Return placeholder for null/empty values
         return PlaceholderImage;
     }
 
     /// <summary>
-    /// Converts a BitmapImage back to an image URL string.
+    ///     Converts a BitmapImage back to an image URL string.
     /// </summary>
     /// <param name="value">The value to convert (unused).</param>
     /// <param name="targetType">The target type of the conversion (unused).</param>
@@ -67,11 +66,11 @@ public class ImageUrlConverter : IValueConverter
             var drawingVisual = new DrawingVisual();
             using (var drawingContext = drawingVisual.RenderOpen())
             {
-                drawingContext.DrawRectangle(Brushes.LightGray, null, new System.Windows.Rect(0, 0, 32, 32));
-                drawingContext.DrawLine(new Pen(Brushes.Gray, 1), new System.Windows.Point(0, 0),
-                    new System.Windows.Point(32, 32));
-                drawingContext.DrawLine(new Pen(Brushes.Gray, 1), new System.Windows.Point(32, 0),
-                    new System.Windows.Point(0, 32));
+                drawingContext.DrawRectangle(Brushes.LightGray, null, new Rect(0, 0, 32, 32));
+                drawingContext.DrawLine(new Pen(Brushes.Gray, 1), new Point(0, 0),
+                    new Point(32, 32));
+                drawingContext.DrawLine(new Pen(Brushes.Gray, 1), new Point(32, 0),
+                    new Point(0, 32));
             }
 
             var renderTarget = new RenderTargetBitmap(32, 32, 96, 96, PixelFormats.Pbgra32);

@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Core.Services.InjectEmulatorConfig;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -10,17 +11,19 @@ using MameConfigurationService = SimpleLauncher.Core.Services.InjectEmulatorConf
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for emulator configuration injection across multiple emulators (Ares, Azahar, Cemu, Dolphin, Flycast, Mame, Supermodel, SegaModel2, Yumir, Raine).
+///     Tests for emulator configuration injection across multiple emulators (Ares, Azahar, Cemu, Dolphin, Flycast, Mame,
+///     Supermodel, SegaModel2, Yumir, Raine).
 /// </summary>
 public class EmulatorConfigInjectionTests2 : IDisposable
 {
-    private readonly string _testDirectory;
     private readonly IConfiguration _configuration;
-    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
+    private readonly ILogger _logErrors = new NoOpLogger();
+    private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmulatorConfigInjectionTests2"/> class, setting up a temporary test directory and in-memory configuration.
+    ///     Initializes a new instance of the <see cref="EmulatorConfigInjectionTests2" /> class, setting up a temporary test
+    ///     directory and in-memory configuration.
     /// </summary>
     public EmulatorConfigInjectionTests2()
     {
@@ -38,7 +41,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory and restores the original service provider.
+    ///     Cleans up the temporary test directory and restores the original service provider.
     /// </summary>
     public void Dispose()
     {
@@ -77,7 +80,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Ares emulator settings are correctly injected into the settings.bml configuration file.
+    ///     Verifies that Ares emulator settings are correctly injected into the settings.bml configuration file.
     /// </summary>
     [Fact]
     public void AresInjectsSettingsCorrectly()
@@ -117,7 +120,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Azahar emulator settings are correctly injected into the qt-config.ini configuration file.
+    ///     Verifies that Azahar emulator settings are correctly injected into the qt-config.ini configuration file.
     /// </summary>
     [Fact]
     public void AzaharInjectsSettingsCorrectly()
@@ -154,7 +157,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Azahar injection sets the default key to false for injected settings.
+    ///     Verifies that Azahar injection sets the default key to false for injected settings.
     /// </summary>
     [Fact]
     public void AzaharInjectsDefaultKeysAsFalse()
@@ -176,7 +179,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Cemu emulator settings are correctly injected into the settings.xml configuration file.
+    ///     Verifies that Cemu emulator settings are correctly injected into the settings.xml configuration file.
     /// </summary>
     [Fact]
     public void CemuInjectsXmlSettingsCorrectly()
@@ -196,7 +199,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
         CemuConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger);
 
         var configPath = Path.Combine(emuDir, "settings.xml");
-        var doc = System.Xml.Linq.XDocument.Load(configPath);
+        var doc = XDocument.Load(configPath);
         var content = doc.Element("content");
 
         Assert.NotNull(content);
@@ -216,7 +219,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Dolphin emulator settings are correctly injected into the Dolphin.ini configuration file.
+    ///     Verifies that Dolphin emulator settings are correctly injected into the Dolphin.ini configuration file.
     /// </summary>
     [Fact]
     public void DolphinInjectsSettingsCorrectly()
@@ -249,7 +252,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Flycast emulator settings are correctly injected into the emu.cfg configuration file.
+    ///     Verifies that Flycast emulator settings are correctly injected into the emu.cfg configuration file.
     /// </summary>
     [Fact]
     public void FlycastInjectsSettingsCorrectly()
@@ -276,7 +279,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Flycast disabled options use "no" values in the configuration file.
+    ///     Verifies that Flycast disabled options use "no" values in the configuration file.
     /// </summary>
     [Fact]
     public void FlycastDisabledOptionsUsesNoValues()
@@ -299,7 +302,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that MAME emulator settings are correctly injected into the mame.ini configuration file.
+    ///     Verifies that MAME emulator settings are correctly injected into the mame.ini configuration file.
     /// </summary>
     [Fact]
     public void MameInjectsSettingsCorrectly()
@@ -334,7 +337,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Supermodel emulator settings are correctly injected into the Supermodel.ini configuration file.
+    ///     Verifies that Supermodel emulator settings are correctly injected into the Supermodel.ini configuration file.
     /// </summary>
     [Fact]
     public void SupermodelInjectsSettingsCorrectly()
@@ -382,7 +385,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Supermodel defaults to xinput when an invalid input system value is provided.
+    ///     Verifies that Supermodel defaults to xinput when an invalid input system value is provided.
     /// </summary>
     [Fact]
     public void SupermodelInvalidInputSystemDefaultsToXinput()
@@ -402,7 +405,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Sega Model 2 emulator settings are correctly injected into the EMULATOR.INI configuration file.
+    ///     Verifies that Sega Model 2 emulator settings are correctly injected into the EMULATOR.INI configuration file.
     /// </summary>
     [Fact]
     public void SegaModel2InjectsSettingsCorrectly()
@@ -445,7 +448,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Yumir emulator settings are correctly injected into the Ymir.toml configuration file.
+    ///     Verifies that Yumir emulator settings are correctly injected into the Ymir.toml configuration file.
     /// </summary>
     [Fact]
     public void YumirInjectsTomlSettingsCorrectly()
@@ -487,7 +490,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Raine emulator settings are correctly injected into the raine32_sdl.cfg configuration file.
+    ///     Verifies that Raine emulator settings are correctly injected into the raine32_sdl.cfg configuration file.
     /// </summary>
     [Fact]
     public void RaineInjectsSettingsCorrectly()
@@ -545,10 +548,7 @@ public class EmulatorConfigInjectionTests2 : IDisposable
                 continue;
 
             var parts = trimmed.Split('=', 2);
-            if (parts.Length == 2)
-            {
-                result[(currentSection, parts[0].Trim())] = parts[1].Trim();
-            }
+            if (parts.Length == 2) result[(currentSection, parts[0].Trim())] = parts[1].Trim();
         }
 
         return result;

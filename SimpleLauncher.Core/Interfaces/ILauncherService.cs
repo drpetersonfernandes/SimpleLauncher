@@ -3,13 +3,13 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Interfaces;
 
 /// <summary>
-/// Provides methods for launching games and files through emulators, batch files, shortcuts, and executables.
+///     Provides methods for launching games and files through emulators, batch files, shortcuts, and executables.
 /// </summary>
 public interface ILauncherService
 {
     /// <summary>
-    /// Launches a ROM or game file with the specified emulator, handling extraction, parameter resolution,
-    /// emulator-specific quirks, and post-launch error analysis.
+    ///     Launches a ROM or game file with the specified emulator, handling extraction, parameter resolution,
+    ///     emulator-specific quirks, and post-launch error analysis.
     /// </summary>
     /// <param name="resolvedFilePath">The resolved path to the game file to launch.</param>
     /// <param name="selectedEmulatorName">The display name of the emulator to use.</param>
@@ -31,7 +31,7 @@ public interface ILauncherService
         string? originalFilePathForDisplay = null);
 
     /// <summary>
-    /// Validates and executes a batch file, handling working directory resolution, exit code checks, and error reporting.
+    ///     Validates and executes a batch file, handling working directory resolution, exit code checks, and error reporting.
     /// </summary>
     /// <param name="resolvedFilePath">The path to the batch file to run.</param>
     /// <param name="selectedEmulatorManager">The emulator configuration that determines user notification behavior.</param>
@@ -43,7 +43,7 @@ public interface ILauncherService
         IWindowContext windowContext);
 
     /// <summary>
-    /// Launches a shortcut file (.LNK or .URL), resolving the target and handling protocol registration checks.
+    ///     Launches a shortcut file (.LNK or .URL), resolving the target and handling protocol registration checks.
     /// </summary>
     /// <param name="resolvedFilePath">The path to the shortcut file to launch.</param>
     /// <param name="selectedEmulatorManager">The emulator configuration that determines user notification behavior.</param>
@@ -55,7 +55,7 @@ public interface ILauncherService
         IWindowContext windowContext);
 
     /// <summary>
-    /// Launches a standalone executable file, waits for it to exit, and reports negative exit codes as errors.
+    ///     Launches a standalone executable file, waits for it to exit, and reports negative exit codes as errors.
     /// </summary>
     /// <param name="resolvedFilePath">The path to the executable file to launch.</param>
     /// <param name="selectedEmulatorManager">The emulator configuration that determines user notification behavior.</param>

@@ -13,19 +13,20 @@ using CoreMessageBoxImage = SimpleLauncher.Core.Models.MessageBoxImage;
 namespace SimpleLauncher.Services.MessageBox;
 
 /// <summary>
-/// Provides localized message box dialogs for user notifications, errors, warnings, and confirmations throughout the application.
+///     Provides localized message box dialogs for user notifications, errors, warnings, and confirmations throughout the
+///     application.
 /// </summary>
 public class MessageBoxLibraryService : IMessageBoxLibraryService
 {
-    private readonly IMessageDialogService _messageDialog;
-    private readonly ReinstallSimpleLauncher _reinstallSimpleLauncher;
-    private readonly QuitSimpleLauncher _quitSimpleLauncher;
-    private readonly ILogger _logger;
     private readonly IConfiguration _configuration;
+    private readonly ILogger _logger;
+    private readonly IMessageDialogService _messageDialog;
+    private readonly QuitSimpleLauncher _quitSimpleLauncher;
+    private readonly ReinstallSimpleLauncher _reinstallSimpleLauncher;
     private readonly IResourceProvider _resourceProvider;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MessageBoxLibraryService"/> class with the required dependencies.
+    ///     Initializes a new instance of the <see cref="MessageBoxLibraryService" /> class with the required dependencies.
     /// </summary>
     public MessageBoxLibraryService(IMessageDialogService messageDialog,
         ReinstallSimpleLauncher reinstallSimpleLauncher, QuitSimpleLauncher quitSimpleLauncher, ILogger logErrors,
@@ -40,7 +41,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays instructions for taking a screenshot of a game window.
+    ///     Displays instructions for taking a screenshot of a game window.
     /// </summary>
     public Task TakeScreenShotMessageBoxAsync()
     {
@@ -64,7 +65,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when a screenshot fails to save.
+    ///     Displays an error message when a screenshot fails to save.
     /// </summary>
     public Task CouldNotSaveScreenshotMessageBoxAsync()
     {
@@ -79,7 +80,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that the specified game is already in favorites.
+    ///     Displays an informational message that the specified game is already in favorites.
     /// </summary>
     public Task GameIsAlreadyInFavoritesMessageBoxAsync(string fileNameWithExtension)
     {
@@ -90,7 +91,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when adding a game to favorites fails.
+    ///     Displays an error message when adding a game to favorites fails.
     /// </summary>
     public Task ErrorWhileAddingFavoritesMessageBoxAsync()
     {
@@ -105,7 +106,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when removing a game from favorites fails.
+    ///     Displays an error message when removing a game from favorites fails.
     /// </summary>
     public Task ErrorWhileRemovingGameFromFavoriteMessageBoxAsync()
     {
@@ -120,7 +121,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the Update History window fails to open.
+    ///     Displays an error message when the Update History window fails to open.
     /// </summary>
     public Task ErrorOpeningTheUpdateHistoryWindowMessageBoxAsync()
     {
@@ -135,7 +136,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when a video link fails to open in the browser.
+    ///     Displays an error message when a video link fails to open in the browser.
     /// </summary>
     public Task ErrorOpeningVideoLinkMessageBoxAsync()
     {
@@ -150,7 +151,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when an info link fails to open in the browser.
+    ///     Displays an error message when an info link fails to open in the browser.
     /// </summary>
     public Task ProblemOpeningInfoLinkMessageBoxAsync()
     {
@@ -165,7 +166,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when a URL fails to open in the browser.
+    ///     Displays an error message when a URL fails to open in the browser.
     /// </summary>
     public Task ErrorOpeningUrlMessageBoxAsync()
     {
@@ -180,7 +181,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that no cover image is associated with the game.
+    ///     Displays an informational message that no cover image is associated with the game.
     /// </summary>
     public Task ThereIsNoCoverMessageBoxAsync()
     {
@@ -192,7 +193,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that no title snapshot is associated with the game.
+    ///     Displays an informational message that no title snapshot is associated with the game.
     /// </summary>
     public Task ThereIsNoTitleSnapshotMessageBoxAsync()
     {
@@ -204,7 +205,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that no gameplay snapshot is associated with the game.
+    ///     Displays an informational message that no gameplay snapshot is associated with the game.
     /// </summary>
     public Task ThereIsNoGameplaySnapshotMessageBoxAsync()
     {
@@ -217,7 +218,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that no cart file is associated with the game.
+    ///     Displays an informational message that no cart file is associated with the game.
     /// </summary>
     public Task ThereIsNoCartMessageBoxAsync()
     {
@@ -229,7 +230,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that no video file is associated with the game.
+    ///     Displays an informational message that no video file is associated with the game.
     /// </summary>
     public Task ThereIsNoVideoFileMessageBoxAsync()
     {
@@ -241,7 +242,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the game manual fails to open.
+    ///     Displays an error message when the game manual fails to open.
     /// </summary>
     public Task CouldNotOpenManualMessageBoxAsync()
     {
@@ -255,7 +256,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when no PDF viewer is installed to open a manual.
+    ///     Displays an error message when no PDF viewer is installed to open a manual.
     /// </summary>
     public Task NoPdfViewerInstalledMessageBoxAsync()
     {
@@ -269,7 +270,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that no manual is associated with the game.
+    ///     Displays an informational message that no manual is associated with the game.
     /// </summary>
     public Task ThereIsNoManualMessageBoxAsync()
     {
@@ -281,7 +282,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that no walkthrough file is associated with the game.
+    ///     Displays an informational message that no walkthrough file is associated with the game.
     /// </summary>
     public Task ThereIsNoWalkthroughMessageBoxAsync()
     {
@@ -293,7 +294,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that no cabinet file is associated with the game.
+    ///     Displays an informational message that no cabinet file is associated with the game.
     /// </summary>
     public Task ThereIsNoCabinetMessageBoxAsync()
     {
@@ -305,7 +306,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that no flyer file is associated with the game.
+    ///     Displays an informational message that no flyer file is associated with the game.
     /// </summary>
     public Task ThereIsNoFlyerMessageBoxAsync()
     {
@@ -317,7 +318,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that no PCB file is associated with the game.
+    ///     Displays an informational message that no PCB file is associated with the game.
     /// </summary>
     public Task ThereIsNoPcbMessageBoxAsync()
     {
@@ -329,7 +330,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message confirming a file was deleted.
+    ///     Displays a success message confirming a file was deleted.
     /// </summary>
     public Task FileSuccessfullyDeletedMessageBoxAsync(string fileNameWithExtension)
     {
@@ -343,7 +344,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when a file could not be deleted.
+    ///     Displays an error message when a file could not be deleted.
     /// </summary>
     public Task FileCouldNotBeDeletedMessageBoxAsync(string fileNameWithExtension)
     {
@@ -359,7 +360,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an info message when a file no longer exists on disk and the game list will be refreshed.
+    ///     Displays an info message when a file no longer exists on disk and the game list will be refreshed.
     /// </summary>
     public Task FileNoLongerExistsMessageBoxAsync(string fileNameWithExtension)
     {
@@ -374,7 +375,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when the default image file is missing, with an option to reinstall the application.
+    ///     Displays an error when the default image file is missing, with an option to reinstall the application.
     /// </summary>
     public async Task DefaultImageNotFoundMessageBoxAsync()
     {
@@ -402,7 +403,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the global search encounters an error.
+    ///     Displays an error message when the global search encounters an error.
     /// </summary>
     public Task GlobalSearchErrorMessageBoxAsync()
     {
@@ -417,7 +418,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning prompting the user to enter a search term.
+    ///     Displays a warning prompting the user to enter a search term.
     /// </summary>
     public Task PleaseEnterSearchTermMessageBoxAsync()
     {
@@ -429,7 +430,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when a game fails to launch, with an option to open the error log.
+    ///     Displays an error message when a game fails to launch, with an option to open the error log.
     /// </summary>
     public async Task ErrorLaunchingGameMessageBoxAsync(string? logPath)
     {
@@ -444,7 +445,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 $"{therewasanerrorlaunchingtheselected}\n\n" + $"{dowanttoopenthefileerroruserlog}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -461,11 +461,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwasnotfound, error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays an informational message prompting the user to select a game to launch.
+    ///     Displays an informational message prompting the user to select a game to launch.
     /// </summary>
     public Task SelectAGameToLaunchMessageBoxAsync()
     {
@@ -476,7 +475,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message confirming a file was added to favorites.
+    ///     Displays a success message confirming a file was added to favorites.
     /// </summary>
     public Task FileAddedToFavoritesMessageBoxAsync(string fileNameWithoutExtension)
     {
@@ -487,7 +486,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message confirming a file was removed from favorites.
+    ///     Displays a success message confirming a file was removed from favorites.
     /// </summary>
     public Task FileRemovedFromFavoritesMessageBoxAsync(string fileNameWithoutExtension)
     {
@@ -498,7 +497,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when a specific game could not be launched, with an option to open the error log.
+    ///     Displays an error when a specific game could not be launched, with an option to open the error log.
     /// </summary>
     public async Task CouldNotLaunchThisGameMessageBoxAsync(string? logPath)
     {
@@ -511,7 +510,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{dowanttoopenthefileerroruserlog}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -527,11 +525,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwasnotfound, error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays a warning that a protocol handler for the specified protocol is not registered.
+    ///     Displays a warning that a protocol handler for the specified protocol is not registered.
     /// </summary>
     public Task ProtocolHandlerNotRegisteredMessageBoxAsync(string protocol)
     {
@@ -544,7 +541,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning that the emulator executable path is not configured for the system.
+    ///     Displays a warning that the emulator executable path is not configured for the system.
     /// </summary>
     public Task EmulatorPathNotConfiguredMessageBoxAsync()
     {
@@ -570,7 +567,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when calculating global statistics fails.
+    ///     Displays an error message when calculating global statistics fails.
     /// </summary>
     public Task ErrorCalculatingStatsMessageBoxAsync()
     {
@@ -585,7 +582,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving a statistics report fails.
+    ///     Displays an error message when saving a statistics report fails.
     /// </summary>
     public Task FailedSaveReportMessageBoxAsync()
     {
@@ -599,7 +596,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message confirming a statistics report was saved.
+    ///     Displays a success message confirming a statistics report was saved.
     /// </summary>
     public Task ReportSavedMessageBoxAsync()
     {
@@ -611,7 +608,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning that no statistics are available to save.
+    ///     Displays a warning that no statistics are available to save.
     /// </summary>
     public Task NoStatsToSaveMessageBoxAsync()
     {
@@ -623,7 +620,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when launching a tool fails, with an option to open the error log.
+    ///     Displays an error when launching a tool fails, with an option to open the error log.
     /// </summary>
     public async Task ErrorLaunchingToolMessageBoxAsync(string? logPath)
     {
@@ -643,7 +640,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{dowanttoopenthefileerroruserlog}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -659,11 +655,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwasnotfound, error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error when the selected tool executable is not found, with an option to reinstall.
+    ///     Displays an error when the selected tool executable is not found, with an option to reinstall.
     /// </summary>
     public async Task SelectedToolNotFoundMessageBoxAsync()
     {
@@ -690,7 +685,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a generic error message indicating an error was reported to the developer.
+    ///     Displays a generic error message indicating an error was reported to the developer.
     /// </summary>
     public Task ErrorMessageBoxAsync()
     {
@@ -703,7 +698,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning that no favorite games were found for the selected system.
+    ///     Displays a warning that no favorite games were found for the selected system.
     /// </summary>
     public Task NoFavoriteFoundMessageBoxAsync()
     {
@@ -714,7 +709,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning that the application is in a restricted folder and needs to be moved to a writable location.
+    ///     Displays a warning that the application is in a restricted folder and needs to be moved to a writable location.
     /// </summary>
     public Task MoveToWritableFolderMessageBoxAsync()
     {
@@ -734,7 +729,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the system configuration could not be loaded.
+    ///     Displays an error message when the system configuration could not be loaded.
     /// </summary>
     public Task InvalidSystemConfigMessageBoxAsync()
     {
@@ -748,7 +743,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when loading the game file list fails.
+    ///     Displays an error message when loading the game file list fails.
     /// </summary>
     public Task ErrorMethodLoadGameFilesAsyncMessageBoxAsync()
     {
@@ -762,7 +757,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the donation link fails to open.
+    ///     Displays an error message when the donation link fails to open.
     /// </summary>
     public Task ErrorOpeningDonationLinkMessageBoxAsync()
     {
@@ -776,7 +771,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when toggling gamepad support fails.
+    ///     Displays an error message when toggling gamepad support fails.
     /// </summary>
     public Task ToggleGamepadFailureMessageBoxAsync()
     {
@@ -789,7 +784,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that the tool launch was canceled by the user.
+    ///     Displays an informational message that the tool launch was canceled by the user.
     /// </summary>
     public Task ToolLaunchWasCanceledByUserMessageBoxAsync()
     {
@@ -801,7 +796,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when changing the view mode fails.
+    ///     Displays an error message when changing the view mode fails.
     /// </summary>
     public Task ErrorChangingViewModeMessageBoxAsync()
     {
@@ -815,7 +810,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when a navigation button encounters an error.
+    ///     Displays an error message when a navigation button encounters an error.
     /// </summary>
     public Task NavigationButtonErrorMessageBoxAsync()
     {
@@ -829,7 +824,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning prompting the user to select a system before searching.
+    ///     Displays a warning prompting the user to select a system before searching.
     /// </summary>
     public Task SelectSystemBeforeSearchMessageBoxAsync()
     {
@@ -840,7 +835,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning prompting the user to enter a search query.
+    ///     Displays a warning prompting the user to enter a search query.
     /// </summary>
     public Task EnterSearchQueryMessageBoxAsync()
     {
@@ -851,7 +846,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when loading helpuser.xml fails, with an option to reinstall the application.
+    ///     Displays an error when loading helpuser.xml fails, with an option to reinstall the application.
     /// </summary>
     public async Task ErrorWhileLoadingHelpUserXmlMessageBoxAsync()
     {
@@ -866,14 +861,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync($"{unexpectederrorwhileloadinghelpuserxml}\n\n" +
                                                          $"{doyouwanttoautomaticreinstallSimpleLauncher}", error);
 
-        if (result)
-        {
-            _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
-        }
+        if (result) _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
     }
 
     /// <summary>
-    /// Displays an error when no valid systems are found in helpuser.xml, with an option to reinstall.
+    ///     Displays an error when no valid systems are found in helpuser.xml, with an option to reinstall.
     /// </summary>
     public async Task NoSystemInHelpUserXmlMessageBoxAsync()
     {
@@ -887,14 +879,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync($"{novalidsystemsfoundinthefilehelpuserxml}\n\n" +
                                                          $"{doyouwanttoautomaticreinstallSimpleLauncher}", error);
 
-        if (result)
-        {
-            _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
-        }
+        if (result) _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
     }
 
     /// <summary>
-    /// Displays a prompt asking whether to reinstall the application after helpuser.xml fails to load.
+    ///     Displays a prompt asking whether to reinstall the application after helpuser.xml fails to load.
     /// </summary>
     public Task<CoreMessageBoxResult> CouldNotLoadHelpUserXmlMessageBoxAsync()
     {
@@ -911,7 +900,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when helpuser.xml is corrupted, with an option to reinstall the application.
+    ///     Displays an error when helpuser.xml is corrupted, with an option to reinstall the application.
     /// </summary>
     public async Task FailedToLoadHelpUserXmlMessageBoxAsync()
     {
@@ -925,14 +914,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync($"{unabletoloadhelpuserxml}\n\n" +
                                                          $"{doyouwanttoautomaticreinstallSimpleLauncher}", error);
 
-        if (result)
-        {
-            _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
-        }
+        if (result) _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
     }
 
     /// <summary>
-    /// Displays an error when helpuser.xml is missing, with an option to reinstall the application.
+    ///     Displays an error when helpuser.xml is missing, with an option to reinstall the application.
     /// </summary>
     public async Task FileHelpUserXmlIsMissingMessageBoxAsync()
     {
@@ -946,14 +932,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync($"{thefilehelpuserxmlismissing}\n\n" +
                                                          $"{doyouwanttoautomaticreinstallSimpleLauncher}", error);
 
-        if (result)
-        {
-            _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
-        }
+        if (result) _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
     }
 
     /// <summary>
-    /// Displays an error when loading parameters.md fails, with an option to reinstall the application.
+    ///     Displays an error when loading parameters.md fails, with an option to reinstall the application.
     /// </summary>
     public async Task ErrorWhileLoadingParametersMdMessageBoxAsync()
     {
@@ -967,14 +950,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync($"{unexpectederrorwhileloadingparametersmd}\n\n" +
                                                          $"{doyouwanttoautomaticreinstallSimpleLauncher}", error);
 
-        if (result)
-        {
-            _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
-        }
+        if (result) _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
     }
 
     /// <summary>
-    /// Displays an error when no valid systems are found in parameters.md, with an option to reinstall.
+    ///     Displays an error when no valid systems are found in parameters.md, with an option to reinstall.
     /// </summary>
     public async Task NoSystemInParametersMdMessageBoxAsync()
     {
@@ -988,14 +968,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync($"{novalidsystemsfoundinthefileparametersmd}\n\n" +
                                                          $"{doyouwanttoautomaticreinstallSimpleLauncher}", error);
 
-        if (result)
-        {
-            _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
-        }
+        if (result) _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
     }
 
     /// <summary>
-    /// Displays an error when parameters.md fails to load, with an option to reinstall the application.
+    ///     Displays an error when parameters.md fails to load, with an option to reinstall the application.
     /// </summary>
     public async Task FailedToLoadParametersMdMessageBoxAsync()
     {
@@ -1009,14 +986,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync($"{unabletoloadparametersmd}\n\n" +
                                                          $"{doyouwanttoautomaticreinstallSimpleLauncher}", error);
 
-        if (result)
-        {
-            _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
-        }
+        if (result) _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
     }
 
     /// <summary>
-    /// Displays an error when parameters.md is missing, with an option to reinstall the application.
+    ///     Displays an error when parameters.md is missing, with an option to reinstall the application.
     /// </summary>
     public async Task FileParametersMdIsMissingMessageBoxAsync()
     {
@@ -1030,14 +1004,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync($"{thefileparametersmdismissing}\n\n" +
                                                          $"{doyouwanttoautomaticreinstallSimpleLauncher}", error);
 
-        if (result)
-        {
-            _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
-        }
+        if (result) _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
     }
 
     /// <summary>
-    /// Displays an error when parameters.md is empty, with an option to reinstall the application.
+    ///     Displays an error when parameters.md is empty, with an option to reinstall the application.
     /// </summary>
     public async Task FileParametersMdIsEmptyMessageBoxAsync()
     {
@@ -1051,14 +1022,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync($"{thefileparametersmdisempty}\n\n" +
                                                          $"{doyouwanttoautomaticreinstallSimpleLauncher}", error);
 
-        if (result)
-        {
-            _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
-        }
+        if (result) _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
     }
 
     /// <summary>
-    /// Displays an error message when the image viewer fails to load an image.
+    ///     Displays an error message when the image viewer fails to load an image.
     /// </summary>
     public Task ImageViewerErrorMessageBoxAsync()
     {
@@ -1075,7 +1043,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when mame.dat is corrupted, with an option to reinstall the application.
+    ///     Displays an error when mame.dat is corrupted, with an option to reinstall the application.
     /// </summary>
     public async Task ReinstallSimpleLauncherFileCorruptedMessageBoxAsync()
     {
@@ -1109,7 +1077,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when mame.dat is missing, with an option to reinstall the application.
+    ///     Displays an error when mame.dat is missing, with an option to reinstall the application.
     /// </summary>
     public async Task ReinstallSimpleLauncherFileMissingMessageBoxAsync()
     {
@@ -1122,14 +1090,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync($"{thefilemamedatcouldnotbefound}\n\n"
                                                          + $"{doyouwanttoautomaticreinstall}", error);
 
-        if (result)
-        {
-            _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
-        }
+        if (result) _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
     }
 
     /// <summary>
-    /// Displays an error message when checking for application updates fails.
+    ///     Displays an error message when checking for application updates fails.
     /// </summary>
     public Task ErrorCheckingForUpdatesMessageBoxAsync()
     {
@@ -1144,7 +1109,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when loading ROM history fails.
+    ///     Displays an error message when loading ROM history fails.
     /// </summary>
     public Task ErrorLoadingRomHistoryMessageBoxAsync()
     {
@@ -1159,7 +1124,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when no history.dat or history.xml file is found, with an option to reinstall.
+    ///     Displays an error when no history.dat or history.xml file is found, with an option to reinstall.
     /// </summary>
     public async Task NoHistoryXmlOrDatFoundMessageBoxAsync()
     {
@@ -1172,14 +1137,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync($"{nohistoryxmlfilefound}\n\n" +
                                                          $"{doyouwanttoreinstallSimpleLauncher}", error);
 
-        if (result)
-        {
-            _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
-        }
+        if (result) _reinstallSimpleLauncher.StartUpdaterAndShutdownAsync();
     }
 
     /// <summary>
-    /// Displays an error message when the browser fails to open.
+    ///     Displays an error message when the browser fails to open.
     /// </summary>
     public Task ErrorOpeningBrowserMessageBoxAsync()
     {
@@ -1194,7 +1156,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when system.xml is corrupted, with an option to open the error log, then shuts down.
+    ///     Displays an error when system.xml is corrupted, with an option to open the error log, then shuts down.
     /// </summary>
     public async Task SystemXmlIsCorruptedMessageBoxAsync(string? logPath)
     {
@@ -1216,7 +1178,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{wouldyouliketoopentheerroruserlog}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -1232,13 +1193,12 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     _resourceProvider.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(thefileerroruserlog, error);
             }
-        }
 
         _quitSimpleLauncher.SimpleQuitApplication();
     }
 
     /// <summary>
-    /// Displays an error when a game could not be launched, with an option to open the error log.
+    ///     Displays an error when a game could not be launched, with an option to open the error log.
     /// </summary>
     public async Task WouldYouLikeToOpenTheLogMessageBoxAsync(string? logPath)
     {
@@ -1252,7 +1212,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{wouldyouliketoopentheerroruserlogfiletodebug}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -1268,11 +1227,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     _resourceProvider.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(thefileerroruserlog, error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error when the file system.xml is badly corrupted, with an option to open the error log.
+    ///     Displays an error when the file system.xml is badly corrupted, with an option to open the error log.
     /// </summary>
     public async Task FileSystemXmlIsCorruptedMessageBoxAsync(string? logPath)
     {
@@ -1286,7 +1244,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{wouldyouliketoopentheerroruserlog}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -1302,11 +1259,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     _resourceProvider.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(thefileerroruserlog, error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error during update installation, with an option to open the GitHub releases page.
+    ///     Displays an error during update installation, with an option to open the GitHub releases page.
     /// </summary>
     public async Task InstallUpdateManuallyMessageBoxAsync()
     {
@@ -1351,7 +1307,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when the updater fails to launch, with an option to open the GitHub releases page.
+    ///     Displays an error when the updater fails to launch, with an option to open the GitHub releases page.
     /// </summary>
     public async Task UpdaterLaunchFailedMessageBoxAsync()
     {
@@ -1398,7 +1354,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when appsettings.json is missing, with an option to reinstall the application.
+    ///     Displays a warning when appsettings.json is missing, with an option to reinstall the application.
     /// </summary>
     public async Task RequiredFileMissingMessageBoxAsync()
     {
@@ -1428,7 +1384,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message prompting the user to enter support request details.
+    ///     Displays an informational message prompting the user to enter support request details.
     /// </summary>
     public Task EnterSupportRequestMessageBoxAsync()
     {
@@ -1439,7 +1395,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message prompting the user to enter a name.
+    ///     Displays an informational message prompting the user to enter a name.
     /// </summary>
     public Task EnterNameMessageBoxAsync()
     {
@@ -1449,7 +1405,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message prompting the user to enter an email address.
+    ///     Displays an informational message prompting the user to enter an email address.
     /// </summary>
     public Task EnterEmailMessageBoxAsync()
     {
@@ -1459,7 +1415,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when an API key error occurs in the support form.
+    ///     Displays an error message when an API key error occurs in the support form.
     /// </summary>
     public Task ApiKeyErrorMessageBoxAsync()
     {
@@ -1473,7 +1429,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message confirming the support request was sent.
+    ///     Displays a success message confirming the support request was sent.
     /// </summary>
     public Task SupportRequestSuccessMessageBoxAsync()
     {
@@ -1484,7 +1440,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when sending the support request fails.
+    ///     Displays an error message when sending the support request fails.
     /// </summary>
     public Task SupportRequestSendErrorMessageBoxAsync()
     {
@@ -1498,7 +1454,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when file extraction fails, with troubleshooting suggestions.
+    ///     Displays an error message when file extraction fails, with troubleshooting suggestions.
     /// </summary>
     public Task ExtractionFailedMessageBoxAsync()
     {
@@ -1523,7 +1479,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning that the selected file must be a compressed archive (7z, zip, or rar) for extraction.
+    ///     Displays a warning that the selected file must be a compressed archive (7z, zip, or rar) for extraction.
     /// </summary>
     public Task FileNeedToBeCompressedMessageBoxAsync()
     {
@@ -1540,7 +1496,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when a downloaded file is missing, with a OneDrive sync suggestion.
+    ///     Displays an error message when a downloaded file is missing, with a OneDrive sync suggestion.
     /// </summary>
     public Task DownloadedFileIsMissingMessageBoxAsync()
     {
@@ -1554,7 +1510,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when a downloaded file is locked, with an option to open the temp folder.
+    ///     Displays an error when a downloaded file is locked, with an option to open the temp folder.
     /// </summary>
     public async Task FileIsLockedMessageBoxAsync(string? tempFolderPath)
     {
@@ -1578,7 +1534,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{openTempFolderQuestion}", error); // Changed to YesNo
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -1596,11 +1551,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await _messageDialog.ShowErrorAsync(errorOpeningFolderMessage, errorOpeningFolderTitle);
                 _logger.Error(ex, $"Failed to open temp folder: {tempFolderPath}");
             }
-        }
     }
 
     /// <summary>
-    /// Displays a success message confirming that links were saved.
+    ///     Displays a success message confirming that links were saved.
     /// </summary>
     public Task LinksSavedMessageBoxAsync()
     {
@@ -1610,7 +1564,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message confirming that dead zone values were saved.
+    ///     Displays a success message confirming that dead zone values were saved.
     /// </summary>
     public Task DeadZonesSavedMessageBoxAsync()
     {
@@ -1621,7 +1575,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message confirming that dead zone values were reverted to defaults.
+    ///     Displays a success message confirming that dead zone values were reverted to defaults.
     /// </summary>
     public Task DeadZonesRevertedMessageBoxAsync()
     {
@@ -1632,7 +1586,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message confirming that links were reverted to default values.
+    ///     Displays an informational message confirming that links were reverted to default values.
     /// </summary>
     public Task LinksRevertedMessageBoxAsync()
     {
@@ -1643,7 +1597,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the main window search engine encounters an error.
+    ///     Displays an error message when the main window search engine encounters an error.
     /// </summary>
     public Task MainWindowSearchEngineErrorMessageBoxAsync()
     {
@@ -1657,7 +1611,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when download or extraction of a file fails.
+    ///     Displays an error message when download or extraction of a file fails.
     /// </summary>
     public Task DownloadExtractionFailedMessageBoxAsync()
     {
@@ -1678,7 +1632,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message confirming that download and extraction completed.
+    ///     Displays a success message confirming that download and extraction completed.
     /// </summary>
     public Task DownloadAndExtractionWereSuccessfulMessageBoxAsync()
     {
@@ -1689,7 +1643,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an emulator download error with an option to open the emulator download page.
+    ///     Displays an emulator download error with an option to open the emulator download page.
     /// </summary>
     public async Task ShowEmulatorDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem)
     {
@@ -1702,7 +1656,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{wouldyouliketoberedirected}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -1722,11 +1675,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await _messageDialog.ShowErrorAsync($"{erroropeningthedownloadlink}\n\n" +
                                                     $"{theerrorwasreportedtothedeveloper}", error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays a core download error with an option to open the core download page.
+    ///     Displays a core download error with an option to open the core download page.
     /// </summary>
     public async Task ShowCoreDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem)
     {
@@ -1740,7 +1692,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{wouldyouliketoberedirected}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -1763,18 +1714,14 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await _messageDialog.ShowErrorAsync($"{erroropeningthedownloadlink}\n\n" +
                                                     $"{theerrorwasreportedtothedeveloper}", error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays an image pack download error with an option to open the image pack download page.
+    ///     Displays an image pack download error with an option to open the image pack download page.
     /// </summary>
     public async Task ShowImagePackDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem)
     {
-        if (selectedSystem?.Emulators?.Emulator?.ImagePackDownloadLink == null)
-        {
-            return;
-        }
+        if (selectedSystem?.Emulators?.Emulator?.ImagePackDownloadLink == null) return;
 
         {
             var downloadError = _resourceProvider.GetString("Downloaderror", "Download error.");
@@ -1786,7 +1733,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                              $"{wouldYouLikeToBeRedirected}", errorCaption);
 
             if (result)
-            {
                 try
                 {
                     Process.Start(new ProcessStartInfo
@@ -1808,12 +1754,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     await _messageDialog.ShowErrorAsync($"{errorOpeningDownloadLink}\n\n{errorWasReported}",
                         errorCaption);
                 }
-            }
         }
     }
 
     /// <summary>
-    /// Displays a prompt to select a history item before attempting removal.
+    ///     Displays a prompt to select a history item before attempting removal.
     /// </summary>
     public Task SelectAHistoryItemToRemoveMessageBoxAsync()
     {
@@ -1824,7 +1769,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a confirmation prompt asking whether to remove all play history.
+    ///     Displays a confirmation prompt asking whether to remove all play history.
     /// </summary>
     public Task<CoreMessageBoxResult> ReallyWantToRemoveAllPlayHistoryMessageBoxAsync()
     {
@@ -1836,7 +1781,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message confirming a system was added, with folder paths for ROMs and cover images.
+    ///     Displays a success message confirming a system was added, with folder paths for ROMs and cover images.
     /// </summary>
     public Task SystemAddedMessageBoxAsync(string systemName, string resolvedSystemFolder,
         string resolvedSystemImageFolder)
@@ -1856,7 +1801,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when adding a system fails, with optional error details.
+    ///     Displays an error message when adding a system fails, with optional error details.
     /// </summary>
     public Task AddSystemFailedMessageBoxAsync(string? details = null)
     {
@@ -1870,16 +1815,13 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var message = $"{therewasanerroradding}\n\n" +
                       $"{theerrorwasreportedtothedeveloper}";
 
-        if (!string.IsNullOrEmpty(details))
-        {
-            message += $"\n\n{errorDetails} {details}";
-        }
+        if (!string.IsNullOrEmpty(details)) message += $"\n\n{errorDetails} {details}";
 
         return _messageDialog.ShowErrorAsync(message, error);
     }
 
     /// <summary>
-    /// Displays an error message when the right-click context menu encounters an error.
+    ///     Displays an error message when the right-click context menu encounters an error.
     /// </summary>
     public Task RightClickContextMenuErrorMessageBoxAsync()
     {
@@ -1893,7 +1835,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that a game file no longer exists and has been removed from the list.
+    ///     Displays an informational message that a game file no longer exists and has been removed from the list.
     /// </summary>
     public Task GameFileDoesNotExistMessageBoxAsync()
     {
@@ -1907,7 +1849,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt asking whether to delete a play history entry when the game file no longer exists.
+    ///     Displays a prompt asking whether to delete a play history entry when the game file no longer exists.
     /// </summary>
     public Task<CoreMessageBoxResult> GameFileDoesNotExistAskToDeleteMessageBoxAsync(string filePath)
     {
@@ -1928,7 +1870,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt asking whether to delete a favorite entry when the game file no longer exists.
+    ///     Displays a prompt asking whether to delete a favorite entry when the game file no longer exists.
     /// </summary>
     public Task<CoreMessageBoxResult> FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(string filePath)
     {
@@ -1949,7 +1891,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the History window fails to open.
+    ///     Displays an error message when the History window fails to open.
     /// </summary>
     public Task CouldNotOpenHistoryWindowMessageBoxAsync()
     {
@@ -1963,7 +1905,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the walkthrough file fails to open.
+    ///     Displays an error message when the walkthrough file fails to open.
     /// </summary>
     public Task CouldNotOpenWalkthroughMessageBoxAsync()
     {
@@ -1977,7 +1919,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning prompting the user to select a favorite before attempting removal.
+    ///     Displays a warning prompting the user to select a favorite before attempting removal.
     /// </summary>
     public Task SelectAFavoriteToRemoveMessageBoxAsync()
     {
@@ -1988,7 +1930,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when system.xml is not found in the application folder.
+    ///     Displays an error message when system.xml is not found in the application folder.
     /// </summary>
     public Task SystemXmlNotFoundMessageBoxAsync()
     {
@@ -2005,7 +1947,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that a new system can now be added.
+    ///     Displays an informational message that a new system can now be added.
     /// </summary>
     public Task YouCanAddANewSystemMessageBoxAsync()
     {
@@ -2015,7 +1957,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that a specific emulator name is required because related data was provided.
+    ///     Displays an informational message that a specific emulator name is required because related data was provided.
     /// </summary>
     public Task EmulatorNameRequiredMessageBoxAsync(int i)
     {
@@ -2029,7 +1971,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that an emulator name is required.
+    ///     Displays an informational message that an emulator name is required.
     /// </summary>
     public Task EmulatorNameIsRequiredMessageBoxAsync()
     {
@@ -2042,7 +1984,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that the emulator name must be unique.
+    ///     Displays an informational message that the emulator name must be unique.
     /// </summary>
     public Task EmulatorNameMustBeUniqueMessageBoxAsync(string emulatorName)
     {
@@ -2054,7 +1996,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message confirming the system configuration was saved.
+    ///     Displays a success message confirming the system configuration was saved.
     /// </summary>
     public Task SystemSavedSuccessfullyMessageBoxAsync()
     {
@@ -2065,7 +2007,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when one or more paths or parameters are invalid.
+    ///     Displays an error message when one or more paths or parameters are invalid.
     /// </summary>
     public Task PathOrParameterInvalidMessageBoxAsync()
     {
@@ -2079,7 +2021,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message that Emulator 1 name is required.
+    ///     Displays an error message that Emulator 1 name is required.
     /// </summary>
     public Task Emulator1RequiredMessageBoxAsync()
     {
@@ -2092,7 +2034,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message that the extension to launch after extraction is required.
+    ///     Displays an error message that the extension to launch after extraction is required.
     /// </summary>
     public Task ExtensionToLaunchIsRequiredMessageBoxAsync()
     {
@@ -2105,7 +2047,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message that the extension to search in the system folder is required.
+    ///     Displays an error message that the extension to search in the system folder is required.
     /// </summary>
     public Task ExtensionToSearchIsRequiredMessageBoxAsync()
     {
@@ -2118,7 +2060,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message that the search extension must include zip, 7z, or rar when extraction is enabled.
+    ///     Displays an error message that the search extension must include zip, 7z, or rar when extraction is enabled.
     /// </summary>
     public Task FileMustBeCompressedMessageBoxAsync()
     {
@@ -2132,7 +2074,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message that the system image folder field cannot be empty.
+    ///     Displays an error message that the system image folder field cannot be empty.
     /// </summary>
     public Task SystemImageFolderCanNotBeEmptyMessageBoxAsync()
     {
@@ -2145,7 +2087,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message that the system folder field cannot be empty.
+    ///     Displays an error message that the system folder field cannot be empty.
     /// </summary>
     public Task SystemFolderCanNotBeEmptyMessageBoxAsync()
     {
@@ -2158,7 +2100,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message that the system name field cannot be empty.
+    ///     Displays an error message that the system name field cannot be empty.
     /// </summary>
     public Task SystemNameCanNotBeEmptyMessageBoxAsync()
     {
@@ -2171,7 +2113,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message listing invalid characters found in the system name.
+    ///     Displays an error message listing invalid characters found in the system name.
     /// </summary>
     public Task InvalidSystemNameCharactersMessageBoxAsync(string invalidChars)
     {
@@ -2185,7 +2127,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message listing invalid characters found in the system folder name.
+    ///     Displays an error message listing invalid characters found in the system folder name.
     /// </summary>
     public Task InvalidFolderCharactersMessageBoxAsync(string invalidChars)
     {
@@ -2199,7 +2141,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when creating system folders fails, with troubleshooting suggestions.
+    ///     Displays an error message when creating system folders fails, with troubleshooting suggestions.
     /// </summary>
     public Task FolderCreationFailedMessageBoxAsync()
     {
@@ -2221,7 +2163,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning prompting the user to select a system before deleting.
+    ///     Displays a warning prompting the user to select a system before deleting.
     /// </summary>
     public Task SelectASystemToDeleteMessageBoxAsync()
     {
@@ -2232,7 +2174,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning that the selected system was not found in the XML document.
+    ///     Displays a warning that the selected system was not found in the XML document.
     /// </summary>
     public Task SystemNotFoundInTheXmlMessageBoxAsync()
     {
@@ -2243,7 +2185,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when finding game files fails, with an option to open the error log.
+    ///     Displays an error when finding game files fails, with an option to open the error log.
     /// </summary>
     public async Task ErrorFindingGameFilesMessageBoxAsync(string logPath)
     {
@@ -2256,7 +2198,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{doyouwanttoopenthefileerroruserlog}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -2273,11 +2214,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwas, error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error when the gamepad controller encounters an error, with an option to open the error log.
+    ///     Displays an error when the gamepad controller encounters an error, with an option to open the error log.
     /// </summary>
     public async Task GamePadErrorMessageBoxAsync(string? logPath)
     {
@@ -2297,7 +2237,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{doyouwanttoopenthefile}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -2313,11 +2252,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwas, error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error when a game could not be launched, with troubleshooting tips and an option to open the error log.
+    ///     Displays an error when a game could not be launched, with troubleshooting tips and an option to open the error log.
     /// </summary>
     public async Task CouldNotLaunchGameMessageBoxAsync(string? logPath)
     {
@@ -2343,7 +2281,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{doyouwanttoopenthefile}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -2359,11 +2296,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwas, error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error when an invalid operation occurs during game launch, with an option to open the error log.
+    ///     Displays an error when an invalid operation occurs during game launch, with an option to open the error log.
     /// </summary>
     public async Task InvalidOperationExceptionMessageBoxAsync(string? logPath)
     {
@@ -2389,7 +2325,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{doyouwanttoopenthefile}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -2405,11 +2340,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwas, error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error when a game fails to launch, with an option to open the error log.
+    ///     Displays an error when a game fails to launch, with an option to open the error log.
     /// </summary>
     public async Task ThereWasAnErrorLaunchingThisGameMessageBoxAsync(string? logPath)
     {
@@ -2426,7 +2360,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{doyouwanttoopenthefileerroruserlog}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -2442,11 +2375,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     _resourceProvider.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(thefileerroruserlog, error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error when a batch file fails to execute, with error details and an option to open the error log.
+    ///     Displays an error when a batch file fails to execute, with error details and an option to open the error log.
     /// </summary>
     public async Task BatchFileFailedMessageBoxAsync(string batchFilePath, string errorDetail, string? logPath,
         int? exitCode = null)
@@ -2479,7 +2411,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var result = await _messageDialog.ShowYesNoAsync(message, error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -2495,11 +2426,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     _resourceProvider.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(notFound, error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays a warning listing missing paths referenced by a batch file, with an option to continue.
+    ///     Displays a warning listing missing paths referenced by a batch file, with an option to continue.
     /// </summary>
     public Task<bool> BatchFilePathsMissingMessageBoxAsync(IList<string> missingPaths)
     {
@@ -2519,7 +2449,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when administrator privileges are required to launch a game.
+    ///     Displays an error message when administrator privileges are required to launch a game.
     /// </summary>
     public Task ElevationRequiredMessageBoxAsync()
     {
@@ -2537,7 +2467,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when the file extension to launch after extraction is not configured.
+    ///     Displays an error when the file extension to launch after extraction is not configured.
     /// </summary>
     public Task NullFileExtensionMessageBoxAsync()
     {
@@ -2551,7 +2481,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when no file matching the configured extension is found in the extracted folder.
+    ///     Displays an error when no file matching the configured extension is found in the extracted folder.
     /// </summary>
     public Task CouldNotFindAFileMessageBoxAsync()
     {
@@ -2566,7 +2496,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt asking whether to search online for ROM history when none is found locally.
+    ///     Displays a prompt asking whether to search online for ROM history when none is found locally.
     /// </summary>
     public Task<CoreMessageBoxResult> SearchOnlineForRomHistoryMessageBoxAsync()
     {
@@ -2581,7 +2511,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message confirming a system was deleted.
+    ///     Displays a success message confirming a system was deleted.
     /// </summary>
     public Task SystemHasBeenDeletedMessageBoxAsync(string selectedSystemName)
     {
@@ -2592,7 +2522,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a confirmation prompt asking whether to delete the selected system.
+    ///     Displays a confirmation prompt asking whether to delete the selected system.
     /// </summary>
     public Task<CoreMessageBoxResult> AreYouSureDoYouWantToDeleteThisSystemMessageBoxAsync()
     {
@@ -2604,7 +2534,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when deleting a game file fails.
+    ///     Displays an error message when deleting a game file fails.
     /// </summary>
     public Task ThereWasAnErrorDeletingTheGameMessageBoxAsync()
     {
@@ -2618,7 +2548,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when deleting a cover image fails.
+    ///     Displays an error message when deleting a cover image fails.
     /// </summary>
     public Task ThereWasAnErrorDeletingTheCoverImageMessageBoxAsync()
     {
@@ -2632,7 +2562,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a confirmation prompt asking whether to permanently delete a game file.
+    ///     Displays a confirmation prompt asking whether to permanently delete a game file.
     /// </summary>
     public Task<CoreMessageBoxResult> AreYouSureYouWantToDeleteTheGameMessageBoxAsync(string fileNameWithExtension)
     {
@@ -2647,7 +2577,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a confirmation prompt asking whether to permanently delete a game's cover image.
+    ///     Displays a confirmation prompt asking whether to permanently delete a game's cover image.
     /// </summary>
     public Task<CoreMessageBoxResult> AreYouSureYouWantToDeleteTheCoverImageMessageBoxAsync(
         string fileNameWithoutExtension)
@@ -2663,7 +2593,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt asking whether to save a report with the current results.
+    ///     Displays a prompt asking whether to save a report with the current results.
     /// </summary>
     public Task<CoreMessageBoxResult> WouldYouLikeToSaveAReportMessageBoxAsync()
     {
@@ -2675,7 +2605,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the application is unable to restore the last backup.
+    ///     Displays an error message when the application is unable to restore the last backup.
     /// </summary>
     public Task SimpleLauncherWasUnableToRestoreBackupMessageBoxAsync()
     {
@@ -2686,7 +2616,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt asking whether to restore a backup when system.xml is missing.
+    ///     Displays a prompt asking whether to restore a backup when system.xml is missing.
     /// </summary>
     public Task<CoreMessageBoxResult> WouldYouLikeToRestoreTheLastBackupMessageBoxAsync()
     {
@@ -2703,7 +2633,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when loading language resources fails.
+    ///     Displays an error message when loading language resources fails.
     /// </summary>
     public Task FailedToLoadLanguageResourceMessageBoxAsync()
     {
@@ -2717,7 +2647,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning message about an invalid system configuration.
+    ///     Displays a warning message about an invalid system configuration.
     /// </summary>
     public Task InvalidSystemConfigurationMessageBoxAsync(string errorMessage)
     {
@@ -2727,7 +2657,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when a link fails to open.
+    ///     Displays an error message when a link fails to open.
     /// </summary>
     public Task UnableToOpenLinkMessageBoxAsync()
     {
@@ -2740,7 +2670,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that no games were found for the random selection feature.
+    ///     Displays an informational message that no games were found for the random selection feature.
     /// </summary>
     public Task NoGameFoundInTheRandomSelectionMessageBoxAsync()
     {
@@ -2751,7 +2681,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning prompting the user to select a system before using the Feeling Lucky feature.
+    ///     Displays a warning prompting the user to select a system before using the Feeling Lucky feature.
     /// </summary>
     public Task PleaseSelectASystemBeforeMessageBoxAsync()
     {
@@ -2763,7 +2693,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when toggling fuzzy matching logic fails.
+    ///     Displays an error message when toggling fuzzy matching logic fails.
     /// </summary>
     public Task ToggleFuzzyMatchingFailureMessageBoxAsync()
     {
@@ -2774,7 +2704,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when setting the fuzzy matching threshold fails.
+    ///     Displays an error message when setting the fuzzy matching threshold fails.
     /// </summary>
     public Task FuzzyMatchingErrorFailToSetThresholdMessageBoxAsync()
     {
@@ -2785,7 +2715,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a list of validation errors for a system configuration.
+    ///     Displays a list of validation errors for a system configuration.
     /// </summary>
     public Task ListOfErrorsMessageBoxAsync(StringBuilder errorMessages)
     {
@@ -2796,7 +2726,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that no update is available, showing the current version.
+    ///     Displays an informational message that no update is available, showing the current version.
     /// </summary>
     public Task ThereIsNoUpdateAvailableMessageBoxAsync(string currentVersion)
     {
@@ -2809,7 +2739,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that another instance of Simple Launcher is already running.
+    ///     Displays an informational message that another instance of Simple Launcher is already running.
     /// </summary>
     public Task AnotherInstanceIsRunningMessageBoxAsync()
     {
@@ -2820,7 +2750,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when Simple Launcher fails to start due to an instance check error.
+    ///     Displays an error message when Simple Launcher fails to start due to an instance check error.
     /// </summary>
     public Task FailedToStartSimpleLauncherMessageBoxAsync()
     {
@@ -2832,7 +2762,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the application fails to restart.
+    ///     Displays an error message when the application fails to restart.
     /// </summary>
     public Task FailedToRestartMessageBoxAsync()
     {
@@ -2843,7 +2773,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt asking whether to download and install an available update.
+    ///     Displays a prompt asking whether to download and install an available update.
     /// </summary>
     public Task<CoreMessageBoxResult> DoYouWantToUpdateMessageBoxAsync(string currentVersion, string latestVersion)
     {
@@ -2862,7 +2792,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when required files are missing, with an option to reinstall the application.
+    ///     Displays an error when required files are missing, with an option to reinstall the application.
     /// </summary>
     public async Task HandleMissingRequiredFilesMessageBoxAsync(string fileList)
     {
@@ -2894,7 +2824,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when the API configuration fails to load, with an option to reinstall.
+    ///     Displays an error when the API configuration fails to load, with an option to reinstall.
     /// </summary>
     public async Task HandleApiConfigErrorMessageBoxAsync(string reason)
     {
@@ -2928,7 +2858,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when there is not enough disk space for extraction.
+    ///     Displays an error message when there is not enough disk space for extraction.
     /// </summary>
     public Task DiskSpaceErrorMessageBoxAsync()
     {
@@ -2939,7 +2869,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when disk space cannot be checked for the specified path.
+    ///     Displays an error message when disk space cannot be checked for the specified path.
     /// </summary>
     public Task CouldNotCheckForDiskSpaceMessageBoxAsync()
     {
@@ -2950,7 +2880,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving the system configuration fails.
+    ///     Displays an error message when saving the system configuration fails.
     /// </summary>
     public Task SaveSystemFailedMessageBoxAsync(string? details = null)
     {
@@ -2964,16 +2894,13 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var message = $"{failedToSaveSystem}\n\n" +
                       $"{checkPermissions}";
 
-        if (!string.IsNullOrEmpty(details))
-        {
-            message += $"\n\n{errorDetails} {details}";
-        }
+        if (!string.IsNullOrEmpty(details)) message += $"\n\n{errorDetails} {details}";
 
         return _messageDialog.ShowErrorAsync(message, error);
     }
 
     /// <summary>
-    /// Displays an error message when the download link could not be opened.
+    ///     Displays an error message when the download link could not be opened.
     /// </summary>
     public Task CouldNotOpenTheDownloadLinkMessageBoxAsync()
     {
@@ -2984,7 +2911,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when loading appsettings.json fails.
+    ///     Displays an error message when loading appsettings.json fails.
     /// </summary>
     public Task ErrorLoadingAppSettingsMessageBoxAsync()
     {
@@ -2998,7 +2925,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a security warning when a potential path manipulation (Zip Slip) is detected in an archive.
+    ///     Displays a security warning when a potential path manipulation (Zip Slip) is detected in an archive.
     /// </summary>
     public Task PotentialPathManipulationDetectedMessageBoxAsync(string archivePath)
     {
@@ -3020,7 +2947,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when Easy Mode is unavailable due to Web API access issues, with troubleshooting suggestions.
+    ///     Displays a warning when Easy Mode is unavailable due to Web API access issues, with troubleshooting suggestions.
     /// </summary>
     public Task CouldNotOpenSoundConfigurationWindowMessageBoxAsync()
     {
@@ -3031,7 +2958,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when choosing or copying a sound file fails.
+    ///     Displays a warning when choosing or copying a sound file fails.
     /// </summary>
     public Task ErrorSettingSoundFileMessageBoxAsync()
     {
@@ -3042,7 +2969,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message that notification sounds are disabled.
+    ///     Displays an informational message that notification sounds are disabled.
     /// </summary>
     public Task NotificationSoundIsDisableMessageBoxAsync()
     {
@@ -3053,7 +2980,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning that no sound file is currently selected.
+    ///     Displays a warning that no sound file is currently selected.
     /// </summary>
     public Task NoSoundFileIsSelectedMessageBoxAsync()
     {
@@ -3064,7 +2991,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message confirming settings were saved.
+    ///     Displays a success message confirming settings were saved.
     /// </summary>
     public Task SettingsSavedSuccessfullyMessageBoxAsync()
     {
@@ -3075,7 +3002,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving settings fails.
+    ///     Displays an error message when saving settings fails.
     /// </summary>
     public Task FailedToSaveSettingsMessageBoxAsync()
     {
@@ -3086,7 +3013,8 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when a game file path is invalid, with troubleshooting suggestions and an option to open the error log.
+    ///     Displays an error when a game file path is invalid, with troubleshooting suggestions and an option to open the
+    ///     error log.
     /// </summary>
     public async Task FilePathIsInvalidMessageBoxAsync(string? logPath)
     {
@@ -3119,7 +3047,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{doyouwanttoopenthefile}", error);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -3135,11 +3062,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwas, error);
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error when mounting a file fails, with an option to download Dokan if needed.
+    ///     Displays an error when mounting a file fails, with an option to download Dokan if needed.
     /// </summary>
     public async Task ThereWasAnErrorMountingTheFileMessageBoxAsync(int? exitCode = null)
     {
@@ -3188,7 +3114,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when the Dokan driver is not installed, with an option to open the Dokan download page.
+    ///     Displays an error when the Dokan driver is not installed, with an option to open the Dokan download page.
     /// </summary>
     public async Task DokanDriverNotInstalledMessageBoxAsync()
     {
@@ -3224,7 +3150,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays informational text about launching a tool.
+    ///     Displays informational text about launching a tool.
     /// </summary>
     public Task LaunchToolInformationMessageBoxAsync(string info)
     {
@@ -3233,7 +3159,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message that a screenshot cannot be taken of a minimized window.
+    ///     Displays an error message that a screenshot cannot be taken of a minimized window.
     /// </summary>
     public Task CannotScreenshotMinimizedWindowMessageBoxAsync()
     {
@@ -3244,7 +3170,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when copying log content to the clipboard fails.
+    ///     Displays an error message when copying log content to the clipboard fails.
     /// </summary>
     public Task FailedToCopyLogContentMessageBoxAsync()
     {
@@ -3255,7 +3181,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the updater application cannot be found on GitHub.
+    ///     Displays an error message when the updater application cannot be found on GitHub.
     /// </summary>
     public Task CouldNotFindUpdaterOnGitHubMessageBoxAsync()
     {
@@ -3266,7 +3192,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the achievements window fails to open.
+    ///     Displays an error message when the achievements window fails to open.
     /// </summary>
     public Task CouldNotOpenAchievementsWindowMessageBoxAsync()
     {
@@ -3279,7 +3205,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt when a game is not supported by RetroAchievements, with an option to open the global window.
+    ///     Displays a prompt when a game is not supported by RetroAchievements, with an option to open the global window.
     /// </summary>
     public Task<CoreMessageBoxResult> GameNotSupportedByRetroAchievementsMessageBoxAsync()
     {
@@ -3293,7 +3219,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the game launch process times out.
+    ///     Displays an error message when the game launch process times out.
     /// </summary>
     public Task GameLaunchTimeoutMessageBoxAsync()
     {
@@ -3306,7 +3232,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an informational message prompting the user to add RetroAchievements login credentials.
+    ///     Displays an informational message prompting the user to add RetroAchievements login credentials.
     /// </summary>
     public Task AddRaLoginMessageBoxAsync()
     {
@@ -3317,7 +3243,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when no default web browser is configured in the operating system.
+    ///     Displays an error message when no default web browser is configured in the operating system.
     /// </summary>
     public Task NoDefaultBrowserConfiguredMessageBoxAsync()
     {
@@ -3328,7 +3254,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning about high memory usage when setting a very high number of games per page in Grid mode.
+    ///     Displays a warning about high memory usage when setting a very high number of games per page in Grid mode.
     /// </summary>
     public Task<CoreMessageBoxResult> WarnUserAboutMemoryConsumptionMessageBoxAsync()
     {
@@ -3342,7 +3268,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a compatibility warning that the Group Files by Folder option only works with MAME or DOSBox emulators.
+    ///     Displays a compatibility warning that the Group Files by Folder option only works with MAME or DOSBox emulators.
     /// </summary>
     public Task GroupByFolderOnlyForMameAndDosBoxMessageBoxAsync()
     {
@@ -3353,7 +3279,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a configuration warning when Group Files by Folder is enabled without a compatible emulator.
+    ///     Displays a configuration warning when Group Files by Folder is enabled without a compatible emulator.
     /// </summary>
     public Task<CoreMessageBoxResult> GroupByFolderWarningMessageBoxAsync()
     {
@@ -3364,7 +3290,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a welcome message for first-time users with no systems configured, offering to add a system via Easy Mode.
+    ///     Displays a welcome message for first-time users with no systems configured, offering to add a system via Easy Mode.
     /// </summary>
     public Task<CoreMessageBoxResult> FirstRunWelcomeMessageBoxAsync()
     {
@@ -3382,7 +3308,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning that the specified emulator's path is required.
+    ///     Displays a warning that the specified emulator's path is required.
     /// </summary>
     public Task EmulatorLocationRequiredMessageBoxAsync(int emulatorNumber)
     {
@@ -3393,7 +3319,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when the image pack downloader Web API is unavailable.
+    ///     Displays an error when the image pack downloader Web API is unavailable.
     /// </summary>
     public Task ImagePackDownloaderUnavailableMessageBoxAsync()
     {
@@ -3404,7 +3330,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when Easy Mode is unavailable due to Web API access issues, with troubleshooting suggestions.
+    ///     Displays a warning when Easy Mode is unavailable due to Web API access issues, with troubleshooting suggestions.
     /// </summary>
     public Task EasyModeUnavailableMessageBoxAsync()
     {
@@ -3446,7 +3372,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error that RetroAchievements hash is not supported for systems grouped by folder.
+    ///     Displays an error that RetroAchievements hash is not supported for systems grouped by folder.
     /// </summary>
     public Task SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolderMessageBoxAsync()
     {
@@ -3462,8 +3388,8 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt asking whether to scan the game path for RetroAchievements
-    /// compatibility when no hash scan result exists for the selected system.
+    ///     Displays a prompt asking whether to scan the game path for RetroAchievements
+    ///     compatibility when no hash scan result exists for the selected system.
     /// </summary>
     public Task<CoreMessageBoxResult> ScanGamePathForRetroAchievementsMessageBoxAsync()
     {
@@ -3475,7 +3401,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error that the current processor architecture is unsupported.
+    ///     Displays an error that the current processor architecture is unsupported.
     /// </summary>
     public Task UnsupportedArchitectureMessageBoxAsync()
     {
@@ -3489,7 +3415,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when the 7z DLL is missing, with an option to reinstall the application.
+    ///     Displays an error when the 7z DLL is missing, with an option to reinstall the application.
     /// </summary>
     public async Task SevenZipDllNotFoundMessageBoxAsync()
     {
@@ -3517,7 +3443,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when the 7-Zip library fails to initialize, with an option to reinstall the application.
+    ///     Displays an error when the 7-Zip library fails to initialize, with an option to reinstall the application.
     /// </summary>
     public async Task FailedToInitializeSevenZipMessageBoxAsync()
     {
@@ -3547,7 +3473,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error when file extraction fails after download, with an option to open the temp folder.
+    ///     Displays an error when file extraction fails after download, with an option to open the temp folder.
     /// </summary>
     public async Task ShowExtractionFailedMessageBoxAsync(string tempFolderPath)
     {
@@ -3560,7 +3486,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             extractionFailedTitle);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -3578,11 +3503,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await _messageDialog.ShowErrorAsync(errorOpeningFolderMessage, errorOpeningFolderTitle);
                 _logger.Error(ex, $"Failed to open temp folder: {tempFolderPath}");
             }
-        }
     }
 
     /// <summary>
-    /// Displays a download failure message when the temporary file is locked, with an option to open the temp folder.
+    ///     Displays a download failure message when the temporary file is locked, with an option to open the temp folder.
     /// </summary>
     public async Task ShowDownloadFileLockedMessageBoxAsync(string tempFolderPath)
     {
@@ -3595,7 +3519,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             downloadFailedTitle);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -3613,11 +3536,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await _messageDialog.ShowErrorAsync(errorOpeningFolderMessage, errorOpeningFolderTitle);
                 _logger.Error(ex, $"Failed to open temp folder: {tempFolderPath}");
             }
-        }
     }
 
     /// <summary>
-    /// Displays a custom game launch error message with an option to open the error log.
+    ///     Displays a custom game launch error message with an option to open the error log.
     /// </summary>
     public async Task ShowCustomMessageBoxAsync(string message, string launchError, string? logPath)
     {
@@ -3631,7 +3553,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{dowanttoopenthefileerroruserlog}", launchError);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -3648,11 +3569,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwasnotfound, launchError);
             }
-        }
     }
 
     /// <summary>
-    /// Displays a warning prompting the user to enter valid search terms.
+    ///     Displays a warning prompting the user to enter valid search terms.
     /// </summary>
     public Task EnterValidSearchTermsMessageBoxAsync()
     {
@@ -3662,7 +3582,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a notification that the operation was cancelled.
+    ///     Displays a notification that the operation was cancelled.
     /// </summary>
     public Task OperationCancelledMessageBoxAsync()
     {
@@ -3672,7 +3592,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a confirmation dialog asking whether to cancel processing and close.
+    ///     Displays a confirmation dialog asking whether to cancel processing and close.
     /// </summary>
     public Task<CoreMessageBoxResult> DoYouWantToCancelAndCloseMessageBoxAsync()
     {
@@ -3683,7 +3603,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the browser cannot be opened for AI support.
+    ///     Displays an error message when the browser cannot be opened for AI support.
     /// </summary>
     public Task CouldNotOpenBrowserForAiSupportMessageBoxAsync()
     {
@@ -3694,7 +3614,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when PowerShell execution policy restrictions prevent scanning Microsoft Store games.
+    ///     Displays a warning when PowerShell execution policy restrictions prevent scanning Microsoft Store games.
     /// </summary>
     public Task PowerShellExecutionPolicyRestrictionsMessageBoxAsync()
     {
@@ -3711,7 +3631,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when an ISO file cannot be mounted due to PowerShell execution policy restrictions.
+    ///     Displays a warning when an ISO file cannot be mounted due to PowerShell execution policy restrictions.
     /// </summary>
     public Task UnabletomountIsOfileMessageBoxAsync()
     {
@@ -3728,7 +3648,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when an ISO file cannot be dismounted due to PowerShell execution policy restrictions.
+    ///     Displays a warning when an ISO file cannot be dismounted due to PowerShell execution policy restrictions.
     /// </summary>
     public Task UnabletoDismountIsOfileMessageBoxAsync()
     {
@@ -3745,7 +3665,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when an application control policy blocks a file or link.
+    ///     Displays a warning when an application control policy blocks a file or link.
     /// </summary>
     public Task ApplicationControlPolicyBlockedMessageBoxAsync()
     {
@@ -3759,7 +3679,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when an application control policy blocks a link, and copies the URL to the clipboard.
+    ///     Displays a warning when an application control policy blocks a link, and copies the URL to the clipboard.
     /// </summary>
     public async Task ApplicationControlPolicyBlockedManualLinkMessageBoxAsync(string url)
     {
@@ -3777,7 +3697,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning prompting the user to enter RetroAchievements credentials before configuring an emulator.
+    ///     Displays a warning prompting the user to enter RetroAchievements credentials before configuring an emulator.
     /// </summary>
     public Task EnterYourRetroAchievementsUsernameMessageBoxAsync()
     {
@@ -3788,7 +3708,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after an emulator has been configured for RetroAchievements.
+    ///     Displays a success message after an emulator has been configured for RetroAchievements.
     /// </summary>
     public Task EmulatorConfiguredSuccessfullyMessageBoxAsync()
     {
@@ -3799,7 +3719,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when emulator configuration fails due to a missing or read-only config file.
+    ///     Displays an error message when emulator configuration fails due to a missing or read-only config file.
     /// </summary>
     public Task FailedToConfigureTheEmulatorMessageBoxAsync()
     {
@@ -3810,7 +3730,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when an exception occurs while configuring an emulator.
+    ///     Displays an error message when an exception occurs while configuring an emulator.
     /// </summary>
     public Task AnErrorOccurredWhileConfiguringTheEmulatorMessageBoxAsync()
     {
@@ -3821,7 +3741,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when logging in to RetroAchievements fails.
+    ///     Displays an error message when logging in to RetroAchievements fails.
     /// </summary>
     public Task FailedToLoginToRetroAchievementsMessageBoxAsync()
     {
@@ -3832,7 +3752,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when system.xml is locked or inaccessible by another process.
+    ///     Displays an error message when system.xml is locked or inaccessible by another process.
     /// </summary>
     public Task FileSystemXmlIsLockedMessageBoxAsync()
     {
@@ -3843,7 +3763,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when injecting MAME configuration fails.
+    ///     Displays a warning when injecting MAME configuration fails.
     /// </summary>
     public Task FailedToInjectMameConfigurationMessageBoxAsync()
     {
@@ -3854,7 +3774,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after MAME configuration has been injected.
+    ///     Displays a success message after MAME configuration has been injected.
     /// </summary>
     public Task MameConfigurationInjectedSuccessfullyMessageBoxAsync()
     {
@@ -3865,7 +3785,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when injecting MAME configuration fails (alternate message).
+    ///     Displays a warning when injecting MAME configuration fails (alternate message).
     /// </summary>
     public Task FailedtoinjectMamEconfiguration2MessageBoxAsync()
     {
@@ -3876,7 +3796,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt to locate the MAME emulator executable.
+    ///     Displays a prompt to locate the MAME emulator executable.
     /// </summary>
     public Task MameEmulatorPathNotFoundMessageBoxAsync()
     {
@@ -3887,7 +3807,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt to locate the RetroArch emulator executable.
+    ///     Displays a prompt to locate the RetroArch emulator executable.
     /// </summary>
     public Task RetroArchemulatorpathnotfoundMessageBoxAsync()
     {
@@ -3898,7 +3818,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when injecting RetroArch configuration fails.
+    ///     Displays a warning when injecting RetroArch configuration fails.
     /// </summary>
     public Task FailedtoinjectRetroArchconfigurationMessageBoxAsync()
     {
@@ -3909,7 +3829,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after RetroArch configuration has been injected.
+    ///     Displays a success message after RetroArch configuration has been injected.
     /// </summary>
     public Task RetroArchConfigurationInjectedSuccessfullyMessageBoxAsync()
     {
@@ -3920,7 +3840,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when injecting RetroArch configuration fails (alternate message).
+    ///     Displays a warning when injecting RetroArch configuration fails (alternate message).
     /// </summary>
     public Task FailedtoinjectRetroArchconfiguration2MessageBoxAsync()
     {
@@ -3931,7 +3851,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt to locate the Xenia emulator executable.
+    ///     Displays a prompt to locate the Xenia emulator executable.
     /// </summary>
     public Task XeniaemulatorpathnotfoundMessageBoxAsync()
     {
@@ -3942,7 +3862,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when injecting Xenia configuration fails.
+    ///     Displays a warning when injecting Xenia configuration fails.
     /// </summary>
     public Task FailedtoinjectXeniaconfigurationMessageBoxAsync()
     {
@@ -3953,7 +3873,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Xenia configuration has been injected.
+    ///     Displays a success message after Xenia configuration has been injected.
     /// </summary>
     public Task XeniaconfigurationinjectedsuccessfullyMessageBoxAsync()
     {
@@ -3964,7 +3884,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when injecting Xenia configuration fails (alternate message).
+    ///     Displays a warning when injecting Xenia configuration fails (alternate message).
     /// </summary>
     public Task FailedtoinjectXeniaconfiguration2MessageBoxAsync()
     {
@@ -3975,7 +3895,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning prompting the user to enter RetroAchievements username and password first.
+    ///     Displays a warning prompting the user to enter RetroAchievements username and password first.
     /// </summary>
     public Task EnterUsernamePasswordMessageBoxAsync()
     {
@@ -3986,7 +3906,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the Ares emulator cannot be found.
+    ///     Displays an error message when the Ares emulator cannot be found.
     /// </summary>
     public Task AresemulatornotfoundMessageBoxAsync()
     {
@@ -3997,7 +3917,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Daphne settings have been saved.
+    ///     Displays a success message after Daphne settings have been saved.
     /// </summary>
     public Task DaphnesettingssavedsuccessfullyMessageBoxAsync()
     {
@@ -4008,7 +3928,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after PCSX2 settings have been saved.
+    ///     Displays a success message after PCSX2 settings have been saved.
     /// </summary>
     public Task Pcsx2SettingssavedMessageBoxAsync()
     {
@@ -4018,7 +3938,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when PCSX2 configuration injection fails due to permission issues.
+    ///     Displays a warning when PCSX2 configuration injection fails due to permission issues.
     /// </summary>
     public Task Pcsx2ConfigurationInjectionPermissionErrorMessageBoxAsync()
     {
@@ -4043,7 +3963,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after emulator settings have been saved.
+    ///     Displays a success message after emulator settings have been saved.
     /// </summary>
     public Task SettingsSavedMessageBoxAsync()
     {
@@ -4053,7 +3973,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the Cemu emulator cannot be found.
+    ///     Displays an error message when the Cemu emulator cannot be found.
     /// </summary>
     public Task CemuEmulatorNotFoundMessageBoxAsync()
     {
@@ -4064,7 +3984,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting Ares configuration fails.
+    ///     Displays an error message when injecting Ares configuration fails.
     /// </summary>
     public Task FailedtoinjectAresconfigurationMessageBoxAsync()
     {
@@ -4075,7 +3995,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Cemu configuration has been saved.
+    ///     Displays a success message after Cemu configuration has been saved.
     /// </summary>
     public Task CemuConfigurationSavedMessageBoxAsync()
     {
@@ -4085,7 +4005,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the Flycast emulator cannot be found.
+    ///     Displays an error message when the Flycast emulator cannot be found.
     /// </summary>
     public Task FlycastEmulatorNotFoundMessageBoxAsync()
     {
@@ -4096,7 +4016,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Ares configuration has been saved.
+    ///     Displays a success message after Ares configuration has been saved.
     /// </summary>
     public Task AresConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4107,7 +4027,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving Ares configuration fails.
+    ///     Displays an error message when saving Ares configuration fails.
     /// </summary>
     public Task FailedToSaveAresConfigurationMessageBoxAsync()
     {
@@ -4118,7 +4038,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting Flycast configuration fails.
+    ///     Displays an error message when injecting Flycast configuration fails.
     /// </summary>
     public Task FailedToInjectFlycastConfigurationMessageBoxAsync()
     {
@@ -4129,7 +4049,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Flycast configuration has been saved.
+    ///     Displays a success message after Flycast configuration has been saved.
     /// </summary>
     public Task FlycastConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4140,7 +4060,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the Dolphin emulator cannot be found.
+    ///     Displays an error message when the Dolphin emulator cannot be found.
     /// </summary>
     public Task DolphinEmulatorNotFoundMessageBoxAsync()
     {
@@ -4151,7 +4071,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving Flycast configuration fails.
+    ///     Displays an error message when saving Flycast configuration fails.
     /// </summary>
     public Task FailedToSaveFlycastConfigurationMessageBoxAsync()
     {
@@ -4162,7 +4082,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting Dolphin configuration fails.
+    ///     Displays an error message when injecting Dolphin configuration fails.
     /// </summary>
     public Task FailedToInjectDolphinConfigurationMessageBoxAsync()
     {
@@ -4173,7 +4093,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Dolphin configuration has been saved.
+    ///     Displays a success message after Dolphin configuration has been saved.
     /// </summary>
     public Task DolphinConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4184,7 +4104,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving Dolphin configuration fails.
+    ///     Displays an error message when saving Dolphin configuration fails.
     /// </summary>
     public Task FailedToSaveDolphinConfigurationMessageBoxAsync()
     {
@@ -4195,7 +4115,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the SEGA Model 2 emulator cannot be found.
+    ///     Displays an error message when the SEGA Model 2 emulator cannot be found.
     /// </summary>
     public Task SegaModel2EmulatorNotFoundMessageBoxAsync()
     {
@@ -4206,7 +4126,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting SEGA Model 2 configuration fails.
+    ///     Displays an error message when injecting SEGA Model 2 configuration fails.
     /// </summary>
     public Task FailedToInjectSegaModel2ConfigurationMessageBoxAsync()
     {
@@ -4217,7 +4137,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after SEGA Model 2 configuration has been saved.
+    ///     Displays a success message after SEGA Model 2 configuration has been saved.
     /// </summary>
     public Task SegaModel2ConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4228,7 +4148,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the Blastem emulator cannot be found.
+    ///     Displays an error message when the Blastem emulator cannot be found.
     /// </summary>
     public Task BlastemEmulatorNotFoundMessageBoxAsync()
     {
@@ -4239,7 +4159,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting Blastem configuration fails.
+    ///     Displays an error message when injecting Blastem configuration fails.
     /// </summary>
     public Task FailedToInjectBlastemConfigurationMessageBoxAsync()
     {
@@ -4250,7 +4170,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Blastem configuration has been saved.
+    ///     Displays a success message after Blastem configuration has been saved.
     /// </summary>
     public Task BlastemConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4261,7 +4181,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving SEGA Model 2 configuration fails.
+    ///     Displays an error message when saving SEGA Model 2 configuration fails.
     /// </summary>
     public Task FailedToSaveSegaModel2ConfigurationMessageBoxAsync()
     {
@@ -4272,7 +4192,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving Blastem configuration fails.
+    ///     Displays an error message when saving Blastem configuration fails.
     /// </summary>
     public Task FailedToSaveBlastemConfigurationMessageBoxAsync()
     {
@@ -4283,7 +4203,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the RPCS3 emulator cannot be found.
+    ///     Displays an error message when the RPCS3 emulator cannot be found.
     /// </summary>
     public Task Rpcs3EmulatorNotFoundPleaseLocateMessageBoxAsync()
     {
@@ -4294,7 +4214,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting RPCS3 configuration fails.
+    ///     Displays an error message when injecting RPCS3 configuration fails.
     /// </summary>
     public Task FailedToInjectRpcs3ConfigurationMessageBoxAsync()
     {
@@ -4305,7 +4225,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after RPCS3 configuration has been saved.
+    ///     Displays a success message after RPCS3 configuration has been saved.
     /// </summary>
     public Task Rpcs3ConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4316,7 +4236,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving RPCS3 configuration fails.
+    ///     Displays an error message when saving RPCS3 configuration fails.
     /// </summary>
     public Task FailedToSaveRpcs3ConfigurationMessageBoxAsync()
     {
@@ -4327,7 +4247,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the Stella emulator cannot be found.
+    ///     Displays an error message when the Stella emulator cannot be found.
     /// </summary>
     public Task StellaEmulatorNotFoundMessageBoxAsync()
     {
@@ -4338,7 +4258,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting Stella configuration fails.
+    ///     Displays an error message when injecting Stella configuration fails.
     /// </summary>
     public Task FailedToInjectStellaConfigurationMessageBoxAsync()
     {
@@ -4349,7 +4269,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the Supermodel emulator cannot be found.
+    ///     Displays an error message when the Supermodel emulator cannot be found.
     /// </summary>
     public Task SupermodelEmulatorNotFoundMessageBoxAsync()
     {
@@ -4360,7 +4280,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Stella configuration has been saved.
+    ///     Displays a success message after Stella configuration has been saved.
     /// </summary>
     public Task StellaConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4371,7 +4291,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting Supermodel configuration fails.
+    ///     Displays an error message when injecting Supermodel configuration fails.
     /// </summary>
     public Task FailedToInjectSupermodelConfigurationMessageBoxAsync()
     {
@@ -4382,7 +4302,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving Stella configuration fails.
+    ///     Displays an error message when saving Stella configuration fails.
     /// </summary>
     public Task FailedToSaveStellaConfigurationMessageBoxAsync()
     {
@@ -4393,7 +4313,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Supermodel configuration has been saved.
+    ///     Displays a success message after Supermodel configuration has been saved.
     /// </summary>
     public Task SupermodelConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4404,7 +4324,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving Supermodel configuration fails.
+    ///     Displays an error message when saving Supermodel configuration fails.
     /// </summary>
     public Task FailedToSaveSupermodelConfigurationMessageBoxAsync()
     {
@@ -4415,7 +4335,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the Mednafen emulator cannot be found.
+    ///     Displays an error message when the Mednafen emulator cannot be found.
     /// </summary>
     public Task MednafenEmulatorNotFoundMessageBoxAsync()
     {
@@ -4426,7 +4346,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the Mesen emulator cannot be found.
+    ///     Displays an error message when the Mesen emulator cannot be found.
     /// </summary>
     public Task MesenEmulatorNotFoundMessageBoxAsync()
     {
@@ -4437,7 +4357,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting Mednafen configuration fails.
+    ///     Displays an error message when injecting Mednafen configuration fails.
     /// </summary>
     public Task FailedToInjectMednafenConfigurationMessageBoxAsync()
     {
@@ -4448,7 +4368,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting Mesen configuration fails.
+    ///     Displays an error message when injecting Mesen configuration fails.
     /// </summary>
     public Task FailedToInjectMesenConfigurationMessageBoxAsync()
     {
@@ -4459,7 +4379,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the DuckStation emulator cannot be found.
+    ///     Displays an error message when the DuckStation emulator cannot be found.
     /// </summary>
     public Task DuckStationEmulatorNotFoundMessageBoxAsync()
     {
@@ -4470,7 +4390,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Mednafen configuration has been saved.
+    ///     Displays a success message after Mednafen configuration has been saved.
     /// </summary>
     public Task MednafenConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4481,7 +4401,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving Mednafen configuration fails.
+    ///     Displays an error message when saving Mednafen configuration fails.
     /// </summary>
     public Task FailedToSaveMednafenConfigurationMessageBoxAsync()
     {
@@ -4492,7 +4412,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting DuckStation configuration fails.
+    ///     Displays an error message when injecting DuckStation configuration fails.
     /// </summary>
     public Task FailedToInjectDuckStationConfigurationMessageBoxAsync()
     {
@@ -4503,7 +4423,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after DuckStation configuration has been saved.
+    ///     Displays a success message after DuckStation configuration has been saved.
     /// </summary>
     public Task DuckStationConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4514,7 +4434,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving Mesen configuration fails.
+    ///     Displays an error message when saving Mesen configuration fails.
     /// </summary>
     public Task FailedToSaveMesenConfigurationMessageBoxAsync()
     {
@@ -4525,7 +4445,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving DuckStation configuration fails.
+    ///     Displays an error message when saving DuckStation configuration fails.
     /// </summary>
     public Task FailedToSaveDuckStationConfigurationMessageBoxAsync()
     {
@@ -4536,7 +4456,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Mesen configuration has been saved.
+    ///     Displays a success message after Mesen configuration has been saved.
     /// </summary>
     public Task MesenConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4547,7 +4467,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting Yumir configuration fails.
+    ///     Displays an error message when injecting Yumir configuration fails.
     /// </summary>
     public Task FailedToInjectYumirConfigurationMessageBoxAsync()
     {
@@ -4558,7 +4478,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Yumir configuration has been saved.
+    ///     Displays a success message after Yumir configuration has been saved.
     /// </summary>
     public Task YumirConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4569,7 +4489,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Raine configuration has been injected.
+    ///     Displays a success message after Raine configuration has been injected.
     /// </summary>
     public Task RaineSettingsSavedAndInjectedMessageBoxAsync()
     {
@@ -4580,7 +4500,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the Raine executable cannot be found.
+    ///     Displays an error message when the Raine executable cannot be found.
     /// </summary>
     public Task RaineExecutableNotFoundMessageBoxAsync()
     {
@@ -4591,7 +4511,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the Yumir executable cannot be found.
+    ///     Displays an error message when the Yumir executable cannot be found.
     /// </summary>
     public Task YumirEmulatorNotFoundMessageBoxAsync()
     {
@@ -4602,7 +4522,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when the ReDream executable cannot be found.
+    ///     Displays an error message when the ReDream executable cannot be found.
     /// </summary>
     public Task ReDreamEmulatorPathNotFoundMessageBoxAsync()
     {
@@ -4613,7 +4533,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when injecting ReDream configuration fails.
+    ///     Displays an error message when injecting ReDream configuration fails.
     /// </summary>
     public Task FailedToInjectReDreamConfigurationMessageBoxAsync()
     {
@@ -4624,7 +4544,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after ReDream configuration has been injected.
+    ///     Displays a success message after ReDream configuration has been injected.
     /// </summary>
     public Task ReDreamConfigurationInjectedSuccessfullyMessageBoxAsync()
     {
@@ -4635,7 +4555,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when a game fails to launch due to a DEP violation.
+    ///     Displays an error message when a game fails to launch due to a DEP violation.
     /// </summary>
     public Task CouldNotLaunchGameDueToDepViolationMessageBoxAsync()
     {
@@ -4655,7 +4575,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a MAME ROM set error with an option to visit the PleasureDome website.
+    ///     Displays a MAME ROM set error with an option to visit the PleasureDome website.
     /// </summary>
     public async Task MameRomSetErrorMessageBoxAsync()
     {
@@ -4674,7 +4594,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{message4}", title);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -4689,11 +4608,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await _messageDialog.ShowErrorAsync($"Could not open browser: {ex.Message}", "Error");
                 _logger.Error(ex, "Could not open browser");
             }
-        }
     }
 
     /// <summary>
-    /// Displays a MAME unknown system error with an option to visit the PleasureDome website.
+    ///     Displays a MAME unknown system error with an option to visit the PleasureDome website.
     /// </summary>
     public async Task MameUnknownSystemErrorMessageBoxAsync()
     {
@@ -4715,7 +4633,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{message5}", title);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -4730,11 +4647,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await _messageDialog.ShowErrorAsync($"Could not open browser: {ex.Message}", "Error");
                 _logger.Error(ex, "Could not open browser");
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error when MAME cannot load an image file, with an option to visit the PleasureDome website.
+    ///     Displays an error when MAME cannot load an image file, with an option to visit the PleasureDome website.
     /// </summary>
     public async Task MameUnableToLoadImageMessageBoxAsync()
     {
@@ -4756,7 +4672,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{message5}", title);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -4771,11 +4686,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await _messageDialog.ShowErrorAsync($"Could not open browser: {ex.Message}", "Error");
                 _logger.Error(ex, "Could not open browser");
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error that the Ootake emulator does not support CHD, ISO, or CUE/BIN files.
+    ///     Displays an error that the Ootake emulator does not support CHD, ISO, or CUE/BIN files.
     /// </summary>
     public Task OotakeDoesNotSupportImageFilesMessageBoxAsync()
     {
@@ -4786,7 +4700,8 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error that the Geolith libretro DLL does not support compressed files, with an option to visit a wiki page.
+    ///     Displays an error that the Geolith libretro DLL does not support compressed files, with an option to visit a wiki
+    ///     page.
     /// </summary>
     public async Task GeolithDoesNotSupportCompressedFilesMessageBoxAsync()
     {
@@ -4805,7 +4720,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{message4}", title);
 
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -4819,11 +4733,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                 await _messageDialog.ShowErrorAsync($"Could not open browser: {ex.Message}", "Error");
                 _logger.Error(ex, "Could not open browser");
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error that the RetroArch parameter should contain -L to point to the desired core.
+    ///     Displays an error that the RetroArch parameter should contain -L to point to the desired core.
     /// </summary>
     public Task RetroArchParameterShouldContainLMessageBoxAsync()
     {
@@ -4837,7 +4750,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a RetroArch parameter issue with troubleshooting tips and an option to open the error log.
+    ///     Displays a RetroArch parameter issue with troubleshooting tips and an option to open the error log.
     /// </summary>
     public async Task RetroArchParameterIssueMessageBoxAsync(string? logPath)
     {
@@ -4857,7 +4770,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                                                          $"{message4}\n\n" +
                                                          $"{doyouwanttoopenthefileerroruserlog}", title);
         if (result)
-        {
             try
             {
                 Process.Start(new ProcessStartInfo
@@ -4874,11 +4786,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
                     "The file 'error_user.log' was not found!");
                 await _messageDialog.ShowErrorAsync(thefileerroruserlogwas, title);
             }
-        }
     }
 
     /// <summary>
-    /// Displays an error when special characters in the file path prevent RetroArch from launching.
+    ///     Displays an error when special characters in the file path prevent RetroArch from launching.
     /// </summary>
     public Task RetroArchSpecialCharactersInPathMessageBoxAsync()
     {
@@ -4895,7 +4806,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when Azahar configuration injection fails due to permission issues.
+    ///     Displays a warning when Azahar configuration injection fails due to permission issues.
     /// </summary>
     public Task AzaharConfigurationInjectionPermissionErrorMessageBoxAsync()
     {
@@ -4920,7 +4831,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a success message after Azahar configuration has been saved.
+    ///     Displays a success message after Azahar configuration has been saved.
     /// </summary>
     public Task AzaharConfigurationSavedSuccessfullyMessageBoxAsync()
     {
@@ -4931,7 +4842,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving Azahar configuration fails.
+    ///     Displays an error message when saving Azahar configuration fails.
     /// </summary>
     public Task FailedToSaveAzaharConfigurationMessageBoxAsync()
     {
@@ -4942,7 +4853,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error that the Xemu parameter should contain '-dvd_path'.
+    ///     Displays an error that the Xemu parameter should contain '-dvd_path'.
     /// </summary>
     public Task XemuParameterShouldContainDvdPathMessageBoxAsync()
     {
@@ -4956,7 +4867,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error that the application cannot run from a temporary folder.
+    ///     Displays an error that the application cannot run from a temporary folder.
     /// </summary>
     public Task PleaseExtractApplicationFirstMessageBoxAsync()
     {
@@ -4970,7 +4881,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a generic error message when configuration injection fails.
+    ///     Displays a generic error message when configuration injection fails.
     /// </summary>
     public Task InjectionFailedGenericMessageBoxAsync()
     {
@@ -4981,7 +4892,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when saving Daphne configuration fails.
+    ///     Displays an error message when saving Daphne configuration fails.
     /// </summary>
     public Task DaphneConfigurationSaveFailedMessageBoxAsync()
     {
@@ -4992,7 +4903,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when image download times out due to Cloudflare access issues.
+    ///     Displays a warning when image download times out due to Cloudflare access issues.
     /// </summary>
     public Task ShowImageDownloadTimeoutMessageBoxAsync()
     {
@@ -5010,7 +4921,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt asking the user to enter a system name before choosing an image.
+    ///     Displays a prompt asking the user to enter a system name before choosing an image.
     /// </summary>
     public Task SystemNameRequiredBeforeChoosingImageMessageBoxAsync()
     {
@@ -5021,7 +4932,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a warning when the selected image format is not supported.
+    ///     Displays a warning when the selected image format is not supported.
     /// </summary>
     public Task InvalidImageFormatMessageBoxAsync()
     {
@@ -5032,7 +4943,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays an error message when copying the system image fails.
+    ///     Displays an error message when copying the system image fails.
     /// </summary>
     public Task FailedToCopySystemImageMessageBoxAsync(string errorMessage)
     {
@@ -5042,7 +4953,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a generic warning message with the specified message text.
+    ///     Displays a generic warning message with the specified message text.
     /// </summary>
     public Task WarningMessageBoxAsync(string message)
     {
@@ -5051,7 +4962,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a custom error message with the specified message and title.
+    ///     Displays a custom error message with the specified message and title.
     /// </summary>
     public Task CustomErrorMessageBoxAsync(string message, string title)
     {
@@ -5059,7 +4970,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a custom yes/no question dialog and returns the user's response.
+    ///     Displays a custom yes/no question dialog and returns the user's response.
     /// </summary>
     public async Task<bool> CustomQuestionMessageBoxAsync(string title, string message)
     {
@@ -5068,7 +4979,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a custom informational message with the specified title and message.
+    ///     Displays a custom informational message with the specified title and message.
     /// </summary>
     /// <param name="title">The title of the message box.</param>
     /// <param name="message">The message text to display.</param>
@@ -5078,7 +4989,8 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
-    /// Displays a prompt asking whether Simple Launcher AI should suggest corrected launch parameters after a failed launch.
+    ///     Displays a prompt asking whether Simple Launcher AI should suggest corrected launch parameters after a failed
+    ///     launch.
     /// </summary>
     /// <returns>True if the user accepted; otherwise, false.</returns>
     public async Task<bool> AskAiToFixParametersMessageBoxAsync()

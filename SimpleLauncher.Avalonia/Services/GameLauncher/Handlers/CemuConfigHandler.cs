@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Cemu (Wii U) emulator before launching a game.
+///     Handles configuration injection for the Cemu (Wii U) emulator before launching a game.
 /// </summary>
 public class CemuConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class CemuConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CemuConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="CemuConfigHandler" /> class.
     /// </summary>
     public CemuConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {

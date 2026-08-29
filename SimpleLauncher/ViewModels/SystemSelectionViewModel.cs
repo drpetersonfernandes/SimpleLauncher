@@ -7,18 +7,32 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the SystemSelectionWindow.
+///     ViewModel for the SystemSelectionWindow.
 /// </summary>
 public partial class SystemSelectionViewModel : ObservableObject
 {
     private readonly IRetroAchievementsSystemMatcher _systemMatcher;
     private string? _selectedSystem;
 
-    /// <summary>Initializes a new instance of the <see cref="SystemSelectionViewModel"/> class.</summary>
+    /// <summary>Initializes a new instance of the <see cref="SystemSelectionViewModel" /> class.</summary>
     /// <param name="systemMatcher">The RetroAchievements system matcher for retrieving supported system names.</param>
     public SystemSelectionViewModel(IRetroAchievementsSystemMatcher systemMatcher)
     {
         _systemMatcher = systemMatcher;
+    }
+
+    /// <summary>
+    ///     Gets the collection of system names.
+    /// </summary>
+    public ObservableCollection<string> Systems { get; private set; } = [];
+
+    /// <summary>
+    ///     Gets or sets the selected system name.
+    /// </summary>
+    public string? SelectedSystem
+    {
+        get => _selectedSystem;
+        set => SetProperty(ref _selectedSystem, value);
     }
 
     /// <summary>Initializes the system list and pre-selects the system matching the current guess.</summary>
@@ -33,31 +47,14 @@ public partial class SystemSelectionViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Gets the collection of system names.
-    /// </summary>
-    public ObservableCollection<string> Systems { get; private set; } = [];
-
-    /// <summary>
-    /// Gets or sets the selected system name.
-    /// </summary>
-    public string? SelectedSystem
-    {
-        get => _selectedSystem;
-        set => SetProperty(ref _selectedSystem, value);
-    }
-
-    /// <summary>
-    /// Event raised when the window should be closed with a dialog result.
+    ///     Event raised when the window should be closed with a dialog result.
     /// </summary>
     public event EventHandler<EventArgs<bool?>>? DialogResultRequested;
 
     [RelayCommand]
     private void Confirm()
     {
-        if (SelectedSystem != null)
-        {
-            DialogResultRequested?.Invoke(this, new EventArgs<bool?>(true));
-        }
+        if (SelectedSystem != null) DialogResultRequested?.Invoke(this, new EventArgs<bool?>(true));
     }
 
     [RelayCommand]

@@ -7,7 +7,7 @@ using SystemManager = SimpleLauncher.Services.SystemManager.SystemManagerService
 namespace SimpleLauncher;
 
 /// <summary>
-/// Window that displays global statistics across all systems.
+///     Window that displays global statistics across all systems.
 /// </summary>
 internal partial class GlobalStatsWindow : IDisposable
 {
@@ -16,7 +16,7 @@ internal partial class GlobalStatsWindow : IDisposable
     private Button? _emergencyReturnButton;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GlobalStatsWindow"/> class.
+    ///     Initializes a new instance of the <see cref="GlobalStatsWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing global statistics logic.</param>
     public GlobalStatsWindow(GlobalStatsViewModel viewModel)
@@ -44,7 +44,21 @@ internal partial class GlobalStatsWindow : IDisposable
     }
 
     /// <summary>
-    /// Initializes the window with the list of system managers for statistics calculation.
+    ///     Disposes of resources used by the window.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_emergencyReturnButton != null)
+        {
+            _emergencyReturnButton.Click -= EmergencyOverlayRelease_Click;
+            _emergencyReturnButton = null;
+        }
+
+        _viewModel.Dispose();
+    }
+
+    /// <summary>
+    ///     Initializes the window with the list of system managers for statistics calculation.
     /// </summary>
     /// <param name="systemManagers">The list of system manager configurations.</param>
     internal void Initialize(List<SystemManager> systemManagers)
@@ -67,25 +81,8 @@ internal partial class GlobalStatsWindow : IDisposable
         }
 
         // Execute the closing command
-        if (_viewModel.ClosingCommand.CanExecute(e))
-        {
-            _viewModel.ClosingCommand.Execute(e);
-        }
+        if (_viewModel.ClosingCommand.CanExecute(e)) _viewModel.ClosingCommand.Execute(e);
 
         Dispose();
-    }
-
-    /// <summary>
-    /// Disposes of resources used by the window.
-    /// </summary>
-    public void Dispose()
-    {
-        if (_emergencyReturnButton != null)
-        {
-            _emergencyReturnButton.Click -= EmergencyOverlayRelease_Click;
-            _emergencyReturnButton = null;
-        }
-
-        _viewModel.Dispose();
     }
 }

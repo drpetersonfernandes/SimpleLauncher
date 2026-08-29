@@ -7,16 +7,17 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the <see cref="DaphneConfigurationService"/> command-line argument builder for the Daphne emulator.
+///     Tests the <see cref="DaphneConfigurationService" /> command-line argument builder for the Daphne emulator.
 /// </summary>
 public class DaphneConfigurationServiceTests : IDisposable
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly NoOpCredentialProtector _credentialProtector = new();
+    private readonly ILogger _logErrors = new NoOpLogger();
 
     /// <summary>
-    /// Initializes a new instance of <see cref="DaphneConfigurationServiceTests"/> with in-memory configuration and mock services.
+    ///     Initializes a new instance of <see cref="DaphneConfigurationServiceTests" /> with in-memory configuration and mock
+    ///     services.
     /// </summary>
     public DaphneConfigurationServiceTests()
     {
@@ -32,7 +33,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the service provider mock state.
+    ///     Cleans up the service provider mock state.
     /// </summary>
     public void Dispose()
     {
@@ -46,7 +47,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that passing null settings to BuildArguments throws ArgumentNullException.
+    ///     Verifies that passing null settings to BuildArguments throws ArgumentNullException.
     /// </summary>
     [Fact]
     public void BuildArgumentsNullSettingsThrowsArgumentNullException()
@@ -55,7 +56,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that default settings produce arguments containing the -use_overlays flag.
+    ///     Verifies that default settings produce arguments containing the -use_overlays flag.
     /// </summary>
     [Fact]
     public void BuildArgumentsDefaultSettingsContainsUseOverlays()
@@ -67,7 +68,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that enabling fullscreen produces arguments containing the -fullscreen flag.
+    ///     Verifies that enabling fullscreen produces arguments containing the -fullscreen flag.
     /// </summary>
     [Fact]
     public void BuildArgumentsFullscreenEnabledContainsFullscreenFlag()
@@ -81,7 +82,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that disabling fullscreen omits the -fullscreen flag from arguments.
+    ///     Verifies that disabling fullscreen omits the -fullscreen flag from arguments.
     /// </summary>
     [Fact]
     public void BuildArgumentsFullscreenDisabledOmitsFullscreenFlag()
@@ -95,7 +96,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that valid resolution values produce -x and -y arguments.
+    ///     Verifies that valid resolution values produce -x and -y arguments.
     /// </summary>
     [Fact]
     public void BuildArgumentsValidResolutionContainsXyArgs()
@@ -111,7 +112,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that resolution values below the minimum threshold omit -x and -y arguments.
+    ///     Verifies that resolution values below the minimum threshold omit -x and -y arguments.
     /// </summary>
     [Fact]
     public void BuildArgumentsResolutionBelowMinOmitsResolutionArgs()
@@ -127,7 +128,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that resolution values above the maximum threshold omit -x and -y arguments.
+    ///     Verifies that resolution values above the maximum threshold omit -x and -y arguments.
     /// </summary>
     [Fact]
     public void BuildArgumentsResolutionAboveMaxOmitsResolutionArgs()
@@ -143,7 +144,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that disabling crosshairs produces arguments containing the -nocrosshairs flag.
+    ///     Verifies that disabling crosshairs produces arguments containing the -nocrosshairs flag.
     /// </summary>
     [Fact]
     public void BuildArgumentsCrosshairsDisabledContainsNoCrosshairsFlag()
@@ -157,7 +158,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that enabling crosshairs omits the -nocrosshairs flag from arguments.
+    ///     Verifies that enabling crosshairs omits the -nocrosshairs flag from arguments.
     /// </summary>
     [Fact]
     public void BuildArgumentsCrosshairsEnabledOmitsNoCrosshairsFlag()
@@ -171,7 +172,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that disabling bilinear filtering produces arguments containing -nolinear_scale.
+    ///     Verifies that disabling bilinear filtering produces arguments containing -nolinear_scale.
     /// </summary>
     [Fact]
     public void BuildArgumentsBilinearDisabledContainsNoLinearScaleFlag()
@@ -185,7 +186,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that enabling bilinear filtering omits the -nolinear_scale flag from arguments.
+    ///     Verifies that enabling bilinear filtering omits the -nolinear_scale flag from arguments.
     /// </summary>
     [Fact]
     public void BuildArgumentsBilinearEnabledOmitsNoLinearScaleFlag()
@@ -199,7 +200,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that disabling sound produces arguments containing -nosound.
+    ///     Verifies that disabling sound produces arguments containing -nosound.
     /// </summary>
     [Fact]
     public void BuildArgumentsSoundDisabledContainsNoSoundFlag()
@@ -213,7 +214,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that enabling sound omits the -nosound flag from arguments.
+    ///     Verifies that enabling sound omits the -nosound flag from arguments.
     /// </summary>
     [Fact]
     public void BuildArgumentsSoundEnabledOmitsNoSoundFlag()
@@ -227,7 +228,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that enabling overlays produces arguments containing -use_overlays 1.
+    ///     Verifies that enabling overlays produces arguments containing -use_overlays 1.
     /// </summary>
     [Fact]
     public void BuildArgumentsOverlaysEnabledContainsUseOverlays1()
@@ -241,7 +242,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that disabling overlays produces arguments containing -use_overlays 0.
+    ///     Verifies that disabling overlays produces arguments containing -use_overlays 0.
     /// </summary>
     [Fact]
     public void BuildArgumentsOverlaysDisabledContainsUseOverlays0()
@@ -255,7 +256,7 @@ public class DaphneConfigurationServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that all options enabled produce arguments containing every expected flag.
+    ///     Verifies that all options enabled produce arguments containing every expected flag.
     /// </summary>
     [Fact]
     public void BuildArgumentsAllOptionsEnabledContainsAllFlags()

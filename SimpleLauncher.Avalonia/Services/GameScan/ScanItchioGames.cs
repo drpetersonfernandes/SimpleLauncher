@@ -1,16 +1,18 @@
+using System.Diagnostics;
+using System.Globalization;
 using SimpleLauncher.Core.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Avalonia.Services.GameScan;
 
 /// <summary>
-/// Scans for installed itch.io games by inspecting the itch app library folder and creates shortcuts for them.
+///     Scans for installed itch.io games by inspecting the itch app library folder and creates shortcuts for them.
 /// </summary>
 public class ScanItchioGames : IGamePlatformScanner
 {
     private static readonly char[] Separator = ['='];
 
     /// <summary>
-    /// Scans the itch.io apps directory, parses each game's manifest, and creates launch shortcuts.
+    ///     Scans the itch.io apps directory, parses each game's manifest, and creates launch shortcuts.
     /// </summary>
     /// <param name="gameScannerService">The scanner service providing shared helpers.</param>
     /// <param name="logErrors">The error logger.</param>
@@ -33,7 +35,6 @@ public class ScanItchioGames : IGamePlatformScanner
             var gameDirs = Directory.GetDirectories(defaultLibraryPath);
 
             foreach (var gameDir in gameDirs)
-            {
                 try
                 {
                     var dirInfo = new DirectoryInfo(gameDir);
@@ -43,7 +44,6 @@ public class ScanItchioGames : IGamePlatformScanner
                     string? launchExe = null;
 
                     if (File.Exists(manifestPath))
-                    {
                         try
                         {
                             var lines = await File.ReadAllLinesAsync(manifestPath);
@@ -87,25 +87,19 @@ public class ScanItchioGames : IGamePlatformScanner
                         {
                             logErrors.Error(ex, "Error parsing itch.io manifest file.");
                         }
-                    }
 
                     // Attempt to get a prettier name from the executable if we found one, or directory name
                     if (!string.IsNullOrEmpty(launchExe) && File.Exists(launchExe))
                     {
-                        var versionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(launchExe);
-                        if (!string.IsNullOrEmpty(versionInfo.ProductName))
-                        {
-                            prettyName = versionInfo.ProductName;
-                        }
+                        var versionInfo = FileVersionInfo.GetVersionInfo(launchExe);
+                        if (!string.IsNullOrEmpty(versionInfo.ProductName)) prettyName = versionInfo.ProductName;
                     }
 
                     if (string.IsNullOrEmpty(prettyName))
-                    {
                         // Capitalize slug
                         prettyName =
-                            System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
+                            CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
                                 gameName.Replace("-", " "));
-                    }
 
                     if (ignoredGameNames.Contains(prettyName)) continue;
 
@@ -127,7 +121,6 @@ public class ScanItchioGames : IGamePlatformScanner
                 {
                     logErrors.Error(ex, $"Error processing Itch.io game directory: {gameDir}");
                 }
-            }
         }
         catch (Exception ex)
         {

@@ -12,25 +12,25 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.GameLauncher.Strategies;
 
 /// <summary>
-/// Handles launching DOS games through DOSBox, including extraction of archives, ISO/CHD mounting,
-/// and automatic .conf file generation for game executables.
-/// COPY of the WPF DosBoxLaunchStrategy — the file-selection dialog is shown with the Avalonia
-/// async ShowDialog API (owner window from IWindowContext); the .conf generation is identical.
+///     Handles launching DOS games through DOSBox, including extraction of archives, ISO/CHD mounting,
+///     and automatic .conf file generation for game executables.
+///     COPY of the WPF DosBoxLaunchStrategy — the file-selection dialog is shown with the Avalonia
+///     async ShowDialog API (owner window from IWindowContext); the .conf generation is identical.
 /// </summary>
 public class DosBoxLaunchStrategy : ILaunchStrategy
 {
-    private readonly IExtractionService _extractionService;
-    private readonly IConfiguration _configuration;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly IMountChdFiles _mountChdFiles;
-    private readonly IMountIsoFiles _mountIsoFiles;
     private static ILogger _logger = null!;
 
     private static readonly string[] PriorityGameFormats = [".conf", ".bat", ".exe", ".com"];
     private static readonly List<string> ExtractionFormats = ["conf", "bat", "exe", "com"];
+    private readonly IConfiguration _configuration;
+    private readonly IExtractionService _extractionService;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly IMountChdFiles _mountChdFiles;
+    private readonly IMountIsoFiles _mountIsoFiles;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DosBoxLaunchStrategy"/> class.
+    ///     Initializes a new instance of the <see cref="DosBoxLaunchStrategy" /> class.
     /// </summary>
     public DosBoxLaunchStrategy(IExtractionService extractionService, IConfiguration configuration,
         IMessageBoxLibraryService messageBox, IMountChdFiles mountChdFiles, IMountIsoFiles mountIsoFiles,
@@ -142,13 +142,9 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
 
                     string confPath;
                     if (Path.GetExtension(selectedFile).Equals(".conf", StringComparison.OrdinalIgnoreCase))
-                    {
                         confPath = selectedFile;
-                    }
                     else
-                    {
                         confPath = GenerateTempConf(workingDir, selectedFile);
-                    }
 
                     var launchParameters = BuildLaunchParameters(context.Parameters);
 
@@ -170,10 +166,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                 }
                 finally
                 {
-                    if (tempDir != null)
-                    {
-                        await CleanTempFolder.CleanupTempDirectoryAsync(tempDir);
-                    }
+                    if (tempDir != null) await CleanTempFolder.CleanupTempDirectoryAsync(tempDir);
                 }
 
                 break;
@@ -182,7 +175,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     }
 
     /// <summary>
-    /// Determines whether the specified launch context targets a DOSBox-family emulator.
+    ///     Determines whether the specified launch context targets a DOSBox-family emulator.
     /// </summary>
     internal static bool IsDosBoxEmulator(LaunchContext context)
     {
@@ -201,7 +194,6 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         var foundFiles = new List<string>();
 
         foreach (var format in PriorityGameFormats)
-        {
             try
             {
                 var files = Directory.GetFiles(directory, $"*{format}", SearchOption.AllDirectories);
@@ -211,7 +203,6 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             {
                 _logger.Debug($"[DosBoxLaunchStrategy] Error searching for *{format}: {ex.Message}");
             }
-        }
 
         _logger.Debug($"[DosBoxLaunchStrategy] Found {foundFiles.Count} game file(s) in {directory}");
         return foundFiles;
@@ -412,13 +403,11 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     {
         var launchParameters = parameters ?? "";
         if (!launchParameters.Contains("-conf", StringComparison.OrdinalIgnoreCase))
-        {
             launchParameters = string.IsNullOrWhiteSpace(launchParameters)
                 ? "-conf %ROM%"
                 : launchParameters.Contains("%ROM%", StringComparison.OrdinalIgnoreCase)
                     ? launchParameters.Replace("%ROM%", "-conf %ROM%", StringComparison.OrdinalIgnoreCase)
                     : $"-conf %ROM% {launchParameters}";
-        }
 
         return launchParameters;
     }
@@ -500,8 +489,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     }
 
     /// <summary>
-    /// Resolves the window to own the file-selection dialog: the launch context's
-    /// platform window, falling back to the application main window.
+    ///     Resolves the window to own the file-selection dialog: the launch context's
+    ///     platform window, falling back to the application main window.
     /// </summary>
     private static Window? GetOwnerWindow(LaunchContext context)
     {

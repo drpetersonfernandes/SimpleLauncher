@@ -1,21 +1,24 @@
 using System.Globalization;
 using System.Text;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Provides functionality to inject Simple Launcher settings into the Supermodel emulator configuration file (Supermodel.ini).
+///     Provides functionality to inject Simple Launcher settings into the Supermodel emulator configuration file
+///     (Supermodel.ini).
 /// </summary>
 public static class SupermodelConfigurationService
 {
     /// <summary>
-    /// Injects Simple Launcher configuration settings into the Supermodel emulator's Supermodel.ini file under the [Global] section.
-    /// Creates the config from a sample if it does not exist, then updates rendering, display, audio, and input settings.
+    ///     Injects Simple Launcher configuration settings into the Supermodel emulator's Supermodel.ini file under the
+    ///     [Global] section.
+    ///     Creates the config from a sample if it does not exist, then updates rendering, display, audio, and input settings.
     /// </summary>
     /// <param name="emulatorPath">The full path to the Supermodel emulator executable.</param>
     /// <param name="settings">The settings manager containing Supermodel configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -27,10 +30,7 @@ public static class SupermodelConfigurationService
         if (!File.Exists(configPath))
         {
             var rootPath = Path.Combine(emuDir, "Supermodel.ini");
-            if (File.Exists(rootPath))
-            {
-                configPath = rootPath;
-            }
+            if (File.Exists(rootPath)) configPath = rootPath;
         }
 
         // Backup logic: Create from your sample if missing
@@ -39,7 +39,6 @@ public static class SupermodelConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Supermodel",
                 "Supermodel.ini");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(configPath) ??
@@ -54,11 +53,8 @@ public static class SupermodelConfigurationService
                     logger.Error(ex, $"[SupermodelConfig] Failed to create Supermodel.ini from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("Supermodel.ini not found and sample missing.");
-            }
         }
 
         var updates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -139,24 +135,15 @@ public static class SupermodelConfigurationService
             {
                 // Find the end of the [Global] section or end of file
                 var insertIndex = globalSectionIndex + 1;
-                while (insertIndex < lines.Count && !lines[insertIndex].Trim().StartsWith('['))
-                {
-                    insertIndex++;
-                }
+                while (insertIndex < lines.Count && !lines[insertIndex].Trim().StartsWith('[')) insertIndex++;
 
-                foreach (var key in keysToAdd)
-                {
-                    lines.Insert(insertIndex++, $"{key} = {updates[key]}");
-                }
+                foreach (var key in keysToAdd) lines.Insert(insertIndex++, $"{key} = {updates[key]}");
             }
             else // If [Global] section doesn't exist, add it with the missing keys
             {
                 lines.Add("");
                 lines.Add("[Global]");
-                foreach (var key in keysToAdd)
-                {
-                    lines.Add($"{key} = {updates[key]}");
-                }
+                foreach (var key in keysToAdd) lines.Add($"{key} = {updates[key]}");
             }
         }
 
@@ -174,8 +161,8 @@ public static class SupermodelConfigurationService
     }
 
     /// <summary>
-    /// Validates and returns a valid InputSystem value.
-    /// Defaults to "xinput" if the provided value is null, empty, or invalid.
+    ///     Validates and returns a valid InputSystem value.
+    ///     Defaults to "xinput" if the provided value is null, empty, or invalid.
     /// </summary>
     private static string GetValidInputSystem(string inputSystem)
     {

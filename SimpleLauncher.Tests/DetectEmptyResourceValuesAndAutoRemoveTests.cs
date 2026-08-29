@@ -7,14 +7,15 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Scans every localization resource file (strings.*.xaml) for entries
-/// whose value is empty or whitespace and automatically removes them.
-/// The test fails so the developer is informed of what was cleaned up.
+///     Scans every localization resource file (strings.*.xaml) for entries
+///     whose value is empty or whitespace and automatically removes them.
+///     The test fails so the developer is informed of what was cleaned up.
 /// </summary>
 public class DetectEmptyResourceValuesAndAutoRemoveTests
 {
     /// <summary>
-    /// Verifies that no localization resource file contains empty or whitespace-only values, automatically removing them if found.
+    ///     Verifies that no localization resource file contains empty or whitespace-only values, automatically removing them
+    ///     if found.
     /// </summary>
     [Fact]
     public void AllResourceFilesShouldHaveNoEmptyValuesAndAutoRemove()
@@ -44,7 +45,6 @@ public class DetectEmptyResourceValuesAndAutoRemoveTests
             var hasChanges = false;
 
             foreach (var element in elementsWithKey)
-            {
                 // Self-closing tags or tags with no/whitespace text are considered empty.
                 if (element.IsEmpty || string.IsNullOrWhiteSpace(element.Value))
                 {
@@ -62,7 +62,6 @@ public class DetectEmptyResourceValuesAndAutoRemoveTests
                     element.Remove();
                     hasChanges = true;
                 }
-            }
 
             if (hasChanges)
             {
@@ -111,9 +110,7 @@ public class DetectEmptyResourceValuesAndAutoRemoveTests
         {
             message.AppendLine(CultureInfo.InvariantCulture, $"  File: {kvp.Key}");
             foreach (var key in kvp.Value.OrderBy(static x => x, StringComparer.OrdinalIgnoreCase))
-            {
                 message.AppendLine(CultureInfo.InvariantCulture, $"    - {key}");
-            }
         }
 
         Assert.Fail(message.ToString());

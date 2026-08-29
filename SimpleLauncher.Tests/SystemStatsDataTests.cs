@@ -4,13 +4,13 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="SystemStatsData"/> model covering default values, property assignment,
-/// and the AreFilesAndImagesEqual computed property.
+///     Tests for the <see cref="SystemStatsData" /> model covering default values, property assignment,
+///     and the AreFilesAndImagesEqual computed property.
 /// </summary>
 public class SystemStatsDataTests
 {
     /// <summary>
-    /// Verifies that all default property values of a new SystemStatsData are correct.
+    ///     Verifies that all default property values of a new SystemStatsData are correct.
     /// </summary>
     [Fact]
     public void DefaultPropertiesAreDefaultValues()
@@ -25,7 +25,7 @@ public class SystemStatsDataTests
     }
 
     /// <summary>
-    /// Verifies that init-only properties can be set during object initialization.
+    ///     Verifies that init-only properties can be set during object initialization.
     /// </summary>
     [Fact]
     public void InitPropertiesCanBeSet()
@@ -45,7 +45,7 @@ public class SystemStatsDataTests
     }
 
     /// <summary>
-    /// Verifies that AreFilesAndImagesEqual returns the expected result for various file and image counts.
+    ///     Verifies that AreFilesAndImagesEqual returns the expected result for various file and image counts.
     /// </summary>
     /// <param name="files">The number of files.</param>
     /// <param name="images">The number of images.</param>
@@ -68,7 +68,7 @@ public class SystemStatsDataTests
     }
 
     /// <summary>
-    /// Verifies that TotalDiskSize can be set to zero.
+    ///     Verifies that TotalDiskSize can be set to zero.
     /// </summary>
     [Fact]
     public void TotalDiskSizeCanBeZero()
@@ -78,7 +78,7 @@ public class SystemStatsDataTests
     }
 
     /// <summary>
-    /// Verifies that TotalDiskSize can be set to a very large value.
+    ///     Verifies that TotalDiskSize can be set to a very large value.
     /// </summary>
     [Fact]
     public void TotalDiskSizeCanBeLargeValue()

@@ -4,12 +4,11 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 
 /// <summary>
-/// Provides cleanup routines that delete temporary and architecture-specific files from the SimpleLauncher installation.
+///     Provides cleanup routines that delete temporary and architecture-specific files from the SimpleLauncher
+///     installation.
 /// </summary>
 public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderService
 {
-    private readonly IDeleteFilesService _deleteFilesService;
-
     private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
     private static readonly string[] DirectoriesToClean =
@@ -202,8 +201,10 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
         Path.Combine(AppDirectory, "tools", "xbox-iso-vfs")
     ];
 
+    private readonly IDeleteFilesService _deleteFilesService;
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="CleanSimpleLauncherFolderService"/> class.
+    ///     Initializes a new instance of the <see cref="CleanSimpleLauncherFolderService" /> class.
     /// </summary>
     /// <param name="deleteFilesService">The service used to delete files and directories.</param>
     public CleanSimpleLauncherFolderService(IDeleteFilesService deleteFilesService)
@@ -212,21 +213,15 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
     }
 
     /// <summary>
-    /// Deletes the temporary and obsolete files and directories from the SimpleLauncher installation folder.
+    ///     Deletes the temporary and obsolete files and directories from the SimpleLauncher installation folder.
     /// </summary>
     public void CleanupTrash()
     {
         // Clean directories
-        foreach (var directory in DirectoriesToClean)
-        {
-            _deleteFilesService.TryDeleteDirectory(directory);
-        }
+        foreach (var directory in DirectoriesToClean) _deleteFilesService.TryDeleteDirectory(directory);
 
         // Clean files
-        foreach (var file in FilesToClean)
-        {
-            DeleteFileSafely(file);
-        }
+        foreach (var file in FilesToClean) DeleteFileSafely(file);
 
         var currentArchitecture = RuntimeInformation.OSArchitecture;
         CleanupArchitectureSpecificFiles(currentArchitecture);
@@ -234,7 +229,7 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
     }
 
     /// <summary>
-    /// Deletes the SimpleLauncher temporary folders located in the system temp directory.
+    ///     Deletes the SimpleLauncher temporary folders located in the system temp directory.
     /// </summary>
     public void CleanupTempFiles()
     {
@@ -259,10 +254,7 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
                 throw new ArgumentOutOfRangeException(nameof(currentArchitecture));
         }
 
-        foreach (var file in filesToDelete)
-        {
-            DeleteFileSafely(file);
-        }
+        foreach (var file in filesToDelete) DeleteFileSafely(file);
     }
 
     private void CleanupArchitectureSpecificFolders(Architecture currentArchitecture)
@@ -281,10 +273,7 @@ public class CleanSimpleLauncherFolderService : ICleanSimpleLauncherFolderServic
                 throw new ArgumentOutOfRangeException(nameof(currentArchitecture));
         }
 
-        foreach (var folder in foldersToDelete)
-        {
-            _deleteFilesService.TryDeleteDirectory(folder);
-        }
+        foreach (var folder in foldersToDelete) _deleteFilesService.TryDeleteDirectory(folder);
     }
 
     private void DeleteFileSafely(string path)

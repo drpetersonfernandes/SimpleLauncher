@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="EasyModeSystemConfig"/> validation logic and property behavior.
+///     Tests for <see cref="EasyModeSystemConfig" /> validation logic and property behavior.
 /// </summary>
 public class EasyModeSystemConfigTests
 {
     /// <summary>
-    /// Verifies that IsValid returns true when SystemName is set to a valid non-empty string.
+    ///     Verifies that IsValid returns true when SystemName is set to a valid non-empty string.
     /// </summary>
     [Fact]
     public void IsValidWithSystemNameReturnsTrue()
@@ -23,7 +23,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that IsValid returns false when SystemName is null.
+    ///     Verifies that IsValid returns false when SystemName is null.
     /// </summary>
     [Fact]
     public void IsValidWithNullSystemNameReturnsFalse()
@@ -37,7 +37,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that IsValid returns false when SystemName is an empty string.
+    ///     Verifies that IsValid returns false when SystemName is an empty string.
     /// </summary>
     [Fact]
     public void IsValidWithEmptySystemNameReturnsFalse()
@@ -51,7 +51,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that IsValid returns false when SystemName consists only of whitespace.
+    ///     Verifies that IsValid returns false when SystemName consists only of whitespace.
     /// </summary>
     [Fact]
     public void IsValidWithWhitespaceSystemNameReturnsFalse()
@@ -65,7 +65,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that ShouldSerializeExtractFileBeforeLaunch returns false when the property is set to false.
+    ///     Verifies that ShouldSerializeExtractFileBeforeLaunch returns false when the property is set to false.
     /// </summary>
     [Fact]
     public void ShouldSerializeExtractFileBeforeLaunchFalseReturnsFalse()
@@ -80,7 +80,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that ShouldSerializeExtractFileBeforeLaunch returns true when the property is set to true.
+    ///     Verifies that ShouldSerializeExtractFileBeforeLaunch returns true when the property is set to true.
     /// </summary>
     [Fact]
     public void ShouldSerializeExtractFileBeforeLaunchTrueReturnsTrue()
@@ -95,7 +95,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that the default value of ExtractFileBeforeLaunch is false.
+    ///     Verifies that the default value of ExtractFileBeforeLaunch is false.
     /// </summary>
     [Fact]
     public void DefaultExtractFileBeforeLaunchIsFalse()
@@ -109,7 +109,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that all properties on EasyModeSystemConfig can be set via object initializer and retrieved correctly.
+    ///     Verifies that all properties on EasyModeSystemConfig can be set via object initializer and retrieved correctly.
     /// </summary>
     [Fact]
     public void PropertiesCanBeSetAndRetrieved()
@@ -132,7 +132,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that the default value of SystemName is null.
+    ///     Verifies that the default value of SystemName is null.
     /// </summary>
     [Fact]
     public void DefaultSystemNameIsNull()
@@ -142,7 +142,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that the default value of SystemFolder is null.
+    ///     Verifies that the default value of SystemFolder is null.
     /// </summary>
     [Fact]
     public void DefaultSystemFolderIsNull()
@@ -152,7 +152,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that the default value of SystemImageFolder is null.
+    ///     Verifies that the default value of SystemImageFolder is null.
     /// </summary>
     [Fact]
     public void DefaultSystemImageFolderIsNull()
@@ -162,7 +162,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that the default value of FileFormatsToSearch is null.
+    ///     Verifies that the default value of FileFormatsToSearch is null.
     /// </summary>
     [Fact]
     public void DefaultFileFormatsToSearchIsNull()
@@ -172,7 +172,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that the default value of FileFormatsToLaunch is null.
+    ///     Verifies that the default value of FileFormatsToLaunch is null.
     /// </summary>
     [Fact]
     public void DefaultFileFormatsToLaunchIsNull()
@@ -182,7 +182,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that the default value of Emulators is null.
+    ///     Verifies that the default value of Emulators is null.
     /// </summary>
     [Fact]
     public void DefaultEmulatorsIsNull()
@@ -192,7 +192,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that FileFormatsToSearch and FileFormatsToLaunch can be set with multiple values.
+    ///     Verifies that FileFormatsToSearch and FileFormatsToLaunch can be set with multiple values.
     /// </summary>
     [Fact]
     public void FileFormatsCanBeSet()
@@ -208,7 +208,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that the Emulators property can be set with an EmulatorsConfig containing an EmulatorConfig.
+    ///     Verifies that the Emulators property can be set with an EmulatorsConfig containing an EmulatorConfig.
     /// </summary>
     [Fact]
     public void EmulatorsCanBeSet()
@@ -227,7 +227,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that IsValid returns true when all required properties are set correctly.
+    ///     Verifies that IsValid returns true when all required properties are set correctly.
     /// </summary>
     [Fact]
     public void IsValidReturnsTrueWithValidConfig()
@@ -248,7 +248,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that IsValid returns true even when SystemFolder is null.
+    ///     Verifies that IsValid returns true even when SystemFolder is null.
     /// </summary>
     [Fact]
     public void IsValidReturnsTrueWithNullSystemFolder()
@@ -268,7 +268,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that Unicode characters in SystemName are preserved.
+    ///     Verifies that Unicode characters in SystemName are preserved.
     /// </summary>
     [Fact]
     public void UnicodeSystemNameIsPreserved()
@@ -278,7 +278,7 @@ public class EasyModeSystemConfigTests
     }
 
     /// <summary>
-    /// Verifies that spaces in SystemName and SystemFolder are preserved.
+    ///     Verifies that spaces in SystemName and SystemFolder are preserved.
     /// </summary>
     [Fact]
     public void SpacesInPathsArePreserved()

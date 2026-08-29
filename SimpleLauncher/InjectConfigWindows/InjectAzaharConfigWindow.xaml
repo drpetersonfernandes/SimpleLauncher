@@ -20,7 +20,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource AzaharConfig_GraphicsApi_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource AzaharConfig_GraphicsApi_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       SelectedValue="{Binding GraphicsApi}"
                                       SelectedValuePath="Tag"
@@ -48,15 +49,22 @@
                             </ComboBox>
                         </Grid>
 
-                        <CheckBox IsChecked="{Binding Fullscreen}" Content="{DynamicResource AzaharConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_Fullscreen_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Vsync}" Content="{DynamicResource AzaharConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_Vsync_Tooltip}" />
-                        <CheckBox IsChecked="{Binding AsyncShader}" Content="{DynamicResource AzaharConfig_AsyncShader_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_AsyncShader_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Fullscreen}"
+                                  Content="{DynamicResource AzaharConfig_Fullscreen_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource AzaharConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Vsync}" Content="{DynamicResource AzaharConfig_Vsync_Checkbox}"
+                                  Margin="0,5" ToolTip="{DynamicResource AzaharConfig_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding AsyncShader}"
+                                  Content="{DynamicResource AzaharConfig_AsyncShader_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource AzaharConfig_AsyncShader_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header="{DynamicResource AzaharConfig_System_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding IsNew3Ds}" Content="{DynamicResource AzaharConfig_New3DS_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_New3DS_Tooltip}" />
+                        <CheckBox IsChecked="{Binding IsNew3Ds}"
+                                  Content="{DynamicResource AzaharConfig_New3DS_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource AzaharConfig_New3DS_Tooltip}" />
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -79,16 +87,23 @@
                 <GroupBox Header="{DynamicResource AzaharConfig_Audio_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Label Content="{DynamicResource AzaharConfig_Volume_Label}" VerticalAlignment="Center" />
-                        <Slider Value="{Binding Volume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip="{DynamicResource AzaharConfig_Volume_Tooltip}" />
-                        <CheckBox IsChecked="{Binding AudioStretching}" Content="{DynamicResource AzaharConfig_AudioStretching_Checkbox}" Margin="0,5" ToolTip="{DynamicResource AzaharConfig_AudioStretching_Tooltip}" />
+                        <Slider Value="{Binding Volume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True"
+                                TickFrequency="1" ToolTip="{DynamicResource AzaharConfig_Volume_Tooltip}" />
+                        <CheckBox IsChecked="{Binding AudioStretching}"
+                                  Content="{DynamicResource AzaharConfig_AudioStretching_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource AzaharConfig_AudioStretching_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}" Content="{DynamicResource AzaharConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource AzaharConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="{DynamicResource AzaharConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource AzaharConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

@@ -6,15 +6,16 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Provides extended test coverage for SystemManagerService and Emulator models, covering default states, property assignment, and edge cases.
+///     Provides extended test coverage for SystemManagerService and Emulator models, covering default states, property
+///     assignment, and edge cases.
 /// </summary>
 public class SystemManagerExtendedTests : IDisposable
 {
     private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SystemManagerExtendedTests"/> class,
-    /// installing the service provider mock and creating a temporary test directory.
+    ///     Initializes a new instance of the <see cref="SystemManagerExtendedTests" /> class,
+    ///     installing the service provider mock and creating a temporary test directory.
     /// </summary>
     public SystemManagerExtendedTests()
     {
@@ -24,7 +25,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory and restores the service provider mock.
+    ///     Cleans up the temporary test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
@@ -43,7 +44,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a new SystemManagerService has null defaults for all reference-type properties.
+    ///     Verifies that a new SystemManagerService has null defaults for all reference-type properties.
     /// </summary>
     [Fact]
     public void SystemManagerDefaultProperties()
@@ -57,7 +58,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that SystemManagerService properties can be assigned and retrieved.
+    ///     Verifies that SystemManagerService properties can be assigned and retrieved.
     /// </summary>
     [Fact]
     public void SystemManagerPropertiesCanBeSet()
@@ -78,7 +79,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the Emulators list defaults to null.
+    ///     Verifies that the Emulators list defaults to null.
     /// </summary>
     [Fact]
     public void SystemManagerEmulatorsListDefaultIsNull()
@@ -88,7 +89,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that emulators can be added to the Emulators list.
+    ///     Verifies that emulators can be added to the Emulators list.
     /// </summary>
     [Fact]
     public void SystemManagerEmulatorsCanBeSet()
@@ -108,7 +109,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that file format lists can be populated correctly.
+    ///     Verifies that file format lists can be populated correctly.
     /// </summary>
     [Fact]
     public void SystemManagerFileFormatsCanBeSet()
@@ -124,7 +125,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the DisableRecursiveSearch flag can be set.
+    ///     Verifies that the DisableRecursiveSearch flag can be set.
     /// </summary>
     [Fact]
     public void SystemManagerDisableRecursiveSearch()
@@ -138,7 +139,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the GroupByFolder flag can be set.
+    ///     Verifies that the GroupByFolder flag can be set.
     /// </summary>
     [Fact]
     public void SystemManagerGroupByFolder()
@@ -152,7 +153,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that system folders can be assigned.
+    ///     Verifies that system folders can be assigned.
     /// </summary>
     [Fact]
     public void SystemManagerSystemFoldersCanBeSet()
@@ -166,7 +167,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a new Emulator has null defaults for string properties.
+    ///     Verifies that a new Emulator has null defaults for string properties.
     /// </summary>
     [Fact]
     public void EmulatorDefaultProperties()
@@ -178,7 +179,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Emulator properties can be assigned and retrieved.
+    ///     Verifies that Emulator properties can be assigned and retrieved.
     /// </summary>
     [Fact]
     public void EmulatorPropertiesCanBeSet()
@@ -196,7 +197,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that emulator paths with parentheses are handled correctly.
+    ///     Verifies that emulator paths with parentheses are handled correctly.
     /// </summary>
     [Fact]
     public void EmulatorWithSpecialCharactersInPath()
@@ -211,7 +212,7 @@ public class SystemManagerExtendedTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that emulator paths with spaces are handled correctly.
+    ///     Verifies that emulator paths with spaces are handled correctly.
     /// </summary>
     [Fact]
     public void EmulatorWithSpacesInPath()

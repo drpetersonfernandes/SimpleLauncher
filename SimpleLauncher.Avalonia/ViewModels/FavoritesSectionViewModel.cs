@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Avalonia.Services.Favorites;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.PlaySound;
 using ILogger = Serilog.ILogger;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -12,43 +13,32 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the Favorites section of the main window, showing the user's
-/// favorite games in a table with preview, removal, and launching.
-/// Mirrors the WPF FavoritesPage / FavoritesViewModel flow: favorites are stored
-/// as a file NAME and resolved against the system folders at use time.
+///     ViewModel for the Favorites section of the main window, showing the user's
+///     favorite games in a table with preview, removal, and launching.
+///     Mirrors the WPF FavoritesPage / FavoritesViewModel flow: favorites are stored
+///     as a file NAME and resolved against the system folders at use time.
 /// </summary>
 public partial class FavoritesSectionViewModel : ObservableObject
 {
-    private readonly FavoritesManager _favoritesManager;
-    private readonly SystemManagerService _systemManager;
-    private readonly IFindCoverImageService _findCoverImage;
-    private readonly IMameDataService _mameData;
-    private readonly PlaySoundEffects _playSoundEffects;
-    private readonly IMessageBoxLibraryService _messageBox;
     private readonly IConfiguration _configuration;
-    private readonly MainViewModel _mainViewModel;
+    private readonly FavoritesManager _favoritesManager;
+    private readonly IFindCoverImageService _findCoverImage;
     private readonly ILogger _logErrors;
+    private readonly MainViewModel _mainViewModel;
+    private readonly IMameDataService _mameData;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly SystemManagerService _systemManager;
 
     [ObservableProperty] private ObservableCollection<FavoriteRowViewModel> _favorites = [];
-
-    [ObservableProperty] private FavoriteRowViewModel? _selectedFavorite;
-
-    [ObservableProperty] private string _previewImagePath = "";
-
-    /// <summary>
-    /// Keeps the preview pane in sync with the selected row (WPF
-    /// SetPreviewImageOnSelectionChangedAsync parity). When the selection is cleared,
-    /// the preview resets to the placeholder.
-    /// </summary>
-    // ReSharper disable once UnusedParameterInPartialMethod
-    partial void OnSelectedFavoriteChanged(FavoriteRowViewModel? oldValue, FavoriteRowViewModel? newValue)
-    {
-        PreviewImagePath = newValue?.CoverImage ?? "";
-    }
 
     [ObservableProperty] private bool _isLoading;
 
     [ObservableProperty] private string _loadingMessage = "";
+
+    [ObservableProperty] private string _previewImagePath = "";
+
+    [ObservableProperty] private FavoriteRowViewModel? _selectedFavorite;
 
     public FavoritesSectionViewModel(
         FavoritesManager favoritesManager,
@@ -73,8 +63,19 @@ public partial class FavoritesSectionViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Loads the favorites from the manager and enriches each row with machine
-    /// description, default emulator, and cover image.
+    ///     Keeps the preview pane in sync with the selected row (WPF
+    ///     SetPreviewImageOnSelectionChangedAsync parity). When the selection is cleared,
+    ///     the preview resets to the placeholder.
+    /// </summary>
+    // ReSharper disable once UnusedParameterInPartialMethod
+    partial void OnSelectedFavoriteChanged(FavoriteRowViewModel? oldValue, FavoriteRowViewModel? newValue)
+    {
+        PreviewImagePath = newValue?.CoverImage ?? "";
+    }
+
+    /// <summary>
+    ///     Loads the favorites from the manager and enriches each row with machine
+    ///     description, default emulator, and cover image.
     /// </summary>
     public async Task LoadFavoritesAsync()
     {
@@ -98,10 +99,8 @@ public partial class FavoritesSectionViewModel : ObservableObject
                 {
                     var removedCount = await _favoritesManager.RemoveFavoritesForMissingSystemsAsync(validSystemNames);
                     if (removedCount > 0)
-                    {
                         _logErrors.Information(
                             $"Removed {removedCount} favorite(s) referencing systems that no longer exist.");
-                    }
                 }
             }
             catch (Exception ex)
@@ -115,7 +114,6 @@ public partial class FavoritesSectionViewModel : ObservableObject
                 var rows = new List<FavoriteRowViewModel>(favorites.Count);
 
                 foreach (var favorite in favorites)
-                {
                     try
                     {
                         // WPF parity: FileName is a bare file name resolved against the
@@ -157,7 +155,6 @@ public partial class FavoritesSectionViewModel : ObservableObject
                             "Error processing a favorite entry; skipping it. FileName={FileName}, System={System}",
                             favorite.FileName, favorite.SystemName);
                     }
-                }
 
                 return rows;
             });
@@ -171,10 +168,7 @@ public partial class FavoritesSectionViewModel : ObservableObject
             // Only a failure of the load machinery itself (not a single bad entry) reaches
             // here. Preserve whatever was already loaded rather than wiping the list.
             _logErrors.Error(ex, "Error loading favorites in the Favorites section.");
-            if (Favorites is null || Favorites.Count == 0)
-            {
-                Favorites = [];
-            }
+            if (Favorites is null || Favorites.Count == 0) Favorites = [];
         }
         finally
         {
@@ -183,9 +177,9 @@ public partial class FavoritesSectionViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Resolves a favorite row to an existing file path (WPF FindFileInSystemFolders parity).
-    /// The stored name is resolved against the system folders; falls back to the stored
-    /// value so legacy full-path entries keep working.
+    ///     Resolves a favorite row to an existing file path (WPF FindFileInSystemFolders parity).
+    ///     The stored name is resolved against the system folders; falls back to the stored
+    ///     value so legacy full-path entries keep working.
     /// </summary>
     public string? ResolveFavoritePath(FavoriteRowViewModel row)
     {
@@ -201,8 +195,8 @@ public partial class FavoritesSectionViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Removes the given favorite rows (WPF RemoveFavoriteButton_ClickAsync parity:
-    /// trash sound, per-row removal, preview reset, main-view refresh).
+    ///     Removes the given favorite rows (WPF RemoveFavoriteButton_ClickAsync parity:
+    ///     trash sound, per-row removal, preview reset, main-view refresh).
     /// </summary>
     public async Task RemoveFavoritesAsync(IReadOnlyList<FavoriteRowViewModel> rows)
     {
@@ -247,9 +241,9 @@ public partial class FavoritesSectionViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Launches the selected favorite (WPF LaunchGameFromFavoriteAsync parity):
-    /// resolve against system folders, prompt to delete when the file is gone,
-    /// and report missing systems/emulators through message boxes.
+    ///     Launches the selected favorite (WPF LaunchGameFromFavoriteAsync parity):
+    ///     resolve against system folders, prompt to delete when the file is gone,
+    ///     and report missing systems/emulators through message boxes.
     /// </summary>
     [RelayCommand]
     private async Task LaunchSelectedAsync()
@@ -279,10 +273,7 @@ public partial class FavoritesSectionViewModel : ObservableObject
                 var result =
                     await _messageBox.FavoriteFileDoesNotExistAskToDeleteMessageBoxAsync(filePath ??
                         favorite.DisplayName);
-                if (result == Core.Models.MessageBoxResult.Yes)
-                {
-                    await RemoveFavoritesAsync([favorite]);
-                }
+                if (result == MessageBoxResult.Yes) await RemoveFavoritesAsync([favorite]);
 
                 return;
             }

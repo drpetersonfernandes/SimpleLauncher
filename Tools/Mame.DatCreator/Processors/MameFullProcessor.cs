@@ -6,15 +6,15 @@ using Mame.DatCreator.Services;
 namespace Mame.DatCreator.Processors;
 
 /// <summary>
-/// Processes the MAME full driver XML file to extract machine information.
+///     Processes the MAME full driver XML file to extract machine information.
 /// </summary>
 /// <summary>
-/// Processes MAME full driver XML files to extract machine information.
+///     Processes MAME full driver XML files to extract machine information.
 /// </summary>
 public static class MameFullProcessor
 {
     /// <summary>
-    /// Extracts machine information from a MAME full driver XML file.
+    ///     Extracts machine information from a MAME full driver XML file.
     /// </summary>
     /// <param name="inputFilePath">The path to the MAME full driver XML file.</param>
     /// <param name="logger">The logger instance for output messages.</param>
@@ -35,13 +35,11 @@ public static class MameFullProcessor
                 logger.Info($"Found {machineElements.Count} machine entries in the MAME full driver XML.");
 
                 foreach (var m in machineElements)
-                {
                     machines.Add(new MachineInfo
                     {
                         MachineName = m.Attribute("name")?.Value ?? "",
                         Description = m.Element("description")?.Value ?? ""
                     });
-                }
 
                 return machines;
             }

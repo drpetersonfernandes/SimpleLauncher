@@ -3,94 +3,94 @@ using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services;
 using SimpleLauncher.Core.Services.DownloadService;
 using SimpleLauncher.Core.Services.EasyMode;
 using SimpleLauncher.Core.Services.PlaySound;
-using SimpleLauncher.Avalonia.Services.SystemManager;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// MVVM ViewModel for the EasyMode "Add System" workflow.
-/// Ported from SimpleLauncher's EasyModeWindow.xaml.cs — same state machine:
-/// selecting a system computes per-component Idle/Downloaded state (Idle enables
-/// the download button), downloads go through DownloadManager, and Add System
-/// persists the config to system.xml.
+///     MVVM ViewModel for the EasyMode "Add System" workflow.
+///     Ported from SimpleLauncher's EasyModeWindow.xaml.cs — same state machine:
+///     selecting a system computes per-component Idle/Downloaded state (Idle enables
+///     the download button), downloads go through DownloadManager, and Add System
+///     persists the config to system.xml.
 /// </summary>
 public partial class EasyModeViewModel : ObservableObject, IDisposable
 {
-    private readonly EasyModeManager _easyModeManager;
-    private readonly DownloadManager _downloadManager;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly ILogger _logger;
     private readonly IConfiguration _configuration;
+    private readonly DownloadManager _downloadManager;
+
+    // ── Download state tracking ───────────────────────────────────────
+
+    private readonly Dictionary<string, DownloadButtonState> _downloadStates = new(StringComparer.Ordinal);
+    private readonly EasyModeManager _easyModeManager;
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly SystemManagerService? _systemManager;
 
-    private EasyModeManager? _manager;
+    [ObservableProperty] private bool _canStopDownload;
+    private string? _currentDownloadType;
     private bool _disposed;
-    private int _operationInProgressFlag;
-
-    // ── Observable properties ─────────────────────────────────────────
-
-    [ObservableProperty] private ObservableCollection<EasyModeSystemConfig> _systems = [];
-
-    [ObservableProperty] private EasyModeSystemConfig? _selectedSystem;
-
-    [ObservableProperty] private string _systemFolderPath = "";
-
-    [ObservableProperty] private string _downloadStatus = "";
 
     [ObservableProperty] private double _downloadProgress;
 
-    [ObservableProperty] private bool _isLoading;
-
-    [ObservableProperty] private string _loadingMessage = "Loading configuration...";
-
-    [ObservableProperty] private bool _isOperationInProgress;
-
-    [ObservableProperty] private bool _canStopDownload;
+    [ObservableProperty] private string _downloadStatus = "";
 
     [ObservableProperty] private bool _isAddSystemEnabled;
 
     // WPF parity: controls are disabled when no systems are configured
     [ObservableProperty] private bool _isContentEnabled = true;
 
+    [ObservableProperty] private bool _isCoreDownloaded = true;
+
     // Download state bools (bound to button IsEnabled via InverseBool:
     // true = downloaded/downloading → button disabled)
     [ObservableProperty] private bool _isEmulatorDownloaded = true;
 
-    [ObservableProperty] private bool _isCoreDownloaded = true;
-
-    [ObservableProperty] private bool _isImagePack1Downloaded = true;
-
-    [ObservableProperty] private bool _isImagePack2Downloaded = true;
-
-    [ObservableProperty] private bool _isImagePack3Downloaded = true;
-
-    [ObservableProperty] private bool _isImagePack4Downloaded = true;
-
-    [ObservableProperty] private bool _isImagePack5Downloaded = true;
-
     // Availability (whether a download link + extract path exists for each image pack)
     [ObservableProperty] private bool _isImagePack1Available;
 
+    [ObservableProperty] private bool _isImagePack1Downloaded = true;
+
     [ObservableProperty] private bool _isImagePack2Available;
+
+    [ObservableProperty] private bool _isImagePack2Downloaded = true;
 
     [ObservableProperty] private bool _isImagePack3Available;
 
+    [ObservableProperty] private bool _isImagePack3Downloaded = true;
+
     [ObservableProperty] private bool _isImagePack4Available;
+
+    [ObservableProperty] private bool _isImagePack4Downloaded = true;
 
     [ObservableProperty] private bool _isImagePack5Available;
 
-    // ── Download state tracking ───────────────────────────────────────
+    [ObservableProperty] private bool _isImagePack5Downloaded = true;
 
-    private readonly Dictionary<string, DownloadButtonState> _downloadStates = new(StringComparer.Ordinal);
-    private string? _currentDownloadType;
+    [ObservableProperty] private bool _isLoading;
+
+    [ObservableProperty] private bool _isOperationInProgress;
+
+    [ObservableProperty] private string _loadingMessage = "Loading configuration...";
+
+    private EasyModeManager? _manager;
+    private int _operationInProgressFlag;
+
+    [ObservableProperty] private EasyModeSystemConfig? _selectedSystem;
+
+    [ObservableProperty] private string _systemFolderPath = "";
+
+    // ── Observable properties ─────────────────────────────────────────
+
+    [ObservableProperty] private ObservableCollection<EasyModeSystemConfig> _systems = [];
 
     public EasyModeViewModel(
         EasyModeManager easyModeManager,
@@ -112,11 +112,37 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         _downloadManager.DownloadProgressChanged += OnDownloadProgressChanged;
     }
 
+    /// <summary>
+    ///     Set to true when the system was successfully added, so the window can close.
+    /// </summary>
+    public bool SystemAdded { get; private set; }
+
+    /// <summary>
+    ///     Callback invoked when the window should close (after successful add).
+    ///     Set by the window code-behind.
+    /// </summary>
+    public Action? RequestClose { get; set; }
+
+    // ── Cleanup ───────────────────────────────────────────────────────
+
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        _downloadManager.DownloadProgressChanged -= OnDownloadProgressChanged;
+        _downloadManager?.CancelDownload();
+        _manager?.Dispose();
+        _easyModeManager?.Dispose();
+
+        _disposed = true;
+        GC.SuppressFinalize(this);
+    }
+
     // ── Initialization ────────────────────────────────────────────────
 
     /// <summary>
-    /// Loads EasyMode systems from the manager. Call after the window is loaded.
-    /// Only systems with an emulator download link are offered (matches the old PopulateSystemDropdown).
+    ///     Loads EasyMode systems from the manager. Call after the window is loaded.
+    ///     Only systems with an emulator download link are offered (matches the old PopulateSystemDropdown).
     /// </summary>
     [RelayCommand]
     private async Task LoadAsync()
@@ -300,9 +326,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         if (_currentDownloadType != null)
         {
             if (GetDownloadState(_currentDownloadType) == DownloadButtonState.Downloading)
-            {
                 SetDownloadState(_currentDownloadType, DownloadButtonState.Failed);
-            }
 
             _currentDownloadType = null;
         }
@@ -392,17 +416,6 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
             _logger.Error(ex, "Error in AddSystemAsync.");
         }
     }
-
-    /// <summary>
-    /// Set to true when the system was successfully added, so the window can close.
-    /// </summary>
-    public bool SystemAdded { get; private set; }
-
-    /// <summary>
-    /// Callback invoked when the window should close (after successful add).
-    /// Set by the window code-behind.
-    /// </summary>
-    public Action? RequestClose { get; set; }
 
     // ── Download flow (ports HandleDownloadAndExtractComponentAsync) ──
 
@@ -560,9 +573,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
                 if (!(ex is IOException ioEx &&
                       (ioEx.Message.Contains("Insufficient disk space", StringComparison.Ordinal) ||
                        ioEx.Message.Contains("Cannot check disk space", StringComparison.Ordinal))))
-                {
                     _logger.Error(ex, "Error downloading {Component}. URL: {Url}", componentName, downloadUrl);
-                }
 
                 if (_downloadManager.IsFileLockedDuringDownload)
                 {
@@ -703,38 +714,19 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         // app, which marshals via Dispatcher.InvokeAsync). Marshal to the UI thread before
         // touching bound properties so the progress bar and status text update reliably.
         if (Dispatcher.UIThread.CheckAccess())
-        {
             ApplyProgressUpdate(e);
-        }
         else
-        {
             Dispatcher.UIThread.Post(() =>
             {
                 if (_disposed) return;
 
                 ApplyProgressUpdate(e);
             });
-        }
     }
 
     private void ApplyProgressUpdate(DownloadProgressEventArgs e)
     {
         DownloadProgress = e.ProgressPercentage;
         DownloadStatus = e.StatusMessage;
-    }
-
-    // ── Cleanup ───────────────────────────────────────────────────────
-
-    public void Dispose()
-    {
-        if (_disposed) return;
-
-        _downloadManager.DownloadProgressChanged -= OnDownloadProgressChanged;
-        _downloadManager?.CancelDownload();
-        _manager?.Dispose();
-        _easyModeManager?.Dispose();
-
-        _disposed = true;
-        GC.SuppressFinalize(this);
     }
 }

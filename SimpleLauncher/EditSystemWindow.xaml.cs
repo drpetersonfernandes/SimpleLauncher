@@ -11,41 +11,41 @@ using SimpleLauncher.Core.Services;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
-using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.QuitOrReinstall;
 using SimpleLauncher.Services.SystemManager;
+using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 using Application = System.Windows.Application;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace SimpleLauncher;
 
 /// <summary>
-/// Window for adding, editing, and validating emulator system configurations.
+///     Window for adding, editing, and validating emulator system configurations.
 /// </summary>
 internal partial class EditSystemWindow : ILoadingState
 {
-    private List<SystemManagerService> _systems = null!;
     private static readonly char[] SplitSeparators = [',', '|', ';'];
-    private readonly SettingsManagerService _settings;
-    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly IConfiguration _configuration;
+    private readonly FavoritesManager _favoritesManager;
     private readonly IHelpUserService _helpUserService;
     private readonly IImageLoader _imageLoader;
-    private string? _originalSystemName;
-    private readonly IConfiguration _configuration;
-    private readonly string? _preSelectedSystemName;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly QuitSimpleLauncher _quitSimpleLauncher;
     private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
     private readonly IParameterResolverService _parameterResolverService;
-    private readonly FavoritesManager _favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly string? _preSelectedSystemName;
+    private readonly QuitSimpleLauncher _quitSimpleLauncher;
+    private readonly SettingsManagerService _settings;
     private Button? _emergencyReturnButton;
+    private string? _originalSystemName;
+    private List<SystemManagerService> _systems = null!;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EditSystemWindow"/> class.
+    ///     Initializes a new instance of the <see cref="EditSystemWindow" /> class.
     /// </summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="playSoundEffects">The sound effects service.</param>
@@ -102,7 +102,7 @@ internal partial class EditSystemWindow : ILoadingState
     }
 
     /// <summary>
-    /// Sets the loading state of the window, showing or hiding the loading overlay.
+    ///     Sets the loading state of the window, showing or hiding the loading overlay.
     /// </summary>
     /// <param name="isLoading">Whether the window is in a loading state.</param>
     /// <param name="message">Optional message to display on the loading overlay.</param>
@@ -113,10 +113,8 @@ internal partial class EditSystemWindow : ILoadingState
             LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
             MainContentGrid.IsEnabled = !isLoading;
             if (isLoading)
-            {
                 LoadingOverlay.Content =
                     message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
-            }
         });
     }
 
@@ -150,9 +148,7 @@ internal partial class EditSystemWindow : ILoadingState
                 PopulateSystemNamesDropdown();
 
                 if (!string.IsNullOrEmpty(_preSelectedSystemName))
-                {
                     SystemNameDropdown.SelectedItem = _preSelectedSystemName;
-                }
             }
         }
         catch (Exception ex)
@@ -316,9 +312,7 @@ internal partial class EditSystemWindow : ILoadingState
                      Emulator4NameTextBox, Emulator4PathTextBox, Emulator4ParametersTextBox,
                      Emulator5NameTextBox, Emulator5PathTextBox, Emulator5ParametersTextBox
                  })
-        {
             SetReadOnlyField(textBox, enabled);
-        }
 
         foreach (var notification in new[]
                  {
@@ -326,9 +320,7 @@ internal partial class EditSystemWindow : ILoadingState
                      ReceiveANotificationOnEmulatorError3, ReceiveANotificationOnEmulatorError4,
                      ReceiveANotificationOnEmulatorError5
                  })
-        {
             notification.IsEnabled = enabled;
-        }
 
         foreach (var button in new[]
                  {
@@ -339,9 +331,7 @@ internal partial class EditSystemWindow : ILoadingState
                      SuggestEmulator3ParametersButton, SuggestEmulator4ParametersButton,
                      SuggestEmulator5ParametersButton
                  })
-        {
             button.IsEnabled = enabled;
-        }
     }
 
     private static void SetReadOnlyField(TextBox textBox, bool enabled)
@@ -451,9 +441,7 @@ internal partial class EditSystemWindow : ILoadingState
 
             await LoadSystemsAsync();
             if (SystemNameDropdown.Items.Count == 0 || SystemNameDropdown.SelectedItem == null)
-            {
                 PopulateSystemNamesDropdown();
-            }
 
             // Notify user
             await _messageBox.SystemHasBeenDeletedMessageBoxAsync(selectedSystemName);
@@ -561,18 +549,13 @@ internal partial class EditSystemWindow : ILoadingState
         var title = (string)Application.Current.TryFindResource("SelectAdditionalSystemFolder") ??
                     "Select an additional system folder";
         var openFolderDialog = new OpenFolderDialog { Title = title };
-        if (openFolderDialog.ShowDialog() == true)
-        {
-            AdditionalFoldersListBox.Items.Add(openFolderDialog.FolderName);
-        }
+        if (openFolderDialog.ShowDialog() == true) AdditionalFoldersListBox.Items.Add(openFolderDialog.FolderName);
     }
 
     private void RemoveFolderButton_Click(object sender, RoutedEventArgs e)
     {
         if (AdditionalFoldersListBox.SelectedItem != null)
-        {
             AdditionalFoldersListBox.Items.Remove(AdditionalFoldersListBox.SelectedItem);
-        }
     }
 
     private void EmergencyOverlayRelease_Click(object sender, RoutedEventArgs e)
@@ -620,10 +603,7 @@ internal partial class EditSystemWindow : ILoadingState
             var imagesSystemsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "systems");
             try
             {
-                if (!Directory.Exists(imagesSystemsDir))
-                {
-                    Directory.CreateDirectory(imagesSystemsDir);
-                }
+                if (!Directory.Exists(imagesSystemsDir)) Directory.CreateDirectory(imagesSystemsDir);
 
                 var destFilePath = Path.Combine(imagesSystemsDir, $"{systemName}{extension}");
                 SystemImagePreview.Source = null; // Release any file lock before overwriting
@@ -631,7 +611,6 @@ internal partial class EditSystemWindow : ILoadingState
                 const int maxRetries = 3;
                 const int retryDelayMs = 500;
                 for (var attempt = 1; attempt <= maxRetries; attempt++)
-                {
                     try
                     {
                         File.Copy(sourceFilePath, destFilePath, true);
@@ -641,7 +620,6 @@ internal partial class EditSystemWindow : ILoadingState
                     {
                         await Task.Delay(retryDelayMs * attempt);
                     }
-                }
 
                 UpdateSystemImagePreview();
             }
@@ -664,7 +642,6 @@ internal partial class EditSystemWindow : ILoadingState
         string? imagePath = null;
 
         if (!string.IsNullOrEmpty(systemName))
-        {
             foreach (var ext in new[] { ".png", ".jpg", ".jpeg" })
             {
                 var path = Path.Combine(imagesSystemsDir, $"{systemName}{ext}");
@@ -674,12 +651,8 @@ internal partial class EditSystemWindow : ILoadingState
                     break;
                 }
             }
-        }
 
-        if (string.IsNullOrEmpty(imagePath))
-        {
-            imagePath = Path.Combine(imagesSystemsDir, "default.png");
-        }
+        if (string.IsNullOrEmpty(imagePath)) imagePath = Path.Combine(imagesSystemsDir, "default.png");
 
         if (!File.Exists(imagePath))
         {
@@ -838,18 +811,13 @@ internal partial class EditSystemWindow : ILoadingState
                     var explanationFromParam = suggestedParam["Explanation:".Length..].Trim();
                     if (string.IsNullOrEmpty(explanation) ||
                         !explanation.Equals(explanationFromParam, StringComparison.OrdinalIgnoreCase))
-                    {
                         explanation = explanationFromParam;
-                    }
 
                     suggestedParam = "";
                 }
 
                 var dialogMessage = $"{confirmMessage}\n\n{suggestedParam}";
-                if (!string.IsNullOrEmpty(explanation))
-                {
-                    dialogMessage += $"\n\nExplanation: {explanation}";
-                }
+                if (!string.IsNullOrEmpty(explanation)) dialogMessage += $"\n\nExplanation: {explanation}";
 
                 var applyResult = await _messageBox.CustomQuestionMessageBoxAsync(successTitle, dialogMessage);
 

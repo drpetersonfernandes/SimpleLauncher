@@ -5,12 +5,13 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the SystemManagerService and Emulator model classes for property assignment, defaults, and collection behavior.
+///     Tests the SystemManagerService and Emulator model classes for property assignment, defaults, and collection
+///     behavior.
 /// </summary>
 public class SystemManagerTests
 {
     /// <summary>
-    /// Verifies that all SystemManagerService properties can be set and retrieved correctly.
+    ///     Verifies that all SystemManagerService properties can be set and retrieved correctly.
     /// </summary>
     [Fact]
     public void SystemManagerPropertiesCanBeSetAndRetrieved()
@@ -47,7 +48,7 @@ public class SystemManagerTests
     }
 
     /// <summary>
-    /// Verifies that PrimarySystemFolder returns the first folder in the list.
+    ///     Verifies that PrimarySystemFolder returns the first folder in the list.
     /// </summary>
     [Fact]
     public void PrimarySystemFolderReturnsFirstFolder()
@@ -62,7 +63,7 @@ public class SystemManagerTests
     }
 
     /// <summary>
-    /// Verifies that PrimarySystemFolder returns null when SystemFolders is null.
+    ///     Verifies that PrimarySystemFolder returns null when SystemFolders is null.
     /// </summary>
     [Fact]
     public void PrimarySystemFolderWithNullFoldersReturnsNull()
@@ -77,7 +78,7 @@ public class SystemManagerTests
     }
 
     /// <summary>
-    /// Verifies that PrimarySystemFolder returns null when SystemFolders is empty.
+    ///     Verifies that PrimarySystemFolder returns null when SystemFolders is empty.
     /// </summary>
     [Fact]
     public void PrimarySystemFolderWithEmptyFoldersReturnsNull()
@@ -92,7 +93,7 @@ public class SystemManagerTests
     }
 
     /// <summary>
-    /// Verifies that all Emulator properties can be set and retrieved correctly.
+    ///     Verifies that all Emulator properties can be set and retrieved correctly.
     /// </summary>
     [Fact]
     public void EmulatorPropertiesCanBeSetAndRetrieved()
@@ -116,7 +117,7 @@ public class SystemManagerTests
     }
 
     /// <summary>
-    /// Verifies that Emulator properties default to null or false.
+    ///     Verifies that Emulator properties default to null or false.
     /// </summary>
     [Fact]
     public void EmulatorDefaultValuesAreNull()
@@ -136,7 +137,7 @@ public class SystemManagerTests
     }
 
     /// <summary>
-    /// Verifies that multiple emulators maintain their insertion order.
+    ///     Verifies that multiple emulators maintain their insertion order.
     /// </summary>
     [Fact]
     public void SystemManagerWithMultipleEmulatorsPreservesOrder()
@@ -160,7 +161,7 @@ public class SystemManagerTests
     }
 
     /// <summary>
-    /// Verifies that boolean properties on SystemManagerService default to false.
+    ///     Verifies that boolean properties on SystemManagerService default to false.
     /// </summary>
     [Fact]
     public void SystemManagerDefaultBoolPropertiesAreFalse()

@@ -1,31 +1,31 @@
 using System.Text;
-using SimpleLauncher.Core;
 using SimpleLauncher.Avalonia.Interfaces;
 using SimpleLauncher.Avalonia.Services.DisplaySystemInfo;
 using SimpleLauncher.Avalonia.Services.SystemManager;
+using SimpleLauncher.Core;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia.Services.SystemSelectionOrchestrator;
 
 /// <summary>
-/// Orchestrates system selection UI: loading system.xml into the top System ComboBox,
-/// coordinating system selection with the Emulator ComboBox, validating the selected
-/// system's configuration, and refreshing the whole shell after system.xml changes
-/// (port of the WPF SystemSelectionOrchestratorService onto the Avalonia sidebar shell).
+///     Orchestrates system selection UI: loading system.xml into the top System ComboBox,
+///     coordinating system selection with the Emulator ComboBox, validating the selected
+///     system's configuration, and refreshing the whole shell after system.xml changes
+///     (port of the WPF SystemSelectionOrchestratorService onto the Avalonia sidebar shell).
 /// </summary>
 public class AvaloniaSystemSelectionOrchestratorService
 {
-    private readonly SystemManagerService _systemManager;
-    private readonly AvaloniaGameFileLoadingOrchestrator _loadingOrchestrator;
     private readonly AvaloniaDisplaySystemInformation? _displaySystemInformation;
+    private readonly AvaloniaGameFileLoadingOrchestrator _loadingOrchestrator;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService? _messageBox;
     private readonly SettingsManagerService? _settings;
-    private readonly ILogger _logger;
+    private readonly SystemManagerService _systemManager;
     private ISystemSelectionHost _host = null!;
 
     /// <summary>
-    /// Initializes a new instance of the SystemSelectionOrchestratorService with the specified dependencies.
+    ///     Initializes a new instance of the SystemSelectionOrchestratorService with the specified dependencies.
     /// </summary>
     public AvaloniaSystemSelectionOrchestratorService(
         SystemManagerService systemManager,
@@ -67,8 +67,8 @@ public class AvaloniaSystemSelectionOrchestratorService
     }
 
     /// <summary>
-    /// Backward-compatible synchronous entry point (kept for tests/callers that were
-    /// written against the pre-validation orchestrator). Blocks until done.
+    ///     Backward-compatible synchronous entry point (kept for tests/callers that were
+    ///     written against the pre-validation orchestrator). Blocks until done.
     /// </summary>
     public void HandleSystemSelectionChanged()
     {
@@ -76,9 +76,9 @@ public class AvaloniaSystemSelectionOrchestratorService
     }
 
     /// <summary>
-    /// Handles a top System ComboBox selection change: validates the selected system,
-    /// navigates the game browser to it, refreshes the Emulator ComboBox, and updates
-    /// the play-time display (WPF SystemComboBoxSelectionChangedAsync parity).
+    ///     Handles a top System ComboBox selection change: validates the selected system,
+    ///     navigates the game browser to it, refreshes the Emulator ComboBox, and updates
+    ///     the play-time display (WPF SystemComboBoxSelectionChangedAsync parity).
     /// </summary>
     public async Task HandleSystemSelectionChangedAsync()
     {
@@ -96,9 +96,7 @@ public class AvaloniaSystemSelectionOrchestratorService
             if (selectedManager == null)
             {
                 if (_messageBox is { } invalidConfigMessageBox)
-                {
                     await invalidConfigMessageBox.InvalidSystemConfigMessageBoxAsync();
-                }
 
                 _host.IsPlayTimeVisible = false;
                 _host.PlayTime = "00:00:00";
@@ -113,15 +111,10 @@ public class AvaloniaSystemSelectionOrchestratorService
                 if (!validationResult.IsValid)
                 {
                     var errorMessages = new StringBuilder();
-                    foreach (var msg in validationResult.ErrorMessages)
-                    {
-                        errorMessages.Append(msg);
-                    }
+                    foreach (var msg in validationResult.ErrorMessages) errorMessages.Append(msg);
 
                     if (_messageBox is { } errorListMessageBox)
-                    {
                         await errorListMessageBox.ListOfErrorsMessageBoxAsync(errorMessages);
-                    }
                 }
             }
 
@@ -159,10 +152,10 @@ public class AvaloniaSystemSelectionOrchestratorService
     }
 
     /// <summary>
-    /// Refreshes everything that depends on system.xml after a configuration change
-    /// (system added/edited/deleted, image pack downloaded, store scan): invalidates
-    /// cached data, reloads the System ComboBox, rebuilds the sidebar, restarts the
-    /// ROM folder watcher, and re-syncs the Emulator ComboBox with the selection.
+    ///     Refreshes everything that depends on system.xml after a configuration change
+    ///     (system added/edited/deleted, image pack downloaded, store scan): invalidates
+    ///     cached data, reloads the System ComboBox, rebuilds the sidebar, restarts the
+    ///     ROM folder watcher, and re-syncs the Emulator ComboBox with the selection.
     /// </summary>
     public Task ReloadAfterConfigurationChangeAsync()
     {

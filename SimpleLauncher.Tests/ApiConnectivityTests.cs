@@ -9,7 +9,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests connectivity to the bug report and statistics APIs used by SimpleLauncher.
+///     Tests connectivity to the bug report and statistics APIs used by SimpleLauncher.
 /// </summary>
 public class ApiConnectivityTests
 {
@@ -34,9 +34,7 @@ public class ApiConnectivityTests
     {
         var assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         if (assemblyLocation == null)
-        {
             throw new InvalidOperationException("Could not determine executing assembly location.");
-        }
 
         var path = Path.Combine(assemblyLocation, "..", "..", "..", "..", relativePath);
         return Path.GetFullPath(path);
@@ -58,7 +56,7 @@ public class ApiConnectivityTests
     }
 
     /// <summary>
-    /// Verifies that the bug report request is built correctly without contacting the real API.
+    ///     Verifies that the bug report request is built correctly without contacting the real API.
     /// </summary>
     [Fact]
     public async Task BugReportApiCanSendReport()
@@ -106,7 +104,7 @@ public class ApiConnectivityTests
     }
 
     /// <summary>
-    /// Verifies that each statistics API endpoint is reachable with valid authentication.
+    ///     Verifies that each statistics API endpoint is reachable with valid authentication.
     /// </summary>
     [Theory]
     [InlineData("https://www.purelogiccode.com/simplelauncher/stats/stats/")]
@@ -142,8 +140,8 @@ public class ApiConnectivityTests
     }
 
     /// <summary>
-    /// Captures the outgoing request and returns a canned success response without
-    /// contacting the real bug report API.
+    ///     Captures the outgoing request and returns a canned success response without
+    ///     contacting the real bug report API.
     /// </summary>
     private sealed class MockBugReportHandler : HttpMessageHandler
     {

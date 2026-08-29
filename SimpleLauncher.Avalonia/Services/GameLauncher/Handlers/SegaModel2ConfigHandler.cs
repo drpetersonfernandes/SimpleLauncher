@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Sega Model 2 emulator before launching a game.
+///     Handles configuration injection for the Sega Model 2 emulator before launching a game.
 /// </summary>
 public class SegaModel2ConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class SegaModel2ConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SegaModel2ConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="SegaModel2ConfigHandler" /> class.
     /// </summary>
     public SegaModel2ConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {

@@ -12,28 +12,70 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.DebugAndBugReport;
 
 /// <summary>
-/// A Serilog sink that collects warning and error log events, writes them to log files, and submits them to the bug report API.
+///     A Serilog sink that collects warning and error log events, writes them to log files, and submits them to the bug
+///     report API.
 /// </summary>
 public class BugReportApiSink : ILogEventSink, IDisposable
 {
+    private static readonly Lock InitLock = new();
+
     private readonly Channel<LogEvent> _channel = Channel.CreateBounded<LogEvent>(new BoundedChannelOptions(100)
     {
         FullMode = BoundedChannelFullMode.DropOldest
     });
 
     private readonly CancellationTokenSource _cts = new();
-    private IHttpClientFactory _httpClientFactory = null!;
     private IConfiguration _configuration = null!;
     private IDeleteFilesService _deleteFilesService = null!;
-    private string _logFolder = null!;
     private bool _disposed;
-
-    private static readonly Lock InitLock = new();
+    private IHttpClientFactory _httpClientFactory = null!;
     private bool _initialized;
+    private string _logFolder = null!;
     private Task _processTask = null!;
 
     /// <summary>
-    /// Initializes the sink with the services and log folder needed to submit bug reports.
+    ///     The application (entry assembly) name — e.g. "SimpleLauncher.New" for the new app,
+    ///     "SimpleLauncher" for the original. Falls back to the executing assembly (Core)
+    ///     and finally a hardcoded default.
+    /// </summary>
+    private static string ApplicationName =>
+        Assembly.GetEntryAssembly()?.GetName().Name
+        ?? Assembly.GetExecutingAssembly().GetName().Name
+        ?? "SimpleLauncher";
+
+    /// <summary>
+    ///     The application (entry assembly) version.
+    /// </summary>
+    private static string ApplicationVersion =>
+        Assembly.GetEntryAssembly()?.GetName().Version?.ToString()
+        ?? Assembly.GetExecutingAssembly().GetName().Version?.ToString()
+        ?? "Unknown";
+
+    /// <summary>
+    ///     Releases all resources used by the sink, stopping the report processing queue.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        _disposed = true;
+        _cts.Cancel();
+        _cts.Dispose();
+    }
+
+    /// <summary>
+    ///     Emits a log event to the sink, queuing warning and error events for reporting.
+    /// </summary>
+    /// <param name="logEvent">The log event to emit.</param>
+    public void Emit(LogEvent logEvent)
+    {
+        if (logEvent.Level < LogEventLevel.Warning) return;
+
+        _channel.Writer.TryWrite(logEvent);
+    }
+
+    /// <summary>
+    ///     Initializes the sink with the services and log folder needed to submit bug reports.
     /// </summary>
     /// <param name="httpClientFactory">The factory used to create the HTTP client for bug report submissions.</param>
     /// <param name="configuration">The application configuration containing API and log path settings.</param>
@@ -60,33 +102,18 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         }
     }
 
-    /// <summary>
-    /// Emits a log event to the sink, queuing warning and error events for reporting.
-    /// </summary>
-    /// <param name="logEvent">The log event to emit.</param>
-    public void Emit(LogEvent logEvent)
-    {
-        if (logEvent.Level < LogEventLevel.Warning) return;
-
-        _channel.Writer.TryWrite(logEvent);
-    }
-
     private async Task ProcessQueueAsync(CancellationToken cancellationToken)
     {
         while (await _channel.Reader.WaitToReadAsync(cancellationToken))
-        {
-            while (_channel.Reader.TryRead(out var logEvent))
+        while (_channel.Reader.TryRead(out var logEvent))
+            try
             {
-                try
-                {
-                    await SendReportAsync(logEvent);
-                }
-                catch
-                {
-                    WriteCriticalError(logEvent);
-                }
+                await SendReportAsync(logEvent);
             }
-        }
+            catch
+            {
+                WriteCriticalError(logEvent);
+            }
     }
 
     private async Task SendReportAsync(LogEvent logEvent)
@@ -108,11 +135,9 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         {
             await File.AppendAllTextAsync(errorLogPath, report);
             if (userLogPath != null)
-            {
                 await File.AppendAllTextAsync(userLogPath,
                     report +
                     "--------------------------------------------------------------------------------------------------------------\n\n\n");
-            }
         }
 
         try
@@ -139,7 +164,6 @@ public class BugReportApiSink : ILogEventSink, IDisposable
             using var response = await httpClient.PostAsync(apiUrl, jsonContent, cts.Token);
 
             if (response.IsSuccessStatusCode && File.Exists(errorLogPath) && _deleteFilesService != null)
-            {
                 try
                 {
                     await _deleteFilesService.TryDeleteFileAsync(errorLogPath);
@@ -148,7 +172,6 @@ public class BugReportApiSink : ILogEventSink, IDisposable
                 {
                     // Ignore deletion failures
                 }
-            }
         }
         catch
         {
@@ -165,10 +188,7 @@ public class BugReportApiSink : ILogEventSink, IDisposable
             var report = BuildReport(logEvent) +
                          "\n--------------------------------------------------------------------------------------------------------------\n\n\n";
 
-            if (criticalLogPath != null)
-            {
-                File.AppendAllText(criticalLogPath, report);
-            }
+            if (criticalLogPath != null) File.AppendAllText(criticalLogPath, report);
         }
         catch
         {
@@ -264,24 +284,6 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         return sb.ToString();
     }
 
-    /// <summary>
-    /// The application (entry assembly) name — e.g. "SimpleLauncher.New" for the new app,
-    /// "SimpleLauncher" for the original. Falls back to the executing assembly (Core)
-    /// and finally a hardcoded default.
-    /// </summary>
-    private static string ApplicationName =>
-        Assembly.GetEntryAssembly()?.GetName().Name
-        ?? Assembly.GetExecutingAssembly().GetName().Name
-        ?? "SimpleLauncher";
-
-    /// <summary>
-    /// The application (entry assembly) version.
-    /// </summary>
-    private static string ApplicationVersion =>
-        Assembly.GetEntryAssembly()?.GetName().Version?.ToString()
-        ?? Assembly.GetExecutingAssembly().GetName().Version?.ToString()
-        ?? "Unknown";
-
     private static string? GetUserInfo()
     {
         try
@@ -301,17 +303,5 @@ public class BugReportApiSink : ILogEventSink, IDisposable
 #else
         return "Release";
 #endif
-    }
-
-    /// <summary>
-    /// Releases all resources used by the sink, stopping the report processing queue.
-    /// </summary>
-    public void Dispose()
-    {
-        if (_disposed) return;
-
-        _disposed = true;
-        _cts.Cancel();
-        _cts.Dispose();
     }
 }

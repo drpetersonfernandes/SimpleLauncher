@@ -1,19 +1,23 @@
+using System.Collections.ObjectModel;
 using MessagePack;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="SimpleLauncher.Services.Favorites.FavoritesManager"/> MessagePack serialization and basic properties.
+///     Tests for <see cref="SimpleLauncher.Services.Favorites.FavoritesManager" /> MessagePack serialization and basic
+///     properties.
 /// </summary>
 public class FavoritesManagerTests : IDisposable
 {
     private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FavoritesManagerTests"/> class, setting up a temporary test directory.
+    ///     Initializes a new instance of the <see cref="FavoritesManagerTests" /> class, setting up a temporary test
+    ///     directory.
     /// </summary>
     public FavoritesManagerTests()
     {
@@ -23,7 +27,7 @@ public class FavoritesManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory and restores the original service provider.
+    ///     Cleans up the temporary test directory and restores the original service provider.
     /// </summary>
     public void Dispose()
     {
@@ -42,12 +46,12 @@ public class FavoritesManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FavoritesManager can be serialized and deserialized via MessagePack preserving all data.
+    ///     Verifies that FavoritesManager can be serialized and deserialized via MessagePack preserving all data.
     /// </summary>
     [Fact]
     public void FavoritesManagerCanBeSerializedAndDeserialized()
     {
-        var manager = new Services.Favorites.FavoritesManager
+        var manager = new FavoritesManager
         {
             FavoriteList =
             [
@@ -58,7 +62,7 @@ public class FavoritesManagerTests : IDisposable
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
 
         Assert.NotNull(deserialized);
         Assert.Equal(2, deserialized.FavoriteList.Count);
@@ -69,46 +73,46 @@ public class FavoritesManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that an empty FavoritesManager serializes and deserializes correctly.
+    ///     Verifies that an empty FavoritesManager serializes and deserializes correctly.
     /// </summary>
     [Fact]
     public void FavoritesManagerEmptyListSerializesCorrectly()
     {
-        var manager = new Services.Favorites.FavoritesManager
+        var manager = new FavoritesManager
         {
             FavoriteList = [],
             Version = 1
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
 
         Assert.NotNull(deserialized);
         Assert.Empty(deserialized.FavoriteList);
     }
 
     /// <summary>
-    /// Verifies that the default Version value is 1.
+    ///     Verifies that the default Version value is 1.
     /// </summary>
     [Fact]
     public void FavoritesManagerDefaultVersionIsOne()
     {
-        var manager = new Services.Favorites.FavoritesManager();
+        var manager = new FavoritesManager();
         Assert.Equal(1, manager.Version);
     }
 
     /// <summary>
-    /// Verifies that the default FavoriteList is empty.
+    ///     Verifies that the default FavoriteList is empty.
     /// </summary>
     [Fact]
     public void FavoritesManagerDefaultListIsEmpty()
     {
-        var manager = new Services.Favorites.FavoritesManager();
+        var manager = new FavoritesManager();
         Assert.Empty(manager.FavoriteList);
     }
 
     /// <summary>
-    /// Verifies that deserializing corrupted bytes throws a MessagePackSerializationException.
+    ///     Verifies that deserializing corrupted bytes throws a MessagePackSerializationException.
     /// </summary>
     [Fact]
     public void FavoritesManagerCorruptedBytesThrowsException()
@@ -116,16 +120,16 @@ public class FavoritesManagerTests : IDisposable
         var corruptedBytes = new byte[] { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
 
         Assert.Throws<MessagePackSerializationException>(() =>
-            MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(corruptedBytes));
+            MessagePackSerializer.Deserialize<FavoritesManager>(corruptedBytes));
     }
 
     /// <summary>
-    /// Verifies that a Favorite with optional properties serializes the required fields correctly.
+    ///     Verifies that a Favorite with optional properties serializes the required fields correctly.
     /// </summary>
     [Fact]
     public void FavoriteWithOptionalPropertiesSerializesCorrectly()
     {
-        var manager = new Services.Favorites.FavoritesManager
+        var manager = new FavoritesManager
         {
             FavoriteList =
             [
@@ -140,7 +144,7 @@ public class FavoritesManagerTests : IDisposable
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
 
         // Note: MachineDescription and CoverImage are [IgnoreMember] so won't survive serialization
         Assert.Equal("game.zip", deserialized.FavoriteList[0].FileName);
@@ -148,12 +152,12 @@ public class FavoritesManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a FavoritesManager with duplicate entries serializes and deserializes correctly.
+    ///     Verifies that a FavoritesManager with duplicate entries serializes and deserializes correctly.
     /// </summary>
     [Fact]
     public void FavoritesManagerWithDuplicateEntriesSerializesCorrectly()
     {
-        var manager = new Services.Favorites.FavoritesManager
+        var manager = new FavoritesManager
         {
             FavoriteList =
             [
@@ -164,18 +168,18 @@ public class FavoritesManagerTests : IDisposable
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
 
         Assert.Equal(2, deserialized.FavoriteList.Count);
     }
 
     /// <summary>
-    /// Verifies that special characters in file names are preserved through serialization.
+    ///     Verifies that special characters in file names are preserved through serialization.
     /// </summary>
     [Fact]
     public void FavoritesManagerWithSpecialCharactersInFileName()
     {
-        var manager = new Services.Favorites.FavoritesManager
+        var manager = new FavoritesManager
         {
             FavoriteList =
             [
@@ -187,7 +191,7 @@ public class FavoritesManagerTests : IDisposable
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
 
         Assert.Equal(3, deserialized.FavoriteList.Count);
         Assert.Equal("C:\\roms\\[BIOS] PlayStation.zip", deserialized.FavoriteList[0].FileName);
@@ -196,12 +200,12 @@ public class FavoritesManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Unicode characters in file names are preserved through serialization.
+    ///     Verifies that Unicode characters in file names are preserved through serialization.
     /// </summary>
     [Fact]
     public void FavoritesManagerWithUnicodeCharacters()
     {
-        var manager = new Services.Favorites.FavoritesManager
+        var manager = new FavoritesManager
         {
             FavoriteList =
             [
@@ -212,7 +216,7 @@ public class FavoritesManagerTests : IDisposable
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
 
         Assert.Equal(2, deserialized.FavoriteList.Count);
         Assert.Equal("C:\\roms\\ポケモン.zip", deserialized.FavoriteList[0].FileName);
@@ -220,7 +224,7 @@ public class FavoritesManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the Favorite model's CoverImage property defaults to null.
+    ///     Verifies that the Favorite model's CoverImage property defaults to null.
     /// </summary>
     [Fact]
     public void FavoriteModelDefaultCoverImageIsNull()
@@ -230,7 +234,7 @@ public class FavoritesManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the Favorite model's MachineDescription property defaults to null.
+    ///     Verifies that the Favorite model's MachineDescription property defaults to null.
     /// </summary>
     [Fact]
     public void FavoriteModelDefaultMachineDescriptionIsNull()
@@ -240,7 +244,7 @@ public class FavoritesManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the Favorite model's DefaultEmulator property defaults to null.
+    ///     Verifies that the Favorite model's DefaultEmulator property defaults to null.
     /// </summary>
     [Fact]
     public void FavoriteModelDefaultDefaultEmulatorIsNull()
@@ -250,7 +254,7 @@ public class FavoritesManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the Favorite model's CoverImage property can be set and retrieved.
+    ///     Verifies that the Favorite model's CoverImage property can be set and retrieved.
     /// </summary>
     [Fact]
     public void FavoriteModelCoverImageCanBeSet()
@@ -260,7 +264,7 @@ public class FavoritesManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the Favorite model's DefaultEmulator property can be set and retrieved.
+    ///     Verifies that the Favorite model's DefaultEmulator property can be set and retrieved.
     /// </summary>
     [Fact]
     public void FavoriteModelDefaultEmulatorCanBeSet()
@@ -270,25 +274,25 @@ public class FavoritesManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that the Version property is preserved after serialization and deserialization.
+    ///     Verifies that the Version property is preserved after serialization and deserialization.
     /// </summary>
     [Fact]
     public void FavoritesManagerVersionPreservedAfterSerialization()
     {
-        var manager = new Services.Favorites.FavoritesManager
+        var manager = new FavoritesManager
         {
             FavoriteList = [],
             Version = 42
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
 
         Assert.Equal(42, deserialized.Version);
     }
 
     /// <summary>
-    /// Verifies that a large list of 1000 favorites serializes and deserializes correctly.
+    ///     Verifies that a large list of 1000 favorites serializes and deserializes correctly.
     /// </summary>
     [Fact]
     public void FavoritesManagerLargeListSerializesCorrectly()
@@ -297,14 +301,14 @@ public class FavoritesManagerTests : IDisposable
             .Select(static i => new Favorite { FileName = $"game{i}.zip", SystemName = "NES" })
             .ToList();
 
-        var manager = new Services.Favorites.FavoritesManager
+        var manager = new FavoritesManager
         {
-            FavoriteList = new System.Collections.ObjectModel.ObservableCollection<Favorite>(favorites),
+            FavoriteList = new ObservableCollection<Favorite>(favorites),
             Version = 1
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
 
         Assert.Equal(1000, deserialized.FavoriteList.Count);
         Assert.Equal("game1.zip", deserialized.FavoriteList[0].FileName);
@@ -312,13 +316,13 @@ public class FavoritesManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that long file paths are preserved through serialization.
+    ///     Verifies that long file paths are preserved through serialization.
     /// </summary>
     [Fact]
     public void FavoritesManagerLongPathsSerializesCorrectly()
     {
         var longPath = "C:\\" + string.Join("\\", Enumerable.Repeat("verylongfoldername", 10)) + "\\game.zip";
-        var manager = new Services.Favorites.FavoritesManager
+        var manager = new FavoritesManager
         {
             FavoriteList =
             [
@@ -328,7 +332,7 @@ public class FavoritesManagerTests : IDisposable
         };
 
         var bytes = MessagePackSerializer.Serialize(manager);
-        var deserialized = MessagePackSerializer.Deserialize<Services.Favorites.FavoritesManager>(bytes);
+        var deserialized = MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
 
         Assert.Equal(longPath, deserialized.FavoriteList[0].FileName);
     }

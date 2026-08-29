@@ -1,14 +1,16 @@
+using System.Diagnostics;
 using Avalonia.Controls;
 using Moq;
 using SimpleLauncher.Avalonia.Services;
+using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.GameFileWatcher;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the Phase 3 menu services (<see cref="AvaloniaLanguageMenuService"/>,
-/// <see cref="AvaloniaMenuCheckMarkService"/>) and the game file watcher wrapper
-/// (<see cref="AvaloniaGameFileWatcherService"/>, real FileSystemWatcher on temp folders).
+///     Tests for the Phase 3 menu services (<see cref="AvaloniaLanguageMenuService" />,
+///     <see cref="AvaloniaMenuCheckMarkService" />) and the game file watcher wrapper
+///     (<see cref="AvaloniaGameFileWatcherService" />, real FileSystemWatcher on temp folders).
 /// </summary>
 public class AvaloniaLanguageMenuAndWatcherServiceTests
 {
@@ -129,7 +131,7 @@ public class AvaloniaLanguageMenuAndWatcherServiceTests
 
         watcher.StartWatchingForSystems(
         [
-            new SimpleLauncher.Core.Models.SystemManagerConfig
+            new SystemManagerConfig
             {
                 SystemName = "Arcade",
                 SystemFolders = [tempDir.Path],
@@ -158,7 +160,7 @@ public class AvaloniaLanguageMenuAndWatcherServiceTests
 
         watcher.StartWatchingForSystems(
         [
-            new SimpleLauncher.Core.Models.SystemManagerConfig
+            new SystemManagerConfig
             {
                 SystemName = "Arcade",
                 SystemFolders = [tempDir.Path],
@@ -186,7 +188,7 @@ public class AvaloniaLanguageMenuAndWatcherServiceTests
 
         watcher.StartWatchingForSystems(
         [
-            new SimpleLauncher.Core.Models.SystemManagerConfig
+            new SystemManagerConfig
             {
                 SystemName = "Arcade",
                 SystemFolders = [@"C:\does\not\exist"],
@@ -199,13 +201,10 @@ public class AvaloniaLanguageMenuAndWatcherServiceTests
 
     private static async Task WaitForAsync(Func<bool> condition, int timeoutMs = 10000)
     {
-        var sw = System.Diagnostics.Stopwatch.StartNew();
+        var sw = Stopwatch.StartNew();
         while (!condition())
         {
-            if (sw.ElapsedMilliseconds > timeoutMs)
-            {
-                throw new TimeoutException("Condition not met within the timeout.");
-            }
+            if (sw.ElapsedMilliseconds > timeoutMs) throw new TimeoutException("Condition not met within the timeout.");
 
             await Task.Delay(5);
         }
@@ -213,13 +212,13 @@ public class AvaloniaLanguageMenuAndWatcherServiceTests
 
     private sealed class TempDirectory : IDisposable
     {
-        public string Path { get; } = System.IO.Path.Combine(System.IO.Path.GetTempPath(),
-            "sl_av_watcher_" + Guid.NewGuid().ToString("N"));
-
         public TempDirectory()
         {
             Directory.CreateDirectory(Path);
         }
+
+        public string Path { get; } = System.IO.Path.Combine(System.IO.Path.GetTempPath(),
+            "sl_av_watcher_" + Guid.NewGuid().ToString("N"));
 
         public void Dispose()
         {

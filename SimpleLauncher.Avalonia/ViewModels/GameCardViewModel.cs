@@ -3,48 +3,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// Represents a single game card in the grid.
-/// Mapped from scan results + cache + favorites + play history.
+///     Represents a single game card in the grid.
+///     Mapped from scan results + cache + favorites + play history.
 /// </summary>
 public partial class GameCardViewModel : ObservableObject
 {
-    [ObservableProperty] private string _displayTitle = "";
-
-    [ObservableProperty] private string _fileName = "";
-
-    [ObservableProperty] private string _coverPath = "";
-
-    [ObservableProperty] private string _systemName = "";
-
-    [ObservableProperty] private string _filePath = "";
-
-    [ObservableProperty] private string _folderPath = "";
-
-    [ObservableProperty] private string _machineDescription = "";
-
-    [ObservableProperty] private string _timesPlayed = "0";
-
-    [ObservableProperty] private string _playTime = "0m 0s";
-
-    [ObservableProperty] private bool _isFavorite;
-
-    [ObservableProperty] private int _playCount;
-
-    [ObservableProperty] private int? _rating; // 0-5, null when no rating is known (hides the star row)
-
-    [ObservableProperty] private string? _lastPlayed;
-
-    [ObservableProperty] private bool _hasCover;
-
-    [ObservableProperty] private string _placeholderColor = "#15FFFFFF";
-
     /// <summary>
-    /// Whether this game's system is supported by RetroAchievements.
-    /// </summary>
-    [ObservableProperty] private bool _isRaSupported;
-
-    /// <summary>
-    /// Known RetroAchievements-supported systems (by system.xml name).
+    ///     Known RetroAchievements-supported systems (by system.xml name).
     /// </summary>
     private static readonly HashSet<string> RaSupportedSystems = new(StringComparer.OrdinalIgnoreCase)
     {
@@ -80,6 +45,40 @@ public partial class GameCardViewModel : ObservableObject
         "Panasonic 3DO", "3DO",
         "Philips CD-i"
     };
+
+    [ObservableProperty] private string _coverPath = "";
+    [ObservableProperty] private string _displayTitle = "";
+
+    [ObservableProperty] private string _fileName = "";
+
+    [ObservableProperty] private string _filePath = "";
+
+    [ObservableProperty] private string _folderPath = "";
+
+    [ObservableProperty] private bool _hasCover;
+
+    [ObservableProperty] private bool _isFavorite;
+
+    /// <summary>
+    ///     Whether this game's system is supported by RetroAchievements.
+    /// </summary>
+    [ObservableProperty] private bool _isRaSupported;
+
+    [ObservableProperty] private string? _lastPlayed;
+
+    [ObservableProperty] private string _machineDescription = "";
+
+    [ObservableProperty] private string _placeholderColor = "#15FFFFFF";
+
+    [ObservableProperty] private int _playCount;
+
+    [ObservableProperty] private string _playTime = "0m 0s";
+
+    [ObservableProperty] private int? _rating; // 0-5, null when no rating is known (hides the star row)
+
+    [ObservableProperty] private string _systemName = "";
+
+    [ObservableProperty] private string _timesPlayed = "0";
 
     public static bool IsSystemRaSupported(string systemName)
     {

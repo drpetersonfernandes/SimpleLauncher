@@ -3,12 +3,12 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Interfaces;
 
 /// <summary>
-/// Handles mounting ISO disc images using PowerShell and launching games from the mounted drive.
+///     Handles mounting ISO disc images using PowerShell and launching games from the mounted drive.
 /// </summary>
 public interface IMountIsoFiles
 {
     /// <summary>
-    /// Mounts an ISO file, locates EBOOT.BIN, and launches it with the specified emulator.
+    ///     Mounts an ISO file, locates EBOOT.BIN, and launches it with the specified emulator.
     /// </summary>
     /// <param name="resolvedIsoFilePath">The full path to the ISO file to mount.</param>
     /// <param name="selectedSystemName">The name of the selected system.</param>
@@ -28,7 +28,7 @@ public interface IMountIsoFiles
         IMessageBoxLibraryService messageBox);
 
     /// <summary>
-    /// Waits for a directory to exist by polling at regular intervals until a timeout is reached.
+    ///     Waits for a directory to exist by polling at regular intervals until a timeout is reached.
     /// </summary>
     /// <param name="directoryPath">The directory path to wait for.</param>
     /// <param name="maxWaitTimeMs">Maximum wait time in milliseconds.</param>
@@ -39,7 +39,7 @@ public interface IMountIsoFiles
         ILogger logErrors);
 
     /// <summary>
-    /// Mounts an ISO file using a PowerShell command and returns the assigned drive letter.
+    ///     Mounts an ISO file using a PowerShell command and returns the assigned drive letter.
     /// </summary>
     /// <param name="isoPath">The path to the ISO file to mount.</param>
     /// <param name="logErrors">The error logger.</param>
@@ -49,7 +49,7 @@ public interface IMountIsoFiles
         IMessageBoxLibraryService messageBox);
 
     /// <summary>
-    /// Dismounts an ISO file using a PowerShell command.
+    ///     Dismounts an ISO file using a PowerShell command.
     /// </summary>
     /// <param name="isoPath">The path to the ISO file to dismount.</param>
     /// <param name="logErrors">The error logger.</param>

@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net.Http;
 using System.Reflection;
 using System.Windows;
@@ -6,21 +7,18 @@ using SimpleLauncher.Updater.Services;
 namespace SimpleLauncher.Updater;
 
 /// <summary>
-/// Main window for the Updater application that manages the update process for SimpleLauncher.
+///     Main window for the Updater application that manages the update process for SimpleLauncher.
 /// </summary>
 public partial class MainWindow
 {
     private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
     /// <summary>
-    /// Shared HttpClient instance for the entire Updater application.
-    /// Uses a long timeout for large downloads; individual callers should use CancellationTokenSource for shorter timeouts.
+    ///     Shared HttpClient instance for the entire Updater application.
+    ///     Uses a long timeout for large downloads; individual callers should use CancellationTokenSource for shorter
+    ///     timeouts.
     /// </summary>
     internal static readonly HttpClient HttpClient = new() { Timeout = TimeSpan.FromMinutes(5) };
-
-    private readonly UpdateService _updateService;
-    private readonly string[] _args;
-    private readonly CancellationTokenSource _cts;
 
     // Files to exclude during extraction to prevent self-destruction
     private static readonly string[] IgnoredFiles =
@@ -32,21 +30,18 @@ public partial class MainWindow
         "Updater.runtimeconfig.json"
     ];
 
+    private readonly string[] _args;
+    private readonly CancellationTokenSource _cts;
+
+    private readonly UpdateService _updateService;
+
     static MainWindow()
     {
         HttpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SimpleLauncher-Updater");
     }
 
     /// <summary>
-    /// Disposes the HttpClient instance. Should be called when the application is shutting down.
-    /// </summary>
-    public static void DisposeHttpClient()
-    {
-        HttpClient.Dispose();
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the MainWindow class.
+    ///     Initializes a new instance of the MainWindow class.
     /// </summary>
     /// <param name="args">Command line arguments, typically containing the process ID of the main application.</param>
     public MainWindow(string[] args)
@@ -75,7 +70,15 @@ public partial class MainWindow
     }
 
     /// <summary>
-    /// Creates and configures the UpdateService with all required dependencies.
+    ///     Disposes the HttpClient instance. Should be called when the application is shutting down.
+    /// </summary>
+    public static void DisposeHttpClient()
+    {
+        HttpClient.Dispose();
+    }
+
+    /// <summary>
+    ///     Creates and configures the UpdateService with all required dependencies.
     /// </summary>
     private static UpdateService CreateUpdateService()
     {
@@ -90,7 +93,7 @@ public partial class MainWindow
     }
 
     /// <summary>
-    /// Wires up event handlers for the UpdateService events.
+    ///     Wires up event handlers for the UpdateService events.
     /// </summary>
     private void WireUpServiceEvents()
     {
@@ -138,7 +141,7 @@ public partial class MainWindow
     }
 
     /// <summary>
-    /// Gets the version of the currently executing assembly.
+    ///     Gets the version of the currently executing assembly.
     /// </summary>
     /// <returns>The application version string, or "Version not available" if the version cannot be determined.</returns>
     private static string GetApplicationVersion()
@@ -148,7 +151,7 @@ public partial class MainWindow
     }
 
     /// <summary>
-    /// Executes the update process asynchronously with error handling and bug reporting.
+    ///     Executes the update process asynchronously with error handling and bug reporting.
     /// </summary>
     /// <param name="cancellationToken">Token to cancel the update operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
@@ -159,10 +162,8 @@ public partial class MainWindow
             // Parse process ID from command line arguments
             int? processId = null;
             if (_args.Length > 0 &&
-                int.TryParse(_args[0], System.Globalization.CultureInfo.InvariantCulture, out var pid) && pid > 0)
-            {
+                int.TryParse(_args[0], CultureInfo.InvariantCulture, out var pid) && pid > 0)
                 processId = pid;
-            }
 
             // Execute the update through the service
             var result = await _updateService.ExecuteUpdateAsync(processId, IgnoredFiles, cancellationToken);
@@ -214,10 +215,7 @@ public partial class MainWindow
         if (!IsLoaded) return;
 
         var result = MessageBox.Show(message, "Error", MessageBoxButton.YesNo, MessageBoxImage.Error);
-        if (result == MessageBoxResult.Yes)
-        {
-            _updateService.OpenManualDownloadPage();
-        }
+        if (result == MessageBoxResult.Yes) _updateService.OpenManualDownloadPage();
 
         Close();
     }
@@ -231,7 +229,6 @@ public partial class MainWindow
         }
 
         if (IsLoaded)
-        {
             try
             {
                 LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
@@ -242,12 +239,11 @@ public partial class MainWindow
                 // Window may have been closed, ignore logging but report bug (fire-and-forget)
                 _ = ReportBugFireAndForgetAsync(ex, "Error logging message to UI");
             }
-        }
     }
 
     /// <summary>
-    /// Fire-and-forget helper for reporting bugs from synchronous contexts.
-    /// Logs exceptions to Debug output if the bug report itself fails.
+    ///     Fire-and-forget helper for reporting bugs from synchronous contexts.
+    ///     Logs exceptions to Debug output if the bug report itself fails.
     /// </summary>
     private static async Task ReportBugFireAndForgetAsync(Exception exception, string context)
     {

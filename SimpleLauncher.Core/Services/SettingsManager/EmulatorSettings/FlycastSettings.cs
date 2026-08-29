@@ -4,40 +4,41 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 
 /// <summary>
-/// Represents the user-configurable settings for the Flycast emulator, persisted to the system configuration under the "Flycast" section.
+///     Represents the user-configurable settings for the Flycast emulator, persisted to the system configuration under the
+///     "Flycast" section.
 /// </summary>
 public class FlycastSettings : IEmulatorSettings
 {
     private const string SectionName = "Flycast";
 
     /// <summary>
-    /// Gets or sets a value indicating whether the emulator starts in fullscreen mode.
+    ///     Gets or sets a value indicating whether the emulator starts in fullscreen mode.
     /// </summary>
     public bool Fullscreen { get; set; }
 
     /// <summary>
-    /// Gets or sets the width of the emulation window.
+    ///     Gets or sets the width of the emulation window.
     /// </summary>
     public int Width { get; set; } = 640;
 
     /// <summary>
-    /// Gets or sets the height of the emulation window.
+    ///     Gets or sets the height of the emulation window.
     /// </summary>
     public int Height { get; set; } = 480;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the emulation window starts maximized.
+    ///     Gets or sets a value indicating whether the emulation window starts maximized.
     /// </summary>
     public bool Maximized { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
+    ///     Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
 
 
     /// <summary>
-    /// Loads the Flycast settings from the specified XML element.
+    ///     Loads the Flycast settings from the specified XML element.
     /// </summary>
     /// <param name="settings">The XML element containing the system configuration.</param>
     public void LoadFromXml(XElement settings)
@@ -53,7 +54,7 @@ public class FlycastSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Serializes the Flycast settings into an XML element for persistence.
+    ///     Serializes the Flycast settings into an XML element for persistence.
     /// </summary>
     /// <returns>The XML element containing the Flycast settings.</returns>
     public XElement ToXElement()
@@ -68,7 +69,7 @@ public class FlycastSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Copies the values from another emulator settings instance if it is a Flycast settings instance.
+    ///     Copies the values from another emulator settings instance if it is a Flycast settings instance.
     /// </summary>
     /// <param name="other">The other emulator settings instance to copy from.</param>
     public void CopyFrom(IEmulatorSettings other)
@@ -84,7 +85,7 @@ public class FlycastSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Resets all Flycast settings to their default values.
+    ///     Resets all Flycast settings to their default values.
     /// </summary>
     public void ResetDefaults()
     {

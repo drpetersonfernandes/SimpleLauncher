@@ -6,21 +6,21 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="RetroAchievementsHasherTool"/> covering the archive handling
-/// of the per-game hash flow: .zip files are hashed directly (the RetroAchievementsSharp
-/// CLI tool pre-loads the first entry itself), while .7z/.rar archives are extracted first.
+///     Tests for <see cref="RetroAchievementsHasherTool" /> covering the archive handling
+///     of the per-game hash flow: .zip files are hashed directly (the RetroAchievementsSharp
+///     CLI tool pre-loads the first entry itself), while .7z/.rar archives are extracted first.
 /// </summary>
 public class RetroAchievementsHasherToolTests : IDisposable
 {
-    private readonly string _tempFolder;
-    private readonly RetroAchievementsSystemMatcher _systemMatcher;
     private readonly FakeExtractionService _extractionService;
     private readonly FakeFileHasher _fileHasher;
+    private readonly RetroAchievementsSystemMatcher _systemMatcher;
+    private readonly string _tempFolder;
     private readonly RetroAchievementsHasherTool _tool;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsHasherToolTests"/> class
-    /// with an isolated temporary folder and fake dependencies.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsHasherToolTests" /> class
+    ///     with an isolated temporary folder and fake dependencies.
     /// </summary>
     public RetroAchievementsHasherToolTests()
     {
@@ -39,21 +39,18 @@ public class RetroAchievementsHasherToolTests : IDisposable
     }
 
     /// <summary>
-    /// Deletes the temporary folder used by the tests.
+    ///     Deletes the temporary folder used by the tests.
     /// </summary>
     public void Dispose()
     {
-        if (Directory.Exists(_tempFolder))
-        {
-            Directory.Delete(_tempFolder, true);
-        }
+        if (Directory.Exists(_tempFolder)) Directory.Delete(_tempFolder, true);
 
         GC.SuppressFinalize(this);
     }
 
     /// <summary>
-    /// Verifies that a .zip is hashed directly (the CLI tool pre-loads the first
-    /// entry itself) and that no extraction happens at all.
+    ///     Verifies that a .zip is hashed directly (the CLI tool pre-loads the first
+    ///     entry itself) and that no extraction happens at all.
     /// </summary>
     [Fact]
     public async Task GetGameHash_ForZipFile_HashesDirectlyWithoutExtraction()
@@ -72,8 +69,8 @@ public class RetroAchievementsHasherToolTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a .7z archive is extracted before hashing and that the
-    /// temporary extraction path is returned for cleanup.
+    ///     Verifies that a .7z archive is extracted before hashing and that the
+    ///     temporary extraction path is returned for cleanup.
     /// </summary>
     [Fact]
     public async Task GetGameHash_ForSevenZipFile_ExtractsBeforeHashing()
@@ -92,7 +89,7 @@ public class RetroAchievementsHasherToolTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a plain (non-archived) ROM is hashed directly.
+    ///     Verifies that a plain (non-archived) ROM is hashed directly.
     /// </summary>
     [Fact]
     public async Task GetGameHash_ForPlainRom_HashesFileDirectly()
@@ -110,7 +107,7 @@ public class RetroAchievementsHasherToolTests : IDisposable
     }
 
     /// <summary>
-    /// Creates a zip archive on disk containing a single entry.
+    ///     Creates a zip archive on disk containing a single entry.
     /// </summary>
     private static void CreateZip(string zipPath, string entryName, string content)
     {
@@ -121,12 +118,12 @@ public class RetroAchievementsHasherToolTests : IDisposable
     }
 
     /// <summary>
-    /// A fake hasher that tracks whether it was called with a file.
+    ///     A fake hasher that tracks whether it was called with a file.
     /// </summary>
     private sealed class FakeFileHasher : IRetroAchievementsFileHasher
     {
         /// <summary>
-        /// Gets the file paths that were passed to <see cref="CalculateHashAsync"/>.
+        ///     Gets the file paths that were passed to <see cref="CalculateHashAsync" />.
         /// </summary>
         public List<string> HashedPaths { get; } = [];
 
@@ -143,21 +140,19 @@ public class RetroAchievementsHasherToolTests : IDisposable
         {
             var results = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
             foreach (var filePath in filePaths)
-            {
                 results[filePath] = $"hash-{Path.GetFileNameWithoutExtension(filePath)}";
-            }
 
             return Task.FromResult<IReadOnlyDictionary<string, string>>(results);
         }
     }
 
     /// <summary>
-    /// A fake extraction service that extracts archives into a fake temporary folder.
+    ///     A fake extraction service that extracts archives into a fake temporary folder.
     /// </summary>
     private sealed class FakeExtractionService : IExtractionService
     {
         /// <summary>
-        /// Gets the archive paths that were extracted.
+        ///     Gets the archive paths that were extracted.
         /// </summary>
         public List<string> ExtractedArchives { get; } = [];
 
@@ -183,7 +178,7 @@ public class RetroAchievementsHasherToolTests : IDisposable
     }
 
     /// <summary>
-    /// A no-op loading state.
+    ///     A no-op loading state.
     /// </summary>
     private sealed class NoOpLoadingState : ILoadingState
     {

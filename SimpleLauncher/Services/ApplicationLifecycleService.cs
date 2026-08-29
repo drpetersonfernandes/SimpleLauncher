@@ -5,22 +5,24 @@ using SimpleLauncher.Core.Services.UsageStats;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.PlayHistory;
 using SimpleLauncher.Services.StartupInitialization;
+using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services;
 
 /// <summary>
-/// Manages the application lifecycle including startup initialization, update checks, usage reporting, and game file watching.
+///     Manages the application lifecycle including startup initialization, update checks, usage reporting, and game file
+///     watching.
 /// </summary>
 public class ApplicationLifecycleService : IApplicationLifecycleService
 {
-    private readonly CheckForUpdatesService _updateChecker;
-    private readonly Stats _stats;
-    private readonly StartupInitializationService _startupInitializationService;
-    private readonly PlayHistoryManager _playHistoryManager;
     private readonly GameFileWatcherService _gameFileWatcherService;
+    private readonly PlayHistoryManager _playHistoryManager;
+    private readonly StartupInitializationService _startupInitializationService;
+    private readonly Stats _stats;
+    private readonly CheckForUpdatesService _updateChecker;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ApplicationLifecycleService"/> class.
+    ///     Initializes a new instance of the <see cref="ApplicationLifecycleService" /> class.
     /// </summary>
     /// <param name="updateChecker">The service for checking application updates.</param>
     /// <param name="stats">The usage statistics reporting service.</param>
@@ -42,7 +44,7 @@ public class ApplicationLifecycleService : IApplicationLifecycleService
     }
 
     /// <summary>
-    /// Initializes the application startup by delegating to the startup initialization service.
+    ///     Initializes the application startup by delegating to the startup initialization service.
     /// </summary>
     /// <param name="host">The startup initialization host that coordinates the initialization process.</param>
     /// <returns>A task representing the asynchronous initialization operation.</returns>
@@ -52,7 +54,7 @@ public class ApplicationLifecycleService : IApplicationLifecycleService
     }
 
     /// <summary>
-    /// Silently checks for application updates without notifying the user.
+    ///     Silently checks for application updates without notifying the user.
     /// </summary>
     /// <param name="mainWindow">The main application window used for the check.</param>
     /// <returns>A task representing the asynchronous update check operation.</returns>
@@ -62,7 +64,7 @@ public class ApplicationLifecycleService : IApplicationLifecycleService
     }
 
     /// <summary>
-    /// Reports anonymous usage statistics to the statistics service.
+    ///     Reports anonymous usage statistics to the statistics service.
     /// </summary>
     /// <returns>A task representing the asynchronous usage reporting operation.</returns>
     public Task ReportUsageAsync()
@@ -71,16 +73,16 @@ public class ApplicationLifecycleService : IApplicationLifecycleService
     }
 
     /// <summary>
-    /// Migrates play history entries from file names to full paths for the given systems.
+    ///     Migrates play history entries from file names to full paths for the given systems.
     /// </summary>
     /// <param name="systemManagers">The list of system managers to migrate history for.</param>
-    public void MigratePlayHistory(IList<SystemManager.SystemManagerService> systemManagers)
+    public void MigratePlayHistory(IList<SystemManagerService> systemManagers)
     {
         _playHistoryManager.MigrateFilenamesToFullPaths(systemManagers.ToList());
     }
 
     /// <summary>
-    /// Occurs when the set of game files being watched changes.
+    ///     Occurs when the set of game files being watched changes.
     /// </summary>
     public event EventHandler<EventArgs<string>> GameFilesChanged
     {
@@ -89,7 +91,7 @@ public class ApplicationLifecycleService : IApplicationLifecycleService
     }
 
     /// <summary>
-    /// Starts watching the given folders for game file changes for the specified system.
+    ///     Starts watching the given folders for game file changes for the specified system.
     /// </summary>
     /// <param name="folders">The folders to watch for game file changes.</param>
     /// <param name="systemName">The name of the system the folders belong to.</param>
@@ -101,7 +103,7 @@ public class ApplicationLifecycleService : IApplicationLifecycleService
     }
 
     /// <summary>
-    /// Stops watching for game file changes.
+    ///     Stops watching for game file changes.
     /// </summary>
     public void StopWatching()
     {
@@ -109,7 +111,7 @@ public class ApplicationLifecycleService : IApplicationLifecycleService
     }
 
     /// <summary>
-    /// Unsubscribes the given handler from the game files changed event.
+    ///     Unsubscribes the given handler from the game files changed event.
     /// </summary>
     /// <param name="handler">The event handler to unsubscribe.</param>
     public void UnsubscribeGameFilesChanged(EventHandler<EventArgs<string>> handler)

@@ -4,27 +4,27 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Models;
 
 /// <summary>
-/// Represents a MAME machine entry with its machine name and description.
+///     Represents a MAME machine entry with its machine name and description.
 /// </summary>
 [MessagePackObject]
 public class MameMachineData
 {
+    private static readonly string DefaultDatPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.dat");
+
     /// <summary>
-    /// Gets or sets the machine name of the MAME entry.
+    ///     Gets or sets the machine name of the MAME entry.
     /// </summary>
     [Key(0)]
     public string MachineName { get; set; } = "";
 
     /// <summary>
-    /// Gets or sets the human-readable description of the MAME machine.
+    ///     Gets or sets the human-readable description of the MAME machine.
     /// </summary>
     [Key(1)]
     public string Description { get; set; } = "";
 
-    private static readonly string DefaultDatPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mame.dat");
-
     /// <summary>
-    /// Loads the MAME machine list from the mame.dat file.
+    ///     Loads the MAME machine list from the mame.dat file.
     /// </summary>
     /// <param name="logErrors">The logger used to record warnings and errors.</param>
     /// <param name="datPath">An optional path to the mame.dat file; defaults to the application folder.</param>
@@ -42,10 +42,7 @@ public class MameMachineData
             logErrors.Warning(contextMessage);
 
             // Notify user
-            if (messageBox != null)
-            {
-                _ = messageBox.ReinstallSimpleLauncherFileMissingMessageBoxAsync();
-            }
+            if (messageBox != null) _ = messageBox.ReinstallSimpleLauncherFileMissingMessageBoxAsync();
 
             return []; // return an empty list
         }
@@ -65,10 +62,7 @@ public class MameMachineData
             logErrors.Error(ex, contextMessage);
 
             // Notify user
-            if (messageBox != null)
-            {
-                _ = messageBox.ReinstallSimpleLauncherFileCorruptedMessageBoxAsync();
-            }
+            if (messageBox != null) _ = messageBox.ReinstallSimpleLauncherFileCorruptedMessageBoxAsync();
 
             return []; // return an empty list
         }

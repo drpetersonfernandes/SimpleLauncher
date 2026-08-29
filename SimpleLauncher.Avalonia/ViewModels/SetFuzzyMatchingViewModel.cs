@@ -7,16 +7,10 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.ViewModels;
 
 /// <summary>
-/// ViewModel for the SetFuzzyMatchingWindow.
+///     ViewModel for the SetFuzzyMatchingWindow.
 /// </summary>
 public partial class SetFuzzyMatchingViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
-    private readonly ILogger _logger;
-    private readonly IMessageBoxLibraryService _messageBox;
-
-    private double _thresholdValue;
-
     // Slider constraints
     /// <summary>The minimum fuzzy matching threshold allowed by the slider.</summary>
     public const double MinimumThreshold = 0.7;
@@ -27,7 +21,13 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     /// <summary>The tick frequency of the slider.</summary>
     public const double TickFrequency = 0.05;
 
-    /// <summary>Initializes a new instance of the <see cref="SetFuzzyMatchingViewModel"/>.</summary>
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
+
+    private double _thresholdValue;
+
+    /// <summary>Initializes a new instance of the <see cref="SetFuzzyMatchingViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="messageBox">The message box service.</param>
@@ -46,22 +46,22 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Gets the minimum threshold value for the slider.
+    ///     Gets the minimum threshold value for the slider.
     /// </summary>
     public double Minimum => MinimumThreshold;
 
     /// <summary>
-    /// Gets the maximum threshold value for the slider.
+    ///     Gets the maximum threshold value for the slider.
     /// </summary>
     public double Maximum => MaximumThreshold;
 
     /// <summary>
-    /// Gets the tick frequency for the slider.
+    ///     Gets the tick frequency for the slider.
     /// </summary>
     public double TickFrequencyValue => TickFrequency;
 
     /// <summary>
-    /// Gets or sets the current threshold value from the slider.
+    ///     Gets or sets the current threshold value from the slider.
     /// </summary>
     public double ThresholdValue
     {
@@ -69,35 +69,33 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
         set
         {
             if (SetProperty(ref _thresholdValue, value))
-            {
                 // Update the percentage display when value changes
                 OnPropertyChanged(nameof(ThresholdPercentage));
-            }
         }
     }
 
     /// <summary>
-    /// Gets the threshold as a percentage string for display.
+    ///     Gets the threshold as a percentage string for display.
     /// </summary>
     public string ThresholdPercentage => _thresholdValue.ToString("P0", CultureInfo.InvariantCulture);
 
     /// <summary>
-    /// Gets the current threshold setting as displayed text.
+    ///     Gets the current threshold setting as displayed text.
     /// </summary>
     public string CurrentThresholdText { get; }
 
     /// <summary>
-    /// Gets whether the settings can be saved.
+    ///     Gets whether the settings can be saved.
     /// </summary>
     public bool CanSave => _settings != null;
 
     /// <summary>
-    /// Event raised when the window should be closed with a success result.
+    ///     Event raised when the window should be closed with a success result.
     /// </summary>
     public event EventHandler SaveCompleted = null!;
 
     /// <summary>
-    /// Event raised when the window should be closed without saving.
+    ///     Event raised when the window should be closed without saving.
     /// </summary>
     public event EventHandler CancelRequested = null!;
 

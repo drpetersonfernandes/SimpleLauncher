@@ -4,7 +4,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Services.WpfServices;
 
 /// <summary>
-/// WPF implementation of IDispatcherService, marshaling calls to the UI thread via Application.Current.Dispatcher.
+///     WPF implementation of IDispatcherService, marshaling calls to the UI thread via Application.Current.Dispatcher.
 /// </summary>
 public class WpfDispatcherService : IDispatcherService
 {

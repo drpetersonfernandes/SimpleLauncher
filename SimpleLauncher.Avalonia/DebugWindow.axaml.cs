@@ -9,17 +9,17 @@ using SimpleLauncher.Avalonia.ViewModels;
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Window that displays real-time debug log output.
+///     Window that displays real-time debug log output.
 /// </summary>
 public partial class DebugWindow : Window
 {
     private static readonly Lock InstanceLock = new();
-    private DebugViewModel _viewModel = null!;
-    private PropertyChangedEventHandler? _logTextPropertyChangedHandler;
     private bool _isReallyClosing;
+    private PropertyChangedEventHandler? _logTextPropertyChangedHandler;
+    private DebugViewModel _viewModel = null!;
 
     /// <summary>
-    /// Initializes the window XAML.
+    ///     Initializes the window XAML.
     /// </summary>
     public DebugWindow()
     {
@@ -27,13 +27,13 @@ public partial class DebugWindow : Window
     }
 
     /// <summary>
-    /// Gets the current singleton instance of the debug window, or <c>null</c> when it has not been created.
+    ///     Gets the current singleton instance of the debug window, or <c>null</c> when it has not been created.
     /// </summary>
     internal static DebugWindow? Instance { get; private set; }
 
     /// <summary>
-    /// Creates and shows the singleton debug window, wiring it to the <see cref="DebugViewModel"/> and auto-scrolling
-    /// the log text box whenever new output arrives. If the window already exists it is restored and activated instead.
+    ///     Creates and shows the singleton debug window, wiring it to the <see cref="DebugViewModel" /> and auto-scrolling
+    ///     the log text box whenever new output arrives. If the window already exists it is restored and activated instead.
     /// </summary>
     internal static void Initialize()
     {
@@ -58,19 +58,13 @@ public partial class DebugWindow : Window
             PropertyChangedEventHandler logTextPropertyChangedHandler = (_, args) =>
             {
                 if (string.Equals(args.PropertyName, nameof(DebugViewModel.LogText), StringComparison.Ordinal))
-                {
                     if (Instance is { IsLoaded: true } debugWindow)
-                    {
                         Dispatcher.UIThread.Post(() =>
                         {
                             if (debugWindow is { IsLoaded: true, LogTextBox: { } textBox })
-                            {
                                 // Move the caret to the end so the view scrolls to the newest line
                                 textBox.CaretIndex = textBox.Text?.Length ?? 0;
-                            }
                         });
-                    }
-                }
             };
 
             viewModel.PropertyChanged += logTextPropertyChangedHandler;
@@ -84,7 +78,7 @@ public partial class DebugWindow : Window
     }
 
     /// <summary>
-    /// Shows the debug window, creating it if necessary, or brings it to the foreground if already open.
+    ///     Shows the debug window, creating it if necessary, or brings it to the foreground if already open.
     /// </summary>
     public static void ShowDebugWindow()
     {
@@ -98,8 +92,8 @@ public partial class DebugWindow : Window
     }
 
     /// <summary>
-    /// Detaches the view model event handler, disconnects the debug log sink, closes the singleton debug window
-    /// and clears the cached instance.
+    ///     Detaches the view model event handler, disconnects the debug log sink, closes the singleton debug window
+    ///     and clears the cached instance.
     /// </summary>
     internal static void ShutdownWindow()
     {

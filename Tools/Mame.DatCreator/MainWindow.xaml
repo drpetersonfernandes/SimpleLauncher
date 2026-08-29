@@ -4,61 +4,61 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MAME DAT Creator" 
-        Height="600" 
+        Title="MAME DAT Creator"
+        Height="600"
         Width="900"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize"
         WindowState="Maximized">
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Padding" Value="15,8"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="MinWidth" Value="120"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="15,8" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="MinWidth" Value="120" />
+            <Setter Property="FontSize" Value="14" />
         </Style>
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
-            <Setter Property="Margin" Value="5,2,5,5"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="IsReadOnly" Value="True"/>
-            <Setter Property="Background" Value="#F5F5F5"/>
+            <Setter Property="Margin" Value="5,2,5,5" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="Background" Value="#F5F5F5" />
         </Style>
     </Window.Resources>
-    
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <TextBlock Grid.Row="0" 
-                   Text="MAME DAT Creator Utility" 
-                   FontSize="20" 
-                   FontWeight="Bold" 
+        <TextBlock Grid.Row="0"
+                   Text="MAME DAT Creator Utility"
+                   FontSize="20"
+                   FontWeight="Bold"
                    Margin="0,0,0,15"
-                   HorizontalAlignment="Center"/>
+                   HorizontalAlignment="Center" />
 
         <!-- Full XML Selection -->
         <GroupBox Grid.Row="1" Header="Step 1: MAME Full Driver XML" Padding="10" Margin="0,0,0,10">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" 
-                         x:Name="FullXmlPathTextBox" 
+                <TextBox Grid.Column="0"
+                         x:Name="FullXmlPathTextBox"
                          Style="{StaticResource TextBoxStyle}"
-                         VerticalContentAlignment="Center"/>
-                <Button Grid.Column="1" 
-                        Content="Browse..." 
+                         VerticalContentAlignment="Center" />
+                <Button Grid.Column="1"
+                        Content="Browse..."
                         Click="BrowseFullXml_Click"
-                        Style="{StaticResource ButtonStyle}"/>
+                        Style="{StaticResource ButtonStyle}" />
             </Grid>
         </GroupBox>
 
@@ -66,17 +66,17 @@
         <GroupBox Grid.Row="2" Header="Step 2: MAME Hash Folder (Software Lists)" Padding="10" Margin="0,0,0,10">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" 
-                         x:Name="HashFolderPathTextBox" 
+                <TextBox Grid.Column="0"
+                         x:Name="HashFolderPathTextBox"
                          Style="{StaticResource TextBoxStyle}"
-                         VerticalContentAlignment="Center"/>
-                <Button Grid.Column="1" 
-                        Content="Browse..." 
+                         VerticalContentAlignment="Center" />
+                <Button Grid.Column="1"
+                        Content="Browse..."
                         Click="BrowseHashFolder_Click"
-                        Style="{StaticResource ButtonStyle}"/>
+                        Style="{StaticResource ButtonStyle}" />
             </Grid>
         </GroupBox>
 
@@ -84,24 +84,24 @@
         <GroupBox Grid.Row="3" Header="Step 3: Output File Location" Padding="10" Margin="0,0,0,10">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" 
-                         x:Name="OutputPathTextBox" 
+                <TextBox Grid.Column="0"
+                         x:Name="OutputPathTextBox"
                          Style="{StaticResource TextBoxStyle}"
-                         VerticalContentAlignment="Center"/>
-                <Button Grid.Column="1" 
-                        Content="Browse..." 
+                         VerticalContentAlignment="Center" />
+                <Button Grid.Column="1"
+                        Content="Browse..."
                         Click="BrowseOutputFile_Click"
-                        Style="{StaticResource ButtonStyle}"/>
+                        Style="{StaticResource ButtonStyle}" />
             </Grid>
         </GroupBox>
 
         <!-- Process Button -->
-        <Button Grid.Row="4" 
+        <Button Grid.Row="4"
                 x:Name="ProcessButton"
-                Content="Create DAT Files" 
+                Content="Create DAT Files"
                 Click="Process_ClickAsync"
                 Style="{StaticResource ButtonStyle}"
                 HorizontalAlignment="Center"
@@ -109,15 +109,15 @@
                 Height="40"
                 FontSize="16"
                 FontWeight="Bold"
-                Margin="0,10,0,15"/>
+                Margin="0,10,0,15" />
 
         <!-- Log Window -->
         <GroupBox Grid.Row="5" Header="Process Log" Padding="5" Margin="0,0,0,10">
-            <ScrollViewer x:Name="LogScrollViewer" 
-                          VerticalScrollBarVisibility="Auto" 
+            <ScrollViewer x:Name="LogScrollViewer"
+                          VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Auto">
-                <TextBox x:Name="LogTextBox" 
-                         TextWrapping="Wrap" 
+                <TextBox x:Name="LogTextBox"
+                         TextWrapping="Wrap"
                          IsReadOnly="True"
                          Background="Black"
                          Foreground="LightGreen"
@@ -126,16 +126,16 @@
                          Padding="5"
                          BorderThickness="0"
                          VerticalScrollBarVisibility="Disabled"
-                         HorizontalScrollBarVisibility="Disabled"/>
+                         HorizontalScrollBarVisibility="Disabled" />
             </ScrollViewer>
         </GroupBox>
 
 
         <!-- Progress Bar -->
-        <ProgressBar Grid.Row="6" 
-                     x:Name="ProgressBar" 
-                     Height="25" 
+        <ProgressBar Grid.Row="6"
+                     x:Name="ProgressBar"
+                     Height="25"
                      IsIndeterminate="False"
-                     Visibility="Collapsed"/>
+                     Visibility="Collapsed" />
     </Grid>
 </Window>

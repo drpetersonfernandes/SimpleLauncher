@@ -12,40 +12,42 @@ using SimpleLauncher.Core.Services.GameFileWatcher;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Interfaces;
-using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
-using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 using SimpleLauncher.Services.LoadImages;
 using SimpleLauncher.Services.QuitOrReinstall;
+using SimpleLauncher.Services.SystemManager;
+using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.SystemSelectionOrchestrator;
 
 /// <summary>
-/// Orchestrates system selection UI, including displaying the system grid, handling system clicks, combo box changes, and system CRUD operations.
+///     Orchestrates system selection UI, including displaying the system grid, handling system clicks, combo box changes,
+///     and system CRUD operations.
 /// </summary>
 public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
 {
-    private ISystemSelectionHost _host = null!;
-    private readonly SettingsManagerService _settings;
-    private readonly ISystemImageResolverService _systemImageResolverService;
-    private readonly IImageLoader _imageLoader;
-    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly IConfiguration _configuration;
+    private readonly IDisplaySystemInformation _displaySystemInformation;
     private readonly IGameCacheService _gameCacheService;
     private readonly GameFileWatcherService _gameFileWatcherService;
-    private readonly IConfiguration _configuration;
-    private readonly IHelpUserService _helpUserService;
     private readonly IGameItemRenderService _gameItemRenderService;
     private readonly IGetListOfFilesService _getListOfFiles;
-    private readonly IUpdateStatusBar _updateStatusBarService;
-    private readonly ISystemConfigurationService _systemConfigurationService;
+    private readonly IHelpUserService _helpUserService;
+    private readonly IImageLoader _imageLoader;
+    private readonly ILogger _logger;
     private readonly IMameDataService _mameDataService;
     private readonly IMessageBoxLibraryService _messageBox;
-    private readonly QuitSimpleLauncher _quitSimpleLauncher;
-    private readonly IDisplaySystemInformation _displaySystemInformation;
-    private readonly ILogger _logger;
     private readonly IParameterResolverService _parameterResolverService;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly QuitSimpleLauncher _quitSimpleLauncher;
+    private readonly SettingsManagerService _settings;
+    private readonly ISystemConfigurationService _systemConfigurationService;
+    private readonly ISystemImageResolverService _systemImageResolverService;
+    private readonly IUpdateStatusBar _updateStatusBarService;
+    private ISystemSelectionHost _host = null!;
 
     /// <summary>
-    /// Initializes a new instance of the SystemSelectionOrchestratorService with the specified dependencies.
+    ///     Initializes a new instance of the SystemSelectionOrchestratorService with the specified dependencies.
     /// </summary>
     public SystemSelectionOrchestratorService(
         SettingsManagerService settings,
@@ -107,17 +109,6 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
         ApplyLoadedSystemManagers(managers);
     }
 
-    private void ApplyLoadedSystemManagers(IList<SystemManager.SystemManagerService> managers)
-    {
-        _host.SetSystemManagers(managers);
-        var sortedSystemNames = managers.Select(static manager => manager.SystemName)
-            .OrderBy(static name => name, StringComparer.Ordinal)
-            .ToList();
-        _host.SystemComboBox.ItemsSource = sortedSystemNames;
-
-        _gameItemRenderService.ReloadFactories(managers, _mameDataService.Machines.ToList());
-    }
-
     /// <summary>Displays the system selection screen with clickable system buttons.</summary>
     public async Task DisplaySystemSelectionScreenAsync(CancellationToken cancellationToken = default)
     {
@@ -159,6 +150,266 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
         }
 
         _host.ResetPaginationButtons();
+    }
+
+    /// <summary>Handles a system button click, loading the selected system's games.</summary>
+    public async Task SystemButtonClickAsync(string systemName, CancellationToken cancellationToken)
+    {
+        try
+        {
+            _host.CancelAndRecreateToken();
+            var token = _host.CurrentCancellationToken;
+
+            try
+            {
+                if (((IUiResetHost)_host).IsUiUpdating) return;
+
+                _host.SetLoadingState(true);
+                await Task.Delay(100, token);
+
+                _host.TopSystemSelection.Visibility = Visibility.Visible;
+                _host.StatusBarArea.Visibility = Visibility.Visible;
+                _host.SystemComboBox.SelectedItem = systemName;
+
+                _playSoundEffects.PlayNotificationSound();
+                _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingSystem") ??
+                                                      "Loading system...");
+            }
+            catch (OperationCanceledException)
+            {
+                _host.SetLoadingState(false);
+                _updateStatusBarService.UpdateContent(
+                    (string)Application.Current.TryFindResource("SystemLoadCancelled") ?? "System load cancelled.");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error in SystemButtonClickAsync.");
+                await _messageBox.InvalidSystemConfigMessageBoxAsync();
+
+                _host.SystemComboBox.SelectedItem = null;
+                await DisplaySystemSelectionScreenAsync(token);
+
+                await _gameCacheService.InvalidateAsync(token);
+            }
+            finally
+            {
+                _host.SetLoadingState(false);
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Do nothing - cancellation is expected when the UI is reset
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in SystemButtonClickAsync.");
+        }
+    }
+
+    /// <summary>Deletes a system configuration after user confirmation.</summary>
+    public async void DeleteSystemFromContextMenuAsync(string systemName)
+    {
+        try
+        {
+            var result = await _messageBox.AreYouSureDoYouWantToDeleteThisSystemMessageBoxAsync();
+            if (result != CoreMessageBoxResult.Yes) return;
+
+            _playSoundEffects.PlayNotificationSound();
+
+            await SystemManagerService.DeleteSystemAsync(systemName);
+
+            await Task.Delay(100, _host.CurrentCancellationToken);
+
+            await LoadOrReloadSystemManagerAsync();
+            await _host.ResetUiAsync();
+
+            await _messageBox.SystemHasBeenDeletedMessageBoxAsync(systemName);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in DeleteSystemFromContextMenuAsync.");
+        }
+    }
+
+    /// <summary>Opens the edit system dialog for the specified system.</summary>
+    public void EditSystemFromContextMenu(string systemName)
+    {
+        try
+        {
+            _playSoundEffects.PlayNotificationSound();
+            _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ??
+                                                  "Opening Expert Mode...");
+
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _helpUserService,
+                _imageLoader, _messageBox, _quitSimpleLauncher, _logger, _parameterResolverService, systemName)
+            {
+                Owner = Application.Current.MainWindow
+            };
+            editSystemWindow.ShowDialog();
+
+            LoadOrReloadSystemManager();
+            _ = _host.ResetUiAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in EditSystemFromContextMenu.");
+        }
+    }
+
+    /// <summary>Handles system combo box selection changes, loading the selected system's games and metadata.</summary>
+    public async Task SystemComboBoxSelectionChangedAsync(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            try
+            {
+                if (((IUiResetHost)_host).IsUiUpdating) return;
+
+                if (_host.SystemComboBox.SelectedItem == null)
+                {
+                    await _gameCacheService.InvalidateAsync(CancellationToken.None);
+                    _host.IsPlayTimeVisible = false;
+
+                    _gameFileWatcherService.StopWatching();
+
+                    return;
+                }
+
+                ((IUiResetHost)_host).IsUiUpdating = true;
+                _host.SetLoadingState(true,
+                    (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
+                await Task.Delay(100, cancellationToken);
+                try
+                {
+                    _host.SearchTextBox.Text = "";
+                    _host.EmulatorComboBox.ItemsSource = null;
+                    _host.EmulatorComboBox.SelectedIndex = -1;
+                    _host.PreviewImage.Source = null;
+
+                    await _gameCacheService.SetSearchResultsAsync([], cancellationToken);
+                    ((IUiResetHost)_host).CurrentFilter = null;
+                    ((IUiResetHost)_host).ActiveSearchQueryOrMode = null;
+
+                    _host.GameFileGrid.Visibility = Visibility.Visible;
+                    _host.ListViewPreviewArea.Visibility = Visibility.Collapsed;
+
+                    var selectedSystem = _host.SystemComboBox.SelectedItem?.ToString();
+                    var systemManagers = _host.GetSystemManagers();
+                    var selectedManager = systemManagers.FirstOrDefault(c =>
+                        c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+                    if (selectedSystem == null || selectedManager == null)
+                    {
+                        const string errorMessage = "Selected system or its configuration is null.";
+                        _logger.Warning(errorMessage);
+
+                        await _messageBox.InvalidSystemConfigMessageBoxAsync();
+
+                        _host.SystemComboBox.SelectedItem = null;
+                        await DisplaySystemSelectionScreenAsync(cancellationToken);
+
+                        await _gameCacheService.InvalidateAsync(cancellationToken);
+
+                        return;
+                    }
+
+                    var formats = selectedManager.FileFormatsToSearch;
+                    _host.IsPlayTimeVisible = formats == null || !formats.Any(static f =>
+                        f.Equals("url", StringComparison.OrdinalIgnoreCase) ||
+                        f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+
+                    ((IUiResetHost)_host).MameSortOrder = AppConstants.MameSortOrderFileName;
+                    _host.UpdateSortOrderButtonUi();
+
+                    _host.EmulatorComboBox.ItemsSource = selectedManager.Emulators
+                        .Select(static emulator => emulator.EmulatorName).ToList();
+                    if (_host.EmulatorComboBox.Items.Count > 0) _host.EmulatorComboBox.SelectedIndex = 0;
+
+                    _host.SelectedSystem = selectedSystem;
+
+                    var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s =>
+                        s.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+                    _host.PlayTime = systemPlayTime != null ? systemPlayTime.FormattedPlayTime : "00:00:00";
+
+                    var validationResult =
+                        await _displaySystemInformation.DisplaySystemInfoAsync(selectedManager, _host.GameFileGrid,
+                            cancellationToken);
+
+                    if (!validationResult.IsValid)
+                    {
+                        var errorMessages = new StringBuilder();
+                        foreach (var msg in validationResult.ErrorMessages) errorMessages.Append(msg);
+
+                        await _messageBox.ListOfErrorsMessageBoxAsync(errorMessages);
+                    }
+
+                    var resolvedSystemImageFolderPath =
+                        PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
+
+                    var selectedRomFolders = selectedManager.SystemFolders
+                        .Select(static path => PathHelper.ResolveRelativeToAppDirectory(path) ?? path).ToList();
+                    var selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
+                        ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName)
+                        : resolvedSystemImageFolderPath;
+
+                    _host.SetSelectedRomFolders(selectedRomFolders);
+                    _host.SetSelectedImageFolder(selectedImageFolder);
+
+                    await PopulateAllGamesForCurrentSystemAsync(selectedManager, selectedSystem, selectedRomFolders,
+                        cancellationToken);
+
+                    _gameFileWatcherService.StartWatching(
+                        selectedManager.SystemFolders,
+                        selectedSystem,
+                        selectedManager.FileFormatsToSearch);
+
+                    _host.ResetPaginationButtons();
+                }
+                catch (OperationCanceledException)
+                {
+                }
+                catch (Exception ex)
+                {
+                    const string errorMessage = "Error in the method SystemComboBoxSelectionChangedAsync.";
+                    _logger.Error(ex, errorMessage);
+
+                    await _messageBox.InvalidSystemConfigMessageBoxAsync();
+
+                    await _gameCacheService.InvalidateAsync(CancellationToken.None);
+                }
+                finally
+                {
+                    _host.SetLoadingState(false);
+                    ((IUiResetHost)_host).IsUiUpdating = false;
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                // Expected when user rapidly switches systems
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error in SystemComboBoxSelectionChangedAsync.");
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected when user rapidly switches systems
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex, "Error in SystemComboBoxSelectionChangedAsync.");
+        }
+    }
+
+    private void ApplyLoadedSystemManagers(IList<SystemManagerService> managers)
+    {
+        _host.SetSystemManagers(managers);
+        var sortedSystemNames = managers.Select(static manager => manager.SystemName)
+            .OrderBy(static name => name, StringComparer.Ordinal)
+            .ToList();
+        _host.SystemComboBox.ItemsSource = sortedSystemNames;
+
+        _gameItemRenderService.ReloadFactories(managers, _mameDataService.Machines.ToList());
     }
 
     private async Task PopulateSystemSelectionGridAsync(CancellationToken cancellationToken)
@@ -270,268 +521,7 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
         }
     }
 
-    /// <summary>Handles a system button click, loading the selected system's games.</summary>
-    public async Task SystemButtonClickAsync(string systemName, CancellationToken cancellationToken)
-    {
-        try
-        {
-            _host.CancelAndRecreateToken();
-            var token = _host.CurrentCancellationToken;
-
-            try
-            {
-                if (((IUiResetHost)_host).IsUiUpdating)
-                {
-                    return;
-                }
-
-                _host.SetLoadingState(true);
-                await Task.Delay(100, token);
-
-                _host.TopSystemSelection.Visibility = Visibility.Visible;
-                _host.StatusBarArea.Visibility = Visibility.Visible;
-                _host.SystemComboBox.SelectedItem = systemName;
-
-                _playSoundEffects.PlayNotificationSound();
-                _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("LoadingSystem") ??
-                                                      "Loading system...");
-            }
-            catch (OperationCanceledException)
-            {
-                _host.SetLoadingState(false);
-                _updateStatusBarService.UpdateContent(
-                    (string)Application.Current.TryFindResource("SystemLoadCancelled") ?? "System load cancelled.");
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Error in SystemButtonClickAsync.");
-                await _messageBox.InvalidSystemConfigMessageBoxAsync();
-
-                _host.SystemComboBox.SelectedItem = null;
-                await DisplaySystemSelectionScreenAsync(token);
-
-                await _gameCacheService.InvalidateAsync(token);
-            }
-            finally
-            {
-                _host.SetLoadingState(false);
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // Do nothing - cancellation is expected when the UI is reset
-        }
-        catch (Exception ex)
-        {
-            _logger.Error(ex, "Error in SystemButtonClickAsync.");
-        }
-    }
-
-    /// <summary>Deletes a system configuration after user confirmation.</summary>
-    public async void DeleteSystemFromContextMenuAsync(string systemName)
-    {
-        try
-        {
-            var result = await _messageBox.AreYouSureDoYouWantToDeleteThisSystemMessageBoxAsync();
-            if (result != CoreMessageBoxResult.Yes) return;
-
-            _playSoundEffects.PlayNotificationSound();
-
-            await SystemManager.SystemManagerService.DeleteSystemAsync(systemName);
-
-            await Task.Delay(100, _host.CurrentCancellationToken);
-
-            await LoadOrReloadSystemManagerAsync();
-            await _host.ResetUiAsync();
-
-            await _messageBox.SystemHasBeenDeletedMessageBoxAsync(systemName);
-        }
-        catch (Exception ex)
-        {
-            _logger.Error(ex, "Error in DeleteSystemFromContextMenuAsync.");
-        }
-    }
-
-    /// <summary>Opens the edit system dialog for the specified system.</summary>
-    public void EditSystemFromContextMenu(string systemName)
-    {
-        try
-        {
-            _playSoundEffects.PlayNotificationSound();
-            _updateStatusBarService.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ??
-                                                  "Opening Expert Mode...");
-
-            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects, _configuration, _helpUserService,
-                _imageLoader, _messageBox, _quitSimpleLauncher, _logger, _parameterResolverService, systemName)
-            {
-                Owner = Application.Current.MainWindow
-            };
-            editSystemWindow.ShowDialog();
-
-            LoadOrReloadSystemManager();
-            _ = _host.ResetUiAsync();
-        }
-        catch (Exception ex)
-        {
-            _logger.Error(ex, "Error in EditSystemFromContextMenu.");
-        }
-    }
-
-    /// <summary>Handles system combo box selection changes, loading the selected system's games and metadata.</summary>
-    public async Task SystemComboBoxSelectionChangedAsync(CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            try
-            {
-                if (((IUiResetHost)_host).IsUiUpdating)
-                {
-                    return;
-                }
-
-                if (_host.SystemComboBox.SelectedItem == null)
-                {
-                    await _gameCacheService.InvalidateAsync(CancellationToken.None);
-                    _host.IsPlayTimeVisible = false;
-
-                    _gameFileWatcherService.StopWatching();
-
-                    return;
-                }
-
-                ((IUiResetHost)_host).IsUiUpdating = true;
-                _host.SetLoadingState(true,
-                    (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
-                await Task.Delay(100, cancellationToken);
-                try
-                {
-                    _host.SearchTextBox.Text = "";
-                    _host.EmulatorComboBox.ItemsSource = null;
-                    _host.EmulatorComboBox.SelectedIndex = -1;
-                    _host.PreviewImage.Source = null;
-
-                    await _gameCacheService.SetSearchResultsAsync([], cancellationToken);
-                    ((IUiResetHost)_host).CurrentFilter = null;
-                    ((IUiResetHost)_host).ActiveSearchQueryOrMode = null;
-
-                    _host.GameFileGrid.Visibility = Visibility.Visible;
-                    _host.ListViewPreviewArea.Visibility = Visibility.Collapsed;
-
-                    var selectedSystem = _host.SystemComboBox.SelectedItem?.ToString();
-                    var systemManagers = _host.GetSystemManagers();
-                    var selectedManager = systemManagers.FirstOrDefault(c =>
-                        c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
-                    if (selectedSystem == null || selectedManager == null)
-                    {
-                        const string errorMessage = "Selected system or its configuration is null.";
-                        _logger.Warning(errorMessage);
-
-                        await _messageBox.InvalidSystemConfigMessageBoxAsync();
-
-                        _host.SystemComboBox.SelectedItem = null;
-                        await DisplaySystemSelectionScreenAsync(cancellationToken);
-
-                        await _gameCacheService.InvalidateAsync(cancellationToken);
-
-                        return;
-                    }
-
-                    var formats = selectedManager.FileFormatsToSearch;
-                    _host.IsPlayTimeVisible = formats == null || !formats.Any(static f =>
-                        f.Equals("url", StringComparison.OrdinalIgnoreCase) ||
-                        f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
-
-                    ((IUiResetHost)_host).MameSortOrder = AppConstants.MameSortOrderFileName;
-                    _host.UpdateSortOrderButtonUi();
-
-                    _host.EmulatorComboBox.ItemsSource = selectedManager.Emulators
-                        .Select(static emulator => emulator.EmulatorName).ToList();
-                    if (_host.EmulatorComboBox.Items.Count > 0)
-                    {
-                        _host.EmulatorComboBox.SelectedIndex = 0;
-                    }
-
-                    _host.SelectedSystem = selectedSystem;
-
-                    var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s =>
-                        s.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
-                    _host.PlayTime = systemPlayTime != null ? systemPlayTime.FormattedPlayTime : "00:00:00";
-
-                    var validationResult =
-                        await _displaySystemInformation.DisplaySystemInfoAsync(selectedManager, _host.GameFileGrid,
-                            cancellationToken);
-
-                    if (!validationResult.IsValid)
-                    {
-                        var errorMessages = new StringBuilder();
-                        foreach (var msg in validationResult.ErrorMessages)
-                        {
-                            errorMessages.Append(msg);
-                        }
-
-                        await _messageBox.ListOfErrorsMessageBoxAsync(errorMessages);
-                    }
-
-                    var resolvedSystemImageFolderPath =
-                        PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
-
-                    var selectedRomFolders = selectedManager.SystemFolders
-                        .Select(static path => PathHelper.ResolveRelativeToAppDirectory(path) ?? path).ToList();
-                    var selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
-                        ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName)
-                        : resolvedSystemImageFolderPath;
-
-                    _host.SetSelectedRomFolders(selectedRomFolders);
-                    _host.SetSelectedImageFolder(selectedImageFolder);
-
-                    await PopulateAllGamesForCurrentSystemAsync(selectedManager, selectedSystem, selectedRomFolders,
-                        cancellationToken);
-
-                    _gameFileWatcherService.StartWatching(
-                        selectedManager.SystemFolders,
-                        selectedSystem,
-                        selectedManager.FileFormatsToSearch);
-
-                    _host.ResetPaginationButtons();
-                }
-                catch (OperationCanceledException)
-                {
-                }
-                catch (Exception ex)
-                {
-                    const string errorMessage = "Error in the method SystemComboBoxSelectionChangedAsync.";
-                    _logger.Error(ex, errorMessage);
-
-                    await _messageBox.InvalidSystemConfigMessageBoxAsync();
-
-                    await _gameCacheService.InvalidateAsync(CancellationToken.None);
-                }
-                finally
-                {
-                    _host.SetLoadingState(false);
-                    ((IUiResetHost)_host).IsUiUpdating = false;
-                }
-            }
-            catch (OperationCanceledException)
-            {
-                // Expected when user rapidly switches systems
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Error in SystemComboBoxSelectionChangedAsync.");
-            }
-        }
-        catch (OperationCanceledException)
-        {
-            // Expected when user rapidly switches systems
-        }
-        catch (Exception ex)
-        {
-            _logger.Error(ex, "Error in SystemComboBoxSelectionChangedAsync.");
-        }
-    }
-
-    private async Task PopulateAllGamesForCurrentSystemAsync(SystemManager.SystemManagerService selectedManager,
+    private async Task PopulateAllGamesForCurrentSystemAsync(SystemManagerService selectedManager,
         string currentSelectedSystem, List<string> selectedRomFolders, CancellationToken cancellationToken)
     {
         var uniqueFilesForSystem = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -544,10 +534,7 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
             var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath,
                 selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch,
                 selectedManager.GroupByFolder, cancellationToken);
-            foreach (var file in filesInFolder)
-            {
-                uniqueFilesForSystem.TryAdd(Path.GetFileName(file), file);
-            }
+            foreach (var file in filesInFolder) uniqueFilesForSystem.TryAdd(Path.GetFileName(file), file);
         }
 
         await _gameCacheService.SetAllGamesAsync(uniqueFilesForSystem.Values.ToList(), currentSelectedSystem,

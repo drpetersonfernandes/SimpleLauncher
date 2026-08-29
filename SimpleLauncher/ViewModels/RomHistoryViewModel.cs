@@ -10,24 +10,24 @@ using MessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the ROM history information window.
+///     ViewModel for the ROM history information window.
 /// </summary>
 public partial class RomHistoryViewModel : ObservableObject
 {
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
+    [ObservableProperty] private Visibility _descriptionVisibility = Visibility.Collapsed;
+    [ObservableProperty] private string _historyMarkdown = null!;
+    [ObservableProperty] private string _romDescriptionText = null!;
 
     private string _romName = null!;
-    private string _systemName = null!;
-    private string _searchTerm = null!;
 
     [ObservableProperty] private string _romNameText = null!;
-    [ObservableProperty] private string _romDescriptionText = null!;
-    [ObservableProperty] private string _historyMarkdown = null!;
-    [ObservableProperty] private Visibility _descriptionVisibility = Visibility.Collapsed;
+    private string _searchTerm = null!;
+    private string _systemName = null!;
 
-    /// <summary>Initializes a new instance of the <see cref="RomHistoryViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="RomHistoryViewModel" />.</summary>
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="resourceProvider">The resource provider for localized strings.</param>
@@ -40,7 +40,7 @@ public partial class RomHistoryViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with ROM information for history lookup.
+    ///     Initializes the ViewModel with ROM information for history lookup.
     /// </summary>
     public void Initialize(string romName, string systemName, string searchTerm)
     {
@@ -54,7 +54,7 @@ public partial class RomHistoryViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Loads ROM history from the local history.dat/history.xml database.
+    ///     Loads ROM history from the local history.dat/history.xml database.
     /// </summary>
     public async Task LoadRomHistoryAsync()
     {
@@ -119,10 +119,7 @@ public partial class RomHistoryViewModel : ObservableObject
         HistoryMarkdown = noRoMhistoryfoundinthelocal2;
 
         var result = await _messageBox.SearchOnlineForRomHistoryMessageBoxAsync();
-        if (result == MessageBoxResult.Yes)
-        {
-            await OpenGoogleSearchAsync();
-        }
+        if (result == MessageBoxResult.Yes) await OpenGoogleSearchAsync();
     }
 
     [RelayCommand]

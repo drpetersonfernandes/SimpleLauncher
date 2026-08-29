@@ -1,23 +1,25 @@
 using System.Windows.Controls;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.LanguageMenu;
 using SimpleLauncher.Services.MenuActionHandler;
 using SimpleLauncher.Services.ThemeMenu;
-using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services.MenuOrchestrator;
 
 /// <summary>
-/// Orchestrates menu operations by coordinating action handlers, check mark updates, theme changes, and language switching.
+///     Orchestrates menu operations by coordinating action handlers, check mark updates, theme changes, and language
+///     switching.
 /// </summary>
 public class MenuOrchestratorService : IMenuOrchestrator
 {
+    private readonly LanguageMenuService _languageMenu;
     private readonly MenuActionHandlerService _menuActionHandler;
     private readonly IMenuCheckMarkService _menuCheckMark;
     private readonly ThemeMenuService _themeMenu;
-    private readonly LanguageMenuService _languageMenu;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MenuOrchestratorService"/> class with the specified service dependencies.
+    ///     Initializes a new instance of the <see cref="MenuOrchestratorService" /> class with the specified service
+    ///     dependencies.
     /// </summary>
     /// <param name="menuActionHandler">The service that handles menu action operations.</param>
     /// <param name="menuCheckMark">The service that manages menu check mark states.</param>
@@ -36,7 +38,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Initializes all managed services with their respective host implementations.
+    ///     Initializes all managed services with their respective host implementations.
     /// </summary>
     /// <param name="actionHost">The host providing menu action controls.</param>
     /// <param name="checkMarkHost">The host providing menu check mark controls.</param>
@@ -52,7 +54,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Opens the emulator configuration window for the specified emulator.
+    ///     Opens the emulator configuration window for the specified emulator.
     /// </summary>
     /// <param name="emulatorName">The name of the emulator to configure.</param>
     public void ShowEmulatorConfigWindow(string emulatorName)
@@ -61,7 +63,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles switching to Easy Mode for simplified system configuration.
+    ///     Handles switching to Easy Mode for simplified system configuration.
     /// </summary>
     public void HandleEasyMode()
     {
@@ -69,7 +71,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles switching to Expert Mode for advanced system configuration.
+    ///     Handles switching to Expert Mode for advanced system configuration.
     /// </summary>
     public void HandleExpertMode()
     {
@@ -77,7 +79,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles downloading the image pack for game cover art.
+    ///     Handles downloading the image pack for game cover art.
     /// </summary>
     public void HandleDownloadImagePack()
     {
@@ -85,7 +87,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles scanning for Windows games installed on the system.
+    ///     Handles scanning for Windows games installed on the system.
     /// </summary>
     public Task HandleScanForWindowsGamesAsync()
     {
@@ -93,7 +95,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles editing external links associated with games.
+    ///     Handles editing external links associated with games.
     /// </summary>
     public Task HandleEditLinksAsync()
     {
@@ -101,7 +103,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles toggling gamepad support on or off.
+    ///     Handles toggling gamepad support on or off.
     /// </summary>
     /// <param name="isChecked">Whether gamepad support should be enabled.</param>
     public Task HandleToggleGamepadAsync(bool isChecked)
@@ -110,7 +112,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles setting the gamepad dead zone value.
+    ///     Handles setting the gamepad dead zone value.
     /// </summary>
     public void HandleSetGamepadDeadZone()
     {
@@ -118,7 +120,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles toggling fuzzy matching for game search on or off.
+    ///     Handles toggling fuzzy matching for game search on or off.
     /// </summary>
     /// <param name="isChecked">Whether fuzzy matching is enabled.</param>
     public Task HandleToggleFuzzyMatchingAsync(bool isChecked)
@@ -127,7 +129,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles setting the fuzzy matching threshold value.
+    ///     Handles setting the fuzzy matching threshold value.
     /// </summary>
     public Task HandleSetFuzzyMatchingThresholdAsync()
     {
@@ -135,7 +137,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles toggling annotation stripping for image matching on or off.
+    ///     Handles toggling annotation stripping for image matching on or off.
     /// </summary>
     /// <param name="isChecked">Whether annotation stripping is enabled.</param>
     public Task HandleToggleAnnotationStrippingAsync(bool isChecked)
@@ -144,7 +146,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Opens the support page for the application.
+    ///     Opens the support page for the application.
     /// </summary>
     public void HandleSupport()
     {
@@ -152,7 +154,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Opens the donation page for the application.
+    ///     Opens the donation page for the application.
     /// </summary>
     public Task HandleDonateAsync()
     {
@@ -160,7 +162,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Opens the About dialog.
+    ///     Opens the About dialog.
     /// </summary>
     public void HandleAbout()
     {
@@ -168,7 +170,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles application exit.
+    ///     Handles application exit.
     /// </summary>
     public void HandleExit()
     {
@@ -176,7 +178,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles changing the show-games filter mode.
+    ///     Handles changing the show-games filter mode.
     /// </summary>
     /// <param name="showGamesMode">The filter mode to apply (e.g., "ShowAll", "ShowWithCover").</param>
     public Task HandleShowGamesAsync(string showGamesMode)
@@ -185,7 +187,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles changing the thumbnail button size.
+    ///     Handles changing the thumbnail button size.
     /// </summary>
     /// <param name="newSize">The new thumbnail size in pixels.</param>
     public Task HandleButtonSizeAsync(int newSize)
@@ -194,7 +196,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles changing the button aspect ratio.
+    ///     Handles changing the button aspect ratio.
     /// </summary>
     /// <param name="aspectRatio">The aspect ratio identifier to apply.</param>
     public Task HandleButtonAspectRatioAsync(string aspectRatio)
@@ -203,7 +205,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles changing the number of games displayed per page.
+    ///     Handles changing the number of games displayed per page.
     /// </summary>
     /// <param name="newPage">The new number of games per page.</param>
     public Task HandleGamesPerPageAsync(int newPage)
@@ -212,7 +214,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Opens the global search window.
+    ///     Opens the global search window.
     /// </summary>
     public void HandleShowGlobalSearch()
     {
@@ -220,7 +222,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Opens the global statistics window.
+    ///     Opens the global statistics window.
     /// </summary>
     public void HandleShowGlobalStats()
     {
@@ -228,7 +230,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Opens the favorites window.
+    ///     Opens the favorites window.
     /// </summary>
     public void HandleShowFavorites()
     {
@@ -236,7 +238,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Opens the play history window.
+    ///     Opens the play history window.
     /// </summary>
     public void HandleShowPlayHistory()
     {
@@ -244,7 +246,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Opens the RetroAchievements window.
+    ///     Opens the RetroAchievements window.
     /// </summary>
     public void HandleShowRetroAchievements()
     {
@@ -252,7 +254,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Opens the system-specific favorites window.
+    ///     Opens the system-specific favorites window.
     /// </summary>
     public Task HandleShowSystemFavoritesAsync()
     {
@@ -260,7 +262,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Selects and launches a random game from the current system.
+    ///     Selects and launches a random game from the current system.
     /// </summary>
     public Task HandleFeelingLuckyAsync()
     {
@@ -268,7 +270,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Shows games that have RetroAchievements support.
+    ///     Shows games that have RetroAchievements support.
     /// </summary>
     public Task HandleShowGamesWithRetroAchievementsAsync()
     {
@@ -276,7 +278,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Calculates RetroAchievements hashes for all game paths in the background.
+    ///     Calculates RetroAchievements hashes for all game paths in the background.
     /// </summary>
     public Task HandleCalculateHashesForAllGamePathsAsync()
     {
@@ -284,7 +286,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles zooming in on the game grid.
+    ///     Handles zooming in on the game grid.
     /// </summary>
     public Task HandleZoomInAsync()
     {
@@ -292,7 +294,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles zooming out on the game grid.
+    ///     Handles zooming out on the game grid.
     /// </summary>
     public Task HandleZoomOutAsync()
     {
@@ -300,7 +302,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles toggling between list view and grid view.
+    ///     Handles toggling between list view and grid view.
     /// </summary>
     public Task HandleToggleViewModeAsync()
     {
@@ -308,7 +310,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles changing the view mode based on the sender menu item.
+    ///     Handles changing the view mode based on the sender menu item.
     /// </summary>
     /// <param name="sender">The menu item that triggered the view mode change.</param>
     public Task HandleChangeViewModeAsync(object sender)
@@ -317,7 +319,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles changing the filename display mode.
+    ///     Handles changing the filename display mode.
     /// </summary>
     /// <param name="mode">The display mode to apply (e.g., "Original", "CleanUp").</param>
     public Task HandleFilenameDisplayModeAsync(string mode)
@@ -326,7 +328,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles toggling machine name display on or off.
+    ///     Handles toggling machine name display on or off.
     /// </summary>
     /// <param name="isChecked">Whether to display machine names.</param>
     public Task HandleDisplayMachineNameAsync(bool isChecked)
@@ -335,7 +337,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles changing the filename font size.
+    ///     Handles changing the filename font size.
     /// </summary>
     /// <param name="size">The font size to apply (e.g., "Small", "Normal", "Big").</param>
     public Task HandleFilenameFontSizeAsync(string size)
@@ -344,7 +346,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles changing the machine name font size.
+    ///     Handles changing the machine name font size.
     /// </summary>
     /// <param name="size">The font size to apply (e.g., "Small", "Normal", "Big").</param>
     public Task HandleMachineNameFontSizeAsync(string size)
@@ -353,7 +355,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Opens the sound configuration window.
+    ///     Opens the sound configuration window.
     /// </summary>
     public Task HandleSoundConfigurationAsync()
     {
@@ -361,7 +363,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Opens the RetroAchievements settings window.
+    ///     Opens the RetroAchievements settings window.
     /// </summary>
     public Task HandleShowRetroAchievementsSettingsAsync()
     {
@@ -369,7 +371,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles toggling the RetroAchievement button visibility.
+    ///     Handles toggling the RetroAchievement button visibility.
     /// </summary>
     /// <param name="isChecked">Whether the button should be visible.</param>
     public Task HandleToggleRetroAchievementButtonAsync(bool isChecked)
@@ -378,7 +380,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles toggling the video link button visibility.
+    ///     Handles toggling the video link button visibility.
     /// </summary>
     /// <param name="isChecked">Whether the button should be visible.</param>
     public Task HandleToggleVideoLinkButtonAsync(bool isChecked)
@@ -387,7 +389,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles toggling the info link button visibility.
+    ///     Handles toggling the info link button visibility.
     /// </summary>
     /// <param name="isChecked">Whether the button should be visible.</param>
     public Task HandleToggleInfoLinkButtonAsync(bool isChecked)
@@ -396,7 +398,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles toggling the sort order between ascending and descending.
+    ///     Handles toggling the sort order between ascending and descending.
     /// </summary>
     public Task HandleSortOrderToggleAsync()
     {
@@ -404,7 +406,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles clicking a letter or number in the top navigation menu to jump to that section.
+    ///     Handles clicking a letter or number in the top navigation menu to jump to that section.
     /// </summary>
     /// <param name="selectedLetter">The letter or number clicked.</param>
     public Task HandleTopLetterNumberMenuClickAsync(string selectedLetter)
@@ -413,7 +415,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles restarting the application.
+    ///     Handles restarting the application.
     /// </summary>
     public void HandleRestart()
     {
@@ -421,20 +423,17 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Handles changing the application language from a menu item selection.
+    ///     Handles changing the application language from a menu item selection.
     /// </summary>
     /// <param name="menuItem">The language menu item that was selected.</param>
     public void HandleChangeLanguage(MenuItem menuItem)
     {
         var languageCode = LanguageMenuService.GetLanguageCodeFromMenuItem(menuItem);
-        if (languageCode != null)
-        {
-            _menuActionHandler.HandleChangeLanguage(languageCode);
-        }
+        if (languageCode != null) _menuActionHandler.HandleChangeLanguage(languageCode);
     }
 
     /// <summary>
-    /// Updates the thumbnail size check marks to reflect the current selection.
+    ///     Updates the thumbnail size check marks to reflect the current selection.
     /// </summary>
     /// <param name="selectedSize">The currently selected thumbnail size.</param>
     public void UpdateThumbnailSizeCheckMarks(int selectedSize)
@@ -443,7 +442,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Updates the games-per-page check marks to reflect the current selection.
+    ///     Updates the games-per-page check marks to reflect the current selection.
     /// </summary>
     /// <param name="selectedSize">The currently selected number of games per page.</param>
     public void UpdateNumberOfGamesPerPageCheckMarks(int selectedSize)
@@ -452,7 +451,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Updates the show-games filter check marks to reflect the current selection.
+    ///     Updates the show-games filter check marks to reflect the current selection.
     /// </summary>
     /// <param name="selectedValue">The currently selected filter value.</param>
     public void UpdateShowGamesCheckMarks(string selectedValue)
@@ -461,7 +460,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Updates the button aspect ratio check marks to reflect the current selection.
+    ///     Updates the button aspect ratio check marks to reflect the current selection.
     /// </summary>
     /// <param name="selectedValue">The currently selected aspect ratio.</param>
     public void UpdateButtonAspectRatioCheckMarks(string selectedValue)
@@ -470,7 +469,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Updates the filename display mode check marks to reflect the current selection.
+    ///     Updates the filename display mode check marks to reflect the current selection.
     /// </summary>
     /// <param name="selectedValue">The currently selected display mode.</param>
     public void UpdateFilenameDisplayModeCheckMarks(string selectedValue)
@@ -479,7 +478,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Updates the filename font size check marks to reflect the current selection.
+    ///     Updates the filename font size check marks to reflect the current selection.
     /// </summary>
     /// <param name="selectedValue">The currently selected font size.</param>
     public void UpdateFilenameFontSizeCheckMarks(string selectedValue)
@@ -488,7 +487,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Updates the machine name font size check marks to reflect the current selection.
+    ///     Updates the machine name font size check marks to reflect the current selection.
     /// </summary>
     /// <param name="selectedValue">The currently selected font size.</param>
     public void UpdateMachineNameFontSizeCheckMarks(string selectedValue)
@@ -497,7 +496,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Sets the view mode check marks to indicate the active view.
+    ///     Sets the view mode check marks to indicate the active view.
     /// </summary>
     /// <param name="viewMode">The view mode to set ("ListView" or "GridView").</param>
     public void SetViewMode(string viewMode)
@@ -506,7 +505,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Changes the base theme based on the selected menu item.
+    ///     Changes the base theme based on the selected menu item.
     /// </summary>
     /// <param name="menuItem">The theme menu item that was selected.</param>
     public void ChangeBaseTheme(MenuItem menuItem)
@@ -515,7 +514,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Changes the accent color based on the selected menu item.
+    ///     Changes the accent color based on the selected menu item.
     /// </summary>
     /// <param name="menuItem">The accent color menu item that was selected.</param>
     public void ChangeAccentColor(MenuItem menuItem)
@@ -524,7 +523,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Sets the checked theme menu items for the given base theme and accent color.
+    ///     Sets the checked theme menu items for the given base theme and accent color.
     /// </summary>
     /// <param name="baseTheme">The base theme name.</param>
     /// <param name="accentColor">The accent color name.</param>
@@ -534,7 +533,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Changes the application language to the specified language code.
+    ///     Changes the application language to the specified language code.
     /// </summary>
     /// <param name="languageCode">The language code to apply.</param>
     public void ChangeLanguageAsync(string languageCode)
@@ -543,7 +542,7 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    /// Sets the language menu check marks to reflect the currently active language.
+    ///     Sets the language menu check marks to reflect the currently active language.
     /// </summary>
     /// <param name="languageCode">The currently active language code.</param>
     public void SetLanguageCheckMarks(string languageCode)

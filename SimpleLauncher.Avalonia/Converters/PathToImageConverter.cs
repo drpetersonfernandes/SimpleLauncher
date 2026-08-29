@@ -8,22 +8,23 @@ using Avalonia.Platform;
 namespace SimpleLauncher.Avalonia.Converters;
 
 /// <summary>
-/// Two-tier image cache converter: weak ConcurrentDictionary + LRU strong tier (1500 entries).
-/// Ported from Emutastic pattern. Loads cover art images asynchronously.
+///     Two-tier image cache converter: weak ConcurrentDictionary + LRU strong tier (1500 entries).
+///     Ported from Emutastic pattern. Loads cover art images asynchronously.
 /// </summary>
 public class PathToImageConverter : IValueConverter
 {
-    // Weak cache: allows GC to reclaim unused images
-    private static readonly ConcurrentDictionary<string, WeakReference<Bitmap>> WeakCache = new();
-
     // Prune the weak cache when it grows past this size (dead weak references accumulate
     // until GC runs; this bounds the weak-reference table without blocking the UI thread).
     private const int WeakCachePruneThreshold = 4096;
 
+    private const int LruCapacity = 1500;
+
+    // Weak cache: allows GC to reclaim unused images
+    private static readonly ConcurrentDictionary<string, WeakReference<Bitmap>> WeakCache = new();
+
     // Strong LRU cache: keeps recent images alive
     private static readonly LinkedList<(string Path, Bitmap Img)> LruList = new();
     private static readonly Dictionary<string, LinkedListNode<(string Path, Bitmap Img)>> LruIndex = new();
-    private const int LruCapacity = 1500;
     private static readonly object LruLock = new();
 
     // Default placeholder
@@ -60,7 +61,7 @@ public class PathToImageConverter : IValueConverter
     }
 
     /// <summary>
-    /// Clears all caches.
+    ///     Clears all caches.
     /// </summary>
     public static void ClearCache()
     {
@@ -119,20 +120,16 @@ public class PathToImageConverter : IValueConverter
     }
 
     /// <summary>
-    /// Removes dead entries (GC-collected images) from the weak cache once it grows
-    /// past the threshold, so the weak-reference table stays bounded.
+    ///     Removes dead entries (GC-collected images) from the weak cache once it grows
+    ///     past the threshold, so the weak-reference table stays bounded.
     /// </summary>
     private static void PruneWeakCacheIfNeeded()
     {
         if (WeakCache.Count < WeakCachePruneThreshold) return;
 
         foreach (var entry in WeakCache)
-        {
             if (!entry.Value.TryGetTarget(out _))
-            {
                 WeakCache.TryRemove(entry.Key, out _);
-            }
-        }
     }
 
     private static Bitmap? GetPlaceholder()

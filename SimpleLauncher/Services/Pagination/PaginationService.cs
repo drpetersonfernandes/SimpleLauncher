@@ -4,34 +4,34 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Services.Pagination;
 
 /// <summary>
-/// Manages file list pagination, handling page navigation, button states, and status labels.
+///     Manages file list pagination, handling page navigation, button states, and status labels.
 /// </summary>
 public class PaginationService : IPaginationService
 {
     private IPaginationHost _host = null!;
 
     /// <summary>
-    /// Gets the current 1-based page number.
+    ///     Gets the current 1-based page number.
     /// </summary>
     public int CurrentPage { get; private set; } = 1;
 
     /// <summary>
-    /// Gets the total number of files across all pages.
+    ///     Gets the total number of files across all pages.
     /// </summary>
     public int TotalFiles { get; private set; }
 
     /// <summary>
-    /// Gets or sets the number of files displayed per page.
+    ///     Gets or sets the number of files displayed per page.
     /// </summary>
     public int FilesPerPage { get; set; }
 
     /// <summary>
-    /// Gets or sets the file count threshold above which pagination is applied.
+    ///     Gets or sets the file count threshold above which pagination is applied.
     /// </summary>
     public int PaginationThreshold { get; set; }
 
     /// <summary>
-    /// Initializes the service with a host that provides UI callbacks for pagination controls.
+    ///     Initializes the service with a host that provides UI callbacks for pagination controls.
     /// </summary>
     public void Initialize(IPaginationHost host)
     {
@@ -39,7 +39,7 @@ public class PaginationService : IPaginationService
     }
 
     /// <summary>
-    /// Resets pagination to the first page and disables all navigation buttons.
+    ///     Resets pagination to the first page and disables all navigation buttons.
     /// </summary>
     public void Reset()
     {
@@ -51,7 +51,7 @@ public class PaginationService : IPaginationService
     }
 
     /// <summary>
-    /// Determines whether navigation to the previous page is possible.
+    ///     Determines whether navigation to the previous page is possible.
     /// </summary>
     public bool CanGoPrev()
     {
@@ -59,7 +59,7 @@ public class PaginationService : IPaginationService
     }
 
     /// <summary>
-    /// Determines whether navigation to the next page is possible.
+    ///     Determines whether navigation to the next page is possible.
     /// </summary>
     public bool CanGoNext()
     {
@@ -68,29 +68,23 @@ public class PaginationService : IPaginationService
     }
 
     /// <summary>
-    /// Navigates to the previous page if available.
+    ///     Navigates to the previous page if available.
     /// </summary>
     public void GoToPreviousPage()
     {
-        if (CanGoPrev())
-        {
-            CurrentPage--;
-        }
+        if (CanGoPrev()) CurrentPage--;
     }
 
     /// <summary>
-    /// Navigates to the next page if available.
+    ///     Navigates to the next page if available.
     /// </summary>
     public void GoToNextPage()
     {
-        if (CanGoNext())
-        {
-            CurrentPage++;
-        }
+        if (CanGoNext()) CurrentPage++;
     }
 
     /// <summary>
-    /// Applies pagination to the file list, returning only the current page's files when the threshold is exceeded.
+    ///     Applies pagination to the file list, returning only the current page's files when the threshold is exceeded.
     /// </summary>
     public IList<string> ApplyPagination(IList<string> allFiles)
     {

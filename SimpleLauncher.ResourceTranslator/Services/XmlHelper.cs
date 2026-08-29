@@ -4,12 +4,12 @@ using System.Text.RegularExpressions;
 namespace SimpleLauncher.ResourceTranslator.Services;
 
 /// <summary>
-/// Shared XML escaping/unescaping and regex for XAML resource entries.
+///     Shared XML escaping/unescaping and regex for XAML resource entries.
 /// </summary>
 public static partial class XmlHelper
 {
     /// <summary>
-    /// Escapes special XML characters in a string.
+    ///     Escapes special XML characters in a string.
     /// </summary>
     /// <param name="text">The text to escape.</param>
     /// <returns>The escaped text.</returns>
@@ -26,7 +26,7 @@ public static partial class XmlHelper
     }
 
     /// <summary>
-    /// Unescapes XML special characters in a string.
+    ///     Unescapes XML special characters in a string.
     /// </summary>
     /// <param name="text">The text to unescape.</param>
     /// <returns>The unescaped text.</returns>
@@ -43,7 +43,7 @@ public static partial class XmlHelper
     }
 
     /// <summary>
-    /// Returns the compiled regex for matching XAML resource entries.
+    ///     Returns the compiled regex for matching XAML resource entries.
     /// </summary>
     /// <returns>The compiled regex pattern.</returns>
     [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",

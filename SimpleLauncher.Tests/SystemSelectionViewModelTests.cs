@@ -6,8 +6,8 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="SystemSelectionViewModel"/> system list initialization,
-/// case-insensitive pre-selection, and dialog result events.
+///     Tests for <see cref="SystemSelectionViewModel" /> system list initialization,
+///     case-insensitive pre-selection, and dialog result events.
 /// </summary>
 public class SystemSelectionViewModelTests
 {

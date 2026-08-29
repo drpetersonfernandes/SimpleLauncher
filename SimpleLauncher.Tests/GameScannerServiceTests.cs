@@ -1,17 +1,19 @@
+using System.Reflection;
 using SimpleLauncher.Services.GameScan;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="GameScannerService"/> class.
+///     Tests for the <see cref="GameScannerService" /> class.
 /// </summary>
 public class GameScannerServiceTests : IDisposable
 {
     private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GameScannerServiceTests"/> class, creating a temporary test directory.
+    ///     Initializes a new instance of the <see cref="GameScannerServiceTests" /> class, creating a temporary test
+    ///     directory.
     /// </summary>
     public GameScannerServiceTests()
     {
@@ -20,7 +22,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory.
+    ///     Cleans up the temporary test directory.
     /// </summary>
     public void Dispose()
     {
@@ -40,7 +42,7 @@ public class GameScannerServiceTests : IDisposable
     // IgnoredGameNames tests
 
     /// <summary>
-    /// Verifies that IgnoredGameNames contains Steamworks Common Redistributables.
+    ///     Verifies that IgnoredGameNames contains Steamworks Common Redistributables.
     /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsSteamworksCommonRedistributables()
@@ -49,7 +51,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IgnoredGameNames contains Unreal Engine.
+    ///     Verifies that IgnoredGameNames contains Unreal Engine.
     /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsUnrealEngine()
@@ -58,7 +60,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IgnoredGameNames contains DirectX.
+    ///     Verifies that IgnoredGameNames contains DirectX.
     /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsDirectX()
@@ -67,7 +69,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IgnoredGameNames contains Spacewar.
+    ///     Verifies that IgnoredGameNames contains Spacewar.
     /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsSpacewar()
@@ -76,7 +78,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IgnoredGameNames contains Battle.net.
+    ///     Verifies that IgnoredGameNames contains Battle.net.
     /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsBattleNet()
@@ -85,7 +87,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IgnoredGameNames contains Ubisoft Connect.
+    ///     Verifies that IgnoredGameNames contains Ubisoft Connect.
     /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsUbisoftConnect()
@@ -94,7 +96,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IgnoredGameNames contains Rockstar Games Launcher.
+    ///     Verifies that IgnoredGameNames contains Rockstar Games Launcher.
     /// </summary>
     [Fact]
     public void IgnoredGameNamesContainsRockstarGamesLauncher()
@@ -103,7 +105,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IgnoredGameNames performs case-insensitive matching.
+    ///     Verifies that IgnoredGameNames performs case-insensitive matching.
     /// </summary>
     [Fact]
     public void IgnoredGameNamesIsCaseInsensitive()
@@ -113,7 +115,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IgnoredGameNames does not contain arbitrary strings.
+    ///     Verifies that IgnoredGameNames does not contain arbitrary strings.
     /// </summary>
     [Fact]
     public void IgnoredGameNamesDoesNotContainRandomString()
@@ -122,7 +124,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that IgnoredGameNames contains at least the expected number of entries.
+    ///     Verifies that IgnoredGameNames contains at least the expected number of entries.
     /// </summary>
     [Fact]
     public void IgnoredGameNamesHasExpectedCount()
@@ -134,13 +136,13 @@ public class GameScannerServiceTests : IDisposable
     // FindMainExecutable tests (via reflection since it's private static)
 
     /// <summary>
-    /// Verifies that FindMainExecutable returns null for a non-existent directory.
+    ///     Verifies that FindMainExecutable returns null for a non-existent directory.
     /// </summary>
     [Fact]
     public void FindMainExecutableReturnsNullForNonExistentDirectory()
     {
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [Path.Combine(_testDirectory, "nonexistent"), "game", null]);
@@ -148,7 +150,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindMainExecutable returns null for an empty directory.
+    ///     Verifies that FindMainExecutable returns null for an empty directory.
     /// </summary>
     [Fact]
     public void FindMainExecutableReturnsNullForEmptyDirectory()
@@ -157,7 +159,7 @@ public class GameScannerServiceTests : IDisposable
         Directory.CreateDirectory(gameDir);
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "game", null]);
@@ -165,7 +167,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindMainExecutable returns the executable matching the game name.
+    ///     Verifies that FindMainExecutable returns the executable matching the game name.
     /// </summary>
     [Fact]
     public void FindMainExecutableReturnsNameMatchExe()
@@ -176,7 +178,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "other.exe"), "other exe");
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
@@ -185,7 +187,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindMainExecutable returns an executable containing the game name.
+    ///     Verifies that FindMainExecutable returns an executable containing the game name.
     /// </summary>
     [Fact]
     public void FindMainExecutableReturnsContainsMatchExe()
@@ -196,7 +198,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "other.exe"), "other exe");
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
@@ -205,7 +207,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindMainExecutable returns the specific exe path when provided.
+    ///     Verifies that FindMainExecutable returns the specific exe path when provided.
     /// </summary>
     [Fact]
     public void FindMainExecutableReturnsSpecificExePathIfProvided()
@@ -217,7 +219,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "MyGame.exe"), "game exe");
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", specificExe]) as string;
@@ -226,7 +228,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindMainExecutable excludes uninstaller executables.
+    ///     Verifies that FindMainExecutable excludes uninstaller executables.
     /// </summary>
     [Fact]
     public void FindMainExecutableExcludesUninstallerExe()
@@ -237,7 +239,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "game.exe"), new string('x', 1000));
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
@@ -246,7 +248,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindMainExecutable excludes setup executables.
+    ///     Verifies that FindMainExecutable excludes setup executables.
     /// </summary>
     [Fact]
     public void FindMainExecutableExcludesSetupExe()
@@ -257,7 +259,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "game.exe"), new string('x', 1000));
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
@@ -266,7 +268,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindMainExecutable excludes crash reporter executables.
+    ///     Verifies that FindMainExecutable excludes crash reporter executables.
     /// </summary>
     [Fact]
     public void FindMainExecutableExcludesCrashReporterExe()
@@ -277,7 +279,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "game.exe"), new string('x', 1000));
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
@@ -286,7 +288,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindMainExecutable excludes launcher executables.
+    ///     Verifies that FindMainExecutable excludes launcher executables.
     /// </summary>
     [Fact]
     public void FindMainExecutableExcludesLauncherExe()
@@ -297,7 +299,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "game.exe"), new string('x', 1000));
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "MyGame", null]) as string;
@@ -306,7 +308,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindMainExecutable falls back to the largest executable.
+    ///     Verifies that FindMainExecutable falls back to the largest executable.
     /// </summary>
     [Fact]
     public void FindMainExecutableLargestExeFallback()
@@ -317,7 +319,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "large.exe"), new string('x', 5000));
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir, "UnknownGame", null]) as string;
@@ -326,7 +328,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that FindMainExecutable falls back to heuristics when specific path does not exist.
+    ///     Verifies that FindMainExecutable falls back to heuristics when specific path does not exist.
     /// </summary>
     [Fact]
     public void FindMainExecutableSpecificPathDoesNotExistFallsBackToHeuristics()
@@ -336,7 +338,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "game.exe"), "game exe");
 
         var method = typeof(GameScannerService).GetMethod("FindMainExecutable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var nonExistentPath = Path.Combine(gameDir, "nonexistent.exe");
@@ -348,15 +350,15 @@ public class GameScannerServiceTests : IDisposable
     // TryGetExeFiles tests (via reflection since it's private static)
 
     /// <summary>
-    /// Verifies that TryGetExeFiles returns null instead of throwing when the game folder
-    /// vanished or became inaccessible between the Directory.Exists check and the enumeration.
-    /// This is the Microsoft Store WindowsApps race reported in bug 61956.
+    ///     Verifies that TryGetExeFiles returns null instead of throwing when the game folder
+    ///     vanished or became inaccessible between the Directory.Exists check and the enumeration.
+    ///     This is the Microsoft Store WindowsApps race reported in bug 61956.
     /// </summary>
     [Fact]
     public void TryGetExeFilesReturnsNullWhenDirectoryVanished()
     {
         var method = typeof(GameScannerService).GetMethod("TryGetExeFiles",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         // A directory that no longer exists must yield null, never DirectoryNotFoundException.
@@ -365,7 +367,7 @@ public class GameScannerServiceTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that TryGetExeFiles returns the exe files of an existing directory.
+    ///     Verifies that TryGetExeFiles returns the exe files of an existing directory.
     /// </summary>
     [Fact]
     public void TryGetExeFilesReturnsExeFilesForExistingDirectory()
@@ -376,7 +378,7 @@ public class GameScannerServiceTests : IDisposable
         File.WriteAllText(Path.Combine(gameDir, "readme.txt"), "not an exe");
 
         var method = typeof(GameScannerService).GetMethod("TryGetExeFiles",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         Assert.NotNull(method);
 
         var result = method.Invoke(null, [gameDir]) as string[];

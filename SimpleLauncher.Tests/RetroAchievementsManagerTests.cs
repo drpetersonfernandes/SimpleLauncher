@@ -7,18 +7,18 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="RetroAchievementsManager"/> covering loading from .dat files,
-/// hash-based game lookups, and graceful handling of missing or corrupted data.
+///     Tests for <see cref="RetroAchievementsManager" /> covering loading from .dat files,
+///     hash-based game lookups, and graceful handling of missing or corrupted data.
 /// </summary>
 public class RetroAchievementsManagerTests : IDisposable
 {
-    private readonly ILogger _logErrors = new NoOpLogger();
     private readonly string _datFilePath;
+    private readonly ILogger _logErrors = new NoOpLogger();
 
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsManagerTests"/> class,
-    /// installing the service provider mock and setting up the .dat file path.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsManagerTests" /> class,
+    ///     installing the service provider mock and setting up the .dat file path.
     /// </summary>
     public RetroAchievementsManagerTests()
     {
@@ -27,22 +27,19 @@ public class RetroAchievementsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the test .dat file and restores the service provider mock.
+    ///     Cleans up the test .dat file and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
         // Clean up the dat file if it was created during a test
-        if (File.Exists(_datFilePath))
-        {
-            File.Delete(_datFilePath);
-        }
+        if (File.Exists(_datFilePath)) File.Delete(_datFilePath);
 
         ServiceProviderMock.Restore();
         GC.SuppressFinalize(this);
     }
 
     /// <summary>
-    /// Verifies that LoadRetroAchievement returns a manager with games when given a valid .dat file.
+    ///     Verifies that LoadRetroAchievement returns a manager with games when given a valid .dat file.
     /// </summary>
     [Fact]
     public void LoadRetroAchievementValidDatFileReturnsManagerWithGames()
@@ -74,7 +71,7 @@ public class RetroAchievementsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that LoadRetroAchievement returns an empty manager when the .dat file contains corrupted data.
+    ///     Verifies that LoadRetroAchievement returns an empty manager when the .dat file contains corrupted data.
     /// </summary>
     [Fact]
     public void LoadRetroAchievementCorruptedMessagePackReturnsEmptyManager()
@@ -88,7 +85,7 @@ public class RetroAchievementsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that LoadRetroAchievement returns an empty manager when the .dat file contains XML content.
+    ///     Verifies that LoadRetroAchievement returns an empty manager when the .dat file contains XML content.
     /// </summary>
     [Fact]
     public void LoadRetroAchievementXmlContentReturnsEmptyManager()
@@ -102,7 +99,7 @@ public class RetroAchievementsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that LoadRetroAchievement returns an empty manager when the .dat file is empty.
+    ///     Verifies that LoadRetroAchievement returns an empty manager when the .dat file is empty.
     /// </summary>
     [Fact]
     public void LoadRetroAchievementEmptyFileReturnsEmptyManager()
@@ -116,16 +113,13 @@ public class RetroAchievementsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that LoadRetroAchievement returns an empty manager when the .dat file does not exist.
+    ///     Verifies that LoadRetroAchievement returns an empty manager when the .dat file does not exist.
     /// </summary>
     [Fact]
     public void LoadRetroAchievementMissingFileReturnsEmptyManager()
     {
         // Ensure the file does not exist
-        if (File.Exists(_datFilePath))
-        {
-            File.Delete(_datFilePath);
-        }
+        if (File.Exists(_datFilePath)) File.Delete(_datFilePath);
 
         var manager = RetroAchievementsManager.LoadRetroAchievement(_logErrors, Log.Logger);
 
@@ -134,7 +128,7 @@ public class RetroAchievementsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that GetGameInfoByHash returns the correct game info for a known hash.
+    ///     Verifies that GetGameInfoByHash returns the correct game info for a known hash.
     /// </summary>
     [Fact]
     public void GetGameInfoByHashKnownHashReturnsGameInfo()
@@ -166,7 +160,7 @@ public class RetroAchievementsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that GetGameInfoByHash returns null for an unknown hash.
+    ///     Verifies that GetGameInfoByHash returns null for an unknown hash.
     /// </summary>
     [Fact]
     public void GetGameInfoByHashUnknownHashReturnsNull()
@@ -197,7 +191,7 @@ public class RetroAchievementsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that GetGameInfoByHash returns null for an empty string hash.
+    ///     Verifies that GetGameInfoByHash returns null for an empty string hash.
     /// </summary>
     [Fact]
     public void GetGameInfoByHashEmptyStringReturnsNull()
@@ -228,7 +222,7 @@ public class RetroAchievementsManagerTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that GetGameInfoByHash returns the first matching game when multiple games share a hash.
+    ///     Verifies that GetGameInfoByHash returns the first matching game when multiple games share a hash.
     /// </summary>
     [Fact]
     public void GetGameInfoByHashOverlappingHashesReturnsFirstMatch()

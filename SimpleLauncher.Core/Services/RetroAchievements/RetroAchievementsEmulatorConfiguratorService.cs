@@ -6,14 +6,14 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.RetroAchievements;
 
 /// <summary>
-/// Configures RetroAchievements settings in various emulator configuration files (INI, CFG, JSON).
+///     Configures RetroAchievements settings in various emulator configuration files (INI, CFG, JSON).
 /// </summary>
 public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEmulatorConfiguratorService
 {
     private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsEmulatorConfiguratorService"/> class.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsEmulatorConfiguratorService" /> class.
     /// </summary>
     public RetroAchievementsEmulatorConfiguratorService(ILogger logErrors, ILogger logger)
     {
@@ -22,37 +22,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
     }
 
     /// <summary>
-    /// Restores a sample configuration file from the samples folder if the target config is missing.
-    /// </summary>
-    private bool RestoreConfigFromSample(string emulatorFolderName, string targetConfigPath)
-    {
-        // Treat missing or 0-byte files as candidates for restoration
-        if (File.Exists(targetConfigPath) && new FileInfo(targetConfigPath).Length > 0) return true;
-
-        var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples",
-            emulatorFolderName.ToLowerInvariant(), Path.GetFileName(targetConfigPath));
-
-        if (!File.Exists(samplePath)) return false;
-
-        try
-        {
-            var targetDir = Path.GetDirectoryName(targetConfigPath);
-            if (!string.IsNullOrEmpty(targetDir) && !Directory.Exists(targetDir))
-                Directory.CreateDirectory(targetDir);
-
-            File.Copy(samplePath, targetConfigPath, false);
-            return true;
-        }
-        catch (Exception ex)
-        {
-            _logger.Error(ex,
-                $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// Configures RetroArch's retroarch.cfg with RetroAchievements credentials.
+    ///     Configures RetroArch's retroarch.cfg with RetroAchievements credentials.
     /// </summary>
     public bool ConfigureRetroArch(string exePath, string username, string password)
     {
@@ -83,7 +53,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
     }
 
     /// <summary>
-    /// Configures PCSX2's PCSX2.ini with RetroAchievements credentials.
+    ///     Configures PCSX2's PCSX2.ini with RetroAchievements credentials.
     /// </summary>
     public bool ConfigurePcsx2(string exePath, string username, string token)
     {
@@ -113,7 +83,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
     }
 
     /// <summary>
-    /// Configures DuckStation's settings.ini with RetroAchievements credentials and encrypted token.
+    ///     Configures DuckStation's settings.ini with RetroAchievements credentials and encrypted token.
     /// </summary>
     public bool ConfigureDuckStation(string exePath, string username, string token)
     {
@@ -172,7 +142,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
     }
 
     /// <summary>
-    /// Configures PPSSPP's ppsspp.ini and session key file with RetroAchievements credentials.
+    ///     Configures PPSSPP's ppsspp.ini and session key file with RetroAchievements credentials.
     /// </summary>
     public bool ConfigurePpspp(string exePath, string username, string token)
     {
@@ -217,7 +187,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
     }
 
     /// <summary>
-    /// Configures Dolphin's RetroAchievements.ini with RetroAchievements credentials.
+    ///     Configures Dolphin's RetroAchievements.ini with RetroAchievements credentials.
     /// </summary>
     public bool ConfigureDolphin(string exePath, string username, string token)
     {
@@ -225,15 +195,11 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         string configDir;
 
         if (exeDir != null && File.Exists(Path.Combine(exeDir, "portable.txt")))
-        {
             configDir = Path.Combine(exeDir, "User", "Config");
-        }
         else
-        {
             // Standard Dolphin user path is in Documents
             configDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 "Dolphin Emulator", "Config");
-        }
 
         var configPath = Path.Combine(configDir, "RetroAchievements.ini");
 
@@ -241,10 +207,8 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         {
             // Restore from sample if missing (before creating empty file)
             if (!RestoreConfigFromSample("dolphin", configPath))
-            {
                 // If no sample, create directory and empty file as fallback
                 _logger.Debug($"[RA Configurator] No sample found for Dolphin, creating empty config at {configPath}");
-            }
 
             if (!Directory.Exists(configDir)) Directory.CreateDirectory(configDir);
             if (!File.Exists(configPath)) File.WriteAllText(configPath, ""); // Create empty file if missing
@@ -274,7 +238,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
     }
 
     /// <summary>
-    /// Configures Flycast's emu.cfg with RetroAchievements credentials.
+    ///     Configures Flycast's emu.cfg with RetroAchievements credentials.
     /// </summary>
     public bool ConfigureFlycast(string exePath, string username, string token)
     {
@@ -312,7 +276,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
     }
 
     /// <summary>
-    /// Configures BizHawk's config.ini with RetroAchievements credentials.
+    ///     Configures BizHawk's config.ini with RetroAchievements credentials.
     /// </summary>
     public bool ConfigureBizHawk(string exePath, string username, string token)
     {
@@ -360,6 +324,36 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         return false;
     }
 
+    /// <summary>
+    ///     Restores a sample configuration file from the samples folder if the target config is missing.
+    /// </summary>
+    private bool RestoreConfigFromSample(string emulatorFolderName, string targetConfigPath)
+    {
+        // Treat missing or 0-byte files as candidates for restoration
+        if (File.Exists(targetConfigPath) && new FileInfo(targetConfigPath).Length > 0) return true;
+
+        var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples",
+            emulatorFolderName.ToLowerInvariant(), Path.GetFileName(targetConfigPath));
+
+        if (!File.Exists(samplePath)) return false;
+
+        try
+        {
+            var targetDir = Path.GetDirectoryName(targetConfigPath);
+            if (!string.IsNullOrEmpty(targetDir) && !Directory.Exists(targetDir))
+                Directory.CreateDirectory(targetDir);
+
+            File.Copy(samplePath, targetConfigPath, false);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(ex,
+                $"Failed to restore {emulatorFolderName} config from sample: {samplePath} -> {targetConfigPath}");
+            return false;
+        }
+    }
+
     // Helper for simple INI files
     private bool UpdateSimpleIniFile(string filePath, Dictionary<string, string> settingsToUpdate, string separator)
     {
@@ -385,10 +379,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
             }
 
             // Add any settings that were not found
-            foreach (var key in updatedSettings)
-            {
-                lines.Add($"{key}{separator}{FormatString(settingsToUpdate[key])}");
-            }
+            foreach (var key in updatedSettings) lines.Add($"{key}{separator}{FormatString(settingsToUpdate[key])}");
 
             File.WriteAllLines(filePath, lines, Encoding.UTF8);
             return true;
@@ -409,10 +400,7 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
 
             // Strip existing surrounding quotes to prevent double-quoting
             val = val.Trim();
-            if (val.Length >= 2 && val.StartsWith('"') && val.EndsWith('"'))
-            {
-                val = val.Substring(1, val.Length - 2);
-            }
+            if (val.Length >= 2 && val.StartsWith('"') && val.EndsWith('"')) val = val.Substring(1, val.Length - 2);
 
             // Escape any internal quotes and wrap in quotes
             val = val.Replace("\"", "\\\"");
@@ -437,10 +425,8 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
                 if (trimmedLine.StartsWith('[') && trimmedLine.EndsWith(']'))
                 {
                     if (inSection)
-                    {
                         // We've left the target section
                         break;
-                    }
 
                     if (trimmedLine.Equals($"[{section}]", StringComparison.OrdinalIgnoreCase))
                     {
@@ -470,23 +456,16 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
                 var insertIndex = sectionLineIndex + 1;
                 while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
                        !lines[insertIndex].Trim().StartsWith('['))
-                {
                     insertIndex++;
-                }
 
                 foreach (var key in updatedSettings.Reverse()) // Insert in reverse to maintain order
-                {
                     lines.Insert(insertIndex, $"{key} = {settingsToUpdate[key]}");
-                }
             }
             else // Section not found, add it at the end
             {
                 lines.Add("");
                 lines.Add($"[{section}]");
-                foreach (var kvp in settingsToUpdate)
-                {
-                    lines.Add($"{kvp.Key} = {kvp.Value}");
-                }
+                foreach (var kvp in settingsToUpdate) lines.Add($"{kvp.Key} = {kvp.Value}");
             }
 
             File.WriteAllLines(filePath, lines, Encoding.UTF8);

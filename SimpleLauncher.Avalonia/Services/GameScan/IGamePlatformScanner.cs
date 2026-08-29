@@ -1,12 +1,12 @@
 namespace SimpleLauncher.Avalonia.Services.GameScan;
 
 /// <summary>
-/// Provides methods to scan for games available on a specific platform.
+///     Provides methods to scan for games available on a specific platform.
 /// </summary>
 public interface IGamePlatformScanner
 {
     /// <summary>
-    /// Asynchronously scans for games on the platform, logging errors and respecting ignored game names.
+    ///     Asynchronously scans for games on the platform, logging errors and respecting ignored game names.
     /// </summary>
     /// <param name="gameScannerService">The game scanner service used for scanning.</param>
     /// <param name="logErrors">The logger for recording errors.</param>

@@ -7,17 +7,17 @@ using SimpleLauncher.Core.Services.SanitizeInputString;
 namespace SimpleLauncher.Avalonia.Services.GameScan;
 
 /// <summary>
-/// Scans for installed EA (Electronic Arts) games via the registry, classifies them via the
-/// game-classification API (same as Microsoft Store), and creates shortcuts for confirmed games.
+///     Scans for installed EA (Electronic Arts) games via the registry, classifies them via the
+///     game-classification API (same as Microsoft Store), and creates shortcuts for confirmed games.
 /// </summary>
 public class ScanEaGames : IGamePlatformScanner
 {
-    private readonly ILogger _logger;
-    private readonly IHttpClientFactory _httpClientFactory;
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScanEaGames"/> class.
+    ///     Initializes a new instance of the <see cref="ScanEaGames" /> class.
     /// </summary>
     /// <param name="logger">The logger instance.</param>
     /// <param name="httpClientFactory">The HTTP client factory for classification API requests.</param>
@@ -42,7 +42,6 @@ public class ScanEaGames : IGamePlatformScanner
             var candidates = new List<EaGameCandidate>();
 
             foreach (var contentId in baseKey.GetSubKeyNames())
-            {
                 try
                 {
                     using var gameKey = baseKey.OpenSubKey(contentId);
@@ -65,15 +64,12 @@ public class ScanEaGames : IGamePlatformScanner
                 {
                     logErrors.Error(ex, $"Error processing EA game: {contentId}");
                 }
-            }
 
             if (candidates.Count == 0) return;
 
             _logger.Debug($"[ScanEaGames] Found {candidates.Count} EA apps. Sending to classification API...");
             foreach (var c in candidates)
-            {
                 _logger.Debug($"[ScanEaGames]   -> Sending: Name=\"{c.Name}\" AppId=\"{c.AppId}\"");
-            }
 
             var confirmedGames = await ClassifyGamesViaApiAsync(candidates, logErrors);
 
@@ -84,7 +80,6 @@ public class ScanEaGames : IGamePlatformScanner
                 Directory.CreateDirectory(windowsRomsPath);
 
                 foreach (var game in confirmedGames)
-                {
                     try
                     {
                         var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(game.Name);
@@ -100,7 +95,6 @@ public class ScanEaGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Error creating shortcut for EA game: {game.Name}");
                     }
-                }
             }
             else
             {
@@ -113,7 +107,8 @@ public class ScanEaGames : IGamePlatformScanner
         }
     }
 
-    private async Task<List<EaGameCandidate>> ClassifyGamesViaApiAsync(List<EaGameCandidate> installedApps, ILogger logErrors)
+    private async Task<List<EaGameCandidate>> ClassifyGamesViaApiAsync(List<EaGameCandidate> installedApps,
+        ILogger logErrors)
     {
         try
         {
@@ -140,7 +135,8 @@ public class ScanEaGames : IGamePlatformScanner
             if (!response.IsSuccessStatusCode)
             {
                 _logger.Debug($"[ScanEaGames] Game classification API returned status: {response.StatusCode}");
-                logErrors.Warning($"Game classification API failed with status {response.StatusCode}. Returning empty game list.");
+                logErrors.Warning(
+                    $"Game classification API failed with status {response.StatusCode}. Returning empty game list.");
                 return [];
             }
 
@@ -155,9 +151,7 @@ public class ScanEaGames : IGamePlatformScanner
 
             _logger.Debug($"[ScanEaGames] API deserialized games count: {apiResponse.Games.Count}");
             foreach (var g in apiResponse.Games)
-            {
                 _logger.Debug($"[ScanEaGames]   <- Received game: Name=\"{g.Name}\" AppId=\"{g.AppId}\"");
-            }
 
             var confirmedGames = apiResponse.Games.Select(static g => new EaGameCandidate
             {
@@ -175,7 +169,8 @@ public class ScanEaGames : IGamePlatformScanner
         }
         catch (HttpRequestException ex)
         {
-            _logger.Debug($"[ScanEaGames] Game classification API network error: {ex.Message}. Returning empty game list.");
+            _logger.Debug(
+                $"[ScanEaGames] Game classification API network error: {ex.Message}. Returning empty game list.");
             return [];
         }
         catch (Exception ex)

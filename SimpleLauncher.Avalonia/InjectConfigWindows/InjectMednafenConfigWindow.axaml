@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectMednafenConfigWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Mednafen Configuration"
         Height="750" Width="700"
@@ -15,7 +15,8 @@
                 <GroupBox Header="{ext:Translate StellaConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
                         <Grid ColumnDefinitions="*,*" Margin="0,0,0,5">
-                            <TextBlock Text="{ext:Translate StellaConfig_VideoDriver_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate StellaConfig_VideoDriver_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding VideoDriverOptions}"
                                       SelectedItem="{Binding MednafenVideoDriver}"
@@ -30,7 +31,8 @@
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate MednafenConfig_Vsync_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="{ext:Translate MednafenConfig_Stretch_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate MednafenConfig_Stretch_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding StretchOptions}"
                                       SelectedItem="{Binding MednafenStretch}"
@@ -46,10 +48,14 @@
                 <!-- Effects Section -->
                 <GroupBox Header="{ext:Translate MednafenConfig_Effects_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <TextBlock Text="{ext:Translate MednafenConfig_Scanlines_Label}" Classes="form-label" VerticalAlignment="Center" />
-                        <Slider Value="{Binding MednafenScanlines}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip.Tip="{ext:Translate MednafenConfig_Scanlines_Tooltip}" />
+                        <TextBlock Text="{ext:Translate MednafenConfig_Scanlines_Label}" Classes="form-label"
+                                   VerticalAlignment="Center" />
+                        <Slider Value="{Binding MednafenScanlines}" Minimum="0" Maximum="100"
+                                IsSnapToTickEnabled="True" TickFrequency="1"
+                                ToolTip.Tip="{ext:Translate MednafenConfig_Scanlines_Tooltip}" />
                         <Grid ColumnDefinitions="*,*" Margin="0,5,0,5">
-                            <TextBlock Text="{ext:Translate MednafenConfig_Shader_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate MednafenConfig_Shader_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ShaderOptions}"
                                       SelectedItem="{Binding MednafenShader}"
@@ -61,8 +67,10 @@
                 <!-- Sound Section -->
                 <GroupBox Header="{ext:Translate SoundIcon}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <TextBlock Text="{ext:Translate MednafenConfig_Volume_Label}" Classes="form-label" VerticalAlignment="Center" />
-                        <Slider Value="{Binding MednafenVolume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" ToolTip.Tip="{ext:Translate MednafenConfig_Volume_Tooltip}" />
+                        <TextBlock Text="{ext:Translate MednafenConfig_Volume_Label}" Classes="form-label"
+                                   VerticalAlignment="Center" />
+                        <Slider Value="{Binding MednafenVolume}" Minimum="0" Maximum="100" IsSnapToTickEnabled="True"
+                                TickFrequency="1" ToolTip.Tip="{ext:Translate MednafenConfig_Volume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 

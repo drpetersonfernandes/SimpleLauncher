@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the <see cref="SystemPlayTime"/> model for default values and formatted play time display.
+///     Tests the <see cref="SystemPlayTime" /> model for default values and formatted play time display.
 /// </summary>
 public class SystemPlayTimeTests
 {
     /// <summary>
-    /// Verifies that a new <see cref="SystemPlayTime"/> has zero play time by default.
+    ///     Verifies that a new <see cref="SystemPlayTime" /> has zero play time by default.
     /// </summary>
     [Fact]
     public void DefaultValuesAreCorrect()
@@ -21,7 +21,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that zero seconds formats as 0:00:00.
+    ///     Verifies that zero seconds formats as 0:00:00.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeZeroSecondsReturnsZeroFormat()
@@ -31,7 +31,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that play time under one hour formats correctly with minutes and seconds.
+    ///     Verifies that play time under one hour formats correctly with minutes and seconds.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeUnderOneHour()
@@ -41,7 +41,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that exactly 3600 seconds formats as 1:00:00.
+    ///     Verifies that exactly 3600 seconds formats as 1:00:00.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeExactlyOneHour()
@@ -51,7 +51,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that play time over one hour formats with hours, minutes, and seconds.
+    ///     Verifies that play time over one hour formats with hours, minutes, and seconds.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeOverOneHour()
@@ -61,7 +61,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that a large play time value formats correctly.
+    ///     Verifies that a large play time value formats correctly.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeLargeValue()
@@ -71,7 +71,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that 3599 seconds formats as 0:59:59.
+    ///     Verifies that 3599 seconds formats as 0:59:59.
     /// </summary>
     [Fact]
     public void FormattedPlayTime59Minutes59Seconds()
@@ -81,7 +81,8 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that the <see cref="SystemPlayTime.PlayTimeSeconds"/> property can be updated and the formatted output reflects the change.
+    ///     Verifies that the <see cref="SystemPlayTime.PlayTimeSeconds" /> property can be updated and the formatted output
+    ///     reflects the change.
     /// </summary>
     [Fact]
     public void PlayTimeSecondsCanBeUpdated()
@@ -94,7 +95,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that the <see cref="SystemPlayTime.SystemName"/> property can be set during initialization.
+    ///     Verifies that the <see cref="SystemPlayTime.SystemName" /> property can be set during initialization.
     /// </summary>
     [Fact]
     public void SystemNameIsInitOnly()
@@ -104,7 +105,8 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="SystemPlayTime.FormattedPlayTime"/> updates dynamically when <see cref="SystemPlayTime.PlayTimeSeconds"/> changes.
+    ///     Verifies that <see cref="SystemPlayTime.FormattedPlayTime" /> updates dynamically when
+    ///     <see cref="SystemPlayTime.PlayTimeSeconds" /> changes.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeReflectsCurrentPlayTimeSeconds()
@@ -117,7 +119,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that formatting uses invariant culture regardless of system locale.
+    ///     Verifies that formatting uses invariant culture regardless of system locale.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeUsesInvariantCulture()
@@ -127,7 +129,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that play time exceeding 24 hours formats correctly without wrapping.
+    ///     Verifies that play time exceeding 24 hours formats correctly without wrapping.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeOver24Hours()
@@ -137,7 +139,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays correctly for minutes-only durations.
+    ///     Verifies that FormattedPlayTime displays correctly for minutes-only durations.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeMinutesOnly()
@@ -147,7 +149,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays correctly for seconds-only durations.
+    ///     Verifies that FormattedPlayTime displays correctly for seconds-only durations.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeSecondsOnly()
@@ -157,7 +159,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that FormattedPlayTime displays correctly for exactly 24 hours.
+    ///     Verifies that FormattedPlayTime displays correctly for exactly 24 hours.
     /// </summary>
     [Fact]
     public void FormattedPlayTimeLargeValue24Hours()
@@ -167,7 +169,7 @@ public class SystemPlayTimeTests
     }
 
     /// <summary>
-    /// Verifies that multiple SystemPlayTime instances maintain independent values.
+    ///     Verifies that multiple SystemPlayTime instances maintain independent values.
     /// </summary>
     [Fact]
     public void MultipleSystemsMaintainIndependentValues()

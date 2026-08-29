@@ -17,9 +17,14 @@
                 <!-- Video Section -->
                 <GroupBox Header="{DynamicResource BlastemConfig_Video_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding Fullscreen}" Content="{DynamicResource BlastemConfig_Fullscreen_Checkbox}" Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Fullscreen_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Vsync}" Content="{DynamicResource BlastemConfig_Vsync_Checkbox}" Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Vsync_Tooltip}" />
-                        <CheckBox IsChecked="{Binding Scanlines}" Content="{DynamicResource BlastemConfig_Scanlines_Checkbox}" Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Scanlines_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Fullscreen}"
+                                  Content="{DynamicResource BlastemConfig_Fullscreen_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource BlastemConfig_Fullscreen_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Vsync}" Content="{DynamicResource BlastemConfig_Vsync_Checkbox}"
+                                  Margin="0,5" ToolTip="{DynamicResource BlastemConfig_Vsync_Tooltip}" />
+                        <CheckBox IsChecked="{Binding Scanlines}"
+                                  Content="{DynamicResource BlastemConfig_Scanlines_Checkbox}" Margin="0,5"
+                                  ToolTip="{DynamicResource BlastemConfig_Scanlines_Tooltip}" />
                         <Grid Margin="0,5,0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -70,7 +75,8 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Content="{DynamicResource BlastemConfig_SyncSource_Label}" VerticalAlignment="Center" />
+                            <Label Content="{DynamicResource BlastemConfig_SyncSource_Label}"
+                                   VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding SyncSourceOptions}"
                                       SelectedItem="{Binding SyncSource}"
@@ -82,8 +88,12 @@
                 <!-- CRITICAL SETTING -->
                 <Border Style="{StaticResource ImportantSettingBorderStyle}">
                     <StackPanel>
-                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}" Style="{StaticResource ImportantSettingHeaderStyle}" />
-                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}" Content="{DynamicResource BlastemConfig_ShowBeforeLaunch_Checkbox}" Style="{StaticResource ImportantSettingCheckBoxStyle}" ToolTip="{DynamicResource BlastemConfig_ShowBeforeLaunch_Tooltip}" />
+                        <TextBlock Text="{DynamicResource IMPORTANTSETTING}"
+                                   Style="{StaticResource ImportantSettingHeaderStyle}" />
+                        <CheckBox IsChecked="{Binding ShowBeforeLaunch}"
+                                  Content="{DynamicResource BlastemConfig_ShowBeforeLaunch_Checkbox}"
+                                  Style="{StaticResource ImportantSettingCheckBoxStyle}"
+                                  ToolTip="{DynamicResource BlastemConfig_ShowBeforeLaunch_Tooltip}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

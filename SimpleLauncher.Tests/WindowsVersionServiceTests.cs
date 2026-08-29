@@ -4,14 +4,14 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="WindowsVersionService"/> which returns a human-readable Windows version string.
+///     Tests for <see cref="WindowsVersionService" /> which returns a human-readable Windows version string.
 /// </summary>
 public class WindowsVersionServiceTests
 {
     private readonly WindowsVersionService _service = new();
 
     /// <summary>
-    /// Verifies that <see cref="WindowsVersionService.GetVersion"/> returns a non-empty, non-whitespace string.
+    ///     Verifies that <see cref="WindowsVersionService.GetVersion" /> returns a non-empty, non-whitespace string.
     /// </summary>
     [Fact]
     public void GetVersionReturnsNonEmptyString()
@@ -21,7 +21,7 @@ public class WindowsVersionServiceTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="WindowsVersionService.GetVersion"/> returns a recognized Windows version string.
+    ///     Verifies that <see cref="WindowsVersionService.GetVersion" /> returns a recognized Windows version string.
     /// </summary>
     [Fact]
     public void GetVersionReturnsKnownVersionString()
@@ -43,7 +43,7 @@ public class WindowsVersionServiceTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="WindowsVersionService.GetVersion"/> does not throw any exceptions.
+    ///     Verifies that <see cref="WindowsVersionService.GetVersion" /> does not throw any exceptions.
     /// </summary>
     [Fact]
     public void GetVersionDoesNotThrow()
@@ -53,7 +53,7 @@ public class WindowsVersionServiceTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="WindowsVersionService.GetVersion"/> returns the same result on repeated calls.
+    ///     Verifies that <see cref="WindowsVersionService.GetVersion" /> returns the same result on repeated calls.
     /// </summary>
     [Fact]
     public void GetVersionReturnsConsistentResults()

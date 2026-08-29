@@ -5,7 +5,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Services.WpfServices;
 
 /// <summary>
-/// WPF implementation of IWindowContext, wrapping a WPF Window to provide platform-agnostic window operations.
+///     WPF implementation of IWindowContext, wrapping a WPF Window to provide platform-agnostic window operations.
 /// </summary>
 public class WpfWindowContext : IWindowContext
 {

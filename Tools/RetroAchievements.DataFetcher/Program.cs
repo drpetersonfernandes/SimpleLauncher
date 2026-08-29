@@ -1,7 +1,8 @@
+using System.Text;
 using System.Text.Json;
-using MessagePack;
-using System.Xml.Serialization;
 using System.Xml;
+using System.Xml.Serialization;
+using MessagePack;
 using RetroAchievements.DataFetcher.Models;
 using RetroAchievements.DataFetcher.Services.DebugAndBugReport;
 using Serilog.Events;
@@ -126,13 +127,9 @@ file static class Program
 
             // Save results
             if (allGames.Count > 0)
-            {
                 await SaveGameDataAsync(allGames, serializerOptions);
-            }
             else
-            {
                 Log.Warning("No games were found to save.");
-            }
         }
         catch (Exception ex)
         {
@@ -245,7 +242,6 @@ file static class Program
         var settings = new RaSettings();
 
         if (File.Exists(SettingsFilePath))
-        {
             try
             {
                 using var stream = new FileStream(SettingsFilePath, FileMode.Open, FileAccess.Read);
@@ -264,7 +260,6 @@ file static class Program
                 Log.Warning(ex, "Failed to load settings");
                 settings = new RaSettings();
             }
-        }
 
         var hasValidSettings = !string.IsNullOrWhiteSpace(settings.Username) &&
                                !string.IsNullOrWhiteSpace(settings.WebApiKey);
@@ -277,9 +272,7 @@ file static class Program
 
             if (!string.Equals(response, "y", StringComparison.Ordinal) &&
                 !string.Equals(response, "yes", StringComparison.Ordinal))
-            {
                 return Task.FromResult(settings);
-            }
         }
         else
         {
@@ -304,7 +297,7 @@ file static class Program
             using var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings
             {
                 Indent = true,
-                Encoding = System.Text.Encoding.UTF8
+                Encoding = Encoding.UTF8
             });
             var serializer = new XmlSerializer(typeof(RaSettings));
             serializer.Serialize(xmlWriter, settings);

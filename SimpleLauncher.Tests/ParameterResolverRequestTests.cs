@@ -4,13 +4,13 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="ParameterResolverRequest"/> model covering default values,
-/// property assignment, and collection initialization.
+///     Tests for <see cref="ParameterResolverRequest" /> model covering default values,
+///     property assignment, and collection initialization.
 /// </summary>
 public class ParameterResolverRequestTests
 {
     /// <summary>
-    /// Verifies that the default SystemName is an empty string.
+    ///     Verifies that the default SystemName is an empty string.
     /// </summary>
     [Fact]
     public void DefaultSystemNameIsEmpty()
@@ -20,7 +20,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that the default SystemFolder is an empty string.
+    ///     Verifies that the default SystemFolder is an empty string.
     /// </summary>
     [Fact]
     public void DefaultSystemFolderIsEmpty()
@@ -30,7 +30,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that the default EmulatorName is an empty string.
+    ///     Verifies that the default EmulatorName is an empty string.
     /// </summary>
     [Fact]
     public void DefaultEmulatorNameIsEmpty()
@@ -40,7 +40,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that the default EmulatorPath is an empty string.
+    ///     Verifies that the default EmulatorPath is an empty string.
     /// </summary>
     [Fact]
     public void DefaultEmulatorPathIsEmpty()
@@ -50,7 +50,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that the default CurrentParameters is an empty string.
+    ///     Verifies that the default CurrentParameters is an empty string.
     /// </summary>
     [Fact]
     public void DefaultCurrentParametersIsEmpty()
@@ -60,7 +60,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that the default FileFormatsToSearch is an empty list.
+    ///     Verifies that the default FileFormatsToSearch is an empty list.
     /// </summary>
     [Fact]
     public void DefaultFileFormatsToSearchIsEmptyList()
@@ -71,7 +71,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that the default FileFormatsToLaunch is an empty list.
+    ///     Verifies that the default FileFormatsToLaunch is an empty list.
     /// </summary>
     [Fact]
     public void DefaultFileFormatsToLaunchIsEmptyList()
@@ -82,7 +82,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that the default ExtractFileBeforeLaunch is false.
+    ///     Verifies that the default ExtractFileBeforeLaunch is false.
     /// </summary>
     [Fact]
     public void DefaultExtractFileBeforeLaunchIsFalse()
@@ -92,7 +92,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that the default GroupByFolder is false.
+    ///     Verifies that the default GroupByFolder is false.
     /// </summary>
     [Fact]
     public void DefaultGroupByFolderIsFalse()
@@ -102,7 +102,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that the default DisableRecursiveSearch is false.
+    ///     Verifies that the default DisableRecursiveSearch is false.
     /// </summary>
     [Fact]
     public void DefaultDisableRecursiveSearchIsFalse()
@@ -112,7 +112,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that all properties can be set and retrieved correctly via object initializer.
+    ///     Verifies that all properties can be set and retrieved correctly via object initializer.
     /// </summary>
     [Fact]
     public void AllPropertiesCanBeSet()
@@ -144,7 +144,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that items can be added to the FileFormatsToSearch collection.
+    ///     Verifies that items can be added to the FileFormatsToSearch collection.
     /// </summary>
     [Fact]
     public void FileFormatsToSearchCanAddItems()
@@ -159,7 +159,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that items can be added to the FileFormatsToLaunch collection.
+    ///     Verifies that items can be added to the FileFormatsToLaunch collection.
     /// </summary>
     [Fact]
     public void FileFormatsToLaunchCanAddItems()
@@ -174,7 +174,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that SystemName supports Unicode characters.
+    ///     Verifies that SystemName supports Unicode characters.
     /// </summary>
     [Fact]
     public void SystemNameSupportsUnicode()
@@ -184,7 +184,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that SystemName supports special characters such as parentheses and brackets.
+    ///     Verifies that SystemName supports special characters such as parentheses and brackets.
     /// </summary>
     [Fact]
     public void SystemNameSupportsSpecialCharacters()
@@ -194,7 +194,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that CurrentParameters supports very long strings.
+    ///     Verifies that CurrentParameters supports very long strings.
     /// </summary>
     [Fact]
     public void CurrentParametersSupportsLongString()
@@ -205,7 +205,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that multiple instances maintain independent property values.
+    ///     Verifies that multiple instances maintain independent property values.
     /// </summary>
     [Fact]
     public void MultipleInstancesAreIndependent()
@@ -217,7 +217,7 @@ public class ParameterResolverRequestTests
     }
 
     /// <summary>
-    /// Verifies that properties can be modified after the object is created.
+    ///     Verifies that properties can be modified after the object is created.
     /// </summary>
     [Fact]
     public void PropertiesCanBeChangedAfterCreation()

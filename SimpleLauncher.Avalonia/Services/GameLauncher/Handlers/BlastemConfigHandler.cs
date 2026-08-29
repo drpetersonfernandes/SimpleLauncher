@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Blastem (Genesis) emulator before launching a game.
+///     Handles configuration injection for the Blastem (Genesis) emulator before launching a game.
 /// </summary>
 public class BlastemConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BlastemConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="BlastemConfigHandler" /> class.
     /// </summary>
     public BlastemConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {
@@ -86,7 +86,6 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
             {
                 shouldRun = true;
                 if (!string.IsNullOrEmpty(resolvedExe) && File.Exists(resolvedExe))
-                {
                     try
                     {
                         BlastemConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
@@ -99,11 +98,8 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
                             $"BlastemConfigHandler: Configuration injection failed for path: {resolvedExe}");
                         // Continue launching the game even if injection fails
                     }
-                }
                 else
-                {
                     _logger.Debug("[BlastemConfigHandler] Skipping configuration injection - emulator not found");
-                }
             }
 
             return shouldRun;

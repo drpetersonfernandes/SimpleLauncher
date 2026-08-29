@@ -3,8 +3,8 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Partial MainWindow implementing <see cref="IUiResetHost"/> for UI state reset and
-/// filter management (WPF MainWindow.UIResetHost.cs parity).
+///     Partial MainWindow implementing <see cref="IUiResetHost" /> for UI state reset and
+///     filter management (WPF MainWindow.UIResetHost.cs parity).
 /// </summary>
 public partial class MainWindow : IUiResetHost
 {

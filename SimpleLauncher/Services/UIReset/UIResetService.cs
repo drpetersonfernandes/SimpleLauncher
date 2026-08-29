@@ -5,7 +5,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Services.UIReset;
 
 /// <summary>
-/// Handles resetting the UI to its initial state, clearing filters, selections, and pagination.
+///     Handles resetting the UI to its initial state, clearing filters, selections, and pagination.
 /// </summary>
 public class UiResetService : IUiResetService
 {

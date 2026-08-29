@@ -27,10 +27,7 @@ internal partial class EditSystemWindow
         {
             //SystemNameDropdown.SelectedIndex = 0; // Optionally select the first item
         }
-        else
-        {
-            // No items, ensure UI reflects this (handled by SelectionChanged if selection becomes null)
-        }
+        // No items, ensure UI reflects this (handled by SelectionChanged if selection becomes null)
     }
 
     private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -78,15 +75,10 @@ internal partial class EditSystemWindow
 
                 // Load system folders
                 if (selectedSystem.PrimarySystemFolder != null)
-                {
                     SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder;
-                }
 
                 AdditionalFoldersListBox.Items.Clear();
-                foreach (var folder in selectedSystem.SystemFolders.Skip(1))
-                {
-                    AdditionalFoldersListBox.Items.Add(folder);
-                }
+                foreach (var folder in selectedSystem.SystemFolders.Skip(1)) AdditionalFoldersListBox.Items.Add(folder);
 
                 SystemImageFolderTextBox.Text = selectedSystem.SystemImageFolder;
 

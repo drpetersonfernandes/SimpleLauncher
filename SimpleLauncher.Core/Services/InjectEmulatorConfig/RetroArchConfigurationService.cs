@@ -1,20 +1,23 @@
 using System.Text;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Provides functionality to inject Simple Launcher settings into the RetroArch emulator configuration file (retroarch.cfg).
+///     Provides functionality to inject Simple Launcher settings into the RetroArch emulator configuration file
+///     (retroarch.cfg).
 /// </summary>
 public static class RetroArchConfigurationService
 {
     /// <summary>
-    /// Injects Simple Launcher configuration settings into the RetroArch emulator's retroarch.cfg file.
-    /// Creates the config from a sample if it does not exist, then updates video, audio, automation, UI, and RetroAchievements settings.
+    ///     Injects Simple Launcher configuration settings into the RetroArch emulator's retroarch.cfg file.
+    ///     Creates the config from a sample if it does not exist, then updates video, audio, automation, UI, and
+    ///     RetroAchievements settings.
     /// </summary>
     /// <param name="emulatorPath">The full path to the RetroArch emulator executable.</param>
     /// <param name="settings">The settings manager containing RetroArch configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -29,7 +32,6 @@ public static class RetroArchConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Retroarch",
                 "retroarch.cfg");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -41,12 +43,9 @@ public static class RetroArchConfigurationService
                     logger.Error(ex, $"[RetroArchConfig] Failed to create retroarch.cfg from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException(
                     $"retroarch.cfg not found in {emuDir} and sample not available at {samplePath}");
-            }
         }
 
         logger.Debug($"[RetroArchConfig] Injecting configuration into: {configPath}");
@@ -128,12 +127,8 @@ public static class RetroArchConfigurationService
 
         // Append missing keys
         foreach (var kvp in updates)
-        {
             if (!keysFound.Contains(kvp.Key))
-            {
                 lines.Add($"{kvp.Key} = {kvp.Value}");
-            }
-        }
 
         try
         {
@@ -159,10 +154,7 @@ public static class RetroArchConfigurationService
 
             // Strip existing surrounding quotes to prevent double-quoting
             val = val.Trim();
-            if (val.Length >= 2 && val.StartsWith('"') && val.EndsWith('"'))
-            {
-                val = val.Substring(1, val.Length - 2);
-            }
+            if (val.Length >= 2 && val.StartsWith('"') && val.EndsWith('"')) val = val.Substring(1, val.Length - 2);
 
             // Escape any internal quotes and wrap in quotes
             val = val.Replace("\"", "\\\"");

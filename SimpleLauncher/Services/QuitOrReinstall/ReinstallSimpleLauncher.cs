@@ -7,17 +7,17 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Services.QuitOrReinstall;
 
 /// <summary>
-/// Handles reinstalling SimpleLauncher by downloading and launching the Updater.exe.
+///     Handles reinstalling SimpleLauncher by downloading and launching the Updater.exe.
 /// </summary>
 public class ReinstallSimpleLauncher
 {
-    private readonly ILogger _logger;
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly IDispatcherService _dispatcherService;
+    private readonly ILogger _logger;
     private readonly IServiceProvider _serviceProvider;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ReinstallSimpleLauncher"/> class.
+    ///     Initializes a new instance of the <see cref="ReinstallSimpleLauncher" /> class.
     /// </summary>
     public ReinstallSimpleLauncher(ILogger logErrors, IApplicationLifetime applicationLifetime,
         IDispatcherService dispatcherService, IServiceProvider serviceProvider)
@@ -29,7 +29,7 @@ public class ReinstallSimpleLauncher
     }
 
     /// <summary>
-    /// Launches Updater.exe (downloading it from GitHub if missing) and shuts down the application.
+    ///     Launches Updater.exe (downloading it from GitHub if missing) and shuts down the application.
     /// </summary>
     public async void StartUpdaterAndShutdownAsync()
     {
@@ -41,7 +41,6 @@ public class ReinstallSimpleLauncher
                 var updaterPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Updater.exe");
 
                 if (File.Exists(updaterPath))
-                {
                     try
                     {
                         var startInfo = new ProcessStartInfo(updaterPath)
@@ -62,9 +61,7 @@ public class ReinstallSimpleLauncher
                         // Notify user that update failed
                         await messageBoxLibrary.UpdaterLaunchFailedMessageBoxAsync();
                     }
-                }
                 else
-                {
                     try
                     {
                         var updateChecker = _serviceProvider.GetRequiredService<CheckForUpdatesService>();
@@ -96,7 +93,6 @@ public class ReinstallSimpleLauncher
 
                         // 4. Verify Updater.exe now exists and launches it
                         if (File.Exists(updaterPath))
-                        {
                             try
                             {
                                 var startInfo = new ProcessStartInfo(updaterPath)
@@ -117,12 +113,9 @@ public class ReinstallSimpleLauncher
                                 // Notify user that update failed
                                 await messageBoxLibrary.UpdaterLaunchFailedMessageBoxAsync();
                             }
-                        }
                         else
-                        {
                             // Notify user
                             await messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
-                        }
                     }
                     catch (Exception ex)
                     {
@@ -132,7 +125,6 @@ public class ReinstallSimpleLauncher
                         // Notify user
                         await messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
                     }
-                }
             }
             catch (Exception ex)
             {

@@ -4,15 +4,15 @@ using SimpleLauncher.Avalonia.ViewModels;
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Window for configuring fuzzy matching settings for game file searches.
+///     Window for configuring fuzzy matching settings for game file searches.
 /// </summary>
 public partial class SetFuzzyMatchingWindow : Window
 {
-    private readonly EventHandler _saveCompletedHandler;
     private readonly EventHandler _cancelRequestedHandler;
+    private readonly EventHandler _saveCompletedHandler;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SetFuzzyMatchingWindow"/> class.
+    ///     Initializes a new instance of the <see cref="SetFuzzyMatchingWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing fuzzy matching configuration logic.</param>
     public SetFuzzyMatchingWindow(SetFuzzyMatchingViewModel viewModel)

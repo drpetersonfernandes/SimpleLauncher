@@ -1,10 +1,11 @@
+using System.Globalization;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the UpdateLogWindow.
+///     ViewModel for the UpdateLogWindow.
 /// </summary>
 public class UpdateLogViewModel : ObservableObject
 {
@@ -12,7 +13,7 @@ public class UpdateLogViewModel : ObservableObject
     private string _logText = "";
 
     /// <summary>
-    /// Gets the log text content.
+    ///     Gets the log text content.
     /// </summary>
     public string LogText
     {
@@ -21,11 +22,11 @@ public class UpdateLogViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Appends a message to the log.
+    ///     Appends a message to the log.
     /// </summary>
     public void AppendLog(string message)
     {
-        _logBuilder.Append(DateTime.Now.ToString("HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture));
+        _logBuilder.Append(DateTime.Now.ToString("HH:mm:ss", CultureInfo.InvariantCulture));
         _logBuilder.Append(" - ");
         _logBuilder.AppendLine(message);
         LogText = _logBuilder.ToString();

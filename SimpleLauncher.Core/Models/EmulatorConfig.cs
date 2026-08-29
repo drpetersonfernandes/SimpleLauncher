@@ -1,7 +1,7 @@
 namespace SimpleLauncher.Core.Models;
 
 /// <summary>
-/// Configuration for a single emulator, including download links, core details, and image pack metadata.
+///     Configuration for a single emulator, including download links, core details, and image pack metadata.
 /// </summary>
 public class EmulatorConfig
 {

@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the RPCS3 (PS3) emulator before launching a game.
+///     Handles configuration injection for the RPCS3 (PS3) emulator before launching a game.
 /// </summary>
 public class Rpcs3ConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class Rpcs3ConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Rpcs3ConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="Rpcs3ConfigHandler" /> class.
     /// </summary>
     public Rpcs3ConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {

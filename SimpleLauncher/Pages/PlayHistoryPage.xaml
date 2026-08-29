@@ -23,7 +23,7 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Content="{DynamicResource PlayHistory}"
-                   FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                   FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}" />
             <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10">
                 <Button Content="{DynamicResource RemovefromHistory}" Click="RemoveHistoryItemButton_ClickAsync"
                         Style="{DynamicResource SecondaryActionButtonStyle}"
@@ -68,14 +68,22 @@
                       SelectionChanged="SetPreviewImageOnSelectionChangedAsync"
                       PreviewKeyDown="DeleteHistoryItemWithDelButtonAsync">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding DisplayName}" Width="*" />
-                    <DataGridTextColumn Header="{DynamicResource MachineDescriptionMameHeader}" Binding="{Binding MachineDescription}" Width="*" />
-                    <DataGridTextColumn Header="{DynamicResource SystemNameHeader}" Binding="{Binding SystemName}" Width="160" />
-                    <DataGridTextColumn Header="{DynamicResource DefaultEmulatorHeader}" Binding="{Binding DefaultEmulator}" Width="180" />
-                    <DataGridTextColumn Header="{DynamicResource TimesPlayedColumnHeader}" Binding="{Binding TimesPlayed}" Width="110" />
-                    <DataGridTextColumn Header="{DynamicResource PlayTimeColumnHeader}" Binding="{Binding FormattedPlayTime}" Width="110" />
-                    <DataGridTextColumn Header="{DynamicResource LastPlayedDateColumnHeader}" Binding="{Binding LastPlayDate}" Width="130" />
-                    <DataGridTextColumn Header="{DynamicResource LastPlayedTimeColumnHeader}" Binding="{Binding LastPlayTime}" Width="130" />
+                    <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding DisplayName}"
+                                        Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource MachineDescriptionMameHeader}"
+                                        Binding="{Binding MachineDescription}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource SystemNameHeader}" Binding="{Binding SystemName}"
+                                        Width="160" />
+                    <DataGridTextColumn Header="{DynamicResource DefaultEmulatorHeader}"
+                                        Binding="{Binding DefaultEmulator}" Width="180" />
+                    <DataGridTextColumn Header="{DynamicResource TimesPlayedColumnHeader}"
+                                        Binding="{Binding TimesPlayed}" Width="110" />
+                    <DataGridTextColumn Header="{DynamicResource PlayTimeColumnHeader}"
+                                        Binding="{Binding FormattedPlayTime}" Width="110" />
+                    <DataGridTextColumn Header="{DynamicResource LastPlayedDateColumnHeader}"
+                                        Binding="{Binding LastPlayDate}" Width="130" />
+                    <DataGridTextColumn Header="{DynamicResource LastPlayedTimeColumnHeader}"
+                                        Binding="{Binding LastPlayTime}" Width="130" />
                 </DataGrid.Columns>
             </DataGrid>
 

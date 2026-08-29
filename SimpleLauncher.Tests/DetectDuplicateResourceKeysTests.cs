@@ -7,14 +7,14 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Scans every localization resource file (strings.*.xaml) for duplicate x:Key entries.
-/// Duplicate keys with identical XML representations are automatically removed so that
-/// only one remains. If duplicate keys have different values, the test fails.
+///     Scans every localization resource file (strings.*.xaml) for duplicate x:Key entries.
+///     Duplicate keys with identical XML representations are automatically removed so that
+///     only one remains. If duplicate keys have different values, the test fails.
 /// </summary>
 public class DetectDuplicateResourceKeysTests
 {
     /// <summary>
-    /// Verifies that no localization resource file contains duplicate x:Key entries.
+    ///     Verifies that no localization resource file contains duplicate x:Key entries.
     /// </summary>
     [Fact]
     public void AllResourceFilesShouldHaveNoDuplicateKeys()
@@ -89,10 +89,7 @@ public class DetectDuplicateResourceKeysTests
                     StringComparer.OrdinalIgnoreCase)
                 .ToList();
 
-            if (!allKeyedElements.SequenceEqual(sortedElements))
-            {
-                hasChanges = true;
-            }
+            if (!allKeyedElements.SequenceEqual(sortedElements)) hasChanges = true;
 
             if (hasChanges)
             {
@@ -139,10 +136,7 @@ public class DetectDuplicateResourceKeysTests
         foreach (var conflict in conflicts)
         {
             message.AppendLine(CultureInfo.InvariantCulture, $"File: {conflict.FileName}, Key: '{conflict.Key}'");
-            foreach (var value in conflict.Values)
-            {
-                message.AppendLine(CultureInfo.InvariantCulture, $"  - {value}");
-            }
+            foreach (var value in conflict.Values) message.AppendLine(CultureInfo.InvariantCulture, $"  - {value}");
         }
 
         Assert.Fail(message.ToString());

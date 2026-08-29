@@ -16,40 +16,34 @@ using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the favorites window, managing favorite games list, preview images, and launching.
+///     ViewModel for the favorites window, managing favorite games list, preview images, and launching.
 /// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public partial class FavoritesViewModel : ObservableObject, IDisposable
 {
     private readonly IConfiguration _configuration;
-    private readonly ILogger _logger;
     private readonly FavoritesManager _favoritesManager;
-    private readonly SettingsManagerService _settings;
-    private readonly IList<SystemManager> _systemManagers;
-    private readonly IList<MameManagerService> _machines;
-    private readonly PlaySoundEffects _playSoundEffects;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly IImageLoader _imageLoader;
+    private readonly ILogger _logger;
+    private readonly IList<MameManagerService> _machines;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly PlaySoundEffects _playSoundEffects;
     private readonly IResourceProvider _resourceProvider;
+    private readonly SettingsManagerService _settings;
+    private readonly IList<SystemManager> _systemManagers;
 
     [ObservableProperty] private ObservableCollection<Favorite> _favorites = [];
-
-    [ObservableProperty] private Favorite? _selectedFavorite;
-
-    [ObservableProperty] private Stream? _previewImageSource;
-
-    // ReSharper disable once UnusedParameterInPartialMethod
-    partial void OnPreviewImageSourceChanged(Stream? oldValue, Stream? newValue)
-    {
-        oldValue?.Dispose();
-    }
 
     [ObservableProperty] private bool _isLoading;
 
     [ObservableProperty] private string _loadingMessage = "";
 
-    /// <summary>Initializes a new instance of the <see cref="FavoritesViewModel"/>.</summary>
+    [ObservableProperty] private Stream? _previewImageSource;
+
+    [ObservableProperty] private Favorite? _selectedFavorite;
+
+    /// <summary>Initializes a new instance of the <see cref="FavoritesViewModel" />.</summary>
     /// <param name="configuration">The application configuration.</param>
     /// <param name="logErrors">The logger instance.</param>
     /// <param name="favoritesManager">The favorites manager for persistence.</param>
@@ -87,6 +81,20 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         _resourceProvider = resourceProvider;
     }
 
+    /// <summary>Releases resources used by this ViewModel.</summary>
+    public void Dispose()
+    {
+        PreviewImageSource?.Dispose();
+        PreviewImageSource = null;
+        GC.SuppressFinalize(this);
+    }
+
+    // ReSharper disable once UnusedParameterInPartialMethod
+    partial void OnPreviewImageSourceChanged(Stream? oldValue, Stream? newValue)
+    {
+        oldValue?.Dispose();
+    }
+
     /// <summary>Loads all favorites with cover images and machine descriptions.</summary>
     /// <returns>A task representing the asynchronous operation.</returns>
     public async Task LoadFavoritesAsync()
@@ -104,9 +112,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             var validSystemNames = _systemManagers.Select(static manager => manager.SystemName).ToList();
             var removedCount = await _favoritesManager.RemoveFavoritesForMissingSystemsAsync(validSystemNames);
             if (removedCount > 0)
-            {
                 _logger.Information($"Removed {removedCount} favorite(s) referencing systems that no longer exist.");
-            }
 
             var favoritesSnapshot = _favoritesManager.FavoriteList.ToList();
             var systemManagersSnapshot = _systemManagers.ToList();
@@ -235,10 +241,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
                     var favoriteToRemove = Favorites.FirstOrDefault(fav =>
                         fav.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)
                         && fav.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
-                    if (favoriteToRemove != null)
-                    {
-                        RemoveFavoriteFromCollection(favoriteToRemove);
-                    }
+                    if (favoriteToRemove != null) RemoveFavoriteFromCollection(favoriteToRemove);
                 }
 
                 _logger.Information($"[LaunchGameFromFavoritesAsync] File does not exist: {filePath}");
@@ -298,10 +301,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
     private void UpdateFavoritesManagerList()
     {
         _favoritesManager.FavoriteList.Clear();
-        foreach (var favorite in Favorites)
-        {
-            _favoritesManager.FavoriteList.Add(favorite);
-        }
+        foreach (var favorite in Favorites) _favoritesManager.FavoriteList.Add(favorite);
 
         _favoritesManager.SaveFavoritesAsync();
     }
@@ -314,10 +314,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         var defaultImagePath = Path.Combine(baseDirectory, "images", "default.png");
 
-        if (systemManager == null)
-        {
-            return defaultImagePath;
-        }
+        if (systemManager == null) return defaultImagePath;
 
         return _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName,
             systemManager.SystemImageFolder);
@@ -325,18 +322,10 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
 
     /// <summary>Gets the system manager for the specified system name.</summary>
     /// <param name="systemName">The system name to look up.</param>
-    /// <returns>The matching <see cref="SystemManager"/>, or <c>null</c> if not found.</returns>
+    /// <returns>The matching <see cref="SystemManager" />, or <c>null</c> if not found.</returns>
     public SystemManager? GetSystemManager(string systemName)
     {
         return _systemManagers.FirstOrDefault(manager =>
             manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-    }
-
-    /// <summary>Releases resources used by this ViewModel.</summary>
-    public void Dispose()
-    {
-        PreviewImageSource?.Dispose();
-        PreviewImageSource = null;
-        GC.SuppressFinalize(this);
     }
 }

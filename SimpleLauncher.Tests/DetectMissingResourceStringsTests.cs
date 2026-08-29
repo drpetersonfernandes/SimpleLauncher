@@ -8,15 +8,15 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Compares every resource key referenced via _resourceProvider.GetString in the
-/// SimpleLauncher C# source code against the English resource dictionary (strings.en.xaml).
-/// Missing keys are automatically appended to the resource file and the test
-/// fails so the developer is informed of what was added.
+///     Compares every resource key referenced via _resourceProvider.GetString in the
+///     SimpleLauncher C# source code against the English resource dictionary (strings.en.xaml).
+///     Missing keys are automatically appended to the resource file and the test
+///     fails so the developer is informed of what was added.
 /// </summary>
 public partial class DetectMissingResourceStringsTests
 {
     /// <summary>
-    /// Verifies that the English resource file contains every key referenced in the source code.
+    ///     Verifies that the English resource file contains every key referenced in the source code.
     /// </summary>
     [Fact]
     public void EnglishResourceFileShouldContainAllReferencedKeys()
@@ -47,22 +47,13 @@ public partial class DetectMissingResourceStringsTests
         var keysWithoutValues = new List<string>();
 
         foreach (var key in missingKeys)
-        {
             if (csKeys.TryGetValue(key, out var fallback) && !string.IsNullOrEmpty(fallback))
-            {
                 keysWithValues[key] = fallback;
-            }
             else
-            {
                 keysWithoutValues.Add(key);
-            }
-        }
 
         // Only auto-add keys that have a known non-empty fallback value.
-        if (keysWithValues.Count > 0)
-        {
-            AppendMissingEntries(stringsEnPath, keysWithValues);
-        }
+        if (keysWithValues.Count > 0) AppendMissingEntries(stringsEnPath, keysWithValues);
 
         // Always fail when there are missing keys so the developer knows what happened.
         var message = new StringBuilder();
@@ -76,9 +67,7 @@ public partial class DetectMissingResourceStringsTests
                 $"The following {keysWithValues.Count} key(s) were automatically added to strings.en.xaml:");
             message.AppendLine();
             foreach (var key in keysWithValues.Keys.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
-            {
                 message.AppendLine(CultureInfo.InvariantCulture, $"  - {key}");
-            }
 
             message.AppendLine();
         }
@@ -89,17 +78,15 @@ public partial class DetectMissingResourceStringsTests
                 $"The following {keysWithoutValues.Count} key(s) could not be automatically added because no fallback value is known. Please add them manually to strings.en.xaml:");
             message.AppendLine();
             foreach (var key in keysWithoutValues.OrderBy(static k => k, StringComparer.OrdinalIgnoreCase))
-            {
                 message.AppendLine(CultureInfo.InvariantCulture, $"  - {key}");
-            }
         }
 
         Assert.Fail(message.ToString());
     }
 
     /// <summary>
-    /// Scans .cs files for TryFindResource("...") and captures the key.
-    /// When a literal fallback string is present (?? "...") it is stored as the value.
+    ///     Scans .cs files for TryFindResource("...") and captures the key.
+    ///     When a literal fallback string is present (?? "...") it is stored as the value.
     /// </summary>
     private static Dictionary<string, string> CollectCsKeys(string sourcePath)
     {
@@ -138,8 +125,8 @@ public partial class DetectMissingResourceStringsTests
     }
 
     /// <summary>
-    /// Parses strings.en.xaml, appends the missing entries, sorts everything
-    /// alphabetically by key, and rewrites the file preserving the XML header.
+    ///     Parses strings.en.xaml, appends the missing entries, sorts everything
+    ///     alphabetically by key, and rewrites the file preserving the XML header.
     /// </summary>
     private static void AppendMissingEntries(string filePath, Dictionary<string, string> missingEntries)
     {
@@ -155,28 +142,18 @@ public partial class DetectMissingResourceStringsTests
             if (match.Success)
             {
                 existingEntries[match.Groups[1].Value] = UnescapeXml(match.Groups[2].Value);
-                if (firstEntryIndex == -1)
-                {
-                    firstEntryIndex = i;
-                }
+                if (firstEntryIndex == -1) firstEntryIndex = i;
             }
             else if (string.Equals(lines[i].Trim(), "</ResourceDictionary>", StringComparison.Ordinal))
             {
-                if (firstEntryIndex == -1)
-                {
-                    firstEntryIndex = i;
-                }
+                if (firstEntryIndex == -1) firstEntryIndex = i;
             }
         }
 
         // Merge missing entries.
         foreach (var kvp in missingEntries)
-        {
             if (!existingEntries.ContainsKey(kvp.Key))
-            {
                 existingEntries[kvp.Key] = kvp.Value;
-            }
-        }
 
         // Rebuild file: header + sorted entries + footer.
         var header = firstEntryIndex >= 0 ? lines.Take(firstEntryIndex).ToList() : lines.ToList();

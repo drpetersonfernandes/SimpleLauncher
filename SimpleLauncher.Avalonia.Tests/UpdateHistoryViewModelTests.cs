@@ -3,7 +3,7 @@ using SimpleLauncher.Avalonia.ViewModels;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the UpdateHistoryWindow ViewModel (Phase 4.1 port).
+///     Tests for the UpdateHistoryWindow ViewModel (Phase 4.1 port).
 /// </summary>
 public class UpdateHistoryViewModelTests
 {
@@ -11,10 +11,7 @@ public class UpdateHistoryViewModelTests
     public async Task Initialize_WhatsNewMissing_ShowsFallbackMessage()
     {
         var whatsNew = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WhatsNew.md");
-        if (File.Exists(whatsNew))
-        {
-            File.Delete(whatsNew);
-        }
+        if (File.Exists(whatsNew)) File.Delete(whatsNew);
 
         var vm = new UpdateHistoryViewModel(TestDependencies.Logger().Object,
             TestDependencies.ResourceProvider().Object);

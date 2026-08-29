@@ -8,10 +8,10 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for <see cref="AvaloniaTrayIconManager"/> (Phase 7 cross-platform service)
-/// under the headless Avalonia platform. The headless windowing platform returns a
-/// null ITrayIconImpl, so the tray icon is inert — but the menu structure, the
-/// Application attachment, and the lifecycle contract are still fully observable.
+///     Tests for <see cref="AvaloniaTrayIconManager" /> (Phase 7 cross-platform service)
+///     under the headless Avalonia platform. The headless windowing platform returns a
+///     null ITrayIconImpl, so the tray icon is inert — but the menu structure, the
+///     Application attachment, and the lifecycle contract are still fully observable.
 /// </summary>
 public class AvaloniaTrayIconManagerTests
 {
@@ -160,8 +160,8 @@ public class AvaloniaTrayIconManagerTests
     }
 
     /// <summary>
-    /// Raises the TrayIcon Clicked event via reflection (events can only be invoked
-    /// from within their declaring type).
+    ///     Raises the TrayIcon Clicked event via reflection (events can only be invoked
+    ///     from within their declaring type).
     /// </summary>
     private static void RaiseClicked()
     {

@@ -4,14 +4,14 @@ using SimpleLauncher.ViewModels;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Window for configuring gamepad dead zone sensitivity settings.
+///     Window for configuring gamepad dead zone sensitivity settings.
 /// </summary>
 public partial class SetGamepadDeadZoneWindow
 {
     private readonly EventHandler _saveCompletedHandler;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SetGamepadDeadZoneWindow"/> class.
+    ///     Initializes a new instance of the <see cref="SetGamepadDeadZoneWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing dead zone configuration logic.</param>
     public SetGamepadDeadZoneWindow(SetGamepadDeadZoneViewModel viewModel)
@@ -22,10 +22,7 @@ public partial class SetGamepadDeadZoneWindow
 
         _saveCompletedHandler = (_, _) =>
         {
-            if (IsLoaded)
-            {
-                DialogResult = true;
-            }
+            if (IsLoaded) DialogResult = true;
 
             Close();
         };

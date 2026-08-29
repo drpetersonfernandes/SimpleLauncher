@@ -8,7 +8,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="XisoMountStrategy"/> class.
+///     Tests for the <see cref="XisoMountStrategy" /> class.
 /// </summary>
 public class XisoMountStrategyTests
 {
@@ -27,7 +27,7 @@ public class XisoMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that the strategy has a priority of 20.
+    ///     Verifies that the strategy has a priority of 20.
     /// </summary>
     [Fact]
     public void PriorityIs20()
@@ -37,7 +37,7 @@ public class XisoMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="XisoMountStrategy.IsMatch"/> returns false when the file path is empty.
+    ///     Verifies that <see cref="XisoMountStrategy.IsMatch" /> returns false when the file path is empty.
     /// </summary>
     [Fact]
     public void IsMatchEmptyFilePathReturnsFalse()
@@ -53,7 +53,7 @@ public class XisoMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="XisoMountStrategy.IsMatch"/> returns false when the emulator name is empty.
+    ///     Verifies that <see cref="XisoMountStrategy.IsMatch" /> returns false when the emulator name is empty.
     /// </summary>
     [Fact]
     public void IsMatchEmptyEmulatorNameReturnsFalse()
@@ -69,7 +69,7 @@ public class XisoMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="XisoMountStrategy.IsMatch"/> returns false when the file is not an ISO.
+    ///     Verifies that <see cref="XisoMountStrategy.IsMatch" /> returns false when the file is not an ISO.
     /// </summary>
     [Fact]
     public void IsMatchNonIsoFileReturnsFalse()
@@ -85,7 +85,7 @@ public class XisoMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="XisoMountStrategy.IsMatch"/> returns false for non-Cxbx emulators.
+    ///     Verifies that <see cref="XisoMountStrategy.IsMatch" /> returns false for non-Cxbx emulators.
     /// </summary>
     [Fact]
     public void IsMatchNonCxbxEmulatorReturnsFalse()
@@ -101,7 +101,8 @@ public class XisoMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="XisoMountStrategy.IsMatch"/> returns true when the emulator name is a Cxbx variant and the file is an ISO.
+    ///     Verifies that <see cref="XisoMountStrategy.IsMatch" /> returns true when the emulator name is a Cxbx variant and
+    ///     the file is an ISO.
     /// </summary>
     /// <param name="emulatorName">The emulator name variant to test.</param>
     [Theory]
@@ -122,7 +123,7 @@ public class XisoMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that ISO file extension matching is case-insensitive.
+    ///     Verifies that ISO file extension matching is case-insensitive.
     /// </summary>
     [Fact]
     public void IsMatchIsoExtensionCaseInsensitive()
@@ -150,7 +151,7 @@ public class XisoMountStrategyTests
     }
 
     /// <summary>
-    /// Verifies that <see cref="XisoMountStrategy.IsMatch"/> returns false for non-ISO file extensions.
+    ///     Verifies that <see cref="XisoMountStrategy.IsMatch" /> returns false for non-ISO file extensions.
     /// </summary>
     /// <param name="extension">The file extension to test.</param>
     [Theory]

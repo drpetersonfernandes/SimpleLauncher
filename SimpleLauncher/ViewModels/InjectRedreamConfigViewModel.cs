@@ -10,32 +10,32 @@ using SimpleLauncher.Services.InjectEmulatorConfig;
 namespace SimpleLauncher.ViewModels;
 
 /// <summary>
-/// ViewModel for the Redream emulator configuration injection window.
+///     ViewModel for the Redream emulator configuration injection window.
 /// </summary>
 public partial class InjectRedreamConfigViewModel : ObservableObject
 {
-    private readonly SettingsManagerService _settings;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    [ObservableProperty] private string _redreamCable = null!;
-    [ObservableProperty] private string _redreamBroadcast = null!;
-    [ObservableProperty] private bool _redreamVsync;
-    [ObservableProperty] private bool _redreamFrameskip;
     [ObservableProperty] private string _redreamAspect = null!;
-    [ObservableProperty] private int _redreamRes;
-    [ObservableProperty] private string _redreamRenderer = null!;
+    [ObservableProperty] private string _redreamBroadcast = null!;
+    [ObservableProperty] private string _redreamCable = null!;
+    [ObservableProperty] private bool _redreamFramerate;
+    [ObservableProperty] private bool _redreamFrameskip;
     [ObservableProperty] private string _redreamFullmode = null!;
-    [ObservableProperty] private int _redreamWidth;
     [ObservableProperty] private int _redreamHeight;
     [ObservableProperty] private string _redreamLanguage = null!;
-    [ObservableProperty] private string _redreamRegion = null!;
-    [ObservableProperty] private int _redreamVolume;
     [ObservableProperty] private int _redreamLatency;
-    [ObservableProperty] private bool _redreamFramerate;
+    [ObservableProperty] private string _redreamRegion = null!;
+    [ObservableProperty] private string _redreamRenderer = null!;
+    [ObservableProperty] private int _redreamRes;
     [ObservableProperty] private bool _redreamShowSettingsBeforeLaunch;
+    [ObservableProperty] private int _redreamVolume;
+    [ObservableProperty] private bool _redreamVsync;
+    [ObservableProperty] private int _redreamWidth;
 
-    /// <summary>Initializes a new instance of the <see cref="InjectRedreamConfigViewModel"/>.</summary>
+    /// <summary>Initializes a new instance of the <see cref="InjectRedreamConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
     /// <param name="messageBox">The message box service.</param>
     /// <param name="logger">The logger instance.</param>
@@ -48,7 +48,81 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Initializes the ViewModel with the emulator path and launcher mode.
+    ///     Available video cable options for Redream.
+    /// </summary>
+    public IList<string> CableOptions { get; } = ["vga", "composite", "rgb"];
+
+    /// <summary>
+    ///     Available broadcast standard options for Redream.
+    /// </summary>
+    public IList<string> BroadcastOptions { get; } = ["ntsc", "pal", "pal_m", "pal_n"];
+
+    /// <summary>
+    ///     Available aspect ratio options for Redream.
+    /// </summary>
+    public IList<string> AspectOptions { get; } = ["4:3", "16:9", "stretch"];
+
+    /// <summary>
+    ///     Available internal resolution options for Redream.
+    /// </summary>
+    public IList<string> ResOptions { get; } = ["1", "2", "3", "4", "5", "6", "7", "8"];
+
+    /// <summary>
+    ///     Available renderer options for Redream.
+    /// </summary>
+    public IList<string> RendererOptions { get; } = ["hle_perstrip", "hle_perpixel", "lle"];
+
+    /// <summary>
+    ///     Available fullscreen mode options for Redream.
+    /// </summary>
+    public IList<string> FullmodeOptions { get; } = ["windowed", "exclusive fullscreen", "borderless fullscreen"];
+
+    /// <summary>
+    ///     Tags corresponding to the fullscreen mode options for Redream.
+    /// </summary>
+    public IList<string> FullmodeTags { get; } = ["windowed", "exclusive fullscreen", "borderless fullscreen"];
+
+    /// <summary>
+    ///     Available window size options for Redream.
+    /// </summary>
+    public IList<string> WindowSizeOptions { get; } =
+    [
+        "640x480", "800x600", "1024x768", "1280x960", "1024x576", "1280x720", "1600x900", "1920x1080", "2560x1440",
+        "3840x2160", "2560x1080", "3440x1440"
+    ];
+
+    /// <summary>
+    ///     Available language options for Redream.
+    /// </summary>
+    public IList<string> LanguageOptions { get; } = ["english", "japanese", "german", "french", "spanish", "italian"];
+
+    /// <summary>
+    ///     Available region options for Redream.
+    /// </summary>
+    public IList<string> RegionOptions { get; } = ["usa", "japan", "europe"];
+
+    /// <summary>
+    ///     Gets whether the configuration is being injected from launcher mode.
+    /// </summary>
+    public bool IsLauncherMode { get; private set; }
+
+    /// <summary>
+    ///     Gets whether the emulator should be launched after configuration injection.
+    /// </summary>
+    public bool ShouldRun { get; private set; }
+
+    /// <summary>
+    ///     Requests the user to provide the emulator executable path.
+    /// </summary>
+    public Func<string?>? RequestEmulatorPath { get; set; }
+
+    /// <summary>
+    ///     Gets the owner window for dialog display.
+    /// </summary>
+    public Func<Window>? GetOwnerWindow { get; set; }
+
+    /// <summary>
+    ///     Initializes the ViewModel with the emulator path and launcher mode.
     /// </summary>
     /// <param name="emulatorPath">The file path to the Redream emulator executable.</param>
     /// <param name="isLauncherMode">Whether the configuration is being injected from launcher mode.</param>
@@ -60,71 +134,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Available video cable options for Redream.
-    /// </summary>
-    public IList<string> CableOptions { get; } = ["vga", "composite", "rgb"];
-
-    /// <summary>
-    /// Available broadcast standard options for Redream.
-    /// </summary>
-    public IList<string> BroadcastOptions { get; } = ["ntsc", "pal", "pal_m", "pal_n"];
-
-    /// <summary>
-    /// Available aspect ratio options for Redream.
-    /// </summary>
-    public IList<string> AspectOptions { get; } = ["4:3", "16:9", "stretch"];
-
-    /// <summary>
-    /// Available internal resolution options for Redream.
-    /// </summary>
-    public IList<string> ResOptions { get; } = ["1", "2", "3", "4", "5", "6", "7", "8"];
-
-    /// <summary>
-    /// Available renderer options for Redream.
-    /// </summary>
-    public IList<string> RendererOptions { get; } = ["hle_perstrip", "hle_perpixel", "lle"];
-
-    /// <summary>
-    /// Available fullscreen mode options for Redream.
-    /// </summary>
-    public IList<string> FullmodeOptions { get; } = ["windowed", "exclusive fullscreen", "borderless fullscreen"];
-
-    /// <summary>
-    /// Tags corresponding to the fullscreen mode options for Redream.
-    /// </summary>
-    public IList<string> FullmodeTags { get; } = ["windowed", "exclusive fullscreen", "borderless fullscreen"];
-
-    /// <summary>
-    /// Available window size options for Redream.
-    /// </summary>
-    public IList<string> WindowSizeOptions { get; } =
-    [
-        "640x480", "800x600", "1024x768", "1280x960", "1024x576", "1280x720", "1600x900", "1920x1080", "2560x1440",
-        "3840x2160", "2560x1080", "3440x1440"
-    ];
-
-    /// <summary>
-    /// Available language options for Redream.
-    /// </summary>
-    public IList<string> LanguageOptions { get; } = ["english", "japanese", "german", "french", "spanish", "italian"];
-
-    /// <summary>
-    /// Available region options for Redream.
-    /// </summary>
-    public IList<string> RegionOptions { get; } = ["usa", "japan", "europe"];
-
-    /// <summary>
-    /// Gets whether the configuration is being injected from launcher mode.
-    /// </summary>
-    public bool IsLauncherMode { get; private set; }
-
-    /// <summary>
-    /// Gets whether the emulator should be launched after configuration injection.
-    /// </summary>
-    public bool ShouldRun { get; private set; }
-
-    /// <summary>
-    /// Raised when the window should be closed.
+    ///     Raised when the window should be closed.
     /// </summary>
     public event EventHandler CloseRequested = null!;
 
@@ -133,16 +143,6 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     {
         CloseRequested?.Invoke(this, EventArgs.Empty);
     }
-
-    /// <summary>
-    /// Requests the user to provide the emulator executable path.
-    /// </summary>
-    public Func<string?>? RequestEmulatorPath { get; set; }
-
-    /// <summary>
-    /// Gets the owner window for dialog display.
-    /// </summary>
-    public Func<Window>? GetOwnerWindow { get; set; }
 
     private void LoadSettings()
     {
@@ -187,10 +187,7 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
 
     private async Task<string?> EnsureEmulatorPathAsync()
     {
-        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath))
-        {
-            return _emulatorPath;
-        }
+        if (!string.IsNullOrEmpty(_emulatorPath) && File.Exists(_emulatorPath)) return _emulatorPath;
 
         var resolved = EmulatorPathResolver.TryFindEmulatorPath("Redream", _logger);
         if (!string.IsNullOrEmpty(resolved) && File.Exists(resolved))

@@ -5,12 +5,12 @@ using SimpleLauncher.Interfaces;
 namespace SimpleLauncher.Services.GameScan;
 
 /// <summary>
-/// Scans for installed Humble App games by reading its configuration file and creates shortcuts for them.
+///     Scans for installed Humble App games by reading its configuration file and creates shortcuts for them.
 /// </summary>
 public class ScanHumbleGames : IGamePlatformScanner
 {
     /// <summary>
-    /// Reads the Humble App configuration and creates shortcuts for installed or downloaded games.
+    ///     Reads the Humble App configuration and creates shortcuts for installed or downloaded games.
     /// </summary>
     /// <param name="gameScannerService">The scanner service providing shared helpers.</param>
     /// <param name="logErrors">The error logger.</param>
@@ -30,9 +30,7 @@ public class ScanHumbleGames : IGamePlatformScanner
             using var doc = JsonDocument.Parse(jsonContent);
 
             if (doc.RootElement.TryGetProperty("game-collection-4", out var collection))
-            {
                 foreach (var game in collection.EnumerateArray())
-                {
                     try
                     {
                         var status = game.GetProperty("status").GetString();
@@ -61,15 +59,10 @@ public class ScanHumbleGames : IGamePlatformScanner
                         {
                             var downloadPath = dfp.GetString();
                             if (!string.IsNullOrEmpty(downloadPath) && !string.IsNullOrEmpty(machineName))
-                            {
                                 installDir = Path.Combine(downloadPath, machineName);
-                            }
                         }
 
-                        if (game.TryGetProperty("executablePath", out var ep))
-                        {
-                            exePath = ep.GetString();
-                        }
+                        if (game.TryGetProperty("executablePath", out var ep)) exePath = ep.GetString();
 
                         if (string.IsNullOrEmpty(installDir) || !Directory.Exists(installDir)) continue;
 
@@ -82,9 +75,7 @@ public class ScanHumbleGames : IGamePlatformScanner
 
                         string? fullExePath = null;
                         if (!string.IsNullOrEmpty(installDir) && !string.IsNullOrEmpty(exePath))
-                        {
                             fullExePath = Path.Combine(installDir, exePath);
-                        }
 
                         await gameScannerService.FindAndSaveGameImageAsync(logErrors, gameName, installDir,
                             sanitizedGameName, windowsImagesPath, fullExePath);
@@ -93,8 +84,6 @@ public class ScanHumbleGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, "Error processing Humble game entry.");
                     }
-                }
-            }
         }
         catch (Exception ex)
         {

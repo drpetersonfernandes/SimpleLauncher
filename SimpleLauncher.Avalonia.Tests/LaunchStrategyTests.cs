@@ -7,9 +7,9 @@ using SimpleLauncher.Core.Services.GameLauncher.Strategies;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the Phase 10 launch strategy port — dispatch (IsMatch) rules for every
-/// ported strategy and the global priority ordering (ascending, Default last).
-/// The Core strategies (Default/ZipMount/XisoMount) are asserted for parity only.
+///     Tests for the Phase 10 launch strategy port — dispatch (IsMatch) rules for every
+///     ported strategy and the global priority ordering (ascending, Default last).
+///     The Core strategies (Default/ZipMount/XisoMount) are asserted for parity only.
 /// </summary>
 public class LaunchStrategyTests
 {
@@ -264,13 +264,13 @@ public class LaunchStrategyTests
 
     private sealed class TempDirectory : IDisposable
     {
-        public string Path { get; } =
-            System.IO.Path.Combine(System.IO.Path.GetTempPath(), "sl_av_dos_" + Guid.NewGuid().ToString("N"));
-
         public TempDirectory()
         {
             Directory.CreateDirectory(Path);
         }
+
+        public string Path { get; } =
+            System.IO.Path.Combine(System.IO.Path.GetTempPath(), "sl_av_dos_" + Guid.NewGuid().ToString("N"));
 
         public void Dispose()
         {

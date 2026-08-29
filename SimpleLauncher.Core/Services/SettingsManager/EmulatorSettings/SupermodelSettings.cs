@@ -4,7 +4,8 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 
 /// <summary>
-/// Configuration settings for the Supermodel (Sega Model 3) arcade emulator, including 3D rendering, input, and audio options.
+///     Configuration settings for the Supermodel (Sega Model 3) arcade emulator, including 3D rendering, input, and audio
+///     options.
 /// </summary>
 public class SupermodelSettings : IEmulatorSettings
 {
@@ -56,14 +57,6 @@ public class SupermodelSettings : IEmulatorSettings
 
     /// <summary>Gets or sets whether the emulator settings dialog is shown before launching a game.</summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
-
-    private static string ValidateInputSystem(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value)) return "xinput";
-
-        var normalized = value.Trim().ToLowerInvariant();
-        return normalized is "xinput" or "dinput" or "rawinput" ? normalized : "xinput";
-    }
 
 
     /// <summary>Loads emulator settings from the provided XML configuration element.</summary>
@@ -139,5 +132,13 @@ public class SupermodelSettings : IEmulatorSettings
     public void ResetDefaults()
     {
         CopyFrom(new SupermodelSettings());
+    }
+
+    private static string ValidateInputSystem(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return "xinput";
+
+        var normalized = value.Trim().ToLowerInvariant();
+        return normalized is "xinput" or "dinput" or "rawinput" ? normalized : "xinput";
     }
 }

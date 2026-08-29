@@ -4,7 +4,7 @@ using SimpleLauncher.Core.Services.CheckPaths;
 namespace SimpleLauncher.Core.Services.CleanAndDeleteFiles;
 
 /// <summary>
-/// Provides file deletion helpers with retry logic for locked or read-only files.
+///     Provides file deletion helpers with retry logic for locked or read-only files.
 /// </summary>
 public static class DeleteFiles
 {
@@ -12,7 +12,7 @@ public static class DeleteFiles
     private const int DeleteRetryDelayMs = 1000;
 
     /// <summary>
-    /// Synchronous version for backward compatibility. Use TryDeleteFileAsync in async contexts.
+    ///     Synchronous version for backward compatibility. Use TryDeleteFileAsync in async contexts.
     /// </summary>
     public static void TryDeleteFile(string filePath)
     {
@@ -23,17 +23,13 @@ public static class DeleteFiles
         if (!File.Exists(longPath)) return;
 
         for (var i = 0; i < MaxDeleteRetries; i++)
-        {
             try
             {
                 // Remove read-only attribute if needed. This is inside the retry
                 // loop because modifying attributes on a locked file will throw —
                 // if that happens we want to retry, not exit early.
                 var fileInfo = new FileInfo(longPath);
-                if (fileInfo.IsReadOnly)
-                {
-                    fileInfo.IsReadOnly = false;
-                }
+                if (fileInfo.IsReadOnly) fileInfo.IsReadOnly = false;
 
                 File.Delete(longPath);
                 // If deletion succeeds, return
@@ -60,19 +56,14 @@ public static class DeleteFiles
                 // If the file is Updater.exe and an Updater process is still running,
                 // skip silently — the file is locked and will be cleaned up on next launch
                 if (Path.GetFileName(filePath).Equals("Updater.exe", StringComparison.OrdinalIgnoreCase))
-                {
                     try
                     {
-                        if (Process.GetProcessesByName("Updater").Length != 0)
-                        {
-                            return;
-                        }
+                        if (Process.GetProcessesByName("Updater").Length != 0) return;
                     }
                     catch
                     {
                         // Process check failed, proceed with normal retry logic
                     }
-                }
 
                 // If this is the last attempt, log final failure
                 if (i == MaxDeleteRetries - 1)
@@ -93,11 +84,10 @@ public static class DeleteFiles
 
                 return;
             }
-        }
     }
 
     /// <summary>
-    /// Async version for use in async contexts to avoid blocking.
+    ///     Async version for use in async contexts to avoid blocking.
     /// </summary>
     public static async Task TryDeleteFileAsync(string filePath)
     {
@@ -108,17 +98,13 @@ public static class DeleteFiles
         if (!File.Exists(longPath)) return;
 
         for (var i = 0; i < MaxDeleteRetries; i++)
-        {
             try
             {
                 // Remove read-only attribute if needed. This is inside the retry
                 // loop because modifying attributes on a locked file will throw —
                 // if that happens we want to retry, not exit early.
                 var fileInfo = new FileInfo(longPath);
-                if (fileInfo.IsReadOnly)
-                {
-                    fileInfo.IsReadOnly = false;
-                }
+                if (fileInfo.IsReadOnly) fileInfo.IsReadOnly = false;
 
                 File.Delete(longPath);
                 // If deletion succeeds, return
@@ -143,19 +129,14 @@ public static class DeleteFiles
                 // If the file is Updater.exe and an Updater process is still running,
                 // skip silently — the file is locked and will be cleaned up on next launch
                 if (Path.GetFileName(filePath).Equals("Updater.exe", StringComparison.OrdinalIgnoreCase))
-                {
                     try
                     {
-                        if (Process.GetProcessesByName("Updater").Length != 0)
-                        {
-                            return;
-                        }
+                        if (Process.GetProcessesByName("Updater").Length != 0) return;
                     }
                     catch
                     {
                         // Process check failed, proceed with normal retry logic
                     }
-                }
 
                 // If this is the last attempt, log final failure
                 if (i == MaxDeleteRetries - 1)
@@ -176,6 +157,5 @@ public static class DeleteFiles
 
                 return;
             }
-        }
     }
 }

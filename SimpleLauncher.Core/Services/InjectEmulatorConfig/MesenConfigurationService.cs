@@ -1,21 +1,24 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Provides functionality to inject Simple Launcher settings into the Mesen emulator configuration file (settings.json).
+///     Provides functionality to inject Simple Launcher settings into the Mesen emulator configuration file
+///     (settings.json).
 /// </summary>
 public static class MesenConfigurationService
 {
     /// <summary>
-    /// Injects Simple Launcher configuration settings into the Mesen emulator's settings.json file.
-    /// Creates the config from a sample if it does not exist, then updates video, audio, preferences, and emulation settings.
+    ///     Injects Simple Launcher configuration settings into the Mesen emulator's settings.json file.
+    ///     Creates the config from a sample if it does not exist, then updates video, audio, preferences, and emulation
+    ///     settings.
     /// </summary>
     /// <param name="emulatorPath">The full path to the Mesen emulator executable.</param>
     /// <param name="settings">The settings manager containing Mesen configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -29,7 +32,6 @@ public static class MesenConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Mesen", "settings.json");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -41,12 +43,9 @@ public static class MesenConfigurationService
                     logger.Error(ex, $"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException(
                     $"settings.json not found in {emuDir} and sample not available at {samplePath}");
-            }
         }
 
         logger.Debug($"[MesenConfig] Injecting configuration into: {configPath}");
@@ -57,9 +56,7 @@ public static class MesenConfigurationService
             var root = JsonNode.Parse(jsonContent)?.AsObject();
 
             if (root == null)
-            {
                 throw new InvalidDataException("Failed to parse Mesen settings.json as a valid JSON object.");
-            }
 
             // [Video]
             var video = GetOrCreateObject(root, "Video");
@@ -108,10 +105,7 @@ public static class MesenConfigurationService
 
     private static JsonObject GetOrCreateObject(JsonObject parent, string key)
     {
-        if (parent.ContainsKey(key) && parent[key] is JsonObject existingObject)
-        {
-            return existingObject;
-        }
+        if (parent.ContainsKey(key) && parent[key] is JsonObject existingObject) return existingObject;
 
         var newObject = new JsonObject();
         parent[key] = newObject;

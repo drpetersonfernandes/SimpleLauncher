@@ -5,9 +5,9 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.DisplaySystemInfo;
 
 /// <summary>
-/// Validates system configuration and produces human-readable system information.
-/// Extracted from the WPF DisplaySystemInformation service — adapted for Avalonia
-/// by returning data models instead of manipulating WPF UI elements directly.
+///     Validates system configuration and produces human-readable system information.
+///     Extracted from the WPF DisplaySystemInformation service — adapted for Avalonia
+///     by returning data models instead of manipulating WPF UI elements directly.
 /// </summary>
 public class AvaloniaDisplaySystemInformation
 {
@@ -19,7 +19,7 @@ public class AvaloniaDisplaySystemInformation
     }
 
     /// <summary>
-    /// Validates a system configuration (folders, image folder, emulator paths).
+    ///     Validates a system configuration (folders, image folder, emulator paths).
     /// </summary>
     public SystemValidationResult ValidateSystemConfiguration(SystemManagerConfig config)
     {
@@ -71,7 +71,7 @@ public class AvaloniaDisplaySystemInformation
     }
 
     /// <summary>
-    /// Builds a structured system information model for display in any Avalonia UI.
+    ///     Builds a structured system information model for display in any Avalonia UI.
     /// </summary>
     public SystemInfoModel BuildSystemInfo(SystemManagerConfig config)
     {
@@ -105,7 +105,7 @@ public class AvaloniaDisplaySystemInformation
 }
 
 /// <summary>
-/// Structured system information for display in Avalonia UI.
+///     Structured system information for display in Avalonia UI.
 /// </summary>
 public class SystemInfoModel
 {
@@ -124,7 +124,7 @@ public class SystemInfoModel
 }
 
 /// <summary>
-/// Emulator information for display.
+///     Emulator information for display.
 /// </summary>
 public class EmulatorInfoModel
 {

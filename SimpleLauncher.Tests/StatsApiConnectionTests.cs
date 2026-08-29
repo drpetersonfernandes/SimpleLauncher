@@ -9,9 +9,9 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Integration tests that make real HTTP calls to both Stats API endpoints.
-/// Stats API 1 (StatsApiUrl):  Usage/emulator launch statistics.
-/// Stats API 2 (StatsApiUrl2): Application version statistics.
+///     Integration tests that make real HTTP calls to both Stats API endpoints.
+///     Stats API 1 (StatsApiUrl):  Usage/emulator launch statistics.
+///     Stats API 2 (StatsApiUrl2): Application version statistics.
 /// </summary>
 public class StatsApiConnectionTests
 {
@@ -29,9 +29,7 @@ public class StatsApiConnectionTests
     {
         var assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         if (assemblyLocation == null)
-        {
             throw new InvalidOperationException("Could not determine executing assembly location.");
-        }
 
         var path = Path.Combine(assemblyLocation, "..", "..", "..", "..", relativePath);
         return Path.GetFullPath(path);
@@ -65,7 +63,7 @@ public class StatsApiConnectionTests
     // -- Stats API 1: Usage/emulator statistics (StatsApiUrl) --
 
     /// <summary>
-    /// Verifies that the Stats API 1 usage endpoint is reachable with a valid API key.
+    ///     Verifies that the Stats API 1 usage endpoint is reachable with a valid API key.
     /// </summary>
     [Fact]
     public async Task StatsApi1_UsageCall_IsReachable()
@@ -85,7 +83,7 @@ public class StatsApiConnectionTests
     }
 
     /// <summary>
-    /// Verifies that the Stats API 1 emulator call endpoint is reachable with a valid API key.
+    ///     Verifies that the Stats API 1 emulator call endpoint is reachable with a valid API key.
     /// </summary>
     [Fact]
     public async Task StatsApi1_EmulatorCall_IsReachable()
@@ -106,7 +104,7 @@ public class StatsApiConnectionTests
     }
 
     /// <summary>
-    /// Verifies that the Stats API 1 returns a valid response body on success.
+    ///     Verifies that the Stats API 1 returns a valid response body on success.
     /// </summary>
     [Fact]
     public async Task StatsApi1_ReturnsValidResponseContent()
@@ -128,7 +126,7 @@ public class StatsApiConnectionTests
     }
 
     /// <summary>
-    /// Verifies that the Stats API 1 responds within the configured timeout.
+    ///     Verifies that the Stats API 1 responds within the configured timeout.
     /// </summary>
     [Fact]
     public async Task StatsApi1_RespondsWithinTimeout()
@@ -150,7 +148,7 @@ public class StatsApiConnectionTests
     // -- Stats API 2: Application version statistics (StatsApiUrl2) --
 
     /// <summary>
-    /// Verifies that the Stats API 2 application stats endpoint is reachable with a valid API key.
+    ///     Verifies that the Stats API 2 application stats endpoint is reachable with a valid API key.
     /// </summary>
     [Fact]
     public async Task StatsApi2_ApplicationStatsCall_IsReachable()
@@ -173,7 +171,7 @@ public class StatsApiConnectionTests
     }
 
     /// <summary>
-    /// Verifies that the Stats API 2 returns a valid response body on success.
+    ///     Verifies that the Stats API 2 returns a valid response body on success.
     /// </summary>
     [Fact]
     public async Task StatsApi2_ReturnsValidResponseContent()
@@ -198,7 +196,7 @@ public class StatsApiConnectionTests
     }
 
     /// <summary>
-    /// Verifies that the Stats API 2 responds within the configured timeout.
+    ///     Verifies that the Stats API 2 responds within the configured timeout.
     /// </summary>
     [Fact]
     public async Task StatsApi2_RespondsWithinTimeout()
@@ -223,7 +221,7 @@ public class StatsApiConnectionTests
     // -- Both APIs tested together --
 
     /// <summary>
-    /// Verifies that both Stats API endpoints are reachable with a valid API key.
+    ///     Verifies that both Stats API endpoints are reachable with a valid API key.
     /// </summary>
     /// <param name="url">The Stats API endpoint URL.</param>
     [Theory]
@@ -258,7 +256,7 @@ public class StatsApiConnectionTests
     }
 
     /// <summary>
-    /// Verifies that both Stats API endpoints respond gracefully when called with an invalid API key.
+    ///     Verifies that both Stats API endpoints respond gracefully when called with an invalid API key.
     /// </summary>
     /// <param name="url">The Stats API endpoint URL.</param>
     [Theory]
@@ -289,7 +287,7 @@ public class StatsApiConnectionTests
     }
 
     /// <summary>
-    /// Verifies that the Stats API configuration values in appsettings.json are valid and distinct.
+    ///     Verifies that the Stats API configuration values in appsettings.json are valid and distinct.
     /// </summary>
     [Fact]
     public async Task StatsApi_ConfigurationUrlsMatchAppSettings()

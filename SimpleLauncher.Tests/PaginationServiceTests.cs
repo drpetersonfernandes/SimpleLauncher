@@ -5,8 +5,8 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="PaginationService"/> core pagination behavior including
-/// page navigation, boundary checks, subset selection, and host initialization.
+///     Tests for <see cref="PaginationService" /> core pagination behavior including
+///     page navigation, boundary checks, subset selection, and host initialization.
 /// </summary>
 public class PaginationServiceTests
 {
@@ -20,7 +20,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that the default current page is 1 when no pagination has been applied.
+    ///     Verifies that the default current page is 1 when no pagination has been applied.
     /// </summary>
     [Fact]
     public void DefaultCurrentPageIs1()
@@ -30,7 +30,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that the default total files count is 0 when no pagination has been applied.
+    ///     Verifies that the default total files count is 0 when no pagination has been applied.
     /// </summary>
     [Fact]
     public void DefaultTotalFilesIs0()
@@ -40,7 +40,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that CanGoPrev returns false when on the first page.
+    ///     Verifies that CanGoPrev returns false when on the first page.
     /// </summary>
     [Fact]
     public void CanGoPrevReturnsFalseOnFirstPage()
@@ -50,7 +50,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that CanGoNext returns false when there are no files.
+    ///     Verifies that CanGoNext returns false when there are no files.
     /// </summary>
     [Fact]
     public void CanGoNextReturnsFalseWhenNoFiles()
@@ -60,7 +60,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that CanGoNext returns true when more pages are available beyond the current page.
+    ///     Verifies that CanGoNext returns true when more pages are available beyond the current page.
     /// </summary>
     [Fact]
     public void CanGoNextReturnsTrueWhenMorePages()
@@ -72,7 +72,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that CanGoNext returns false when on the last page.
+    ///     Verifies that CanGoNext returns false when on the last page.
     /// </summary>
     [Fact]
     public void CanGoNextReturnsFalseOnLastPage()
@@ -84,7 +84,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that GoToNextPage increments the current page number.
+    ///     Verifies that GoToNextPage increments the current page number.
     /// </summary>
     [Fact]
     public void GoToNextPageIncrementsPage()
@@ -97,7 +97,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that GoToNextPage does not advance beyond the total number of pages.
+    ///     Verifies that GoToNextPage does not advance beyond the total number of pages.
     /// </summary>
     [Fact]
     public void GoToNextPageDoesNotExceedTotalPages()
@@ -112,7 +112,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that GoToPreviousPage decrements the current page number.
+    ///     Verifies that GoToPreviousPage decrements the current page number.
     /// </summary>
     [Fact]
     public void GoToPreviousPageDecrementsPage()
@@ -126,7 +126,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that GoToPreviousPage does not decrement below page 1.
+    ///     Verifies that GoToPreviousPage does not decrement below page 1.
     /// </summary>
     [Fact]
     public void GoToPreviousPageDoesNotGoBelow1()
@@ -140,8 +140,8 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that ApplyPagination returns a subset of files equal to FilesPerPage when
-    /// the total file count exceeds the pagination threshold.
+    ///     Verifies that ApplyPagination returns a subset of files equal to FilesPerPage when
+    ///     the total file count exceeds the pagination threshold.
     /// </summary>
     [Fact]
     public void ApplyPaginationReturnsCorrectSubsetAboveThreshold()
@@ -153,7 +153,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that ApplyPagination returns all files when the count is below the pagination threshold.
+    ///     Verifies that ApplyPagination returns all files when the count is below the pagination threshold.
     /// </summary>
     [Fact]
     public void ApplyPaginationReturnsAllFilesBelowThreshold()
@@ -165,7 +165,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that ApplyPagination returns an empty list when given an empty input.
+    ///     Verifies that ApplyPagination returns an empty list when given an empty input.
     /// </summary>
     [Fact]
     public void ApplyPaginationReturnsEmptyListForEmptyInput()
@@ -176,7 +176,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that ApplyPagination updates the TotalFiles property to reflect the input count.
+    ///     Verifies that ApplyPagination updates the TotalFiles property to reflect the input count.
     /// </summary>
     [Fact]
     public void ApplyPaginationUpdatesTotalFiles()
@@ -188,7 +188,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that ApplyPagination on the second page returns the correct file subset.
+    ///     Verifies that ApplyPagination on the second page returns the correct file subset.
     /// </summary>
     [Fact]
     public void ApplyPaginationSecondPageReturnsCorrectFiles()
@@ -204,7 +204,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that ApplyPagination on the last page returns only the remaining files.
+    ///     Verifies that ApplyPagination on the last page returns only the remaining files.
     /// </summary>
     [Fact]
     public void ApplyPaginationLastPageReturnsRemainingFiles()
@@ -218,7 +218,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that Reset sets the current page back to 1.
+    ///     Verifies that Reset sets the current page back to 1.
     /// </summary>
     [Fact]
     public void ResetSetsPageBackTo1()
@@ -233,7 +233,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that calling Reset without initializing a host does not throw an exception.
+    ///     Verifies that calling Reset without initializing a host does not throw an exception.
     /// </summary>
     [Fact]
     public void ResetWithoutHostDoesNotThrow()
@@ -244,7 +244,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that Initialize sets the host and that pagination interacts with it correctly.
+    ///     Verifies that Initialize sets the host and that pagination interacts with it correctly.
     /// </summary>
     [Fact]
     public void InitializeSetsHost()
@@ -258,7 +258,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that ApplyPagination handles an exact page boundary where file count equals FilesPerPage.
+    ///     Verifies that ApplyPagination handles an exact page boundary where file count equals FilesPerPage.
     /// </summary>
     [Fact]
     public void ApplyPaginationWithExactPageBoundary()
@@ -271,7 +271,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that ApplyPagination correctly handles a single file input.
+    ///     Verifies that ApplyPagination correctly handles a single file input.
     /// </summary>
     [Fact]
     public void ApplyPaginationSingleFile()
@@ -283,7 +283,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that the FilesPerPage property can be modified after construction.
+    ///     Verifies that the FilesPerPage property can be modified after construction.
     /// </summary>
     [Fact]
     public void FilesPerPageCanBeModified()
@@ -294,7 +294,7 @@ public class PaginationServiceTests
     }
 
     /// <summary>
-    /// Verifies that the PaginationThreshold property can be modified after construction.
+    ///     Verifies that the PaginationThreshold property can be modified after construction.
     /// </summary>
     [Fact]
     public void PaginationThresholdCanBeModified()
@@ -307,32 +307,32 @@ public class PaginationServiceTests
     private sealed class TestPaginationHost : IPaginationHost
     {
         /// <summary>
-        /// Gets a value indicating whether the host was asked to display the no-files message.
+        ///     Gets a value indicating whether the host was asked to display the no-files message.
         /// </summary>
         public bool NoFilesMessageAdded { get; private set; }
 
         /// <summary>
-        /// Gets the last enabled state requested for the previous-page button, or <c>null</c> if never set.
+        ///     Gets the last enabled state requested for the previous-page button, or <c>null</c> if never set.
         /// </summary>
         public bool? PrevButtonEnabled { get; private set; }
 
         /// <summary>
-        /// Gets the last enabled state requested for the next-page button, or <c>null</c> if never set.
+        ///     Gets the last enabled state requested for the next-page button, or <c>null</c> if never set.
         /// </summary>
         public bool? NextButtonEnabled { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating whether the host was asked to scroll the view back to the top.
+        ///     Gets a value indicating whether the host was asked to scroll the view back to the top.
         /// </summary>
         public bool ScrolledToTop { get; private set; }
 
         /// <summary>
-        /// Gets the last total-files status label supplied by the pagination service.
+        ///     Gets the last total-files status label supplied by the pagination service.
         /// </summary>
         public string? LastStatusLabel { get; private set; }
 
         /// <summary>
-        /// Records that the host was asked to display the no-files message.
+        ///     Records that the host was asked to display the no-files message.
         /// </summary>
         public void AddNoFilesMessage()
         {
@@ -340,7 +340,7 @@ public class PaginationServiceTests
         }
 
         /// <summary>
-        /// Records the requested enabled state of the previous-page button.
+        ///     Records the requested enabled state of the previous-page button.
         /// </summary>
         /// <param name="enabled">The requested enabled state.</param>
         public void SetPrevPageButtonEnabled(bool enabled)
@@ -349,7 +349,7 @@ public class PaginationServiceTests
         }
 
         /// <summary>
-        /// Records the requested enabled state of the next-page button.
+        ///     Records the requested enabled state of the next-page button.
         /// </summary>
         /// <param name="enabled">The requested enabled state.</param>
         public void SetNextPageButtonEnabled(bool enabled)
@@ -358,7 +358,7 @@ public class PaginationServiceTests
         }
 
         /// <summary>
-        /// Records that the host was asked to scroll the view back to the top.
+        ///     Records that the host was asked to scroll the view back to the top.
         /// </summary>
         public void ScrollToTop()
         {
@@ -366,7 +366,7 @@ public class PaginationServiceTests
         }
 
         /// <summary>
-        /// Records the total-files status label supplied by the pagination service.
+        ///     Records the total-files status label supplied by the pagination service.
         /// </summary>
         /// <param name="label">The status label text, or <c>null</c> to clear it.</param>
         public void UpdateTotalFilesLabel(string? label)

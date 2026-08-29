@@ -8,17 +8,17 @@ using MessagePack;
 namespace Mame.DatCreator;
 
 /// <summary>
-/// Contains the core logic for creating merged MAME DAT files.
+///     Contains the core logic for creating merged MAME DAT files.
 /// </summary>
 /// <summary>
-/// Contains logic for creating merged MAME DAT files from XML sources.
+///     Contains logic for creating merged MAME DAT files from XML sources.
 /// </summary>
 public class DatCreatorLogic
 {
     private readonly WpfLogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DatCreatorLogic"/> class.
+    ///     Initializes a new instance of the <see cref="DatCreatorLogic" /> class.
     /// </summary>
     /// <param name="logger">The logger instance for output messages.</param>
     public DatCreatorLogic(WpfLogger logger)
@@ -27,7 +27,7 @@ public class DatCreatorLogic
     }
 
     /// <summary>
-    /// Creates a merged DAT file from MAME full driver XML and software list folder.
+    ///     Creates a merged DAT file from MAME full driver XML and software list folder.
     /// </summary>
     /// <param name="fullXmlPath">Path to the MAME full driver XML file.</param>
     /// <param name="hashFolderPath">Path to the MAME hash folder containing software list XMLs.</param>
@@ -47,12 +47,8 @@ public class DatCreatorLogic
 
             // Add machines from the full list FIRST (full list has priority)
             foreach (var machine in fullList)
-            {
                 if (!string.IsNullOrEmpty(machine.MachineName))
-                {
                     uniqueMachines.TryAdd(machine.MachineName, machine);
-                }
-            }
 
             _logger.Info($"After processing full list, there are {uniqueMachines.Count} unique machines.");
 
@@ -61,20 +57,14 @@ public class DatCreatorLogic
             var addedCount = 0;
 
             foreach (var machine in softwareList)
-            {
                 if (!string.IsNullOrEmpty(machine.MachineName))
                 {
                     if (!uniqueMachines.TryAdd(machine.MachineName, machine))
-                    {
                         // Skip - full list entry takes priority
                         skippedCount++;
-                    }
                     else
-                    {
                         addedCount++;
-                    }
                 }
-            }
 
             _logger.Info(
                 $"Software list processing: {addedCount} new entries added, {skippedCount} duplicates skipped (full list has priority).");

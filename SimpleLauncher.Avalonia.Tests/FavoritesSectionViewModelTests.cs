@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.Favorites;
@@ -9,31 +10,30 @@ using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
-using SimpleLauncher.Core.Services.UsageStats;
-using SimpleLauncher.Core.Services.RetroAchievements;
-using SimpleLauncher.Core.Services.PlaySound;
-using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Core.Services.GameLauncher.Strategies;
 using SimpleLauncher.Core.Services.GamePad;
-using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Core.Services.PlaySound;
+using SimpleLauncher.Core.Services.RetroAchievements;
+using SimpleLauncher.Core.Services.SettingsManager;
+using SimpleLauncher.Core.Services.UsageStats;
 
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Verifies the Favorites section ViewModel loads stored favorites into rows
-/// (the file names resolve against the system folders, matching the WPF flow).
+///     Verifies the Favorites section ViewModel loads stored favorites into rows
+///     (the file names resolve against the system folders, matching the WPF flow).
 /// </summary>
 public class FavoritesSectionViewModelTests : IDisposable
 {
-    private readonly string _tempRoot = Path.Combine(Path.GetTempPath(), $"SL_FavSection_{Guid.NewGuid():N}");
+    private readonly IConfiguration _config;
+    private readonly string _dataFolder;
+    private readonly Mock<ILogger> _logger = new();
+    private readonly MainViewModel _mainViewModel;
+    private readonly Mock<IMameDataService> _mameData = new();
+    private readonly Mock<IMessageBoxLibraryService> _messageBox = new();
     private readonly string _romsFolder;
     private readonly string _systemXmlPath;
-    private readonly string _dataFolder;
-    private readonly IConfiguration _config;
-    private readonly Mock<IMessageBoxLibraryService> _messageBox = new();
-    private readonly Mock<ILogger> _logger = new();
-    private readonly Mock<IMameDataService> _mameData = new();
-    private readonly MainViewModel _mainViewModel;
+    private readonly string _tempRoot = Path.Combine(Path.GetTempPath(), $"SL_FavSection_{Guid.NewGuid():N}");
 
     public FavoritesSectionViewModelTests()
     {
@@ -104,7 +104,7 @@ public class FavoritesSectionViewModelTests : IDisposable
     {
         try
         {
-            if (Directory.Exists(_tempRoot)) Directory.Delete(_tempRoot, recursive: true);
+            if (Directory.Exists(_tempRoot)) Directory.Delete(_tempRoot, true);
         }
         catch
         {
@@ -151,10 +151,7 @@ public class FavoritesSectionViewModelTests : IDisposable
     private static FavoritesManager CreateManager(params Favorite[] favorites)
     {
         var manager = new FavoritesManager();
-        foreach (var f in favorites)
-        {
-            manager.FavoriteList.Add(f);
-        }
+        foreach (var f in favorites) manager.FavoriteList.Add(f);
 
         return manager;
     }

@@ -6,17 +6,10 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="BoolConverter"/>, which handles API booleans expressed as numbers (0/1).
+///     Tests for <see cref="BoolConverter" />, which handles API booleans expressed as numbers (0/1).
 /// </summary>
 public class BoolConverterTests
 {
-    private sealed class Payload
-    {
-        [JsonConverter(typeof(BoolConverter))] public bool Flag { get; set; }
-
-        [JsonConverter(typeof(BoolConverter))] public bool Other { get; set; }
-    }
-
     private static Payload Deserialize(string json)
     {
         return JsonSerializer.Deserialize<Payload>(json)!;
@@ -70,5 +63,12 @@ public class BoolConverterTests
         var roundTripped = Deserialize(json);
         Assert.True(roundTripped.Flag);
         Assert.False(roundTripped.Other);
+    }
+
+    private sealed class Payload
+    {
+        [JsonConverter(typeof(BoolConverter))] public bool Flag { get; set; }
+
+        [JsonConverter(typeof(BoolConverter))] public bool Other { get; set; }
     }
 }

@@ -1,21 +1,22 @@
 using System.Text;
+using SimpleLauncher.Core.Services.SettingsManager;
 using YamlDotNet.Serialization;
 
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Provides functionality to inject Simple Launcher settings into the RPCS3 emulator configuration file (config.yml).
+///     Provides functionality to inject Simple Launcher settings into the RPCS3 emulator configuration file (config.yml).
 /// </summary>
 public static class Rpcs3ConfigurationService
 {
     /// <summary>
-    /// Injects Simple Launcher configuration settings into the RPCS3 emulator's config.yml file.
-    /// Creates the config from a sample if it does not exist, then updates core, video, audio, and miscellaneous settings.
+    ///     Injects Simple Launcher configuration settings into the RPCS3 emulator's config.yml file.
+    ///     Creates the config from a sample if it does not exist, then updates core, video, audio, and miscellaneous settings.
     /// </summary>
     /// <param name="emulatorPath">The full path to the RPCS3 emulator executable.</param>
     /// <param name="settings">The settings manager containing RPCS3 configuration values.</param>
     /// <param name="logger">The logger instance for diagnostic output.</param>
-    public static void InjectSettings(string emulatorPath, SettingsManager.SettingsManagerService settings,
+    public static void InjectSettings(string emulatorPath, SettingsManagerService settings,
         ILogger logger)
     {
         var emuDir = Path.GetDirectoryName(emulatorPath);
@@ -28,7 +29,6 @@ public static class Rpcs3ConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "RPCS3", "config.yml");
             if (File.Exists(samplePath))
-            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -40,11 +40,8 @@ public static class Rpcs3ConfigurationService
                     logger.Error(ex, $"[RPCS3Config] Failed to create config.yml from sample: {ex.Message}");
                     throw;
                 }
-            }
             else
-            {
                 throw new FileNotFoundException("config.yml not found and sample is missing.", samplePath);
-            }
         }
 
         logger.Debug($"[RPCS3Config] Injecting configuration into: {configPath}");

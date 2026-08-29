@@ -1,20 +1,22 @@
+using System.Diagnostics;
+using System.Globalization;
 using System.Text;
+using Serilog.Events;
 using SimpleLauncher.ResourceTranslator.Models;
 using SimpleLauncher.ResourceTranslator.Services;
 using SimpleLauncher.ResourceTranslator.Services.DebugAndBugReport;
-using Serilog.Events;
 
 namespace SimpleLauncher.ResourceTranslator;
 
 /// <summary>
-/// Entry point for the SimpleLauncher Resource Translator tool.
+///     Entry point for the SimpleLauncher Resource Translator tool.
 /// </summary>
 public class Program
 {
     private const int BatchSize = 40;
 
     /// <summary>
-    /// Asynchronous entry point for the application.
+    ///     Asynchronous entry point for the application.
     /// </summary>
     private static async Task MainAsync()
     {
@@ -82,11 +84,9 @@ public class Program
             Console.WriteLine();
 
             foreach (var batch in batches)
-            {
                 Log.Information(
                     "  [{LanguageCode}] {LanguageName}: {MissingCount} missing, {DuplicateCount} duplicates",
                     batch.LanguageCode, batch.LanguageName, batch.MissingKeys.Count, batch.DuplicateKeysRemoved.Count);
-            }
 
             Console.WriteLine();
             Console.WriteLine("Press any key to proceed with translation, or Ctrl+C to cancel...");
@@ -121,7 +121,7 @@ public class Program
 
             GeminiModelInfo selectedModel;
             if (string.IsNullOrEmpty(modelInput) ||
-                !int.TryParse(modelInput, System.Globalization.CultureInfo.InvariantCulture, out var modelIndex) ||
+                !int.TryParse(modelInput, CultureInfo.InvariantCulture, out var modelIndex) ||
                 modelIndex < 1 || modelIndex > models.Count)
             {
                 selectedModel = models.First(static m =>
@@ -137,13 +137,13 @@ public class Program
             Console.WriteLine();
 
             var translator = new GeminiTranslationService(apiKey, selectedModel.Id, selectedModel.ApiVersion);
-            var overallStopwatch = System.Diagnostics.Stopwatch.StartNew();
+            var overallStopwatch = Stopwatch.StartNew();
 
             foreach (var batch in batches)
             {
                 Log.Information("Processing [{LanguageCode}] {LanguageName}...", batch.LanguageCode,
                     batch.LanguageName);
-                var languageStopwatch = System.Diagnostics.Stopwatch.StartNew();
+                var languageStopwatch = Stopwatch.StartNew();
 
                 var allTranslations = new Dictionary<string, string>(StringComparer.Ordinal);
                 var missingList = batch.MissingKeys;
@@ -152,18 +152,15 @@ public class Program
                 for (var i = 0; i < missingList.Count; i += BatchSize)
                 {
                     var currentBatch = missingList.Skip(i).Take(BatchSize).ToList();
-                    var batchNumber = (i / BatchSize) + 1;
+                    var batchNumber = i / BatchSize + 1;
 
                     Console.Write($"  Batch {batchNumber}/{totalBatches} ({currentBatch.Count} keys)... ");
-                    var sw = System.Diagnostics.Stopwatch.StartNew();
+                    var sw = Stopwatch.StartNew();
 
                     try
                     {
                         var translations = await translator.TranslateBatchAsync(batch.LanguageName, currentBatch);
-                        foreach (var kvp in translations)
-                        {
-                            allTranslations[kvp.Key] = kvp.Value;
-                        }
+                        foreach (var kvp in translations) allTranslations[kvp.Key] = kvp.Value;
 
                         Console.WriteLine($"done in {sw.ElapsedMilliseconds}ms");
                         Log.Debug("Batch {BatchNumber} completed in {ElapsedMs}ms", batchNumber,
@@ -178,10 +175,7 @@ public class Program
                     }
 
                     // Small delay to avoid rate limits
-                    if (i + BatchSize < missingList.Count)
-                    {
-                        await Task.Delay(500);
-                    }
+                    if (i + BatchSize < missingList.Count) await Task.Delay(500);
                 }
 
                 // Write back to XAML
@@ -215,7 +209,7 @@ public class Program
     }
 
     /// <summary>
-    /// Synchronous entry point that invokes the asynchronous main method.
+    ///     Synchronous entry point that invokes the asynchronous main method.
     /// </summary>
     /// <param name="args">Command-line arguments.</param>
     public static void Main(string[] args)

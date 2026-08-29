@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the <see cref="CheckPath"/> utility for validating file system paths and emulator executable paths.
+///     Tests the <see cref="CheckPath" /> utility for validating file system paths and emulator executable paths.
 /// </summary>
 public class CheckPathTests
 {
     /// <summary>
-    /// Verifies that empty or whitespace-only paths return false for <see cref="CheckPath.IsValidPath"/>.
+    ///     Verifies that empty or whitespace-only paths return false for <see cref="CheckPath.IsValidPath" />.
     /// </summary>
     [Theory]
     [InlineData("")]
@@ -21,7 +21,7 @@ public class CheckPathTests
     }
 
     /// <summary>
-    /// Verifies that a null path returns false for <see cref="CheckPath.IsValidPath"/>.
+    ///     Verifies that a null path returns false for <see cref="CheckPath.IsValidPath" />.
     /// </summary>
     [Fact]
     public void IsValidPathNullReturnsFalse()
@@ -31,7 +31,8 @@ public class CheckPathTests
     }
 
     /// <summary>
-    /// Verifies that empty or whitespace-only paths return false for <see cref="CheckPath.IsValidEmulatorExecutablePath"/>.
+    ///     Verifies that empty or whitespace-only paths return false for
+    ///     <see cref="CheckPath.IsValidEmulatorExecutablePath" />.
     /// </summary>
     [Theory]
     [InlineData("")]
@@ -43,7 +44,7 @@ public class CheckPathTests
     }
 
     /// <summary>
-    /// Verifies that a null path returns false for <see cref="CheckPath.IsValidEmulatorExecutablePath"/>.
+    ///     Verifies that a null path returns false for <see cref="CheckPath.IsValidEmulatorExecutablePath" />.
     /// </summary>
     [Fact]
     public void IsValidEmulatorExecutablePathNullReturnsFalse()
@@ -53,7 +54,7 @@ public class CheckPathTests
     }
 
     /// <summary>
-    /// Verifies that an existing file path returns true for <see cref="CheckPath.IsValidPath"/>.
+    ///     Verifies that an existing file path returns true for <see cref="CheckPath.IsValidPath" />.
     /// </summary>
     [Fact]
     public void IsValidPathExistingFileReturnsTrue()
@@ -71,7 +72,7 @@ public class CheckPathTests
     }
 
     /// <summary>
-    /// Verifies that an existing directory path returns true for <see cref="CheckPath.IsValidPath"/>.
+    ///     Verifies that an existing directory path returns true for <see cref="CheckPath.IsValidPath" />.
     /// </summary>
     [Fact]
     public void IsValidPathExistingDirectoryReturnsTrue()
@@ -90,7 +91,7 @@ public class CheckPathTests
     }
 
     /// <summary>
-    /// Verifies that a non-existent path returns false for <see cref="CheckPath.IsValidPath"/>.
+    ///     Verifies that a non-existent path returns false for <see cref="CheckPath.IsValidPath" />.
     /// </summary>
     [Fact]
     public void IsValidPathNonExistentPathReturnsFalse()
@@ -101,7 +102,7 @@ public class CheckPathTests
     }
 
     /// <summary>
-    /// Verifies that a non-.exe file returns false for <see cref="CheckPath.IsValidEmulatorExecutablePath"/>.
+    ///     Verifies that a non-.exe file returns false for <see cref="CheckPath.IsValidEmulatorExecutablePath" />.
     /// </summary>
     [Fact]
     public void IsValidEmulatorExecutablePathNonExeFileReturnsFalse()
@@ -119,7 +120,7 @@ public class CheckPathTests
     }
 
     /// <summary>
-    /// Verifies that an .exe file returns true for <see cref="CheckPath.IsValidEmulatorExecutablePath"/>.
+    ///     Verifies that an .exe file returns true for <see cref="CheckPath.IsValidEmulatorExecutablePath" />.
     /// </summary>
     [Fact]
     public void IsValidEmulatorExecutablePathExeFileReturnsTrue()
@@ -138,7 +139,7 @@ public class CheckPathTests
     }
 
     /// <summary>
-    /// Verifies that a .bat file returns true for <see cref="CheckPath.IsValidEmulatorExecutablePath"/>.
+    ///     Verifies that a .bat file returns true for <see cref="CheckPath.IsValidEmulatorExecutablePath" />.
     /// </summary>
     [Fact]
     public void IsValidEmulatorExecutablePathBatFileReturnsTrue()
@@ -157,7 +158,7 @@ public class CheckPathTests
     }
 
     /// <summary>
-    /// Verifies that a .lnk file returns true for <see cref="CheckPath.IsValidEmulatorExecutablePath"/>.
+    ///     Verifies that a .lnk file returns true for <see cref="CheckPath.IsValidEmulatorExecutablePath" />.
     /// </summary>
     [Fact]
     public void IsValidEmulatorExecutablePathLnkFileReturnsTrue()
@@ -176,7 +177,7 @@ public class CheckPathTests
     }
 
     /// <summary>
-    /// Verifies that %BASEFOLDER% resolves to the app directory and the sub-path is checked correctly.
+    ///     Verifies that %BASEFOLDER% resolves to the app directory and the sub-path is checked correctly.
     /// </summary>
     [Fact]
     public void IsValidPathWithBaseFolderPlaceholderResolvesAndChecks()

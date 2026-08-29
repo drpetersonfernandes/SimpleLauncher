@@ -6,22 +6,22 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="RetroAchievementsFileHasher"/> covering the hash calculation
-/// delegated to the RetroAchievementsSharp CLI tool (whole-file hashes, header stripping,
-/// N64 byte-swapping, arcade filename hashing, Arduboy line-ending normalization, and
-/// graceful failures for unsupported inputs).
+///     Tests for <see cref="RetroAchievementsFileHasher" /> covering the hash calculation
+///     delegated to the RetroAchievementsSharp CLI tool (whole-file hashes, header stripping,
+///     N64 byte-swapping, arcade filename hashing, Arduboy line-ending normalization, and
+///     graceful failures for unsupported inputs).
 /// </summary>
 public class RetroAchievementsFileHasherTests : IDisposable
 {
-    private readonly string _testDirectory;
-
     private readonly RetroAchievementsFileHasher _hasher = new(
         new NoOpLogger(),
         new RetroAchievementsSystemMatcher(new NoOpLogger(), new NoOpLogger()));
 
+    private readonly string _testDirectory;
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsFileHasherTests"/> class,
-    /// installing the service provider mock and creating a temporary test directory.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsFileHasherTests" /> class,
+    ///     installing the service provider mock and creating a temporary test directory.
     /// </summary>
     public RetroAchievementsFileHasherTests()
     {
@@ -31,7 +31,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory and restores the service provider mock.
+    ///     Cleans up the temporary test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
@@ -70,7 +70,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Game Boy hashing returns the expected whole-file MD5 hash for known content.
+    ///     Verifies that Game Boy hashing returns the expected whole-file MD5 hash for known content.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncGameBoyReturnsExpectedHash()
@@ -84,7 +84,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Game Boy hashing returns the MD5 hash for an empty file.
+    ///     Verifies that Game Boy hashing returns the MD5 hash for an empty file.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncGameBoyEmptyFileReturnsExpectedHash()
@@ -97,7 +97,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Arcade hashing returns a 32-character hex hash for a valid file path.
+    ///     Verifies that Arcade hashing returns a 32-character hex hash for a valid file path.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncArcadeReturnsExpectedHash()
@@ -111,8 +111,8 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Arcade hashing produces the same hash for files with the same name
-    /// but different paths or extensions.
+    ///     Verifies that Arcade hashing produces the same hash for files with the same name
+    ///     but different paths or extensions.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncArcadeSameFilenameWithoutExtensionProducesSameHash()
@@ -127,7 +127,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Arcade hashing produces different hashes for different file names.
+    ///     Verifies that Arcade hashing produces different hashes for different file names.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncArcadeDifferentFilenamesProduceDifferentHashes()
@@ -142,7 +142,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that Arduboy hashing normalizes CRLF and LF line endings to produce the same hash.
+    ///     Verifies that Arduboy hashing normalizes CRLF and LF line endings to produce the same hash.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncArduboyNormalizesLineEndings()
@@ -159,7 +159,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that .z64 N64 ROMs are hashed directly (big endian, no byte swapping).
+    ///     Verifies that .z64 N64 ROMs are hashed directly (big endian, no byte swapping).
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncN64Z64ReturnsStandardMd5()
@@ -173,7 +173,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that .v64 N64 ROMs are 16-bit byte-swapped before hashing.
+    ///     Verifies that .v64 N64 ROMs are 16-bit byte-swapped before hashing.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncN64V64ReturnsByteSwappedMd5()
@@ -187,7 +187,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that .n64 N64 ROMs are 32-bit byte-swapped before hashing.
+    ///     Verifies that .n64 N64 ROMs are 32-bit byte-swapped before hashing.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncN64N64ReturnsByteSwappedMd5()
@@ -201,7 +201,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that N64 hashing returns null for files that are not valid N64 ROMs.
+    ///     Verifies that N64 hashing returns null for files that are not valid N64 ROMs.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncN64InvalidRomReturnsNull()
@@ -215,7 +215,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that NES ROMs with a 16-byte header are hashed after stripping the header.
+    ///     Verifies that NES ROMs with a 16-byte header are hashed after stripping the header.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncNesStripsHeader()
@@ -233,7 +233,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that NES ROMs without a header are hashed entirely.
+    ///     Verifies that NES ROMs without a header are hashed entirely.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncNesWithoutHeaderHashesWholeFile()
@@ -246,7 +246,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that 3DS files return null when no decryption keys are available.
+    ///     Verifies that 3DS files return null when no decryption keys are available.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsync3DsWithoutKeysReturnsNull()
@@ -259,7 +259,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that hashing returns null for systems without a known console ID.
+    ///     Verifies that hashing returns null for systems without a known console ID.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncUnknownSystemReturnsNull()
@@ -272,7 +272,7 @@ public class RetroAchievementsFileHasherTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that hashing returns null for files that do not exist.
+    ///     Verifies that hashing returns null for files that do not exist.
     /// </summary>
     [Fact]
     public async Task CalculateHashAsyncMissingFileReturnsNull()

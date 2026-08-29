@@ -7,18 +7,19 @@ using Microsoft.Extensions.Configuration;
 namespace SimpleLauncher.Core.Services.UsageStats;
 
 /// <summary>
-/// Manages sending usage and emulator launch statistics to the remote stats API with configurable endpoints and authentication.
+///     Manages sending usage and emulator launch statistics to the remote stats API with configurable endpoints and
+///     authentication.
 /// </summary>
 public class Stats
 {
-    private string _apiKey = "";
-    private string _statsApiUrl = "";
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogger _logger;
+    private string _apiKey = "";
     private bool _isApiEnabled;
+    private string _statsApiUrl = "";
 
     /// <summary>
-    /// Initializes a new instance of the Stats class, loading API configuration.
+    ///     Initializes a new instance of the Stats class, loading API configuration.
     /// </summary>
     public Stats(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogger logger)
     {
@@ -73,9 +74,9 @@ public class Stats
     }
 
     /// <summary>
-    /// Call the API.
-    /// If an emulator name is provided, then it is assumed this is an emulator launch call.
-    /// If no emulator name is provided, then it is a general usage call.
+    ///     Call the API.
+    ///     If an emulator name is provided, then it is assumed this is an emulator launch call.
+    ///     If no emulator name is provided, then it is a general usage call.
     /// </summary>
     /// <param name="emulatorName">The name of the emulator (if applicable); otherwise, null.</param>
     internal async Task CallApiAsync(string? emulatorName = null)
@@ -97,10 +98,8 @@ public class Stats
 
         // Use the loaded API URL
         if (await TryApiAsync(callType, payloadEmulatorName))
-        {
             // ReSharper disable once RedundantJumpStatement
             return; // Success.
-        }
     }
 
     private async Task<bool> TryApiAsync(string callType, string? emulatorName)
@@ -206,7 +205,7 @@ public class Stats
     }
 
     /// <summary>
-    /// Converts the input string to a title case (first letter of each word capitalized).
+    ///     Converts the input string to a title case (first letter of each word capitalized).
     /// </summary>
     /// <param name="input">The input string.</param>
     /// <returns>The normalized string.</returns>

@@ -7,19 +7,19 @@ using SimpleLauncher.ViewModels;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Window that displays real-time debug log output.
+///     Window that displays real-time debug log output.
 /// </summary>
 public partial class DebugWindow
 {
     private static readonly Lock InstanceLock = new();
-    private DebugViewModel _viewModel = null!;
-    private PropertyChangedEventHandler? _logTextPropertyChangedHandler;
     private bool _isReallyClosing;
+    private PropertyChangedEventHandler? _logTextPropertyChangedHandler;
+    private DebugViewModel _viewModel = null!;
 
     /// <summary>
-    /// Initializes the window XAML and applies the current app theme.
-    /// NOTE: This constructor is required — without it WPF never calls InitializeComponent()
-    /// and the window opens empty (lost during the Serilog/DI refactor in d206277b).
+    ///     Initializes the window XAML and applies the current app theme.
+    ///     NOTE: This constructor is required — without it WPF never calls InitializeComponent()
+    ///     and the window opens empty (lost during the Serilog/DI refactor in d206277b).
     /// </summary>
     public DebugWindow()
     {
@@ -28,13 +28,13 @@ public partial class DebugWindow
     }
 
     /// <summary>
-    /// Gets the current singleton instance of the debug window, or <c>null</c> when it has not been created.
+    ///     Gets the current singleton instance of the debug window, or <c>null</c> when it has not been created.
     /// </summary>
     internal static DebugWindow? Instance { get; private set; }
 
     /// <summary>
-    /// Creates and shows the singleton debug window, wiring it to the <see cref="DebugViewModel"/> and auto-scrolling
-    /// the log text box whenever new output arrives. If the window already exists it is restored and activated instead.
+    ///     Creates and shows the singleton debug window, wiring it to the <see cref="DebugViewModel" /> and auto-scrolling
+    ///     the log text box whenever new output arrives. If the window already exists it is restored and activated instead.
     /// </summary>
     internal static void Initialize()
     {
@@ -56,26 +56,16 @@ public partial class DebugWindow
                 DataContext = viewModel
             };
 
-            if (Application.Current?.MainWindow is { } mainWindow && mainWindow != window)
-            {
-                window.Owner = mainWindow;
-            }
+            if (Application.Current?.MainWindow is { } mainWindow && mainWindow != window) window.Owner = mainWindow;
 
             PropertyChangedEventHandler logTextPropertyChangedHandler = (_, args) =>
             {
                 if (string.Equals(args.PropertyName, nameof(DebugViewModel.LogText), StringComparison.Ordinal))
-                {
                     if (Instance is { IsLoaded: true } debugWindow)
-                    {
                         debugWindow.Dispatcher.BeginInvoke(() =>
                         {
-                            if (debugWindow.IsLoaded)
-                            {
-                                debugWindow.LogTextBox?.ScrollToEnd();
-                            }
+                            if (debugWindow.IsLoaded) debugWindow.LogTextBox?.ScrollToEnd();
                         });
-                    }
-                }
             };
 
             viewModel.PropertyChanged += logTextPropertyChangedHandler;
@@ -89,7 +79,7 @@ public partial class DebugWindow
     }
 
     /// <summary>
-    /// Shows the debug window, creating it if necessary, or brings it to the foreground if already open.
+    ///     Shows the debug window, creating it if necessary, or brings it to the foreground if already open.
     /// </summary>
     public static void ShowDebugWindow()
     {
@@ -104,8 +94,8 @@ public partial class DebugWindow
     }
 
     /// <summary>
-    /// Detaches the view model event handler, disconnects the debug log sink, closes the singleton debug window
-    /// and clears the cached instance.
+    ///     Detaches the view model event handler, disconnects the debug log sink, closes the singleton debug window
+    ///     and clears the cached instance.
     /// </summary>
     internal static void ShutdownWindow()
     {

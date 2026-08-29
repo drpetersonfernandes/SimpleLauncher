@@ -1,9 +1,9 @@
+using SimpleLauncher.Interfaces;
+
 namespace SimpleLauncher.Services.UpdateStatusBar;
 
-using Interfaces;
-
 /// <summary>
-/// Updates the status bar text content and manages its auto-clear timer.
+///     Updates the status bar text content and manages its auto-clear timer.
 /// </summary>
 public class UpdateStatusBarService : IUpdateStatusBar
 {

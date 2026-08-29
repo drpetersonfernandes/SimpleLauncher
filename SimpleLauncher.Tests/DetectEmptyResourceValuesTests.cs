@@ -8,13 +8,13 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Scans every localization resource file (strings.*.xaml) for entries
-/// with empty string values and fails if any are found.
+///     Scans every localization resource file (strings.*.xaml) for entries
+///     with empty string values and fails if any are found.
 /// </summary>
 public partial class DetectEmptyResourceValuesTests
 {
     /// <summary>
-    /// Verifies that no localization resource file contains entries with empty string values.
+    ///     Verifies that no localization resource file contains entries with empty string values.
     /// </summary>
     [Fact]
     public void AllResourceFilesShouldHaveNoEmptyValues()
@@ -42,17 +42,11 @@ public partial class DetectEmptyResourceValuesTests
                 {
                     var key = match.Groups[1].Value;
                     var value = match.Groups[2].Value;
-                    if (string.IsNullOrEmpty(value))
-                    {
-                        emptyKeys.Add(key);
-                    }
+                    if (string.IsNullOrEmpty(value)) emptyKeys.Add(key);
                 }
             }
 
-            if (emptyKeys.Count > 0)
-            {
-                emptyEntriesByFile[Path.GetFileName(file)] = emptyKeys;
-            }
+            if (emptyKeys.Count > 0) emptyEntriesByFile[Path.GetFileName(file)] = emptyKeys;
         }
 
         if (emptyEntriesByFile.Count == 0)
@@ -66,9 +60,7 @@ public partial class DetectEmptyResourceValuesTests
         {
             message.AppendLine(CultureInfo.InvariantCulture, $"  File: {kvp.Key}");
             foreach (var key in kvp.Value.OrderBy(static x => x, StringComparer.OrdinalIgnoreCase))
-            {
                 message.AppendLine(CultureInfo.InvariantCulture, $"    - {key}");
-            }
         }
 
         Assert.Fail(message.ToString());

@@ -5,15 +5,15 @@ using SimpleLauncher.Core.Services.PlaySound;
 namespace SimpleLauncher.Core.Services;
 
 /// <summary>
-/// Provides audio feedback and gamepad input control services to the application.
+///     Provides audio feedback and gamepad input control services to the application.
 /// </summary>
 public class AudioInputService : IAudioInputService, IDisposable
 {
-    private readonly PlaySoundEffects _playSoundEffects;
     private readonly GamePadController _gamePadController;
+    private readonly PlaySoundEffects _playSoundEffects;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AudioInputService"/> class.
+    ///     Initializes a new instance of the <see cref="AudioInputService" /> class.
     /// </summary>
     /// <param name="playSoundEffects">The service used to play sound effects.</param>
     /// <param name="gamePadController">The gamepad input controller.</param>
@@ -24,7 +24,7 @@ public class AudioInputService : IAudioInputService, IDisposable
     }
 
     /// <summary>
-    /// Plays the notification sound effect.
+    ///     Plays the notification sound effect.
     /// </summary>
     public void PlayNotificationSound()
     {
@@ -32,7 +32,7 @@ public class AudioInputService : IAudioInputService, IDisposable
     }
 
     /// <summary>
-    /// Plays the shutter sound effect.
+    ///     Plays the shutter sound effect.
     /// </summary>
     public void PlayShutterSound()
     {
@@ -40,7 +40,7 @@ public class AudioInputService : IAudioInputService, IDisposable
     }
 
     /// <summary>
-    /// Plays the trash sound effect.
+    ///     Plays the trash sound effect.
     /// </summary>
     public void PlayTrashSound()
     {
@@ -48,7 +48,7 @@ public class AudioInputService : IAudioInputService, IDisposable
     }
 
     /// <summary>
-    /// Plays the sound effect configured for the given file name.
+    ///     Plays the sound effect configured for the given file name.
     /// </summary>
     /// <param name="soundFileName">The name of the configured sound file to play.</param>
     public void PlayConfiguredSound(string soundFileName)
@@ -57,12 +57,12 @@ public class AudioInputService : IAudioInputService, IDisposable
     }
 
     /// <summary>
-    /// Gets a value indicating whether the gamepad controller is currently running.
+    ///     Gets a value indicating whether the gamepad controller is currently running.
     /// </summary>
     public bool IsGamepadRunning => _gamePadController.IsRunning;
 
     /// <summary>
-    /// Starts the gamepad controller.
+    ///     Starts the gamepad controller.
     /// </summary>
     public void StartGamepad()
     {
@@ -70,7 +70,7 @@ public class AudioInputService : IAudioInputService, IDisposable
     }
 
     /// <summary>
-    /// Stops the gamepad controller.
+    ///     Stops the gamepad controller.
     /// </summary>
     public void StopGamepad()
     {
@@ -78,7 +78,7 @@ public class AudioInputService : IAudioInputService, IDisposable
     }
 
     /// <summary>
-    /// Sets the dead zone values for both gamepad stick axes.
+    ///     Sets the dead zone values for both gamepad stick axes.
     /// </summary>
     /// <param name="deadZoneX">The dead zone value for the X axis.</param>
     /// <param name="deadZoneY">The dead zone value for the Y axis.</param>
@@ -89,7 +89,7 @@ public class AudioInputService : IAudioInputService, IDisposable
     }
 
     /// <summary>
-    /// Releases all resources used by the audio and gamepad services.
+    ///     Releases all resources used by the audio and gamepad services.
     /// </summary>
     public void Dispose()
     {

@@ -9,8 +9,8 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for <see cref="UpdateStatusBarService"/> using a mocked <see cref="IStatusBarHost"/>
-/// with real WPF controls on an STA thread.
+///     Tests for <see cref="UpdateStatusBarService" /> using a mocked <see cref="IStatusBarHost" />
+///     with real WPF controls on an STA thread.
 /// </summary>
 public class UpdateStatusBarServiceTests
 {
@@ -33,7 +33,7 @@ public class UpdateStatusBarServiceTests
         StaApartment.Run(() =>
         {
             var label = new Label();
-            var (service, host) = CreateService(label, timer: null);
+            var (service, host) = CreateService(label, null);
 
             service.UpdateContent("Loading 100 games...");
 
@@ -70,7 +70,7 @@ public class UpdateStatusBarServiceTests
         StaApartment.Run(() =>
         {
             var label = new Label();
-            var (service, _) = CreateService(label, timer: null);
+            var (service, _) = CreateService(label, null);
 
             service.UpdateContent("No timer configured");
 

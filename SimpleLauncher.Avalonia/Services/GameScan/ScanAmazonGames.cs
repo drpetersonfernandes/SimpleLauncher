@@ -4,14 +4,14 @@ using SimpleLauncher.Core.Services.SanitizeInputString;
 namespace SimpleLauncher.Avalonia.Services.GameScan;
 
 /// <summary>
-/// Scans for installed Amazon Games and creates shortcuts for them.
+///     Scans for installed Amazon Games and creates shortcuts for them.
 /// </summary>
 public class ScanAmazonGames : IGamePlatformScanner
 {
     private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScanAmazonGames"/> class.
+    ///     Initializes a new instance of the <see cref="ScanAmazonGames" /> class.
     /// </summary>
     /// <param name="logger">The logger instance.</param>
     public ScanAmazonGames(ILogger logger)
@@ -44,7 +44,6 @@ public class ScanAmazonGames : IGamePlatformScanner
 
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
-            {
                 try
                 {
                     if (!reader.IsDBNull(0))
@@ -71,7 +70,6 @@ public class ScanAmazonGames : IGamePlatformScanner
                 {
                     logErrors.Error(ex, "Error processing an Amazon game entry.");
                 }
-            }
         }
         catch (Exception ex)
         {

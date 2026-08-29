@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Flycast (Dreamcast/Naomi) emulator before launching a game.
+///     Handles configuration injection for the Flycast (Dreamcast/Naomi) emulator before launching a game.
 /// </summary>
 public class FlycastConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class FlycastConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FlycastConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="FlycastConfigHandler" /> class.
     /// </summary>
     public FlycastConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {

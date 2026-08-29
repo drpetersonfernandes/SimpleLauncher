@@ -4,12 +4,12 @@ using System.Windows;
 namespace XmlToBinaryConverter;
 
 /// <summary>
-/// About window displaying application information.
+///     About window displaying application information.
 /// </summary>
 public partial class AboutWindow
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AboutWindow"/> class.
+    ///     Initializes a new instance of the <see cref="AboutWindow" /> class.
     /// </summary>
     public AboutWindow()
     {

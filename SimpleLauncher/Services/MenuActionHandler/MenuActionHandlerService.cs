@@ -10,7 +10,9 @@ using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.InjectConfigWindows;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Pages;
 using SimpleLauncher.Services.Favorites;
+using SimpleLauncher.Services.GameLauncher;
 using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Services.NotificationToast;
 using SimpleLauncher.Services.PlayHistory;
@@ -21,43 +23,49 @@ using Settings = SimpleLauncher.Core.Services.SettingsManager.SettingsManagerSer
 namespace SimpleLauncher.Services.MenuActionHandler;
 
 /// <summary>
-/// Handles all menu actions for the main application window, including emulator configuration, mode switching,
-/// game scanning, navigation, view settings, and user preferences.
+///     Handles all menu actions for the main application window, including emulator configuration, mode switching,
+///     game scanning, navigation, view settings, and user preferences.
 /// </summary>
 public class MenuActionHandlerService
 {
-    private readonly Settings _settings;
-    private readonly PlaySoundEffects _playSoundEffects;
+    // ---- Zoom ----
+
+    private const int MaxThumbnailSizeForSystem = 150;
+    private const int MaxThumbnailSize = 800;
+    private const int MinThumbnailSize = 50;
+    private const int ZoomStep = 50;
     private readonly IConfiguration _configuration;
+
+    private readonly Dictionary<string, Action> _emulatorConfigWindowFactory;
+    private readonly FavoritesManager _favoritesManager;
+    private readonly IFindCoverImageService _findCoverImage;
+    private readonly GameLauncherService _gameLauncher;
+    private readonly GamePadController _gamePadController;
+    private readonly GameScannerService _gameScannerService;
+    private readonly IGetListOfFilesService _getListOfFiles;
+    private readonly IHelpUserService _helpUserService;
 
     // ReSharper disable once NotAccessedField.Local
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly GamePadController _gamePadController;
-    private readonly GameLauncher.GameLauncherService _gameLauncher;
-    private readonly GameScannerService _gameScannerService;
-    private readonly FavoritesManager _favoritesManager;
-    private readonly PlayHistoryManager _playHistoryManager;
-    private readonly IServiceProvider _serviceProvider;
-    private readonly IHelpUserService _helpUserService;
-    private readonly IGetListOfFilesService _getListOfFiles;
-    private readonly IFindCoverImageService _findCoverImage;
     private readonly IImageLoader _imageLoader;
+    private readonly ILogger _logger;
     private readonly IMenuCheckMarkService _menuCheckMarkService;
     private readonly IMessageBoxLibraryService _messageBoxLibrary;
-    private readonly QuitSimpleLauncher _quitSimpleLauncher;
-    private readonly ILogger _logger;
     private readonly IParameterResolverService _parameterResolverService;
-
-    private IMenuActionHost _host = null!;
-    private readonly IUpdateStatusBar _updateStatusBar;
+    private readonly PlayHistoryManager _playHistoryManager;
+    private readonly PlaySoundEffects _playSoundEffects;
+    private readonly QuitSimpleLauncher _quitSimpleLauncher;
 
     private readonly IRetroAchievementsHashScanner _raHashScanner;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly Settings _settings;
     private readonly IToastNotificationService _toastNotificationService;
+    private readonly IUpdateStatusBar _updateStatusBar;
 
-    private readonly Dictionary<string, Action> _emulatorConfigWindowFactory;
+    private IMenuActionHost _host = null!;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MenuActionHandlerService"/> class with all required dependencies.
+    ///     Initializes a new instance of the <see cref="MenuActionHandlerService" /> class with all required dependencies.
     /// </summary>
     public MenuActionHandlerService(
         Settings settings,
@@ -65,7 +73,7 @@ public class MenuActionHandlerService
         IConfiguration configuration,
         IHttpClientFactory httpClientFactory,
         GamePadController gamePadController,
-        GameLauncher.GameLauncherService gameLauncher,
+        GameLauncherService gameLauncher,
         GameScannerService gameScannerService,
         FavoritesManager favoritesManager,
         PlayHistoryManager playHistoryManager,
@@ -259,7 +267,7 @@ public class MenuActionHandlerService
     }
 
     /// <summary>
-    /// Initializes the menu action handler with the specified host.
+    ///     Initializes the menu action handler with the specified host.
     /// </summary>
     /// <param name="host">The host that provides UI interaction capabilities.</param>
     public void Initialize(IMenuActionHost host)
@@ -270,7 +278,7 @@ public class MenuActionHandlerService
     // ---- Emulator Config Windows ----
 
     /// <summary>
-    /// Opens the configuration window for the specified emulator.
+    ///     Opens the configuration window for the specified emulator.
     /// </summary>
     /// <param name="emulatorName">The name of the emulator to configure.</param>
     public void ShowEmulatorConfigWindow(string emulatorName)
@@ -297,7 +305,7 @@ public class MenuActionHandlerService
     // ---- Easy Mode / Expert Mode ----
 
     /// <summary>
-    /// Opens the Easy Mode configuration window and reloads the system manager upon closing.
+    ///     Opens the Easy Mode configuration window and reloads the system manager upon closing.
     /// </summary>
     public void HandleEasyMode()
     {
@@ -321,7 +329,7 @@ public class MenuActionHandlerService
     }
 
     /// <summary>
-    /// Opens the Expert Mode (Edit System) configuration window and reloads the system manager upon closing.
+    ///     Opens the Expert Mode (Edit System) configuration window and reloads the system manager upon closing.
     /// </summary>
     public void HandleExpertMode()
     {
@@ -360,7 +368,7 @@ public class MenuActionHandlerService
     // ---- Download Image Pack ----
 
     /// <summary>
-    /// Opens the image pack downloader window.
+    ///     Opens the image pack downloader window.
     /// </summary>
     public void HandleDownloadImagePack()
     {
@@ -385,7 +393,7 @@ public class MenuActionHandlerService
     // ---- Scan for Windows Games ----
 
     /// <summary>
-    /// Scans for Windows store games and reloads the system manager when complete.
+    ///     Scans for Windows store games and reloads the system manager when complete.
     /// </summary>
     public async Task HandleScanForWindowsGamesAsync()
     {
@@ -421,7 +429,7 @@ public class MenuActionHandlerService
     // ---- Edit Links ----
 
     /// <summary>
-    /// Opens the link settings window and reloads game files after links are updated.
+    ///     Opens the link settings window and reloads game files after links are updated.
     /// </summary>
     public async Task HandleEditLinksAsync()
     {
@@ -451,7 +459,7 @@ public class MenuActionHandlerService
     // ---- Toggle Gamepad ----
 
     /// <summary>
-    /// Toggles gamepad navigation on or off and saves the setting.
+    ///     Toggles gamepad navigation on or off and saves the setting.
     /// </summary>
     /// <param name="isChecked">True to enable gamepad navigation; false to disable it.</param>
     public async Task HandleToggleGamepadAsync(bool isChecked)
@@ -482,7 +490,7 @@ public class MenuActionHandlerService
     // ---- Set Gamepad Dead Zone ----
 
     /// <summary>
-    /// Opens the gamepad dead zone settings window and applies the updated values.
+    ///     Opens the gamepad dead zone settings window and applies the updated values.
     /// </summary>
     public void HandleSetGamepadDeadZone()
     {
@@ -510,7 +518,7 @@ public class MenuActionHandlerService
     // ---- Toggle Fuzzy Matching ----
 
     /// <summary>
-    /// Toggles fuzzy matching on or off, saves the setting, and reloads the game list.
+    ///     Toggles fuzzy matching on or off, saves the setting, and reloads the game list.
     /// </summary>
     /// <param name="isChecked">True to enable fuzzy matching; false to disable it.</param>
     public async Task HandleToggleFuzzyMatchingAsync(bool isChecked)
@@ -554,7 +562,7 @@ public class MenuActionHandlerService
     // ---- Set Fuzzy Matching Threshold ----
 
     /// <summary>
-    /// Opens the fuzzy matching threshold settings window and reloads the game list with the new threshold.
+    ///     Opens the fuzzy matching threshold settings window and reloads the game list with the new threshold.
     /// </summary>
     public async Task HandleSetFuzzyMatchingThresholdAsync()
     {
@@ -586,7 +594,7 @@ public class MenuActionHandlerService
     // ---- Toggle Annotation Stripping ----
 
     /// <summary>
-    /// Toggles annotation stripping on or off, saves the setting, and reloads the game list.
+    ///     Toggles annotation stripping on or off, saves the setting, and reloads the game list.
     /// </summary>
     /// <param name="isChecked">True to enable annotation stripping; false to disable it.</param>
     public async Task HandleToggleAnnotationStrippingAsync(bool isChecked)
@@ -626,7 +634,7 @@ public class MenuActionHandlerService
     // ---- Support / Donate / About / Exit ----
 
     /// <summary>
-    /// Opens the support request window.
+    ///     Opens the support request window.
     /// </summary>
     public void HandleSupport()
     {
@@ -640,7 +648,7 @@ public class MenuActionHandlerService
     }
 
     /// <summary>
-    /// Opens the donation page in the default browser.
+    ///     Opens the donation page in the default browser.
     /// </summary>
     public async Task HandleDonateAsync()
     {
@@ -667,7 +675,7 @@ public class MenuActionHandlerService
     }
 
     /// <summary>
-    /// Opens the About window.
+    ///     Opens the About window.
     /// </summary>
     public void HandleAbout()
     {
@@ -681,7 +689,7 @@ public class MenuActionHandlerService
     }
 
     /// <summary>
-    /// Closes the main application window.
+    ///     Closes the main application window.
     /// </summary>
     public void HandleExit()
     {
@@ -692,7 +700,7 @@ public class MenuActionHandlerService
     // ---- Show Games Settings ----
 
     /// <summary>
-    /// Changes the game visibility mode (e.g., show all, show favorites only) and reloads the game list.
+    ///     Changes the game visibility mode (e.g., show all, show favorites only) and reloads the game list.
     /// </summary>
     /// <param name="showGamesMode">The visibility mode to apply.</param>
     public async Task HandleShowGamesAsync(string showGamesMode)
@@ -733,7 +741,7 @@ public class MenuActionHandlerService
     // ---- Button Size ----
 
     /// <summary>
-    /// Changes the game button thumbnail size and reloads the game list.
+    ///     Changes the game button thumbnail size and reloads the game list.
     /// </summary>
     /// <param name="newSize">The new thumbnail size in pixels.</param>
     public async Task HandleButtonSizeAsync(int newSize)
@@ -776,7 +784,7 @@ public class MenuActionHandlerService
     // ---- Button Aspect Ratio ----
 
     /// <summary>
-    /// Changes the game button aspect ratio and reloads the game list.
+    ///     Changes the game button aspect ratio and reloads the game list.
     /// </summary>
     /// <param name="aspectRatio">The aspect ratio string to apply (e.g., "16:9", "4:3").</param>
     public async Task HandleButtonAspectRatioAsync(string aspectRatio)
@@ -818,7 +826,7 @@ public class MenuActionHandlerService
     // ---- Games Per Page ----
 
     /// <summary>
-    /// Changes the number of games displayed per page and reloads the game list.
+    ///     Changes the number of games displayed per page and reloads the game list.
     /// </summary>
     /// <param name="newPage">The number of games per page.</param>
     public async Task HandleGamesPerPageAsync(int newPage)
@@ -830,12 +838,8 @@ public class MenuActionHandlerService
             try
             {
                 if (newPage is 1000 or 10000 or 1000000)
-                {
                     if (await _messageBoxLibrary.WarnUserAboutMemoryConsumptionMessageBoxAsync() == MessageBoxResult.No)
-                    {
                         return;
-                    }
-                }
 
                 _playSoundEffects.PlayNotificationSound();
 
@@ -868,7 +872,7 @@ public class MenuActionHandlerService
     // ---- Navigation: Global Search ----
 
     /// <summary>
-    /// Navigates to the global search page.
+    ///     Navigates to the global search page.
     /// </summary>
     public void HandleShowGlobalSearch()
     {
@@ -880,7 +884,7 @@ public class MenuActionHandlerService
 
         var contextMenuFunctions = _serviceProvider.GetRequiredService<IContextMenuFunctions>();
         var contextMenuService = _serviceProvider.GetRequiredService<IContextMenuService>();
-        var globalSearchPage = new Pages.GlobalSearchPage(
+        var globalSearchPage = new GlobalSearchPage(
             _host.GetSystemManagers().ToList(), _host.GetMachines().ToList(),
             new Dictionary<string, string>(_host.GetMameLookup(), StringComparer.Ordinal),
             _favoritesManager, _settings, mainWindow,
@@ -894,7 +898,7 @@ public class MenuActionHandlerService
     // ---- Navigation: Global Stats ----
 
     /// <summary>
-    /// Opens the global statistics window.
+    ///     Opens the global statistics window.
     /// </summary>
     public void HandleShowGlobalStats()
     {
@@ -911,7 +915,7 @@ public class MenuActionHandlerService
     // ---- Navigation: Favorites ----
 
     /// <summary>
-    /// Navigates to the favorites page.
+    ///     Navigates to the favorites page.
     /// </summary>
     public void HandleShowFavorites()
     {
@@ -921,7 +925,7 @@ public class MenuActionHandlerService
 
         var contextMenuFunctions = _serviceProvider.GetRequiredService<IContextMenuFunctions>();
         var contextMenuService = _serviceProvider.GetRequiredService<IContextMenuService>();
-        var favoritesPage = new Pages.FavoritesPage(
+        var favoritesPage = new FavoritesPage(
             _settings, _host.GetSystemManagers().ToList(), _host.GetMachines().ToList(), _favoritesManager,
             // ReSharper disable once AssignNullToNotNullAttribute
             (MainWindow)Application.Current.MainWindow, _gamePadController, _gameLauncher, _playSoundEffects,
@@ -933,7 +937,7 @@ public class MenuActionHandlerService
     // ---- Navigation: Play History ----
 
     /// <summary>
-    /// Navigates to the play history page.
+    ///     Navigates to the play history page.
     /// </summary>
     public void HandleShowPlayHistory()
     {
@@ -945,7 +949,7 @@ public class MenuActionHandlerService
 
         var contextMenuFunctions = _serviceProvider.GetRequiredService<IContextMenuFunctions>();
         var contextMenuService = _serviceProvider.GetRequiredService<IContextMenuService>();
-        var playHistoryPage = new Pages.PlayHistoryPage(
+        var playHistoryPage = new PlayHistoryPage(
             _host.GetSystemManagers(), _host.GetMachines(), _settings,
             _favoritesManager, _playHistoryManager, mainWindow,
             _gamePadController, _gameLauncher, _playSoundEffects, _configuration, _findCoverImage, _imageLoader,
@@ -957,7 +961,7 @@ public class MenuActionHandlerService
     // ---- Navigation: Retro Achievements ----
 
     /// <summary>
-    /// Opens the RetroAchievements window.
+    ///     Opens the RetroAchievements window.
     /// </summary>
     public void HandleShowRetroAchievements()
     {
@@ -973,7 +977,7 @@ public class MenuActionHandlerService
     // ---- Navigation: Restart ----
 
     /// <summary>
-    /// Navigates back to the main content and resets the UI.
+    ///     Navigates back to the main content and resets the UI.
     /// </summary>
     public void HandleRestart()
     {
@@ -985,7 +989,7 @@ public class MenuActionHandlerService
     // ---- System Favorites ----
 
     /// <summary>
-    /// Displays favorite games for the currently selected system.
+    ///     Displays favorite games for the currently selected system.
     /// </summary>
     public async Task HandleShowSystemFavoritesAsync()
     {
@@ -1006,7 +1010,7 @@ public class MenuActionHandlerService
     // ---- Random / Feeling Lucky ----
 
     /// <summary>
-    /// Selects and displays a random game from the current system.
+    ///     Selects and displays a random game from the current system.
     /// </summary>
     public async Task HandleFeelingLuckyAsync()
     {
@@ -1026,18 +1030,15 @@ public class MenuActionHandlerService
     // ---- Retro Achievements Filter ----
 
     /// <summary>
-    /// Filters the game list to show only games that have RetroAchievements support.
-    /// The match is hash-based: when no hash scan exists for the selected system, the
-    /// user is prompted to run one in the background first.
+    ///     Filters the game list to show only games that have RetroAchievements support.
+    ///     The match is hash-based: when no hash scan exists for the selected system, the
+    ///     user is prompted to run one in the background first.
     /// </summary>
     public async Task HandleShowGamesWithRetroAchievementsAsync()
     {
         try
         {
-            if (_host.IsLoadingGames)
-            {
-                _host.CancelAndRecreateToken();
-            }
+            if (_host.IsLoadingGames) _host.CancelAndRecreateToken();
 
             var selectedSystem = _host.GetSelectedSystem();
 
@@ -1082,17 +1083,12 @@ public class MenuActionHandlerService
 
                 var result = await _messageBoxLibrary.ScanGamePathForRetroAchievementsMessageBoxAsync();
                 if (result != MessageBoxResult.Yes)
-                {
                     // User cancelled: do not filter the list of games
                     return;
-                }
 
                 var selectedManager = _host.GetSystemManagers()
                     .FirstOrDefault(m => m.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
-                if (selectedManager == null)
-                {
-                    return;
-                }
+                if (selectedManager == null) return;
 
                 _updateStatusBar.UpdateContent(
                     (string)Application.Current.TryFindResource("CalculatingRetroAchievementsHashes") ??
@@ -1105,7 +1101,7 @@ public class MenuActionHandlerService
                     selectedManager.FileFormatsToLaunch,
                     selectedManager.DisableRecursiveSearch,
                     selectedManager.GroupByFolder,
-                    onCompleted: ShowHashScanCompletedToast);
+                    ShowHashScanCompletedToast);
 
                 // Non-blocking notification: the app stays fully responsive while
                 // the hash calculation runs in the background
@@ -1136,8 +1132,8 @@ public class MenuActionHandlerService
     // ---- Calculate Hashes For All Game Paths ----
 
     /// <summary>
-    /// Calculates RetroAchievements hashes for all game paths of every configured system
-    /// in the background, preventing parallel hash calculations.
+    ///     Calculates RetroAchievements hashes for all game paths of every configured system
+    ///     in the background, preventing parallel hash calculations.
     /// </summary>
     public Task HandleCalculateHashesForAllGamePathsAsync()
     {
@@ -1155,10 +1151,7 @@ public class MenuActionHandlerService
                 }
 
                 var systemManagers = _host.GetSystemManagers();
-                if (systemManagers.Count == 0)
-                {
-                    return Task.CompletedTask;
-                }
+                if (systemManagers.Count == 0) return Task.CompletedTask;
 
                 var targets = systemManagers
                     .Where(m => _raHashScanner.IsSystemScannable(m.SystemName))
@@ -1186,7 +1179,7 @@ public class MenuActionHandlerService
                     (string)Application.Current.TryFindResource("CalculatingRetroAchievementsHashes") ??
                     "Calculating RetroAchievements hashes...");
 
-                _ = _raHashScanner.ScanAllSystemsAsync(targets, onCompleted: ShowHashScanCompletedToast);
+                _ = _raHashScanner.ScanAllSystemsAsync(targets, ShowHashScanCompletedToast);
 
                 _toastNotificationService.ShowToast(
                     (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
@@ -1207,10 +1200,10 @@ public class MenuActionHandlerService
     }
 
     /// <summary>
-    /// Shows a completion toast after a system hash scan finishes.
-    /// Runs on a background thread, so every WPF/UI-touch is marshaled to the
-    /// dispatcher with BeginInvoke (fire-and-forget) — the scanner thread is
-    /// never blocked waiting on the UI thread.
+    ///     Shows a completion toast after a system hash scan finishes.
+    ///     Runs on a background thread, so every WPF/UI-touch is marshaled to the
+    ///     dispatcher with BeginInvoke (fire-and-forget) — the scanner thread is
+    ///     never blocked waiting on the UI thread.
     /// </summary>
     private void ShowHashScanCompletedToast(string systemName)
     {
@@ -1218,13 +1211,9 @@ public class MenuActionHandlerService
         {
             var dispatcher = Application.Current.Dispatcher;
             if (dispatcher.CheckAccess())
-            {
                 ShowHashScanCompletedToastCore(systemName);
-            }
             else
-            {
                 _ = dispatcher.BeginInvoke(() => ShowHashScanCompletedToastCore(systemName));
-            }
         }
         catch (Exception ex)
         {
@@ -1233,7 +1222,7 @@ public class MenuActionHandlerService
     }
 
     /// <summary>
-    /// Runs on the UI thread: resolves the localized strings and shows the completion toast.
+    ///     Runs on the UI thread: resolves the localized strings and shows the completion toast.
     /// </summary>
     private void ShowHashScanCompletedToastCore(string systemName)
     {
@@ -1243,15 +1232,8 @@ public class MenuActionHandlerService
         _toastNotificationService.ShowToast(title, string.Format(template, systemName));
     }
 
-    // ---- Zoom ----
-
-    private const int MaxThumbnailSizeForSystem = 150;
-    private const int MaxThumbnailSize = 800;
-    private const int MinThumbnailSize = 50;
-    private const int ZoomStep = 50;
-
     /// <summary>
-    /// Increases the thumbnail size by one zoom step and reloads the game list.
+    ///     Increases the thumbnail size by one zoom step and reloads the game list.
     /// </summary>
     public async Task HandleZoomInAsync()
     {
@@ -1304,7 +1286,7 @@ public class MenuActionHandlerService
     }
 
     /// <summary>
-    /// Decreases the thumbnail size by one zoom step and reloads the game list.
+    ///     Decreases the thumbnail size by one zoom step and reloads the game list.
     /// </summary>
     public async Task HandleZoomOutAsync()
     {
@@ -1359,7 +1341,7 @@ public class MenuActionHandlerService
     // ---- View Mode ----
 
     /// <summary>
-    /// Toggles between grid view and list view and reloads the game list.
+    ///     Toggles between grid view and list view and reloads the game list.
     /// </summary>
     public async Task HandleToggleViewModeAsync()
     {
@@ -1400,7 +1382,7 @@ public class MenuActionHandlerService
     }
 
     /// <summary>
-    /// Changes the view mode based on the sender menu item and reloads the game list.
+    ///     Changes the view mode based on the sender menu item and reloads the game list.
     /// </summary>
     /// <param name="sender">The menu item that triggered the view mode change.</param>
     public async Task HandleChangeViewModeAsync(object sender)
@@ -1453,7 +1435,7 @@ public class MenuActionHandlerService
     // ---- Filename Display Mode ----
 
     /// <summary>
-    /// Changes the filename display mode and reloads the game list.
+    ///     Changes the filename display mode and reloads the game list.
     /// </summary>
     /// <param name="mode">The filename display mode to apply.</param>
     public async Task HandleFilenameDisplayModeAsync(string mode)
@@ -1499,7 +1481,7 @@ public class MenuActionHandlerService
     // ---- Display Machine Name ----
 
     /// <summary>
-    /// Toggles the display of MAME machine names on game buttons and reloads the game list.
+    ///     Toggles the display of MAME machine names on game buttons and reloads the game list.
     /// </summary>
     /// <param name="isChecked">True to display machine names; false to hide them.</param>
     public async Task HandleDisplayMachineNameAsync(bool isChecked)
@@ -1543,7 +1525,7 @@ public class MenuActionHandlerService
     // ---- Filename Font Size ----
 
     /// <summary>
-    /// Changes the filename font size and reloads the game list.
+    ///     Changes the filename font size and reloads the game list.
     /// </summary>
     /// <param name="size">The font size to apply to filenames.</param>
     public async Task HandleFilenameFontSizeAsync(string size)
@@ -1589,7 +1571,7 @@ public class MenuActionHandlerService
     // ---- Machine Name Font Size ----
 
     /// <summary>
-    /// Changes the machine name font size and reloads the game list.
+    ///     Changes the machine name font size and reloads the game list.
     /// </summary>
     /// <param name="size">The font size to apply to machine names.</param>
     public async Task HandleMachineNameFontSizeAsync(string size)
@@ -1635,7 +1617,7 @@ public class MenuActionHandlerService
     // ---- Sound Configuration ----
 
     /// <summary>
-    /// Opens the sound configuration window.
+    ///     Opens the sound configuration window.
     /// </summary>
     public async Task HandleSoundConfigurationAsync()
     {
@@ -1660,7 +1642,7 @@ public class MenuActionHandlerService
     // ---- RetroAchievements Settings ----
 
     /// <summary>
-    /// Opens the RetroAchievements settings window.
+    ///     Opens the RetroAchievements settings window.
     /// </summary>
     public async Task HandleShowRetroAchievementsSettingsAsync()
     {
@@ -1685,7 +1667,7 @@ public class MenuActionHandlerService
     // ---- Overlay Button Toggles ----
 
     /// <summary>
-    /// Toggles the RetroAchievements overlay button visibility and reloads the game list.
+    ///     Toggles the RetroAchievements overlay button visibility and reloads the game list.
     /// </summary>
     /// <param name="isChecked">True to show the button; false to hide it.</param>
     public async Task HandleToggleRetroAchievementButtonAsync(bool isChecked)
@@ -1713,7 +1695,7 @@ public class MenuActionHandlerService
     }
 
     /// <summary>
-    /// Toggles the video link overlay button visibility and reloads the game list.
+    ///     Toggles the video link overlay button visibility and reloads the game list.
     /// </summary>
     /// <param name="isChecked">True to show the button; false to hide it.</param>
     public async Task HandleToggleVideoLinkButtonAsync(bool isChecked)
@@ -1740,7 +1722,7 @@ public class MenuActionHandlerService
     }
 
     /// <summary>
-    /// Toggles the info link overlay button visibility and reloads the game list.
+    ///     Toggles the info link overlay button visibility and reloads the game list.
     /// </summary>
     /// <param name="isChecked">True to show the button; false to hide it.</param>
     public async Task HandleToggleInfoLinkButtonAsync(bool isChecked)
@@ -1769,7 +1751,7 @@ public class MenuActionHandlerService
     // ---- Language ----
 
     /// <summary>
-    /// Delegates the language change to the host's language menu service.
+    ///     Delegates the language change to the host's language menu service.
     /// </summary>
     /// <param name="languageCode">The two-letter language code to apply.</param>
     public void HandleChangeLanguage(string languageCode)
@@ -1780,17 +1762,14 @@ public class MenuActionHandlerService
     // ---- Top Letter/Number Menu ----
 
     /// <summary>
-    /// Filters the game list by the selected letter or number and reloads the display.
+    ///     Filters the game list by the selected letter or number and reloads the display.
     /// </summary>
     /// <param name="selectedLetter">The letter or number to filter by.</param>
     public async Task HandleTopLetterNumberMenuClickAsync(string selectedLetter)
     {
         try
         {
-            if (_host.IsLoadingGames)
-            {
-                _host.CancelAndRecreateToken();
-            }
+            if (_host.IsLoadingGames) _host.CancelAndRecreateToken();
 
             _playSoundEffects.PlayNotificationSound();
 
@@ -1814,16 +1793,13 @@ public class MenuActionHandlerService
     // ---- Sort Order Toggle ----
 
     /// <summary>
-    /// Toggles the MAME sort order between filename and machine description, then reloads the game list.
+    ///     Toggles the MAME sort order between filename and machine description, then reloads the game list.
     /// </summary>
     public async Task HandleSortOrderToggleAsync()
     {
         try
         {
-            if (_host.IsLoadingGames)
-            {
-                return;
-            }
+            if (_host.IsLoadingGames) return;
 
             _host.CancelAndRecreateToken();
 

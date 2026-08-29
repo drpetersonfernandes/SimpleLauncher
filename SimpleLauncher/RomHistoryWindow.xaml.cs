@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Windows.Documents;
 using System.Windows.Navigation;
 using SimpleLauncher.ViewModels;
@@ -5,15 +6,15 @@ using SimpleLauncher.ViewModels;
 namespace SimpleLauncher;
 
 /// <summary>
-/// Window displaying ROM history information with hyperlinked references.
+///     Window displaying ROM history information with hyperlinked references.
 /// </summary>
 public partial class RomHistoryWindow
 {
-    private readonly RequestNavigateEventHandler _requestNavigateHandler;
     private readonly ILogger _logger;
+    private readonly RequestNavigateEventHandler _requestNavigateHandler;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RomHistoryWindow"/> class.
+    ///     Initializes a new instance of the <see cref="RomHistoryWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing ROM history data.</param>
     /// <param name="logger">The debug logger.</param>
@@ -51,7 +52,7 @@ public partial class RomHistoryWindow
     }
 
     /// <summary>
-    /// Initializes the window with ROM and system information for history lookup.
+    ///     Initializes the window with ROM and system information for history lookup.
     /// </summary>
     /// <param name="romName">The name of the ROM.</param>
     /// <param name="systemName">The name of the system.</param>
@@ -65,7 +66,7 @@ public partial class RomHistoryWindow
     {
         try
         {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            Process.Start(new ProcessStartInfo
             {
                 FileName = e.Uri.AbsoluteUri,
                 UseShellExecute = true

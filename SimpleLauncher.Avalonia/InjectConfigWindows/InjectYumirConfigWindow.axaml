@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectYumirConfigWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Yumir (Ymir) Configuration"
         Height="650" Width="700"
@@ -28,7 +28,8 @@
                                   ToolTip.Tip="{ext:Translate YumirConfig_ReduceLatency_Tooltip}" />
 
                         <Grid Margin="0,5" ColumnDefinitions="*,*">
-                            <TextBlock Text="{ext:Translate YumirConfig_ForcedAspect_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate YumirConfig_ForcedAspect_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding ForcedAspectOptions}"
                                       SelectedItem="{Binding YumirForcedAspect}"
@@ -44,8 +45,10 @@
                                   Content="{ext:Translate YumirConfig_Mute_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate YumirConfig_Mute_Tooltip}" />
-                        <TextBlock Text="{ext:Translate YumirConfig_Volume_Label}" Classes="form-label" VerticalAlignment="Center" />
-                        <Slider Value="{Binding YumirVolume}" Minimum="0.0" Maximum="1.0" IsSnapToTickEnabled="True" TickFrequency="0.05" ToolTip.Tip="{ext:Translate YumirConfig_Volume_Tooltip}" />
+                        <TextBlock Text="{ext:Translate YumirConfig_Volume_Label}" Classes="form-label"
+                                   VerticalAlignment="Center" />
+                        <Slider Value="{Binding YumirVolume}" Minimum="0.0" Maximum="1.0" IsSnapToTickEnabled="True"
+                                TickFrequency="0.05" ToolTip.Tip="{ext:Translate YumirConfig_Volume_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -57,7 +60,8 @@
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate YumirConfig_AutoRegion_Tooltip}" />
                         <Grid Margin="0,5" ColumnDefinitions="*,*">
-                            <TextBlock Text="{ext:Translate YumirConfig_VideoStandard_Label}" Classes="form-label" VerticalAlignment="Center" />
+                            <TextBlock Text="{ext:Translate YumirConfig_VideoStandard_Label}" Classes="form-label"
+                                       VerticalAlignment="Center" />
                             <ComboBox Grid.Column="1"
                                       ItemsSource="{Binding VideoStandardOptions}"
                                       SelectedItem="{Binding YumirVideoStandard}"

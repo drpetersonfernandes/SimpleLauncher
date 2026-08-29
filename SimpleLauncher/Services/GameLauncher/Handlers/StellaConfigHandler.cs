@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Stella (Atari 2600) emulator before launching a game.
+///     Handles configuration injection for the Stella (Atari 2600) emulator before launching a game.
 /// </summary>
 public class StellaConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class StellaConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StellaConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="StellaConfigHandler" /> class.
     /// </summary>
     public StellaConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {

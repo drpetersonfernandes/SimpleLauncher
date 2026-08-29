@@ -25,7 +25,7 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Content="{DynamicResource GlobalSearch}"
-                   FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                   FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}" />
             <Label Grid.Row="1" Grid.Column="0"
                    Margin="10,0,10,10"
                    VerticalAlignment="Center"
@@ -33,30 +33,39 @@
                    Content="{DynamicResource Youcanuselogicaloperators}" />
             <Grid Grid.Row="2" Grid.Column="0" Margin="10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource SearchFor}" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Name="SearchTextBox" Height="26" VerticalAlignment="Center" KeyDown="SearchWhenPressEnterKey" Margin="5,0,0,0" ToolTip="{DynamicResource TooltipSearch}"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource SearchFor}" VerticalAlignment="Center" />
+                <TextBox Grid.Row="0" Grid.Column="1" Name="SearchTextBox" Height="26" VerticalAlignment="Center"
+                         KeyDown="SearchWhenPressEnterKey" Margin="5,0,0,0" ToolTip="{DynamicResource TooltipSearch}" />
 
-                <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource InSystem}" VerticalAlignment="Center"/>
-                <ComboBox Grid.Row="1" Grid.Column="1" Name="SystemComboBox" Margin="5,5,0,5" VerticalAlignment="Center" ToolTip="{DynamicResource TooltipSelectSystem}"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource InSystem}" VerticalAlignment="Center" />
+                <ComboBox Grid.Row="1" Grid.Column="1" Name="SystemComboBox" Margin="5,5,0,5"
+                          VerticalAlignment="Center" ToolTip="{DynamicResource TooltipSelectSystem}" />
 
-                <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="{DynamicResource SearchOptions}" Margin="0,5,0,5">
+                <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Header="{DynamicResource SearchOptions}"
+                          Margin="0,5,0,5">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="5">
-                            <CheckBox Name="SearchFilenameCheckBox" Content="{DynamicResource Filename}" IsChecked="True" Margin="0,0,15,0" ToolTip="{DynamicResource TooltipSearchFilename}"/>
-                            <CheckBox Name="SearchMameDescriptionCheckBox" Content="{DynamicResource MameDescription}" IsChecked="True" Margin="0,0,15,0" ToolTip="{DynamicResource TooltipSearchMameDescription}"/>
-                            <CheckBox Name="SearchFolderNameCheckBox" Content="{DynamicResource FolderName}" IsChecked="False" ToolTip="{DynamicResource TooltipSearchFolderName}"/>
+                            <CheckBox Name="SearchFilenameCheckBox" Content="{DynamicResource Filename}"
+                                      IsChecked="True" Margin="0,0,15,0"
+                                      ToolTip="{DynamicResource TooltipSearchFilename}" />
+                            <CheckBox Name="SearchMameDescriptionCheckBox" Content="{DynamicResource MameDescription}"
+                                      IsChecked="True" Margin="0,0,15,0"
+                                      ToolTip="{DynamicResource TooltipSearchMameDescription}" />
+                            <CheckBox Name="SearchFolderNameCheckBox" Content="{DynamicResource FolderName}"
+                                      IsChecked="False" ToolTip="{DynamicResource TooltipSearchFolderName}" />
                         </StackPanel>
-                        <CheckBox Name="SearchRecursivelyCheckBox" Content="{DynamicResource SearchRecursively}" IsChecked="False" Margin="5" ToolTip="{DynamicResource TooltipSearchRecursively}"/>
+                        <CheckBox Name="SearchRecursivelyCheckBox" Content="{DynamicResource SearchRecursively}"
+                                  IsChecked="False" Margin="5" ToolTip="{DynamicResource TooltipSearchRecursively}" />
                     </StackPanel>
                 </GroupBox>
 
@@ -65,7 +74,8 @@
                             Style="{DynamicResource SecondaryActionButtonStyle}"
                             ToolTip="{DynamicResource TooltipGlobalSearchButton}"
                             AutomationProperties.Name="{DynamicResource Search}" />
-                    <Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}" Click="LaunchButton_ClickAsync"
+                    <Button Name="LaunchButton" Content="{DynamicResource LaunchSelectedGame}"
+                            Click="LaunchButton_ClickAsync"
                             IsEnabled="False"
                             Style="{DynamicResource PrimaryActionButtonStyle}"
                             ToolTip="{DynamicResource TooltipLaunchFromSearch}"
@@ -92,12 +102,16 @@
                       ToolTip="{DynamicResource TooltipResultsDataGrid}"
                       MouseRightButtonUp="GlobalSearchPrepareForRightClickContextMenuAsync"
                       MouseDoubleClick="ResultsDataGrid_MouseDoubleClickAsync"
-                       SelectionChanged="ActionsWhenUserSelectAResultItemAsync">
+                      SelectionChanged="ActionsWhenUserSelectAResultItemAsync">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding FileNameWithExtension}" Width="*" />
-                    <DataGridTextColumn Header="{DynamicResource MachineDescriptionMameHeader}" Binding="{Binding MachineName}" Width="*" />
-                    <DataGridTextColumn Header="{DynamicResource DefaultEmulatorHeader}" Binding="{Binding DefaultEmulator}" Width="180" />
-                    <DataGridTextColumn Header="{DynamicResource SystemNameHeader}" Binding="{Binding SystemName}" Width="200" />
+                    <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}"
+                                        Binding="{Binding FileNameWithExtension}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource MachineDescriptionMameHeader}"
+                                        Binding="{Binding MachineName}" Width="*" />
+                    <DataGridTextColumn Header="{DynamicResource DefaultEmulatorHeader}"
+                                        Binding="{Binding DefaultEmulator}" Width="180" />
+                    <DataGridTextColumn Header="{DynamicResource SystemNameHeader}" Binding="{Binding SystemName}"
+                                        Width="200" />
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -115,7 +129,7 @@
                            FontSize="18"
                            FontWeight="Bold"
                            Foreground="{DynamicResource MahApps.Brushes.Text}"
-                           Margin="20"/>
+                           Margin="20" />
             </Border>
 
             <!-- GridSplitter -->
@@ -126,7 +140,7 @@
                           VerticalAlignment="Stretch"
                           ShowsPreview="True"
                           ResizeBehavior="PreviousAndNext"
-                          Cursor="SizeWE"/>
+                          Cursor="SizeWE" />
 
             <Grid Grid.Row="0" Grid.RowSpan="5" Grid.Column="2" Margin="10">
                 <Grid.RowDefinitions>

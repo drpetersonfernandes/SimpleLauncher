@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="InjectionErrorHandler"/> utility class.
+///     Tests for the <see cref="InjectionErrorHandler" /> utility class.
 /// </summary>
 public class InjectionErrorHandlerTests
 {
     /// <summary>
-    /// Verifies that GetEmulatorName returns the filename without extension for a valid path.
+    ///     Verifies that GetEmulatorName returns the filename without extension for a valid path.
     /// </summary>
     [Fact]
     public void GetEmulatorNameWithPathReturnsFileNameWithoutExtension()
@@ -19,7 +19,7 @@ public class InjectionErrorHandlerTests
     }
 
     /// <summary>
-    /// Verifies that GetEmulatorName returns the filename when no extension is present.
+    ///     Verifies that GetEmulatorName returns the filename when no extension is present.
     /// </summary>
     [Fact]
     public void GetEmulatorNameWithPathNoExtensionReturnsFileName()
@@ -29,7 +29,7 @@ public class InjectionErrorHandlerTests
     }
 
     /// <summary>
-    /// Verifies that GetEmulatorName falls back to window type name when path is null.
+    ///     Verifies that GetEmulatorName falls back to window type name when path is null.
     /// </summary>
     [Fact]
     public void GetEmulatorNameWithNullPathFallsBackToWindowType()
@@ -39,7 +39,7 @@ public class InjectionErrorHandlerTests
     }
 
     /// <summary>
-    /// Verifies that GetEmulatorName falls back to window type name when path is empty.
+    ///     Verifies that GetEmulatorName falls back to window type name when path is empty.
     /// </summary>
     [Fact]
     public void GetEmulatorNameWithEmptyPathFallsBackToWindowType()
@@ -49,7 +49,7 @@ public class InjectionErrorHandlerTests
     }
 
     /// <summary>
-    /// Verifies that GetEmulatorName returns the type name when path is null and type has no known prefix.
+    ///     Verifies that GetEmulatorName returns the type name when path is null and type has no known prefix.
     /// </summary>
     [Fact]
     public void GetEmulatorNameWithNullPathAndGenericTypeNameReturnsTypeName()
@@ -59,7 +59,7 @@ public class InjectionErrorHandlerTests
     }
 
     /// <summary>
-    /// Verifies that GetEmulatorName strips the Inject prefix and ConfigWindow suffix.
+    ///     Verifies that GetEmulatorName strips the Inject prefix and ConfigWindow suffix.
     /// </summary>
     [Fact]
     public void GetEmulatorNameStripsInjectPrefixAndConfigWindowSuffix()
@@ -69,7 +69,7 @@ public class InjectionErrorHandlerTests
     }
 
     /// <summary>
-    /// Verifies that GetEmulatorName handles paths containing spaces.
+    ///     Verifies that GetEmulatorName handles paths containing spaces.
     /// </summary>
     [Fact]
     public void GetEmulatorNameWithPathContainingSpacesReturnsFileName()

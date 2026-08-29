@@ -1,27 +1,28 @@
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.MameManager;
-using SimpleLauncher.Services.GameScan;
 using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.GameScan;
+using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher.Services.GameBrowser;
 
 /// <summary>
-/// Facade service that coordinates game browsing operations including system selection,
-/// game file loading, rendering, searching, scanning, and caching.
+///     Facade service that coordinates game browsing operations including system selection,
+///     game file loading, rendering, searching, scanning, and caching.
 /// </summary>
 public class GameBrowserService : IGameBrowserService
 {
-    private readonly IGameFileLoadingOrchestrator _gameFileLoadingOrchestrator;
-    private readonly ISystemSelectionOrchestrator _systemSelectionOrchestrator;
-    private readonly IGameItemRenderService _gameItemRenderService;
     private readonly IGameCacheService _gameCacheService;
-    private readonly IMameDataService _mameDataService;
+    private readonly IGameFileLoadingOrchestrator _gameFileLoadingOrchestrator;
+    private readonly IGameItemRenderService _gameItemRenderService;
     private readonly GameScannerService _gameScannerService;
+    private readonly IMameDataService _mameDataService;
     private readonly ISearchOrchestratorService _searchOrchestratorService;
+    private readonly ISystemSelectionOrchestrator _systemSelectionOrchestrator;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GameBrowserService"/> with the required orchestrators and services.
+    ///     Initializes a new instance of <see cref="GameBrowserService" /> with the required orchestrators and services.
     /// </summary>
     public GameBrowserService(
         IGameFileLoadingOrchestrator gameFileLoadingOrchestrator,
@@ -42,7 +43,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Initializes all sub-orchestrators with their respective host implementations.
+    ///     Initializes all sub-orchestrators with their respective host implementations.
     /// </summary>
     public void Initialize(IGameFileLoadingHost loadingHost, ISystemSelectionHost selectionHost,
         IGameItemRenderHost renderHost)
@@ -53,7 +54,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Loads or reloads the system manager configuration.
+    ///     Loads or reloads the system manager configuration.
     /// </summary>
     public void LoadOrReloadSystemManager()
     {
@@ -61,7 +62,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Asynchronously loads or reloads the system manager configuration.
+    ///     Asynchronously loads or reloads the system manager configuration.
     /// </summary>
     public Task LoadOrReloadSystemManagerAsync()
     {
@@ -69,7 +70,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Displays the system selection screen when no system is currently selected.
+    ///     Displays the system selection screen when no system is currently selected.
     /// </summary>
     public Task DisplaySystemSelectionScreenAsync(CancellationToken ct = default)
     {
@@ -77,7 +78,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Handles the system combo box selection change event by reloading game files.
+    ///     Handles the system combo box selection change event by reloading game files.
     /// </summary>
     public Task SystemComboBoxSelectionChangedAsync(CancellationToken ct = default)
     {
@@ -85,12 +86,12 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Gets or sets the list of available system managers.
+    ///     Gets or sets the list of available system managers.
     /// </summary>
-    public IList<SystemManager.SystemManagerService> SystemManagers { get; set; } = [];
+    public IList<SystemManagerService> SystemManagers { get; set; } = [];
 
     /// <summary>
-    /// Loads game files for the selected system, optionally filtered by start letter or search query.
+    ///     Loads game files for the selected system, optionally filtered by start letter or search query.
     /// </summary>
     public Task LoadGameFilesAsync(string? startLetter = null, string? searchQuery = null,
         CancellationToken ct = default)
@@ -99,7 +100,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Invalidates all cached game file lists, forcing a reload on next access.
+    ///     Invalidates all cached game file lists, forcing a reload on next access.
     /// </summary>
     public Task InvalidateGameFileCachesAsync(CancellationToken ct = default)
     {
@@ -107,7 +108,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Validates a search query against the selected system and prepares it for execution.
+    ///     Validates a search query against the selected system and prepares it for execution.
     /// </summary>
     public Task<SearchValidationResult> ValidateAndPrepareAsync(string searchQuery, string? selectedSystem,
         CancellationToken ct)
@@ -116,25 +117,25 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Rebuilds the game button and list item factories with updated system and MAME machine data.
+    ///     Rebuilds the game button and list item factories with updated system and MAME machine data.
     /// </summary>
-    public void ReloadFactories(IList<SystemManager.SystemManagerService> systemManagers,
+    public void ReloadFactories(IList<SystemManagerService> systemManagers,
         IList<MameManagerService> machines)
     {
         _gameItemRenderService.ReloadFactories(systemManagers, machines);
     }
 
     /// <summary>
-    /// Renders game items for the specified file list in the current view mode (grid or list).
+    ///     Renders game items for the specified file list in the current view mode (grid or list).
     /// </summary>
     public Task RenderGameItemsAsync(IList<string> files, string systemName,
-        SystemManager.SystemManagerService systemManager, CancellationToken ct)
+        SystemManagerService systemManager, CancellationToken ct)
     {
         return _gameItemRenderService.RenderGameItemsAsync(files, systemName, systemManager, ct);
     }
 
     /// <summary>
-    /// Handles a selection change event by updating the preview image for the selected item.
+    ///     Handles a selection change event by updating the preview image for the selected item.
     /// </summary>
     public Task HandleSelectionChangedAsync(GameListViewItem selectedItem)
     {
@@ -142,7 +143,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Handles a double-click event on a game item by launching the selected game.
+    ///     Handles a double-click event on a game item by launching the selected game.
     /// </summary>
     public Task HandleDoubleClickAsync(GameListViewItem selectedItem)
     {
@@ -150,7 +151,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Clears all rendered game items from the UI.
+    ///     Clears all rendered game items from the UI.
     /// </summary>
     public void ClearRenderedItems()
     {
@@ -158,7 +159,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Enables or disables all game item buttons in the UI.
+    ///     Enables or disables all game item buttons in the UI.
     /// </summary>
     public void SetGameButtonsEnabled(bool isEnabled)
     {
@@ -166,7 +167,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Gets or sets the height (in pixels) of game item thumbnail images.
+    ///     Gets or sets the height (in pixels) of game item thumbnail images.
     /// </summary>
     public int ImageHeight
     {
@@ -175,7 +176,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Scans store/installed game locations and registers any newly discovered systems.
+    ///     Scans store/installed game locations and registers any newly discovered systems.
     /// </summary>
     public Task ScanForStoreGamesAsync()
     {
@@ -183,22 +184,22 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Gets a value indicating whether a new system configuration was created during the last scan.
+    ///     Gets a value indicating whether a new system configuration was created during the last scan.
     /// </summary>
     public bool WasNewSystemCreated => _gameScannerService.WasNewSystemCreated;
 
     /// <summary>
-    /// Gets the list of loaded MAME machine definitions.
+    ///     Gets the list of loaded MAME machine definitions.
     /// </summary>
     public IReadOnlyList<MameManagerService> Machines => _mameDataService.Machines;
 
     /// <summary>
-    /// Gets the MAME filename-to-description lookup dictionary.
+    ///     Gets the MAME filename-to-description lookup dictionary.
     /// </summary>
     public IDictionary<string, string> MameLookup => _mameDataService.Lookup;
 
     /// <summary>
-    /// Notifies the system that game files have changed for the specified system, triggering a reload.
+    ///     Notifies the system that game files have changed for the specified system, triggering a reload.
     /// </summary>
     public void OnGameFilesChangedAsync(string systemName)
     {
@@ -206,7 +207,7 @@ public class GameBrowserService : IGameBrowserService
     }
 
     /// <summary>
-    /// Clears all cached game file data synchronously.
+    ///     Clears all cached game file data synchronously.
     /// </summary>
     public void ClearCache()
     {

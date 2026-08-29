@@ -9,7 +9,7 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Avalonia.Services.GameLauncher.Handlers;
 
 /// <summary>
-/// Handles configuration injection for the Redream (Dreamcast) emulator before launching a game.
+///     Handles configuration injection for the Redream (Dreamcast) emulator before launching a game.
 /// </summary>
 public class RedreamConfigHandler : IEmulatorConfigHandler
 {
@@ -17,7 +17,7 @@ public class RedreamConfigHandler : IEmulatorConfigHandler
     private readonly IServiceScopeFactory _scopeFactory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RedreamConfigHandler"/> class.
+    ///     Initializes a new instance of the <see cref="RedreamConfigHandler" /> class.
     /// </summary>
     public RedreamConfigHandler(ILogger logger, IServiceScopeFactory scopeFactory)
     {
@@ -56,9 +56,7 @@ public class RedreamConfigHandler : IEmulatorConfigHandler
             {
                 shouldRun = true;
                 if (File.Exists(resolvedExe))
-                {
                     RedreamConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
-                }
             }
 
             return shouldRun;

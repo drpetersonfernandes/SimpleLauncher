@@ -4,27 +4,43 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Services.RetroAchievements;
 
 /// <summary>
-/// A helper class that orchestrates RetroAchievements hashing for game files:
-/// system matching (with a platform-provided system selection prompt), archive
-/// extraction, and hash calculation delegated entirely to the bundled
-/// RetroAchievementsSharp CLI tool (which replaces the previous in-process
-/// library and the external RAHasher binary, including native RVZ/WIA disc
-/// hashing).
+///     A helper class that orchestrates RetroAchievements hashing for game files:
+///     system matching (with a platform-provided system selection prompt), archive
+///     extraction, and hash calculation delegated entirely to the bundled
+///     RetroAchievementsSharp CLI tool (which replaces the previous in-process
+///     library and the external RAHasher binary, including native RVZ/WIA disc
+///     hashing).
 /// </summary>
 public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
 {
-    private readonly ILogger _logger;
+    // Systems Not Supported or with UnknowHashLogic
+    // These systems will not show the RetroAchievements icon and hashing will be skipped
+    private static readonly List<string> SystemWithUnknowHashLogic =
+    [
+        "sega pico", "xbox", "xbox360",
+        "atari st", "commodore 64", "amiga", "zx spectrum",
+        "philips cd-i", "sharp x68000", "sharp x1", "oric", "thomson to8", "cassette vision",
+        "super cassette vision", "uzebox", "tic-80", "ti-83", "nokia n-gage", "vic-20", "zx81",
+        "pc-6000", "game & watch", "elektor tv games computer", "interton vc 4000",
+        "arcadia 2001", "fm towns", "hubs", "events", "standalone", "atari 800", "microsoft windows",
+        "sega naomi", "mega duck", "atari 5200", "atari 800", "atari 8-bit"
+    ];
+
     private readonly IExtractionService _extractionService;
-    private readonly Func<string, Task<string?>> _systemSelector;
-    private readonly IRetroAchievementsSystemMatcher _systemMatcher;
     private readonly IRetroAchievementsFileHasher _fileHasher;
+    private readonly ILogger _logger;
+    private readonly IRetroAchievementsSystemMatcher _systemMatcher;
+    private readonly Func<string, Task<string?>> _systemSelector;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsHasherTool"/> class.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsHasherTool" /> class.
     /// </summary>
     /// <param name="logger">The logger instance for diagnostic output.</param>
     /// <param name="extractionService">The extraction service for decompressing archives before hashing.</param>
-    /// <param name="systemSelector">A factory that shows the system selection dialog with a pre-selected guess and returns the chosen system (or null when cancelled).</param>
+    /// <param name="systemSelector">
+    ///     A factory that shows the system selection dialog with a pre-selected guess and returns the
+    ///     chosen system (or null when cancelled).
+    /// </param>
     /// <param name="systemMatcher">The system matcher for fuzzy matching RetroAchievements system names.</param>
     /// <param name="fileHasher">The file hasher that delegates hash calculation to the RetroAchievementsSharp CLI tool.</param>
     public RetroAchievementsHasherTool(
@@ -41,23 +57,10 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         _fileHasher = fileHasher;
     }
 
-    // Systems Not Supported or with UnknowHashLogic
-    // These systems will not show the RetroAchievements icon and hashing will be skipped
-    private static readonly List<string> SystemWithUnknowHashLogic =
-    [
-        "sega pico", "xbox", "xbox360",
-        "atari st", "commodore 64", "amiga", "zx spectrum",
-        "philips cd-i", "sharp x68000", "sharp x1", "oric", "thomson to8", "cassette vision",
-        "super cassette vision", "uzebox", "tic-80", "ti-83", "nokia n-gage", "vic-20", "zx81",
-        "pc-6000", "game & watch", "elektor tv games computer", "interton vc 4000",
-        "arcadia 2001", "fm towns", "hubs", "events", "standalone", "atari 800", "microsoft windows",
-        "sega naomi", "mega duck", "atari 5200", "atari 800", "atari 8-bit"
-    ];
-
     /// <summary>
-    /// Checks if a system is supported for RetroAchievements hashing.
-    /// This is used to determine whether to show the RA icon and attempt hashing.
-    /// Handles name variations by checking against known aliases and using fuzzy matching.
+    ///     Checks if a system is supported for RetroAchievements hashing.
+    ///     This is used to determine whether to show the RA icon and attempt hashing.
+    ///     Handles name variations by checking against known aliases and using fuzzy matching.
     /// </summary>
     /// <param name="systemName">The system name to check.</param>
     /// <returns>True if the system is supported for RetroAchievements hashing; otherwise, false.</returns>
@@ -71,10 +74,8 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
         // First, check if the input directly matches any unsupported system (including aliases)
         // This is important to catch variations like "PS3", "Sony PS3", etc.
         foreach (var unsupportedSystem in SystemWithUnknowHashLogic)
-        {
             if (IsSystemNameMatch(normalizedInput, unsupportedSystem))
                 return false;
-        }
 
         // Get the best match from the system mappings (this handles fuzzy matching for supported systems)
         var matchedSystemName = _systemMatcher.GetBestMatchSystemName(systemName);
@@ -88,7 +89,141 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
     }
 
     /// <summary>
-    /// Checks if two system names match, considering various naming conventions and variations.
+    ///     Calculates the RetroAchievements hash for a game file, handling system matching and extraction as needed.
+    ///     The hash calculation itself is delegated to the RetroAchievementsSharp CLI tool.
+    /// </summary>
+    /// <param name="filePath">The full path to the game file to hash.</param>
+    /// <param name="systemName">The name of the system the game belongs to.</param>
+    /// <param name="fileFormatsToLaunch">The list of file extensions considered valid for launching.</param>
+    /// <param name="loadingState">The optional loading state to update during hash calculation.</param>
+    /// <param name="logErrors">The logger instance for error logging.</param>
+    /// <returns>A <see cref="RaHashResult" /> containing the hash, temp extraction path, and any error information.</returns>
+    public async Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName,
+        IList<string> fileFormatsToLaunch, ILoadingState loadingState, ILogger logErrors)
+    {
+        // 1. Try to get a 100% certain match
+        var confirmedSystem = _systemMatcher.GetExactAliasMatch(systemName);
+
+        // 2. If not 100% certain, ask the user
+        if (confirmedSystem == null)
+        {
+            // Get a "guess" to pre-select in the dialog
+            _logger.Debug($"[GetGameHashForRetroAchievementsAsync] Received systemName: {systemName}");
+            var guess = _systemMatcher.GetBestMatchSystemName(systemName);
+            _logger.Debug($"[GetGameHashForRetroAchievementsAsync] Guess systemName: {guess}");
+
+            var userSelectedSystem = await _systemSelector(guess);
+            _logger.Debug($"[GetGameHashForRetroAchievementsAsync] UserSelectedSystem: {userSelectedSystem}");
+
+            if (string.IsNullOrEmpty(userSelectedSystem))
+            {
+                _logger.Debug("[GetGameHashForRetroAchievementsAsync] User did not choose a system. Returning null.");
+                return new RaHashResult(null, null, false, "System selection cancelled by user.");
+            }
+
+            systemName = userSelectedSystem;
+        }
+        else
+        {
+            systemName = confirmedSystem;
+        }
+
+        string? tempExtractionPath = null;
+        string? hash;
+        var isExtractionSuccessful = true; // Assume success initially
+        string? extractionErrorMessage = null;
+
+        // Report loading state if provided
+        loadingState?.SetLoadingState(true, "Calculating game hash...");
+
+        if (!File.Exists(filePath))
+        {
+            _logger.Debug($"[RA Hasher Tool] File not found at {filePath}");
+            logErrors.Information($"[RA Hasher Tool] File not found at {filePath}");
+            return new RaHashResult(null, null, false, "Game file not found.");
+        }
+
+        if (string.IsNullOrWhiteSpace(systemName))
+        {
+            _logger.Debug("[RA Hasher Tool] SystemName is null or empty.");
+            logErrors.Information("[RA Hasher Tool] SystemName is null or empty.");
+            return new RaHashResult(null, null, false, "System name is missing.");
+        }
+
+        // Systems without a usable console ID (e.g. the "unsupported" pseudo-system) cannot be hashed
+        var systemId = _systemMatcher.GetSystemId(systemName);
+        if (systemId is <= 0 or > RetroAchievementsConstants.MaxConsoleId)
+        {
+            _logger.Debug($"[RA Hasher Tool] System '{systemName}' is not supported for RetroAchievements hashing.");
+            return new RaHashResult(null, null, false,
+                $"System '{systemName}' is not supported for RetroAchievements hashing.");
+        }
+
+        var fileExtension = Path.GetExtension(filePath).ToLowerInvariant();
+
+        // Arcade games are hashed by file name (e.g. "game" from "game.zip"); every other system hashes file content
+        var isFileNameHashSystem = systemName.Equals("arcade", StringComparison.OrdinalIgnoreCase);
+
+        // --- Pre-processing: only extract when really needed ---
+        // .zip archives are handled by the RetroAchievementsSharp CLI tool itself
+        // (hash the first entry — no disk extraction needed). Only .7z/.rar
+        // archives are extracted.
+        var fileToProcess = filePath; // By default, process the original file
+
+        if (fileExtension is ".7z" or ".rar" && !isFileNameHashSystem)
+        {
+            _logger.Debug($"[RA Hasher Tool] Compressed file detected for hashing: {filePath}. Extracting...");
+            var (extractedGameFilePath, extractedTempDirPath) =
+                await _extractionService.ExtractToTempAndGetLaunchFileAsync(filePath, fileFormatsToLaunch);
+            tempExtractionPath = extractedTempDirPath;
+
+            if (string.IsNullOrEmpty(extractedGameFilePath))
+            {
+                isExtractionSuccessful = false;
+                extractionErrorMessage =
+                    $"Failed to extract or find a suitable file in archive for hashing: {filePath}.";
+                logErrors.Information($"[RA Hasher Tool] {extractionErrorMessage}");
+                _logger.Debug($"[RA Hasher Tool] {extractionErrorMessage}");
+                return new RaHashResult(null, tempExtractionPath, isExtractionSuccessful, extractionErrorMessage);
+            }
+
+            fileToProcess = extractedGameFilePath;
+        }
+
+        // --- Perform Hashing (delegated entirely to the RetroAchievementsSharp CLI tool) ---
+        try
+        {
+            hash = await _fileHasher.CalculateHashAsync(fileToProcess, systemName);
+            _logger.Debug($"[RA Hasher Tool] Calculated hash: {hash}");
+        }
+        catch (Exception ex)
+        {
+            logErrors.Error(ex,
+                $"[RA Hasher Tool] An error occurred during hash calculation for {filePath} (System: {systemName}).");
+            _logger.Debug(
+                $"[RA Hasher Tool] An error occurred during hash calculation for {filePath} (System: {systemName}).");
+            return new RaHashResult(null, tempExtractionPath, false, $"Error during hash calculation: {ex.Message}");
+        }
+        finally
+        {
+            loadingState?.SetLoadingState(false);
+        }
+
+        if (string.IsNullOrEmpty(hash))
+        {
+            // The file could not be hashed (unsupported file type, missing 3DS keys, etc.)
+            _logger.Debug(
+                $"[RA Hasher Tool] Could not calculate a RetroAchievements hash for {filePath} (System: {systemName}).");
+            logErrors.Information(
+                $"[RA Hasher Tool] Could not calculate a RetroAchievements hash for {filePath} (System: {systemName}).");
+            extractionErrorMessage = "Could not calculate a RetroAchievements hash for this game.";
+        }
+
+        return new RaHashResult(hash, tempExtractionPath, isExtractionSuccessful, extractionErrorMessage);
+    }
+
+    /// <summary>
+    ///     Checks if two system names match, considering various naming conventions and variations.
     /// </summary>
     private static bool IsSystemNameMatch(string input, string pattern)
     {
@@ -117,7 +252,7 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
     }
 
     /// <summary>
-    /// Normalizes a system name by removing common separators and standardizing format.
+    ///     Normalizes a system name by removing common separators and standardizing format.
     /// </summary>
     private static string NormalizeSystemName(string input)
     {
@@ -134,7 +269,7 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
     }
 
     /// <summary>
-    /// Checks if two system names are equivalent based on common abbreviations and naming conventions.
+    ///     Checks if two system names are equivalent based on common abbreviations and naming conventions.
     /// </summary>
     private static bool AreSystemAbbreviationsEquivalent(string input, string pattern)
     {
@@ -258,139 +393,5 @@ public class RetroAchievementsHasherTool : IRetroAchievementsHasherTool
                    normalizedPattern.Contains("neo geo", StringComparison.Ordinal);
 
         return false;
-    }
-
-    /// <summary>
-    /// Calculates the RetroAchievements hash for a game file, handling system matching and extraction as needed.
-    /// The hash calculation itself is delegated to the RetroAchievementsSharp CLI tool.
-    /// </summary>
-    /// <param name="filePath">The full path to the game file to hash.</param>
-    /// <param name="systemName">The name of the system the game belongs to.</param>
-    /// <param name="fileFormatsToLaunch">The list of file extensions considered valid for launching.</param>
-    /// <param name="loadingState">The optional loading state to update during hash calculation.</param>
-    /// <param name="logErrors">The logger instance for error logging.</param>
-    /// <returns>A <see cref="RaHashResult"/> containing the hash, temp extraction path, and any error information.</returns>
-    public async Task<RaHashResult> GetGameHashForRetroAchievementsAsync(string filePath, string systemName,
-        IList<string> fileFormatsToLaunch, ILoadingState loadingState, ILogger logErrors)
-    {
-        // 1. Try to get a 100% certain match
-        var confirmedSystem = _systemMatcher.GetExactAliasMatch(systemName);
-
-        // 2. If not 100% certain, ask the user
-        if (confirmedSystem == null)
-        {
-            // Get a "guess" to pre-select in the dialog
-            _logger.Debug($"[GetGameHashForRetroAchievementsAsync] Received systemName: {systemName}");
-            var guess = _systemMatcher.GetBestMatchSystemName(systemName);
-            _logger.Debug($"[GetGameHashForRetroAchievementsAsync] Guess systemName: {guess}");
-
-            var userSelectedSystem = await _systemSelector(guess);
-            _logger.Debug($"[GetGameHashForRetroAchievementsAsync] UserSelectedSystem: {userSelectedSystem}");
-
-            if (string.IsNullOrEmpty(userSelectedSystem))
-            {
-                _logger.Debug("[GetGameHashForRetroAchievementsAsync] User did not choose a system. Returning null.");
-                return new RaHashResult(null, null, false, "System selection cancelled by user.");
-            }
-
-            systemName = userSelectedSystem;
-        }
-        else
-        {
-            systemName = confirmedSystem;
-        }
-
-        string? tempExtractionPath = null;
-        string? hash;
-        var isExtractionSuccessful = true; // Assume success initially
-        string? extractionErrorMessage = null;
-
-        // Report loading state if provided
-        loadingState?.SetLoadingState(true, "Calculating game hash...");
-
-        if (!File.Exists(filePath))
-        {
-            _logger.Debug($"[RA Hasher Tool] File not found at {filePath}");
-            logErrors.Information($"[RA Hasher Tool] File not found at {filePath}");
-            return new RaHashResult(null, null, false, "Game file not found.");
-        }
-
-        if (string.IsNullOrWhiteSpace(systemName))
-        {
-            _logger.Debug("[RA Hasher Tool] SystemName is null or empty.");
-            logErrors.Information("[RA Hasher Tool] SystemName is null or empty.");
-            return new RaHashResult(null, null, false, "System name is missing.");
-        }
-
-        // Systems without a usable console ID (e.g. the "unsupported" pseudo-system) cannot be hashed
-        var systemId = _systemMatcher.GetSystemId(systemName);
-        if (systemId is <= 0 or > RetroAchievementsConstants.MaxConsoleId)
-        {
-            _logger.Debug($"[RA Hasher Tool] System '{systemName}' is not supported for RetroAchievements hashing.");
-            return new RaHashResult(null, null, false,
-                $"System '{systemName}' is not supported for RetroAchievements hashing.");
-        }
-
-        var fileExtension = Path.GetExtension(filePath).ToLowerInvariant();
-
-        // Arcade games are hashed by file name (e.g. "game" from "game.zip"); every other system hashes file content
-        var isFileNameHashSystem = systemName.Equals("arcade", StringComparison.OrdinalIgnoreCase);
-
-        // --- Pre-processing: only extract when really needed ---
-        // .zip archives are handled by the RetroAchievementsSharp CLI tool itself
-        // (hash the first entry — no disk extraction needed). Only .7z/.rar
-        // archives are extracted.
-        var fileToProcess = filePath; // By default, process the original file
-
-        if (fileExtension is ".7z" or ".rar" && !isFileNameHashSystem)
-        {
-            _logger.Debug($"[RA Hasher Tool] Compressed file detected for hashing: {filePath}. Extracting...");
-            var (extractedGameFilePath, extractedTempDirPath) =
-                await _extractionService.ExtractToTempAndGetLaunchFileAsync(filePath, fileFormatsToLaunch);
-            tempExtractionPath = extractedTempDirPath;
-
-            if (string.IsNullOrEmpty(extractedGameFilePath))
-            {
-                isExtractionSuccessful = false;
-                extractionErrorMessage =
-                    $"Failed to extract or find a suitable file in archive for hashing: {filePath}.";
-                logErrors.Information($"[RA Hasher Tool] {extractionErrorMessage}");
-                _logger.Debug($"[RA Hasher Tool] {extractionErrorMessage}");
-                return new RaHashResult(null, tempExtractionPath, isExtractionSuccessful, extractionErrorMessage);
-            }
-
-            fileToProcess = extractedGameFilePath;
-        }
-
-        // --- Perform Hashing (delegated entirely to the RetroAchievementsSharp CLI tool) ---
-        try
-        {
-            hash = await _fileHasher.CalculateHashAsync(fileToProcess, systemName);
-            _logger.Debug($"[RA Hasher Tool] Calculated hash: {hash}");
-        }
-        catch (Exception ex)
-        {
-            logErrors.Error(ex,
-                $"[RA Hasher Tool] An error occurred during hash calculation for {filePath} (System: {systemName}).");
-            _logger.Debug(
-                $"[RA Hasher Tool] An error occurred during hash calculation for {filePath} (System: {systemName}).");
-            return new RaHashResult(null, tempExtractionPath, false, $"Error during hash calculation: {ex.Message}");
-        }
-        finally
-        {
-            loadingState?.SetLoadingState(false);
-        }
-
-        if (string.IsNullOrEmpty(hash))
-        {
-            // The file could not be hashed (unsupported file type, missing 3DS keys, etc.)
-            _logger.Debug(
-                $"[RA Hasher Tool] Could not calculate a RetroAchievements hash for {filePath} (System: {systemName}).");
-            logErrors.Information(
-                $"[RA Hasher Tool] Could not calculate a RetroAchievements hash for {filePath} (System: {systemName}).");
-            extractionErrorMessage = "Could not calculate a RetroAchievements hash for this game.";
-        }
-
-        return new RaHashResult(hash, tempExtractionPath, isExtractionSuccessful, extractionErrorMessage);
     }
 }

@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
@@ -7,18 +8,19 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.SystemConfiguration;
 
 /// <summary>
-/// Handles reading and writing system configuration to the system.xml file, including save, delete, and existence checks.
+///     Handles reading and writing system configuration to the system.xml file, including save, delete, and existence
+///     checks.
 /// </summary>
 [SuppressMessage("ReSharper", "NotAccessedField.Local")]
 public class SystemConfigurationWriterService : ISystemConfigurationWriterService
 {
-    private readonly IConfiguration _configuration;
-    private readonly ILogger _logger;
-    private readonly DataFileLocation _fileLocation;
     private static readonly Lock XmlLock = new();
+    private readonly IConfiguration _configuration;
+    private readonly DataFileLocation _fileLocation;
+    private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the SystemConfigurationWriterService with the specified dependencies.
+    ///     Initializes a new instance of the SystemConfigurationWriterService with the specified dependencies.
     /// </summary>
     public SystemConfigurationWriterService(IConfiguration configuration, ILogger logErrors)
     {
@@ -28,7 +30,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
     }
 
     /// <summary>
-    /// Asynchronously saves a system configuration to the XML file, creating or updating the entry.
+    ///     Asynchronously saves a system configuration to the XML file, creating or updating the entry.
     /// </summary>
     public async Task SaveSystemAsync(ISystemManager systemConfig, string? originalSystemName = null)
     {
@@ -51,9 +53,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                                 : XDocument.Parse(xmlContent);
 
                             if (xmlDoc.Root == null || xmlDoc.Root.Name != "SystemConfigs")
-                            {
                                 xmlDoc = new XDocument(new XElement("SystemConfigs"));
-                            }
                         }
                         else
                         {
@@ -76,13 +76,9 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                                 StringComparison.Ordinal));
 
                         if (existingSystem != null)
-                        {
                             UpdateSystemXElement(existingSystem, systemConfig);
-                        }
                         else
-                        {
                             root.Add(CreateSystemXElement(systemConfig));
-                        }
 
                         // Sort alphabetically
                         var sortedSystems = root.Elements("SystemConfig")
@@ -98,7 +94,6 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                     Exception? lastException = null;
 
                     for (var attempt = 0; attempt < maxRetries; attempt++)
-                    {
                         try
                         {
                             var tempPath = systemXmlPath + ".tmp";
@@ -107,7 +102,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                                 Indent = true,
                                 IndentChars = "  ",
                                 NewLineHandling = NewLineHandling.Replace,
-                                Encoding = System.Text.Encoding.UTF8
+                                Encoding = Encoding.UTF8
                             };
 
                             byte[] xmlBytes;
@@ -148,7 +143,6 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                                 retryDelayMs *= 2;
                             }
                         }
-                    }
 
                     throw new InvalidOperationException("Failed to save system configuration.", lastException);
                 }
@@ -162,7 +156,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
     }
 
     /// <summary>
-    /// Asynchronously deletes a system configuration entry by name from the XML file.
+    ///     Asynchronously deletes a system configuration entry by name from the XML file.
     /// </summary>
     public async Task DeleteSystemAsync(string systemName)
     {
@@ -207,7 +201,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                             Indent = true,
                             IndentChars = "  ",
                             NewLineHandling = NewLineHandling.Replace,
-                            Encoding = System.Text.Encoding.UTF8
+                            Encoding = Encoding.UTF8
                         };
 
                         byte[] xmlBytes;
@@ -223,9 +217,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                         }
 
                         if (xmlBytes.Length == 0)
-                        {
                             throw new InvalidOperationException("Generated system XML is empty after delete.");
-                        }
 
                         File.WriteAllBytes(tempPath, xmlBytes);
                         File.Move(tempPath, systemXmlPath, true);
@@ -240,7 +232,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
     }
 
     /// <summary>
-    /// Checks whether a system configuration with the specified name exists in the XML file.
+    ///     Checks whether a system configuration with the specified name exists in the XML file.
     /// </summary>
     public bool SystemExists(string systemName)
     {

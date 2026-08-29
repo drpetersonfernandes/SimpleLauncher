@@ -6,12 +6,34 @@ using SimpleLauncher.Avalonia.Services;
 namespace SimpleLauncher.Avalonia.Converters;
 
 /// <summary>
-/// Converts a boolean value to a localized string indicating favorite status for accessibility.
-/// Avalonia port of the WPF BooleanToFavoriteStatusConverter.
+///     Converts a boolean value to a localized string indicating favorite status for accessibility.
+///     Avalonia port of the WPF BooleanToFavoriteStatusConverter.
 /// </summary>
 public class BooleanToFavoriteStatusConverter : IValueConverter
 {
     private static LocalizationService? _localization;
+
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        var localization = GetLocalizationService();
+        if (value is bool isFavorite)
+            return isFavorite
+                ? Localized("FavoriteStatusLabel", "Favorite")
+                : Localized("NotFavoriteStatusLabel", "Not Favorite");
+
+        return Localized("UnknownFavoriteStatusLabel", "Unknown Favorite Status");
+
+        string Localized(string key, string fallback)
+        {
+            var result = localization?.GetString(key);
+            return string.IsNullOrEmpty(result) || result == key ? fallback : result;
+        }
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
 
     public static void SetLocalizationService(LocalizationService service)
     {
@@ -26,29 +48,5 @@ public class BooleanToFavoriteStatusConverter : IValueConverter
         // Fallback: resolve the DI singleton on first use.
         _localization = App.ServiceProvider?.GetService<LocalizationService>();
         return _localization;
-    }
-
-    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        var localization = GetLocalizationService();
-        if (value is bool isFavorite)
-        {
-            return isFavorite
-                ? Localized("FavoriteStatusLabel", "Favorite")
-                : Localized("NotFavoriteStatusLabel", "Not Favorite");
-        }
-
-        return Localized("UnknownFavoriteStatusLabel", "Unknown Favorite Status");
-
-        string Localized(string key, string fallback)
-        {
-            var result = localization?.GetString(key);
-            return string.IsNullOrEmpty(result) || result == key ? fallback : result;
-        }
-    }
-
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
     }
 }

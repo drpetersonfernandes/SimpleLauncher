@@ -3,7 +3,7 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Models;
 
 /// <summary>
-/// Represents an emulator configuration with its executable path, parameters, and image pack download links.
+///     Represents an emulator configuration with its executable path, parameters, and image pack download links.
 /// </summary>
 public class Emulator : IEmulator
 {

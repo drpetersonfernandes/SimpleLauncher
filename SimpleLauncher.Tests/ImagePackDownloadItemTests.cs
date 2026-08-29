@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="ImagePackDownloadItem"/> model class.
+///     Tests for the <see cref="ImagePackDownloadItem" /> model class.
 /// </summary>
 public class ImagePackDownloadItemTests
 {
     /// <summary>
-    /// Verifies that a new ImagePackDownloadItem has correct default values.
+    ///     Verifies that a new ImagePackDownloadItem has correct default values.
     /// </summary>
     [Fact]
     public void DefaultValuesAreCorrect()
@@ -23,7 +23,7 @@ public class ImagePackDownloadItemTests
     }
 
     /// <summary>
-    /// Verifies that ImagePackDownloadItem properties can be set.
+    ///     Verifies that ImagePackDownloadItem properties can be set.
     /// </summary>
     [Fact]
     public void PropertiesCanBeSet()
@@ -41,7 +41,7 @@ public class ImagePackDownloadItemTests
     }
 
     /// <summary>
-    /// Verifies that convenience properties are correct in the Idle state.
+    ///     Verifies that convenience properties are correct in the Idle state.
     /// </summary>
     [Fact]
     public void StateIdleConveniencePropertiesAreCorrect()
@@ -56,7 +56,7 @@ public class ImagePackDownloadItemTests
     }
 
     /// <summary>
-    /// Verifies that convenience properties are correct in the Downloading state.
+    ///     Verifies that convenience properties are correct in the Downloading state.
     /// </summary>
     [Fact]
     public void StateDownloadingConveniencePropertiesAreCorrect()
@@ -71,7 +71,7 @@ public class ImagePackDownloadItemTests
     }
 
     /// <summary>
-    /// Verifies that convenience properties are correct in the Downloaded state.
+    ///     Verifies that convenience properties are correct in the Downloaded state.
     /// </summary>
     [Fact]
     public void StateDownloadedConveniencePropertiesAreCorrect()
@@ -86,7 +86,7 @@ public class ImagePackDownloadItemTests
     }
 
     /// <summary>
-    /// Verifies that convenience properties are correct in the Failed state.
+    ///     Verifies that convenience properties are correct in the Failed state.
     /// </summary>
     [Fact]
     public void StateFailedConveniencePropertiesAreCorrect()
@@ -101,7 +101,7 @@ public class ImagePackDownloadItemTests
     }
 
     /// <summary>
-    /// Verifies that changing State raises PropertyChanged for all related properties.
+    ///     Verifies that changing State raises PropertyChanged for all related properties.
     /// </summary>
     [Fact]
     public void StateChangeRaisesPropertyChanged()
@@ -125,7 +125,7 @@ public class ImagePackDownloadItemTests
     }
 
     /// <summary>
-    /// Verifies that setting the same State does not raise PropertyChanged.
+    ///     Verifies that setting the same State does not raise PropertyChanged.
     /// </summary>
     [Fact]
     public void SameStateDoesNotRaisePropertyChanged()
@@ -140,7 +140,7 @@ public class ImagePackDownloadItemTests
     }
 
     /// <summary>
-    /// Verifies that CanStartDownload is true only for Idle and Failed states.
+    ///     Verifies that CanStartDownload is true only for Idle and Failed states.
     /// </summary>
     [Fact]
     public void CanStartDownloadIsTrueForIdleAndFailedOnly()

@@ -4,14 +4,14 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the <see cref="CheckIfDirectoryIsWritableService"/> utility for verifying directory write access.
+///     Tests the <see cref="CheckIfDirectoryIsWritableService" /> utility for verifying directory write access.
 /// </summary>
 public class CheckIfDirectoryIsWritableTests
 {
     private static readonly ILogger NullLogErrors = new NoOpLogger();
 
     /// <summary>
-    /// Verifies that a non-existent directory path returns false (not writable).
+    ///     Verifies that a non-existent directory path returns false (not writable).
     /// </summary>
     [Fact]
     public void IsWritableDirectoryNonExistentReturnsFalse()
@@ -22,7 +22,7 @@ public class CheckIfDirectoryIsWritableTests
     }
 
     /// <summary>
-    /// Verifies that a writable temporary directory returns true.
+    ///     Verifies that a writable temporary directory returns true.
     /// </summary>
     [Fact]
     public void IsWritableDirectoryTempDirectoryReturnsTrue()
@@ -41,7 +41,7 @@ public class CheckIfDirectoryIsWritableTests
     }
 
     /// <summary>
-    /// Verifies that the writable directory check leaves no temporary files behind.
+    ///     Verifies that the writable directory check leaves no temporary files behind.
     /// </summary>
     [Fact]
     public void IsWritableDirectoryLeavesNoTempFiles()

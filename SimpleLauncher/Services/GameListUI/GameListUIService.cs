@@ -2,14 +2,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Interfaces;
 using Settings = SimpleLauncher.Core.Services.SettingsManager.SettingsManagerService;
 
 namespace SimpleLauncher.Services.GameListUI;
 
-using Interfaces;
-
 /// <summary>
-/// Manages the game list UI, including grid/list view switching, pagination, and game button image cleanup.
+///     Manages the game list UI, including grid/list view switching, pagination, and game button image cleanup.
 /// </summary>
 public class GameListUiService
 {
@@ -17,7 +16,7 @@ public class GameListUiService
     private IGameListUiHost _host = null!;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GameListUiService"/> class.
+    ///     Initializes a new instance of the <see cref="GameListUiService" /> class.
     /// </summary>
     /// <param name="settings">The application settings manager.</param>
     public GameListUiService(Settings settings)
@@ -26,7 +25,7 @@ public class GameListUiService
     }
 
     /// <summary>
-    /// Initializes the service with the specified host that provides UI elements and dispatcher access.
+    ///     Initializes the service with the specified host that provides UI elements and dispatcher access.
     /// </summary>
     /// <param name="host">The game list UI host.</param>
     public void Initialize(IGameListUiHost host)
@@ -35,7 +34,8 @@ public class GameListUiService
     }
 
     /// <summary>
-    /// Prepares the UI before loading game files by clearing existing content, scrolling to top, and setting the appropriate view mode.
+    ///     Prepares the UI before loading game files by clearing existing content, scrolling to top, and setting the
+    ///     appropriate view mode.
     /// </summary>
     public async Task SetUiBeforeLoadGameFilesAsync()
     {
@@ -68,7 +68,7 @@ public class GameListUiService
     }
 
     /// <summary>
-    /// Displays a message indicating that no games matched the current search or filter.
+    ///     Displays a message indicating that no games matched the current search or filter.
     /// </summary>
     public void AddNoFilesMessage()
     {
@@ -101,7 +101,7 @@ public class GameListUiService
     }
 
     /// <summary>
-    /// Enables or disables all game buttons in the grid.
+    ///     Enables or disables all game buttons in the grid.
     /// </summary>
     /// <param name="isEnabled">True to enable buttons; false to disable them.</param>
     public void SetGameButtonsEnabled(bool isEnabled)
@@ -109,29 +109,21 @@ public class GameListUiService
         if (_host.GameFileGrid == null) return;
 
         foreach (var child in _host.GameFileGrid.Children)
-        {
             if (child is Button button)
-            {
                 button.IsEnabled = isEnabled;
-            }
-        }
     }
 
     /// <summary>
-    /// Recursively clears all BitmapImage sources from Image elements within the specified panel and its children.
+    ///     Recursively clears all BitmapImage sources from Image elements within the specified panel and its children.
     /// </summary>
     /// <param name="panel">The panel whose game button images should be cleared.</param>
     public static void ClearGameButtonImages(Panel panel)
     {
         foreach (var child in panel.Children)
-        {
             switch (child)
             {
                 case Image image:
-                    if (image.Source is BitmapImage)
-                    {
-                        image.Source = null;
-                    }
+                    if (image.Source is BitmapImage) image.Source = null;
 
                     break;
 
@@ -156,11 +148,10 @@ public class GameListUiService
                     ClearImageFromBorder(border);
                     break;
             }
-        }
     }
 
     /// <summary>
-    /// Clears the BitmapImage source of an Image element contained within a Border, if present.
+    ///     Clears the BitmapImage source of an Image element contained within a Border, if present.
     /// </summary>
     /// <param name="border">The border whose child image source should be cleared.</param>
     public static void ClearImageFromBorder(Border border)
@@ -168,10 +159,7 @@ public class GameListUiService
         switch (border.Child)
         {
             case Image image:
-                if (image.Source is BitmapImage)
-                {
-                    image.Source = null;
-                }
+                if (image.Source is BitmapImage) image.Source = null;
 
                 break;
             case Panel panel:

@@ -5,7 +5,7 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests for the <see cref="FileLockService"/> class.
+///     Tests for the <see cref="FileLockService" /> class.
 /// </summary>
 [SuppressMessage("ReSharper", "NullableWarningSuppressionIsUsed")]
 public class FileLockServiceTests
@@ -13,7 +13,7 @@ public class FileLockServiceTests
     private readonly FileLockService _service = new();
 
     /// <summary>
-    /// Verifies that IsFileLocked returns false when the path is null.
+    ///     Verifies that IsFileLocked returns false when the path is null.
     /// </summary>
     [Fact]
     public void IsFileLockedNullPathReturnsFalse()
@@ -23,7 +23,7 @@ public class FileLockServiceTests
     }
 
     /// <summary>
-    /// Verifies that IsFileLocked returns false when the path is empty.
+    ///     Verifies that IsFileLocked returns false when the path is empty.
     /// </summary>
     [Fact]
     public void IsFileLockedEmptyPathReturnsFalse()
@@ -33,7 +33,7 @@ public class FileLockServiceTests
     }
 
     /// <summary>
-    /// Verifies that IsFileLocked returns false for a non-existent file.
+    ///     Verifies that IsFileLocked returns false for a non-existent file.
     /// </summary>
     [Fact]
     public void IsFileLockedNonExistentFileReturnsFalse()
@@ -44,7 +44,7 @@ public class FileLockServiceTests
     }
 
     /// <summary>
-    /// Verifies that IsFileLocked returns false for an unlocked file.
+    ///     Verifies that IsFileLocked returns false for an unlocked file.
     /// </summary>
     [Fact]
     public void IsFileLockedUnlockedFileReturnsFalse()
@@ -64,7 +64,7 @@ public class FileLockServiceTests
     }
 
     /// <summary>
-    /// Verifies that IsFileLocked returns true for a file that is locked by another process.
+    ///     Verifies that IsFileLocked returns true for a file that is locked by another process.
     /// </summary>
     [Fact]
     public void IsFileLockedLockedFileReturnsTrue()
@@ -85,7 +85,7 @@ public class FileLockServiceTests
     }
 
     /// <summary>
-    /// Verifies that IsFileLocked returns false when the path is whitespace.
+    ///     Verifies that IsFileLocked returns false when the path is whitespace.
     /// </summary>
     [Fact]
     public void IsFileLockedWhitespacePathReturnsFalse()

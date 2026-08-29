@@ -3,13 +3,15 @@ using SimpleLauncher.Core;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.GameFilter;
+using SimpleLauncher.Services.SystemManager;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Extended tests for the <see cref="GameFilterService"/> class covering additional edge cases for filtering, sorting, and search operators.
+///     Extended tests for the <see cref="GameFilterService" /> class covering additional edge cases for filtering,
+///     sorting, and search operators.
 /// </summary>
 public class GameFilterServiceExtendedTests
 {
@@ -25,40 +27,10 @@ public class GameFilterServiceExtendedTests
         return new GameFilterService(findCoverImage, settings);
     }
 
-    private class FindCoverImageNoOp : IFindCoverImageService
-    {
-        /// <summary>
-        /// Always returns the default cover image name, simulating a game that has no cover.
-        /// </summary>
-        /// <param name="fileNameWithoutExtension">The game file name without its extension.</param>
-        /// <param name="systemName">The name of the system the game belongs to.</param>
-        /// <param name="systemImageFolder">The folder configured to hold the system cover images.</param>
-        /// <returns>The literal string <c>default.png</c>.</returns>
-        public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, string systemImageFolder)
-        {
-            return "default.png";
-        }
-    }
-
-    private class FindCoverImageAlwaysHasCover : IFindCoverImageService
-    {
-        /// <summary>
-        /// Always returns a fabricated cover image path, simulating a game that has a cover.
-        /// </summary>
-        /// <param name="fileNameWithoutExtension">The game file name without its extension.</param>
-        /// <param name="systemName">The name of the system the game belongs to.</param>
-        /// <param name="systemImageFolder">The folder configured to hold the system cover images.</param>
-        /// <returns>A fake cover image path built from <paramref name="fileNameWithoutExtension"/>.</returns>
-        public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, string systemImageFolder)
-        {
-            return $"C:\\covers\\{fileNameWithoutExtension}.png";
-        }
-    }
-
     // FilterByShowGamesSettingAsync tests
 
     /// <summary>
-    /// Verifies that ShowAll returns all files regardless of cover image availability.
+    ///     Verifies that ShowAll returns all files regardless of cover image availability.
     /// </summary>
     [Fact]
     public async Task FilterByShowGamesSettingAsyncShowAllReturnsAllRegardlessOfCover()
@@ -70,7 +42,7 @@ public class GameFilterServiceExtendedTests
         };
         var service = new GameFilterService(new FindCoverImageAlwaysHasCover(), settings);
         var files = new List<string> { "game1.zip", "game2.nes", "game3.smc" };
-        var config = new Services.SystemManager.SystemManagerService
+        var config = new SystemManagerService
             { SystemName = "NES", SystemImageFolder = "images" };
 
         var result = await service.FilterByShowGamesSettingAsync(files, "NES", config);
@@ -78,7 +50,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ShowWithCover filters out games with default cover images.
+    ///     Verifies that ShowWithCover filters out games with default cover images.
     /// </summary>
     [Fact]
     public async Task FilterByShowGamesSettingAsyncShowWithCoverFiltersDefaultImages()
@@ -90,7 +62,7 @@ public class GameFilterServiceExtendedTests
         };
         var service = new GameFilterService(new FindCoverImageNoOp(), settings);
         var files = new List<string> { "game1.zip", "game2.nes" };
-        var config = new Services.SystemManager.SystemManagerService
+        var config = new SystemManagerService
             { SystemName = "NES", SystemImageFolder = "images" };
 
         var result = await service.FilterByShowGamesSettingAsync(files, "NES", config);
@@ -98,7 +70,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that ShowWithoutCover returns only games with default cover images.
+    ///     Verifies that ShowWithoutCover returns only games with default cover images.
     /// </summary>
     [Fact]
     public async Task FilterByShowGamesSettingAsyncShowWithoutCoverReturnsDefaultImageGames()
@@ -110,7 +82,7 @@ public class GameFilterServiceExtendedTests
         };
         var service = new GameFilterService(new FindCoverImageNoOp(), settings);
         var files = new List<string> { "game1.zip", "game2.nes" };
-        var config = new Services.SystemManager.SystemManagerService
+        var config = new SystemManagerService
             { SystemName = "NES", SystemImageFolder = "images" };
 
         var result = await service.FilterByShowGamesSettingAsync(files, "NES", config);
@@ -118,7 +90,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that empty ShowGames setting does not behave as ShowAll.
+    ///     Verifies that empty ShowGames setting does not behave as ShowAll.
     /// </summary>
     [Fact]
     public async Task FilterByShowGamesSettingAsyncEmptyShowGamesTreatsAsShowAll()
@@ -130,7 +102,7 @@ public class GameFilterServiceExtendedTests
         };
         var service = new GameFilterService(new FindCoverImageNoOp(), settings);
         var files = new List<string> { "game1.zip" };
-        var config = new Services.SystemManager.SystemManagerService
+        var config = new SystemManagerService
             { SystemName = "NES", SystemImageFolder = "images" };
 
         var result = await service.FilterByShowGamesSettingAsync(files, "NES", config);
@@ -142,7 +114,7 @@ public class GameFilterServiceExtendedTests
     // FilterByLetterAsync tests
 
     /// <summary>
-    /// Verifies that FilterByLetterAsync handles special character brackets.
+    ///     Verifies that FilterByLetterAsync handles special character brackets.
     /// </summary>
     [Fact]
     public async Task FilterByLetterAsyncSpecialCharacters()
@@ -160,7 +132,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterByLetterAsync with '#' returns empty when no files start with a digit.
+    ///     Verifies that FilterByLetterAsync with '#' returns empty when no files start with a digit.
     /// </summary>
     [Fact]
     public async Task FilterByLetterAsyncHashWithNoDigitFiles()
@@ -177,7 +149,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterByLetterAsync works with a single file in the list.
+    ///     Verifies that FilterByLetterAsync works with a single file in the list.
     /// </summary>
     [Fact]
     public async Task FilterByLetterAsyncSingleFile()
@@ -190,7 +162,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterByLetterAsync matches letter case-insensitively.
+    ///     Verifies that FilterByLetterAsync matches letter case-insensitively.
     /// </summary>
     [Fact]
     public async Task FilterByLetterAsyncCaseInsensitiveA()
@@ -210,7 +182,7 @@ public class GameFilterServiceExtendedTests
     // SortByMameDescription tests
 
     /// <summary>
-    /// Verifies that SortByMameDescription with MachineDescription sorts case-insensitively.
+    ///     Verifies that SortByMameDescription with MachineDescription sorts case-insensitively.
     /// </summary>
     [Fact]
     public void SortByMameDescriptionMachineDescriptionSortsCaseInsensitive()
@@ -228,7 +200,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that SortByMameDescription with FileName sorts case-insensitively.
+    ///     Verifies that SortByMameDescription with FileName sorts case-insensitively.
     /// </summary>
     [Fact]
     public void SortByMameDescriptionFileNameSortsCaseInsensitive()
@@ -242,7 +214,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that SortByMameDescription with empty files returns empty.
+    ///     Verifies that SortByMameDescription with empty files returns empty.
     /// </summary>
     [Fact]
     public void SortByMameDescriptionEmptyFilesReturnsEmpty()
@@ -254,7 +226,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that SortByMameDescription falls back to filename for items not in the MAME lookup.
+    ///     Verifies that SortByMameDescription falls back to filename for items not in the MAME lookup.
     /// </summary>
     [Fact]
     public void SortByMameDescriptionPartialLookupFallsBackToFileName()
@@ -275,7 +247,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that SortByMameDescription with unknown sort order defaults to filename sorting.
+    ///     Verifies that SortByMameDescription with unknown sort order defaults to filename sorting.
     /// </summary>
     [Fact]
     public void SortByMameDescriptionUnknownSortOrderDefaultsToFileName()
@@ -291,7 +263,7 @@ public class GameFilterServiceExtendedTests
     // FilterBySearchQueryAsync tests
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync supports partial filename matching.
+    ///     Verifies that FilterBySearchQueryAsync supports partial filename matching.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncPartialMatch()
@@ -306,7 +278,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync returns multiple matches.
+    ///     Verifies that FilterBySearchQueryAsync returns multiple matches.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncMultipleMatches()
@@ -327,7 +299,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync with empty query returns all files.
+    ///     Verifies that FilterBySearchQueryAsync with empty query returns all files.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncEmptyQueryReturnsAll()
@@ -341,7 +313,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync with empty file list returns empty.
+    ///     Verifies that FilterBySearchQueryAsync with empty file list returns empty.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncEmptyFilesReturnsEmpty()
@@ -354,7 +326,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync matches MAME descriptions case-insensitively.
+    ///     Verifies that FilterBySearchQueryAsync matches MAME descriptions case-insensitively.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncMameDescriptionCaseInsensitive()
@@ -371,7 +343,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync supports partial MAME description matching.
+    ///     Verifies that FilterBySearchQueryAsync supports partial MAME description matching.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncMameDescriptionPartialMatch()
@@ -388,7 +360,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync handles MAME lookup with empty description.
+    ///     Verifies that FilterBySearchQueryAsync handles MAME lookup with empty description.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncMameLookupWithEmptyDescription()
@@ -405,7 +377,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync matches filenames even when MAME description differs.
+    ///     Verifies that FilterBySearchQueryAsync matches filenames even when MAME description differs.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncSearchInFilenameNotMame()
@@ -424,7 +396,7 @@ public class GameFilterServiceExtendedTests
     // AND/OR operator tests for FilterBySearchQueryAsync
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync with AND operator requires both terms to match.
+    ///     Verifies that FilterBySearchQueryAsync with AND operator requires both terms to match.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncAndOperatorBothTermsMustMatch()
@@ -444,7 +416,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync with OR operator matches when any term matches.
+    ///     Verifies that FilterBySearchQueryAsync with OR operator matches when any term matches.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncOrOperatorAnyTermMatches()
@@ -463,7 +435,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync treats multiple space-separated terms as AND by default.
+    ///     Verifies that FilterBySearchQueryAsync treats multiple space-separated terms as AND by default.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncDefaultAndForMultipleTerms()
@@ -483,7 +455,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync supports quoted phrase matching.
+    ///     Verifies that FilterBySearchQueryAsync supports quoted phrase matching.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncQuotedPhrase()
@@ -503,7 +475,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync with AND operator works with MAME descriptions.
+    ///     Verifies that FilterBySearchQueryAsync with AND operator works with MAME descriptions.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncAndWithMameDescription()
@@ -525,7 +497,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync with OR operator works with MAME descriptions.
+    ///     Verifies that FilterBySearchQueryAsync with OR operator works with MAME descriptions.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncOrWithMameDescription()
@@ -548,7 +520,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync with AND operator returns empty when no file matches both terms.
+    ///     Verifies that FilterBySearchQueryAsync with AND operator returns empty when no file matches both terms.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncAndOperatorNoMatch()
@@ -566,7 +538,7 @@ public class GameFilterServiceExtendedTests
     }
 
     /// <summary>
-    /// Verifies that FilterBySearchQueryAsync with OR operator returns empty when no term matches.
+    ///     Verifies that FilterBySearchQueryAsync with OR operator returns empty when no term matches.
     /// </summary>
     [Fact]
     public async Task FilterBySearchQueryAsyncOrOperatorNoMatch()
@@ -580,5 +552,35 @@ public class GameFilterServiceExtendedTests
         var result = await service.FilterBySearchQueryAsync(files, "zelda OR metroid",
             new Dictionary<string, string>(StringComparer.Ordinal));
         Assert.Empty(result);
+    }
+
+    private class FindCoverImageNoOp : IFindCoverImageService
+    {
+        /// <summary>
+        ///     Always returns the default cover image name, simulating a game that has no cover.
+        /// </summary>
+        /// <param name="fileNameWithoutExtension">The game file name without its extension.</param>
+        /// <param name="systemName">The name of the system the game belongs to.</param>
+        /// <param name="systemImageFolder">The folder configured to hold the system cover images.</param>
+        /// <returns>The literal string <c>default.png</c>.</returns>
+        public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, string systemImageFolder)
+        {
+            return "default.png";
+        }
+    }
+
+    private class FindCoverImageAlwaysHasCover : IFindCoverImageService
+    {
+        /// <summary>
+        ///     Always returns a fabricated cover image path, simulating a game that has a cover.
+        /// </summary>
+        /// <param name="fileNameWithoutExtension">The game file name without its extension.</param>
+        /// <param name="systemName">The name of the system the game belongs to.</param>
+        /// <param name="systemImageFolder">The folder configured to hold the system cover images.</param>
+        /// <returns>A fake cover image path built from <paramref name="fileNameWithoutExtension" />.</returns>
+        public string FindCoverImagePath(string fileNameWithoutExtension, string systemName, string systemImageFolder)
+        {
+            return $"C:\\covers\\{fileNameWithoutExtension}.png";
+        }
     }
 }

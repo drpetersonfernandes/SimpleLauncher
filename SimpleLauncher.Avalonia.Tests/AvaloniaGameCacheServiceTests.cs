@@ -5,9 +5,9 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for <see cref="AvaloniaGameCacheService"/> and
-/// <see cref="AvaloniaGameFileLoadingOrchestrator"/> (Phase 3) — per-system caching,
-/// scan-once semantics, invalidation, and tolerant folder enumeration.
+///     Tests for <see cref="AvaloniaGameCacheService" /> and
+///     <see cref="AvaloniaGameFileLoadingOrchestrator" /> (Phase 3) — per-system caching,
+///     scan-once semantics, invalidation, and tolerant folder enumeration.
 /// </summary>
 public class AvaloniaGameCacheServiceTests
 {
@@ -206,11 +206,6 @@ public class AvaloniaGameCacheServiceTests
             _path = path;
         }
 
-        public static implicit operator string(TempDirectory dir)
-        {
-            return dir._path;
-        }
-
         public void Dispose()
         {
             try
@@ -221,6 +216,11 @@ public class AvaloniaGameCacheServiceTests
             {
                 // best-effort cleanup
             }
+        }
+
+        public static implicit operator string(TempDirectory dir)
+        {
+            return dir._path;
         }
     }
 }

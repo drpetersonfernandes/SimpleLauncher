@@ -1,4 +1,5 @@
 using System.IO.Compression;
+using System.Reflection;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
 using CheckForUpdatesService = SimpleLauncher.Services.CheckForUpdatesService;
@@ -7,18 +8,18 @@ namespace SimpleLauncher.Tests;
 
 /// <inheritdoc />
 /// <summary>
-/// Simulates the update extraction logic used by SimpleLauncher.
-/// A test ZIP is created in memory, extracted via the real CheckForUpdatesService
-/// extraction path, verified, and then every file created during the test
-/// is deleted.
+///     Simulates the update extraction logic used by SimpleLauncher.
+///     A test ZIP is created in memory, extracted via the real CheckForUpdatesService
+///     extraction path, verified, and then every file created during the test
+///     is deleted.
 /// </summary>
 public class UpdateSimulationTests : IDisposable
 {
     private readonly string _testDirectory;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UpdateSimulationTests"/> class,
-    /// installing the service provider mock and creating a temporary test directory.
+    ///     Initializes a new instance of the <see cref="UpdateSimulationTests" /> class,
+    ///     installing the service provider mock and creating a temporary test directory.
     /// </summary>
     public UpdateSimulationTests()
     {
@@ -28,17 +29,14 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Cleans up the temporary test directory and restores the service provider mock.
+    ///     Cleans up the temporary test directory and restores the service provider mock.
     /// </summary>
     public void Dispose()
     {
         // Aggressive cleanup: delete everything generated during the test
         try
         {
-            if (Directory.Exists(_testDirectory))
-            {
-                Directory.Delete(_testDirectory, true);
-            }
+            if (Directory.Exists(_testDirectory)) Directory.Delete(_testDirectory, true);
         }
         catch
         {
@@ -50,7 +48,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a valid ZIP archive is extracted correctly with all files and content matching.
+    ///     Verifies that a valid ZIP archive is extracted correctly with all files and content matching.
     /// </summary>
     [Fact]
     public void ExtractAllFromZipValidZipExtractsAllFilesSuccessfully()
@@ -78,7 +76,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that extracting an empty ZIP archive returns false.
+    ///     Verifies that extracting an empty ZIP archive returns false.
     /// </summary>
     [Fact]
     public void ExtractAllFromZipEmptyZipReturnsFalse()
@@ -100,7 +98,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a newer latest version signals an available update.
+    ///     Verifies that a newer latest version signals an available update.
     /// </summary>
     [Fact]
     public void IsNewVersionAvailableLatestGreaterThanCurrentReturnsTrue()
@@ -113,7 +111,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that identical versions do not signal an update.
+    ///     Verifies that identical versions do not signal an update.
     /// </summary>
     [Fact]
     public void IsNewVersionAvailableSameVersionReturnsFalse()
@@ -123,7 +121,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a newer current version does not signal an update.
+    ///     Verifies that a newer current version does not signal an update.
     /// </summary>
     [Fact]
     public void IsNewVersionAvailableCurrentGreaterThanLatestReturnsFalse()
@@ -133,7 +131,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that various version string formats are normalized to four-part version numbers.
+    ///     Verifies that various version string formats are normalized to four-part version numbers.
     /// </summary>
     [Fact]
     public void NormalizeVersionVariousInputsNormalizesCorrectly()
@@ -147,7 +145,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a valid GitHub release JSON response is parsed into the correct version and asset URLs.
+    ///     Verifies that a valid GitHub release JSON response is parsed into the correct version and asset URLs.
     /// </summary>
     [Fact]
     public void ParseVersionAndAssetUrlsFromResponseValidGitHubJsonParsesCorrectly()
@@ -173,7 +171,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that malformed JSON input returns null values for all fields.
+    ///     Verifies that malformed JSON input returns null values for all fields.
     /// </summary>
     [Fact]
     public void ParseVersionAndAssetUrlsFromResponseMalformedJsonReturnsNulls()
@@ -188,7 +186,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that JSON missing the tag_name field returns null for the version.
+    ///     Verifies that JSON missing the tag_name field returns null for the version.
     /// </summary>
     [Fact]
     public void ParseVersionAndAssetUrlsFromResponseMissingTagNameReturnsNulls()
@@ -207,7 +205,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that JSON missing the assets array returns null for all fields.
+    ///     Verifies that JSON missing the assets array returns null for all fields.
     /// </summary>
     [Fact]
     public void ParseVersionAndAssetUrlsFromResponseMissingAssetsArrayReturnsNulls()
@@ -227,7 +225,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a null current version does not signal an update.
+    ///     Verifies that a null current version does not signal an update.
     /// </summary>
     [Fact]
     public void IsNewVersionAvailableNullCurrentReturnsFalse()
@@ -237,7 +235,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that a null latest version does not signal an update.
+    ///     Verifies that a null latest version does not signal an update.
     /// </summary>
     [Fact]
     public void IsNewVersionAvailableNullLatestReturnsFalse()
@@ -247,7 +245,7 @@ public class UpdateSimulationTests : IDisposable
     }
 
     /// <summary>
-    /// Verifies that empty version strings do not signal an update.
+    ///     Verifies that empty version strings do not signal an update.
     /// </summary>
     [Fact]
     public void IsNewVersionAvailableEmptyStringsReturnsFalse()
@@ -289,7 +287,7 @@ public class UpdateSimulationTests : IDisposable
     {
         var checker = CreateCheckerInstance();
         var method = typeof(CheckForUpdatesService).GetMethod("IsNewVersionAvailable",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            BindingFlags.NonPublic | BindingFlags.Instance);
         var result = method?.Invoke(checker, [current, latest]);
         return (bool)(result ?? throw new InvalidOperationException("Reflection invoke returned null."));
     }
@@ -297,7 +295,7 @@ public class UpdateSimulationTests : IDisposable
     private static string InvokeNormalizeVersion(string version)
     {
         var method = typeof(CheckForUpdatesService).GetMethod("NormalizeVersion",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+            BindingFlags.NonPublic | BindingFlags.Static);
         var result = method?.Invoke(null, [version]);
         return (string)(result ?? throw new InvalidOperationException("Reflection invoke returned null."));
     }
@@ -306,7 +304,7 @@ public class UpdateSimulationTests : IDisposable
     {
         var checker = CreateCheckerInstance();
         var method = typeof(CheckForUpdatesService).GetMethod("ParseVersionAndAssetUrlsFromResponse",
-            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            BindingFlags.NonPublic | BindingFlags.Instance);
         var result = method?.Invoke(checker, [json]);
         return (ValueTuple<string, string, string>)(result ??
                                                     throw new InvalidOperationException(
@@ -316,7 +314,7 @@ public class UpdateSimulationTests : IDisposable
     private static CheckForUpdatesService CreateCheckerInstance()
     {
         var constructor = typeof(CheckForUpdatesService)
-            .GetConstructors(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).First();
+            .GetConstructors(BindingFlags.Instance | BindingFlags.Public).First();
         var factory = new MockHttpClientFactory();
         var logErrors = new NoOpLogger();
         return (CheckForUpdatesService)constructor.Invoke([factory, null, null, logErrors, null, null]);
@@ -325,10 +323,10 @@ public class UpdateSimulationTests : IDisposable
     private sealed class MockHttpClientFactory : IHttpClientFactory
     {
         /// <summary>
-        /// Creates a new <see cref="HttpClient"/> instance, ignoring the requested logical client name.
+        ///     Creates a new <see cref="HttpClient" /> instance, ignoring the requested logical client name.
         /// </summary>
         /// <param name="name">The logical name of the client to create.</param>
-        /// <returns>A new <see cref="HttpClient"/> instance.</returns>
+        /// <returns>A new <see cref="HttpClient" /> instance.</returns>
         public HttpClient CreateClient(string name)
         {
             return new HttpClient();

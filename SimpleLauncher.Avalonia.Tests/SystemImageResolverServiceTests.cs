@@ -6,17 +6,17 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests for the Avalonia SystemImageResolverService: exact file-name match,
-/// multi-extension support, annotation-stripped match, and Jaro-Winkler fuzzy
-/// matching with a configurable similarity threshold.
+///     Tests for the Avalonia SystemImageResolverService: exact file-name match,
+///     multi-extension support, annotation-stripped match, and Jaro-Winkler fuzzy
+///     matching with a configurable similarity threshold.
 /// </summary>
 public class SystemImageResolverServiceTests : IDisposable
 {
-    private readonly string _tempRoot = Path.Combine(Path.GetTempPath(), $"SL_ImageResolver_{Guid.NewGuid():N}");
-    private readonly string _systemsFolder;
     private readonly string _defaultImage;
     private readonly SystemImageResolverService _service;
     private readonly SettingsManagerService _settings;
+    private readonly string _systemsFolder;
+    private readonly string _tempRoot = Path.Combine(Path.GetTempPath(), $"SL_ImageResolver_{Guid.NewGuid():N}");
 
     public SystemImageResolverServiceTests()
     {
@@ -54,13 +54,6 @@ public class SystemImageResolverServiceTests : IDisposable
         _service = new SystemImageResolverService(config, _settings);
     }
 
-    private static void PlantFile(string dir, string name, string content)
-    {
-        var path = Path.Combine(dir, name);
-        if (!File.Exists(path))
-            File.WriteAllText(path, content);
-    }
-
     public void Dispose()
     {
         try
@@ -68,7 +61,7 @@ public class SystemImageResolverServiceTests : IDisposable
             // Only clean up the temp directory; leave BaseDirectory test files alone
             // (they are gitignored and harmless).
             if (Directory.Exists(_tempRoot))
-                Directory.Delete(_tempRoot, recursive: true);
+                Directory.Delete(_tempRoot, true);
         }
         catch
         {
@@ -76,6 +69,13 @@ public class SystemImageResolverServiceTests : IDisposable
         }
 
         GC.SuppressFinalize(this);
+    }
+
+    private static void PlantFile(string dir, string name, string content)
+    {
+        var path = Path.Combine(dir, name);
+        if (!File.Exists(path))
+            File.WriteAllText(path, content);
     }
 
     // ── Exact match ──────────────────────────────────────────────────────

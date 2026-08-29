@@ -6,52 +6,53 @@ using SimpleLauncher.Core.Services.SystemConfiguration;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Integration tests for the "Delete System" context-menu path (WPF parity).
-/// Verifies that SystemConfigurationWriterService.DeleteSystemAsync removes the
-/// correct SystemConfig node and that the subsequent orchestrator reload reflects
-/// the deletion (regression guard for the AreYouSure... stub that previously
-/// returned Ok and prevented deletion).
+///     Integration tests for the "Delete System" context-menu path (WPF parity).
+///     Verifies that SystemConfigurationWriterService.DeleteSystemAsync removes the
+///     correct SystemConfig node and that the subsequent orchestrator reload reflects
+///     the deletion (regression guard for the AreYouSure... stub that previously
+///     returned Ok and prevented deletion).
 /// </summary>
 public class DeleteSystemIntegrationTests : IDisposable
 {
-    private readonly string _tempRoot = Path.Combine(Path.GetTempPath(), $"SL_Delete_{Guid.NewGuid():N}");
-    private readonly string _systemXmlPath;
     private readonly IConfiguration _config;
     private readonly Mock<ILogger> _logger;
+    private readonly string _systemXmlPath;
+    private readonly string _tempRoot = Path.Combine(Path.GetTempPath(), $"SL_Delete_{Guid.NewGuid():N}");
 
     public DeleteSystemIntegrationTests()
     {
         _systemXmlPath = Path.Combine(_tempRoot, "system.xml");
         Directory.CreateDirectory(_tempRoot);
         File.WriteAllText(_systemXmlPath, """
-                                           <SystemConfigs>
-                                             <SystemConfig>
-                                               <SystemName>Atari 2600</SystemName>
-                                               <SystemFolders><SystemFolder>roms/Atari2600</SystemFolder></SystemFolders>
-                                               <SystemImageFolder>images/Atari2600</SystemImageFolder>
-                                               <FileFormatsToSearch><FormatToSearch>.zip</FormatToSearch></FileFormatsToSearch>
-                                               <FileFormatsToLaunch><FormatToLaunch>.zip</FormatToLaunch></FileFormatsToLaunch>
-                                               <Emulators><Emulator><EmulatorName>Stella</EmulatorName><EmulatorPath>stella.exe</EmulatorPath><EmulatorParameters></EmulatorParameters></Emulator></Emulators>
-                                             </SystemConfig>
-                                             <SystemConfig>
-                                               <SystemName>NES</SystemName>
-                                               <SystemFolders><SystemFolder>roms/NES</SystemFolder></SystemFolders>
-                                               <SystemImageFolder>images/NES</SystemImageFolder>
-                                               <FileFormatsToSearch><FormatToSearch>.nes</FormatToSearch></FileFormatsToSearch>
-                                               <FileFormatsToLaunch><FormatToLaunch>.nes</FormatToLaunch></FileFormatsToLaunch>
-                                               <Emulators><Emulator><EmulatorName>Mesen</EmulatorName><EmulatorPath>mesen.exe</EmulatorPath><EmulatorParameters></EmulatorParameters></Emulator></Emulators>
-                                             </SystemConfig>
-                                             <SystemConfig>
-                                               <SystemName>SNES</SystemName>
-                                               <SystemFolders><SystemFolder>roms/SNES</SystemFolder></SystemFolders>
-                                               <SystemImageFolder>images/SNES</SystemImageFolder>
-                                               <FileFormatsToSearch><FormatToSearch>.sfc</FormatToSearch></FileFormatsToSearch>
-                                               <FileFormatsToLaunch><FormatToLaunch>.sfc</FormatToLaunch></FileFormatsToLaunch>
-                                               <Emulators><Emulator><EmulatorName>Snes9x</EmulatorName><EmulatorPath>snes9x.exe</EmulatorPath><EmulatorParameters></EmulatorParameters></Emulator></Emulators>
-                                             </SystemConfig>
-                                           </SystemConfigs>
-                                           """);
-        _config = TestEnvironment.ConfigurationFromJson($$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", @"\\")}}"}""");
+                                          <SystemConfigs>
+                                            <SystemConfig>
+                                              <SystemName>Atari 2600</SystemName>
+                                              <SystemFolders><SystemFolder>roms/Atari2600</SystemFolder></SystemFolders>
+                                              <SystemImageFolder>images/Atari2600</SystemImageFolder>
+                                              <FileFormatsToSearch><FormatToSearch>.zip</FormatToSearch></FileFormatsToSearch>
+                                              <FileFormatsToLaunch><FormatToLaunch>.zip</FormatToLaunch></FileFormatsToLaunch>
+                                              <Emulators><Emulator><EmulatorName>Stella</EmulatorName><EmulatorPath>stella.exe</EmulatorPath><EmulatorParameters></EmulatorParameters></Emulator></Emulators>
+                                            </SystemConfig>
+                                            <SystemConfig>
+                                              <SystemName>NES</SystemName>
+                                              <SystemFolders><SystemFolder>roms/NES</SystemFolder></SystemFolders>
+                                              <SystemImageFolder>images/NES</SystemImageFolder>
+                                              <FileFormatsToSearch><FormatToSearch>.nes</FormatToSearch></FileFormatsToSearch>
+                                              <FileFormatsToLaunch><FormatToLaunch>.nes</FormatToLaunch></FileFormatsToLaunch>
+                                              <Emulators><Emulator><EmulatorName>Mesen</EmulatorName><EmulatorPath>mesen.exe</EmulatorPath><EmulatorParameters></EmulatorParameters></Emulator></Emulators>
+                                            </SystemConfig>
+                                            <SystemConfig>
+                                              <SystemName>SNES</SystemName>
+                                              <SystemFolders><SystemFolder>roms/SNES</SystemFolder></SystemFolders>
+                                              <SystemImageFolder>images/SNES</SystemImageFolder>
+                                              <FileFormatsToSearch><FormatToSearch>.sfc</FormatToSearch></FileFormatsToSearch>
+                                              <FileFormatsToLaunch><FormatToLaunch>.sfc</FormatToLaunch></FileFormatsToLaunch>
+                                              <Emulators><Emulator><EmulatorName>Snes9x</EmulatorName><EmulatorPath>snes9x.exe</EmulatorPath><EmulatorParameters></EmulatorParameters></Emulator></Emulators>
+                                            </SystemConfig>
+                                          </SystemConfigs>
+                                          """);
+        _config = TestEnvironment.ConfigurationFromJson(
+            $$"""{"SystemXmlPath": "{{_systemXmlPath.Replace("\\", @"\\")}}"}""");
         _logger = TestDependencies.Logger();
     }
 

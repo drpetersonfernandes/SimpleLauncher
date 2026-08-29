@@ -3,14 +3,15 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.GameLauncher.MountFiles;
 
 /// <summary>
-/// Service that locates common game files (default.xex, default.xbe, .cue, .bin, EBOOT.BIN, ISO/IMG) within a directory.
+///     Service that locates common game files (default.xex, default.xbe, .cue, .bin, EBOOT.BIN, ISO/IMG) within a
+///     directory.
 /// </summary>
 public class FileFinderService : IFileFinderService
 {
     private readonly ILogger _logger;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FileFinderService"/> class.
+    ///     Initializes a new instance of the <see cref="FileFinderService" /> class.
     /// </summary>
     public FileFinderService(ILogger logErrors)
     {
@@ -18,7 +19,7 @@ public class FileFinderService : IFileFinderService
     }
 
     /// <summary>
-    /// Finds the default.xex file (Xbox 360 executable) in the specified directory.
+    ///     Finds the default.xex file (Xbox 360 executable) in the specified directory.
     /// </summary>
     public string? FindDefaultXex(string directory)
     {
@@ -38,7 +39,7 @@ public class FileFinderService : IFileFinderService
     }
 
     /// <summary>
-    /// Finds the default.xbe file (Xbox executable) in the specified directory.
+    ///     Finds the default.xbe file (Xbox executable) in the specified directory.
     /// </summary>
     public string? FindDefaultXbe(string directory)
     {
@@ -58,7 +59,7 @@ public class FileFinderService : IFileFinderService
     }
 
     /// <summary>
-    /// Finds the first .cue file in the specified directory.
+    ///     Finds the first .cue file in the specified directory.
     /// </summary>
     public string? FindCueFile(string directory)
     {
@@ -78,7 +79,7 @@ public class FileFinderService : IFileFinderService
     }
 
     /// <summary>
-    /// Finds the first .bin file in the specified directory.
+    ///     Finds the first .bin file in the specified directory.
     /// </summary>
     public string? FindBinFile(string directory)
     {
@@ -98,7 +99,7 @@ public class FileFinderService : IFileFinderService
     }
 
     /// <summary>
-    /// Finds the EBOOT.BIN file (PS3 executable) in the specified directory or its immediate subdirectories.
+    ///     Finds the EBOOT.BIN file (PS3 executable) in the specified directory or its immediate subdirectories.
     /// </summary>
     public string? FindEbootBin(string directory)
     {
@@ -129,7 +130,7 @@ public class FileFinderService : IFileFinderService
     }
 
     /// <summary>
-    /// Finds the first .iso or .img file in the specified directory.
+    ///     Finds the first .iso or .img file in the specified directory.
     /// </summary>
     public string? FindImageIso(string directory)
     {

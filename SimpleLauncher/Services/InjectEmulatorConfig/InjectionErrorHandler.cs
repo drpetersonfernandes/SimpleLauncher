@@ -4,12 +4,12 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Services.InjectEmulatorConfig;
 
 /// <summary>
-/// Centralizes error handling for emulator configuration injection windows.
+///     Centralizes error handling for emulator configuration injection windows.
 /// </summary>
 public static class InjectionErrorHandler
 {
     /// <summary>
-    /// Handles a failure from the Run button by notifying the user and developer, then closing the window.
+    ///     Handles a failure from the Run button by notifying the user and developer, then closing the window.
     /// </summary>
     /// <param name="logErrors">The error logger.</param>
     /// <param name="ex">The exception that caused the failure.</param>
@@ -31,7 +31,7 @@ public static class InjectionErrorHandler
     }
 
     /// <summary>
-    /// Handles a failure from the Save button by notifying the user and developer, then closing the window.
+    ///     Handles a failure from the Save button by notifying the user and developer, then closing the window.
     /// </summary>
     /// <param name="logErrors">The error logger.</param>
     /// <param name="ex">The exception that caused the failure.</param>
@@ -58,7 +58,7 @@ public static class InjectionErrorHandler
     }
 
     /// <summary>
-    /// Derives the emulator name from the executable path or the injection window type name.
+    ///     Derives the emulator name from the executable path or the injection window type name.
     /// </summary>
     /// <param name="emulatorPath">The path to the emulator executable.</param>
     /// <param name="windowType">The type of the injection window.</param>
@@ -75,9 +75,7 @@ public static class InjectionErrorHandler
         var typeName = windowType.Name;
         if (typeName.StartsWith("Inject", StringComparison.Ordinal) &&
             typeName.EndsWith("ConfigWindow", StringComparison.Ordinal))
-        {
             return typeName.Substring(6, typeName.Length - 6 - 12);
-        }
 
         return typeName;
     }

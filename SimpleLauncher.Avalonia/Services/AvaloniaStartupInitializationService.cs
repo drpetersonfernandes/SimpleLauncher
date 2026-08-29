@@ -9,24 +9,24 @@ using SimpleLauncher.Core.Services.SettingsManager;
 namespace SimpleLauncher.Avalonia.Services;
 
 /// <summary>
-/// Orchestrates application startup initialization tasks that the Avalonia app
-/// performs after the main window is shown: the status-bar timeout timer, the
-/// write-access check, the required-files check, pagination defaults, and
-/// gamepad controller initialization.
-/// Avalonia port of the WPF <c>StartupInitializationService</c>.
+///     Orchestrates application startup initialization tasks that the Avalonia app
+///     performs after the main window is shown: the status-bar timeout timer, the
+///     write-access check, the required-files check, pagination defaults, and
+///     gamepad controller initialization.
+///     Avalonia port of the WPF <c>StartupInitializationService</c>.
 /// </summary>
 public class AvaloniaStartupInitializationService
 {
     private readonly IConfiguration _configuration;
-    private readonly IMessageBoxLibraryService _messageBox;
-    private readonly ILogger _logger;
-    private readonly CheckForRequiredFilesService _requiredFiles;
     private readonly GamePadController _gamePadController;
+    private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBox;
+    private readonly CheckForRequiredFilesService _requiredFiles;
     private readonly SettingsManagerService _settings;
     private DispatcherTimer? _statusBarTimer;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AvaloniaStartupInitializationService"/> class.
+    ///     Initializes a new instance of the <see cref="AvaloniaStartupInitializationService" /> class.
     /// </summary>
     /// <param name="configuration">The application configuration.</param>
     /// <param name="messageBox">The message box service (used by the required-files check).</param>
@@ -51,20 +51,20 @@ public class AvaloniaStartupInitializationService
     }
 
     /// <summary>
-    /// Raised (on the UI thread) when the status-bar timeout elapses; the host clears
-    /// its status text.
+    ///     Raised (on the UI thread) when the status-bar timeout elapses; the host clears
+    ///     its status text.
     /// </summary>
     public event Action? StatusBarTimeout;
 
     /// <summary>
-    /// Raised when the pagination buttons should be reset to their defaults; the host
-    /// disables both navigation buttons.
+    ///     Raised when the pagination buttons should be reset to their defaults; the host
+    ///     disables both navigation buttons.
     /// </summary>
     public event Action? PaginationReset;
 
     /// <summary>
-    /// Starts the status-bar timeout timer (clears the status text after
-    /// <c>StatusBarTimeoutSeconds</c> seconds, default 3 — same as the WPF app).
+    ///     Starts the status-bar timeout timer (clears the status text after
+    ///     <c>StatusBarTimeoutSeconds</c> seconds, default 3 — same as the WPF app).
     /// </summary>
     public void InitializeStatusBarTimer()
     {
@@ -90,8 +90,8 @@ public class AvaloniaStartupInitializationService
     }
 
     /// <summary>
-    /// Checks whether the application directory is writable; when it is not, prompts
-    /// the user to move the application to a writable folder.
+    ///     Checks whether the application directory is writable; when it is not, prompts
+    ///     the user to move the application to a writable folder.
     /// </summary>
     public async Task CheckWriteAccessAsync()
     {
@@ -110,9 +110,9 @@ public class AvaloniaStartupInitializationService
     }
 
     /// <summary>
-    /// Checks that all files required by the application exist next to the executable
-    /// (mame.dat, default images, audio files, ...) and notifies the user of any
-    /// missing files.
+    ///     Checks that all files required by the application exist next to the executable
+    ///     (mame.dat, default images, audio files, ...) and notifies the user of any
+    ///     missing files.
     /// </summary>
     public async Task CheckRequiredFilesAsync()
     {
@@ -128,7 +128,7 @@ public class AvaloniaStartupInitializationService
     }
 
     /// <summary>
-    /// Resets the pagination navigation buttons to their disabled defaults.
+    ///     Resets the pagination navigation buttons to their disabled defaults.
     /// </summary>
     public void ResetPaginationDefaults()
     {
@@ -144,8 +144,8 @@ public class AvaloniaStartupInitializationService
     }
 
     /// <summary>
-    /// Initializes the gamepad controller: wires the error logger, applies dead zone
-    /// settings, and starts or stops the controller based on the saved preference.
+    ///     Initializes the gamepad controller: wires the error logger, applies dead zone
+    ///     settings, and starts or stops the controller based on the saved preference.
     /// </summary>
     public void InitializeGamePad()
     {
@@ -156,13 +156,9 @@ public class AvaloniaStartupInitializationService
             _gamePadController.DeadZoneY = _settings.DeadZoneY;
 
             if (_settings.EnableGamePadNavigation)
-            {
                 _ = _gamePadController.StartAsync();
-            }
             else
-            {
                 _ = _gamePadController.StopAsync();
-            }
         }
         catch (Exception ex)
         {

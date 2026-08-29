@@ -12,17 +12,17 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Core.Services.ExtractFiles;
 
 /// <summary>
-/// Extracts compressed game archives (7z, ZIP, RAR) to temporary or permanent locations,
-/// with support for path traversal protection, disk space checks, and 7za fallback.
+///     Extracts compressed game archives (7z, ZIP, RAR) to temporary or permanent locations,
+///     with support for path traversal protection, disk space checks, and 7za fallback.
 /// </summary>
 public class ExtractionService : IExtractionService
 {
-    private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-    private readonly IMessageBoxLibraryService _messageBoxLibrary;
     private readonly ILogger _logger;
+    private readonly IMessageBoxLibraryService _messageBoxLibrary;
+    private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
     /// <summary>
-    /// Initializes a new instance of <see cref="ExtractionService"/>.
+    ///     Initializes a new instance of <see cref="ExtractionService" />.
     /// </summary>
     /// <param name="messageBoxLibrary">Service for displaying user-facing message boxes.</param>
     /// <param name="logger">Error logging service.</param>
@@ -33,11 +33,14 @@ public class ExtractionService : IExtractionService
     }
 
     /// <summary>
-    /// Extracts an archive to a temporary folder and returns the path of a suitable game file within it, if one is found.
+    ///     Extracts an archive to a temporary folder and returns the path of a suitable game file within it, if one is found.
     /// </summary>
     /// <param name="archivePath">The full path to the archive file.</param>
     /// <param name="fileFormatsToLaunch">The list of file formats to look for after extraction.</param>
-    /// <returns>A tuple containing the path of the game file to launch and the temporary extraction directory, or null values on failure.</returns>
+    /// <returns>
+    ///     A tuple containing the path of the game file to launch and the temporary extraction directory, or null values
+    ///     on failure.
+    /// </returns>
     public async Task<(string? gameFilePath, string? tempDirectoryPath)> ExtractToTempAndGetLaunchFileAsync(
         string archivePath, IList<string> fileFormatsToLaunch)
     {
@@ -51,21 +54,16 @@ public class ExtractionService : IExtractionService
         }
 
         var extractedFileToLaunch = await ValidateAndFindGameFileAsync(pathToExtractionDirectory, fileFormatsToLaunch);
-        if (!string.IsNullOrEmpty(extractedFileToLaunch))
-        {
-            return (extractedFileToLaunch, pathToExtractionDirectory);
-        }
-        else
-        {
-            _logger.Debug(
-                $"[ExtractionService] No suitable game file found in extracted directory {pathToExtractionDirectory}.");
-            return (null, pathToExtractionDirectory);
-        }
+        if (!string.IsNullOrEmpty(extractedFileToLaunch)) return (extractedFileToLaunch, pathToExtractionDirectory);
+
+        _logger.Debug(
+            $"[ExtractionService] No suitable game file found in extracted directory {pathToExtractionDirectory}.");
+        return (null, pathToExtractionDirectory);
     }
 
     /// <summary>
-    /// Extracts an archive to the specified destination folder with retry logic for file locks,
-    /// disk space validation, and path traversal protection.
+    ///     Extracts an archive to the specified destination folder with retry logic for file locks,
+    ///     disk space validation, and path traversal protection.
     /// </summary>
     /// <param name="archivePath">The full path to the archive file.</param>
     /// <param name="destinationFolder">The target folder for extraction.</param>
@@ -104,10 +102,7 @@ public class ExtractionService : IExtractionService
         const int retryDelayMs = 1000;
         for (var i = 0; i < maxRetries; i++)
         {
-            if (!FileLock.IsFileLocked(archivePath))
-            {
-                break; // File is not locked, proceed
-            }
+            if (!FileLock.IsFileLocked(archivePath)) break; // File is not locked, proceed
 
             if (i == maxRetries - 1)
             {
@@ -164,17 +159,13 @@ public class ExtractionService : IExtractionService
                 using var archive = ArchiveFactory.OpenArchive(archivePath);
                 var entries = archive.Entries.ToList();
 
-                if (entries.Count == 0)
-                {
-                    throw new InvalidDataException("The archive file contains no entries.");
-                }
+                if (entries.Count == 0) throw new InvalidDataException("The archive file contains no entries.");
 
                 var estimatedSize = (long)(entries.Where(static e => !e.IsDirectory).Sum(static e => e.Size) * 1.2);
 
                 // Check disk space using the resolved destination folder
                 var rootPath = Path.GetPathRoot(resolvedDestinationFolder);
                 if (!string.IsNullOrEmpty(rootPath))
-                {
                     try
                     {
                         var drive = new DriveInfo(rootPath);
@@ -202,18 +193,14 @@ public class ExtractionService : IExtractionService
 
                         throw new IOException($"Unable to check disk space for path {resolvedDestinationFolder}", ex);
                     }
-                }
 
                 // Path traversal check
                 var fullResolvedDestFolder = PathHelper.ResolveRelativeToAppDirectory(resolvedDestinationFolder);
                 if (fullResolvedDestFolder != null &&
                     !fullResolvedDestFolder.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
-                {
                     fullResolvedDestFolder += Path.DirectorySeparatorChar;
-                }
 
                 foreach (var entry in entries)
-                {
                     if (entry.Key != null)
                     {
                         var entryDestinationPath = Path.GetFullPath(Path.Combine(resolvedDestinationFolder, entry.Key));
@@ -227,24 +214,18 @@ public class ExtractionService : IExtractionService
                             throw new SecurityException($"Potentially dangerous zip entry path: {entry.Key}");
                         }
                     }
-                }
 
                 // Extract all entries
                 foreach (var entry in entries)
                 {
-                    if (entry.IsDirectory)
-                    {
-                        continue;
-                    }
+                    if (entry.IsDirectory) continue;
 
                     if (entry.Key != null)
                     {
                         var destinationPath = Path.Combine(resolvedDestinationFolder, entry.Key);
                         var directory = Path.GetDirectoryName(destinationPath);
                         if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-                        {
                             Directory.CreateDirectory(directory);
-                        }
 
                         await using (var entryStream = await entry.OpenEntryStreamAsync())
                         await using (var fileStream = File.Create(destinationPath))
@@ -254,17 +235,12 @@ public class ExtractionService : IExtractionService
 
                         // Preserve file time if available
                         if (entry.LastModifiedTime.HasValue)
-                        {
                             File.SetLastWriteTime(destinationPath, entry.LastModifiedTime.Value);
-                        }
                     }
                 }
             });
 
-            if (File.Exists(extractionTrackingFile))
-            {
-                await DeleteFiles.TryDeleteFileAsync(extractionTrackingFile);
-            }
+            if (File.Exists(extractionTrackingFile)) await DeleteFiles.TryDeleteFileAsync(extractionTrackingFile);
 
             return true;
         }
@@ -282,9 +258,7 @@ public class ExtractionService : IExtractionService
                     _logger.Debug($"[ExtractionService] 7za fallback extraction succeeded for: {archivePath}");
                     var extractionTrackingFile = Path.Combine(resolvedDestinationFolder, ".extraction_in_progress");
                     if (File.Exists(extractionTrackingFile))
-                    {
                         await DeleteFiles.TryDeleteFileAsync(extractionTrackingFile);
-                    }
 
                     return true;
                 }
@@ -293,14 +267,11 @@ public class ExtractionService : IExtractionService
             }
 
             if (!string.IsNullOrEmpty(resolvedDestinationFolder)) // Only attempt cleanup if resolution was successful
-            {
                 try
                 {
                     var extractionTrackingFile = Path.Combine(resolvedDestinationFolder, ".extraction_in_progress");
                     if (File.Exists(extractionTrackingFile))
-                    {
                         await CleanTempFolder.CleanupPartialExtractionAsync(resolvedDestinationFolder);
-                    }
                 }
                 catch (Exception cleanupEx)
                 {
@@ -308,7 +279,6 @@ public class ExtractionService : IExtractionService
                     var contextMessage = $"Failed to clean up partial extraction in: {resolvedDestinationFolder}";
                     _logger.Error(cleanupEx, contextMessage);
                 }
-            }
 
             // Notify developer
             var exceptionDetails = GetDetailedExceptionInfo(ex);
@@ -365,9 +335,7 @@ public class ExtractionService : IExtractionService
             var randomName = Path.GetRandomFileName();
             if (randomName.Contains("..", StringComparison.Ordinal) || randomName.Contains('/') ||
                 randomName.Contains('\\'))
-            {
                 randomName = Guid.NewGuid().ToString("N");
-            }
 
             tempDirectory = Path.Combine(_tempFolder, randomName);
             Directory.CreateDirectory(tempDirectory);
@@ -379,9 +347,7 @@ public class ExtractionService : IExtractionService
                 // First, validate for path traversal before extracting
                 var fullTempDir = Path.GetFullPath(tempDirectory);
                 if (!fullTempDir.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
-                {
                     fullTempDir += Path.DirectorySeparatorChar;
-                }
 
                 foreach (var entry in archive.Entries)
                 {
@@ -391,10 +357,8 @@ public class ExtractionService : IExtractionService
                     {
                         var fullDestPath = Path.GetFullPath(Path.Combine(fullTempDir, entry.Key));
                         if (!fullDestPath.StartsWith(fullTempDir, StringComparison.OrdinalIgnoreCase))
-                        {
                             throw new SecurityException(
                                 $"Potential path traversal detected in archive entry: {entry.Key}");
-                        }
                     }
                 }
 
@@ -408,9 +372,7 @@ public class ExtractionService : IExtractionService
                         var destinationPath = Path.Combine(tempDirectory, entry.Key);
                         var directory = Path.GetDirectoryName(destinationPath);
                         if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-                        {
                             Directory.CreateDirectory(directory);
-                        }
 
                         using (var entryStream = entry.OpenEntryStream())
                         using (var fileStream = File.Create(destinationPath))
@@ -420,9 +382,7 @@ public class ExtractionService : IExtractionService
 
                         // Preserve file time if available
                         if (entry.LastModifiedTime.HasValue)
-                        {
                             File.SetLastWriteTime(destinationPath, entry.LastModifiedTime.Value);
-                        }
                     }
                 }
             });
@@ -583,14 +543,10 @@ public class ExtractionService : IExtractionService
             _logger.Debug(
                 $"[ValidateAndFindGameFileAsync] Searching for formats: {string.Join(", ", fileFormatsToLaunch)} in {tempExtractLocation}");
             foreach (var formatToLaunch in fileFormatsToLaunch)
-            {
                 try
                 {
                     var searchPattern = $"*{formatToLaunch}";
-                    if (!formatToLaunch.StartsWith('.'))
-                    {
-                        searchPattern = $"*.{formatToLaunch}";
-                    }
+                    if (!formatToLaunch.StartsWith('.')) searchPattern = $"*.{formatToLaunch}";
 
                     var files = Directory.GetFiles(tempExtractLocation, searchPattern, SearchOption.AllDirectories);
                     if (files.Length > 0)
@@ -609,7 +565,6 @@ public class ExtractionService : IExtractionService
                         $"[ValidateAndFindGameFileAsync] Exception searching for {formatToLaunch}: {ex.Message}");
                     // Continue to next format or fallback if this one fails
                 }
-            }
         }
         else
         {
@@ -619,7 +574,6 @@ public class ExtractionService : IExtractionService
 
         // If no specific format was found, or no formats were specified, try to find any file.
         if (string.IsNullOrEmpty(foundFile))
-        {
             try
             {
                 var allFiles = Directory.EnumerateFiles(tempExtractLocation, "*", SearchOption.AllDirectories)
@@ -637,7 +591,6 @@ public class ExtractionService : IExtractionService
                 _logger.Error(ex, $"Error enumerating all files in {tempExtractLocation} as a fallback.");
                 _logger.Debug($"[ValidateAndFindGameFileAsync] Error enumerating all files: {ex.Message}");
             }
-        }
 
         // If still no file found after all attempts
         const string notFoundContext =

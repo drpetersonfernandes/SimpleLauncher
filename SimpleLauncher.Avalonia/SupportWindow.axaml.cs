@@ -1,12 +1,13 @@
 using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.ViewModels;
 
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Window for submitting support requests and bug reports.
+///     Window for submitting support requests and bug reports.
 /// </summary>
 public partial class SupportWindow : Window
 {
@@ -14,11 +15,11 @@ public partial class SupportWindow : Window
     private readonly PropertyChangedEventHandler _viewModelPropertyChangedHandler;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SupportWindow"/> class.
+    ///     Initializes a new instance of the <see cref="SupportWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing support form logic.</param>
     /// <param name="localization">The localization service used to set localized UI strings.</param>
-    public SupportWindow(SupportViewModel viewModel, Services.LocalizationService localization)
+    public SupportWindow(SupportViewModel viewModel, LocalizationService localization)
     {
         InitializeComponent();
 
@@ -34,9 +35,7 @@ public partial class SupportWindow : Window
         _viewModelPropertyChangedHandler = (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(SupportViewModel.IsLoading), StringComparison.Ordinal))
-            {
                 SetLoadingState(_viewModel.IsLoading);
-            }
         };
         _viewModel.PropertyChanged += _viewModelPropertyChangedHandler;
 
@@ -63,7 +62,7 @@ public partial class SupportWindow : Window
     }
 
     /// <summary>
-    /// Toggles the loading overlay with an optional message.
+    ///     Toggles the loading overlay with an optional message.
     /// </summary>
     /// <param name="isLoading">Whether to show or hide the loading overlay.</param>
     public void SetLoadingState(bool isLoading)

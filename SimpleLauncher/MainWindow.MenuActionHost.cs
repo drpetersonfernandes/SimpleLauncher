@@ -2,13 +2,13 @@ using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.MameManager;
+using SimpleLauncher.Interfaces;
+using SimpleLauncher.Services.SystemManager;
 
 namespace SimpleLauncher;
 
-using Interfaces;
-
 /// <summary>
-/// Partial MainWindow implementing <see cref="IMenuActionHost"/> for menu action delegations.
+///     Partial MainWindow implementing <see cref="IMenuActionHost" /> for menu action delegations.
 /// </summary>
 public partial class MainWindow : IMenuActionHost
 {
@@ -51,10 +51,7 @@ public partial class MainWindow : IMenuActionHost
 
     void IMenuActionHost.NavigateToPage(object page)
     {
-        if (page is Page wpfPage)
-        {
-            NavigateToPage(wpfPage);
-        }
+        if (page is Page wpfPage) NavigateToPage(wpfPage);
     }
 
     void IMenuActionHost.NavigateBackToMainContent()
@@ -223,7 +220,7 @@ public partial class MainWindow : IMenuActionHost
     string IMenuActionHost.ListViewMenuItemId => "ListView";
 
     // Data access
-    IList<Services.SystemManager.SystemManagerService> IMenuActionHost.GetSystemManagers()
+    IList<SystemManagerService> IMenuActionHost.GetSystemManagers()
     {
         return _systemManagers?.ToList() ?? [];
     }

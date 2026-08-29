@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Avalonia.Services.GameLauncher;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
@@ -12,17 +13,17 @@ using SimpleLauncher.Core.Services.UsageStats;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
-/// Tests the launch-gating contract: a config handler returning false aborts the
-/// launch and clears the loading state (WPF parity), while a returning-true handler
-/// lets the flow continue to the pre-flight checks.
+///     Tests the launch-gating contract: a config handler returning false aborts the
+///     launch and clears the loading state (WPF parity), while a returning-true handler
+///     lets the flow continue to the pre-flight checks.
 /// </summary>
 public class MinimalLauncherServiceGatingTests : IDisposable
 {
-    private readonly string _tempDir;
+    private readonly Mock<IEmulatorConfigHandler> _handler = new();
     private readonly string _isoPath;
     private readonly FakeLoadingState _loading = new();
     private readonly Mock<IMessageBoxLibraryService> _messageBox = new();
-    private readonly Mock<IEmulatorConfigHandler> _handler = new();
+    private readonly string _tempDir;
 
     public MinimalLauncherServiceGatingTests()
     {
@@ -36,7 +37,7 @@ public class MinimalLauncherServiceGatingTests : IDisposable
     {
         try
         {
-            Directory.Delete(_tempDir, recursive: true);
+            Directory.Delete(_tempDir, true);
         }
         catch
         {
@@ -46,7 +47,7 @@ public class MinimalLauncherServiceGatingTests : IDisposable
 
     private LauncherService CreateLauncher(IEnumerable<IEmulatorConfigHandler> handlers)
     {
-        var config = new Microsoft.Extensions.Configuration.ConfigurationBuilder().Build();
+        var config = new ConfigurationBuilder().Build();
         var logger = new Mock<ILogger>().Object;
         var systemManager = new SystemManagerService(config);
 
@@ -127,7 +128,7 @@ public class MinimalLauncherServiceGatingTests : IDisposable
 
         // …the "Configuring emulator..." state was shown, then cleared, and nothing else ran.
         Assert.Contains(_loading.Calls, c => c is (true, "Configuring emulator..."));
-        Assert.True(_loading.Calls.Last().IsLoading == false, "Loading state must be cleared after abort");
+        Assert.True(!_loading.Calls.Last().IsLoading, "Loading state must be cleared after abort");
         _messageBox.Verify(m => m.CustomErrorMessageBoxAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
     }
 

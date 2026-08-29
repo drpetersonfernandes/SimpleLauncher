@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 namespace SimpleLauncher.Services.TakeScreenshot;
 
 /// <summary>
-/// Provides methods to capture screenshots of specific windows using Win32 API calls.
+///     Provides methods to capture screenshots of specific windows using Win32 API calls.
 /// </summary>
 public static partial class WindowScreenshot
 {
@@ -19,31 +19,31 @@ public static partial class WindowScreenshot
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static partial bool GetWindowRect(IntPtr hWnd,
-        out SimpleLauncher.Models.WindowScreenshot.Rectangle lpRectangle);
+        out Models.WindowScreenshot.Rectangle lpRectangle);
 
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static partial bool GetClientRect(IntPtr hWnd,
-        out SimpleLauncher.Models.WindowScreenshot.Rectangle lpRectangle);
+        out Models.WindowScreenshot.Rectangle lpRectangle);
 
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool ClientToScreen(IntPtr hWnd, ref SimpleLauncher.Models.WindowScreenshot.Point lpPoint);
+    private static partial bool ClientToScreen(IntPtr hWnd, ref Models.WindowScreenshot.Point lpPoint);
 
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static partial bool IsIconic(IntPtr hWnd);
 
     /// <summary>
-    /// Gets the rectangle of the client area (excluding borders and menu).
+    ///     Gets the rectangle of the client area (excluding borders and menu).
     /// </summary>
     /// <param name="hWnd">Handle to the window.</param>
     /// <param name="clientRectangle">The rectangle of the client area in screen coordinates.</param>
     /// <returns>True if the client area was successfully retrieved, false otherwise.</returns>
     public static bool GetClientAreaRect(IntPtr hWnd,
-        out SimpleLauncher.Models.WindowScreenshot.Rectangle clientRectangle)
+        out Models.WindowScreenshot.Rectangle clientRectangle)
     {
-        clientRectangle = new SimpleLauncher.Models.WindowScreenshot.Rectangle();
+        clientRectangle = new Models.WindowScreenshot.Rectangle();
 
         // Check if the window is minimized (iconic)
         if (IsIconic(hWnd))
@@ -53,13 +53,10 @@ public static partial class WindowScreenshot
         }
 
         // Get the client area dimensions
-        if (!GetClientRect(hWnd, out var localClientRect))
-        {
-            return false;
-        }
+        if (!GetClientRect(hWnd, out var localClientRect)) return false;
 
         // Get the top-left corner of the client area in screen coordinates
-        var clientTopLeft = new SimpleLauncher.Models.WindowScreenshot.Point
+        var clientTopLeft = new Models.WindowScreenshot.Point
             { X = localClientRect.Left, Y = localClientRect.Top };
         if (!ClientToScreen(hWnd, ref clientTopLeft))
         {

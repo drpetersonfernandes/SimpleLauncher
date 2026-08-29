@@ -3,51 +3,10 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.RetroAchievements;
 
 /// <summary>
-/// Provides fuzzy matching for RetroAchievements system names to ensure proper hash method selection.
+///     Provides fuzzy matching for RetroAchievements system names to ensure proper hash method selection.
 /// </summary>
 public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
 {
-    private readonly ILogger _logger;
-    private readonly HashSet<string> _loggedUnmatchedSystems = new(StringComparer.OrdinalIgnoreCase);
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RetroAchievementsSystemMatcher"/> class.
-    /// </summary>
-    /// <param name="logErrors">The logger instance for error logging.</param>
-    /// <param name="logger">The logger instance for diagnostic output.</param>
-    public RetroAchievementsSystemMatcher(ILogger logErrors, ILogger logger)
-    {
-        _logger = logErrors;
-        _logger = logger;
-    }
-
-    /// <summary>
-    /// Holds information about a RetroAchievements system, including its ID and name aliases.
-    /// </summary>
-    public class RaSystemInfo
-    {
-        /// <summary>
-        /// Gets the official RetroAchievements console ID for the system.
-        /// </summary>
-        public int Id { get; }
-
-        /// <summary>
-        /// Gets the list of known name aliases for the system used for matching.
-        /// </summary>
-        public string[] Aliases { get; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RaSystemInfo"/> class.
-        /// </summary>
-        /// <param name="id">The official RetroAchievements console ID.</param>
-        /// <param name="aliases">The name aliases used for matching the system.</param>
-        public RaSystemInfo(int id, string[] aliases)
-        {
-            Id = id;
-            Aliases = aliases;
-        }
-    }
-
     // Define system name mappings with their official RA Console ID and fuzzy matching patterns.
     private static readonly Dictionary<string, RaSystemInfo> SystemMappings = new(StringComparer.Ordinal)
     {
@@ -262,8 +221,22 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         ["Zeebo"] = new RaSystemInfo(70, ["Zeebo"])
     };
 
+    private readonly HashSet<string> _loggedUnmatchedSystems = new(StringComparer.OrdinalIgnoreCase);
+    private readonly ILogger _logger;
+
     /// <summary>
-    /// Finds the best matching RetroAchievements system name using fuzzy matching.
+    ///     Initializes a new instance of the <see cref="RetroAchievementsSystemMatcher" /> class.
+    /// </summary>
+    /// <param name="logErrors">The logger instance for error logging.</param>
+    /// <param name="logger">The logger instance for diagnostic output.</param>
+    public RetroAchievementsSystemMatcher(ILogger logErrors, ILogger logger)
+    {
+        _logger = logErrors;
+        _logger = logger;
+    }
+
+    /// <summary>
+    ///     Finds the best matching RetroAchievements system name using fuzzy matching.
     /// </summary>
     /// <param name="inputSystemName">The system name to match</param>
     /// <returns>The normalized RetroAchievements system name, or the original if no match found</returns>
@@ -276,12 +249,8 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
 
         // Direct exact match (faster for common cases)
         foreach (var kvp in SystemMappings)
-        {
             if (kvp.Value.Aliases.Any(pattern => pattern.Equals(normalizedInput, StringComparison.OrdinalIgnoreCase)))
-            {
                 return kvp.Key;
-            }
-        }
 
         // No match found, log it once per unique system name for future improvement
         if (_loggedUnmatchedSystems.Add(inputSystemName))
@@ -296,7 +265,8 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
     }
 
     /// <summary>
-    /// Checks whether the given system name is an official RetroAchievements system name (a key in the SystemMappings dictionary).
+    ///     Checks whether the given system name is an official RetroAchievements system name (a key in the SystemMappings
+    ///     dictionary).
     /// </summary>
     /// <param name="systemName">The system name to check.</param>
     /// <returns>True if the system name is an official key; otherwise, false.</returns>
@@ -306,7 +276,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
     }
 
     /// <summary>
-    /// Gets a sorted list of all official RetroAchievements system names supported by the matcher.
+    ///     Gets a sorted list of all official RetroAchievements system names supported by the matcher.
     /// </summary>
     /// <returns>A sorted list of system name strings.</returns>
     public IList<string> GetSupportedSystemNames()
@@ -315,7 +285,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
     }
 
     /// <summary>
-    /// Gets the RetroAchievements Console ID for a given system name.
+    ///     Gets the RetroAchievements Console ID for a given system name.
     /// </summary>
     /// <param name="inputSystemName">The system name to look up.</param>
     /// <returns>The console ID, or -1 if not found.</returns>
@@ -328,7 +298,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
     }
 
     /// <summary>
-    /// Attempts to find an exact match for the input system name among all known aliases.
+    ///     Attempts to find an exact match for the input system name among all known aliases.
     /// </summary>
     /// <param name="inputSystemName">The system name to match.</param>
     /// <returns>The official system name key if an exact alias match is found; otherwise, null.</returns>
@@ -339,19 +309,15 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         var normalizedInput = inputSystemName.Trim().ToLowerInvariant();
 
         foreach (var kvp in SystemMappings)
-        {
             if (kvp.Value.Aliases.Any(pattern => pattern.Equals(normalizedInput, StringComparison.OrdinalIgnoreCase)))
-            {
                 return kvp.Key; // Found 100% match
-            }
-        }
 
         return null; // No exact match
     }
 
     /// <summary>
-    /// Checks if a system name exists in the SystemMappings dictionary.
-    /// This checks both the dictionary keys and all aliases for each system.
+    ///     Checks if a system name exists in the SystemMappings dictionary.
+    ///     This checks both the dictionary keys and all aliases for each system.
     /// </summary>
     /// <param name="systemName">The system name to check.</param>
     /// <returns>True if the system exists in SystemMappings; otherwise, false.</returns>
@@ -368,18 +334,41 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
 
         // Check if input matches any alias in any system
         foreach (var kvp in SystemMappings)
-        {
             if (kvp.Value.Aliases.Any(alias =>
                     alias.Equals(normalizedInput, StringComparison.OrdinalIgnoreCase) ||
                     alias.Contains(normalizedInput, StringComparison.OrdinalIgnoreCase) ||
                     normalizedInput.Contains(alias, StringComparison.OrdinalIgnoreCase)))
-            {
                 return true;
-            }
-        }
 
         // Try fuzzy matching as a last resort
         var bestMatch = GetBestMatchSystemName(systemName);
         return SystemMappings.ContainsKey(bestMatch);
+    }
+
+    /// <summary>
+    ///     Holds information about a RetroAchievements system, including its ID and name aliases.
+    /// </summary>
+    public class RaSystemInfo
+    {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="RaSystemInfo" /> class.
+        /// </summary>
+        /// <param name="id">The official RetroAchievements console ID.</param>
+        /// <param name="aliases">The name aliases used for matching the system.</param>
+        public RaSystemInfo(int id, string[] aliases)
+        {
+            Id = id;
+            Aliases = aliases;
+        }
+
+        /// <summary>
+        ///     Gets the official RetroAchievements console ID for the system.
+        /// </summary>
+        public int Id { get; }
+
+        /// <summary>
+        ///     Gets the list of known name aliases for the system used for matching.
+        /// </summary>
+        public string[] Aliases { get; }
     }
 }

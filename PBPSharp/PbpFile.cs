@@ -4,49 +4,14 @@ using PBPSharp.Models;
 namespace PBPSharp;
 
 /// <summary>
-/// Provides functionality to open and read PBP (EBOOT.PBP) files.
-/// Supports single-disc and multi-disc PlayStation PBP files.
+///     Provides functionality to open and read PBP (EBOOT.PBP) files.
+///     Supports single-disc and multi-disc PlayStation PBP files.
 /// </summary>
 public sealed class PbpFile : IDisposable
 {
-    private Stream _stream;
     private readonly bool _ownsStream;
     private bool _disposed;
-
-    /// <summary>
-    /// The parsed PBP header containing resource offsets.
-    /// </summary>
-    public PbpHeader Header { get; }
-
-    /// <summary>
-    /// The SFO (PARAM.SFO) metadata parsed from the PBP.
-    /// </summary>
-    public SfoData SfoData { get; }
-
-    /// <summary>
-    /// The list of disc entries found in the PBP.
-    /// </summary>
-    public IReadOnlyList<PbpDiscInfo> Discs { get; }
-
-    /// <summary>
-    /// Whether this is a multi-disc PBP.
-    /// </summary>
-    public bool IsMultiDisc => Discs.Count > 1;
-
-    /// <summary>
-    /// The game title from SFO metadata.
-    /// </summary>
-    public string? Title => SfoData.GetString(SfoData.Keys.Title);
-
-    /// <summary>
-    /// The disc ID from SFO metadata (first disc).
-    /// </summary>
-    public string? DiscId => SfoData.GetString(SfoData.Keys.DiscId);
-
-    /// <summary>
-    /// The game category (e.g., "ME" for PS1 EBOOT).
-    /// </summary>
-    public string? Category => SfoData.GetString(SfoData.Keys.Category);
+    private Stream _stream;
 
     private PbpFile(Stream stream, bool ownsStream, PbpHeader header, SfoData sfoData, IReadOnlyList<PbpDiscInfo> discs)
     {
@@ -58,11 +23,64 @@ public sealed class PbpFile : IDisposable
     }
 
     /// <summary>
-    /// Opens a PBP file from the specified file path.
+    ///     The parsed PBP header containing resource offsets.
+    /// </summary>
+    public PbpHeader Header { get; }
+
+    /// <summary>
+    ///     The SFO (PARAM.SFO) metadata parsed from the PBP.
+    /// </summary>
+    public SfoData SfoData { get; }
+
+    /// <summary>
+    ///     The list of disc entries found in the PBP.
+    /// </summary>
+    public IReadOnlyList<PbpDiscInfo> Discs { get; }
+
+    /// <summary>
+    ///     Whether this is a multi-disc PBP.
+    /// </summary>
+    public bool IsMultiDisc => Discs.Count > 1;
+
+    /// <summary>
+    ///     The game title from SFO metadata.
+    /// </summary>
+    public string? Title => SfoData.GetString(SfoData.Keys.Title);
+
+    /// <summary>
+    ///     The disc ID from SFO metadata (first disc).
+    /// </summary>
+    public string? DiscId => SfoData.GetString(SfoData.Keys.DiscId);
+
+    /// <summary>
+    ///     The game category (e.g., "ME" for PS1 EBOOT).
+    /// </summary>
+    public string? Category => SfoData.GetString(SfoData.Keys.Category);
+
+    /// <summary>
+    ///     Disposes of the PBP file and releases associated resources.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed) return;
+
+        _disposed = true;
+
+        if (_ownsStream)
+            _stream.Dispose();
+
+        _stream = null!;
+    }
+
+    /// <summary>
+    ///     Opens a PBP file from the specified file path.
     /// </summary>
     /// <param name="path">The full path to the PBP file.</param>
-    /// <param name="pbp">When this method returns, contains the opened <see cref="PbpFile"/> instance if successful; otherwise, null.</param>
-    /// <returns>A <see cref="PbpError"/> indicating the result of the operation.</returns>
+    /// <param name="pbp">
+    ///     When this method returns, contains the opened <see cref="PbpFile" /> instance if successful;
+    ///     otherwise, null.
+    /// </param>
+    /// <returns>A <see cref="PbpError" /> indicating the result of the operation.</returns>
     public static PbpError Open(string path, out PbpFile? pbp)
     {
         pbp = null;
@@ -85,12 +103,15 @@ public sealed class PbpFile : IDisposable
     }
 
     /// <summary>
-    /// Opens a PBP from an existing stream.
+    ///     Opens a PBP from an existing stream.
     /// </summary>
     /// <param name="stream">The stream containing PBP data. Must be seekable and readable.</param>
     /// <param name="ownsStream">Whether this instance should dispose the stream when disposed.</param>
-    /// <param name="pbp">When this method returns, contains the opened <see cref="PbpFile"/> instance if successful; otherwise, null.</param>
-    /// <returns>A <see cref="PbpError"/> indicating the result of the operation.</returns>
+    /// <param name="pbp">
+    ///     When this method returns, contains the opened <see cref="PbpFile" /> instance if successful;
+    ///     otherwise, null.
+    /// </param>
+    /// <returns>A <see cref="PbpError" /> indicating the result of the operation.</returns>
     public static PbpError Open(Stream stream, bool ownsStream, out PbpFile? pbp)
     {
         pbp = null;
@@ -251,10 +272,7 @@ public sealed class PbpFile : IDisposable
             for (var i = 0; i < 5; i++)
             {
                 var pos = BitConverter.ToUInt32(posBuffer, i * 4);
-                if (pos > 0)
-                {
-                    discs.Add(new PbpDiscInfo(stream, header.DataPsarOffset + (int)pos, i + 1));
-                }
+                if (pos > 0) discs.Add(new PbpDiscInfo(stream, header.DataPsarOffset + (int)pos, i + 1));
             }
         }
 
@@ -281,20 +299,5 @@ public sealed class PbpFile : IDisposable
         }
 
         return Encoding.ASCII.GetString(buffer, 0, length);
-    }
-
-    /// <summary>
-    /// Disposes of the PBP file and releases associated resources.
-    /// </summary>
-    public void Dispose()
-    {
-        if (_disposed) return;
-
-        _disposed = true;
-
-        if (_ownsStream)
-            _stream.Dispose();
-
-        _stream = null!;
     }
 }

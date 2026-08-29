@@ -4,64 +4,65 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Core.Services.SettingsManager.EmulatorSettings;
 
 /// <summary>
-/// Represents the user-configurable settings for the Azahar emulator, persisted to the system configuration under the "Azahar" section.
+///     Represents the user-configurable settings for the Azahar emulator, persisted to the system configuration under the
+///     "Azahar" section.
 /// </summary>
 public class AzaharSettings : IEmulatorSettings
 {
     private const string SectionName = "Azahar";
 
     /// <summary>
-    /// Gets or sets the graphics API used by the emulator (e.g., 1 for OpenGL).
+    ///     Gets or sets the graphics API used by the emulator (e.g., 1 for OpenGL).
     /// </summary>
     public int GraphicsApi { get; set; } = 1;
 
     /// <summary>
-    /// Gets or sets the internal resolution scaling factor applied during emulation.
+    ///     Gets or sets the internal resolution scaling factor applied during emulation.
     /// </summary>
     public int ResolutionFactor { get; set; } = 1;
 
     /// <summary>
-    /// Gets or sets a value indicating whether vertical synchronization is enabled.
+    ///     Gets or sets a value indicating whether vertical synchronization is enabled.
     /// </summary>
     public bool UseVsync { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether shaders are compiled asynchronously to reduce stuttering.
+    ///     Gets or sets a value indicating whether shaders are compiled asynchronously to reduce stuttering.
     /// </summary>
     public bool AsyncShaderCompilation { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the emulator starts in fullscreen mode.
+    ///     Gets or sets a value indicating whether the emulator starts in fullscreen mode.
     /// </summary>
     public bool Fullscreen { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the audio volume percentage.
+    ///     Gets or sets the audio volume percentage.
     /// </summary>
     public int Volume { get; set; } = 100;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the emulator uses the New 3DS hardware profile.
+    ///     Gets or sets a value indicating whether the emulator uses the New 3DS hardware profile.
     /// </summary>
     public bool IsNew3Ds { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the screen layout option used by the emulator (e.g., 0 for default).
+    ///     Gets or sets the screen layout option used by the emulator (e.g., 0 for default).
     /// </summary>
     public int LayoutOption { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
+    ///     Gets or sets a value indicating whether the emulator settings window is shown before launching a game.
     /// </summary>
     public bool ShowSettingsBeforeLaunch { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether audio stretching is enabled.
+    ///     Gets or sets a value indicating whether audio stretching is enabled.
     /// </summary>
     public bool EnableAudioStretching { get; set; } = true;
 
     /// <summary>
-    /// Loads the Azahar settings from the specified XML element.
+    ///     Loads the Azahar settings from the specified XML element.
     /// </summary>
     /// <param name="settings">The XML element containing the system configuration.</param>
     public void LoadFromXml(XElement settings)
@@ -84,7 +85,7 @@ public class AzaharSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Serializes the Azahar settings into an XML element for persistence.
+    ///     Serializes the Azahar settings into an XML element for persistence.
     /// </summary>
     /// <returns>The XML element containing the Azahar settings.</returns>
     public XElement ToXElement()
@@ -104,7 +105,7 @@ public class AzaharSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Copies the values from another emulator settings instance if it is an Azahar settings instance.
+    ///     Copies the values from another emulator settings instance if it is an Azahar settings instance.
     /// </summary>
     /// <param name="other">The other emulator settings instance to copy from.</param>
     public void CopyFrom(IEmulatorSettings other)
@@ -125,7 +126,7 @@ public class AzaharSettings : IEmulatorSettings
 
 
     /// <summary>
-    /// Resets all Azahar settings to their default values.
+    ///     Resets all Azahar settings to their default values.
     /// </summary>
     public void ResetDefaults()
     {

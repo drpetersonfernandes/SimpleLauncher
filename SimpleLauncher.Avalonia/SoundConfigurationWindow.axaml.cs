@@ -6,14 +6,14 @@ using SimpleLauncher.Core.Interfaces;
 namespace SimpleLauncher.Avalonia;
 
 /// <summary>
-/// Window for configuring sound and notification settings.
+///     Window for configuring sound and notification settings.
 /// </summary>
 public partial class SoundConfigurationWindow : Window
 {
     private readonly EventHandler _saveCompletedHandler;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SoundConfigurationWindow"/> class.
+    ///     Initializes a new instance of the <see cref="SoundConfigurationWindow" /> class.
     /// </summary>
     /// <param name="viewModel">The view model providing sound configuration logic.</param>
     public SoundConfigurationWindow(SoundConfigurationViewModel viewModel)

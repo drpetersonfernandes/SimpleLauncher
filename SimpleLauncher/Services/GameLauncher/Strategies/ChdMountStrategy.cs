@@ -7,23 +7,24 @@ using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 namespace SimpleLauncher.Services.GameLauncher.Strategies;
 
 /// <summary>
-/// Strategy for mounting CHD files and launching them with compatible emulators.
+///     Strategy for mounting CHD files and launching them with compatible emulators.
 /// </summary>
 public class ChdMountStrategy : ILaunchStrategy
 {
     private readonly IConfiguration _configuration;
+    private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMountChdFiles _mountChdFiles;
-    private readonly ILogger _logger;
+    private bool _cDiEmu;
 
     private bool _is4Do;
     private bool _isBlastem;
-    private bool _cDiEmu;
     private bool _isCxbxReloaded;
     private bool _isFinalBurnAlpha;
     private bool _isFinalBurnNeo;
     private bool _isGenesisPlusGx;
     private bool _isGens;
+    private bool _isKegaFusion;
     private bool _isMednafen;
     private bool _isMesen;
     private bool _isNebula;
@@ -35,10 +36,9 @@ public class ChdMountStrategy : ILaunchStrategy
     private bool _isXemu;
     private bool _isXenia;
     private bool _isYabause;
-    private bool _isKegaFusion;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ChdMountStrategy"/> class with the specified dependencies.
+    ///     Initializes a new instance of the <see cref="ChdMountStrategy" /> class with the specified dependencies.
     /// </summary>
     /// <param name="configuration">The application configuration.</param>
     /// <param name="messageBox">The message box service for user notifications.</param>
@@ -61,23 +61,15 @@ public class ChdMountStrategy : ILaunchStrategy
     {
         if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
             string.IsNullOrEmpty(context.EmulatorName))
-        {
             return false;
-        }
 
         var isChd = Path.GetExtension(context.ResolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase);
-        if (!isChd)
-        {
-            return false;
-        }
+        if (!isChd) return false;
 
         var isRetroArch = context.EmulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) ||
                           (context.EmulatorManager?.EmulatorLocation?.Contains("retroarch.exe",
                               StringComparison.OrdinalIgnoreCase) ?? false);
-        if (isRetroArch)
-        {
-            return false; // we do not mount chd if emulator is RetroArch
-        }
+        if (isRetroArch) return false; // we do not mount chd if emulator is RetroArch
 
         if (DosBoxLaunchStrategy.IsDosBoxEmulator(context))
             return false; // let DosBoxLaunchStrategy handle CHD for DOSBox
@@ -103,6 +95,70 @@ public class ChdMountStrategy : ILaunchStrategy
                _isXemu ||
                _isXenia ||
                _isYabause;
+    }
+
+    /// <inheritdoc />
+    public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
+    {
+        string? gameFilePath;
+        ResolveEmulatorFlags(context);
+
+        var logPath = PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+
+        // Get the console alias for CHDMounter based on system and emulator
+        var consoleAlias = _mountChdFiles.GetConsoleAliasFromSystemName(context.SystemName, context.EmulatorName,
+            context.EmulatorManager?.EmulatorLocation, _logger);
+
+        await using var mountedDrive =
+            await _mountChdFiles.MountAsync(context.ResolvedFilePath, consoleAlias, _logger, _messageBox);
+
+        if (!mountedDrive.IsMounted)
+            // Mount failed - error message already shown by MountChdFiles
+            return;
+
+        if (_isRpcs3)
+            // RPCS3 needs the path to EBOOT.BIN
+            gameFilePath = FindEbootBin.FindEbootBinRecursive(mountedDrive.MountedPath, _logger, _logger);
+        else if (_isXenia)
+            // Xenia needs the path to default.xex
+            gameFilePath = FindDefaultXex.Find(mountedDrive.MountedPath, _logger);
+        else if (_isXemu)
+            // Xemu needs the path to image.iso
+            gameFilePath = FindImageIso.Find(mountedDrive.MountedPath, _logger);
+        else if (_isCxbxReloaded)
+            // Cxbx-Reloaded needs the path to default.xbe
+            gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath, _logger);
+        else if (_isGens || _cDiEmu || _isKegaFusion)
+            // Path to a .bin file
+            gameFilePath = FindBinFile.Find(mountedDrive.MountedPath, _logger);
+        else if (_isGenesisPlusGx || _is4Do || _isBlastem || _isFinalBurnAlpha || _isFinalBurnNeo || _isMednafen ||
+                 _isMesen || _isNebula ||
+                 _isPcsxRedux || _isPicoDrive || _isRaine || _isTsugaru || _isYabause)
+            // Path to a .cue file
+            gameFilePath = FindCueFile.Find(mountedDrive.MountedPath, _logger);
+        else
+            gameFilePath = null; // return null -->> will be handle by the next Strategy
+
+        if (string.IsNullOrEmpty(gameFilePath))
+        {
+            _logger.Debug(
+                $"[ChdMountStrategy] No suitable game file found in mounted CHD at {mountedDrive.MountedPath}");
+            _logger.Warning($"No game file found in mounted CHD for emulator '{context.EmulatorName}'");
+            await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(logPath);
+            return; // will be handle by the next Strategy
+        }
+
+        // Launch the emulator with the found game file
+        // Pass the original CHD file path for display in notifications
+        await launcher.LaunchRegularEmulatorAsync(
+            gameFilePath,
+            context.EmulatorName,
+            context.SystemManagerService!,
+            context.EmulatorManager!,
+            context.Parameters,
+            context.WindowContext!,
+            context.LoadingState,
+            context.ResolvedFilePath);
     }
 
     private void ResolveEmulatorFlags(LaunchContext context)
@@ -204,85 +260,5 @@ public class ChdMountStrategy : ILaunchStrategy
         _isYabause = context.EmulatorName.Contains("Yabause", StringComparison.OrdinalIgnoreCase) ||
                      (context.EmulatorManager?.EmulatorLocation?.Contains("yabause.exe",
                          StringComparison.OrdinalIgnoreCase) ?? false);
-    }
-
-    /// <inheritdoc />
-    public async Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
-    {
-        string? gameFilePath;
-        ResolveEmulatorFlags(context);
-
-        var logPath = PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
-
-        // Get the console alias for CHDMounter based on system and emulator
-        var consoleAlias = _mountChdFiles.GetConsoleAliasFromSystemName(context.SystemName, context.EmulatorName,
-            context.EmulatorManager?.EmulatorLocation, _logger);
-
-        await using var mountedDrive =
-            await _mountChdFiles.MountAsync(context.ResolvedFilePath, consoleAlias, _logger, _messageBox);
-
-        if (!mountedDrive.IsMounted)
-        {
-            // Mount failed - error message already shown by MountChdFiles
-            return;
-        }
-
-        if (_isRpcs3)
-        {
-            // RPCS3 needs the path to EBOOT.BIN
-            gameFilePath = FindEbootBin.FindEbootBinRecursive(mountedDrive.MountedPath, _logger, _logger);
-        }
-        else if (_isXenia)
-        {
-            // Xenia needs the path to default.xex
-            gameFilePath = FindDefaultXex.Find(mountedDrive.MountedPath, _logger);
-        }
-        else if (_isXemu)
-        {
-            // Xemu needs the path to image.iso
-            gameFilePath = FindImageIso.Find(mountedDrive.MountedPath, _logger);
-        }
-        else if (_isCxbxReloaded)
-        {
-            // Cxbx-Reloaded needs the path to default.xbe
-            gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath, _logger);
-        }
-        else if (_isGens || _cDiEmu || _isKegaFusion)
-        {
-            // Path to a .bin file
-            gameFilePath = FindBinFile.Find(mountedDrive.MountedPath, _logger);
-        }
-        else if (_isGenesisPlusGx || _is4Do || _isBlastem || _isFinalBurnAlpha || _isFinalBurnNeo || _isMednafen ||
-                 _isMesen || _isNebula ||
-                 _isPcsxRedux || _isPicoDrive || _isRaine || _isTsugaru || _isYabause)
-        {
-            // Path to a .cue file
-            gameFilePath = FindCueFile.Find(mountedDrive.MountedPath, _logger);
-        }
-        else
-        {
-            gameFilePath = null; // return null -->> will be handle by the next Strategy
-        }
-
-        if (string.IsNullOrEmpty(gameFilePath))
-        {
-            _logger.Debug(
-                $"[ChdMountStrategy] No suitable game file found in mounted CHD at {mountedDrive.MountedPath}");
-            _logger.Warning($"No game file found in mounted CHD for emulator '{context.EmulatorName}'");
-            await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(logPath);
-            return; // will be handle by the next Strategy
-        }
-
-        // Launch the emulator with the found game file
-        // Pass the original CHD file path for display in notifications
-        await launcher.LaunchRegularEmulatorAsync(
-            gameFilePath,
-            context.EmulatorName,
-            context.SystemManagerService!,
-            context.EmulatorManager!,
-            context.Parameters,
-            context.WindowContext!,
-            context.LoadingState,
-            context.ResolvedFilePath);
     }
 }

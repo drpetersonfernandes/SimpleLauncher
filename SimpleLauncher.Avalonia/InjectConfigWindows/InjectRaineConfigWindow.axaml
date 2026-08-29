@@ -1,6 +1,6 @@
 <Window x:Class="SimpleLauncher.Avalonia.InjectConfigWindows.InjectRaineConfigWindow"
         xmlns="https://github.com/avaloniaui"
-         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
+        xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Raine Configuration"
         Height="600" Width="650"
@@ -59,7 +59,8 @@
                 <!-- General Section -->
                 <GroupBox Header="{ext:Translate RaineConfig_General_Header}" Margin="0,0,0,10">
                     <StackPanel Margin="5">
-                        <CheckBox IsChecked="{Binding RaineShowFps}" Content="{ext:Translate RaineConfig_ShowFps}" Margin="0,5" ToolTip.Tip="{ext:Translate RaineConfig_ShowFps_Tooltip}" />
+                        <CheckBox IsChecked="{Binding RaineShowFps}" Content="{ext:Translate RaineConfig_ShowFps}"
+                                  Margin="0,5" ToolTip.Tip="{ext:Translate RaineConfig_ShowFps_Tooltip}" />
                         <TextBlock Text="{ext:Translate RedreamConfig_Frame_Skip}" Classes="form-label" />
                         <ComboBox ItemsSource="{Binding FrameSkipOptions}"
                                   SelectedValue="{Binding RaineFrameSkip}"
@@ -75,7 +76,8 @@
                             <TextBox Grid.Column="0" Margin="0,0,5,10"
                                      Text="{Binding RaineNeoCdBios}"
                                      ToolTip.Tip="{ext:Translate RaineConfig_NeoCdBios_Tooltip}" />
-                            <Button Grid.Column="1" Content="..." Width="30" Height="25" VerticalAlignment="Bottom" Margin="0,0,0,10"
+                            <Button Grid.Column="1" Content="..." Width="30" Height="25" VerticalAlignment="Bottom"
+                                    Margin="0,0,0,10"
                                     Command="{Binding SelectNeoCdBiosCommand}"
                                     ToolTip.Tip="{ext:Translate RaineConfig_SelectNeoCdBios_Tooltip}" />
                         </Grid>
@@ -90,8 +92,10 @@
                                        Value="{Binding RaineSfxVolume}"
                                        ToolTip.Tip="{ext:Translate RaineConfig_SfxVolume_Tooltip}" />
 
-                        <CheckBox IsChecked="{Binding RaineMuteSfx}" Content="{ext:Translate RaineConfig_MuteSfx}" Margin="0,5" ToolTip.Tip="{ext:Translate RaineConfig_MuteSfx_Tooltip}" />
-                        <CheckBox IsChecked="{Binding RaineMuteMusic}" Content="{ext:Translate RaineConfig_MuteMusic}" Margin="0,5" ToolTip.Tip="{ext:Translate RaineConfig_MuteMusic_Tooltip}" />
+                        <CheckBox IsChecked="{Binding RaineMuteSfx}" Content="{ext:Translate RaineConfig_MuteSfx}"
+                                  Margin="0,5" ToolTip.Tip="{ext:Translate RaineConfig_MuteSfx_Tooltip}" />
+                        <CheckBox IsChecked="{Binding RaineMuteMusic}" Content="{ext:Translate RaineConfig_MuteMusic}"
+                                  Margin="0,5" ToolTip.Tip="{ext:Translate RaineConfig_MuteMusic_Tooltip}" />
                     </StackPanel>
                 </GroupBox>
 

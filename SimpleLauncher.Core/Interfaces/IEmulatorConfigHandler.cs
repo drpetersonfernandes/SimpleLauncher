@@ -3,12 +3,12 @@ using SimpleLauncher.Core.Models;
 namespace SimpleLauncher.Core.Interfaces;
 
 /// <summary>
-/// Handles emulator-specific configuration before launching a game.
+///     Handles emulator-specific configuration before launching a game.
 /// </summary>
 public interface IEmulatorConfigHandler
 {
     /// <summary>
-    /// Determines whether this handler matches the specified emulator by name and path.
+    ///     Determines whether this handler matches the specified emulator by name and path.
     /// </summary>
     /// <param name="emulatorName">The display name of the emulator.</param>
     /// <param name="emulatorPath">The file path to the emulator executable.</param>
@@ -16,7 +16,7 @@ public interface IEmulatorConfigHandler
     bool IsMatch(string emulatorName, string emulatorPath);
 
     /// <summary>
-    /// Asynchronously applies emulator-specific configuration based on the launch context.
+    ///     Asynchronously applies emulator-specific configuration based on the launch context.
     /// </summary>
     /// <param name="context">The launch context containing game and emulator details.</param>
     /// <returns>True if configuration was successfully applied; otherwise, false.</returns>

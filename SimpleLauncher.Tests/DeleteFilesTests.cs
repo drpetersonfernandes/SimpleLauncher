@@ -4,12 +4,12 @@ using Xunit;
 namespace SimpleLauncher.Tests;
 
 /// <summary>
-/// Tests the <see cref="DeleteFiles"/> utility for synchronous and asynchronous file deletion.
+///     Tests the <see cref="DeleteFiles" /> utility for synchronous and asynchronous file deletion.
 /// </summary>
 public class DeleteFilesTests
 {
     /// <summary>
-    /// Verifies that TryDeleteFile with a null path does not throw an exception.
+    ///     Verifies that TryDeleteFile with a null path does not throw an exception.
     /// </summary>
     [Fact]
     public void TryDeleteFileNullPathDoesNotThrow()
@@ -19,7 +19,7 @@ public class DeleteFilesTests
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFile with an empty path does not throw an exception.
+    ///     Verifies that TryDeleteFile with an empty path does not throw an exception.
     /// </summary>
     [Fact]
     public void TryDeleteFileEmptyPathDoesNotThrow()
@@ -29,7 +29,7 @@ public class DeleteFilesTests
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFile with a non-existent file path does not throw an exception.
+    ///     Verifies that TryDeleteFile with a non-existent file path does not throw an exception.
     /// </summary>
     [Fact]
     public void TryDeleteFileNonExistentFileDoesNotThrow()
@@ -40,7 +40,7 @@ public class DeleteFilesTests
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFile deletes an existing file.
+    ///     Verifies that TryDeleteFile deletes an existing file.
     /// </summary>
     [Fact]
     public void TryDeleteFileExistingFileDeletesFile()
@@ -54,7 +54,7 @@ public class DeleteFilesTests
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFile deletes a read-only file.
+    ///     Verifies that TryDeleteFile deletes a read-only file.
     /// </summary>
     [Fact]
     public void TryDeleteFileReadOnlyFileDeletesFile()
@@ -69,7 +69,7 @@ public class DeleteFilesTests
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFileAsync with a null path does not throw an exception.
+    ///     Verifies that TryDeleteFileAsync with a null path does not throw an exception.
     /// </summary>
     [Fact]
     public async Task TryDeleteFileAsyncNullPathDoesNotThrow()
@@ -79,7 +79,7 @@ public class DeleteFilesTests
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFileAsync with an empty path does not throw an exception.
+    ///     Verifies that TryDeleteFileAsync with an empty path does not throw an exception.
     /// </summary>
     [Fact]
     public async Task TryDeleteFileAsyncEmptyPathDoesNotThrow()
@@ -89,7 +89,7 @@ public class DeleteFilesTests
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFileAsync with a non-existent file path does not throw an exception.
+    ///     Verifies that TryDeleteFileAsync with a non-existent file path does not throw an exception.
     /// </summary>
     [Fact]
     public async Task TryDeleteFileAsyncNonExistentFileDoesNotThrow()
@@ -100,7 +100,7 @@ public class DeleteFilesTests
     }
 
     /// <summary>
-    /// Verifies that TryDeleteFileAsync deletes an existing file.
+    ///     Verifies that TryDeleteFileAsync deletes an existing file.
     /// </summary>
     [Fact]
     public async Task TryDeleteFileAsyncExistingFileDeletesFile()

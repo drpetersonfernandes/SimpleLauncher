@@ -5,15 +5,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Interfaces;
-using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services.WpfServices;
+using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.ContextMenu;
 
 /// <summary>
-/// Builds and manages right-click context menus for game items in the launcher.
+///     Builds and manages right-click context menus for game items in the launcher.
 /// </summary>
 public class ContextMenuService : IContextMenuService
 {
@@ -22,7 +22,7 @@ public class ContextMenuService : IContextMenuService
     private readonly IRetroAchievementsHasherTool _raHasherTool;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ContextMenuService"/> class.
+    ///     Initializes a new instance of the <see cref="ContextMenuService" /> class.
     /// </summary>
     /// <param name="logger">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
@@ -36,12 +36,12 @@ public class ContextMenuService : IContextMenuService
     }
 
     /// <summary>
-    /// Creates and returns a context menu for the specified game item.
+    ///     Creates and returns a context menu for the specified game item.
     /// </summary>
     /// <param name="context">The right-click context containing game and UI information.</param>
     /// <param name="findCoverImage">The service used to find cover images.</param>
     /// <param name="contextMenuFunctions">The functions that handle context menu actions.</param>
-    /// <returns>A configured <see cref="System.Windows.Controls.ContextMenu"/> for the game item.</returns>
+    /// <returns>A configured <see cref="System.Windows.Controls.ContextMenu" /> for the game item.</returns>
     public System.Windows.Controls.ContextMenu AddRightClickReturnContextMenu(RightClickContext context,
         IFindCoverImageService findCoverImage, IContextMenuFunctions contextMenuFunctions)
     {
@@ -49,12 +49,12 @@ public class ContextMenuService : IContextMenuService
     }
 
     /// <summary>
-    /// Attaches a right-click context menu to the specified button and returns it.
+    ///     Attaches a right-click context menu to the specified button and returns it.
     /// </summary>
     /// <param name="context">The right-click context containing game and UI information.</param>
     /// <param name="findCoverImage">The service used to find cover images.</param>
     /// <param name="contextMenuFunctions">The functions that handle context menu actions.</param>
-    /// <returns>The <see cref="Button"/> with the context menu attached.</returns>
+    /// <returns>The <see cref="Button" /> with the context menu attached.</returns>
     public Button AddRightClickReturnButton(RightClickContext context, IFindCoverImageService findCoverImage,
         IContextMenuFunctions contextMenuFunctions)
     {
@@ -91,38 +91,26 @@ public class ContextMenuService : IContextMenuService
                 string? selectedEmulatorName;
 
                 if (context.EmulatorComboBox is { SelectedItem: not null })
-                {
                     selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
-                }
                 else if
                     (context.Emulator !=
                      null) // This branch is taken if EmulatorComboBox is null (e.g., from GlobalSearch)
-                {
                     selectedEmulatorName = context.Emulator.EmulatorName;
-                }
                 else if (context.SelectedSystemManager.Emulators.FirstOrDefault() is { } fallbackEmulator)
-                {
                     // Fallback when no emulator source was supplied (e.g., list-view context menu):
                     // use the system's first configured emulator.
                     selectedEmulatorName = fallbackEmulator.EmulatorName;
-                }
                 else
-                {
                     selectedEmulatorName = null; // <-- selectedEmulatorName could be null here
-                }
 
                 if (await CheckParametersForNullOrEmptyAsync(selectedEmulatorName))
-                {
                     return; // The finally block will still execute
-                }
 
                 if (context.GameLauncherService != null)
-                {
                     await context.GameLauncherService.HandleButtonClickAsync(context.FilePath, selectedEmulatorName!,
                         context.SelectedSystemName, context.SelectedSystemManager, context.Settings,
                         WpfWindowContext.FromMainWindow(context.MainWindow), context.GamePadController,
                         context.LoadingStateProvider);
-                }
 
                 // Notify user
                 context.MainWindow.UpdateStatusBarService.UpdateContent(
@@ -541,17 +529,11 @@ public class ContextMenuService : IContextMenuService
                 string? selectedEmulatorName;
 
                 if (context.EmulatorComboBox is { SelectedItem: not null })
-                {
                     selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
-                }
                 else if (context.Emulator != null)
-                {
                     selectedEmulatorName = context.Emulator.EmulatorName;
-                }
                 else
-                {
                     selectedEmulatorName = null;
-                }
 
                 _ = contextMenuFunctions.TakeScreenshotOfSelectedWindowAsync(context.FilePath, selectedEmulatorName!,
                     context.SelectedSystemName, context.SelectedSystemManager, context.Settings, null,
@@ -590,7 +572,6 @@ public class ContextMenuService : IContextMenuService
                 var result =
                     await _messageBox.AreYouSureYouWantToDeleteTheGameMessageBoxAsync(context.FileNameWithExtension);
                 if (result == CoreMessageBoxResult.Yes)
-                {
                     try
                     {
                         await contextMenuFunctions.RemoveFromFavoritesAsync(context.SelectedSystemName,
@@ -613,7 +594,6 @@ public class ContextMenuService : IContextMenuService
                         // Notify user
                         await _messageBox.ThereWasAnErrorDeletingTheGameMessageBoxAsync();
                     }
-                }
             }
             catch (Exception ex)
             {
@@ -648,7 +628,6 @@ public class ContextMenuService : IContextMenuService
                     await _messageBox.AreYouSureYouWantToDeleteTheCoverImageMessageBoxAsync(
                         context.FileNameWithoutExtension);
                 if (result == CoreMessageBoxResult.Yes)
-                {
                     try
                     {
                         await contextMenuFunctions.DeleteCoverImageAsync(context.FileNameWithoutExtension,
@@ -664,7 +643,6 @@ public class ContextMenuService : IContextMenuService
                         // Notify user
                         await _messageBox.ThereWasAnErrorDeletingTheCoverImageMessageBoxAsync();
                     }
-                }
             }
             catch (Exception ex)
             {
