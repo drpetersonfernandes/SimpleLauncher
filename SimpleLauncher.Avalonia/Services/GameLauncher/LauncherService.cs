@@ -540,7 +540,8 @@ public class LauncherService : ILauncherService
                     else if (CheckApplicationControlPolicyService.IsElevationRequired(win32Ex))
                     {
                         await _messageBox.ElevationRequiredMessageBoxAsync();
-                        Log.Error(win32Ex, "Elevation required to launch emulator.");
+                        // Expected user-environment condition (the emulator requires admin rights): not a bug.
+                        Log.Information(win32Ex, "Elevation required to launch emulator.");
                         loadingStateProvider?.SetLoadingState(false);
                         return;
                     }

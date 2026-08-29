@@ -1,3 +1,5 @@
+// ReSharper disable once RedundantUsingDirective
+using NAudio;
 using NAudio.Wave;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SettingsManager;
@@ -132,8 +134,22 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
             {
                 // Missing decoder (e.g. no libsndfile), no audio device (WSL2, CI,
                 // containers) or a corrupt file — log and skip; never crash.
-                _logger.Error(ex,
-                    $"Failed to play sound: {soundPath}");
+                // A missing/invalid audio device (MmException: BadDeviceId) is an
+                // expected environment condition, not a bug, so it is logged at
+                // Information level to avoid being reported to the bug-report API.
+#if WINDOWS
+                if (ex is MmException)
+                {
+                    _logger.Information(ex,
+                        $"Failed to play sound (no usable audio device): {soundPath}");
+                }
+                else
+#endif
+                {
+                    _logger.Error(ex,
+                        $"Failed to play sound: {soundPath}");
+                }
+
                 StopCurrentPlayback();
             }
         }

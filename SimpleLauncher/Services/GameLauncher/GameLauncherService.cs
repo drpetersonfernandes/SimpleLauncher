@@ -200,7 +200,8 @@ public partial class GameLauncherService : ILauncherService
             else if (CheckApplicationControlPolicyService.IsElevationRequired(ex))
             {
                 await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
-                _logger.Error(ex, "Elevation required to launch batch file.");
+                // Expected user-environment condition (the file requires admin rights): not a bug.
+                _logger.Information(ex, "Elevation required to launch batch file.");
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
             else if (CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
@@ -341,7 +342,8 @@ public partial class GameLauncherService : ILauncherService
             else if (CheckApplicationControlPolicyService.IsElevationRequired(ex))
             {
                 await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
-                _logger.Error(ex, "Elevation required to launch shortcut file.");
+                // Expected user-environment condition (the file requires admin rights): not a bug.
+                _logger.Information(ex, "Elevation required to launch shortcut file.");
             }
             else if (CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
             {
@@ -480,7 +482,8 @@ public partial class GameLauncherService : ILauncherService
             else if (CheckApplicationControlPolicyService.IsElevationRequired(ex))
             {
                 await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
-                _logger.Error(ex, "Elevation required to launch executable.");
+                // Expected user-environment condition (the file requires admin rights): not a bug.
+                _logger.Information(ex, "Elevation required to launch executable.");
             }
             else if (CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
             {
@@ -1048,7 +1051,8 @@ public partial class GameLauncherService : ILauncherService
                     else if (CheckApplicationControlPolicyService.IsElevationRequired(ex))
                     {
                         await _messageBoxLibrary.ElevationRequiredMessageBoxAsync();
-                        _logger.Error(ex, "Elevation required to launch emulator.");
+                        // Expected user-environment condition (the emulator requires admin rights): not a bug.
+                        _logger.Information(ex, "Elevation required to launch emulator.");
                     }
                     else if (CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
                     {
@@ -1209,7 +1213,8 @@ public partial class GameLauncherService : ILauncherService
             {
                 var contextMessage = $"SystemManagerService is null when attempting to launch.\n" +
                                      $"SystemName: '{context.SystemName}', EmulatorName: '{context.EmulatorName}', FilePath: '{context.FilePath}'";
-                _logger.Warning(contextMessage);
+                // Expected user-error condition (missing/misconfigured system): not a bug.
+                _logger.Information(contextMessage);
                 await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(
                     PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 return;
@@ -1220,7 +1225,8 @@ public partial class GameLauncherService : ILauncherService
                 var contextMessage =
                     $"SystemManagerService.Emulators is null or empty for system '{context.SystemName}'.\n" +
                     $"EmulatorName: '{context.EmulatorName}', FilePath: '{context.FilePath}'";
-                _logger.Warning(contextMessage);
+                // Expected user-error condition (misconfigured system with no emulators): not a bug.
+                _logger.Information(contextMessage);
                 await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(
                     PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
                 return;
@@ -1233,7 +1239,8 @@ public partial class GameLauncherService : ILauncherService
             {
                 await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(
                     PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
-                _logger.Warning(
+                // Expected user-error condition (emulator not configured for this system): not a bug.
+                _logger.Information(
                     $"Could not find EmulatorManager for emulator '{context.EmulatorName}' in system '{context.SystemName}'.");
                 return;
             }

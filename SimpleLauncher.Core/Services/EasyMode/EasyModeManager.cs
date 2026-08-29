@@ -223,9 +223,42 @@ public class EasyModeManager : IDisposable
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "An error occurred while loading EasyMode configuration from the API.");
+            // Connectivity failures (DNS, no host, timeouts, TLS) are expected user-side
+            // conditions with a working fallback. Per repo policy they must not be reported
+            // as bugs, so log them at Information (below the Warning+ sink threshold).
+            if (IsConnectivityError(ex))
+                _logger.Information(ex,
+                    "EasyMode configuration could not be loaded from the API due to a connectivity issue. Falling back to local/default configuration.");
+            else
+                _logger.Error(ex, "An error occurred while loading EasyMode configuration from the API.");
+
             return null;
         }
+    }
+
+    /// <summary>
+    ///     Determines whether an exception represents an expected, user-side connectivity failure
+    ///     (DNS resolution failure, no route to host, connection refused, TLS failure, or timeout)
+    ///     rather than an application defect.
+    /// </summary>
+    private static bool IsConnectivityError(Exception ex)
+    {
+        for (var current = ex; current != null; current = current.InnerException)
+            switch (current)
+            {
+                case HttpRequestException:
+                case System.Net.Sockets.SocketException:
+                case System.Net.WebException:
+                case TaskCanceledException:
+                case OperationCanceledException:
+                    return true;
+            }
+
+        var message = ex.ToString();
+        return message.Contains("No such host", StringComparison.OrdinalIgnoreCase)
+               || message.Contains("timed out", StringComparison.OrdinalIgnoreCase)
+               || message.Contains("connection attempt failed", StringComparison.OrdinalIgnoreCase)
+               || message.Contains("The remote name could not be resolved", StringComparison.OrdinalIgnoreCase);
     }
 
     private async Task<EasyModeManager?> LoadFromFallbackAsync()
@@ -289,7 +322,16 @@ public class EasyModeManager : IDisposable
         catch (Exception ex)
         {
             _logger.Debug($"Failed to load EasyMode configuration from fallback URL: {ex.Message}");
-            _logger.Error(ex, "An error occurred while loading EasyMode configuration from the fallback URL.");
+
+            // A failed fallback download is an expected connectivity/offline condition
+            // (the user may simply have no internet). Per repo policy it must not be
+            // reported as a bug, so log it at Information when it is a connectivity error.
+            if (IsConnectivityError(ex))
+                _logger.Information(ex,
+                    "EasyMode configuration could not be loaded from the Cloudflare fallback URL due to a connectivity issue.");
+            else
+                _logger.Error(ex, "An error occurred while loading EasyMode configuration from the fallback URL.");
+
             return null;
         }
     }

@@ -230,6 +230,39 @@ public static partial class PathHelper
             logFileName);
     }
 
+    /// <summary>
+    ///     Resolves the actual log file that should be opened for the user.
+    /// </summary>
+    /// <remarks>
+    ///     The configured log file (see <see cref="ResolveLogFilePath" />) uses a fixed base name such as
+    ///     <c>error_user.log</c>, but the Serilog sink is configured with a daily rolling interval
+    ///     (<c>RollingInterval.Day</c>). As a result the file actually written to disk is date-stamped, e.g.
+    ///     <c>error_user20260825.log</c>. Offering the fixed base name to the user therefore always fails with a
+    ///     "file not found" error. This helper returns the most recently written matching file so the open action
+    ///     targets the real on-disk log file. If no matching file exists yet, the original base path is returned so
+    ///     the caller can report that no log file has been created.
+    /// </remarks>
+    /// <param name="preferredPath">The preferred log path (typically from <see cref="ResolveLogFilePath" />).</param>
+    /// <returns>The path of the most recently written matching log file, or <paramref name="preferredPath" /> if none exists.</returns>
+    public static string ResolveActualLogFile(string? preferredPath)
+    {
+        if (string.IsNullOrWhiteSpace(preferredPath)) return preferredPath ?? string.Empty;
+
+        var directory = Path.GetDirectoryName(preferredPath);
+        var fileName = Path.GetFileNameWithoutExtension(preferredPath);
+        var extension = Path.GetExtension(preferredPath);
+
+        if (!string.IsNullOrEmpty(directory) && Directory.Exists(directory))
+        {
+            var candidate = Directory.EnumerateFiles(directory, $"{fileName}*{extension}")
+                .OrderByDescending(File.GetLastWriteTimeUtc)
+                .FirstOrDefault();
+            if (candidate != null) return candidate;
+        }
+
+        return preferredPath;
+    }
+
     private static string CombineAndResolveRelativeToAppDirectory(string path1, string path2)
     {
         var resolvedPath1 = ResolveRelativeToAppDirectory(path1);

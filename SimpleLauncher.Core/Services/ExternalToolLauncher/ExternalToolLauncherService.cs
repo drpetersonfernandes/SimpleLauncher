@@ -207,21 +207,24 @@ public class ExternalToolLauncherService : IExternalToolLauncher
     {
         if (string.IsNullOrEmpty(toolPath))
         {
-            _logger.Warning("Tool path cannot be null or empty.");
+            // Expected user-error condition (no tool configured): not a bug.
+            _logger.Information("Tool path cannot be null or empty.");
             await _messageBoxLibrary.SelectedToolNotFoundMessageBoxAsync();
             return;
         }
 
         if (!File.Exists(toolPath))
         {
-            _logger.Warning($"External tool not found: {toolPath}");
+            // Expected user-error condition (missing file): not a bug.
+            _logger.Information($"External tool not found: {toolPath}");
             await _messageBoxLibrary.SelectedToolNotFoundMessageBoxAsync();
             return;
         }
 
         if (!IsValidPeFile(toolPath))
         {
-            _logger.Warning($"External tool is not a valid PE executable: {toolPath}");
+            // Expected user-error condition (invalid/placeholder tool file): not a bug.
+            _logger.Information($"External tool is not a valid PE executable: {toolPath}");
             await _messageBoxLibrary.SelectedToolNotFoundMessageBoxAsync();
             return;
         }

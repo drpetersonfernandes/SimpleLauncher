@@ -375,10 +375,9 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                         await Task.Run(() => File.Copy(fullLogoPath, destPath, true));
                         return;
                     }
-                    catch (IOException ex) when (ex.Message.Contains("could not be encrypted",
-                                                     StringComparison.OrdinalIgnoreCase))
+                    catch (IOException)
                     {
-                        // EFS encryption error - fallback to byte-level copy which doesn't preserve encryption attributes
+                        // EFS encryption error or other IO error - fallback to byte-level copy which doesn't preserve encryption attributes
                         try
                         {
                             await Task.Run(() =>
@@ -427,10 +426,9 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                             await Task.Run(() => File.Copy(p, destPath, true));
                             return;
                         }
-                        catch (IOException ex) when (ex.Message.Contains("could not be encrypted",
-                                                         StringComparison.OrdinalIgnoreCase))
+                        catch (IOException)
                         {
-                            // EFS encryption error - fallback to byte-level copy which doesn't preserve encryption attributes
+                            // EFS encryption error or other IO error - fallback to byte-level copy which doesn't preserve encryption attributes
                             try
                             {
                                 await Task.Run(() =>
@@ -492,10 +490,9 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                         await Task.Run(() => File.Copy(bestIcon, destPath, true));
                         return;
                     }
-                    catch (IOException ex) when (ex.Message.Contains("could not be encrypted",
-                                                     StringComparison.OrdinalIgnoreCase))
+                    catch (IOException)
                     {
-                        // EFS encryption error - fallback to byte-level copy which doesn't preserve encryption attributes
+                        // EFS encryption error or other IO error - fallback to byte-level copy which doesn't preserve encryption attributes
                         try
                         {
                             await Task.Run(() =>
@@ -537,10 +534,9 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                             await Task.Run(() => File.Copy(largestPng, destPath, true));
                             return;
                         }
-                        catch (IOException ex) when (ex.Message.Contains("could not be encrypted",
-                                                         StringComparison.OrdinalIgnoreCase))
+                        catch (IOException)
                         {
-                            // EFS encryption error - fallback to byte-level copy which doesn't preserve encryption attributes
+                            // EFS encryption error or other IO error - fallback to byte-level copy which doesn't preserve encryption attributes
                             try
                             {
                                 await Task.Run(() =>

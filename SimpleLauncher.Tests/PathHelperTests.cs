@@ -677,4 +677,60 @@ public class PathHelperTests
                 Directory.Delete(baseDir, true);
         }
     }
+
+    /// <summary>
+    ///     Verifies that ResolveActualLogFile returns the most recently written matching log file when Serilog's
+    ///     daily rolling interval has date-stamped the file on disk (e.g. error_user20260825.log).
+    /// </summary>
+    [Fact]
+    public void ResolveActualLogFileReturnsLatestRollingFile()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var preferred = Path.Combine(baseDir, "error_user.log");
+        var older = Path.Combine(baseDir, "error_user20260824.log");
+        var newer = Path.Combine(baseDir, "error_user20260825.log");
+
+        try
+        {
+            Directory.CreateDirectory(baseDir);
+            File.WriteAllText(older, "old");
+            File.WriteAllText(newer, "new");
+            File.SetLastWriteTimeUtc(older, new DateTime(2026, 8, 24, 0, 0, 0, DateTimeKind.Utc));
+            File.SetLastWriteTimeUtc(newer, new DateTime(2026, 8, 25, 0, 0, 0, DateTimeKind.Utc));
+
+            var result = PathHelper.ResolveActualLogFile(preferred);
+
+            Assert.Equal(newer, result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
+
+    /// <summary>
+    ///     Verifies that ResolveActualLogFile falls back to the preferred base path when no matching log file
+    ///     exists yet (so the caller can report that no log file has been created).
+    /// </summary>
+    [Fact]
+    public void ResolveActualLogFileFallsBackWhenNoFileExists()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var preferred = Path.Combine(baseDir, "error_user.log");
+
+        try
+        {
+            Directory.CreateDirectory(baseDir);
+
+            var result = PathHelper.ResolveActualLogFile(preferred);
+
+            Assert.Equal(preferred, result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
 }
