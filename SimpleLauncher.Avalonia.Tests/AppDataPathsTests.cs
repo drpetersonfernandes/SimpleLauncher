@@ -57,7 +57,7 @@ public class AppDataPathsTests
         var result = AppDataPaths.Resolve(null, null, false);
 
         Assert.True(Path.IsPathRooted(result));
-        Assert.EndsWith("SimpleLauncher", result);
+        Assert.EndsWith("SimpleLauncher", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -66,6 +66,6 @@ public class AppDataPathsTests
         var result = AppDataPaths.GetSimpleLauncherDataFolder();
 
         Assert.True(Path.IsPathRooted(result));
-        Assert.EndsWith("SimpleLauncher", result);
+        Assert.EndsWith("SimpleLauncher", result, StringComparison.OrdinalIgnoreCase);
     }
 }

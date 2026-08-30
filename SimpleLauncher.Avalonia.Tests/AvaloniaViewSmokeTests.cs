@@ -241,7 +241,7 @@ public class AvaloniaViewSmokeTests
         // cause a runtime GetRequiredService failure even if XAML is valid).
         var expectedWindows = WindowTypes().Select(a => (Type)a[0])
             .Concat(InjectWindowTypes().Select(a => (Type)a[0]))
-            .OrderBy(t => t.Name)
+            .OrderBy(t => t.Name, StringComparer.OrdinalIgnoreCase)
             .ToArray();
 
         // Check that the type exists in the assembly (smoke) — the real DI check is at runtime;

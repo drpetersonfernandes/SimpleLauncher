@@ -50,7 +50,7 @@ public class RemoteImage : Image
         // Only apply if the URL is still the current one (fast scrolling / reuse).
         await Dispatcher.UIThread.InvokeAsync(() =>
         {
-            if (Url == url) Source = bitmap;
+            if (string.Equals(Url, url, StringComparison.OrdinalIgnoreCase)) Source = bitmap;
         });
     }
 }

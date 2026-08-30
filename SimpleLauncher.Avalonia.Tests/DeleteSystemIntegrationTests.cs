@@ -77,9 +77,9 @@ public class DeleteSystemIntegrationTests : IDisposable
         await writer.DeleteSystemAsync("NES");
 
         var xml = File.ReadAllText(_systemXmlPath);
-        Assert.DoesNotContain("<SystemName>NES</SystemName>", xml);
-        Assert.Contains("<SystemName>Atari 2600</SystemName>", xml);
-        Assert.Contains("<SystemName>SNES</SystemName>", xml);
+        Assert.DoesNotContain("<SystemName>NES</SystemName>", xml, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("<SystemName>Atari 2600</SystemName>", xml, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("<SystemName>SNES</SystemName>", xml, StringComparison.OrdinalIgnoreCase);
         Assert.False(File.Exists(_systemXmlPath + ".tmp"), "Temp file should not remain after atomic move");
     }
 
@@ -106,8 +106,8 @@ public class DeleteSystemIntegrationTests : IDisposable
         manager.InvalidateCache();
         var after = manager.LoadSystems();
         Assert.Equal(2, after.Count);
-        Assert.DoesNotContain(after, m => m.SystemName == "Atari 2600");
-        Assert.Contains(after, m => m.SystemName == "NES");
+        Assert.DoesNotContain(after, m => string.Equals(m.SystemName, "Atari 2600", StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(after, m => string.Equals(m.SystemName, "NES", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]

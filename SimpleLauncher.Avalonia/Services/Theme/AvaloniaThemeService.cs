@@ -22,7 +22,7 @@ public static class AvaloniaThemeService
         "SkyBlue", "Steel", "Taupe", "Teal", "Violet", "Yellow"
     ];
 
-    private static readonly Dictionary<string, string> AccentHex = new()
+    private static readonly Dictionary<string, string> AccentHex = new(StringComparer.OrdinalIgnoreCase)
     {
         ["Amber"] = "#FFC200", ["Blue"] = "#0078D7", ["Brown"] = "#825A2C",
         ["Cobalt"] = "#0050EF", ["Crimson"] = "#DC143C", ["Cyan"] = "#1BA1E2",
@@ -47,7 +47,7 @@ public static class AvaloniaThemeService
         "NotificationErrorColor", "FavoriteHeartColor", "SelectionBackgroundColor"
     };
 
-    private static readonly Dictionary<string, string> DarkPalette = new()
+    private static readonly Dictionary<string, string> DarkPalette = new(StringComparer.OrdinalIgnoreCase)
     {
         ["BgPrimaryColor"] = "#1E1E1E", ["BgSecondaryColor"] = "#252525",
         ["BgTertiaryColor"] = "#2E2E2E", ["BgQuaternaryColor"] = "#383838",
@@ -62,7 +62,7 @@ public static class AvaloniaThemeService
         ["FavoriteHeartColor"] = "#FF6B6B", ["SelectionBackgroundColor"] = "#0A84FF"
     };
 
-    private static readonly Dictionary<string, string> LightPalette = new()
+    private static readonly Dictionary<string, string> LightPalette = new(StringComparer.OrdinalIgnoreCase)
     {
         ["BgPrimaryColor"] = "#FFFFFF", ["BgSecondaryColor"] = "#F3F3F3",
         ["BgTertiaryColor"] = "#E8E8E8", ["BgQuaternaryColor"] = "#DADADA",
@@ -77,7 +77,7 @@ public static class AvaloniaThemeService
         ["FavoriteHeartColor"] = "#D12733", ["SelectionBackgroundColor"] = "#0A84FF"
     };
 
-    private static readonly Dictionary<string, string> HighContrastPalette = new()
+    private static readonly Dictionary<string, string> HighContrastPalette = new(StringComparer.OrdinalIgnoreCase)
     {
         ["BgPrimaryColor"] = "#000000", ["BgSecondaryColor"] = "#000000",
         ["BgTertiaryColor"] = "#1A1A1A", ["BgQuaternaryColor"] = "#333333",
@@ -92,7 +92,7 @@ public static class AvaloniaThemeService
         ["FavoriteHeartColor"] = "#FFFF00", ["SelectionBackgroundColor"] = "#555555"
     };
 
-    private static readonly Dictionary<string, string> MidnightPalette = new()
+    private static readonly Dictionary<string, string> MidnightPalette = new(StringComparer.OrdinalIgnoreCase)
     {
         ["BgPrimaryColor"] = "#000B1A", ["BgSecondaryColor"] = "#00142E",
         ["BgTertiaryColor"] = "#00224D", ["BgQuaternaryColor"] = "#00316E",

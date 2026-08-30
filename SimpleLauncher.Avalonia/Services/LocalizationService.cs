@@ -11,7 +11,7 @@ public class LocalizationService
     /// <summary>
     ///     Available languages with display names (canonical set matches the WPF app).
     /// </summary>
-    public static readonly Dictionary<string, string> AvailableLanguages = new()
+    public static readonly Dictionary<string, string> AvailableLanguages = new(StringComparer.OrdinalIgnoreCase)
     {
         ["ar"] = "العربية",
         ["bn"] = "বাংলা",

@@ -72,7 +72,7 @@ public partial class GameDetailWindow : Window
                 var fi = new FileInfo(_game.FilePath);
                 descText.Text = _localization is not null
                     ? _localization.GetString("GameDetail.FileInfo",
-                        fi.Name, fi.Length.ToString("N0"), fi.LastWriteTime.ToString("yyyy-MM-dd HH:mm"))
+                        fi.Name, fi.Length.ToString("N0", System.Globalization.CultureInfo.InvariantCulture), fi.LastWriteTime.ToString("yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture))
                     : $"File: {fi.Name}\nSize: {fi.Length:N0} bytes\nModified: {fi.LastWriteTime:yyyy-MM-dd HH:mm}";
             }
             else

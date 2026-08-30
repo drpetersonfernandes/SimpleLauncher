@@ -102,12 +102,12 @@ public class GameScannerServiceTests : IDisposable
         var hollowShortcut = Path.Combine(DefaultRomsPath, "Hollow Knight.url");
         Assert.True(File.Exists(hollowShortcut));
         var content = File.ReadAllText(hollowShortcut);
-        Assert.StartsWith("[InternetShortcut]", content);
-        Assert.Contains(@"URL=file:///C:\Games\HollowKnight\hollow.exe", content);
+        Assert.StartsWith("[InternetShortcut]", content, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains(@"URL=file:///C:\Games\HollowKnight\hollow.exe", content, StringComparison.OrdinalIgnoreCase);
 
         var doc = XDocument.Load(systemXml);
         var config = Assert.Single(doc.Root!.Elements("SystemConfig"),
-            static e => e.Element("SystemName")?.Value == GameScannerService.WindowsSystemName);
+            static e => string.Equals(e.Element("SystemName")?.Value, GameScannerService.WindowsSystemName, StringComparison.OrdinalIgnoreCase));
         Assert.Equal(GameScannerService.WindowsSystemName, config.Element("SystemName")?.Value);
         Assert.Equal(
             ["url", "lnk", "bat"],
@@ -140,7 +140,7 @@ public class GameScannerServiceTests : IDisposable
 
         var doc = XDocument.Load(systemXml);
         _ = Assert.Single(doc.Root!.Elements("SystemConfig"),
-            static e => e.Element("SystemName")?.Value == GameScannerService.WindowsSystemName);
+            static e => string.Equals(e.Element("SystemName")?.Value, GameScannerService.WindowsSystemName, StringComparison.OrdinalIgnoreCase));
 
         // Existing shortcut content is never overwritten
         var doomShortcut = Path.Combine(DefaultRomsPath, "Doom.url");

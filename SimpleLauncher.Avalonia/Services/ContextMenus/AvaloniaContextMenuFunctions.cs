@@ -54,7 +54,7 @@ public class AvaloniaContextMenuFunctions(
 
     private string GetStatus(string key, string fallback)
     {
-        return _localization.GetString(key) is { } s && s != key ? s : fallback;
+        return _localization.GetString(key) is { } s && !string.Equals(s, key, StringComparison.OrdinalIgnoreCase) ? s : fallback;
     }
 
     /// <summary>

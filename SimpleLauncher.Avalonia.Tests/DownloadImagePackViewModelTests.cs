@@ -86,8 +86,8 @@ public class DownloadImagePackViewModelTests
         {
             await vm.InitializeAsync();
 
-            Assert.Contains("NES", vm.SystemNames);
-            Assert.DoesNotContain("NoPackSystem", vm.SystemNames); // no image pack links → filtered
+            Assert.Contains("NES", vm.SystemNames, StringComparer.OrdinalIgnoreCase);
+            Assert.DoesNotContain("NoPackSystem", vm.SystemNames, StringComparer.OrdinalIgnoreCase); // no image pack links → filtered
         }
         finally
         {

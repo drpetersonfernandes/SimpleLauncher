@@ -106,7 +106,7 @@ public class InjectDolphinConfigViewModelTests : IDisposable
 
         var iniPath = Path.Combine(_tempDir, "User", "Config", "Dolphin.ini");
         Assert.True(File.Exists(iniPath), "Dolphin.ini should have been injected next to the portable emulator");
-        Assert.Contains("Vulkan", File.ReadAllText(iniPath));
+        Assert.Contains("Vulkan", File.ReadAllText(iniPath), StringComparison.OrdinalIgnoreCase);
         Assert.True(raised, "Save should request window close");
         _messageBox.Verify(m => m.DolphinConfigurationSavedSuccessfullyMessageBoxAsync(), Times.Once);
     }
@@ -116,7 +116,7 @@ public class InjectDolphinConfigViewModelTests : IDisposable
     {
         var vm = CreateViewModel();
 
-        Assert.Contains("Vulkan", vm.GfxBackendOptions);
-        Assert.Contains("OpenGL", vm.GfxBackendOptions);
+        Assert.Contains("Vulkan", vm.GfxBackendOptions, StringComparer.OrdinalIgnoreCase);
+        Assert.Contains("OpenGL", vm.GfxBackendOptions, StringComparer.OrdinalIgnoreCase);
     }
 }

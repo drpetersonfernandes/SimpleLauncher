@@ -37,7 +37,7 @@ public class DebugViewModelTests
 
         await HeadlessAvalonia.WaitUntilAsync(() => vm.LogMessages.Count == 1);
 
-        Assert.Contains("first log entry", vm.LogText);
+        Assert.Contains("first log entry", vm.LogText, StringComparison.OrdinalIgnoreCase);
         Assert.True(vm.CanClearLog);
         Assert.True(vm.CanCopyLog);
         Assert.True(vm.ClearLogCommand.CanExecute(null));

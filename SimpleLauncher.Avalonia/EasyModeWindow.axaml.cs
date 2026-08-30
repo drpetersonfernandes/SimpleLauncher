@@ -37,7 +37,7 @@ public partial class EasyModeWindow : Window, IDisposable
         // Handler stored in a field so it can be unsubscribed in Dispose().
         _onViewModelPropertyChanged = (_, args) =>
         {
-            if (args.PropertyName == nameof(EasyModeViewModel.IsLoading))
+            if (string.Equals(args.PropertyName, nameof(EasyModeViewModel.IsLoading), StringComparison.OrdinalIgnoreCase))
                 LoadingOverlay.IsVisible = _viewModel.IsLoading;
         };
         _viewModel.PropertyChanged += _onViewModelPropertyChanged;

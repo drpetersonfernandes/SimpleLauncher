@@ -22,6 +22,6 @@ public class AvaloniaResourceProvider : IResourceProvider
     public string GetString(string key, string defaultValue)
     {
         var result = _localization.GetString(key);
-        return result == key ? defaultValue : result;
+        return string.Equals(result, key, StringComparison.OrdinalIgnoreCase) ? defaultValue : result;
     }
 }

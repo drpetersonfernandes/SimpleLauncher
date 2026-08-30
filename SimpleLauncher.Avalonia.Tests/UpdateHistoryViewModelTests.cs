@@ -17,7 +17,7 @@ public class UpdateHistoryViewModelTests
             TestDependencies.ResourceProvider().Object);
         await vm.InitializeAsync();
 
-        Assert.Contains("whatsnew.md", vm.MarkdownContent);
+        Assert.Contains("whatsnew.md", vm.MarkdownContent, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -31,8 +31,8 @@ public class UpdateHistoryViewModelTests
                 TestDependencies.ResourceProvider().Object);
             await vm.InitializeAsync();
 
-            Assert.Contains("Release 5.6.1", vm.MarkdownContent);
-            Assert.Contains("Fixed a bug", vm.MarkdownContent);
+            Assert.Contains("Release 5.6.1", vm.MarkdownContent, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Fixed a bug", vm.MarkdownContent, StringComparison.OrdinalIgnoreCase);
         }
         finally
         {

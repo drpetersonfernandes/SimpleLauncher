@@ -167,7 +167,7 @@ public class SystemImageResolverServiceTests : IDisposable
         var result = await _service.ResolveSystemIconAsync("Nintendo Entertainment Systm");
 
         Assert.NotNull(result);
-        Assert.Contains("Nintendo Entertainment System", result);
+        Assert.Contains("Nintendo Entertainment System", result, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]

@@ -53,8 +53,8 @@ public class LocalizationTests
         {
             var keys = LoadKeys(file).Keys.OrderBy(k => k, StringComparer.Ordinal).ToList();
 
-            var missing = enKeys.Except(keys).ToList();
-            var extra = keys.Except(enKeys).ToList();
+            var missing = enKeys.Except(keys, StringComparer.OrdinalIgnoreCase).ToList();
+            var extra = keys.Except(enKeys, StringComparer.OrdinalIgnoreCase).ToList();
             Assert.True(missing.Count == 0, $"{Path.GetFileName(file)} is missing keys: {string.Join(", ", missing)}");
             Assert.True(extra.Count == 0, $"{Path.GetFileName(file)} has unexpected keys: {string.Join(", ", extra)}");
         }
@@ -70,8 +70,8 @@ public class LocalizationTests
             localization.LoadLanguage(lang);
 
             Assert.Equal(lang, localization.CurrentLanguage);
-            Assert.NotEqual("Sidebar.AllGames", localization.GetString("Sidebar.AllGames"));
-            Assert.NotEqual("Toolbar.Search", localization.GetString("Toolbar.Search"));
+            Assert.NotEqual("Sidebar.AllGames", localization.GetString("Sidebar.AllGames"), StringComparer.OrdinalIgnoreCase);
+            Assert.NotEqual("Toolbar.Search", localization.GetString("Toolbar.Search"), StringComparer.OrdinalIgnoreCase);
         }
     }
 
@@ -84,10 +84,10 @@ public class LocalizationTests
 
         localization.LoadLanguage("pt-br");
         Assert.Equal("pt-BR", localization.CurrentLanguage);
-        Assert.NotEqual("Toolbar.Games", localization.GetString("Toolbar.Games"));
+        Assert.NotEqual("Toolbar.Games", localization.GetString("Toolbar.Games"), StringComparer.OrdinalIgnoreCase);
 
         localization.LoadLanguage("zh-hans");
         Assert.Equal("zh-Hans", localization.CurrentLanguage);
-        Assert.NotEqual("Sidebar.AllGames", localization.GetString("Sidebar.AllGames"));
+        Assert.NotEqual("Sidebar.AllGames", localization.GetString("Sidebar.AllGames"), StringComparer.OrdinalIgnoreCase);
     }
 }

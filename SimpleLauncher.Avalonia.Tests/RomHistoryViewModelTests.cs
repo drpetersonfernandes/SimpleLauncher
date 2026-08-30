@@ -50,7 +50,7 @@ public class RomHistoryViewModelTests
 
         await vm.LoadRomHistoryAsync();
 
-        Assert.Contains("history.dat", vm.HistoryText);
+        Assert.Contains("history.dat", vm.HistoryText, StringComparison.OrdinalIgnoreCase);
         messageBox.Verify(m => m.NoHistoryXmlOrDatFoundMessageBoxAsync(), Times.Once);
     }
 
@@ -69,7 +69,7 @@ public class RomHistoryViewModelTests
             await vm.LoadRomHistoryAsync();
 
             Assert.True(vm.IsDescriptionVisible);
-            Assert.Contains("The classic platformer released in 1985.", vm.HistoryText);
+            Assert.Contains("The classic platformer released in 1985.", vm.HistoryText, StringComparison.OrdinalIgnoreCase);
             messageBox.Verify(m => m.NoHistoryXmlOrDatFoundMessageBoxAsync(), Times.Never);
             messageBox.Verify(m => m.SearchOnlineForRomHistoryMessageBoxAsync(), Times.Never);
         }
@@ -95,7 +95,7 @@ public class RomHistoryViewModelTests
             await vm.LoadRomHistoryAsync();
 
             messageBox.Verify(m => m.SearchOnlineForRomHistoryMessageBoxAsync(), Times.Once);
-            Assert.Contains("local database", vm.HistoryText);
+            Assert.Contains("local database", vm.HistoryText, StringComparison.OrdinalIgnoreCase);
         }
         finally
         {

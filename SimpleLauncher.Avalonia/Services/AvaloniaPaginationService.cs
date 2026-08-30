@@ -121,7 +121,7 @@ public class AvaloniaPaginationService : IPaginationService
 
         try
         {
-            return string.Format(template, startIndex, endIndex, total);
+            return string.Format(System.Globalization.CultureInfo.InvariantCulture, template, startIndex, endIndex, total);
         }
         catch (FormatException)
         {

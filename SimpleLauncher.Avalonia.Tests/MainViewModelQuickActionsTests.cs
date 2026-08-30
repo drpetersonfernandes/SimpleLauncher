@@ -165,9 +165,9 @@ public class MainViewModelQuickActionsTests : IDisposable
 
         var titles = _viewModel.Games.Select(static g => Path.GetFileName(g.FilePath)).ToList();
         Assert.True(titles.All(t => t.StartsWith("b", StringComparison.OrdinalIgnoreCase)));
-        Assert.Contains("beyond.zip", titles);
-        Assert.DoesNotContain("abyss.zip", titles);
-        Assert.DoesNotContain("cantina.zip", titles);
+        Assert.Contains("beyond.zip", titles, StringComparer.OrdinalIgnoreCase);
+        Assert.DoesNotContain("abyss.zip", titles, StringComparer.OrdinalIgnoreCase);
+        Assert.DoesNotContain("cantina.zip", titles, StringComparer.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -177,8 +177,8 @@ public class MainViewModelQuickActionsTests : IDisposable
         _viewModel.SetLetterFilter("#");
 
         var titles = _viewModel.Games.Select(static g => Path.GetFileName(g.FilePath)).ToList();
-        Assert.Contains("123start.zip", titles);
-        Assert.DoesNotContain("abyss.zip", titles);
+        Assert.Contains("123start.zip", titles, StringComparer.OrdinalIgnoreCase);
+        Assert.DoesNotContain("abyss.zip", titles, StringComparer.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -230,7 +230,7 @@ public class MainViewModelQuickActionsTests : IDisposable
         // The pick comes from the FULL system library, not the letter-filtered subset
         Assert.NotNull(randomGame);
         Assert.Equal("", _viewModel.LetterFilter);
-        Assert.Contains(_viewModel.Games, g => g.FilePath == randomGame.FilePath);
+        Assert.Contains(_viewModel.Games, g => string.Equals(g.FilePath, randomGame.FilePath, StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]

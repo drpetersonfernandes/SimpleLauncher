@@ -11,8 +11,8 @@ public static class RemoteImageLoader
 {
     private const int MaxCacheEntries = 512;
     private static readonly HttpClient Http = new();
-    private static readonly ConcurrentDictionary<string, Bitmap> Cache = new();
-    private static readonly object CacheLock = new();
+    private static readonly ConcurrentDictionary<string, Bitmap> Cache = new(StringComparer.OrdinalIgnoreCase);
+    private static readonly Lock CacheLock = new();
 
     /// <summary>
     ///     Loads an image from a URL (with cache). Returns null on failure.

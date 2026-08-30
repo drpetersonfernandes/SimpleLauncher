@@ -983,7 +983,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
             var recent = allGames
                 .Where(g => historyLookup.ContainsKey(g.FilePath))
-                .OrderByDescending(g => historyLookup[g.FilePath].LastPlayDate)
+                .OrderByDescending(g => historyLookup[g.FilePath].LastPlayDate, StringComparer.OrdinalIgnoreCase)
                 .Take(20)
                 .ToList();
 
@@ -1072,7 +1072,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         if (playTime.TotalSeconds >= 5)
         {
             game.PlayCount++;
-            game.LastPlayed = DateTime.Now.ToString("d");
+            game.LastPlayed = DateTime.Now.ToString("d", CultureInfo.InvariantCulture);
         }
     }
 

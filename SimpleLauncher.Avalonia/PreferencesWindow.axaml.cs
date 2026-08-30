@@ -17,7 +17,7 @@ public partial class PreferencesWindow : Window
 {
     private readonly GamePadController _gamePadController;
     private readonly LocalizationService _localization;
-    private readonly Dictionary<string, Panel> _panels = new();
+    private readonly Dictionary<string, Panel> _panels = new(StringComparer.OrdinalIgnoreCase);
     private readonly RetroAchievementsService? _raService;
     private readonly SettingsManagerService _settings;
     private readonly AvaloniaCheckForUpdatesService _updateService;
@@ -68,7 +68,7 @@ public partial class PreferencesWindow : Window
         {
             if (DefaultViewCombo.SelectedItem is ComboBoxItem { Tag: string viewMode }) _settings.ViewMode = viewMode;
 
-            if (int.TryParse(CardWidthBox.Text, out var cardWidth) && cardWidth is >= 148 and <= 280)
+            if (int.TryParse(CardWidthBox.Text, System.Globalization.CultureInfo.InvariantCulture, out var cardWidth) && cardWidth is >= 148 and <= 280)
                 _settings.ThumbnailSize = cardWidth;
 
             _settings.EnableGamePadNavigation = GamepadNavCheck.IsChecked == true;
@@ -164,13 +164,13 @@ public partial class PreferencesWindow : Window
 
         // View
         foreach (var lbi in DefaultViewCombo.Items.OfType<ComboBoxItem>())
-            if (lbi.Tag as string == _settings.ViewMode)
+            if (string.Equals(lbi.Tag as string, _settings.ViewMode, StringComparison.OrdinalIgnoreCase))
             {
                 DefaultViewCombo.SelectedItem = lbi;
                 break;
             }
 
-        CardWidthBox.Text = _settings.ThumbnailSize.ToString();
+        CardWidthBox.Text = _settings.ThumbnailSize.ToString(System.Globalization.CultureInfo.InvariantCulture);
         GamepadNavCheck.IsChecked = _settings.EnableGamePadNavigation;
         DisplayMachineNameCheck.IsChecked = _settings.DisplayMachineName;
 

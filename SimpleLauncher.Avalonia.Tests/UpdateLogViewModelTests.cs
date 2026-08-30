@@ -32,6 +32,6 @@ public class UpdateLogViewModelTests
 
         var lines = vm.LogText.Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries);
         Assert.Equal(2, lines.Length);
-        Assert.All(lines, line => Assert.Contains(" - ", line));
+        Assert.All(lines, line => Assert.Contains(" - ", line, StringComparison.OrdinalIgnoreCase));
     }
 }

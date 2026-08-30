@@ -187,7 +187,7 @@ public class AvaloniaContextMenuService
 
             void AddExtra(string resourceKey, string fallback, string glyph, Action<GameCardViewModel> action)
             {
-                var header = _localization.GetString(resourceKey) is { } s && s != resourceKey ? s : fallback;
+                var header = _localization.GetString(resourceKey) is { } s && !string.Equals(s, resourceKey, StringComparison.OrdinalIgnoreCase) ? s : fallback;
                 var menuItem = new MenuItem { Header = $"{glyph} {header}" };
                 menuItem.Click += (_, _) => action(card);
                 contextMenu.Items.Add(menuItem);
@@ -205,7 +205,7 @@ public class AvaloniaContextMenuService
 
     private void AddItem(ContextMenu contextMenu, string resourceKey, string fallback, string iconFile, Action click)
     {
-        var header = _localization.GetString(resourceKey) is { } s && s != resourceKey ? s : fallback;
+        var header = _localization.GetString(resourceKey) is { } s && !string.Equals(s, resourceKey, StringComparison.OrdinalIgnoreCase) ? s : fallback;
         var menuItem = new MenuItem
         {
             Header = header,
@@ -217,7 +217,7 @@ public class AvaloniaContextMenuService
 
     private string GetStatusOrFallback(string key, string fallback)
     {
-        return _localization.GetString(key) is { } s && s != key ? s : fallback;
+        return _localization.GetString(key) is { } s && !string.Equals(s, key, StringComparison.OrdinalIgnoreCase) ? s : fallback;
     }
 
     private bool IsSystemSupportedForRetroAchievements(AvaloniaRightClickContext context)

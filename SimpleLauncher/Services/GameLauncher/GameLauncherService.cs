@@ -714,7 +714,7 @@ public partial class GameLauncherService : ILauncherService
             var errorMessage =
                 $"[LaunchRegularEmulatorAsync] Xemu parameter should contain '-dvd_path'. Parameter field: {selectedEmulatorManager.EmulatorParameters}";
             _logger.Debug(errorMessage);
-            _logger.Warning(errorMessage);
+            _logger.Information(errorMessage);
 
             await _messageBoxLibrary.XemuParameterShouldContainDvdPathMessageBoxAsync();
 

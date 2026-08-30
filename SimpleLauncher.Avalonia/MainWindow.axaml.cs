@@ -787,7 +787,7 @@ public partial class MainWindow : Window, IPaginationHost
     private void SortGamesByColumn(string columnName)
     {
         var collection = _viewModel.Games;
-        if (_lastSortColumn == columnName)
+        if (string.Equals(_lastSortColumn, columnName, StringComparison.OrdinalIgnoreCase))
         {
             _sortAscending = !_sortAscending;
         }
@@ -822,14 +822,14 @@ public partial class MainWindow : Window, IPaginationHost
                 ? collection.OrderBy(g => g.PlayTime, StringComparer.OrdinalIgnoreCase)
                 : collection.OrderByDescending(g => g.PlayTime, StringComparer.OrdinalIgnoreCase),
             "Name" => _sortAscending
-                ? collection.OrderBy(g => g.DisplayTitle)
-                : collection.OrderByDescending(g => g.DisplayTitle),
+                ? collection.OrderBy(g => g.DisplayTitle, StringComparer.OrdinalIgnoreCase)
+                : collection.OrderByDescending(g => g.DisplayTitle, StringComparer.OrdinalIgnoreCase),
             "System" => _sortAscending
-                ? collection.OrderBy(g => g.SystemName)
-                : collection.OrderByDescending(g => g.SystemName),
+                ? collection.OrderBy(g => g.SystemName, StringComparer.OrdinalIgnoreCase)
+                : collection.OrderByDescending(g => g.SystemName, StringComparer.OrdinalIgnoreCase),
             "Path" => _sortAscending
-                ? collection.OrderBy(g => g.FilePath)
-                : collection.OrderByDescending(g => g.FilePath),
+                ? collection.OrderBy(g => g.FilePath, StringComparer.OrdinalIgnoreCase)
+                : collection.OrderByDescending(g => g.FilePath, StringComparer.OrdinalIgnoreCase),
             _ => collection.OrderBy(g => g.FileName, StringComparer.OrdinalIgnoreCase)
         };
 
@@ -1783,7 +1783,7 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
-            if (sender is not MenuItem { Tag: string tag } || !int.TryParse(tag, out var size)) return;
+            if (sender is not MenuItem { Tag: string tag } || !int.TryParse(tag, System.Globalization.CultureInfo.InvariantCulture, out var size)) return;
 
             _settings.ThumbnailSize = size;
             await _settings.SaveAsync();
@@ -1826,7 +1826,7 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
-            if (sender is not MenuItem { Tag: string tag } || !int.TryParse(tag, out var page)) return;
+            if (sender is not MenuItem { Tag: string tag } || !int.TryParse(tag, System.Globalization.CultureInfo.InvariantCulture, out var page)) return;
 
             _settings.GamesPerPage = page;
             await _settings.SaveAsync();
@@ -2283,8 +2283,7 @@ public partial class MainWindow : Window, IPaginationHost
                 var detail = _localization.GetString("FoundPcGamesDetail",
                     $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).");
                 // Fallback when translation still contains placeholder English
-                if (detail.Contains("{0}") || detail ==
-                    $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).")
+                if (detail.Contains("{0}", StringComparison.OrdinalIgnoreCase) || string.Equals(detail, $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).", StringComparison.OrdinalIgnoreCase))
                     detail =
                         $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).";
                 _viewModel.StatusText = detail;

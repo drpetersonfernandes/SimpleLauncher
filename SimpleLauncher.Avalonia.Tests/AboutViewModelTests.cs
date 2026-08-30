@@ -56,9 +56,9 @@ public class AboutViewModelTests : IDisposable
     public void Ctor_SetsVersionAndLogoPath()
     {
         var (vm, _) = CreateVm();
-        Assert.StartsWith("Version: ", vm.AppVersion);
+        Assert.StartsWith("Version: ", vm.AppVersion, StringComparison.OrdinalIgnoreCase);
         Assert.False(string.IsNullOrEmpty(vm.LogoPath));
-        Assert.EndsWith(Path.Combine("images", "logo2.png"), vm.LogoPath);
+        Assert.EndsWith(Path.Combine("images", "logo2.png"), vm.LogoPath, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]

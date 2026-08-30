@@ -408,13 +408,13 @@ public class AvaloniaHelpUserService
                 AddRawUrlsToInlines(inlines, plain);
             }
 
-            if (type == "bold")
+            if (string.Equals(type, "bold", StringComparison.OrdinalIgnoreCase))
             {
                 var bold = new Bold();
                 bold.Inlines.Add(new Run(match.Groups[1].Value));
                 inlines.Add(bold);
             }
-            else if (type == "markdownLink")
+            else if (string.Equals(type, "markdownLink", StringComparison.OrdinalIgnoreCase))
             {
                 var linkText = match.Groups["text"].Value;
                 var url = match.Groups["url"].Value;

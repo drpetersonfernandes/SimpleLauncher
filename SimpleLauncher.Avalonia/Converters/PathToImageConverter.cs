@@ -20,12 +20,12 @@ public class PathToImageConverter : IValueConverter
     private const int LruCapacity = 1500;
 
     // Weak cache: allows GC to reclaim unused images
-    private static readonly ConcurrentDictionary<string, WeakReference<Bitmap>> WeakCache = new();
+    private static readonly ConcurrentDictionary<string, WeakReference<Bitmap>> WeakCache = new(StringComparer.OrdinalIgnoreCase);
 
     // Strong LRU cache: keeps recent images alive
     private static readonly LinkedList<(string Path, Bitmap Img)> LruList = new();
-    private static readonly Dictionary<string, LinkedListNode<(string Path, Bitmap Img)>> LruIndex = new();
-    private static readonly object LruLock = new();
+    private static readonly Dictionary<string, LinkedListNode<(string Path, Bitmap Img)>> LruIndex = new(StringComparer.OrdinalIgnoreCase);
+    private static readonly Lock LruLock = new();
 
     // Default placeholder
     private static Bitmap? _placeholder;

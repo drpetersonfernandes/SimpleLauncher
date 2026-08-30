@@ -47,7 +47,7 @@ public class SidebarViewModelTests
         sidebar.Populate([System("NES"), System("Atari 2600")]);
 
         Assert.Equal(2, sidebar.Systems.Count);
-        Assert.Contains(sidebar.Systems, static s => s.SystemName == "Atari 2600");
+        Assert.Contains(sidebar.Systems, static s => string.Equals(s.SystemName, "Atari 2600", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]

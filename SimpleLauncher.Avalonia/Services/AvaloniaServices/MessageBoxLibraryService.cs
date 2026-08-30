@@ -671,13 +671,13 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         if (O == null) return MessageBoxResult.Cancel;
         var loc = App.ServiceProvider?.GetService<LocalizationService>();
         var areYouSure =
-            loc?.GetString("Areyousureyouwanttodeletethefile") is { } s1 && s1 != "Areyousureyouwanttodeletethefile"
-                ? s1
+            loc?.GetString("Areyousureyouwanttodeletethefile") is { } s1 && !string.Equals(s1, "Areyousureyouwanttodeletethefile"
+, StringComparison.OrdinalIgnoreCase) ? s1
                 : "Are you sure you want to delete the file";
-        var thisAction = loc?.GetString("Thisactionwilldelete") is { } s2 && s2 != "Thisactionwilldelete"
-            ? s2
+        var thisAction = loc?.GetString("Thisactionwilldelete") is { } s2 && !string.Equals(s2, "Thisactionwilldelete"
+, StringComparison.OrdinalIgnoreCase) ? s2
             : "This action will delete the file from the HDD and cannot be undone.";
-        var confirm = loc?.GetString("ConfirmDeletion") is { } s3 && s3 != "ConfirmDeletion" ? s3 : "Confirm Deletion";
+        var confirm = loc?.GetString("ConfirmDeletion") is { } s3 && !string.Equals(s3, "ConfirmDeletion", StringComparison.OrdinalIgnoreCase) ? s3 : "Confirm Deletion";
         return await ShowAsync(O, $"{areYouSure} '{fileNameWithExtension}'?\n\n{thisAction}", confirm,
             MessageButtons.YesNo, MessageIcon.Question);
     }
@@ -711,13 +711,13 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         var loc = App.ServiceProvider?.GetService<LocalizationService>();
         var areYouSure =
             loc?.GetString("Areyousureyouwanttodeletethecoverimageof") is { } s1 &&
-            s1 != "Areyousureyouwanttodeletethecoverimageof"
-                ? s1
+!string.Equals(s1, "Areyousureyouwanttodeletethecoverimageof"
+, StringComparison.OrdinalIgnoreCase) ? s1
                 : "Are you sure you want to delete the cover image of";
-        var thisAction = loc?.GetString("Thisactionwilldelete") is { } s2 && s2 != "Thisactionwilldelete"
-            ? s2
+        var thisAction = loc?.GetString("Thisactionwilldelete") is { } s2 && !string.Equals(s2, "Thisactionwilldelete"
+, StringComparison.OrdinalIgnoreCase) ? s2
             : "This action will delete the file from the HDD and cannot be undone.";
-        var confirm = loc?.GetString("ConfirmDeletion") is { } s3 && s3 != "ConfirmDeletion" ? s3 : "Confirm Deletion";
+        var confirm = loc?.GetString("ConfirmDeletion") is { } s3 && !string.Equals(s3, "ConfirmDeletion", StringComparison.OrdinalIgnoreCase) ? s3 : "Confirm Deletion";
         return await ShowAsync(O, $"{areYouSure} '{fileNameWithoutExtension}'?\n\n{thisAction}", confirm,
             MessageButtons.YesNo, MessageIcon.Question);
     }

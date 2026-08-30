@@ -26,7 +26,7 @@ public class BooleanToFavoriteStatusConverter : IValueConverter
         string Localized(string key, string fallback)
         {
             var result = localization?.GetString(key);
-            return string.IsNullOrEmpty(result) || result == key ? fallback : result;
+            return string.IsNullOrEmpty(result) || string.Equals(result, key, StringComparison.OrdinalIgnoreCase) ? fallback : result;
         }
     }
 

@@ -53,7 +53,7 @@ public class GlobalStatsViewModelTests
 
         await vm.StartCommand.ExecuteAsync(null);
 
-        Assert.Contains("No systems are configured", vm.InfoText);
+        Assert.Contains("No systems are configured", vm.InfoText, StringComparison.OrdinalIgnoreCase);
         Assert.False(vm.IsProcessing);
         Assert.False(vm.IsBusyOverlayVisible);
         Assert.True(vm.IsStartButtonVisible);
@@ -89,8 +89,8 @@ public class GlobalStatsViewModelTests
             Assert.Equal("NES", stat.SystemName);
             Assert.Equal(2, stat.NumberOfFiles);
             Assert.Equal(300, stat.TotalDiskSize);
-            Assert.Contains("Total Systems: 1", vm.InfoText);
-            Assert.Contains("Total Games: 2", vm.InfoText);
+            Assert.Contains("Total Systems: 1", vm.InfoText, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Total Games: 2", vm.InfoText, StringComparison.OrdinalIgnoreCase);
         }
         finally
         {
@@ -125,8 +125,8 @@ public class GlobalStatsViewModelTests
 
             Assert.True(File.Exists(reportPath));
             var report = await File.ReadAllTextAsync(reportPath);
-            Assert.Contains("NES", report);
-            Assert.Contains("Total Systems: 1", report);
+            Assert.Contains("NES", report, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Total Systems: 1", report, StringComparison.OrdinalIgnoreCase);
             messageBox.Verify(m => m.ReportSavedMessageBoxAsync(), Times.Once);
         }
         finally

@@ -24,7 +24,7 @@ public class FlashOverlayViewModelTests
         vm.Opacity = 0.85;
 
         Assert.Equal(0.85, vm.Opacity);
-        Assert.Contains(nameof(FlashOverlayViewModel.Opacity), changed);
+        Assert.Contains(nameof(FlashOverlayViewModel.Opacity), changed, StringComparer.OrdinalIgnoreCase);
     }
 
     [Fact]
