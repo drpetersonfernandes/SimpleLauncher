@@ -193,6 +193,12 @@ internal class ScanSteamGames : IGamePlatformScanner
                         sanitizedGameName, gameInstallPath, windowsImagesPath);
                 }
         }
+        catch (DirectoryNotFoundException ex)
+        {
+            // Expected condition: ROMs directory doesn't exist (e.g. app in protected location).
+            // Log at Information level so the bug report API does not pick it up.
+            logErrors.Information(ex, "Cannot create Steam shortcut: ROMs directory does not exist. Manifest: {ManifestFile}", manifestFile);
+        }
         catch (Exception ex)
         {
             logErrors.Error(ex, $"Error processing Steam manifest: {manifestFile}");

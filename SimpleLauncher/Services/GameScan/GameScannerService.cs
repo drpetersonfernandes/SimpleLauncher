@@ -165,6 +165,18 @@ public class GameScannerService
 
             return (defaultRomsPath, defaultImagesPath, true);
         }
+        catch (UnauthorizedAccessException ex)
+        {
+            // Expected condition: app is in a protected directory (e.g. Program Files).
+            // Log at Information level so the bug report API does not pick it up.
+            _logger.Information(ex, "Cannot create 'Microsoft Windows' system directories in protected location. Falling back to default paths.");
+
+            // Fall back to default paths even on error
+            var fallbackRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", "Microsoft Windows");
+            var fallbackImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "Microsoft Windows");
+
+            return (fallbackRomsPath, fallbackImagesPath, false);
+        }
         catch (Exception ex)
         {
             _logger.Error(ex, "Failed to initialize 'Microsoft Windows' system paths.");

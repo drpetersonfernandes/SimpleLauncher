@@ -63,43 +63,141 @@ public class PlayHistoryManager
 
     /// <summary>
     ///     Synchronous initial save (startup/recovery paths only). Mirrors
-    ///     <see cref="SavePlayHistoryAsync" /> with retry logic, but never awaits —
-    ///     safe to call on the UI thread.
+    ///     <see cref="SavePlayHistoryAsync" /> with retry logic and AppData fallback,
+    ///     but never awaits — safe to call on the UI thread.
     /// </summary>
     private void SavePlayHistorySync()
     {
-        for (var attempt = 0; attempt < 3; attempt++)
+        const int maxRetries = 3;
+        var retryDelayMs = 100;
+        var attempt = 0;
+
+        while (attempt < maxRetries)
             try
             {
                 var bytes = MessagePackSerializer.Serialize(this);
                 File.WriteAllBytes(TempFilePath, bytes);
-                File.Move(TempFilePath, FilePath, true);
+                AtomicReplace(TempFilePath, FilePath);
                 return;
+            }
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+            {
+                _logger?.Warning(ex, "Error saving playhistory.dat (attempt {Attempt})", attempt + 1);
+                attempt++;
+
+                // If in portable mode and retries exhausted, fall back to LocalAppData
+                if (IsPortableMode && attempt >= maxRetries)
+                    try
+                    {
+                        if (FileLocation.TryFallbackToLocalAppData())
+                        {
+                            attempt = 0;
+                            continue;
+                        }
+                    }
+                    catch (Exception fallbackEx)
+                    {
+                        _logger?.Debug("FallbackToLocalAppData failed: {Message}", fallbackEx.Message);
+                    }
+
+                if (attempt < maxRetries)
+                {
+                    try
+                    {
+                        if (File.Exists(TempFilePath)) File.Delete(TempFilePath);
+                    }
+                    catch
+                    {
+                        // Ignore cleanup failures
+                    }
+
+                    Thread.Sleep(retryDelayMs);
+                    retryDelayMs *= 2;
+                }
             }
             catch (Exception ex)
             {
                 _logger?.Error(ex, "Error saving playhistory.dat (attempt {Attempt})", attempt + 1);
-                if (attempt < 2) Thread.Sleep(100);
+                attempt++;
+                if (attempt < maxRetries) Thread.Sleep(retryDelayMs);
             }
     }
 
     /// <summary>
-    ///     Saves play history atomically with retry logic.
+    ///     Replaces the destination file atomically. Falls back to delete-then-move
+    ///     when the OS refuses an in-place overwrite (e.g. file locked by another handle).
+    /// </summary>
+    private static void AtomicReplace(string tempPath, string destPath)
+    {
+        try
+        {
+            File.Move(tempPath, destPath, true);
+        }
+        catch (IOException)
+        {
+            // Destination may be locked — delete first, then move.
+            if (File.Exists(destPath)) File.Delete(destPath);
+            File.Move(tempPath, destPath, false);
+        }
+    }
+
+    /// <summary>
+    ///     Saves play history atomically with retry logic and AppData fallback.
     /// </summary>
     public async Task SavePlayHistoryAsync()
     {
-        for (var attempt = 0; attempt < 3; attempt++)
+        const int maxRetries = 3;
+        var retryDelayMs = 100;
+        var attempt = 0;
+
+        while (attempt < maxRetries)
             try
             {
                 var bytes = MessagePackSerializer.Serialize(this);
                 await File.WriteAllBytesAsync(TempFilePath, bytes);
-                File.Move(TempFilePath, FilePath, true);
+                AtomicReplace(TempFilePath, FilePath);
                 return;
+            }
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+            {
+                _logger?.Warning(ex, "Error saving playhistory.dat (attempt {Attempt})", attempt + 1);
+                attempt++;
+
+                // If in portable mode and retries exhausted, fall back to LocalAppData
+                if (IsPortableMode && attempt >= maxRetries)
+                    try
+                    {
+                        if (FileLocation.TryFallbackToLocalAppData())
+                        {
+                            attempt = 0;
+                            continue;
+                        }
+                    }
+                    catch (Exception fallbackEx)
+                    {
+                        _logger?.Debug("FallbackToLocalAppData failed: {Message}", fallbackEx.Message);
+                    }
+
+                if (attempt < maxRetries)
+                {
+                    try
+                    {
+                        if (File.Exists(TempFilePath)) File.Delete(TempFilePath);
+                    }
+                    catch
+                    {
+                        // Ignore cleanup failures
+                    }
+
+                    await Task.Delay(retryDelayMs);
+                    retryDelayMs *= 2;
+                }
             }
             catch (Exception ex)
             {
                 _logger?.Error(ex, "Error saving playhistory.dat (attempt {Attempt})", attempt + 1);
-                if (attempt < 2) await Task.Delay(100);
+                attempt++;
+                if (attempt < maxRetries) await Task.Delay(retryDelayMs);
             }
     }
 

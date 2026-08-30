@@ -95,6 +95,13 @@ internal class ProcessService
                     else
                         LogMessage?.Invoke(this, new EventArgs<string>("SimpleLauncher has exited."));
                 }
+                catch (InvalidOperationException)
+                {
+                    // Expected condition: process exited between GetProcessesByName and HasExited check
+                    Log.Information("SimpleLauncher process disappeared during wait. Assuming it has already exited.");
+                    LogMessage?.Invoke(this,
+                        new EventArgs<string>("SimpleLauncher process disappeared. Assuming it has already exited."));
+                }
                 finally
                 {
                     foreach (var p in processes) p.Dispose();

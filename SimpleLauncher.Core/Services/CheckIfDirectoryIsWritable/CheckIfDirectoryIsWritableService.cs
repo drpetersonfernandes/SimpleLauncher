@@ -34,8 +34,9 @@ public static class CheckIfDirectoryIsWritableService
         }
         catch (Exception ex)
         {
-            // Notify developer
-            logErrors.Error(ex, "Failed to check if directory is writable.");
+            // Expected condition: directory is not writable (e.g. Program Files).
+            // Log at Information level so the bug report API does not pick it up.
+            logErrors.Information(ex, "Directory is not writable: {Path}", path);
 
             return false;
         }
