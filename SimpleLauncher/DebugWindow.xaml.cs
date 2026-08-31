@@ -56,7 +56,9 @@ public partial class DebugWindow
                 DataContext = viewModel
             };
 
-            if (Application.Current?.MainWindow is { } mainWindow && mainWindow != window) window.Owner = mainWindow;
+            // NOTE: deliberately NOT setting window.Owner. An owned window is pinned above
+            // its owner by Win32, which made the debug window float permanently in front of
+            // the main window and other apps' windows. Keep it a normal top-level window.
 
             PropertyChangedEventHandler logTextPropertyChangedHandler = (_, args) =>
             {
