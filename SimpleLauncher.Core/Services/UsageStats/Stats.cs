@@ -149,8 +149,9 @@ public class Stats
                     return true; // Success.
                 }
 
-                // Notify developer
-                // Log API response error
+                // Expected condition (server-side non-success status, e.g. 5xx during
+                // maintenance or 429 rate-limit): the stats call is fire-and-forget telemetry,
+                // not a bug — keep it out of the bug report service.
                 var errorContent = await response.Content.ReadAsStringAsync(cts.Token);
                 var contextMessage = $"Stats API responded with an error.\n" +
                                      $"Status Code: '{response.StatusCode}'.\n" +
@@ -159,7 +160,7 @@ public class Stats
                                      (string.Equals(callType, "emulator", StringComparison.Ordinal)
                                          ? $", EmulatorName: {emulatorName}"
                                          : "");
-                _logger.Error(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
+                _logger.Information(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
             }
 
             return false;
