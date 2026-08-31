@@ -126,58 +126,35 @@ public class AvaloniaContextMenuService
         contextMenu.Items.Add(new Separator());
 
         // Take Screenshot Context Menu
-        AddItem(contextMenu, "TakeScreenshot", "Take Screenshot", "snapshot.png", async void () =>
+        AddItem(contextMenu, "TakeScreenshot", "Take Screenshot", "snapshot.png", async () =>
         {
-            try
-            {
-                context.MainViewModel.StatusText = GetStatusOrFallback("TakingScreenshot", "Taking screenshot...");
-                await _messageBox.TakeScreenShotMessageBoxAsync();
-                await _functions.TakeScreenshotOfSelectedWindowAsync(context);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "[ShowContextMenu] Error taking the screenshot.");
-            }
+            context.MainViewModel.StatusText = GetStatusOrFallback("TakingScreenshot", "Taking screenshot...");
+            await _messageBox.TakeScreenShotMessageBoxAsync();
+            await _functions.TakeScreenshotOfSelectedWindowAsync(context);
         });
 
         // Delete Game Context Menu
-        AddItem(contextMenu, "DeleteGame", "Delete Game", "delete.png", async void () =>
+        AddItem(contextMenu, "DeleteGame", "Delete Game", "delete.png", async () =>
         {
-            try
+            context.MainViewModel.StatusText = GetStatusOrFallback("DeletingGame", "Deleting game...");
+            var result =
+                await _messageBox.AreYouSureYouWantToDeleteTheGameMessageBoxAsync(context.FileNameWithExtension);
+            if (result == CoreMessageBoxResult.Yes)
             {
-                context.MainViewModel.StatusText = GetStatusOrFallback("DeletingGame", "Deleting game...");
-                var result =
-                    await _messageBox.AreYouSureYouWantToDeleteTheGameMessageBoxAsync(context.FileNameWithExtension);
-                if (result == CoreMessageBoxResult.Yes)
-                {
-                    await _functions.RemoveFromFavoritesAsync(context);
-                    await Task.Delay(500);
-                    await _functions.DeleteGameAsync(context);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "[ShowContextMenu] Error deleting the game.");
+                await _functions.RemoveFromFavoritesAsync(context);
+                await Task.Delay(500);
+                await _functions.DeleteGameAsync(context);
             }
         });
 
         // Delete Cover Image Context Menu
-        AddItem(contextMenu, "DeleteCoverImage", "Delete Cover Image", "delete.png", async void () =>
+        AddItem(contextMenu, "DeleteCoverImage", "Delete Cover Image", "delete.png", async () =>
         {
-            try
-            {
-                context.MainViewModel.StatusText = GetStatusOrFallback("DeletingCoverImage", "Deleting cover image...");
-                var result =
-                    await _messageBox.AreYouSureYouWantToDeleteTheCoverImageMessageBoxAsync(
-                        context.FileNameWithoutExtension);
-                if (result == CoreMessageBoxResult.Yes) await _functions.DeleteCoverImageAsync(context);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "[ShowContextMenu] Error deleting the cover image of {Name}.",
+            context.MainViewModel.StatusText = GetStatusOrFallback("DeletingCoverImage", "Deleting cover image...");
+            var result =
+                await _messageBox.AreYouSureYouWantToDeleteTheCoverImageMessageBoxAsync(
                     context.FileNameWithoutExtension);
-                await _messageBox.ThereWasAnErrorDeletingTheCoverImageMessageBoxAsync();
-            }
+            if (result == CoreMessageBoxResult.Yes) await _functions.DeleteCoverImageAsync(context);
         });
 
         // ──── Avalonia-only extras (kept from the earlier port) ────
@@ -212,6 +189,18 @@ public class AvaloniaContextMenuService
             Icon = CreateIcon(iconFile)
         };
         menuItem.Click += (_, _) => click();
+        contextMenu.Items.Add(menuItem);
+    }
+
+    private void AddItem(ContextMenu contextMenu, string resourceKey, string fallback, string iconFile, Func<Task> click)
+    {
+        var header = _localization.GetString(resourceKey) is { } s && !string.Equals(s, resourceKey, StringComparison.OrdinalIgnoreCase) ? s : fallback;
+        var menuItem = new MenuItem
+        {
+            Header = header,
+            Icon = CreateIcon(iconFile)
+        };
+        menuItem.Click += (_, _) => _ = SafeAsync(click);
         contextMenu.Items.Add(menuItem);
     }
 
@@ -265,16 +254,4 @@ public class AvaloniaContextMenuService
             return new Panel();
         }
     }
-}
-
-/// <summary>
-///     Avalonia-only extra actions appended after the WPF-parity menu entries.
-/// </summary>
-public class GameContextMenuCallbacks
-{
-    public required Action<GameCardViewModel> OnShowDetails { get; init; }
-    public required Action<GameCardViewModel> OnCopyPath { get; init; }
-    public required Action<GameCardViewModel> OnCopyName { get; init; }
-    public required Action<GameCardViewModel> OnShowInFolder { get; init; }
-    public required Action<GameCardViewModel> OnEditSystem { get; init; }
 }

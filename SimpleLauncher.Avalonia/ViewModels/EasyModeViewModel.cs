@@ -31,6 +31,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
     private readonly Dictionary<string, DownloadButtonState> _downloadStates = new(StringComparer.Ordinal);
     private readonly EasyModeManager _easyModeManager;
     private readonly ILogger _logger;
+    private readonly Services.LocalizationService _localization;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly SystemManagerService? _systemManager;
@@ -99,7 +100,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         ILogger logger,
         IConfiguration configuration,
         PlaySoundEffects playSoundEffects,
-        SystemManagerService? systemManager = null)
+        SystemManagerService? systemManager = null,
+        Services.LocalizationService? localization = null)
     {
         _easyModeManager = easyModeManager;
         _downloadManager = downloadManager;
@@ -108,6 +110,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         _configuration = configuration;
         _playSoundEffects = playSoundEffects;
         _systemManager = systemManager;
+        _localization = localization ?? new Services.LocalizationService();
 
         _downloadManager.DownloadProgressChanged += OnDownloadProgressChanged;
     }
@@ -360,13 +363,14 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
             try
             {
                 IsAddSystemEnabled = false;
-                DownloadStatus = "Adding system to configuration...";
+                DownloadStatus = _localization.GetString("Addingsystemtoconfiguration",
+                    "Adding system to configuration...");
                 DownloadProgress = 0;
 
                 await SystemManagerService.AddOrUpdateSystemFromEasyModeAsync(
                     selectedSystem, systemFolder, _configuration, _logger, _systemManager);
 
-                DownloadStatus = "Creating system folders...";
+                DownloadStatus = _localization.GetString("Creatingsystemfolders", "Creating system folders...");
                 await Task.Yield();
 
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolder);
@@ -382,7 +386,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
                         _logger,
                         _messageBox);
 
-                    DownloadStatus = "System has been successfully added!";
+                    DownloadStatus = _localization.GetString("Systemhasbeensuccessfullyadded",
+                        "System has been successfully added!");
                     await _messageBox.SystemAddedMessageBoxAsync(
                         selectedSystem.SystemName,
                         resolvedSystemFolder,
@@ -395,12 +400,13 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
             }
             catch (InvalidOperationException ex)
             {
-                DownloadStatus = $"Error: Failed to add system. {ex.Message}";
+                DownloadStatus =
+                    $"{_localization.GetString("ErrorFailedtoaddsystem", "Error: Failed to add system.")} {ex.Message}";
                 await _messageBox.AddSystemFailedMessageBoxAsync(ex.Message);
             }
             catch (Exception ex)
             {
-                DownloadStatus = "Error: Failed to add system.";
+                DownloadStatus = _localization.GetString("ErrorFailedtoaddsystem", "Error: Failed to add system.");
                 _logger.Error(ex, "Unexpected error adding system.");
                 await _messageBox.AddSystemFailedMessageBoxAsync();
             }
@@ -481,7 +487,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
                     return;
                 }
 
-                DownloadStatus = $"Preparing to download {componentName}...";
+                DownloadStatus =
+                    $"{_localization.GetString("Preparingtodownload", "Preparing to download")} {componentName}...";
                 DownloadProgress = 0;
                 CanStopDownload = true;
 
@@ -550,7 +557,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
                     }
                     else
                     {
-                        DownloadStatus = $"Error during download: {componentName}.";
+                        DownloadStatus =
+                            $"{_localization.GetString("Errorduringdownload", "Error during download")}: {componentName}.";
                         EndOperation();
                         await ShowDownloadErrorDialogAsync(type, selectedSystem);
                         SetDownloadState(type, DownloadButtonState.Failed);

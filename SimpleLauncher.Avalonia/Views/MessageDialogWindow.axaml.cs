@@ -2,32 +2,10 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
+using SimpleLauncher.Avalonia.Models;
 using SimpleLauncher.Core.Models;
 
 namespace SimpleLauncher.Avalonia.Views;
-
-/// <summary>
-///     Specifies which buttons are shown on the message dialog.
-/// </summary>
-public enum MessageButtons
-{
-    Ok,
-    OkCancel,
-    YesNo,
-    YesNoCancel
-}
-
-/// <summary>
-///     Specifies the icon shown on the message dialog.
-/// </summary>
-public enum MessageIcon
-{
-    None,
-    Information,
-    Warning,
-    Error,
-    Question
-}
 
 /// <summary>
 ///     A lightweight message-box-style dialog used by <see cref="Services.AvaloniaServices.MessageBoxLibraryService" />.

@@ -1,3 +1,4 @@
+using SimpleLauncher.Avalonia.Models;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.CheckPaths;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -102,35 +103,4 @@ public class AvaloniaDisplaySystemInformation
             ValidationResult = validation
         };
     }
-}
-
-/// <summary>
-///     Structured system information for display in Avalonia UI.
-/// </summary>
-public class SystemInfoModel
-{
-    public string SystemName { get; init; } = "";
-    public List<string> SystemFolders { get; init; } = [];
-    public string? SystemImageFolder { get; init; }
-    public List<string> FileFormatsToSearch { get; init; } = [];
-    public bool ExtractFileBeforeLaunch { get; init; }
-    public List<string> FileFormatsToLaunch { get; init; } = [];
-    public bool GroupByFolder { get; init; }
-    public bool DisableRecursiveSearch { get; init; }
-    public List<EmulatorInfoModel> Emulators { get; init; } = [];
-    public bool AreSystemFoldersValid { get; init; }
-    public bool IsSystemImageFolderValid { get; init; }
-    public SystemValidationResult ValidationResult { get; init; } = new();
-}
-
-/// <summary>
-///     Emulator information for display.
-/// </summary>
-public class EmulatorInfoModel
-{
-    public string Name { get; init; } = "";
-    public string Location { get; init; } = "";
-    public string Parameters { get; init; } = "";
-    public bool ReceiveErrorNotification { get; init; }
-    public bool IsLocationValid { get; init; }
 }

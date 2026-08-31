@@ -2,7 +2,7 @@
         xmlns="https://github.com/avaloniaui"
         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Game Details"
+        Title="{ext:Translate GameDetails}"
         Width="500" Height="450"
         MinWidth="400" MinHeight="350"
         WindowStartupLocation="CenterOwner"

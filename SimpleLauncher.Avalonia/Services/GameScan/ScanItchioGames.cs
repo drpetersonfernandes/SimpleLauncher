@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Globalization;
+using SimpleLauncher.Avalonia.Interfaces;
 using SimpleLauncher.Core.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Avalonia.Services.GameScan;

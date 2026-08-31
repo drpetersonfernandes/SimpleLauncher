@@ -24,6 +24,7 @@ public partial class FavoritesSectionViewModel : ObservableObject
     private readonly FavoritesManager _favoritesManager;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly ILogger _logErrors;
+    private readonly Services.LocalizationService _localization;
     private readonly MainViewModel _mainViewModel;
     private readonly IMameDataService _mameData;
     private readonly IMessageBoxLibraryService _messageBox;
@@ -49,7 +50,8 @@ public partial class FavoritesSectionViewModel : ObservableObject
         IMessageBoxLibraryService messageBox,
         IConfiguration configuration,
         MainViewModel mainViewModel,
-        ILogger logErrors)
+        ILogger logErrors,
+        Services.LocalizationService localization)
     {
         _favoritesManager = favoritesManager;
         _systemManager = systemManager;
@@ -60,6 +62,7 @@ public partial class FavoritesSectionViewModel : ObservableObject
         _configuration = configuration;
         _mainViewModel = mainViewModel;
         _logErrors = logErrors;
+        _localization = localization;
     }
 
     /// <summary>
@@ -204,7 +207,8 @@ public partial class FavoritesSectionViewModel : ObservableObject
         {
             if (rows.Count == 0)
             {
-                _mainViewModel.StatusText = "Select a favorite to remove first.";
+                _mainViewModel.StatusText =
+                    _localization.GetString("Selectafavoritetoremovefirst", "Select a favorite to remove first.");
                 return;
             }
 
@@ -252,7 +256,8 @@ public partial class FavoritesSectionViewModel : ObservableObject
         {
             if (SelectedFavorite is not { } favorite)
             {
-                _mainViewModel.StatusText = "Select a game to launch first.";
+                _mainViewModel.StatusText =
+                    _localization.GetString("Selectagametolaunchfirst", "Select a game to launch first.");
                 return;
             }
 

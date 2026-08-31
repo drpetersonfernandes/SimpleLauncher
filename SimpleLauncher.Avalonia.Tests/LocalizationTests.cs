@@ -49,15 +49,49 @@ public class LocalizationTests
         Assert.True(File.Exists(enFile), $"Missing {enFile}");
         var enKeys = LoadKeys(enFile).Keys.OrderBy(k => k, StringComparer.Ordinal).ToList();
 
+        var failures = new List<string>();
+
         foreach (var file in LanguageFiles())
         {
             var keys = LoadKeys(file).Keys.OrderBy(k => k, StringComparer.Ordinal).ToList();
 
             var missing = enKeys.Except(keys, StringComparer.OrdinalIgnoreCase).ToList();
             var extra = keys.Except(enKeys, StringComparer.OrdinalIgnoreCase).ToList();
-            Assert.True(missing.Count == 0, $"{Path.GetFileName(file)} is missing keys: {string.Join(", ", missing)}");
-            Assert.True(extra.Count == 0, $"{Path.GetFileName(file)} has unexpected keys: {string.Join(", ", extra)}");
+            if (missing.Count > 0)
+                failures.Add(
+                    $"{Path.GetFileName(file)} is missing {missing.Count} key(s): {string.Join(", ", missing)}");
+            if (extra.Count > 0)
+                failures.Add(
+                    $"{Path.GetFileName(file)} has {extra.Count} unexpected key(s): {string.Join(", ", extra)}");
         }
+
+        Assert.True(failures.Count == 0,
+            "Resource key mismatch between strings.en.json and the other language files:\n" +
+            string.Join("\n", failures) +
+            "\n\nRun the SimpleLauncher.ResourceTranslator project to translate the English pack and add the missing keys to every language file.");
+    }
+
+    /// <summary>
+    ///     No language file may contain empty (or whitespace-only) values: the LocalizationService
+    ///     treats a present-but-empty key as existing and renders an empty string instead of the
+    ///     English fallback, which leaves blank UI text.
+    /// </summary>
+    [Fact]
+    public void NoLanguageFileShouldContainEmptyValues()
+    {
+        var failures = new List<string>();
+
+        foreach (var file in LanguageFiles())
+        {
+            var strings = LoadKeys(file);
+            foreach (var (key, value) in strings)
+                if (string.IsNullOrWhiteSpace(value))
+                    failures.Add($"{Path.GetFileName(file)}: '{key}' has an empty value");
+        }
+
+        Assert.True(failures.Count == 0,
+            "Empty resource values detected (these render as blank text in the UI):\n" +
+            string.Join("\n", failures));
     }
 
     [Fact]

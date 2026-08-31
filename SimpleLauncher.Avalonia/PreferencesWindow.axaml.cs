@@ -1,10 +1,12 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Avalonia.Models;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.RetroAchievements;
 using SimpleLauncher.Avalonia.Views;
 using SimpleLauncher.Core.Services.GamePad;
+using System.Globalization;
 using SimpleLauncher.Core.Services.SettingsManager;
 
 namespace SimpleLauncher.Avalonia;
@@ -68,7 +70,7 @@ public partial class PreferencesWindow : Window
         {
             if (DefaultViewCombo.SelectedItem is ComboBoxItem { Tag: string viewMode }) _settings.ViewMode = viewMode;
 
-            if (int.TryParse(CardWidthBox.Text, System.Globalization.CultureInfo.InvariantCulture, out var cardWidth) && cardWidth is >= 148 and <= 280)
+            if (int.TryParse(s: CardWidthBox.Text, provider: CultureInfo.InvariantCulture, result: out var cardWidth) && cardWidth is >= 148 and <= 280)
                 _settings.ThumbnailSize = cardWidth;
 
             _settings.EnableGamePadNavigation = GamepadNavCheck.IsChecked == true;
@@ -170,7 +172,7 @@ public partial class PreferencesWindow : Window
                 break;
             }
 
-        CardWidthBox.Text = _settings.ThumbnailSize.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        CardWidthBox.Text = _settings.ThumbnailSize.ToString(CultureInfo.InvariantCulture);
         GamepadNavCheck.IsChecked = _settings.EnableGamePadNavigation;
         DisplayMachineNameCheck.IsChecked = _settings.DisplayMachineName;
 
@@ -204,8 +206,8 @@ public partial class PreferencesWindow : Window
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(apiKey))
             {
                 await MessageDialogWindow.ShowAsync(this,
-                    "Please enter both username and API key.",
-                    "RetroAchievements",
+                    _localization.GetString("PleaseenterbothusernameandAPIkey", "Please enter both username and API key."),
+                    _localization.GetString("RetroAchievements", "RetroAchievements"),
                     MessageButtons.Ok,
                     MessageIcon.Warning);
                 return;
@@ -218,7 +220,7 @@ public partial class PreferencesWindow : Window
             _ = _settings.SaveAsync();
 
             RaTestButton.IsEnabled = false;
-            RaTestButton.Content = "Testing...";
+            RaTestButton.Content = _localization.GetString("Testing", "Testing...");
 
             try
             {
@@ -227,11 +229,11 @@ public partial class PreferencesWindow : Window
                     var profile = await _raService.GetUserProfileAsync(username, apiKey);
                     if (profile is not null)
                     {
+                        var connectedTemplate = _localization.GetString("ConnectedasPointsRank",
+                            "Connected as: {0}\nPoints: {1:N0}\nRank: {2}");
                         await MessageDialogWindow.ShowAsync(this,
-                            $"Connected as: {profile.User}\n" +
-                            $"Points: {profile.TotalPoints:N0}\n" +
-                            $"Rank: {profile.Rank}",
-                            "RetroAchievements — Connected",
+                            string.Format(CultureInfo.InvariantCulture, connectedTemplate, profile.User, profile.TotalPoints, profile.Rank),
+                            _localization.GetString("RetroAchievementsConnected", "RetroAchievements — Connected"),
                             MessageButtons.Ok,
                             MessageIcon.Information);
                         return;
@@ -239,8 +241,9 @@ public partial class PreferencesWindow : Window
                 }
 
                 await MessageDialogWindow.ShowAsync(this,
-                    "Could not connect. Check your username and API key.",
-                    "RetroAchievements — Failed",
+                    _localization.GetString("CouldnotconnectCheckyourusernameandAPIkey",
+                        "Could not connect. Check your username and API key."),
+                    _localization.GetString("RetroAchievementsFailed", "RetroAchievements — Failed"),
                     MessageButtons.Ok,
                     MessageIcon.Warning);
             }
@@ -248,15 +251,15 @@ public partial class PreferencesWindow : Window
             {
                 Log.Error(ex, "RetroAchievements test connection failed for user {User}", username);
                 await MessageDialogWindow.ShowAsync(this,
-                    $"Connection error: {ex.Message}",
-                    "RetroAchievements — Error",
+                    $"{_localization.GetString("Connectionerror", "Connection error: ")}{ex.Message}",
+                    _localization.GetString("RetroAchievementsError", "RetroAchievements — Error"),
                     MessageButtons.Ok,
                     MessageIcon.Error);
             }
             finally
             {
                 RaTestButton.IsEnabled = true;
-                RaTestButton.Content = "Test Connection";
+                RaTestButton.Content = _localization.GetString("PreferencesWindow_Test_Connection", "Test Connection");
             }
         }
         catch (Exception ex)

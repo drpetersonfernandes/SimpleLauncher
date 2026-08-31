@@ -5,6 +5,7 @@ using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Avalonia.Interfaces;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.Services.Favorites;
 using SimpleLauncher.Avalonia.Services.GameFilter;
@@ -12,7 +13,6 @@ using SimpleLauncher.Avalonia.Services.GameLauncher;
 using SimpleLauncher.Avalonia.Services.LoadingOverlay;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Avalonia.Services.SearchOrchestrator;
-using SimpleLauncher.Avalonia.Services.SystemImageResolver;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -38,6 +38,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     private readonly LauncherService _launcher;
     private readonly AvaloniaGameFileLoadingOrchestrator _loadingOrchestrator;
     private readonly AvaloniaLoadingOverlayService _loadingOverlay;
+    private readonly LocalizationService _localization;
     private readonly IMameDataService _mameData;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IPaginationService _pagination;
@@ -145,6 +146,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         IMameDataService mameData,
         AvaloniaGameFilterService gameFilter,
         AvaloniaLoadingOverlayService loadingOverlay,
+        LocalizationService localization,
         ISystemImageResolverService? systemImageResolver = null,
         AvaloniaSearchOrchestratorService? searchOrchestrator = null)
     {
@@ -166,6 +168,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         _loadingOverlay = loadingOverlay;
         _searchOrchestrator = searchOrchestrator;
         _systemImageResolver = systemImageResolver;
+        _localization = localization;
         Sidebar = new SidebarViewModel();
 
         _favoritePaths = _favoritesManager.GetFavoritePaths();
@@ -338,7 +341,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     {
         LetterFilter = letter ?? "";
         ReapplyLetterFilterAndPagination();
-        StatusText = string.IsNullOrEmpty(LetterFilter) ? "All Games" : $"Filtering by {LetterFilter}";
+        StatusText = string.IsNullOrEmpty(LetterFilter)
+            ? _localization.GetString("Status.AllGames", "All Games")
+            : string.Format(_localization.GetString("Filteringby", "Filtering by {0}"), LetterFilter);
     }
 
     /// <summary>
@@ -386,7 +391,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             _suppressSearchReload = false;
         }
 
-        SetLoadingState(true, "Loading Games...");
+        SetLoadingState(true, _localization.GetString("LoadingGames", "Loading Games..."));
         try
         {
             // Full library scan for the selected system — ignores letter/search/
@@ -414,12 +419,15 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
             if (picked != null)
             {
-                StatusText = $"Picked a random game: {picked.DisplayTitle}";
-                ToolbarTitle = $"SimpleLauncher — {SelectedSystem} (1 game)";
+                StatusText = string.Format(
+                    _localization.GetString("Pickedarandomgame", "Picked a random game: {0}"), picked.DisplayTitle);
+                ToolbarTitle =
+                    $"{_localization.GetString("App.Title", "SimpleLauncher")} — {SelectedSystem} (1 {_localization.GetString("Game", "game")})";
             }
             else
             {
-                StatusText = "No games found for the random selection.";
+                StatusText = _localization.GetString("Nogamesfoundfortherandomselection",
+                    "No games found for the random selection.");
             }
 
             return picked;
@@ -462,8 +470,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         _currentBaseGames = SortByMameOrder(_currentBaseGames);
         ReapplyLetterFilterAndPagination();
         StatusText = string.Equals(_mameSortOrder, "MachineDescription", StringComparison.Ordinal)
-            ? "Sorted by machine description"
-            : "Sorted by file name";
+            ? _localization.GetString("Sortedbymachinedescription", "Sorted by machine description")
+            : _localization.GetString("Sortedbyfilename", "Sorted by file name");
     }
 
     /// <summary>
@@ -499,7 +507,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         CardWidth = newSize;
         _settings.ThumbnailSize = newSize;
         _ = _settings.SaveAsync();
-        StatusText = direction > 0 ? $"Zooming in... {newSize}px" : $"Zooming out... {newSize}px";
+        StatusText = direction > 0
+            ? $"{_localization.GetString("ZoomingIn", "Zooming in...")} {newSize}{_localization.GetString("Px", "px")}"
+            : $"{_localization.GetString("ZoomingOut", "Zooming out...")} {newSize}{_localization.GetString("Px", "px")}";
     }
 
     /// <summary>
@@ -540,7 +550,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     ///     Requests a toast notification (surfaced by the main window). Raised on the
     ///     UI thread so subscribers can touch UI directly.
     /// </summary>
+#pragma warning disable MA0046
     public event Action<string, string>? ToastRequested;
+#pragma warning restore MA0046
 
     // ---- RetroAchievements Filter ----
 
@@ -558,8 +570,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             // Prevent parallel hash calculations (they would spawn many CLI processes at once)
             if (_raHashScanner.IsScanning)
             {
-                ShowToast("RetroAchievements",
-                    "A RetroAchievements hash calculation is already in progress. Please wait for it to finish before trying again.");
+                ShowToast(_localization.GetString("RetroAchievements", "RetroAchievements"),
+                    _localization.GetString("RaHashCalculationInProgress",
+                        "A RetroAchievements hash calculation is already in progress. Please wait for it to finish before trying again."));
                 return;
             }
 
@@ -580,8 +593,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             {
                 if (!_raHashScanner.IsSystemScannable(system.SystemName))
                 {
-                    ShowToast("RetroAchievements",
-                        $"{system.SystemName} is not supported for RetroAchievements hashing.");
+                    ShowToast(_localization.GetString("RetroAchievements", "RetroAchievements"),
+                        $"{system.SystemName} {_localization.GetString("RaHashSystemNotSupported", "is not supported for RetroAchievements hashing.")}");
                     return;
                 }
 
@@ -601,8 +614,9 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
                     system.GroupByFolder,
                     OnHashScanCompleted);
 
-                ShowToast("RetroAchievements",
-                    "The hash calculation will happen in the background. You can click the filter button again later to see if the hashing is complete.");
+                ShowToast(_localization.GetString("RetroAchievements", "RetroAchievements"),
+                    _localization.GetString("RaHashScanInBackgroundMessage",
+                        "The hash calculation will happen in the background. You can click the filter button again later to see if the hashing is complete."));
                 return;
             }
 
@@ -611,7 +625,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         catch (Exception ex)
         {
             Log.Error(ex, "Error showing games with RetroAchievements");
-            StatusText = "Error filtering games";
+            StatusText = _localization.GetString("Errorfilteringgames", "Error filtering games");
         }
     }
 
@@ -672,8 +686,11 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         IsShowingRetroAchievements = true;
         LetterFilter = "";
         ShowGames(matched);
-        StatusText = $"{matched.Count} of {total} games with RetroAchievements";
-        ToolbarTitle = "SimpleLauncher — RetroAchievements";
+        var raMatchTemplate =
+            _localization.GetString("OfgameswithRetroAchievements", "{0} of {1} games with RetroAchievements");
+        StatusText = string.Format(CultureInfo.InvariantCulture, raMatchTemplate, matched.Count, total);
+        ToolbarTitle =
+            $"{_localization.GetString("App.Title", "SimpleLauncher")} — {_localization.GetString("RetroAchievements", "RetroAchievements")}";
     }
 
     /// <summary>
@@ -683,7 +700,12 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     private void OnHashScanCompleted(string systemName)
     {
         Dispatcher.UIThread.Post(() =>
-            ShowToast("RetroAchievements", $"RetroAchievements hash calculation is complete for {systemName}."));
+        {
+            var raCompleteTemplate = _localization.GetString("RaHashCalculationComplete",
+                "RetroAchievements hash calculation is complete for {0}.");
+            ShowToast(_localization.GetString("RetroAchievements", "RetroAchievements"),
+                string.Format(raCompleteTemplate, systemName));
+        });
     }
 
     /// <summary>
@@ -737,13 +759,13 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             _currentBaseGames = [];
             _currentAllGames = [];
             ShowGames([]);
-            StatusText = "All Games";
-            ToolbarTitle = "SimpleLauncher";
+            StatusText = _localization.GetString("Status.AllGames", "All Games");
+            ToolbarTitle = _localization.GetString("App.Title", "SimpleLauncher");
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to initialize game library");
-            StatusText = "Error loading games";
+            StatusText = _localization.GetString("Errorloadinggames", "Error loading games");
         }
         finally
         {
@@ -775,7 +797,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
                 if (string.IsNullOrWhiteSpace(query))
                 {
                     LoadAllGames();
-                    StatusText = "Ready";
+                    StatusText = _localization.GetString("Status.Ready", "Ready");
                 }
                 else
                 {
@@ -814,13 +836,14 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             // Show the appropriate warning dialog (WPF parity)
             if (string.IsNullOrEmpty(SelectedSystem))
             {
-                StatusText = "Select a system before searching.";
+                StatusText = _localization.GetString("Selectasystembeforesearching",
+                    "Select a system before searching.");
                 if (_messageBox != null)
                     await _messageBox.SelectSystemBeforeSearchMessageBoxAsync();
             }
             else
             {
-                StatusText = "Enter a search query.";
+                StatusText = _localization.GetString("Enterasearchquery", "Enter a search query.");
                 if (_messageBox != null)
                     await _messageBox.EnterSearchQueryMessageBoxAsync();
             }
@@ -836,7 +859,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
         ApplyFavoritesAndHistory(results);
         ShowGames(results);
-        StatusText = $"{results.Count} result{(results.Count == 1 ? "" : "s")} for \"{validation.ValidatedQuery}\"";
+        var searchResultsTemplate = _localization.GetString("Status.SearchResults", "{0} result(s) for \"{1}\"");
+        StatusText = string.Format(CultureInfo.InvariantCulture, searchResultsTemplate, results.Count, validation.ValidatedQuery);
     }
 
     [RelayCommand]
@@ -858,15 +882,17 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             ApplyFavoritesAndHistory(games);
             ShowGames(games);
             var count = games.Count;
-            StatusText = string.IsNullOrEmpty(systemName) ? "All Games" : systemName;
+            StatusText = string.IsNullOrEmpty(systemName)
+                ? _localization.GetString("Status.AllGames", "All Games")
+                : systemName;
             ToolbarTitle = string.IsNullOrEmpty(systemName)
-                ? "SimpleLauncher"
-                : $"SimpleLauncher — {systemName} ({count} game{(count == 1 ? "" : "s")})";
+                ? _localization.GetString("App.Title", "SimpleLauncher")
+                : $"{_localization.GetString("App.Title", "SimpleLauncher")} — {systemName} ({count} {(count == 1 ? _localization.GetString("Game", "game") : _localization.GetString("GamePlural", "games"))})";
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to navigate to system {System}", systemName);
-            StatusText = "Error loading games";
+            StatusText = _localization.GetString("Errorloadinggames", "Error loading games");
         }
     }
 
@@ -880,7 +906,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to navigate to All Games");
-            StatusText = "Error loading games";
+            StatusText = _localization.GetString("Errorloadinggames", "Error loading games");
         }
     }
 
@@ -907,13 +933,14 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             var favorites = allGames.Where(g => g.IsFavorite).ToList();
 
             ShowGames(favorites);
-            StatusText = "Favorites";
-            ToolbarTitle = "SimpleLauncher — Favorites";
+            StatusText = _localization.GetString("Status.Favorites", "Favorites");
+            ToolbarTitle =
+                $"{_localization.GetString("App.Title", "SimpleLauncher")} — {_localization.GetString("Toolbar.Favorites", "Favorites")}";
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to navigate to Favorites");
-            StatusText = "Error loading favorites";
+            StatusText = _localization.GetString("Errorloadingfavorites", "Error loading favorites");
         }
     }
 
@@ -953,19 +980,21 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
             if (string.IsNullOrEmpty(SelectedSystem))
             {
-                StatusText = "Favorites";
-                ToolbarTitle = "SimpleLauncher — Favorites";
+                StatusText = _localization.GetString("Status.Favorites", "Favorites");
+                ToolbarTitle =
+                    $"{_localization.GetString("App.Title", "SimpleLauncher")} — {_localization.GetString("Toolbar.Favorites", "Favorites")}";
             }
             else
             {
-                StatusText = $"Favorites — {SelectedSystem}";
-                ToolbarTitle = $"SimpleLauncher — {SelectedSystem} Favorites";
+                StatusText = $"{_localization.GetString("Status.Favorites", "Favorites")} — {SelectedSystem}";
+                ToolbarTitle =
+                    $"{_localization.GetString("App.Title", "SimpleLauncher")} — {SelectedSystem} {_localization.GetString("Toolbar.Favorites", "Favorites")}";
             }
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to navigate to Favorites of the selected system");
-            StatusText = "Error loading favorites";
+            StatusText = _localization.GetString("Errorloadingfavorites", "Error loading favorites");
         }
     }
 
@@ -988,13 +1017,14 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
                 .ToList();
 
             ShowGames(recent);
-            StatusText = "Recently Played";
-            ToolbarTitle = "SimpleLauncher — Recently Played";
+            StatusText = _localization.GetString("Status.RecentlyPlayed", "Recently Played");
+            ToolbarTitle =
+                $"{_localization.GetString("App.Title", "SimpleLauncher")} — {_localization.GetString("Toolbar.RecentlyPlayed", "Recently Played")}";
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to navigate to Recently Played");
-            StatusText = "Error loading recently played";
+            StatusText = _localization.GetString("Errorloadingrecentlyplayed", "Error loading recently played");
         }
     }
 
@@ -1028,13 +1058,14 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
                 .ToList();
 
             ShowGames(recent);
-            StatusText = "Recently Added";
-            ToolbarTitle = "SimpleLauncher — Recently Added";
+            StatusText = _localization.GetString("Status.RecentlyAdded", "Recently Added");
+            ToolbarTitle =
+                $"{_localization.GetString("App.Title", "SimpleLauncher")} — {_localization.GetString("Status.RecentlyAdded", "Recently Added")}";
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to navigate to Recently Added");
-            StatusText = "Error loading recently added";
+            StatusText = _localization.GetString("Errorloadingrecentlyadded", "Error loading recently added");
         }
     }
 
@@ -1059,8 +1090,10 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             _favoritePaths.Remove(favoriteName);
 
         StatusText = isNowFavorite
-            ? $"Added to favorites: {game.DisplayTitle}"
-            : $"Removed from favorites: {game.DisplayTitle}";
+            ? string.Format(_localization.GetString("Favorites.Added", "Added to favorites: {0}"),
+                game.DisplayTitle)
+            : string.Format(_localization.GetString("Favorites.Removed", "Removed from favorites: {0}"),
+                game.DisplayTitle);
     }
 
     [RelayCommand]
@@ -1091,12 +1124,15 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
         if (system is null || emulator is null)
         {
-            StatusText = $"Cannot launch: no emulator configured for {systemName}";
+            StatusText = string.Format(
+                _localization.GetString("Cannotlaunchnoemulatorconfiguredfor",
+                    "Cannot launch: no emulator configured for {0}"), systemName);
             return TimeSpan.Zero;
         }
 
         IsLoading = true;
-        StatusText = $"Launching: {Path.GetFileNameWithoutExtension(filePath)}...";
+        StatusText = string.Format(CultureInfo.InvariantCulture, _localization.GetString("Launch.Launching", "Launching: {0}..."),
+            Path.GetFileNameWithoutExtension(filePath));
 
         try
         {
@@ -1114,13 +1150,15 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             // LauncherService.HandleButtonClickAsync -> UpdateStatsAndPlayCountAsync.
             // Recording them again here would double-count launches.
 
-            StatusText = $"Played: {Path.GetFileNameWithoutExtension(filePath)}";
+            StatusText = string.Format(CultureInfo.InvariantCulture, _localization.GetString("Status.Played", "Played: {0}"),
+                Path.GetFileNameWithoutExtension(filePath));
             return _launcher.LastPlayTime;
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to launch game {Game}", filePath);
-            StatusText = $"Launch error: {ex.Message}";
+            StatusText = string.Format(
+                _localization.GetString("Launcherror", "Launch error: {0}"), ex.Message);
             return TimeSpan.Zero;
         }
         finally
@@ -1150,7 +1188,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
         _currentAllGames.Remove(game);
         Games.Remove(game);
-        StatusText = $"Removed from view: {game.DisplayTitle}";
+        StatusText = string.Format(
+            _localization.GetString("Removedfromview", "Removed from view: {0}"), game.DisplayTitle);
         UpdateGameCount();
     }
 
@@ -1217,9 +1256,10 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     /// </summary>
     private static string CleanUpTitle(string name)
     {
-        var cleaned = Regex.Replace(name, @"\s*[\[\(][^\]\)]*[\]\)]", "");
+        var timeout = TimeSpan.FromSeconds(1);
+        var cleaned = Regex.Replace(name, @"\s*[\[\(][^\]\)]*[\]\)]", "", RegexOptions.None, timeout);
         cleaned = cleaned.Replace('_', ' ').Replace('.', ' ');
-        cleaned = Regex.Replace(cleaned, @"\s+", " ").Trim();
+        cleaned = Regex.Replace(cleaned, @"\s+", " ", RegexOptions.None, timeout).Trim();
         return cleaned;
     }
 
@@ -1258,13 +1298,13 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             var games = ScanGames(_allSystems);
             ApplyFavoritesAndHistory(games);
             ShowGames(games);
-            StatusText = "All Games";
-            ToolbarTitle = "SimpleLauncher";
+            StatusText = _localization.GetString("Status.AllGames", "All Games");
+            ToolbarTitle = _localization.GetString("App.Title", "SimpleLauncher");
         }
         catch (Exception ex)
         {
             Log.Error(ex, "Failed to load all games");
-            StatusText = "Error loading games";
+            StatusText = _localization.GetString("Errorloadinggames", "Error loading games");
         }
     }
 
@@ -1337,6 +1377,6 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     private void UpdateGameCount(int? count = null)
     {
         var c = count ?? Games.Count;
-        GameCountText = $"{c} game{(c == 1 ? "" : "s")}";
+        GameCountText = string.Format(CultureInfo.InvariantCulture, _localization.GetString("Status.Games", "{0} game(s)"), c);
     }
 }

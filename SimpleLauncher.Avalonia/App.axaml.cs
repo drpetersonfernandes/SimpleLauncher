@@ -9,7 +9,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Serilog.Events;
 using SimpleLauncher.Avalonia.InjectConfigWindows;
+using SimpleLauncher.Avalonia.Interfaces;
+// ReSharper disable once RedundantUsingDirective
+using SimpleLauncher.Avalonia.Models;
 using SimpleLauncher.Avalonia.Services;
+#if WINDOWS
+using WindowScreenshot = SimpleLauncher.Avalonia.Services.TakeScreenshot.WindowScreenshot;
+#endif
 using SimpleLauncher.Avalonia.Services.AvaloniaServices;
 using SimpleLauncher.Avalonia.Services.ContextMenus;
 using SimpleLauncher.Avalonia.Services.DisplaySystemInfo;

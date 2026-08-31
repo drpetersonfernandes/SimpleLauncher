@@ -291,7 +291,8 @@ public partial class MainWindow : Window, IPaginationHost
                     _viewModel.InvalidateGameFileCacheForSystem(e.Value);
                     _viewModel.RefreshCurrentView();
                     RefreshSidebarCounts();
-                    ShowToast("Game Library", _localization.GetString("Toast.Refreshed", "Game list reloaded."));
+                    ShowToast(_localization.GetString("GameLibrary", "Game Library"),
+                        _localization.GetString("Toast.Refreshed", "Game list reloaded."));
                     _playSound.PlayNotificationSound();
                 });
             }
@@ -362,7 +363,8 @@ public partial class MainWindow : Window, IPaginationHost
                 var foundText = _localization.GetString("FoundNewMicrosoftWindowsGames",
                     "Found new Microsoft Windows games. Refreshing system list.");
                 _viewModel.StatusText = foundText;
-                ShowToast("Microsoft Windows", foundText, ToastType.Success);
+                ShowToast(_localization.GetString("MicrosoftWindows", "Microsoft Windows"), foundText,
+                    ToastType.Success);
                 _systemSelectionOrchestrator.LoadOrReloadSystemManager();
                 RefreshSidebarCounts();
             }
@@ -511,7 +513,8 @@ public partial class MainWindow : Window, IPaginationHost
             case Key.F5:
                 _viewModel.NavigateToAllGamesCommand.Execute(null);
                 RefreshSidebarCounts();
-                ShowToast("Refreshed", "Game list reloaded.");
+                ShowToast(_localization.GetString("Refreshed", "Refreshed"),
+                    _localization.GetString("Toast.Refreshed", "Game list reloaded."));
                 e.Handled = true;
                 break;
         }
@@ -526,7 +529,8 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             _loadingOverlay.EmergencyRelease();
-            ShowToast("Emergency Reset", _localization.GetString("Toast.EmergencyReset"));
+            ShowToast(_localization.GetString("EmergencyReset", "Emergency Reset"),
+                _localization.GetString("Toast.EmergencyReset"));
         }
         catch (Exception ex)
         {
@@ -908,7 +912,8 @@ public partial class MainWindow : Window, IPaginationHost
             ScrollToTop();
             _playSound.PlayNotificationSound();
             UpdateLetterBarSelection("");
-            ShowToast("Restart", _localization.GetString("Toast.Restarted", "Returned to the main game list."));
+            ShowToast(_localization.GetString("Restart", "Restart"),
+                _localization.GetString("Toast.Restarted", "Returned to the main game list."));
         }
         catch (Exception ex)
         {
@@ -923,7 +928,7 @@ public partial class MainWindow : Window, IPaginationHost
             // WPF parity: Feeling Lucky operates on the currently selected system
             if (string.IsNullOrEmpty(_viewModel.SelectedSystem))
             {
-                ShowToast("Feeling Lucky",
+                ShowToast(_localization.GetString("FeelingLucky", "Feeling Lucky"),
                     _localization.GetString("Toast.SelectSystemFirst", "Please select a system first."));
                 return;
             }
@@ -937,7 +942,7 @@ public partial class MainWindow : Window, IPaginationHost
             var randomGame = await _viewModel.PickRandomGameAsync();
             if (randomGame is null)
             {
-                ShowToast("Feeling Lucky",
+                ShowToast(_localization.GetString("FeelingLucky", "Feeling Lucky"),
                     _localization.GetString("Toast.NoGameFound", "No games found to pick from."));
                 return;
             }
@@ -950,7 +955,8 @@ public partial class MainWindow : Window, IPaginationHost
                 GameDataGrid.ScrollIntoView(randomGame, null);
             }
 
-            ShowToast("Feeling Lucky", _localization.GetString("Toast.FeelingLucky", "Picked a random game."));
+            ShowToast(_localization.GetString("FeelingLucky", "Feeling Lucky"),
+                _localization.GetString("Toast.FeelingLucky", "Picked a random game."));
         }
         catch (Exception ex)
         {
@@ -1000,8 +1006,8 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             var tooltip = string.Equals(_viewModel.MameSortOrder, "MachineDescription", StringComparison.Ordinal)
-                ? "Sort order: Machine Description"
-                : "Sort order: File Name";
+                ? _localization.GetString("SortorderMachineDescription", "Sort order: Machine Description")
+                : _localization.GetString("SortorderFileName", "Sort order: File Name");
             ToolTip.SetTip(MameSortOrderButton, tooltip);
         }
         catch (Exception ex)
@@ -1130,7 +1136,9 @@ public partial class MainWindow : Window, IPaginationHost
     {
         var query = SearchBox.Text;
         _viewModel.SearchText = query ?? "";
-        _viewModel.StatusText = string.IsNullOrEmpty(query) ? "Ready" : $"Search: \"{query}\"";
+        _viewModel.StatusText = string.IsNullOrEmpty(query)
+            ? _localization.GetString("Status.Ready", "Ready")
+            : string.Format(_localization.GetString("Status.SearchQuery", "Search: \"{0}\""), query);
     }
 
     /// <summary>Search button (WPF SearchButton parity): re-applies the current filter.</summary>
@@ -1138,7 +1146,9 @@ public partial class MainWindow : Window, IPaginationHost
     {
         var query = SearchBox.Text;
         _viewModel.SearchText = query ?? "";
-        _viewModel.StatusText = string.IsNullOrEmpty(query) ? "Ready" : $"Search: \"{query}\"";
+        _viewModel.StatusText = string.IsNullOrEmpty(query)
+            ? _localization.GetString("Status.Ready", "Ready")
+            : string.Format(_localization.GetString("Status.SearchQuery", "Search: \"{0}\""), query);
         SearchBox.Focus();
     }
 
@@ -1255,7 +1265,8 @@ public partial class MainWindow : Window, IPaginationHost
             UpdateButtonAspectRatioCheckMarks(newAspectRatio);
             _viewModel.ReloadGames();
             _playSound.PlayNotificationSound();
-            ShowToast("Button Aspect Ratio", $"Toggling button aspect ratio... {newAspectRatio}");
+            ShowToast(_localization.GetString("ButtonAspectRatio", "Button Aspect Ratio"),
+                $"{_localization.GetString("TogglingButtonAspectRatio", "Toggling button aspect ratio...")} {newAspectRatio}");
         }
         catch (Exception ex)
         {
@@ -1368,7 +1379,8 @@ public partial class MainWindow : Window, IPaginationHost
         var directory = Path.GetDirectoryName(game.FilePath);
         if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
         {
-            ShowToast("Show in Folder", "Folder not found.");
+            ShowToast(_localization.GetString("Context.ShowInFolder", "Show in Folder"),
+                _localization.GetString("Foldernotfound", "Folder not found."));
             return;
         }
 
@@ -1387,7 +1399,8 @@ public partial class MainWindow : Window, IPaginationHost
         catch (Exception ex)
         {
             Log.Debug(ex, "Failed to show game in folder: {Path}", game.FilePath);
-            ShowToast("Show in Folder", "Could not open the folder.");
+            ShowToast(_localization.GetString("Context.ShowInFolder", "Show in Folder"),
+                _localization.GetString("Couldnotopenthefolder", "Could not open the folder."));
         }
     }
 
@@ -1783,14 +1796,15 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
-            if (sender is not MenuItem { Tag: string tag } || !int.TryParse(tag, System.Globalization.CultureInfo.InvariantCulture, out var size)) return;
+            if (sender is not MenuItem { Tag: string tag } || !int.TryParse(tag, CultureInfo.InvariantCulture, out var size)) return;
 
             _settings.ThumbnailSize = size;
             await _settings.SaveAsync();
             _viewModel.CardWidth = size;
             UpdateThumbnailSizeCheckMarks(size);
             _playSound.PlayNotificationSound();
-            ShowToast("Button Size", $"{size} px");
+            ShowToast(_localization.GetString("ButtonSizeIcon", "Button Size"),
+                $"{size} {_localization.GetString("Px", "px")}");
         }
         catch (Exception ex)
         {
@@ -1812,7 +1826,7 @@ public partial class MainWindow : Window, IPaginationHost
             UpdateButtonAspectRatioCheckMarks(ratio);
             _viewModel.ReloadGames();
             _playSound.PlayNotificationSound();
-            ShowToast("Button Aspect Ratio", ratio);
+            ShowToast(_localization.GetString("ButtonAspectRatio", "Button Aspect Ratio"), ratio);
         }
         catch (Exception ex)
         {
@@ -1826,7 +1840,7 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
-            if (sender is not MenuItem { Tag: string tag } || !int.TryParse(tag, System.Globalization.CultureInfo.InvariantCulture, out var page)) return;
+            if (sender is not MenuItem { Tag: string tag } || !int.TryParse(tag, CultureInfo.InvariantCulture, out var page)) return;
 
             _settings.GamesPerPage = page;
             await _settings.SaveAsync();
@@ -1834,7 +1848,10 @@ public partial class MainWindow : Window, IPaginationHost
             _viewModel.ConfigurePagination(page);
             _viewModel.ReloadGames();
             _playSound.PlayNotificationSound();
-            ShowToast("Games Per Page", $"Preference saved: {page} games per page.");
+            var preferenceSavedTemplate =
+                _localization.GetString("Preferencesavedgamesperpage", "Preference saved: {0} games per page.");
+            ShowToast(_localization.GetString("GamesPerPage", "Games Per Page"),
+                string.Format(CultureInfo.InvariantCulture, preferenceSavedTemplate, page));
         }
         catch (Exception ex)
         {
@@ -2124,7 +2141,10 @@ public partial class MainWindow : Window, IPaginationHost
                 await _gamePadController.StopAsync();
 
             _playSound.PlayNotificationSound();
-            ShowToast("Gamepad Support", item.IsChecked ? "Enabled" : "Disabled");
+            ShowToast(_localization.GetString("GamepadSupport", "Gamepad Support"),
+                item.IsChecked
+                    ? _localization.GetString("Enabled", "Enabled")
+                    : _localization.GetString("Disabled", "Disabled"));
         }
         catch (Exception ex)
         {
@@ -2182,8 +2202,11 @@ public partial class MainWindow : Window, IPaginationHost
 
             await _settings.SaveAsync();
             _playSound.PlayNotificationSound();
-            var header = item.Header?.ToString() ?? "Overlay button";
-            ShowToast("Overlay Button", $"{header} {(isChecked ? "enabled" : "disabled")}");
+            var header = item.Header?.ToString() ?? _localization.GetString("Overlaybutton", "Overlay button");
+            ShowToast(_localization.GetString("OverlayButtonIcon", "Overlay Button"),
+                $"{header} {(isChecked
+                    ? _localization.GetString("OverlayEnabled", "enabled")
+                    : _localization.GetString("OverlayDisabled", "disabled"))}");
         }
         catch (Exception ex)
         {
@@ -2265,12 +2288,13 @@ public partial class MainWindow : Window, IPaginationHost
                 var foundText = _localization.GetString("FoundNewMicrosoftWindowsGames",
                     "Found new Microsoft Windows games. Refreshing system list.");
                 _viewModel.StatusText = foundText;
-                ShowToast("Microsoft Windows", foundText, ToastType.Success);
+                ShowToast(_localization.GetString("MicrosoftWindows", "Microsoft Windows"), foundText,
+                    ToastType.Success);
             }
 
             var action = result.SystemWasCreated
                 ? _localization.GetString("Created", "Created")
-                : _localization.GetString("Updated", "Updated");
+                : _localization.GetString("SystemUpdated", "Updated");
             var scanCompleteTitle = _localization.GetString("ScanComplete", "Scan Complete");
             if (result.GamesFound == 0 && !result.SystemWasCreated)
             {
@@ -2280,12 +2304,9 @@ public partial class MainWindow : Window, IPaginationHost
             }
             else
             {
-                var detail = _localization.GetString("FoundPcGamesDetail",
-                    $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).");
-                // Fallback when translation still contains placeholder English
-                if (detail.Contains("{0}", StringComparison.OrdinalIgnoreCase) || string.Equals(detail, $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).", StringComparison.OrdinalIgnoreCase))
-                    detail =
-                        $"Found {result.GamesFound} PC games. {action} the Microsoft Windows system with {result.ShortcutsCreated} new game shortcut(s).";
+                var template = _localization.GetString("FoundPcGamesDetail",
+                    "Found {0} PC games. {1} the Microsoft Windows system with {2} new game shortcut(s).");
+                var detail = string.Format(CultureInfo.InvariantCulture, template, result.GamesFound, action, result.ShortcutsCreated);
                 _viewModel.StatusText = detail;
                 ShowToast(scanCompleteTitle, detail);
             }
@@ -2423,11 +2444,11 @@ public partial class MainWindow : Window, IPaginationHost
 
             // Right-click context menu (WPF parity: Select / Edit / Delete)
             var contextMenu = new ContextMenu();
-            var selectItem = new MenuItem { Header = "Select System" };
+            var selectItem = new MenuItem { Header = _localization.GetString("SelectSystem", "Select System") };
             selectItem.Click += (_, _) => { SystemComboBox.SelectedItem = systemName; };
-            var editItem = new MenuItem { Header = "Edit System" };
+            var editItem = new MenuItem { Header = _localization.GetString("EditSystem", "Edit System") };
             editItem.Click += (_, _) => EditSystemFromGrid(systemName);
-            var deleteItem = new MenuItem { Header = "Delete System" };
+            var deleteItem = new MenuItem { Header = _localization.GetString("DeleteSystem", "Delete System") };
             deleteItem.Click += (_, _) => { _ = DeleteSystemFromGrid(systemName); };
             contextMenu.Items.Add(selectItem);
             contextMenu.Items.Add(editItem);
@@ -2542,11 +2563,13 @@ public partial class MainWindow : Window, IPaginationHost
             var games = _viewModel.GetAllGamesForHashing();
             if (games.Count == 0)
             {
-                ShowToast("RetroAchievements", "No games found to hash.");
+                ShowToast(_localization.GetString("RetroAchievements", "RetroAchievements"),
+                    _localization.GetString("Nogamesfoundtohash", "No games found to hash."));
                 return;
             }
 
-            var loading = new ToastLoadingState((title, message) => ShowToast(title, message));
+            var loading = new ToastLoadingState((title, message) =>
+                ShowToast(_localization.GetString("RetroAchievements", title), message));
             var successCount = 0;
 
             _viewModel.IsLoading = true;
@@ -2569,7 +2592,9 @@ public partial class MainWindow : Window, IPaginationHost
                     }
                 }
 
-                ShowToast("RetroAchievements", $"Hashed {successCount} of {games.Count} games.");
+                var hashedTemplate = _localization.GetString("Hashedofgames", "Hashed {0} of {1} games.");
+                ShowToast(_localization.GetString("RetroAchievements", "RetroAchievements"),
+                    string.Format(CultureInfo.InvariantCulture, hashedTemplate, successCount, games.Count));
             }
             finally
             {
@@ -2679,7 +2704,8 @@ public partial class MainWindow : Window, IPaginationHost
 
             try
             {
-                _viewModel.StatusText = $"Launching tool: {tool}...";
+                _viewModel.StatusText = string.Format(
+                    _localization.GetString("Status.LaunchingTool", "Launching tool: {0}..."), tool);
                 _playSound.PlayNotificationSound();
 
                 var romFolder = GetSelectedRomFolder();
@@ -2725,12 +2751,12 @@ public partial class MainWindow : Window, IPaginationHost
                         break;
                 }
 
-                _viewModel.StatusText = "Ready";
+                _viewModel.StatusText = _localization.GetString("Status.Ready", "Ready");
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "Error launching tool {Tool}", tool);
-                _viewModel.StatusText = "Error launching tool";
+                _viewModel.StatusText = _localization.GetString("Errorlaunchingtool", "Error launching tool");
             }
         }
         catch (Exception ex)
@@ -2888,12 +2914,4 @@ public partial class MainWindow : Window, IPaginationHost
     }
 
     #endregion
-}
-
-public enum ToastType
-{
-    Info,
-    Success,
-    Warning,
-    Error
 }

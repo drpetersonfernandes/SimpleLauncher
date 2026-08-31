@@ -7,56 +7,77 @@ using SimpleLauncher.ResourceTranslator.Models;
 namespace SimpleLauncher.ResourceTranslator.Services;
 
 /// <summary>
-///     Provides translation services using the DeepSeek API (OpenAI-compatible).
+///     Provides translation services using the OpenRouter API (OpenAI-compatible).
 /// </summary>
-public class DeepSeekTranslationService
+public class OpenRouterTranslationService
 {
     private static readonly HttpClient HttpClient = new()
     {
-        Timeout = TimeSpan.FromMinutes(5)
+        Timeout = TimeSpan.FromMinutes(10)
     };
 
     private readonly string _apiKey;
     private readonly string _modelId;
 
     /// <summary>
-    ///     Initializes a new instance of the <see cref="DeepSeekTranslationService" /> class.
+    ///     Initializes a new instance of the <see cref="OpenRouterTranslationService" /> class.
     /// </summary>
-    /// <param name="apiKey">The DeepSeek API key.</param>
+    /// <param name="apiKey">The OpenRouter API key.</param>
     /// <param name="modelId">The model identifier to use for translations.</param>
-    public DeepSeekTranslationService(string apiKey, string modelId)
+    public OpenRouterTranslationService(string apiKey, string modelId)
     {
         _apiKey = apiKey;
         _modelId = modelId;
     }
 
     /// <summary>
-    ///     Returns the list of available DeepSeek models for translation.
+    ///     Returns the list of available OpenRouter models for translation.
     /// </summary>
     /// <returns>A list of available model information.</returns>
-    public static IList<DeepSeekModelInfo> GetAvailableModels()
+    public static IList<OpenRouterModelInfo> GetAvailableModels()
     {
         return
         [
-            new DeepSeekModelInfo
+            new OpenRouterModelInfo
             {
-                Id = "deepseek-chat",
-                Name = "deepseek-chat",
-                Description = "DeepSeek-V3. $0.27 Input. $1.10 Output. 128K Context",
-                ContextLength = 131072
+                Id = "z-ai/glm-5.3-flash",
+                Name = "z-ai/glm-5.3-flash",
+                Description = "GLM-5.3-Flash. $0.07 Input. $0.25 Output. 1.3M Context",
+                ContextLength = 1310720
             },
-            new DeepSeekModelInfo
+            new OpenRouterModelInfo
             {
-                Id = "deepseek-reasoner",
-                Name = "deepseek-reasoner",
-                Description = "DeepSeek-R1. $0.55 Input. $2.19 Output. 128K Context",
-                ContextLength = 131072
+                Id = "deepseek/deepseek-v4-flash",
+                Name = "deepseek/deepseek-v4-flash",
+                Description = "DeepSeek-V4-Flash. $0.09 Input. $0.18 Output. 1M Context",
+                ContextLength = 1048576
+            },
+            new OpenRouterModelInfo
+            {
+                Id = "qwen/qwen3.7-flash",
+                Name = "qwen/qwen3.7-flash",
+                Description = "Qwen3.7-Flash. $0.03 Input. $0.13 Output. 1M Context",
+                ContextLength = 1000000
+            },
+            new OpenRouterModelInfo
+            {
+                Id = "qwen/qwen3.8-flash",
+                Name = "qwen/qwen3.8-flash",
+                Description = "Qwen3.8-Flash. $0.15 Input. $0.47 Output. 1M Context",
+                ContextLength = 1000000
+            },
+            new OpenRouterModelInfo
+            {
+                Id = "deepseek/deepseek-v4-pro-0813",
+                Name = "deepseek/deepseek-v4-pro-0813",
+                Description = "DeepSeek-V4-Pro. $0.66 Input. $1.98 Output. 1M Context",
+                ContextLength = 1048576
             }
         ];
     }
 
     /// <summary>
-    ///     Translates a batch of key-value pairs to the target language using DeepSeek API.
+    ///     Translates a batch of key-value pairs to the target language using the OpenRouter API.
     /// </summary>
     /// <param name="targetLanguageName">The name of the target language.</param>
     /// <param name="entries">The list of key-value pairs to translate.</param>
@@ -69,7 +90,7 @@ public class DeepSeekTranslationService
     {
         try
         {
-            const string apiUrl = "https://api.deepseek.com/chat/completions";
+            const string apiUrl = "https://openrouter.ai/api/v1/chat/completions";
 
             var sb = new StringBuilder();
             sb.AppendLine(CultureInfo.InvariantCulture,
@@ -82,7 +103,12 @@ public class DeepSeekTranslationService
             sb.AppendLine("English strings:");
             foreach (var entry in entries)
             {
-                var escapedValue = entry.Value.Replace("|", "\\|");
+                // Escape newlines (as literal \n markers) and pipes so every entry
+                // stays on a single prompt line; ParseTranslations reverses both.
+                var escapedValue = entry.Value
+                    .Replace("\r\n", "\\n")
+                    .Replace("\n", "\\n")
+                    .Replace("|", "\\|");
                 sb.AppendLine(CultureInfo.InvariantCulture, $"{entry.Key}|{escapedValue}");
             }
 
@@ -99,17 +125,26 @@ public class DeepSeekTranslationService
                 },
                 temperature = 0.2,
                 top_p = 0.95
+
+                // NOTE: no `reasoning` parameter. Some endpoints (e.g. z-ai/glm-5.3-flash)
+                // mandate reasoning and reject `reasoning: { enabled: false }` with a 400.
+                // Thinking output arrives in a separate `message.reasoning` field which is
+                // ignored here; ParseTranslations only reads "Key|Value" lines, so any
+                // reasoning noise in the content is harmless.
             };
 
             using var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
             request.Headers.Add("Authorization", $"Bearer {_apiKey}");
+            // Optional OpenRouter attribution headers
+            request.Headers.Add("HTTP-Referer", "https://github.com/drpetersonfernandes/SimpleLauncher");
+            request.Headers.Add("X-Title", "Simple Launcher Resource Translator");
             request.Content = JsonContent.Create(requestData);
 
             using var response = await HttpClient.SendAsync(request, cancellationToken);
             var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);
 
             if (!response.IsSuccessStatusCode)
-                throw new HttpRequestException($"DeepSeek API error ({response.StatusCode}): {responseJson}");
+                throw new HttpRequestException($"OpenRouter API error ({response.StatusCode}): {responseJson}");
 
             var text = ExtractTextFromResponse(responseJson);
             return ParseTranslations(text, entries.Select(static e => e.Key).ToList());
@@ -130,25 +165,25 @@ public class DeepSeekTranslationService
             var errorMessage = errorElement.TryGetProperty("message", out var msgProp)
                 ? msgProp.GetString()
                 : "Unknown error";
-            throw new InvalidOperationException($"DeepSeek API error: {errorMessage}");
+            throw new InvalidOperationException($"OpenRouter API error: {errorMessage}");
         }
 
         if (!doc.RootElement.TryGetProperty("choices", out var choices) ||
             choices.ValueKind != JsonValueKind.Array ||
             choices.GetArrayLength() == 0)
-            throw new InvalidOperationException("No choices in DeepSeek response.");
+            throw new InvalidOperationException("No choices in OpenRouter response.");
 
         var first = choices[0];
         if (first.TryGetProperty("finish_reason", out var finishReason))
         {
             var reason = finishReason.GetString();
             if (!string.Equals(reason, "stop", StringComparison.Ordinal))
-                throw new InvalidOperationException($"DeepSeek generation stopped. Reason: {reason}");
+                throw new InvalidOperationException($"Generation stopped. Reason: {reason}");
         }
 
         if (!first.TryGetProperty("message", out var message) ||
             !message.TryGetProperty("content", out var contentElement))
-            throw new InvalidOperationException("Unable to extract content from DeepSeek response.");
+            throw new InvalidOperationException("Unable to extract content from OpenRouter response.");
 
         return contentElement.GetString() ?? "";
     }
@@ -169,8 +204,8 @@ public class DeepSeekTranslationService
             var key = line[..pipeIndex].Trim();
             var value = line[(pipeIndex + 1)..].Trim();
 
-            // Unescape pipes
-            value = value.Replace("\\|", "|");
+            // Unescape pipes and newline markers
+            value = value.Replace("\\|", "|").Replace("\\n", "\n");
 
             if (remainingKeys.Contains(key))
             {

@@ -56,7 +56,8 @@ public class MinimalLauncherServiceGatingTests : IDisposable
             new Mock<IParameterResolverService>().Object,
             new Mock<ISystemConfigurationWriterService>().Object,
             systemManager,
-            logger);
+            logger,
+            new Services.LocalizationService());
 
         var settings = new SettingsManagerService(
             config, logger, new Mock<ICredentialProtector>().Object, _messageBox.Object);
@@ -74,7 +75,8 @@ public class MinimalLauncherServiceGatingTests : IDisposable
             [new DefaultLaunchStrategy()],
             new PlayHistoryManager(),
             new Mock<Stats>(new Mock<IHttpClientFactory>().Object, config, logger).Object,
-            new Mock<GamePadController>(_messageBox.Object, config, logger).Object);
+            new Mock<GamePadController>(_messageBox.Object, config, logger).Object,
+            new Services.LocalizationService());
     }
 
     private static Emulator CreateEmulator(string name)

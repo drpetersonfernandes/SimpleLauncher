@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Avalonia.Models;
 using SimpleLauncher.Avalonia.Services;
 using SimpleLauncher.Avalonia.ViewModels;
 using SimpleLauncher.Avalonia.Views;
@@ -134,10 +135,20 @@ public partial class GameDetailWindow : Window
     {
         try
         {
+            var confirmMessage = _localization is not null
+                ? string.Format(
+                    _localization.GetString("GameDetail.RemoveConfirm",
+                        "Remove \"{0}\" from your library?\nThis will not delete the file."),
+                    _game.DisplayTitle)
+                : $"Remove \"{_game.DisplayTitle}\" from your library?\nThis will not delete the file.";
+            var confirmTitle = _localization is not null
+                ? _localization.GetString("GameDetail.RemoveGame", "Remove Game")
+                : "Remove Game";
+
             var result = await MessageDialogWindow.ShowAsync(
                 this,
-                $"Remove \"{_game.DisplayTitle}\" from your library?\nThis will not delete the file.",
-                "Remove Game",
+                confirmMessage,
+                confirmTitle,
                 MessageButtons.YesNo,
                 MessageIcon.Question);
 

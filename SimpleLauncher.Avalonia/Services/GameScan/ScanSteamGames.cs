@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.Win32;
+using SimpleLauncher.Avalonia.Interfaces;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Services.SanitizeInputString;
 #if WINDOWS

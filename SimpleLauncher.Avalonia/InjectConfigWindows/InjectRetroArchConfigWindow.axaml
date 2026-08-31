@@ -2,7 +2,7 @@
         xmlns="https://github.com/avaloniaui"
         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="RetroArch Configuration"
+        Title="{ext:Translate RetroArchConfig_Title}"
         Height="800" Width="700"
         WindowStartupLocation="CenterOwner"
         Background="{DynamicResource BgPrimaryBrush}">
@@ -26,7 +26,7 @@
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate RetroArchConfig_Fullscreen_Tooltip}" />
                         <CheckBox IsChecked="{Binding Vsync}"
-                                  Content="{ext:Translate RetroArchConfig_Vsync_Checkbox}"
+                                  Content="{ext:Translate RetroArchConfig_VSync_Checkbox}"
                                   Margin="0,5"
                                   ToolTip.Tip="{ext:Translate RetroArchConfig_VSync_Tooltip}" />
                         <CheckBox IsChecked="{Binding ThreadedVideo}"

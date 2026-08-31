@@ -96,7 +96,8 @@ public class MainViewModelQuickActionsTests : IDisposable
             _messageBox.Object,
             _mameData.Object,
             new AvaloniaGameFilterService(new Mock<IFindCoverImageService>().Object, settings, _mameData.Object),
-            new AvaloniaLoadingOverlayService(new PlaySoundEffects(settings, _logger.Object)));
+            new AvaloniaLoadingOverlayService(new PlaySoundEffects(settings, _logger.Object)),
+            new LocalizationService());
 
         // Paginate only above 1 million games so the test views are never sliced.
         _viewModel.ConfigurePagination(1_000_000);
@@ -132,7 +133,8 @@ public class MainViewModelQuickActionsTests : IDisposable
             new Mock<IParameterResolverService>().Object,
             new Mock<ISystemConfigurationWriterService>().Object,
             systemManager,
-            logger);
+            logger,
+            new LocalizationService());
 
         return new LauncherService(
             messageBox.Object,
@@ -147,7 +149,8 @@ public class MainViewModelQuickActionsTests : IDisposable
             [new DefaultLaunchStrategy()],
             new PlayHistoryManager(),
             new Mock<Stats>(new Mock<IHttpClientFactory>().Object, config, logger).Object,
-            new Mock<GamePadController>(messageBox.Object, config, logger).Object);
+            new Mock<GamePadController>(messageBox.Object, config, logger).Object,
+            new LocalizationService());
     }
 
     private int FullGameCount()

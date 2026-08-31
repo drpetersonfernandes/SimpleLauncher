@@ -81,7 +81,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
 
         // Initialize info text
-        InfoText = _resourceProvider.GetString("GlobalStatsExplanation", "");
+        InfoText = _resourceProvider.GetString("GlobalStatsExplanation", "Statistics calculated:");
         BusyOverlayText = _resourceProvider.GetString("Processingpleasewait", "Processing");
     }
 
@@ -319,7 +319,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         IsStartButtonVisible = true;
         IsSaveButtonVisible = false;
         SystemStats.Clear();
-        InfoText = _resourceProvider.GetString("GlobalStatsExplanation", "");
+        InfoText = _resourceProvider.GetString("GlobalStatsExplanation", "Statistics calculated:");
         BusyOverlayText = _resourceProvider.GetString("Processingpleasewait", "Processing");
     }
 

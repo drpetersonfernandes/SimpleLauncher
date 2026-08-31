@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 
 namespace SimpleLauncher.ResourceTranslator.Services;
@@ -10,7 +11,11 @@ public static class JsonResourceWriter
 {
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
-        WriteIndented = true
+        WriteIndented = true,
+
+        // Keep non-ASCII characters (e.g. Arabic, CJK) as readable UTF-8 text
+        // instead of \uXXXX escape sequences. The default encoder escapes them.
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
     };
 
     /// <summary>

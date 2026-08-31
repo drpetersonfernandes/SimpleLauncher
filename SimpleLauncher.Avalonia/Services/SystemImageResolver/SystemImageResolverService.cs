@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Avalonia.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.FindCoverImage;
 using SimpleLauncher.Core.Services.SettingsManager;

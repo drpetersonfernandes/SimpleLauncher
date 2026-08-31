@@ -1,4 +1,6 @@
-namespace SimpleLauncher.Avalonia.Services.GameScan;
+using SimpleLauncher.Avalonia.Services.GameScan;
+
+namespace SimpleLauncher.Avalonia.Interfaces;
 
 /// <summary>
 ///     Provides methods to scan for games available on a specific platform.

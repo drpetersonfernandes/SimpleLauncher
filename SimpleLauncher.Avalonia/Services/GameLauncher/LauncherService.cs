@@ -5,6 +5,7 @@ using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
+using SimpleLauncher.Avalonia.Interfaces;
 using SimpleLauncher.Avalonia.Services.PlayHistory;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -35,6 +36,7 @@ public class LauncherService : ILauncherService
     private readonly IExtractionService _extractionService;
     private readonly GamePadController _gamePadController;
     private readonly IEnumerable<ILaunchStrategy> _launchStrategies;
+    private readonly LocalizationService _localization;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IMountChdFiles _mountChdFiles;
     private readonly IMountXisoFiles _mountXisoFiles;
@@ -56,7 +58,8 @@ public class LauncherService : ILauncherService
         IEnumerable<ILaunchStrategy> launchStrategies,
         PlayHistoryManager playHistoryManager,
         Stats stats,
-        GamePadController gamePadController)
+        GamePadController gamePadController,
+        LocalizationService localization)
     {
         _messageBox = messageBox;
         _configHandlers = configHandlers;
@@ -68,6 +71,7 @@ public class LauncherService : ILauncherService
         _askAiToFixParameters = askAiToFixParameters;
         _settings = settings;
         _launchStrategies = launchStrategies.OrderBy(static s => s.Priority).ToList();
+        _localization = localization;
 
         // WPF parity: read EmulatorsToSkipErrorChecking from config with hardcoded fallback
         var configEmulatorsToSkip = configuration
@@ -110,7 +114,7 @@ public class LauncherService : ILauncherService
         string? originalFilePathForDisplay = null)
     {
         LastPlayTime = TimeSpan.Zero;
-        loadingStateProvider?.SetLoadingState(true, "Preparing...");
+        loadingStateProvider?.SetLoadingState(true, _localization.GetString("Preparing", "Preparing..."));
 
         // Use the original file path for display when provided (e.g., mounted/extracted
         // files) so toasts show the original archive name (WPF LaunchRegularEmulatorAsync parity).
@@ -165,7 +169,8 @@ public class LauncherService : ILauncherService
                     {
                         var logPath = PathHelper.ResolveRelativeToAppDirectory(
                             _configuration.GetValue<string>("LogPath") ?? "error_user.log");
-                        loadingStateProvider?.SetLoadingState(true, "Mounting archive...");
+                        loadingStateProvider?.SetLoadingState(true,
+                            _localization.GetString("Mountingarchive", "Mounting archive..."));
 
                         if (isRpcs3)
                             await _mountZipFiles.MountZipFileAndLoadEbootBinAsync(
@@ -198,7 +203,8 @@ public class LauncherService : ILauncherService
                                             emulatorName.Contains("SameBoy", StringComparison.OrdinalIgnoreCase);
                     if (requiresRealFiles)
                     {
-                        loadingStateProvider?.SetLoadingState(true, "Extracting...");
+                        loadingStateProvider?.SetLoadingState(true,
+                            _localization.GetString("ExtractingEllipsis", "Extracting..."));
                         var (gameFilePath, tempDirectoryPath) =
                             await _extractionService.ExtractToTempAndGetLaunchFileAsync(
                                 resolvedFilePath, selectedSystemManager.FileFormatsToLaunch);
@@ -230,7 +236,8 @@ public class LauncherService : ILauncherService
                     // the WPF XisoMountStrategy). Emulators like Xemu read the ISO natively.
                     if (emulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase))
                     {
-                        loadingStateProvider?.SetLoadingState(true, "Mounting XISO...");
+                        loadingStateProvider?.SetLoadingState(true,
+                            _localization.GetString("MountingXISO", "Mounting XISO..."));
                         var logPath = PathHelper.ResolveRelativeToAppDirectory(
                             _configuration.GetValue<string>("LogPath") ?? "error_user.log");
                         mountedXiso = await _mountXisoFiles.MountAsync(
@@ -257,7 +264,8 @@ public class LauncherService : ILauncherService
                     var chdKind = GetChdGameFileKind(emulatorName, emulatorLocation);
                     if (chdKind != ChdGameFileKind.None)
                     {
-                        loadingStateProvider?.SetLoadingState(true, "Mounting CHD...");
+                        loadingStateProvider?.SetLoadingState(true,
+                            _localization.GetString("MountingCHD", "Mounting CHD..."));
                         var consoleAlias = _mountChdFiles.GetConsoleAliasFromSystemName(
                             selectedSystemManager.SystemName, emulatorName, emulatorLocation, Log.Logger);
                         mountedChd = await _mountChdFiles.MountAsync(
@@ -351,11 +359,12 @@ public class LauncherService : ILauncherService
             }
 
             // ── Launch ──
-            loadingStateProvider?.SetLoadingState(true, "Launching...");
+            loadingStateProvider?.SetLoadingState(true, _localization.GetString("Launching", "Launching..."));
 
             if (string.IsNullOrWhiteSpace(emulatorPath))
             {
-                await _messageBox.ErrorLaunchingGameMessageBoxAsync("No emulator path configured.");
+                await _messageBox.ErrorLaunchingGameMessageBoxAsync(
+                    _localization.GetString("Noemulatorpathconfigured", "No emulator path configured."));
                 return;
             }
 
@@ -455,7 +464,7 @@ public class LauncherService : ILauncherService
             // WPF parity: show "X launched with Y" feedback before starting the emulator.
             if (loadingStateProvider is ILaunchFeedback launchFeedback)
             {
-                var launchedWith = "launched with";
+                var launchedWith = _localization.GetString("launchedwith", "launched with");
                 launchFeedback.ShowToast("Simple Launcher", $"{originalFileName} {launchedWith} {emulatorName}");
                 launchFeedback.SetStatusText($"{originalFileName} {launchedWith} {emulatorName}");
             }
@@ -593,7 +602,7 @@ public class LauncherService : ILauncherService
                 GamePlayed?.Invoke(this, new GamePlayedEventArgs(resolvedFilePath, selectedSystemManager.SystemName));
             }
 
-            loadingStateProvider?.SetLoadingState(false, "Done");
+            loadingStateProvider?.SetLoadingState(false, _localization.GetString("Done", "Done"));
         }
         finally
         {
@@ -695,7 +704,8 @@ public class LauncherService : ILauncherService
                 h.IsMatch(context.EmulatorName, context.EmulatorManager?.EmulatorLocation ?? ""));
             if (configHandler != null)
             {
-                loadingStateProvider?.SetLoadingState(true, "Configuring emulator...");
+                loadingStateProvider?.SetLoadingState(true,
+                    _localization.GetString("Configuringemulator", "Configuring emulator..."));
                 if (!await configHandler.HandleConfigurationAsync(context))
                 {
                     Log.Information("Emulator config handler {Handler} aborted launch for {Emulator}",
@@ -1060,7 +1070,8 @@ public class LauncherService : ILauncherService
             var playTimeFormatted = string.Format(
                 CultureInfo.InvariantCulture, "{0}:{1:D2}:{2:D2}",
                 totalHours, playTime.Minutes, playTime.Seconds);
-            launchFeedback.ShowToast("Simple Launcher", $"Playtime: {playTimeFormatted}");
+            var playTimeLabel = _localization.GetString("Playtime", "Playtime:");
+            launchFeedback.ShowToast("Simple Launcher", $"{playTimeLabel} {playTimeFormatted}");
             launchFeedback.SetStatusText("");
         }
 

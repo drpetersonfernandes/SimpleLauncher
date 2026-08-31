@@ -1,4 +1,5 @@
 using System.Text.Json;
+using SimpleLauncher.Avalonia.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.SanitizeInputString;
 

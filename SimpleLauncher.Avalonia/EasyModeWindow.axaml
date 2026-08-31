@@ -92,11 +92,11 @@
                                TextWrapping="Wrap" FontSize="12"
                                Foreground="{DynamicResource TextMutedBrush}" Margin="0,0,0,6" />
                     <HyperlinkButton NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails"
-                                     Content="Libretro Thumbnails (GitHub)"
+                                     Content="{ext:Translate DownloadImagePackWindow_Libretro_Thumbnails_GitHub}"
                                      Foreground="{DynamicResource LinkBrush}"
                                      Margin="0,2" />
                     <HyperlinkButton NavigateUri="https://emumovies.com/files/"
-                                     Content="EmuMovies Files"
+                                     Content="{ext:Translate DownloadImagePackWindow_EmuMovies_Files}"
                                      Foreground="{DynamicResource LinkBrush}"
                                      Margin="0,2" />
                 </StackPanel>

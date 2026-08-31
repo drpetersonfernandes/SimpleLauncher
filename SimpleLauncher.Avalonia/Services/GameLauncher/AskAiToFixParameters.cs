@@ -14,6 +14,7 @@ namespace SimpleLauncher.Avalonia.Services.GameLauncher;
 public class AskAiToFixParameters
 {
     private readonly ILogger _logger;
+    private readonly LocalizationService _localization;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IParameterResolverService _parameterResolver;
     private readonly SystemManagerService _systemManager;
@@ -27,13 +28,15 @@ public class AskAiToFixParameters
         IParameterResolverService parameterResolver,
         ISystemConfigurationWriterService writer,
         SystemManagerService systemManager,
-        ILogger logger)
+        ILogger logger,
+        LocalizationService localization)
     {
         _messageBox = messageBox;
         _parameterResolver = parameterResolver;
         _writer = writer;
         _systemManager = systemManager;
         _logger = logger;
+        _localization = localization;
     }
 
     /// <summary>
@@ -59,7 +62,8 @@ public class AskAiToFixParameters
 
             _logger.Debug("[AskAiToFixParameters] User accepted AI parameter suggestion.");
 
-            loadingStateProvider?.SetLoadingState(true, "Resolving parameters, please wait...");
+            loadingStateProvider?.SetLoadingState(true,
+                _localization.GetString("ParameterResolverLoading", "Resolving parameters, please wait..."));
 
             try
             {
@@ -100,8 +104,10 @@ public class AskAiToFixParameters
                     suggestedParam = "";
                 }
 
-                const string aiSuggestionTitle = "Parameter Suggestion";
-                var dialogMessage = $"Do you want to apply this parameter?\n\n{suggestedParam}";
+                var aiSuggestionTitle = _localization.GetString("AiParameterSuggestionTitle", "Parameter Suggestion");
+                var confirmMessage =
+                    _localization.GetString("ParameterResolverConfirmApply", "Do you want to apply this parameter?");
+                var dialogMessage = $"{confirmMessage}\n\n{suggestedParam}";
                 if (!string.IsNullOrEmpty(explanation)) dialogMessage += $"\n\nExplanation: {explanation}";
 
                 var applyResult = await _messageBox.CustomQuestionMessageBoxAsync(aiSuggestionTitle, dialogMessage);
@@ -157,7 +163,8 @@ public class AskAiToFixParameters
 
                 await _messageBox.CustomInfoMessageBoxAsync(
                     aiSuggestionTitle,
-                    "The parameter has been updated. Please try launching the game again.");
+                    _localization.GetString("AiSuggestedParameterApplied",
+                        "The parameter has been updated. Please try launching the game again."));
             }
             finally
             {

@@ -47,7 +47,7 @@ public class Program
             Console.WriteLine();
 
             // Prompt for API key (not stored)
-            Console.Write("Enter your DeepSeek API key: ");
+            Console.Write("Enter your OpenRouter API key: ");
             var apiKey = Console.ReadLine()?.Trim();
             if (string.IsNullOrEmpty(apiKey))
             {
@@ -58,11 +58,11 @@ public class Program
             Console.WriteLine();
 
             // Model selection
-            var models = DeepSeekTranslationService.GetAvailableModels();
-            Log.Information("Available DeepSeek models:");
+            var models = OpenRouterTranslationService.GetAvailableModels();
+            Log.Information("Available OpenRouter models:");
             for (var i = 0; i < models.Count; i++)
             {
-                var marker = string.Equals(models[i].Id, "deepseek-chat", StringComparison.Ordinal)
+                var marker = string.Equals(models[i].Id, "z-ai/glm-5.3-flash", StringComparison.Ordinal)
                     ? " (default)"
                     : "";
                 Console.WriteLine($"  {i + 1}. {models[i].Name} - {models[i].Description}{marker}");
@@ -72,13 +72,13 @@ public class Program
             Console.Write("Select model number (press Enter for default): ");
             var modelInput = Console.ReadLine()?.Trim();
 
-            DeepSeekModelInfo selectedModel;
+            OpenRouterModelInfo selectedModel;
             if (string.IsNullOrEmpty(modelInput) ||
                 !int.TryParse(modelInput, CultureInfo.InvariantCulture, out var modelIndex) ||
                 modelIndex < 1 || modelIndex > models.Count)
             {
                 selectedModel = models.First(static m =>
-                    string.Equals(m.Id, "deepseek-chat", StringComparison.Ordinal));
+                    string.Equals(m.Id, "z-ai/glm-5.3-flash", StringComparison.Ordinal));
                 Log.Information("Using default model: {ModelName}", selectedModel.Name);
             }
             else
@@ -89,7 +89,7 @@ public class Program
 
             Console.WriteLine();
 
-            var translator = new DeepSeekTranslationService(apiKey, selectedModel.Id);
+            var translator = new OpenRouterTranslationService(apiKey, selectedModel.Id);
             var overallStopwatch = Stopwatch.StartNew();
             var totalTranslated = 0;
             var totalDuplicatesRemoved = 0;
@@ -164,7 +164,7 @@ public class Program
         Func<string, IDictionary<string, string>> readEnglishKeys,
         Func<string, IDictionary<string, string>, IList<MissingKeyBatch>> analyzeAllLanguages,
         Action<string, IDictionary<string, string>, IList<string>> updateResourceFile,
-        DeepSeekTranslationService translator)
+        OpenRouterTranslationService translator)
     {
         var englishFile = Path.Combine(resourcesPath, englishFileName);
         if (!File.Exists(englishFile))

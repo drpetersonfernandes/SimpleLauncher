@@ -1,4 +1,5 @@
 using Microsoft.Win32;
+using SimpleLauncher.Avalonia.Interfaces;
 using SimpleLauncher.Core.Services.SanitizeInputString;
 
 namespace SimpleLauncher.Avalonia.Services.GameScan;

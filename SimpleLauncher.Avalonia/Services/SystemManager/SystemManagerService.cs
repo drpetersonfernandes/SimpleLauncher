@@ -20,10 +20,10 @@ public class SystemManagerService
     private static readonly Lock XmlLock = new();
 
     private static readonly Regex SystemConfigBlockRegexInstance =
-        new(@"<SystemConfig\b[^>]*>.*?</SystemConfig>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        new(@"<SystemConfig\b[^>]*>.*?</SystemConfig>", RegexOptions.Singleline | RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
 
     private static readonly Regex SystemNameRegexInstance =
-        new(@"<SystemName>\s*(.*?)\s*</SystemName>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        new(@"<SystemName>\s*(.*?)\s*</SystemName>", RegexOptions.Singleline | RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
 
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService? _messageBox;

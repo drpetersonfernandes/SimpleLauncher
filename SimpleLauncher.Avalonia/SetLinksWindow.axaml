@@ -2,7 +2,7 @@
         xmlns="https://github.com/avaloniaui"
         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Edit Links"
+        Title="{ext:Translate EditLinks}"
         Width="600" MinWidth="600"
         Height="270"
         CanResize="False"

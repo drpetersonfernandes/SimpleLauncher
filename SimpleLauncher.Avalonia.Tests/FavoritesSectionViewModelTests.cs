@@ -96,7 +96,8 @@ public class FavoritesSectionViewModelTests : IDisposable
             _messageBox.Object,
             _mameData.Object,
             new AvaloniaGameFilterService(new Mock<IFindCoverImageService>().Object, settings, _mameData.Object),
-            new AvaloniaLoadingOverlayService(new PlaySoundEffects(settings, _logger.Object)));
+            new AvaloniaLoadingOverlayService(new PlaySoundEffects(settings, _logger.Object)),
+            new LocalizationService());
         _mainViewModel.ConfigurePagination(1_000_000);
     }
 
@@ -130,7 +131,8 @@ public class FavoritesSectionViewModelTests : IDisposable
             new Mock<IParameterResolverService>().Object,
             new Mock<ISystemConfigurationWriterService>().Object,
             systemManager,
-            logger);
+            logger,
+            new LocalizationService());
 
         return new LauncherService(
             messageBox.Object,
@@ -145,7 +147,8 @@ public class FavoritesSectionViewModelTests : IDisposable
             [new DefaultLaunchStrategy()],
             new PlayHistoryManager(),
             new Mock<Stats>(new Mock<IHttpClientFactory>().Object, config, logger).Object,
-            new Mock<GamePadController>(messageBox.Object, config, logger).Object);
+            new Mock<GamePadController>(messageBox.Object, config, logger).Object,
+            new LocalizationService());
     }
 
     private static FavoritesManager CreateManager(params Favorite[] favorites)
@@ -168,7 +171,8 @@ public class FavoritesSectionViewModelTests : IDisposable
             _messageBox.Object,
             _config,
             _mainViewModel,
-            _logger.Object);
+            _logger.Object,
+            new LocalizationService());
     }
 
     [Fact]

@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
+using SimpleLauncher.Avalonia.Interfaces;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using SimpleLauncher.Core.Models;

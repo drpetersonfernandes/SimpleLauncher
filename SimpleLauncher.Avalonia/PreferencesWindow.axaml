@@ -2,7 +2,7 @@
         xmlns="https://github.com/avaloniaui"
         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Preferences"
+        Title="{ext:Translate Sidebar.Preferences}"
         Width="800" Height="550"
         MinWidth="700" MinHeight="450"
         WindowStartupLocation="CenterOwner"
@@ -175,8 +175,8 @@
                                        FontWeight="SemiBold"
                                        Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,0,6" />
                             <ComboBox x:Name="DefaultViewCombo" Width="200" Margin="0,0,0,20">
-                                <ComboBoxItem Content="Grid View" Tag="GridView" />
-                                <ComboBoxItem Content="List View" Tag="ListView" />
+                                <ComboBoxItem Content="{ext:Translate GridView}" Tag="GridView" />
+                                <ComboBoxItem Content="{ext:Translate ListView}" Tag="ListView" />
                             </ComboBox>
 
                             <TextBlock Text="{ext:Translate PreferencesWindow_Default_Card_Width}" FontSize="13"

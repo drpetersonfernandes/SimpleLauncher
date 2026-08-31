@@ -17,6 +17,7 @@ namespace SimpleLauncher.Avalonia.ViewModels;
 public partial class PlayHistorySectionViewModel : ObservableObject
 {
     private readonly IFindCoverImageService _findCoverImage;
+    private readonly Services.LocalizationService _localization;
     private readonly ILogger _logErrors;
     private readonly MainViewModel _mainViewModel;
     private readonly IMameDataService _mameData;
@@ -41,7 +42,8 @@ public partial class PlayHistorySectionViewModel : ObservableObject
         PlaySoundEffects playSoundEffects,
         MainViewModel mainViewModel,
         IMessageBoxLibraryService messageBox,
-        ILogger logErrors)
+        ILogger logErrors,
+        Services.LocalizationService localization)
     {
         _playHistoryManager = playHistoryManager;
         _systemManager = systemManager;
@@ -51,6 +53,7 @@ public partial class PlayHistorySectionViewModel : ObservableObject
         _mainViewModel = mainViewModel;
         _messageBox = messageBox;
         _logErrors = logErrors;
+        _localization = localization;
     }
 
     /// <summary>
@@ -136,7 +139,8 @@ public partial class PlayHistorySectionViewModel : ObservableObject
             {
                 if (SelectedItem is not { } item)
                 {
-                    _mainViewModel.StatusText = "Select a history item to remove first.";
+                    _mainViewModel.StatusText = _localization.GetString("Selectahistoryitemtoremovefirst",
+                        "Select a history item to remove first.");
                     return Task.CompletedTask;
                 }
 
@@ -188,7 +192,8 @@ public partial class PlayHistorySectionViewModel : ObservableObject
     {
         if (SelectedItem is not { } item)
         {
-            _mainViewModel.StatusText = "Select a game to launch first.";
+            _mainViewModel.StatusText =
+                _localization.GetString("Selectagametolaunchfirst", "Select a game to launch first.");
             return;
         }
 
@@ -198,7 +203,8 @@ public partial class PlayHistorySectionViewModel : ObservableObject
         {
             // Expected condition (history points to a missing file) — keep out of the bug report service.
             _logErrors.Information("History file does not exist: {Path}", item.FileName);
-            _mainViewModel.StatusText = $"File does not exist: {item.DisplayName}";
+            _mainViewModel.StatusText =
+                $"{_localization.GetString("Filedoesnotexist", "File does not exist:")} {item.DisplayName}";
             return;
         }
 

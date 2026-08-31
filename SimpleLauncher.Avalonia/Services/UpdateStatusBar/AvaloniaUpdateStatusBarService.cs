@@ -1,15 +1,7 @@
 using Avalonia.Threading;
+using SimpleLauncher.Avalonia.Interfaces;
 
 namespace SimpleLauncher.Avalonia.Services.UpdateStatusBar;
-
-/// <summary>
-///     UI surface the status bar service drives.
-/// </summary>
-public interface IAvaloniaStatusBarHost
-{
-    /// <summary>Updates the status bar text content.</summary>
-    void SetStatusText(string text);
-}
 
 /// <summary>
 ///     Manages status bar text updates with auto-clear timeout.

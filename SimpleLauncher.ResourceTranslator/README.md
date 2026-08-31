@@ -1,20 +1,20 @@
 # SimpleLauncher.ResourceTranslator
 
-Console application that uses the **Google Gemini API** to automatically translate missing English resource keys into all other language files for [SimpleLauncher](../SimpleLauncher).
+Console application that uses the **OpenRouter API** to automatically translate missing English resource keys into all other language files for [SimpleLauncher](../SimpleLauncher).
 
 ## What It Does
 
 1. Scans `SimpleLauncher/resources/strings.en.xaml` as the master key list.
 2. Compares every other `strings.*.xaml` file against English.
 3. **Auto-removes duplicate keys** found in target language files.
-4. **Translates missing keys** in batches via Gemini LLM.
+4. **Translates missing keys** in batches via LLM.
 5. **Preserves empty values** from English as empty tags in target languages.
 6. **Re-sorts** each resource file alphabetically by key after writing.
 
 ## Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- A [Google Gemini API key](https://aistudio.google.com/app/apikey) (the app **prompts every run** and does **not** store it)
+- An [OpenRouter API key](https://openrouter.ai/keys) (the app **prompts every run** and does **not** store it)
 
 ## Running
 
@@ -27,8 +27,8 @@ dotnet run --project SimpleLauncher.ResourceTranslator
 1. The app locates `SimpleLauncher/resources` automatically from the solution structure.
 2. It prints an analysis summary: how many languages need updates, how many keys are missing, and how many duplicates will be removed.
 3. Press any key to proceed.
-4. Enter your Gemini API key when prompted.
-5. Select a model (or press Enter for the default `gemini-2.5-flash`).
+4. Enter your OpenRouter API key when prompted.
+5. Select a model (or press Enter for the default `z-ai/glm-5.3-flash`).
 6. The app translates keys in batches of 40 with a small delay between requests to avoid rate limits.
 7. Each language file is updated and saved automatically.
 
@@ -39,11 +39,11 @@ SimpleLauncher.ResourceTranslator/
 ├── SimpleLauncher.ResourceTranslator.csproj
 ├── Program.cs                          # Entry point, user prompts, orchestration
 ├── Models/
-│   ├── GeminiModelInfo.cs              # Model metadata (id, name, description, api version)
+│   ├── OpenRouterModelInfo.cs            # Model metadata (id, name, description)
 │   └── MissingKeyBatch.cs              # Holds missing keys & duplicates per language
 └── Services/
     ├── ResourceAnalyzer.cs             # Reads English keys and diffs other languages
-    ├── GeminiTranslationService.cs     # HTTP client for Gemini API batch translation
+    ├── OpenRouterTranslationService.cs # HTTP client for OpenRouter API batch translation
     └── XamlResourceWriter.cs           # Writes updated XAML, removes duplicates, sorts keys
 ```
 
@@ -52,7 +52,7 @@ SimpleLauncher.ResourceTranslator/
 No configuration files are used. The only runtime inputs are:
 
 - **API key** (typed interactively, never persisted)
-- **Model selection** (default: `gemini-2.5-flash`)
+- **Model selection** (default: `z-ai/glm-5.3-flash`)
 
 ## Notes
 

@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using Microsoft.Win32;
+using SimpleLauncher.Avalonia.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.SanitizeInputString;
 

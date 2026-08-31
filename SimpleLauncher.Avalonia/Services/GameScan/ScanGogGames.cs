@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text.Json;
 using Microsoft.Win32;
+using SimpleLauncher.Avalonia.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.SanitizeInputString;
 

@@ -1,12 +1,12 @@
 namespace SimpleLauncher.ResourceTranslator.Models;
 
 /// <summary>
-///     Represents information about an available DeepSeek AI model.
+///     Represents information about an available OpenRouter AI model.
 /// </summary>
-public class DeepSeekModelInfo
+public class OpenRouterModelInfo
 {
     /// <summary>
-    ///     Gets or sets the model identifier.
+    ///     Gets or sets the model identifier (e.g. "deepseek/deepseek-v4-flash").
     /// </summary>
     public string Id { get; set; } = "";
 

@@ -1,4 +1,4 @@
-namespace SimpleLauncher.Avalonia.Services.GameLauncher;
+namespace SimpleLauncher.Avalonia.Interfaces;
 
 /// <summary>
 ///     Optional launch-feedback surface implemented by the host UI (WPF

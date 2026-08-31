@@ -1,6 +1,6 @@
 using SimpleLauncher.Core.Models;
 
-namespace SimpleLauncher.Avalonia.Services.SystemImageResolver;
+namespace SimpleLauncher.Avalonia.Interfaces;
 
 /// <summary>
 ///     Resolves the display image path for system configurations.

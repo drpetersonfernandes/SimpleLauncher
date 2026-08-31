@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Xml.Linq;
 using Moq;
+using SimpleLauncher.Avalonia.Interfaces;
 using SimpleLauncher.Avalonia.Services.GameScan;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;

@@ -108,7 +108,7 @@ public partial class EditSystemWindow : Window
 
     private async Task LoadSystemsAsync()
     {
-        SetLoadingState(true, "Loading systems...");
+        SetLoadingState(true, _localization.GetString("Loadingsystems", "Loading systems..."));
         await Task.Yield();
 
         _systems = _systemManager.LoadSystems();
@@ -131,7 +131,7 @@ public partial class EditSystemWindow : Window
     private void SetLoadingState(bool isLoading, string? message = null)
     {
         LoadingOverlay.IsVisible = isLoading;
-        if (isLoading) LoadingText.Text = message ?? "Loading...";
+        if (isLoading) LoadingText.Text = message ?? _localization.GetString("Loading", "Loading...");
     }
 
     private void EmergencyOverlayRelease_Click(object? sender, RoutedEventArgs e)
@@ -169,7 +169,8 @@ public partial class EditSystemWindow : Window
                 DisableAllEditableFields();
                 SaveSystemButton.IsEnabled = false;
                 DeleteSystemButton.IsEnabled = false;
-                StatusTextBlock.Text = "Select a system to edit, or click Add New to create one.";
+                StatusTextBlock.Text = _localization.GetString("EditSystemWindow_Select_a_system_to_edit_or_click_Add_New",
+                    "Select a system to edit, or click Add New to create one.");
                 ClearSystemHelp();
             }
             else
@@ -198,7 +199,7 @@ public partial class EditSystemWindow : Window
             if (selectedSystem != null)
             {
                 SystemNameTextBox.Text = selectedSystem.SystemName;
-                StatusTextBlock.Text = $"Editing: {selectedSystem.SystemName}";
+                StatusTextBlock.Text = $"{_localization.GetString("Editing", "Editing: ")}{selectedSystem.SystemName}";
 
                 SystemFolderTextBox.Text = selectedSystem.PrimarySystemFolder ?? "";
 
@@ -348,7 +349,9 @@ public partial class EditSystemWindow : Window
 
             SaveSystemButton.IsEnabled = true;
             DeleteSystemButton.IsEnabled = false;
-            StatusTextBlock.Text = "Adding a new system — fill in the fields and click Save.";
+            StatusTextBlock.Text =
+                _localization.GetString("AddinganewsystemfillinthefieldsandclickSave",
+                    "Adding a new system — fill in the fields and click Save.");
 
             await _messageBox.YouCanAddANewSystemMessageBoxAsync();
         }
@@ -383,7 +386,7 @@ public partial class EditSystemWindow : Window
             if (SystemNameDropdown.Items.Count == 0 || SystemNameDropdown.SelectedItem == null)
                 PopulateSystemNamesDropdown();
 
-            StatusTextBlock.Text = $"System deleted: {selectedSystemName}";
+            StatusTextBlock.Text = $"{_localization.GetString("Systemdeleted", "System deleted: ")}{selectedSystemName}";
             await _messageBox.SystemHasBeenDeletedMessageBoxAsync(selectedSystemName);
         }
         catch (Exception ex)
@@ -831,18 +834,19 @@ public partial class EditSystemWindow : Window
 
     private async Task SuggestParametersAsync(string? emulatorName, string? emulatorPath, string? currentParameters)
     {
-        const string successTitle = "Parameter Suggestion";
-        const string errorTitle = "Error";
-        const string errorMessage = "There was an error processing your request.";
-        const string confirmMessage = "Do you want to apply this parameter?";
+        var successTitle = _localization.GetString("ParameterResolverSuccess", "Parameter Suggestion");
+        var errorTitle = _localization.GetString("ParameterResolverError", "Error");
+        var errorMessage = _localization.GetString("ErrorProcessingRequest", "There was an error processing your request.");
+        var confirmMessage = _localization.GetString("ParameterResolverConfirmApply", "Do you want to apply this parameter?");
 
         if (string.IsNullOrWhiteSpace(emulatorName))
         {
-            await _messageBox.WarningMessageBoxAsync("Please enter an emulator name first.");
+            await _messageBox.WarningMessageBoxAsync(
+                _localization.GetString("ParameterResolverEnterEmulatorName", "Please enter an emulator name first."));
             return;
         }
 
-        SetLoadingState(true, "Resolving parameters, please wait...");
+        SetLoadingState(true, _localization.GetString("ParameterResolverLoading", "Resolving parameters, please wait..."));
 
         try
         {
@@ -1219,7 +1223,7 @@ public partial class EditSystemWindow : Window
             try
             {
                 SaveSystemButton.IsEnabled = false;
-                StatusTextBlock.Text = "Saving system...";
+                StatusTextBlock.Text = _localization.GetString("Savingsystem", "Saving system...");
 
                 await _writer.SaveSystemAsync(systemToSave, originalSystemNameToUse);
                 _systemManager.InvalidateCache();
@@ -1228,7 +1232,7 @@ public partial class EditSystemWindow : Window
                 SystemNameDropdown.SelectedItem = systemNameText;
                 await LoadSystemDetails(systemNameText);
 
-                StatusTextBlock.Text = $"System saved: {systemNameText}";
+                StatusTextBlock.Text = $"{_localization.GetString("Systemsaved", "System saved: ")}{systemNameText}";
                 await _messageBox.SystemSavedSuccessfullyMessageBoxAsync();
 
                 // Keep favorites and play history in sync when the system was renamed:

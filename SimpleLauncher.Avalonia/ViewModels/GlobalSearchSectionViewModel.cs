@@ -19,6 +19,7 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
 {
     private readonly IFindCoverImageService _findCoverImage;
     private readonly IGetListOfFilesService _getListOfFiles;
+    private readonly Services.LocalizationService _localization;
     private readonly ILogger _logErrors;
     private readonly MainViewModel _mainViewModel;
     private readonly IMameDataService _mameData;
@@ -63,7 +64,8 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
         PlaySoundEffects playSoundEffects,
         IMessageBoxLibraryService messageBox,
         MainViewModel mainViewModel,
-        ILogger logErrors)
+        ILogger logErrors,
+        Services.LocalizationService localization)
     {
         _systemManagerService = systemManagerService;
         _getListOfFiles = getListOfFiles;
@@ -73,6 +75,7 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
         _messageBox = messageBox;
         _mainViewModel = mainViewModel;
         _logErrors = logErrors;
+        _localization = localization;
 
         InitializeSystemNames();
     }
@@ -110,7 +113,7 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
 
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
-                _mainViewModel.StatusText = "Please enter a search term.";
+                _mainViewModel.StatusText = _localization.GetString("Pleaseenterasearchterm", "Please enter a search term.");
                 return;
             }
 
@@ -293,7 +296,8 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
         {
             if (SelectedResult is not { } result)
             {
-                _mainViewModel.StatusText = "Select a game to launch first.";
+                _mainViewModel.StatusText =
+                    _localization.GetString("Selectagametolaunchfirst", "Select a game to launch first.");
                 return;
             }
 

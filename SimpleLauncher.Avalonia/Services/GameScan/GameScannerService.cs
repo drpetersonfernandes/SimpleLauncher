@@ -1,6 +1,8 @@
 using System.Net;
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Avalonia.Interfaces;
+using SimpleLauncher.Avalonia.Models;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -466,8 +468,3 @@ public class GameScannerService
         return details;
     }
 }
-
-/// <summary>
-///     Result of a storefront scan that materialized games into the "Microsoft Windows" system.
-/// </summary>
-public sealed record StorefrontScanResult(int GamesFound, int ShortcutsCreated, bool SystemWasCreated);

@@ -1,4 +1,4 @@
-using SimpleLauncher.Avalonia.Services.LoadingOverlay;
+using SimpleLauncher.Avalonia.Interfaces;
 
 namespace SimpleLauncher.Avalonia;
 

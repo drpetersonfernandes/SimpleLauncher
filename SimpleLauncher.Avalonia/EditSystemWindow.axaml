@@ -2,7 +2,7 @@
         xmlns="https://github.com/avaloniaui"
         xmlns:ext="using:SimpleLauncher.Avalonia.Extensions"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Edit Systems"
+        Title="{ext:Translate EditSystem}"
         Width="1200" MinWidth="1000"
         Height="600" MinHeight="550"
         WindowStartupLocation="CenterOwner"
