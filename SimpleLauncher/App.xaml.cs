@@ -227,6 +227,12 @@ public partial class App : IDisposable
                 options.Retry.Delay = TimeSpan.FromSeconds(2);
                 options.Retry.BackoffType = DelayBackoffType.Exponential;
                 options.Retry.UseJitter = true;
+
+                // The default total request timeout is 30 seconds — too short for large
+                // emulator/image downloads on slow or balky connections (see bug 65965).
+                // Downloads stream the body outside the pipeline, so this only bounds the
+                // redirect chain + TLS handshake + response headers.
+                options.TotalRequestTimeout.Timeout = TimeSpan.FromMinutes(5);
             });
 
         // Register IConfiguration

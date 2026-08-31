@@ -275,7 +275,8 @@ public class DownloadManager : IDisposable
 
                 currentRetry++;
             }
-            catch (Exception ex) when (ex is HttpRequestException or IOException or TaskCanceledException)
+            catch (Exception ex) when (ex is HttpRequestException or IOException or TaskCanceledException
+                or Polly.Timeout.TimeoutRejectedException)
             {
                 if (IsUserCancellation) return null;
 
@@ -294,8 +295,10 @@ public class DownloadManager : IDisposable
 
                 if (currentRetry > RetryMaxAttempts)
                 {
-                    // Notify developer
-                    _logger.Error(ex, $"Download error for {downloadUrl}");
+                    // Expected condition (download failed after all retries — slow/unreachable
+                    // network, resilience timeouts): not a bug, keep it out of the bug report
+                    // service (see bug 65965).
+                    _logger.Information(ex, $"Download failed after all retries for {downloadUrl}");
                     break;
                 }
 

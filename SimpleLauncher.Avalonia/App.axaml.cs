@@ -235,7 +235,6 @@ public class App : Application, IDisposable
             .WriteTo.Sink(new DebugWindowSink())
             .WriteTo.Sink(bugReportSink)
             .CreateLogger();
-
         Log.Information("SimpleLauncher.Avalonia starting up");
 
         // DI container
@@ -243,6 +242,15 @@ public class App : Application, IDisposable
         ConfigureServices(serviceCollection, configuration, bugReportSink);
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
+
+        // Apply the saved language (from settings.xml) once at startup, BEFORE any UI is
+        // constructed. Resolving SettingsManagerService here also forces the settings ->
+        // message-box-library -> localization chain to build once, in a safe order.
+        var localizationService = ServiceProvider.GetRequiredService<LocalizationService>();
+        var savedLanguage = ServiceProvider.GetRequiredService<SettingsManagerService>().Language;
+        if (!string.IsNullOrEmpty(savedLanguage) &&
+            !string.Equals(savedLanguage, "en", StringComparison.OrdinalIgnoreCase))
+            localizationService.LoadLanguage(savedLanguage);
 
 
         // Initialize the bug report sink with DI services (queues Warning+ events to the API)
@@ -455,6 +463,12 @@ public class App : Application, IDisposable
                 options.Retry.Delay = TimeSpan.FromSeconds(2);
                 options.Retry.BackoffType = DelayBackoffType.Exponential;
                 options.Retry.UseJitter = true;
+
+                // The default total request timeout is 30 seconds — too short for large
+                // emulator/image downloads on slow or balky connections (see bug 65965).
+                // Downloads stream the body outside the pipeline, so this only bounds the
+                // redirect chain + TLS handshake + response headers.
+                options.TotalRequestTimeout.Timeout = TimeSpan.FromMinutes(5);
             });
 
         // ── Host services (implement Core interfaces) ──
@@ -599,18 +613,14 @@ public class App : Application, IDisposable
         services.AddSingleton<ILaunchStrategy, DefaultLaunchStrategy>();
         services.AddSingleton<AskAiToFixParameters>();
         services.AddSingleton<EmulatorPathResolver>();
-        services.AddSingleton<LocalizationService>(sp =>
-        {
-            var localization = new LocalizationService();
 
-            // Apply the saved language (from settings.xml) once at startup
-            var savedLanguage = sp.GetRequiredService<SettingsManagerService>().Language;
-            if (!string.IsNullOrEmpty(savedLanguage) &&
-                !string.Equals(savedLanguage, "en", StringComparison.OrdinalIgnoreCase))
-                localization.LoadLanguage(savedLanguage);
-
-            return localization;
-        });
+        // NOTE: LocalizationService must stay parameterless in DI. Its factory used to
+        // resolve SettingsManagerService here, which created a factory-level cycle
+        // (LocalizationService -> SettingsManagerService -> IMessageBoxLibraryService ->
+        // LocalizationService). MS.DI cannot see cycles through factory lambdas, so
+        // startup deadlocked inside StackGuard (no exception, hidden main window).
+        // The saved language is applied below, right after the container is built.
+        services.AddSingleton<LocalizationService>();
         // ── Game platform scanners (WPF parity: Steam, Epic, Amazon, Battle.net, GOG,
         // Humble, itch.io, Rockstar, Ubisoft, EA, Microsoft Store) ──
         services.AddSingleton<ISteamVdfParser, SteamVdfParser>();

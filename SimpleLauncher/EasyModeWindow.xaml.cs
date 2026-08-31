@@ -1033,15 +1033,20 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                                        "download process.";
                 DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
 
-                // Notify developer only if it's not a disk space error
-                // Disk space errors are user-environment issues, not code issues
+                // Notify developer only if it's not an expected condition.
+                // Disk space errors are user-environment issues; timeouts/connection failures are
+                // user/network conditions — log both at Information so the bug report API does
+                // not pick them up (see bug 65965). Anything else is a genuine defect.
                 if (!(ex is IOException ioEx &&
                       (ioEx.Message.Contains("Insufficient disk space", StringComparison.Ordinal) ||
                        ioEx.Message.Contains("Cannot check disk space", StringComparison.Ordinal))))
                 {
                     var contextMessage = $"Error downloading {componentName}.\n" +
                                          $"URL: {downloadUrl}";
-                    _logger.Error(ex, contextMessage);
+                    if (DownloadErrorClassifier.IsExpectedDownloadException(ex))
+                        _logger.Information(ex, contextMessage);
+                    else
+                        _logger.Error(ex, contextMessage);
                 }
 
                 // Check if the download failed due to a file lock

@@ -577,11 +577,19 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
                 DownloadStatus = $"Error during {componentName} download process.";
 
-                // Disk space errors are user-environment issues, not code issues
+                // Notify developer only if it's not an expected condition.
+                // Disk space errors are user-environment issues; timeouts/connection failures are
+                // user/network conditions — log both at Information so the bug report API does
+                // not pick them up (see bug 65965). Anything else is a genuine defect.
                 if (!(ex is IOException ioEx &&
                       (ioEx.Message.Contains("Insufficient disk space", StringComparison.Ordinal) ||
                        ioEx.Message.Contains("Cannot check disk space", StringComparison.Ordinal))))
-                    _logger.Error(ex, "Error downloading {Component}. URL: {Url}", componentName, downloadUrl);
+                {
+                    if (DownloadErrorClassifier.IsExpectedDownloadException(ex))
+                        _logger.Information(ex, "Error downloading {Component}. URL: {Url}", componentName, downloadUrl);
+                    else
+                        _logger.Error(ex, "Error downloading {Component}. URL: {Url}", componentName, downloadUrl);
+                }
 
                 if (_downloadManager.IsFileLockedDuringDownload)
                 {
