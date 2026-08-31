@@ -88,9 +88,11 @@ Version `5.6.1` must stay in sync across:
 ## Localization
 
 - 18 languages as WPF resource dictionaries: `SimpleLauncher\resources\strings.{code}.xaml` (ar, bn, de, en, es, fr, hi, id, it, ja, ko, nl, pt-br, ru, tr, ur, vi, zh-hans).
-- `SimpleLauncher.ResourceTranslator` project assists adding/validating translations.
-- Unit tests guard against common translation issues: missing keys in other languages, duplicate/mismatched resource keys, empty values, key-count mismatches (`DetectMissingResourceStringsTests` family).
-- Add a new language: create `strings.{code}.xaml`, register it in `App.ChangeLanguage`/`LanguageMenuService`, and update the resource-key tests if needed.
+- 18 languages as Avalonia JSON resources: `SimpleLauncher.Avalonia\Resources\strings.{code}.json` — UTF-8 with BOM, 2-space indent, `StringComparer.OrdinalIgnoreCase` key order. `strings.en.json` is the canonical Avalonia key set (2661 keys).
+- `SimpleLauncher.ResourceTranslator` (OpenRouter API, default `z-ai/glm-5.3-flash`) translates missing keys for both projects; see its [README](../SimpleLauncher.ResourceTranslator/README.md).
+- Unit tests guard against common translation issues: missing keys in other languages, duplicate/mismatched resource keys, empty values, key-count mismatches (`DetectMissingResourceStringsTests` family — WPF XAML and Avalonia JSON/AXAML source scan).
+- `DetectMissingResourceStringsTests` scans the Avalonia source (`.cs` `GetString(...)` calls and `.axaml` `{ext:Translate Key}` usages) and auto-adds missing keys with fallback values to `strings.en.json`; `LocalizationTests.EveryLanguageFileSharesTheEnglishKeySet` fails with a per-language missing-key list when files are out of sync.
+- Add a new language: create `strings.{code}.xaml` (WPF) and `strings.{code}.json` (Avalonia, UTF-8 BOM + sorted), register it in `App.ChangeLanguage`/`LanguageMenuService` (WPF) and `AvaloniaLanguageMenuService` (Avalonia), run the translator, and update the resource-key tests if needed.
 
 ## Static analysis & code style
 

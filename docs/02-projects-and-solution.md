@@ -10,10 +10,10 @@
 | `SimpleLauncher` | WPF app (WinExe) | **The launcher** — UI, ViewModels, services, launch handlers, scanners, DI composition root |
 | `SimpleLauncher.Core` | Class library | **Shared logic** — services, models, interfaces, persistence, emulator config injection |
 | `SimpleLauncher.Tests` | xUnit test project | ~152 test files; references `SimpleLauncher` (and transitively Core) |
-| `SimpleLauncher.Avalonia.Tests` | xUnit test project | ~46 test files (482 tests, `net10.0`, runs on Windows + Linux/WSL2 via `Avalonia.Headless`) |
+| `SimpleLauncher.Avalonia.Tests` | xUnit test project | ~48 test files (489 tests, `net10.0`, runs on Windows + Linux/WSL2 via `Avalonia.Headless`) |
 | `SimpleLauncher.Updater` | Console app | Self-update helper (`Updater.exe`) — downloads release zip, swaps files, relaunches app |
 | `SimpleLauncher.Avalonia` | Avalonia UI app | Cross-platform port (Windows + Linux); phases 1–11 of [`References/AvaloniaPlan.md`](../References/AvaloniaPlan.md) done |
-| `SimpleLauncher.ResourceTranslator` | Tool | Assists translating `resources\strings.*.xaml` files |
+| `SimpleLauncher.ResourceTranslator` | Tool | Translates missing keys in `resources\strings.*.xaml` (WPF) and `SimpleLauncher.Avalonia\Resources\strings.*.json` via the OpenRouter API (default `z-ai/glm-5.3-flash`); see its [README](../SimpleLauncher.ResourceTranslator/README.md) |
 | `Tools\Mame.DatCreator` | WPF tool | Builds `mame.dat` (MessagePack) from MAME `-listxml` + software lists |
 | `Tools\RetroAchievements.DataFetcher` | CLI tool | Fetches the RA game database into `RetroAchievements.dat` |
 | `Tools\XmlToBinaryConverter` | WPF tool | Converts `history.xml` ↔ `history.dat` (MessagePack) |
@@ -82,7 +82,7 @@ Key properties: `net10.0` + `net10.0-windows` (dual target — the `net10.0` TFM
 
 - **Reuses `SimpleLauncher.Core`** for all business logic (launch, scanning, persistence, emulator config injection, RA).
 - **Windows-only services** (`#if WINDOWS`, `net10.0-windows`): F8 global hotkey (`AvaloniaGlobalHotkeyService`), active-window screenshot (`AvaloniaActiveWindowScreenshotService` + `WindowScreenshot` Win32 helpers, `System.Drawing.Common` package conditional on the windows TFM).
-- **Cross-platform services**: `AvaloniaTrayIconManager` (Avalonia `TrayIcon` + `NativeMenu`; `icon\icon.ico` copied to output), `AvaloniaFilePickerService`, `AvaloniaDispatcherService`, JSON localization (`Resources\strings.*.json`, 18 languages, 2447 keys, parity with WPF).
+- **Cross-platform services**: `AvaloniaTrayIconManager` (Avalonia `TrayIcon` + `NativeMenu`; `icon\icon.ico` copied to output), `AvaloniaFilePickerService`, `AvaloniaDispatcherService`, JSON localization (`Resources\strings.*.json`, 18 languages, 2661 keys each, all files in full key parity with `strings.en.json`; WPF remains the canonical English pack).
 - Port status and remaining work: [`References/AvaloniaPlan.md`](../References/AvaloniaPlan.md) and [`References/TODO.md`](../References/TODO.md). All 44 windows and 21 `Inject*` dialogs are headless-smoke-tested via `AvaloniaViewSmokeTests` (45 window + 21 inject tests); `RetroAchievementsViewModel` and `RetroAchievementsSettingsViewModel` have full unit coverage in both WPF and Avalonia (30 + 19 tests).
 
 ## Folder structure of the app project
