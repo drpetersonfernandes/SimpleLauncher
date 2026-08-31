@@ -230,6 +230,51 @@ public class GameScannerServiceTests : IDisposable
         Assert.False(File.Exists(Path.Combine(DefaultRomsPath, "Skyrim.url")));
     }
 
+    [Fact]
+    public async Task Scan_RomsFolderNotWritable_ShowsMoveToWritableFolderWarningAndSkipsScan()
+    {
+        var systemXml = Path.Combine(_tempRoot, "system.xml");
+        // A file occupying the configured ROMs path makes folder creation and every
+        // shortcut write fail — the "app installed in a protected location" scenario
+        // from bugs 66182-66188.
+        var blockedRoms = Path.Combine(_tempRoot, "blocked roms");
+        File.WriteAllText(blockedRoms, "not a directory");
+        File.WriteAllText(systemXml, $"""
+                                      <SystemConfigs>
+                                        <SystemConfig>
+                                          <SystemName>Microsoft Windows</SystemName>
+                                          <SystemFolders>
+                                            <SystemFolder>{blockedRoms}</SystemFolder>
+                                          </SystemFolders>
+                                          <SystemImageFolder />
+                                          <FileFormatsToSearch>
+                                            <FormatToSearch>url</FormatToSearch>
+                                          </FileFormatsToSearch>
+                                          <GroupByFolder>false</GroupByFolder>
+                                          <DisableRecursiveSearch>false</DisableRecursiveSearch>
+                                        </SystemConfig>
+                                      </SystemConfigs>
+                                      """);
+        var json = $$"""{"SystemXmlPath": "{{systemXml.Replace("\\", @"\\")}}"}""";
+        var config = TestEnvironment.ConfigurationFromJson(json);
+        var messageBox = TestDependencies.MessageBox();
+        var scanner = new GameScannerService(
+            messageBox.Object,
+            config,
+            TestDependencies.HttpFactory(new HttpClient()).Object,
+            new LoggerConfiguration().CreateLogger(),
+            [new FakeScanner([("Skyrim", @"C:\Games\Skyrim\skyrim.exe")])],
+            new Mock<IIconExtractor>().Object,
+            new SystemManagerService(config));
+
+        var result = await scanner.ScanForStoreGamesCoreAsync();
+
+        Assert.Equal(0, result.ShortcutsCreated);
+        Assert.False(result.SystemWasCreated);
+        Assert.False(File.Exists(Path.Combine(blockedRoms, "Skyrim.url")));
+        messageBox.Verify(static m => m.MoveToWritableFolderMessageBoxAsync(), Times.Once);
+    }
+
     // ── IgnoredGameNames ──
 
     [Fact]
@@ -526,6 +571,69 @@ public class GameScannerServiceTests : IDisposable
         Assert.NotNull(result);
         var file = Assert.Single(result);
         Assert.Equal("game.exe", Path.GetFileName(file));
+    }
+
+    // ── TryEnsureDirectory (via reflection since it's private static) ──
+
+    [Fact]
+    public void TryEnsureDirectoryCreatesMissingDirectory()
+    {
+        var method = typeof(GameScannerService).GetMethod("TryEnsureDirectory",
+            BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(method);
+
+        var dirPath = Path.Combine(_tempRoot, "TryEnsureNew");
+        var result = method.Invoke(null, [dirPath, "ROMs", null]);
+
+        Assert.True((bool)result!);
+        Assert.True(Directory.Exists(dirPath));
+    }
+
+    [Fact]
+    public void TryEnsureDirectoryReturnsTrueForExistingDirectory()
+    {
+        var method = typeof(GameScannerService).GetMethod("TryEnsureDirectory",
+            BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(method);
+
+        var dirPath = Path.Combine(_tempRoot, "TryEnsureExisting");
+        Directory.CreateDirectory(dirPath);
+
+        var result = method.Invoke(null, [dirPath, "ROMs", null]);
+
+        Assert.True((bool)result!);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void TryEnsureDirectoryReturnsTrueForNullOrWhitespacePath(string? path)
+    {
+        var method = typeof(GameScannerService).GetMethod("TryEnsureDirectory",
+            BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(method);
+
+        var result = method.Invoke(null, [path, "ROMs", null]);
+
+        Assert.True((bool)result!);
+    }
+
+    [Fact]
+    public void TryEnsureDirectoryReturnsFalseWhenCreationFails()
+    {
+        var method = typeof(GameScannerService).GetMethod("TryEnsureDirectory",
+            BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(method);
+
+        // A file occupying the target path makes Directory.CreateDirectory throw IOException.
+        var filePath = Path.Combine(_tempRoot, "TryEnsureOccupiedByFile");
+        File.WriteAllText(filePath, "not a directory");
+
+        var silentLogger = new LoggerConfiguration().CreateLogger();
+        var result = method.Invoke(null, [filePath, "ROMs", silentLogger]);
+
+        Assert.False((bool)result!);
     }
 
     /// <summary>

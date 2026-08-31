@@ -197,6 +197,13 @@ public class ScanSteamGames : IGamePlatformScanner
                         sanitizedGameName, gameInstallPath, windowsImagesPath);
                 }
         }
+        catch (DirectoryNotFoundException ex)
+        {
+            // Expected condition: ROMs directory doesn't exist (e.g. app in protected location).
+            // Log at Information level so the bug report API does not pick it up.
+            logErrors.Information(ex, "Cannot create Steam shortcut: ROMs directory does not exist. Manifest: {ManifestFile}",
+                manifestFile);
+        }
         catch (Exception ex)
         {
             logErrors.Error(ex, $"Error processing Steam manifest: {manifestFile}");
@@ -274,6 +281,13 @@ public class ScanSteamGames : IGamePlatformScanner
 
             _logger.Debug($"[GameScannerService] Created shortcut for Source Mod: {gameName}");
         }
+        catch (DirectoryNotFoundException ex)
+        {
+            // Expected condition: ROMs directory doesn't exist (e.g. app in protected location).
+            // Log at Information level so the bug report API does not pick it up.
+            logErrors.Information(ex, "Cannot create Source Mod shortcut: ROMs directory does not exist. Mod: {ModDir}",
+                modDir);
+        }
         catch (Exception ex)
         {
             logErrors.Error(ex, $"Error processing Source Mod in {modDir}");
@@ -331,6 +345,14 @@ public class ScanSteamGames : IGamePlatformScanner
                         using var image = Image.FromFile(sourcePath);
                         image.Save(destArtworkPath, ImageFormat.Png);
                         return; // Successfully converted and saved
+                    }
+                    catch (DirectoryNotFoundException ex)
+                    {
+                        // Expected condition: images directory doesn't exist (e.g. app in protected location).
+                        // Log at Information level so the bug report API does not pick it up.
+                        logErrors.Information(ex,
+                            "Cannot save Steam artwork: images directory does not exist. Game: {SanitizedGameName}",
+                            sanitizedGameName);
                     }
                     catch (Exception ex)
                     {

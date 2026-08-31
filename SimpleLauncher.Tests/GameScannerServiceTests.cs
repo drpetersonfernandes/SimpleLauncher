@@ -386,4 +386,84 @@ public class GameScannerServiceTests : IDisposable
         var file = Assert.Single(result);
         Assert.Equal("game.exe", Path.GetFileName(file));
     }
+
+    // TryEnsureDirectory tests (via reflection since it's private static)
+
+    /// <summary>
+    ///     Verifies that TryEnsureDirectory creates a missing directory and returns true.
+    ///     This is the fix for bug 66182-66188: the ROMs directory must be (re)created before
+    ///     the store scanners write their shortcuts.
+    /// </summary>
+    [Fact]
+    public void TryEnsureDirectoryCreatesMissingDirectory()
+    {
+        var method = typeof(GameScannerService).GetMethod("TryEnsureDirectory",
+            BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(method);
+
+        var dirPath = Path.Combine(_testDirectory, "TryEnsureNew");
+        var result = method.Invoke(null, [dirPath, "ROMs", null]);
+
+        Assert.True((bool)result!);
+        Assert.True(Directory.Exists(dirPath));
+    }
+
+    /// <summary>
+    ///     Verifies that TryEnsureDirectory returns true for an existing directory.
+    /// </summary>
+    [Fact]
+    public void TryEnsureDirectoryReturnsTrueForExistingDirectory()
+    {
+        var method = typeof(GameScannerService).GetMethod("TryEnsureDirectory",
+            BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(method);
+
+        var dirPath = Path.Combine(_testDirectory, "TryEnsureExisting");
+        Directory.CreateDirectory(dirPath);
+
+        var result = method.Invoke(null, [dirPath, "ROMs", null]);
+
+        Assert.True((bool)result!);
+    }
+
+    /// <summary>
+    ///     Verifies that TryEnsureDirectory returns true without touching the filesystem
+    ///     when the path is null or whitespace.
+    /// </summary>
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void TryEnsureDirectoryReturnsTrueForNullOrWhitespacePath(string? path)
+    {
+        var method = typeof(GameScannerService).GetMethod("TryEnsureDirectory",
+            BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(method);
+
+        var result = method.Invoke(null, [path, "ROMs", null]);
+
+        Assert.True((bool)result!);
+    }
+
+    /// <summary>
+    ///     Verifies that TryEnsureDirectory returns false instead of throwing when creation
+    ///     fails (e.g. the path is occupied by a file, or the app runs from a protected
+    ///     location such as Program Files — see bugs 66182-66188).
+    /// </summary>
+    [Fact]
+    public void TryEnsureDirectoryReturnsFalseWhenCreationFails()
+    {
+        var method = typeof(GameScannerService).GetMethod("TryEnsureDirectory",
+            BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(method);
+
+        // A file occupying the target path makes Directory.CreateDirectory throw IOException.
+        var filePath = Path.Combine(_testDirectory, "TryEnsureOccupiedByFile");
+        File.WriteAllText(filePath, "not a directory");
+
+        var silentLogger = new LoggerConfiguration().CreateLogger();
+        var result = method.Invoke(null, [filePath, "ROMs", silentLogger]);
+
+        Assert.False((bool)result!);
+    }
 }

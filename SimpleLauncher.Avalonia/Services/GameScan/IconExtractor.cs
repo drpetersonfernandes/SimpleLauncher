@@ -41,6 +41,12 @@ public class IconExtractor : IIconExtractor
                 bmp.Save(savePath, ImageFormat.Png);
             }
         }
+        catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+        {
+            // Expected condition: image directory is missing or protected (e.g. app in Program Files).
+            // Log at Information level so the bug report API does not pick it up (see bugs 66182-66188).
+            logErrors.Information(ex, $"Cannot save icon: image directory is missing or protected. Source: {exePath}");
+        }
         catch (Exception ex)
         {
             logErrors.Error(ex, $"Failed to extract icon from {exePath}");

@@ -7,6 +7,7 @@ using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
+using CheckDirWritable = SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritableService;
 
 namespace SimpleLauncher.Avalonia.Services.GameScan;
 
@@ -108,6 +109,21 @@ public class GameScannerService
             _windowsImagesPath = pathResult.ImagesPath ?? "";
             WasNewSystemCreated = pathResult.WasNewSystemCreated;
 
+            // Ensure the target directories exist before scanners write shortcuts/images.
+            // The ROMs directory can be missing when the app runs from a protected location
+            // (e.g. Program Files) or after the user deletes it. Best-effort create it and
+            // verify it is writable; when it is not, tell the user to move the application
+            // to a writable path instead of silently failing to create every shortcut
+            // (see bugs 66182-66188).
+            var romsWritable = TryEnsureDirectory(_windowsRomsPath, "ROMs", _logger) &&
+                               CheckDirWritable.IsWritableDirectory(_windowsRomsPath, _logger);
+            var imagesReady = TryEnsureDirectory(_windowsImagesPath, "images", _logger);
+
+            if (!romsWritable || !imagesReady)
+                await _messageBoxLibrary.MoveToWritableFolderMessageBoxAsync();
+
+            if (!romsWritable) return new StorefrontScanResult(0, 0, WasNewSystemCreated);
+
             var shortcutsBefore = EnumerateShortcutFiles(_windowsRomsPath);
 
             var tasks = _scanners
@@ -127,6 +143,34 @@ public class GameScannerService
         {
             _logger.Error(ex, "An error occurred during the game scanning process.");
             return new StorefrontScanResult(0, 0, WasNewSystemCreated);
+        }
+    }
+
+    /// <summary>
+    ///     Ensures a directory used by the store-game scanners exists, creating it best-effort.
+    /// </summary>
+    /// <param name="path">The directory to create.</param>
+    /// <param name="kind">A short label used for logging (e.g. "ROMs" or "images").</param>
+    /// <param name="logger">The logger used to record expected creation failures at Information level.</param>
+    /// <returns>True when the directory exists or was created; false when creation failed.</returns>
+    private static bool TryEnsureDirectory(string path, string kind, ILogger logger)
+    {
+        if (string.IsNullOrWhiteSpace(path)) return true;
+
+        try
+        {
+            Directory.CreateDirectory(path);
+            return true;
+        }
+        catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+        {
+            // Expected condition: app is in a protected directory (e.g. Program Files) or the
+            // path points to an unavailable drive. Log at Information level so the bug report
+            // API does not pick it up (see bugs 66182-66188).
+            logger.Information(ex,
+                "Cannot create the '{Kind}' directory '{Path}' for the 'Microsoft Windows' system. Store-game shortcuts will not be created.",
+                kind, path);
+            return false;
         }
     }
 
@@ -212,6 +256,18 @@ public class GameScannerService
                 $"[GameScannerService] Created new '{WindowsSystemName}' system with default paths: ROMs='{defaultRomsPath}', Images='{defaultImagesPath}'");
 
             return (defaultRomsPath, defaultImagesPath, true);
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            // Expected condition: app is in a protected directory (e.g. Program Files).
+            // Log at Information level so the bug report API does not pick it up.
+            _logger.Information(ex, "Cannot create 'Microsoft Windows' system directories in protected location. Falling back to default paths.");
+
+            // Fall back to default paths even on error
+            var fallbackRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", WindowsSystemName);
+            var fallbackImagesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", WindowsSystemName);
+
+            return (fallbackRomsPath, fallbackImagesPath, false);
         }
         catch (Exception ex)
         {

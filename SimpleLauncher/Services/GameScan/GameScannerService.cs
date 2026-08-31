@@ -5,6 +5,7 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services.SystemManager;
+using CheckDirWritable = SimpleLauncher.Core.Services.CheckIfDirectoryIsWritable.CheckIfDirectoryIsWritableService;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
 namespace SimpleLauncher.Services.GameScan;
@@ -88,6 +89,21 @@ public class GameScannerService
             _windowsImagesPath = pathResult.ImagesPath ?? "";
             WasNewSystemCreated = pathResult.WasNewSystemCreated;
 
+            // Ensure the target directories exist before scanners write shortcuts/images.
+            // The ROMs directory can be missing when the app runs from a protected location
+            // (e.g. Program Files) or after the user deletes it. Best-effort create it and
+            // verify it is writable; when it is not, tell the user to move the application
+            // to a writable path instead of silently failing to create every shortcut
+            // (see bugs 66182-66188).
+            var romsWritable = TryEnsureDirectory(_windowsRomsPath, "ROMs", _logger) &&
+                               CheckDirWritable.IsWritableDirectory(_windowsRomsPath, _logger);
+            var imagesReady = TryEnsureDirectory(_windowsImagesPath, "images", _logger);
+
+            if (!romsWritable || !imagesReady)
+                await _messageBoxLibrary.MoveToWritableFolderMessageBoxAsync();
+
+            if (!romsWritable) return; // nothing can be written — skip the storefront scan
+
             var tasks = _scanners
                 .Select(s => s.ScanAsync(this, _logger, _windowsRomsPath, _windowsImagesPath, IgnoredGameNames))
                 .ToList();
@@ -99,6 +115,34 @@ public class GameScannerService
         catch (Exception ex)
         {
             _logger.Error(ex, "An error occurred during the game scanning process.");
+        }
+    }
+
+    /// <summary>
+    ///     Ensures a directory used by the store-game scanners exists, creating it best-effort.
+    /// </summary>
+    /// <param name="path">The directory to create.</param>
+    /// <param name="kind">A short label used for logging (e.g. "ROMs" or "images").</param>
+    /// <param name="logger">The logger used to record expected creation failures at Information level.</param>
+    /// <returns>True when the directory exists or was created; false when creation failed.</returns>
+    private static bool TryEnsureDirectory(string path, string kind, ILogger logger)
+    {
+        if (string.IsNullOrWhiteSpace(path)) return true;
+
+        try
+        {
+            Directory.CreateDirectory(path);
+            return true;
+        }
+        catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+        {
+            // Expected condition: app is in a protected directory (e.g. Program Files) or the
+            // path points to an unavailable drive. Log at Information level so the bug report
+            // API does not pick it up (see bugs 66182-66188).
+            logger.Information(ex,
+                "Cannot create the '{Kind}' directory '{Path}' for the 'Microsoft Windows' system. Store-game shortcuts will not be created.",
+                kind, path);
+            return false;
         }
     }
 
