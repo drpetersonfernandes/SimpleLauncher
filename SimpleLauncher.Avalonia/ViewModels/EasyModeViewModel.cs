@@ -324,7 +324,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         _downloadManager.CancelDownload();
         CanStopDownload = false;
         DownloadProgress = 0;
-        DownloadStatus = "Canceling download...";
+        DownloadStatus = _localization.GetString("Cancelingdownload", "Canceling download...");
 
         if (_currentDownloadType != null)
         {
@@ -441,20 +441,27 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
             var (downloadUrl, easyModeExtractPath, componentName) = type switch
             {
+                // WPF parity: component names resolve from resources (Emulator/Core/ImagePack1-5).
                 EasyModeManager.DownloadType.Emulator => (emulatorConfig?.EmulatorDownloadLink,
-                    emulatorConfig?.EmulatorDownloadExtractPath, "Emulator"),
+                    emulatorConfig?.EmulatorDownloadExtractPath,
+                    _localization.GetString("Emulator", "Emulator")),
                 EasyModeManager.DownloadType.Core => (emulatorConfig?.CoreDownloadLink,
-                    emulatorConfig?.CoreDownloadExtractPath, "Core"),
+                    emulatorConfig?.CoreDownloadExtractPath, _localization.GetString("Core", "Core")),
                 EasyModeManager.DownloadType.ImagePack1 => (emulatorConfig?.ImagePackDownloadLink,
-                    emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 1"),
+                    emulatorConfig?.ImagePackDownloadExtractPath,
+                    _localization.GetString("ImagePack1", "Image Pack 1")),
                 EasyModeManager.DownloadType.ImagePack2 => (emulatorConfig?.ImagePackDownloadLink2,
-                    emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 2"),
+                    emulatorConfig?.ImagePackDownloadExtractPath,
+                    _localization.GetString("ImagePack2", "Image Pack 2")),
                 EasyModeManager.DownloadType.ImagePack3 => (emulatorConfig?.ImagePackDownloadLink3,
-                    emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 3"),
+                    emulatorConfig?.ImagePackDownloadExtractPath,
+                    _localization.GetString("ImagePack3", "Image Pack 3")),
                 EasyModeManager.DownloadType.ImagePack4 => (emulatorConfig?.ImagePackDownloadLink4,
-                    emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 4"),
+                    emulatorConfig?.ImagePackDownloadExtractPath,
+                    _localization.GetString("ImagePack4", "Image Pack 4")),
                 EasyModeManager.DownloadType.ImagePack5 => (emulatorConfig?.ImagePackDownloadLink5,
-                    emulatorConfig?.ImagePackDownloadExtractPath, "Image Pack 5"),
+                    emulatorConfig?.ImagePackDownloadExtractPath,
+                    _localization.GetString("ImagePack5", "Image Pack 5")),
                 _ => (null, null, type)
             };
 
@@ -471,7 +478,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
                 if (string.IsNullOrEmpty(downloadUrl))
                 {
-                    DownloadStatus = $"Error: No download URL for {componentName}";
+                    DownloadStatus =
+                        $"{_localization.GetString("ErrorNodownloadURLfor", "Error: No download URL for")} {componentName}";
                     EndOperation();
                     SetDownloadState(type, DownloadButtonState.Idle);
                     return;
@@ -479,7 +487,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
                 if (string.IsNullOrEmpty(destinationPath))
                 {
-                    DownloadStatus = $"Error: Invalid destination path for {componentName}";
+                    DownloadStatus =
+                        $"{_localization.GetString("ErrorInvalidDestinationPath", "Error: Invalid destination path for")} {componentName}";
                     _logger.Warning("[EasyMode] Invalid destination path for {Component}: {Path}", componentName,
                         easyModeExtractPath);
                     EndOperation();
@@ -492,7 +501,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
                 DownloadProgress = 0;
                 CanStopDownload = true;
 
-                DownloadStatus = $"Downloading {componentName}...";
+                DownloadStatus =
+                    $"{_localization.GetString("Downloading", "Downloading")} {componentName}...";
                 var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
 
                 if (_disposed)
@@ -505,11 +515,14 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
                 if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
                 {
+                    // WPF parity: the extracting text resolves from resources.
+                    var extracting = _localization.GetString("Extracting", "Extracting");
+
                     await Dispatcher.UIThread.InvokeAsync(() =>
                     {
-                        DownloadStatus = $"Extracting {componentName}...";
+                        DownloadStatus = $"{extracting} {componentName}...";
                         DownloadProgress = 0;
-                        LoadingMessage = $"Extracting {componentName}...";
+                        LoadingMessage = $"{extracting} {componentName}...";
                         IsLoading = true;
                     });
 
@@ -521,7 +534,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
                 if (success)
                 {
                     EndOperation();
-                    DownloadStatus = $"{componentName} has been successfully downloaded and installed.";
+                    DownloadStatus =
+                        $"{componentName} {_localization.GetString("hasbeensuccessfullydownloadedandinstalled", "has been successfully downloaded and installed.")}";
                     CanStopDownload = false;
 
                     await _messageBox.DownloadAndExtractionWereSuccessfulMessageBoxAsync();
@@ -538,7 +552,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
                     if (_downloadManager.IsUserCancellation)
                     {
-                        DownloadStatus = $"Download of {componentName} was canceled.";
+                        DownloadStatus =
+                            $"{_localization.GetString("Downloadof", "Download of")} {componentName} {_localization.GetString("wascanceled", "was canceled.")}";
                         CanStopDownload = false;
                         EndOperation();
                         SetDownloadState(type, DownloadButtonState.Failed);
@@ -550,7 +565,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
                     }
                     else if (_downloadManager.IsDownloadCompleted)
                     {
-                        DownloadStatus = $"Error: Failed to extract {componentName}.";
+                        DownloadStatus =
+                            $"{_localization.GetString("ErrorFailedtoextract", "Error: Failed to extract")} {componentName}.";
                         EndOperation();
                         SetDownloadState(type, DownloadButtonState.Failed);
                         await _messageBox.ShowExtractionFailedMessageBoxAsync(_downloadManager.TempFolder);
@@ -575,7 +591,9 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
                     return;
                 }
 
-                DownloadStatus = $"Error during {componentName} download process.";
+                // WPF parity: "{Error during} {component} {download process.}" from resources.
+                DownloadStatus =
+                    $"{_localization.GetString("Errorduring", "Error during")} {componentName} {_localization.GetString("downloadprocess", "download process.")}";
 
                 // Notify developer only if it's not an expected condition.
                 // Disk space errors are user-environment issues; timeouts/connection failures are

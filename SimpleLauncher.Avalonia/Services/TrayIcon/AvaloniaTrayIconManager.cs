@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using SimpleLauncher.Avalonia.Models;
 using SimpleLauncher.Core.Interfaces;
 using TrayIconControl = Avalonia.Controls.TrayIcon;
 
@@ -13,6 +14,7 @@ public class AvaloniaTrayIconManager : IDisposable
 {
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly ILogger _logger;
+    private readonly LocalizationService? _localization;
     private bool _isDisposed;
 
     private Window? _mainWindow;
@@ -21,10 +23,13 @@ public class AvaloniaTrayIconManager : IDisposable
     /// <summary>Initializes a new instance of the <see cref="AvaloniaTrayIconManager" /> class.</summary>
     /// <param name="applicationLifetime">The application lifetime service for shutdown control.</param>
     /// <param name="logger">The logger instance.</param>
-    public AvaloniaTrayIconManager(IApplicationLifetime applicationLifetime, ILogger logger)
+    /// <param name="localization">The localization service used for the tray-menu labels (optional for tests).</param>
+    public AvaloniaTrayIconManager(IApplicationLifetime applicationLifetime, ILogger logger,
+        LocalizationService? localization = null)
     {
         _applicationLifetime = applicationLifetime ?? throw new ArgumentNullException(nameof(applicationLifetime));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _localization = localization;
     }
 
     /// <summary>Releases resources used by the tray icon manager.</summary>
@@ -88,18 +93,20 @@ public class AvaloniaTrayIconManager : IDisposable
 
     private NativeMenu CreateContextMenu()
     {
+        // WPF parity (TrayIconManager.CreateContextMenu): labels resolve from the
+        // localized resources (keys Open / MinimizeToTray / DebugWindow / Exit).
         var menu = new NativeMenu();
 
-        var openItem = new NativeMenuItem("Open");
+        var openItem = new NativeMenuItem(LocalizedLabel("Open", "Open"));
         openItem.Click += (_, _) => OnOpen();
 
-        var minimizeToTrayItem = new NativeMenuItem("Minimize to Tray");
+        var minimizeToTrayItem = new NativeMenuItem(LocalizedLabel("MinimizeToTray", "Minimize to Tray"));
         minimizeToTrayItem.Click += (_, _) => OnMinimizeToTray();
 
-        var debugWindowItem = new NativeMenuItem("Debug Window");
+        var debugWindowItem = new NativeMenuItem(LocalizedLabel("DebugWindow", "Debug Window"));
         debugWindowItem.Click += (_, _) => OnOpenDebugWindow();
 
-        var exitItem = new NativeMenuItem("Exit");
+        var exitItem = new NativeMenuItem(LocalizedLabel("Exit", "Exit"));
         exitItem.Click += (_, _) => OnExit();
 
         menu.Items.Add(openItem);
@@ -109,6 +116,18 @@ public class AvaloniaTrayIconManager : IDisposable
         menu.Items.Add(exitItem);
 
         return menu;
+    }
+
+    /// <summary>
+    ///     Resolves a tray-menu label from the localized resources with the WPF fallback
+    ///     text. Mnemonic underscores in the resource values (e.g. the shared "Exit"
+    ///     resource is "_Exit") are stripped because native tray menus do not reliably
+    ///     render them cross-platform.
+    /// </summary>
+    private string LocalizedLabel(string key, string fallback)
+    {
+        var label = _localization?.GetString(key, fallback) ?? fallback;
+        return label.Replace("_", "", StringComparison.Ordinal);
     }
 
     private void OnOpen()
@@ -138,6 +157,10 @@ public class AvaloniaTrayIconManager : IDisposable
         catch (Exception ex)
         {
             _logger.Error(ex, "Failed to open the debug window from the tray menu.");
+
+            // WPF parity (TrayIconManager.OnOpenDebugWindow): notify the user via a toast.
+            if (_mainWindow is MainWindow mainWindow)
+                mainWindow.ShowToast("Simple Launcher", "Failed to open debug window", ToastType.Error);
         }
     }
 

@@ -159,6 +159,16 @@ public class App : Application, IDisposable
         Dispatcher.UIThread.UnhandledException += App_DispatcherUnhandledException;
         TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
+        // Parse command-line arguments up front (WPF parity).
+        // -debug    → open the debug window alongside the main window (WPF isDebugMode).
+        // -whatsnew → show the update-history window; the updater restarts the app with
+        //             this flag after a successful update (WPF displayHistoryWindow).
+        var desktopLifetime = ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
+        var startupArgs = desktopLifetime?.Args ?? [];
+        var isDebugMode = startupArgs.Any(static arg => arg.Equals("-debug", StringComparison.OrdinalIgnoreCase));
+        var displayHistoryWindow =
+            startupArgs.Any(static arg => arg.Equals("-whatsnew", StringComparison.OrdinalIgnoreCase));
+
         // Single-instance enforcement
         try
         {
@@ -297,6 +307,9 @@ public class App : Application, IDisposable
             lifetime.MainWindow = mainWindow;
             mainWindow.Show();
 
+            // WPF parity: open the debug window when launched with -debug
+            if (isDebugMode) DebugWindow.ShowDebugWindow();
+
             // F8 global hotkey → active window screenshot (Windows-only)
 #if WINDOWS
             try
@@ -366,6 +379,12 @@ public class App : Application, IDisposable
             {
                 Log.Error(ex, "Error initializing the application lifecycle service.");
             }
+
+            // WPF parity: the updater restarts the app with -whatsnew after a successful
+            // update; show the update-history window (modal over the main window) once the
+            // main loop is pumping.
+            if (displayHistoryWindow)
+                Dispatcher.UIThread.Post(() => _ = ShowUpdateHistoryWindowAsync(mainWindow));
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -784,6 +803,7 @@ public class App : Application, IDisposable
                 sp.GetRequiredService<IParameterResolverService>(),
                 sp.GetRequiredService<AvaloniaHelpUserService>(),
                 sp.GetRequiredService<LocalizationService>(),
+                sp.GetRequiredService<SettingsManagerService>(),
                 preSelectedSystemName));
 
         // ── Phase 4.1 windows (ViewModels transient — one per window instance) ──
@@ -876,6 +896,23 @@ public class App : Application, IDisposable
                     window.Focus();
                 }
             });
+        }
+    }
+
+    /// <summary>
+    ///     Shows the update-history window when the app is restarted with the -whatsnew
+    ///     argument (WPF parity: the Avalonia updater passes -whatsnew on restart).
+    /// </summary>
+    private static async Task ShowUpdateHistoryWindowAsync(Window owner)
+    {
+        try
+        {
+            var updateHistoryWindow = ServiceProvider.GetRequiredService<UpdateHistoryWindow>();
+            await updateHistoryWindow.ShowDialog(owner);
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error showing UpdateHistoryWindow with -whatsnew argument.");
         }
     }
 

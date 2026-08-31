@@ -139,10 +139,12 @@ public class LauncherService : ILauncherService
             switch (ext)
             {
                 case ".BAT" or ".CMD":
-                    await RunBatchFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
+                    await RunBatchFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext,
+                        loadingStateProvider);
                     return;
                 case ".LNK" or ".URL":
-                    await LaunchShortcutFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
+                    await LaunchShortcutFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext,
+                        loadingStateProvider);
                     return;
                 case ".EXE":
                     await LaunchExecutableAsync(resolvedFilePath, selectedEmulatorManager, windowContext);
@@ -863,11 +865,33 @@ public class LauncherService : ILauncherService
 
     #region Standard launches
 
-    public async Task RunBatchFileAsync(
+    /// <inheritdoc />
+    public Task RunBatchFileAsync(
         string resolvedFilePath,
         Emulator selectedEmulatorManager,
         IWindowContext windowContext)
     {
+        return RunBatchFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext, null);
+    }
+
+    /// <summary>
+    ///     Runs a batch file with launch feedback (toast + status text) when the caller
+    ///     provides an <see cref="ILoadingState" /> that also implements
+    ///     <see cref="SimpleLauncher.Avalonia.Interfaces.ILaunchFeedback" />.
+    /// </summary>
+    public async Task RunBatchFileAsync(
+        string resolvedFilePath,
+        Emulator selectedEmulatorManager,
+        IWindowContext windowContext,
+        ILoadingState? loadingStateProvider = null)
+    {
+        // WPF parity (GameLauncherService.LaunchBatchFileAsync): batch launches emit a
+        // success/failure toast + status-bar text when the caller provides an
+        // ILaunchFeedback surface.
+        var launchFeedback = loadingStateProvider as ILaunchFeedback;
+        var batchShortName = Path.GetFileName(resolvedFilePath);
+        var launchedText = _localization.GetString("Launched", "launched");
+
         // Detect broken quoted paths inside the .bat file before running it
         // (port of the WPF launcher pre-flight check).
         IList<string> invalidPaths;
@@ -908,6 +932,8 @@ public class LauncherService : ILauncherService
 
                 // 5-minute timeout (matches the original launcher), then kill
                 if (!process.WaitForExit(300_000))
+                {
+                    // WPF parity: the timeout path returns without a success toast.
                     try
                     {
                         process.Kill();
@@ -917,8 +943,20 @@ public class LauncherService : ILauncherService
                     {
                         Log.Debug(killEx, "Failed to kill timed-out batch file {Path}", resolvedFilePath);
                     }
-                else if (process.ExitCode != 0 && !IsInEmulatorsToSkipList(selectedEmulatorManager.EmulatorName))
+
+                    return;
+                }
+
+                if (process.ExitCode != 0 && !IsInEmulatorsToSkipList(selectedEmulatorManager.EmulatorName))
+                {
                     Log.Warning("Batch file exited with code {ExitCode}: {Path}", process.ExitCode, resolvedFilePath);
+                    launchFeedback?.ShowToast("Simple Launcher", $"Error: {batchShortName} failed");
+                    launchFeedback?.SetStatusText($"Error: {batchShortName} failed");
+                    return;
+                }
+
+                launchFeedback?.ShowToast("Simple Launcher", $"{batchShortName} {launchedText}");
+                launchFeedback?.SetStatusText($"{batchShortName} {launchedText}");
             }
             catch (Exception ex)
             {
@@ -928,14 +966,43 @@ public class LauncherService : ILauncherService
         });
 
         // Show the error on the UI thread (continuation of the awaited Task.Run)
-        if (error is not null) await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
+        if (error is not null)
+        {
+            launchFeedback?.SetStatusText($"Error: {batchShortName} failed");
+            await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
+        }
     }
 
-    public async Task LaunchShortcutFileAsync(
+    /// <inheritdoc />
+    public Task LaunchShortcutFileAsync(
         string resolvedFilePath,
         Emulator selectedEmulatorManager,
         IWindowContext windowContext)
     {
+        return LaunchShortcutFileAsync(resolvedFilePath, selectedEmulatorManager, windowContext, null);
+    }
+
+    /// <summary>
+    ///     Launches a shortcut file (.LNK or .URL) with launch feedback (toast + status
+    ///     text) when the caller provides an <see cref="ILoadingState" /> that also
+    ///     implements <see cref="SimpleLauncher.Avalonia.Interfaces.ILaunchFeedback" />.
+    /// </summary>
+    public async Task LaunchShortcutFileAsync(
+        string resolvedFilePath,
+        Emulator selectedEmulatorManager,
+        IWindowContext windowContext,
+        ILoadingState? loadingStateProvider = null)
+    {
+        // WPF parity (GameLauncherService.LaunchShortcutFileAsync): optimistic
+        // "{fileName} launched" toast + status text before the launch attempt.
+        if (loadingStateProvider is ILaunchFeedback launchFeedback)
+        {
+            var launchedText = _localization.GetString("Launched", "launched");
+            var fileName = Path.GetFileName(resolvedFilePath);
+            launchFeedback.ShowToast("Simple Launcher", $"{fileName} {launchedText}");
+            launchFeedback.SetStatusText($"{fileName} {launchedText}");
+        }
+
         // Validate the shortcut itself exists (long-path safe on Windows)
         var shortcutExists = File.Exists(resolvedFilePath) ||
                              (OperatingSystem.IsWindows() && File.Exists(PathHelper.GetLongPath(resolvedFilePath)));

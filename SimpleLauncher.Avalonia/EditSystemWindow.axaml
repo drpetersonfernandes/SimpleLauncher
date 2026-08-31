@@ -120,23 +120,27 @@
                                         Click="ChooseSystemFolder" />
                             </Grid>
 
-                            <!-- Additional folders -->
-                            <TextBlock Text="{ext:Translate EditSystemWindow_Additional_Folders}" FontSize="12"
-                                       Margin="0,8,0,0"
-                                       Foreground="{DynamicResource TextSecondaryBrush}" />
-                            <ListBox x:Name="AdditionalFoldersListBox" Height="90" Margin="0,4,0,4"
-                                     Background="{DynamicResource BgTertiaryBrush}"
-                                     Foreground="{DynamicResource TextPrimaryBrush}"
-                                     BorderBrush="{DynamicResource BorderNormalBrush}" />
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                                <Button Content="{ext:Translate EditSystemWindow_Add_Folder}" Padding="10,4"
-                                        Classes="secondary"
-                                        Margin="0,0,6,0"
-                                        Click="AddAdditionalFolder_Click" />
-                                <Button Content="{ext:Translate EditSystemWindow_Remove_Selected}" Padding="10,4"
-                                        Classes="secondary"
-                                        Click="RemoveAdditionalFolder_Click" />
-                            </StackPanel>
+                            <!-- Additional folders (WPF AdditionalFoldersExpander parity) -->
+                            <Expander x:Name="AdditionalFoldersExpander"
+                                      Header="{ext:Translate AdditionalSystemFoldersOptional}"
+                                      ToolTip.Tip="{ext:Translate TooltipAdditionalFoldersExpander}"
+                                      Margin="0,8,0,0">
+                                <StackPanel>
+                                    <ListBox x:Name="AdditionalFoldersListBox" Height="90" Margin="0,4,0,4"
+                                             Background="{DynamicResource BgTertiaryBrush}"
+                                             Foreground="{DynamicResource TextPrimaryBrush}"
+                                             BorderBrush="{DynamicResource BorderNormalBrush}" />
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                                        <Button Content="{ext:Translate EditSystemWindow_Add_Folder}" Padding="10,4"
+                                                Classes="secondary"
+                                                Margin="0,0,6,0"
+                                                Click="AddAdditionalFolder_Click" />
+                                        <Button Content="{ext:Translate EditSystemWindow_Remove_Selected}" Padding="10,4"
+                                                Classes="secondary"
+                                                Click="RemoveAdditionalFolder_Click" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Expander>
 
                             <!-- Image folder -->
                             <TextBlock Text="{ext:Translate SystemImageFolder}" FontSize="12"

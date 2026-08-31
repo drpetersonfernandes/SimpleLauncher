@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Configuration;
+using SimpleLauncher.Avalonia.Interfaces;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.CleanAndDeleteFiles;
@@ -15,9 +16,9 @@ namespace SimpleLauncher.Avalonia.Services.GameLauncher.Strategies;
 /// <summary>
 ///     Launch strategy for Commander Genius that extracts compressed game files into the
 ///     Commander Genius games directory and launches the emulator with the game data path.
-///     COPY of the WPF CommanderGeniusLaunchStrategy — the status-bar/toast feedback is
-///     replaced with log output (the Avalonia status bar is ViewModel-driven), and the
-///     "launched with" text is an English fallback string.
+///     Port of the WPF CommanderGeniusLaunchStrategy — the "launched with" toast and
+///     status-bar feedback are emitted through the launch context's ILaunchFeedback
+///     surface when the host UI provides one.
 /// </summary>
 public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 {
@@ -31,17 +32,19 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     private readonly IConfiguration _configuration;
     private readonly IExtractionService _extractionService;
     private readonly IMessageBoxLibraryService _messageBox;
+    private readonly LocalizationService? _localization;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="CommanderGeniusLaunchStrategy" /> class.
     /// </summary>
     public CommanderGeniusLaunchStrategy(IExtractionService extractionService, IConfiguration configuration,
-        IMessageBoxLibraryService messageBox, ILogger logger)
+        IMessageBoxLibraryService messageBox, ILogger logger, LocalizationService? localization = null)
     {
         _extractionService = extractionService;
         _configuration = configuration;
         _messageBox = messageBox;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _localization = localization;
     }
 
     /// <inheritdoc />
@@ -115,10 +118,20 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                               $"Working Directory: {cgDataPath}\n" +
                               $"Zip: {context.ResolvedFilePath}");
 
-                const string launchedWith = "launched with";
+                var launchedWith = _localization?.GetString("launchedwith", "launched with") ?? "launched with";
                 var originalFileName = Path.GetFileNameWithoutExtension(context.FilePath);
 
                 _logger.Information($"{originalFileName} {launchedWith} {context.EmulatorName}");
+
+                // WPF parity (CommanderGeniusLaunchStrategy): "X launched with Y" toast +
+                // status-bar text when the host UI provides an ILaunchFeedback surface.
+                if (context.LoadingState is ILaunchFeedback launchFeedback)
+                {
+                    launchFeedback.ShowToast("Simple Launcher",
+                        $"{originalFileName} {launchedWith} {context.EmulatorName}");
+                    launchFeedback.SetStatusText(
+                        $"{originalFileName} {launchedWith} {context.EmulatorName}");
+                }
 
                 var psi = new ProcessStartInfo
                 {

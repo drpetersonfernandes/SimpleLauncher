@@ -2037,6 +2037,12 @@ public partial class MainWindow : Window, IPaginationHost
                     _gamePadController.StopAsync();
                     _gamePadController.StartAsync();
                 }
+                else
+                {
+                    // WPF parity: also stop the controller when gamepad navigation is off,
+                    // in case anything (e.g. the settings dialog) left it running.
+                    _gamePadController.StopAsync();
+                }
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
         catch (Exception ex)
@@ -2738,9 +2744,12 @@ public partial class MainWindow : Window, IPaginationHost
                         await _externalToolLauncher.CreateBatchFilesForXbox360XblaGamesAsync();
                         break;
                     case "FindRomCover":
+                        // WPF parity: reset the UI state before handing over to the external tool.
+                        await _uiResetService.ResetUiAsync();
                         await _externalToolLauncher.FindRomCoverLaunchAsync(imageFolder, romFolder);
                         break;
                     case "RetroGameCoverDownloader":
+                        await _uiResetService.ResetUiAsync();
                         await _externalToolLauncher.RetroGameCoverDownloaderAsync(imageFolder, romFolder);
                         break;
                     case "RomValidator":

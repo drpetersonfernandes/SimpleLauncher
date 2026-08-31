@@ -53,6 +53,7 @@ public class EditSystemWindowConstructionTests
                 parameterResolver,
                 helpUser,
                 localization,
+                settings,
                 preSelectedSystemName);
         });
     }

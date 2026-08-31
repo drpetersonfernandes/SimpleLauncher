@@ -14,6 +14,7 @@ using SimpleLauncher.Core.Services;
 using SimpleLauncher.Core.Services.CheckPaths;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.SanitizeInputString;
+using SimpleLauncher.Core.Services.SettingsManager;
 using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 
@@ -41,6 +42,7 @@ public partial class EditSystemWindow : Window
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly string? _preSelectedSystemName;
     private readonly SystemManagerService _systemManager;
+    private readonly SettingsManagerService _settings;
     private readonly ISystemConfigurationWriterService _writer;
     private string? _originalSystemName;
 
@@ -59,6 +61,7 @@ public partial class EditSystemWindow : Window
         IParameterResolverService parameterResolver,
         AvaloniaHelpUserService helpUserService,
         LocalizationService localization,
+        SettingsManagerService settings,
         string? preSelectedSystemName = null)
     {
         InitializeComponent();
@@ -76,6 +79,7 @@ public partial class EditSystemWindow : Window
         _parameterResolver = parameterResolver;
         _helpUserService = helpUserService;
         _localization = localization;
+        _settings = settings;
         _preSelectedSystemName = preSelectedSystemName;
 
         SaveSystemButton.IsEnabled = false;
@@ -90,6 +94,8 @@ public partial class EditSystemWindow : Window
         HelpTitleTextBlock.Text = _localization.GetString("DeveloperSuggestion");
         ToolTip.SetTip(HelpTitleTextBlock,
             _localization.GetString("TooltipDeveloperSuggestionLabel"));
+
+        ApplyExpanderSettings();
     }
 
     private async void Window_Opened(object? sender, EventArgs e)
@@ -132,6 +138,19 @@ public partial class EditSystemWindow : Window
     {
         LoadingOverlay.IsVisible = isLoading;
         if (isLoading) LoadingText.Text = message ?? _localization.GetString("Loading", "Loading...");
+    }
+
+    /// <summary>
+    ///     Applies the saved expander states (WPF EditSystemWindow.ApplyExpanderSettings parity).
+    /// </summary>
+    private void ApplyExpanderSettings()
+    {
+        AdditionalFoldersExpander.IsExpanded = _settings.AdditionalSystemFoldersExpanded;
+        Emulator1Expander.IsExpanded = _settings.Emulator1Expanded;
+        Emulator2Expander.IsExpanded = _settings.Emulator2Expanded;
+        Emulator3Expander.IsExpanded = _settings.Emulator3Expanded;
+        Emulator4Expander.IsExpanded = _settings.Emulator4Expanded;
+        Emulator5Expander.IsExpanded = _settings.Emulator5Expanded;
     }
 
     private void EmergencyOverlayRelease_Click(object? sender, RoutedEventArgs e)
@@ -402,6 +421,15 @@ public partial class EditSystemWindow : Window
 
     private void Window_Closing(object? sender, WindowClosingEventArgs e)
     {
+        // Save expander states (WPF EditSystem_Closing parity)
+        _settings.AdditionalSystemFoldersExpanded = AdditionalFoldersExpander.IsExpanded;
+        _settings.Emulator1Expanded = Emulator1Expander.IsExpanded;
+        _settings.Emulator2Expanded = Emulator2Expander.IsExpanded;
+        _settings.Emulator3Expanded = Emulator3Expander.IsExpanded;
+        _settings.Emulator4Expanded = Emulator4Expander.IsExpanded;
+        _settings.Emulator5Expanded = Emulator5Expander.IsExpanded;
+        _ = _settings.SaveAsync();
+
         // Create a backup of system.xml before closing
         try
         {

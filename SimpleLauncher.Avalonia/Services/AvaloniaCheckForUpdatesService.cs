@@ -5,9 +5,14 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Threading;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
+using IApplicationLifetime = SimpleLauncher.Core.Interfaces.IApplicationLifetime;
 
 namespace SimpleLauncher.Avalonia.Services;
 
@@ -15,8 +20,9 @@ namespace SimpleLauncher.Avalonia.Services;
 ///     Checks for new application releases on GitHub, falling back to the secondary
 ///     server when GitHub is unreachable. Avalonia port of the WPF CheckForUpdatesService.
 ///     When the user accepts an update, the Avalonia updater
-///     (SimpleLauncher.Avalonia.Updater, downloaded from the release assets when not
-///     shipped next to the app) is launched and the application shuts down.
+///     (SimpleLauncher.Avalonia.Updater) is re-downloaded from the release assets
+///     (falling back to the local copy when offline) and launched; the application
+///     then shuts down.
 /// </summary>
 public partial class AvaloniaCheckForUpdatesService
 {
@@ -109,7 +115,7 @@ public partial class AvaloniaCheckForUpdatesService
     {
         try
         {
-            var (latestVersion, _, updaterZipAssetUrl, _) = await GetLatestReleaseInfoAsync();
+            var (latestVersion, releasePackageUrl, updaterZipAssetUrl, _) = await GetLatestReleaseInfoAsync();
 
             if (latestVersion == null)
             {
@@ -135,7 +141,7 @@ public partial class AvaloniaCheckForUpdatesService
             {
                 _logger.Information("Update to {LatestVersion} confirmed by user; launching the updater.",
                     latestVersion);
-                await LaunchUpdaterAndShutdownAsync(updaterZipAssetUrl);
+                await ShowUpdateWindowAsync(releasePackageUrl, updaterZipAssetUrl, TryGetMainWindow());
             }
         }
         catch (Exception ex)
@@ -153,7 +159,7 @@ public partial class AvaloniaCheckForUpdatesService
     {
         try
         {
-            var (latestVersion, _, updaterZipAssetUrl, _) = await GetLatestReleaseInfoAsync();
+            var (latestVersion, releasePackageUrl, updaterZipAssetUrl, _) = await GetLatestReleaseInfoAsync();
 
             if (latestVersion == null)
             {
@@ -172,15 +178,13 @@ public partial class AvaloniaCheckForUpdatesService
                 {
                     _logger.Information("Update to {LatestVersion} confirmed by user; launching the updater.",
                         latestVersion);
-                    await LaunchUpdaterAndShutdownAsync(updaterZipAssetUrl);
+                    await ShowUpdateWindowAsync(releasePackageUrl, updaterZipAssetUrl, owner);
                 }
             }
             else
             {
                 await _messageBoxLibrary.ThereIsNoUpdateAvailableMessageBoxAsync(CurrentVersion);
             }
-
-            _ = owner;
         }
         catch (Exception ex)
         {
@@ -218,20 +222,23 @@ public partial class AvaloniaCheckForUpdatesService
 
         try
         {
+            // WPF parity (QuitSimpleLauncher.ShutdownForUpdateAsync): always download a
+            // fresh updater when a URL is known — overwriting any existing copy — and fall
+            // back to the local copy only when the download fails or no URL is available.
+            if (!string.IsNullOrWhiteSpace(updaterZipAssetUrl))
+            {
+                _logger.Information("Downloading a fresh updater package from the release assets.");
+                if (!await DownloadAndExtractUpdaterAsync(updaterZipAssetUrl, _updaterDirectory))
+                    _logger.Information("Updater download failed; falling back to the local copy.");
+            }
+
             if (!File.Exists(updaterPath))
             {
-                _logger.Information(
-                    "Updater not found next to the application; downloading it from the release assets.");
-                if (string.IsNullOrWhiteSpace(updaterZipAssetUrl) ||
-                    !await DownloadAndExtractUpdaterAsync(updaterZipAssetUrl, _updaterDirectory) ||
-                    !File.Exists(updaterPath))
-                {
-                    // Expected condition (offline / missing asset); the user is already
-                    // notified via the message box below — not a bug report.
-                    _logger.Information("Could not obtain the updater package; guiding the user to a manual update.");
-                    await _messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
-                    return;
-                }
+                // Expected condition (offline / missing asset); the user is already
+                // notified via the message box below — not a bug report.
+                _logger.Information("Could not obtain the updater package; guiding the user to a manual update.");
+                await _messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
+                return;
             }
 
             try
@@ -261,6 +268,95 @@ public partial class AvaloniaCheckForUpdatesService
             _logger.Error(ex, "Failed to prepare the updater.");
             await _messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
         }
+    }
+
+    /// <summary>
+    ///     WPF parity (<c>CheckForUpdatesService.ShowUpdateWindowAsync</c>): shows the
+    ///     update log window, hides the owner window while the updater runs, and logs
+    ///     manual-download guidance when the updater fails to launch. On success the
+    ///     process exits, so the finally block only runs on failure paths.
+    /// </summary>
+    private async Task ShowUpdateWindowAsync(string? releasePackageUrl, string? updaterZipAssetUrl, Window? owner)
+    {
+        UpdateLogWindow? logWindow = null;
+
+        try
+        {
+            logWindow = TryResolveUpdateLogWindow();
+            if (logWindow is not null)
+                await RunOnUiThreadAsync(() =>
+                {
+                    logWindow.Show();
+                    logWindow.Log("Starting update process...");
+                });
+
+            if (owner is not null)
+                await RunOnUiThreadAsync(owner.Hide);
+
+            logWindow?.Log($"Launching {UpdaterExecutableName} (auto-downloads from the release assets if needed)...");
+
+            // Give the log window a moment to paint before the process exits (WPF parity).
+            if (logWindow is not null) await Task.Delay(500);
+
+            await LaunchUpdaterAndShutdownAsync(updaterZipAssetUrl);
+
+            // If we reach here, LaunchUpdaterAndShutdownAsync returned without shutting the
+            // application down (the update failed — an error was already shown to the user).
+            logWindow?.Log("Updater launch failed.");
+            if (!string.IsNullOrEmpty(releasePackageUrl))
+                logWindow?.Log($"Please download the update package manually from: {releasePackageUrl}");
+            else
+                logWindow?.Log(
+                    $"The update package URL was not found. Please visit the GitHub releases page for {RepoOwners[0]}/{RepoName}.");
+        }
+        catch (Exception ex)
+        {
+            const string contextMessage = "There was an error preparing for the application update.";
+            _logger.Error(ex, contextMessage);
+            logWindow?.Log($"An unexpected error occurred during the update process: {ex.Message}");
+            await _messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
+        }
+        finally
+        {
+            // Failure paths only — a successful launch shuts the process down before this runs.
+            if (logWindow is not null) await RunOnUiThreadAsync(logWindow.Close);
+            if (owner is not null) await RunOnUiThreadAsync(owner.Show);
+        }
+    }
+
+    /// <summary>
+    ///     Resolves the update log window from the static service provider (same pattern
+    ///     as <see cref="MessageBoxLibraryService" />). Returns null when the container is
+    ///     not available (unit tests) — the log window is optional UX, never a hard
+    ///     dependency of the update flow.
+    /// </summary>
+    private UpdateLogWindow? TryResolveUpdateLogWindow()
+    {
+        try
+        {
+            return App.ServiceProvider?.GetService<UpdateLogWindow>();
+        }
+        catch (Exception ex)
+        {
+            _logger.Debug(ex, "Update log window unavailable; continuing the update without it.");
+            return null;
+        }
+    }
+
+    private static Window? TryGetMainWindow()
+    {
+        return (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+    }
+
+    private static async Task RunOnUiThreadAsync(Action action)
+    {
+        if (Dispatcher.UIThread.CheckAccess())
+        {
+            action();
+            return;
+        }
+
+        await Dispatcher.UIThread.InvokeAsync(action);
     }
 
     /// <summary>
