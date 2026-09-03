@@ -77,7 +77,10 @@ public class GameButtonViewModelTests
         vm.PropertyChanged += (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(GameButtonViewModel.HasAchievements),
-                    StringComparison.Ordinal)) raised = true;
+                    StringComparison.Ordinal))
+            {
+                raised = true;
+            }
         };
 
         vm.HasAchievements = true;
@@ -92,7 +95,7 @@ public class GameButtonViewModelTests
     {
         var vm = new GameButtonViewModel { IsFavorite = true };
         var raised = false;
-        vm.PropertyChanged += (_, _) => { raised = true; };
+        vm.PropertyChanged += (_, _) => raised = true;
 
         vm.IsFavorite = true;
         Assert.False(raised);
@@ -106,7 +109,7 @@ public class GameButtonViewModelTests
     {
         var vm = new GameButtonViewModel { HasAchievements = true };
         var raised = false;
-        vm.PropertyChanged += (_, _) => { raised = true; };
+        vm.PropertyChanged += (_, _) => raised = true;
 
         vm.HasAchievements = true;
         Assert.False(raised);
@@ -135,8 +138,8 @@ public class GameButtonViewModelTests
     {
         var vm = new GameButtonViewModel();
         var count = 0;
-        vm.PropertyChanged += (_, _) => { count++; };
-        vm.PropertyChanged += (_, _) => { count++; };
+        vm.PropertyChanged += (_, _) => count++;
+        vm.PropertyChanged += (_, _) => count++;
 
         vm.IsFavorite = true;
         Assert.Equal(2, count);

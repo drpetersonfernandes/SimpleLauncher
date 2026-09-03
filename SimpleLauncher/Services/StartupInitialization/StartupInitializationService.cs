@@ -166,7 +166,7 @@ public class StartupInitializationService
 
     private void InitializeGamePad()
     {
-        _gamePadController.ErrorLogger = (ex, msg) => { _logger.Error(ex, msg); };
+        _gamePadController.ErrorLogger = (ex, msg) => _logger.Error(ex, msg);
         if (_settings.EnableGamePadNavigation)
             _ = _gamePadController.StartAsync();
         else

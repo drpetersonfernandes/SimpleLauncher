@@ -17,18 +17,28 @@ public partial class InjectMesenConfigViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
-    [ObservableProperty] private string _aspectRatio = null!;
-    [ObservableProperty] private bool _bilinear;
+    [ObservableProperty] public partial string AspectRatio { get; set; } = null!;
+
+    [ObservableProperty] public partial bool Bilinear { get; set; }
+
     private string _emulatorPath = null!;
-    [ObservableProperty] private bool _enableAudio;
-    [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private int _masterVolume;
-    [ObservableProperty] private bool _pauseInBackground;
-    [ObservableProperty] private bool _rewind;
-    [ObservableProperty] private int _runAhead;
-    [ObservableProperty] private bool _showBeforeLaunch;
-    [ObservableProperty] private string _videoFilter = null!;
-    [ObservableProperty] private bool _vsync;
+    [ObservableProperty] public partial bool EnableAudio { get; set; }
+
+    [ObservableProperty] public partial bool Fullscreen { get; set; }
+
+    [ObservableProperty] public partial int MasterVolume { get; set; }
+
+    [ObservableProperty] public partial bool PauseInBackground { get; set; }
+
+    [ObservableProperty] public partial bool Rewind { get; set; }
+
+    [ObservableProperty] public partial int RunAhead { get; set; }
+
+    [ObservableProperty] public partial bool ShowBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial string VideoFilter { get; set; } = null!;
+
+    [ObservableProperty] public partial bool Vsync { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectMesenConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>

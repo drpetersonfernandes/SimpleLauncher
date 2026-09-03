@@ -411,7 +411,7 @@ public class CheckForUpdatesTests : IDisposable
 
         zipStream.Position = 0;
 
-        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null!, new NoOpLogger());
+        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogger());
 
         Assert.False(result, "ExtractAllFromZip should return false for path traversal entries.");
     }
@@ -428,7 +428,7 @@ public class CheckForUpdatesTests : IDisposable
             ["level1/shallow.txt"] = "shallow content"
         });
 
-        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null!, new NoOpLogger());
+        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogger());
 
         Assert.True(result);
         AssertFileContent(Path.Combine(_testDirectory, "level1", "level2", "level3", "deep.txt"), "deep content");
@@ -446,7 +446,7 @@ public class CheckForUpdatesTests : IDisposable
             ["single.txt"] = "only file"
         });
 
-        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null!, new NoOpLogger());
+        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogger());
 
         Assert.True(result);
         AssertFileContent(Path.Combine(_testDirectory, "single.txt"), "only file");
@@ -464,7 +464,7 @@ public class CheckForUpdatesTests : IDisposable
             ["large.bin"] = largeContent
         });
 
-        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null!, new NoOpLogger());
+        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogger());
 
         Assert.True(result);
         AssertFileContent(Path.Combine(_testDirectory, "large.bin"), largeContent);
@@ -484,7 +484,7 @@ public class CheckForUpdatesTests : IDisposable
             ["overwrite.txt"] = "new content"
         });
 
-        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null!, new NoOpLogger());
+        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogger());
 
         Assert.True(result);
         AssertFileContent(existingFile, "new content");
@@ -498,7 +498,7 @@ public class CheckForUpdatesTests : IDisposable
     {
         var corruptedStream = new MemoryStream(("PK\x03\x04c"u8 + "orrupted data"u8).ToArray());
 
-        var result = CheckForUpdatesService.ExtractAllFromZip(corruptedStream, _testDirectory, null!, new NoOpLogger());
+        var result = CheckForUpdatesService.ExtractAllFromZip(corruptedStream, _testDirectory, null, new NoOpLogger());
 
         Assert.False(result, "ExtractAllFromZip should return false for a corrupted stream.");
     }
@@ -541,7 +541,7 @@ public class CheckForUpdatesTests : IDisposable
         var (updaterUrl, _) = await service.GetLatestUpdaterInfoAsync();
         Assert.NotNull(updaterUrl);
 
-        using var memoryStream = new MemoryStream();
+        await using var memoryStream = new MemoryStream();
         await service.DownloadUpdateFileToMemoryAsync(updaterUrl, memoryStream);
 
         Assert.True(memoryStream.Length > 0, "Downloaded content should not be empty.");

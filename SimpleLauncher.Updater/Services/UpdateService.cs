@@ -92,20 +92,24 @@ internal class UpdateService
         CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(_appDirectory))
+        {
             return new UpdateResult
             {
                 Success = false,
                 ErrorMessage = "Could not determine the application directory.",
                 RequiresManualUpdate = true
             };
+        }
 
         if (!NetworkInterface.GetIsNetworkAvailable())
+        {
             return new UpdateResult
             {
                 Success = false,
                 ErrorMessage = "No network connection available. Please check your internet connection and try again.",
                 RequiresManualUpdate = true
             };
+        }
 
         try
         {

@@ -41,6 +41,7 @@ public class ReinstallSimpleLauncher
                 var updaterPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Updater.exe");
 
                 if (File.Exists(updaterPath))
+                {
                     try
                     {
                         var startInfo = new ProcessStartInfo(updaterPath)
@@ -61,7 +62,9 @@ public class ReinstallSimpleLauncher
                         // Notify user that update failed
                         await messageBoxLibrary.UpdaterLaunchFailedMessageBoxAsync();
                     }
+                }
                 else
+                {
                     try
                     {
                         var updateChecker = _serviceProvider.GetRequiredService<CheckForUpdatesService>();
@@ -76,7 +79,7 @@ public class ReinstallSimpleLauncher
                         }
 
                         // 2. Download the updater file into memory
-                        using var memoryStream = new MemoryStream();
+                        await using var memoryStream = new MemoryStream();
                         await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
 
                         // 3. Extract the contents to the application directory
@@ -93,6 +96,7 @@ public class ReinstallSimpleLauncher
 
                         // 4. Verify Updater.exe now exists and launches it
                         if (File.Exists(updaterPath))
+                        {
                             try
                             {
                                 var startInfo = new ProcessStartInfo(updaterPath)
@@ -113,9 +117,12 @@ public class ReinstallSimpleLauncher
                                 // Notify user that update failed
                                 await messageBoxLibrary.UpdaterLaunchFailedMessageBoxAsync();
                             }
+                        }
                         else
+                        {
                             // Notify user
                             await messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -125,6 +132,7 @@ public class ReinstallSimpleLauncher
                         // Notify user
                         await messageBoxLibrary.InstallUpdateManuallyMessageBoxAsync();
                     }
+                }
             }
             catch (Exception ex)
             {

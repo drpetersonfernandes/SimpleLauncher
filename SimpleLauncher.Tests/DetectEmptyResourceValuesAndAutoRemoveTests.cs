@@ -45,6 +45,7 @@ public class DetectEmptyResourceValuesAndAutoRemoveTests
             var hasChanges = false;
 
             foreach (var element in elementsWithKey)
+            {
                 // Self-closing tags or tags with no/whitespace text are considered empty.
                 if (element.IsEmpty || string.IsNullOrWhiteSpace(element.Value))
                 {
@@ -62,6 +63,7 @@ public class DetectEmptyResourceValuesAndAutoRemoveTests
                     element.Remove();
                     hasChanges = true;
                 }
+            }
 
             if (hasChanges)
             {

@@ -38,7 +38,7 @@ public class SearchResultTests
     [Fact]
     public void Score_ImplementsINotifyPropertyChanged()
     {
-        Assert.IsAssignableFrom<INotifyPropertyChanged>(new SearchResult());
+        Assert.IsType<INotifyPropertyChanged>(new SearchResult(), exactMatch: false);
     }
 
     [Fact]

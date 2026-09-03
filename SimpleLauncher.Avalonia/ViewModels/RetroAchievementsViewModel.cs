@@ -20,73 +20,73 @@ public partial class RetroAchievementsViewModel : ObservableObject
     private readonly IResourceProvider _resourceProvider;
     private readonly SettingsManagerService _settings;
 
-    [ObservableProperty] private bool _fetchUnlocksEnabled = true;
+    [ObservableProperty] public partial bool FetchUnlocksEnabled { get; set; } = true;
 
-    [ObservableProperty] private DateTime? _fromDate;
+    [ObservableProperty] public partial DateTime? FromDate { get; set; }
 
     // Loading state
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] public partial bool IsLoading { get; set; }
 
-    [ObservableProperty] private string _noProfileMainMessage = "";
+    [ObservableProperty] public partial string NoProfileMainMessage { get; set; } = "";
 
-    [ObservableProperty] private string _noProfileSubMessage = "";
+    [ObservableProperty] public partial string NoProfileSubMessage { get; set; } = "";
 
-    [ObservableProperty] private bool _noProfileVisible;
+    [ObservableProperty] public partial bool NoProfileVisible { get; set; }
 
-    [ObservableProperty] private string _noUnlocksMessage = "";
+    [ObservableProperty] public partial string NoUnlocksMessage { get; set; } = "";
 
-    [ObservableProperty] private bool _noUnlocksVisible;
+    [ObservableProperty] public partial bool NoUnlocksVisible { get; set; }
 
-    [ObservableProperty] private string _noUserProgressMainMessage = "";
+    [ObservableProperty] public partial string NoUserProgressMainMessage { get; set; } = "";
 
-    [ObservableProperty] private string _noUserProgressSubMessage = "";
+    [ObservableProperty] public partial string NoUserProgressSubMessage { get; set; } = "";
 
-    [ObservableProperty] private bool _noUserProgressVisible;
+    [ObservableProperty] public partial bool NoUserProgressVisible { get; set; }
 
-    [ObservableProperty] private string _profileContributions = "";
+    [ObservableProperty] public partial string ProfileContributions { get; set; } = "";
 
-    [ObservableProperty] private string _profileId = "";
+    [ObservableProperty] public partial string ProfileId { get; set; } = "";
 
     // Profile tab
-    [ObservableProperty] private string? _profileImageUrl;
+    [ObservableProperty] public partial string? ProfileImageUrl { get; set; }
 
-    [ObservableProperty] private string _profileMemberSince = "";
+    [ObservableProperty] public partial string ProfileMemberSince { get; set; } = "";
 
-    [ObservableProperty] private string _profileMotto = "";
+    [ObservableProperty] public partial string ProfileMotto { get; set; } = "";
 
-    [ObservableProperty] private string _profilePermissions = "";
+    [ObservableProperty] public partial string ProfilePermissions { get; set; } = "";
 
-    [ObservableProperty] private string _profilePoints = "";
+    [ObservableProperty] public partial string ProfilePoints { get; set; } = "";
 
-    [ObservableProperty] private string _profileProfileId = "";
+    [ObservableProperty] public partial string ProfileProfileId { get; set; } = "";
 
-    [ObservableProperty] private string _profileRank = "";
+    [ObservableProperty] public partial string ProfileRank { get; set; } = "";
 
-    [ObservableProperty] private string _profileRichPresence = "";
+    [ObservableProperty] public partial string ProfileRichPresence { get; set; } = "";
 
-    [ObservableProperty] private string _profileSoftcorePoints = "";
+    [ObservableProperty] public partial string ProfileSoftcorePoints { get; set; } = "";
 
-    [ObservableProperty] private string _profileStatus = "";
+    [ObservableProperty] public partial string ProfileStatus { get; set; } = "";
 
-    [ObservableProperty] private string _profileTruePoints = "";
+    [ObservableProperty] public partial string ProfileTruePoints { get; set; } = "";
 
-    [ObservableProperty] private string _profileUser = "";
+    [ObservableProperty] public partial string ProfileUser { get; set; } = "";
 
-    [ObservableProperty] private string _profileWallActive = "";
+    [ObservableProperty] public partial string ProfileWallActive { get; set; } = "";
 
-    [ObservableProperty] private ObservableCollection<RaRecentlyPlayedGame>? _recentlyPlayedGames;
+    [ObservableProperty] public partial ObservableCollection<RaRecentlyPlayedGame>? RecentlyPlayedGames { get; set; }
 
-    [ObservableProperty] private DateTime? _toDate;
+    [ObservableProperty] public partial DateTime? ToDate { get; set; }
 
-    [ObservableProperty] private string _totalPointsEarnedInRange = "0";
+    [ObservableProperty] public partial string TotalPointsEarnedInRange { get; set; } = "0";
 
-    [ObservableProperty] private string _totalUnlocksInRange = "0";
+    [ObservableProperty] public partial string TotalUnlocksInRange { get; set; } = "0";
 
     // Unlocks tab
-    [ObservableProperty] private ObservableCollection<RaEarnedAchievement>? _unlocks;
+    [ObservableProperty] public partial ObservableCollection<RaEarnedAchievement>? Unlocks { get; set; }
 
     // User Progress tab
-    [ObservableProperty] private ObservableCollection<RaUserCompletionGame>? _userProgress;
+    [ObservableProperty] public partial ObservableCollection<RaUserCompletionGame>? UserProgress { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="RetroAchievementsViewModel" />.</summary>
     /// <param name="messageBox">The message box service.</param>
@@ -165,12 +165,16 @@ public partial class RetroAchievementsViewModel : ObservableObject
 
                 if (DateTime.TryParse(userProfile.MemberSince, CultureInfo.InvariantCulture,
                         DateTimeStyles.AdjustToUniversal, out var memberSinceDate))
+                {
                     ProfileMemberSince = memberSinceDate.ToLocalTime()
                         .ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                }
                 else
+                {
                     ProfileMemberSince = string.IsNullOrWhiteSpace(userProfile.MemberSince)
                         ? _resourceProvider.GetString("RaStatusUnknown", "Unknown")
                         : userProfile.MemberSince;
+                }
 
                 ProfileId = userProfile.Id.ToString(CultureInfo.InvariantCulture);
                 var contributionsFormat =

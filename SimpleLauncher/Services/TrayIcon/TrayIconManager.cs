@@ -60,6 +60,7 @@ public class TrayIconManager : IDisposable
         }
 
         if (_trayMenu != null)
+        {
             foreach (var item in _trayMenu.Items)
             {
                 if (item is not MenuItem menuItem) continue;
@@ -69,6 +70,7 @@ public class TrayIconManager : IDisposable
                 menuItem.Click -= _onExitHandler;
                 menuItem.Click -= _onOpenDebugWindowHandler;
             }
+        }
 
         GC.SuppressFinalize(this);
     }

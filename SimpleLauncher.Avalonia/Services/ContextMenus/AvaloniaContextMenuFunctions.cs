@@ -54,14 +54,16 @@ public class AvaloniaContextMenuFunctions(
 
     private string GetStatus(string key, string fallback)
     {
-        return _localization.GetString(key) is { } s && !string.Equals(s, key, StringComparison.OrdinalIgnoreCase) ? s : fallback;
+        return _localization.GetString(key) is { } s && !string.Equals(s, key, StringComparison.OrdinalIgnoreCase)
+            ? s
+            : fallback;
     }
 
     /// <summary>
     ///     Resolves the emulator to use: the emulator selected in the toolbar combo box
     ///     when present, otherwise the system's first configured emulator.
     /// </summary>
-    public string? ResolveEmulatorName(AvaloniaRightClickContext context)
+    public static string? ResolveEmulatorName(AvaloniaRightClickContext context)
     {
         if (!string.IsNullOrWhiteSpace(context.MainViewModel.SelectedEmulatorName))
             return context.MainViewModel.SelectedEmulatorName;
@@ -173,7 +175,7 @@ public class AvaloniaContextMenuFunctions(
             return;
         }
 
-        var selectedEmulatorName = ResolveEmulatorName(context);
+        var selectedEmulatorName = AvaloniaContextMenuFunctions.ResolveEmulatorName(context);
         if (string.IsNullOrEmpty(selectedEmulatorName))
         {
             _logErrors.Information("[ContextMenu] Launch requested but no emulator name was resolved.");
@@ -298,7 +300,10 @@ public class AvaloniaContextMenuFunctions(
 
                 // If user didn't save credentials, or saved empty ones, return
                 if (string.IsNullOrWhiteSpace(settings.RaApiKey) ||
-                    string.IsNullOrWhiteSpace(settings.RaUsername)) return;
+                    string.IsNullOrWhiteSpace(settings.RaUsername))
+                {
+                    return;
+                }
             }
 
             _logErrors.Debug($"[RA Service] Original system name: {context.SelectedSystemName}");
@@ -583,9 +588,11 @@ public class AvaloniaContextMenuFunctions(
             var system = context.SelectedSystemManager.GetSystem(context.SelectedSystemName);
             var systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(system?.SystemImageFolder);
             if (string.IsNullOrEmpty(systemImageFolder))
+            {
                 // Fallback to default if resolution fails or path is empty
                 systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images",
                     context.SelectedSystemName);
+            }
 
             try
             {
@@ -758,7 +765,9 @@ public class AvaloniaContextMenuFunctions(
             if (string.Equals(Path.GetFileNameWithoutExtension(coverPath), context.FileNameWithoutExtension,
                     StringComparison.Ordinal)
                 && !string.Equals(Path.GetFileNameWithoutExtension(coverPath), "default", StringComparison.Ordinal))
+            {
                 await DeleteFiles.TryDeleteFileAsync(coverPath);
+            }
 
             await Task.Delay(400);
 

@@ -105,15 +105,17 @@ public class BugReportApiSink : ILogEventSink, IDisposable
     private async Task ProcessQueueAsync(CancellationToken cancellationToken)
     {
         while (await _channel.Reader.WaitToReadAsync(cancellationToken))
-        while (_channel.Reader.TryRead(out var logEvent))
-            try
-            {
-                await SendReportAsync(logEvent);
-            }
-            catch
-            {
-                WriteCriticalError(logEvent);
-            }
+        {
+            while (_channel.Reader.TryRead(out var logEvent))
+                try
+                {
+                    await SendReportAsync(logEvent);
+                }
+                catch
+                {
+                    WriteCriticalError(logEvent);
+                }
+        }
     }
 
     private async Task SendReportAsync(LogEvent logEvent)
@@ -135,9 +137,11 @@ public class BugReportApiSink : ILogEventSink, IDisposable
         {
             await File.AppendAllTextAsync(errorLogPath, report);
             if (userLogPath != null)
+            {
                 await File.AppendAllTextAsync(userLogPath,
                     report +
                     "--------------------------------------------------------------------------------------------------------------\n\n\n");
+            }
         }
 
         try
@@ -164,6 +168,7 @@ public class BugReportApiSink : ILogEventSink, IDisposable
             using var response = await httpClient.PostAsync(apiUrl, jsonContent, cts.Token);
 
             if (response.IsSuccessStatusCode && File.Exists(errorLogPath) && _deleteFilesService != null)
+            {
                 try
                 {
                     await _deleteFilesService.TryDeleteFileAsync(errorLogPath);
@@ -172,6 +177,7 @@ public class BugReportApiSink : ILogEventSink, IDisposable
                 {
                     // Ignore deletion failures
                 }
+            }
         }
         catch
         {

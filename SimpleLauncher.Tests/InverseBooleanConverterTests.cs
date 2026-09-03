@@ -19,7 +19,7 @@ public class InverseBooleanConverterTests
     [InlineData(false, true)]
     public void ConvertBooleanReturnsInverse(bool input, bool expected)
     {
-        var result = _converter.Convert(input, typeof(bool), null!, CultureInfo.InvariantCulture);
+        var result = _converter.Convert(input, typeof(bool), null, CultureInfo.InvariantCulture);
         Assert.Equal(expected, result);
     }
 
@@ -31,7 +31,7 @@ public class InverseBooleanConverterTests
     [InlineData(false, true)]
     public void ConvertBackBooleanReturnsInverse(bool input, bool expected)
     {
-        var result = _converter.ConvertBack(input, typeof(bool), null!, CultureInfo.InvariantCulture);
+        var result = _converter.ConvertBack(input, typeof(bool), null, CultureInfo.InvariantCulture);
         Assert.Equal(expected, result);
     }
 
@@ -41,7 +41,7 @@ public class InverseBooleanConverterTests
     [Fact]
     public void ConvertNonBooleanReturnsOriginalValue()
     {
-        var result = _converter.Convert("hello", typeof(string), null!, CultureInfo.InvariantCulture);
+        var result = _converter.Convert("hello", typeof(string), null, CultureInfo.InvariantCulture);
         Assert.Equal("hello", result);
     }
 
@@ -51,7 +51,7 @@ public class InverseBooleanConverterTests
     [Fact]
     public void ConvertBackNonBooleanReturnsOriginalValue()
     {
-        var result = _converter.ConvertBack(42, typeof(int), null!, CultureInfo.InvariantCulture);
+        var result = _converter.ConvertBack(42, typeof(int), null, CultureInfo.InvariantCulture);
         Assert.Equal(42, result);
     }
 
@@ -62,8 +62,8 @@ public class InverseBooleanConverterTests
     public void ConvertAndConvertBackAreInverse()
     {
         const bool original = true;
-        var converted = _converter.Convert(original, typeof(bool), null!, CultureInfo.InvariantCulture);
-        var roundTrip = _converter.ConvertBack(converted, typeof(bool), null!, CultureInfo.InvariantCulture);
+        var converted = _converter.Convert(original, typeof(bool), null, CultureInfo.InvariantCulture);
+        var roundTrip = _converter.ConvertBack(converted, typeof(bool), null, CultureInfo.InvariantCulture);
         Assert.Equal(original, roundTrip);
     }
 
@@ -74,8 +74,8 @@ public class InverseBooleanConverterTests
     public void ConvertBackAndConvertAreInverse()
     {
         const bool original = false;
-        var converted = _converter.ConvertBack(original, typeof(bool), null!, CultureInfo.InvariantCulture);
-        var roundTrip = _converter.Convert(converted, typeof(bool), null!, CultureInfo.InvariantCulture);
+        var converted = _converter.ConvertBack(original, typeof(bool), null, CultureInfo.InvariantCulture);
+        var roundTrip = _converter.Convert(converted, typeof(bool), null, CultureInfo.InvariantCulture);
         Assert.Equal(original, roundTrip);
     }
 
@@ -85,7 +85,7 @@ public class InverseBooleanConverterTests
     [Fact]
     public void ConvertIntReturnsOriginalValue()
     {
-        var result = _converter.Convert(1, typeof(bool), null!, CultureInfo.InvariantCulture);
+        var result = _converter.Convert(1, typeof(bool), null, CultureInfo.InvariantCulture);
         Assert.Equal(1, result);
     }
 
@@ -95,7 +95,7 @@ public class InverseBooleanConverterTests
     [Fact]
     public void ConvertNullReturnsNull()
     {
-        var result = _converter.Convert(null!, typeof(bool), null!, CultureInfo.InvariantCulture);
+        var result = _converter.Convert(null, typeof(bool), null, CultureInfo.InvariantCulture);
         Assert.Null(result);
     }
 }

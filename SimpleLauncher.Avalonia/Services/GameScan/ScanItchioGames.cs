@@ -36,6 +36,7 @@ public class ScanItchioGames : IGamePlatformScanner
             var gameDirs = Directory.GetDirectories(defaultLibraryPath);
 
             foreach (var gameDir in gameDirs)
+            {
                 try
                 {
                     var dirInfo = new DirectoryInfo(gameDir);
@@ -45,6 +46,7 @@ public class ScanItchioGames : IGamePlatformScanner
                     string? launchExe = null;
 
                     if (File.Exists(manifestPath))
+                    {
                         try
                         {
                             var lines = await File.ReadAllLinesAsync(manifestPath);
@@ -88,6 +90,7 @@ public class ScanItchioGames : IGamePlatformScanner
                         {
                             logErrors.Error(ex, "Error parsing itch.io manifest file.");
                         }
+                    }
 
                     // Attempt to get a prettier name from the executable if we found one, or directory name
                     if (!string.IsNullOrEmpty(launchExe) && File.Exists(launchExe))
@@ -97,10 +100,12 @@ public class ScanItchioGames : IGamePlatformScanner
                     }
 
                     if (string.IsNullOrEmpty(prettyName))
+                    {
                         // Capitalize slug
                         prettyName =
                             CultureInfo.CurrentCulture.TextInfo.ToTitleCase(
                                 gameName.Replace("-", " "));
+                    }
 
                     if (ignoredGameNames.Contains(prettyName)) continue;
 
@@ -122,6 +127,7 @@ public class ScanItchioGames : IGamePlatformScanner
                 {
                     logErrors.Error(ex, $"Error processing Itch.io game directory: {gameDir}");
                 }
+            }
         }
         catch (Exception ex)
         {

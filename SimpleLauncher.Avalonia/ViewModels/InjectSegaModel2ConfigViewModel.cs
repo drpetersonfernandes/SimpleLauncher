@@ -19,20 +19,32 @@ public partial class InjectSegaModel2ConfigViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
-    [ObservableProperty] private bool _bilinear;
-    [ObservableProperty] private bool _drawCross;
+    [ObservableProperty] public partial bool Bilinear { get; set; }
+
+    [ObservableProperty] public partial bool DrawCross { get; set; }
+
     private string _emulatorPath = null!;
-    [ObservableProperty] private bool _enableFf;
-    [ObservableProperty] private bool _filterTilemaps;
-    [ObservableProperty] private string _fsaa = null!;
-    [ObservableProperty] private bool _holdGears;
-    [ObservableProperty] private int _resX;
-    [ObservableProperty] private int _resY;
-    [ObservableProperty] private bool _showBeforeLaunch;
-    [ObservableProperty] private bool _trilinear;
-    [ObservableProperty] private bool _useRawInput;
-    [ObservableProperty] private string _wideScreen = null!;
-    [ObservableProperty] private bool _xInput;
+    [ObservableProperty] public partial bool EnableFf { get; set; }
+
+    [ObservableProperty] public partial bool FilterTilemaps { get; set; }
+
+    [ObservableProperty] public partial string Fsaa { get; set; } = null!;
+
+    [ObservableProperty] public partial bool HoldGears { get; set; }
+
+    [ObservableProperty] public partial int ResX { get; set; }
+
+    [ObservableProperty] public partial int ResY { get; set; }
+
+    [ObservableProperty] public partial bool ShowBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial bool Trilinear { get; set; }
+
+    [ObservableProperty] public partial bool UseRawInput { get; set; }
+
+    [ObservableProperty] public partial string WideScreen { get; set; } = null!;
+
+    [ObservableProperty] public partial bool XInput { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectSegaModel2ConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>

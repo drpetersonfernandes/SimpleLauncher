@@ -33,15 +33,15 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
     private readonly SettingsManagerService _settings;
     private readonly IList<SystemManager> _systemManagers;
 
-    [ObservableProperty] private ObservableCollection<Favorite> _favorites = [];
+    [ObservableProperty] public partial ObservableCollection<Favorite> Favorites { get; set; } = [];
 
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] public partial bool IsLoading { get; set; }
 
-    [ObservableProperty] private string _loadingMessage = "";
+    [ObservableProperty] public partial string LoadingMessage { get; set; } = "";
 
-    [ObservableProperty] private Stream? _previewImageSource;
+    [ObservableProperty] public partial Stream? PreviewImageSource { get; set; }
 
-    [ObservableProperty] private Favorite? _selectedFavorite;
+    [ObservableProperty] public partial Favorite? SelectedFavorite { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="FavoritesViewModel" />.</summary>
     /// <param name="configuration">The application configuration.</param>

@@ -19,18 +19,26 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
-    [ObservableProperty] private bool _asyncShader;
-    [ObservableProperty] private bool _audioStretching;
-    private string _emulatorPath = "";
-    [ObservableProperty] private bool _fullscreen;
+    [ObservableProperty] public partial bool AsyncShader { get; set; }
 
-    [ObservableProperty] private string _graphicsApi = "";
-    [ObservableProperty] private bool _isNew3Ds;
-    [ObservableProperty] private string _layout = "";
-    [ObservableProperty] private string _resolution = "";
-    [ObservableProperty] private bool _showBeforeLaunch;
-    [ObservableProperty] private int _volume;
-    [ObservableProperty] private bool _vsync;
+    [ObservableProperty] public partial bool AudioStretching { get; set; }
+
+    private string _emulatorPath = "";
+    [ObservableProperty] public partial bool Fullscreen { get; set; }
+
+    [ObservableProperty] public partial string GraphicsApi { get; set; } = "";
+
+    [ObservableProperty] public partial bool IsNew3Ds { get; set; }
+
+    [ObservableProperty] public partial string Layout { get; set; } = "";
+
+    [ObservableProperty] public partial string Resolution { get; set; } = "";
+
+    [ObservableProperty] public partial bool ShowBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial int Volume { get; set; }
+
+    [ObservableProperty] public partial bool Vsync { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectAzaharConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
@@ -200,7 +208,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAzaharConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }
@@ -234,7 +242,7 @@ public partial class InjectAzaharConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAzaharConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }

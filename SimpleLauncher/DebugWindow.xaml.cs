@@ -63,11 +63,15 @@ public partial class DebugWindow
             PropertyChangedEventHandler logTextPropertyChangedHandler = (_, args) =>
             {
                 if (string.Equals(args.PropertyName, nameof(DebugViewModel.LogText), StringComparison.Ordinal))
+                {
                     if (Instance is { IsLoaded: true } debugWindow)
+                    {
                         debugWindow.Dispatcher.BeginInvoke(() =>
                         {
                             if (debugWindow.IsLoaded) debugWindow.LogTextBox?.ScrollToEnd();
                         });
+                    }
+                }
             };
 
             viewModel.PropertyChanged += logTextPropertyChangedHandler;
@@ -86,7 +90,7 @@ public partial class DebugWindow
     public static void ShowDebugWindow()
     {
         var dispatcher = Application.Current?.Dispatcher;
-        if (dispatcher != null && !dispatcher.CheckAccess())
+        if (dispatcher?.CheckAccess() == false)
         {
             dispatcher.Invoke(ShowDebugWindow);
             return;

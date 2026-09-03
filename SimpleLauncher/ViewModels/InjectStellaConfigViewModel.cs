@@ -18,18 +18,28 @@ public partial class InjectStellaConfigViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
-    [ObservableProperty] private bool _audioEnabled;
-    [ObservableProperty] private int _audioVolume;
-    [ObservableProperty] private bool _confirmExit;
-    [ObservableProperty] private bool _correctAspect;
+    [ObservableProperty] public partial bool AudioEnabled { get; set; }
+
+    [ObservableProperty] public partial int AudioVolume { get; set; }
+
+    [ObservableProperty] public partial bool ConfirmExit { get; set; }
+
+    [ObservableProperty] public partial bool CorrectAspect { get; set; }
+
     private string _emulatorPath = null!;
-    [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private int _scanlines;
-    [ObservableProperty] private bool _showBeforeLaunch;
-    [ObservableProperty] private bool _timeMachine;
-    [ObservableProperty] private string _tvFilter = null!;
-    [ObservableProperty] private string _videoDriver = null!;
-    [ObservableProperty] private bool _vsync;
+    [ObservableProperty] public partial bool Fullscreen { get; set; }
+
+    [ObservableProperty] public partial int Scanlines { get; set; }
+
+    [ObservableProperty] public partial bool ShowBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial bool TimeMachine { get; set; }
+
+    [ObservableProperty] public partial string TvFilter { get; set; } = null!;
+
+    [ObservableProperty] public partial string VideoDriver { get; set; } = null!;
+
+    [ObservableProperty] public partial bool Vsync { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectStellaConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>

@@ -31,6 +31,7 @@ public static class SegaModel2ConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "SEGA Model 2",
                 "EMULATOR.INI");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -42,8 +43,11 @@ public static class SegaModel2ConfigurationService
                     logger.Error(ex, $"[SegaModel2Config] Failed to create EMULATOR.INI from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("EMULATOR.INI not found and sample is missing.", samplePath);
+            }
         }
 
         logger.Debug($"[SegaModel2Config] Injecting configuration into: {configPath}");
@@ -139,7 +143,9 @@ public static class SegaModel2ConfigurationService
                     var insertIndex = rendererIndex + 1;
                     while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
                            !lines[insertIndex].Trim().StartsWith('['))
+                    {
                         insertIndex++;
+                    }
 
                     foreach (var kvp in rendererUpdates) lines.Insert(insertIndex++, $"{kvp.Key}={kvp.Value}");
                 }
@@ -160,7 +166,9 @@ public static class SegaModel2ConfigurationService
                     var insertIndex = inputIndex + 1;
                     while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
                            !lines[insertIndex].Trim().StartsWith('['))
+                    {
                         insertIndex++;
+                    }
 
                     foreach (var kvp in inputUpdates) lines.Insert(insertIndex++, $"{kvp.Key}={kvp.Value}");
                 }
@@ -174,6 +182,7 @@ public static class SegaModel2ConfigurationService
         }
 
         if (modified)
+        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -185,7 +194,10 @@ public static class SegaModel2ConfigurationService
                 logger.Error(ex, $"[SegaModel2Config] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
+        }
         else
+        {
             logger.Debug("[SegaModel2Config] No changes needed.");
+        }
     }
 }

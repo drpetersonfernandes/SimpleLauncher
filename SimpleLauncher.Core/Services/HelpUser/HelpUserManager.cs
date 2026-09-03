@@ -143,11 +143,13 @@ public partial class HelpUserManager
                 var content = markdownContent.Substring(contentStart, contentLength).Trim();
 
                 if (!string.IsNullOrWhiteSpace(content))
+                {
                     systems.Add(new SystemHelper
                     {
                         SystemName = systemName,
                         SystemHelperText = NormalizeText(content)
                     });
+                }
             }
         }
 

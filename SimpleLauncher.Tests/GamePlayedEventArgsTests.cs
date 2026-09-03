@@ -22,6 +22,6 @@ public class GamePlayedEventArgsTests
     {
         var args = new GamePlayedEventArgs("game.zip", "NES");
 
-        Assert.IsAssignableFrom<EventArgs>(args);
+        Assert.IsType<EventArgs>(args, exactMatch: false);
     }
 }

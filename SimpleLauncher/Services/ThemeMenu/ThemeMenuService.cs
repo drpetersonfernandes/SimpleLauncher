@@ -71,14 +71,18 @@ public class ThemeMenuService
     private void UncheckAllBaseThemes()
     {
         foreach (var name in BaseThemeNames)
+        {
             if (_host.FindMenuItemByName(name) is { } item)
                 item.IsChecked = false;
+        }
     }
 
     private void UncheckAllAccentColors()
     {
         foreach (var name in AccentColorNames)
+        {
             if (_host.FindMenuItemByName(name) is { } item)
                 item.IsChecked = false;
+        }
     }
 }

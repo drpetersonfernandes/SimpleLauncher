@@ -70,7 +70,8 @@ public partial class PreferencesWindow : Window
         {
             if (DefaultViewCombo.SelectedItem is ComboBoxItem { Tag: string viewMode }) _settings.ViewMode = viewMode;
 
-            if (int.TryParse(s: CardWidthBox.Text, provider: CultureInfo.InvariantCulture, result: out var cardWidth) && cardWidth is >= 148 and <= 280)
+            if (int.TryParse(s: CardWidthBox.Text, provider: CultureInfo.InvariantCulture, result: out var cardWidth) &&
+                cardWidth is >= 148 and <= 280)
                 _settings.ThumbnailSize = cardWidth;
 
             _settings.EnableGamePadNavigation = GamepadNavCheck.IsChecked == true;
@@ -158,19 +159,23 @@ public partial class PreferencesWindow : Window
     {
         // General
         foreach (var lbi in LanguageCombo.Items.OfType<ComboBoxItem>())
+        {
             if (string.Equals(lbi.Tag as string, _settings.Language, StringComparison.OrdinalIgnoreCase))
             {
                 LanguageCombo.SelectedItem = lbi;
                 break;
             }
+        }
 
         // View
         foreach (var lbi in DefaultViewCombo.Items.OfType<ComboBoxItem>())
+        {
             if (string.Equals(lbi.Tag as string, _settings.ViewMode, StringComparison.OrdinalIgnoreCase))
             {
                 DefaultViewCombo.SelectedItem = lbi;
                 break;
             }
+        }
 
         CardWidthBox.Text = _settings.ThumbnailSize.ToString(CultureInfo.InvariantCulture);
         GamepadNavCheck.IsChecked = _settings.EnableGamePadNavigation;
@@ -206,7 +211,8 @@ public partial class PreferencesWindow : Window
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(apiKey))
             {
                 await MessageDialogWindow.ShowAsync(this,
-                    _localization.GetString("PleaseenterbothusernameandAPIkey", "Please enter both username and API key."),
+                    _localization.GetString("PleaseenterbothusernameandAPIkey",
+                        "Please enter both username and API key."),
                     _localization.GetString("RetroAchievements", "RetroAchievements"),
                     MessageButtons.Ok,
                     MessageIcon.Warning);
@@ -232,7 +238,8 @@ public partial class PreferencesWindow : Window
                         var connectedTemplate = _localization.GetString("ConnectedasPointsRank",
                             "Connected as: {0}\nPoints: {1:N0}\nRank: {2}");
                         await MessageDialogWindow.ShowAsync(this,
-                            string.Format(CultureInfo.InvariantCulture, connectedTemplate, profile.User, profile.TotalPoints, profile.Rank),
+                            string.Format(CultureInfo.InvariantCulture, connectedTemplate, profile.User,
+                                profile.TotalPoints, profile.Rank),
                             _localization.GetString("RetroAchievementsConnected", "RetroAchievements — Connected"),
                             MessageButtons.Ok,
                             MessageIcon.Information);

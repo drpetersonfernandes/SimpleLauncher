@@ -145,11 +145,15 @@ public class MountIsoFiles : IMountIsoFiles
                 {
                     await Task.Delay(1000);
                     if (Directory.Exists(mountPath))
+                    {
                         _logger.Debug(
                             $"[MountIsoFiles] WARNING: Mount path {mountPath} still exists after dismount attempt for ISO: {resolvedIsoFilePath}. Manual dismount might be needed.");
+                    }
                     else
+                    {
                         _logger.Debug(
                             $"[MountIsoFiles] Mount path {mountPath} successfully unmounted or no longer detected for ISO: {resolvedIsoFilePath}.");
+                    }
                 }
             }
         }
@@ -383,6 +387,7 @@ public class MountIsoFiles : IMountIsoFiles
             logErrors.Warning(timeoutMessage); // Log timeout as an error
 
             if (!process.HasExited)
+            {
                 try
                 {
                     process.Kill(true);
@@ -391,6 +396,7 @@ public class MountIsoFiles : IMountIsoFiles
                 {
                     /* Ignore */
                 }
+            }
         }
         catch (Exception ex)
         {

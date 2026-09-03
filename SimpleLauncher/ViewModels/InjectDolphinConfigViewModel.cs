@@ -17,13 +17,17 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
-    [ObservableProperty] private bool _dspThread;
+    [ObservableProperty] public partial bool DspThread { get; set; }
+
     private string _emulatorPath = "";
 
-    [ObservableProperty] private string _gfxBackend = "";
-    [ObservableProperty] private bool _showBeforeLaunch;
-    [ObservableProperty] private bool _wiimoteContinuousScanning;
-    [ObservableProperty] private bool _wiimoteEnableSpeaker;
+    [ObservableProperty] public partial string GfxBackend { get; set; } = "";
+
+    [ObservableProperty] public partial bool ShowBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial bool WiimoteContinuousScanning { get; set; }
+
+    [ObservableProperty] public partial bool WiimoteEnableSpeaker { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectDolphinConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
@@ -167,7 +171,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectDolphinConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }
@@ -197,7 +201,7 @@ public partial class InjectDolphinConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectDolphinConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }

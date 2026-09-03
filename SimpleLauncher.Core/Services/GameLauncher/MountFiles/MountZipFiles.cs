@@ -38,13 +38,19 @@ public class MountZipFiles : IMountZipFiles
 
         // Extract just the drive letter
         if (mountPathFromConfig.EndsWith(":\\", StringComparison.Ordinal))
+        {
             _preferredMountDriveLetterOnly = mountPathFromConfig.Substring(0, mountPathFromConfig.Length - 2);
+        }
         else if (mountPathFromConfig.EndsWith(':'))
+        {
             _preferredMountDriveLetterOnly = mountPathFromConfig.Substring(0, mountPathFromConfig.Length - 1);
+        }
         else // Assume it's just the letter or an invalid format, try to take the first char if it's a letter
+        {
             _preferredMountDriveLetterOnly = mountPathFromConfig.Length > 0 && char.IsLetter(mountPathFromConfig[0])
                 ? mountPathFromConfig[0].ToString().ToUpperInvariant()
                 : "Z";
+        }
 
         _logger.Debug(
             $"[MountZipFiles] Preferred MountDriveLetter (for {_zipMountExecutableName}): {_preferredMountDriveLetterOnly}");
@@ -75,6 +81,7 @@ public class MountZipFiles : IMountZipFiles
                     $"[MountZipFiles.KillAllSimpleZipDriveProcesses] Found {processes.Length} {processName} process(es) to kill.");
 
                 foreach (var process in processes)
+                {
                     try
                     {
                         if (!process.HasExited)
@@ -95,6 +102,7 @@ public class MountZipFiles : IMountZipFiles
                     {
                         process.Dispose();
                     }
+                }
             }
         }
         catch (Exception ex)
@@ -327,11 +335,15 @@ public class MountZipFiles : IMountZipFiles
                     }
 
                     if (mountProcess.HasExited)
+                    {
                         _logger.Debug(
                             $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
+                    }
                     else
+                    {
                         _logger.Debug(
                             $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                    }
                 }
                 catch (InvalidOperationException ioEx)
                 {
@@ -380,11 +392,15 @@ public class MountZipFiles : IMountZipFiles
             await Task.Delay(2000);
             // Use mountDriveRootForChecks for Directory.Exists
             if (Directory.Exists(mountDriveRootForChecks))
+            {
                 _logger.Debug(
                     $"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount. {_zipMountExecutableName} might not have unmounted correctly or is still running.");
+            }
             else
+            {
                 _logger.Debug(
                     $"[MountZipFiles] Drive {mountDriveRootForChecks} successfully unmounted (or was not detected).");
+            }
 
             // Safety net: ensure all SimpleZipDrive processes are killed
             KillAllSimpleZipDriveProcesses(logErrors);
@@ -610,11 +626,15 @@ public class MountZipFiles : IMountZipFiles
                     }
 
                     if (mountProcess.HasExited)
+                    {
                         _logger.Debug(
                             $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
+                    }
                     else
+                    {
                         _logger.Debug(
                             $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                    }
                 }
                 catch (Exception termEx)
                 {
@@ -644,10 +664,14 @@ public class MountZipFiles : IMountZipFiles
 
             await Task.Delay(2000);
             if (Directory.Exists(mountDriveRootForChecks))
+            {
                 _logger.Debug(
                     $"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount.");
+            }
             else
+            {
                 _logger.Debug($"[MountZipFiles] Drive {mountDriveRootForChecks} successfully unmounted.");
+            }
 
             // Safety net: ensure all SimpleZipDrive processes are killed
             KillAllSimpleZipDriveProcesses(logErrors);
@@ -815,15 +839,19 @@ public class MountZipFiles : IMountZipFiles
 
             // 1. Resolve Emulator Path
             if (string.IsNullOrWhiteSpace(selectedEmulatorManager.EmulatorLocation))
+            {
                 throw new FileNotFoundException(
                     $"Emulator executable path is not configured for '{selectedEmulatorName}'. " +
                     "Please edit the system configuration and provide a valid emulator path.");
+            }
 
             var resolvedEmulatorExePath =
                 PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorManager.EmulatorLocation);
             if (string.IsNullOrEmpty(resolvedEmulatorExePath) || !File.Exists(resolvedEmulatorExePath))
+            {
                 throw new FileNotFoundException(
                     $"Emulator executable not found: {selectedEmulatorManager.EmulatorLocation}");
+            }
 
             var resolvedEmulatorFolderPath = Path.GetDirectoryName(resolvedEmulatorExePath);
             if (string.IsNullOrEmpty(resolvedEmulatorFolderPath))
@@ -920,11 +948,15 @@ public class MountZipFiles : IMountZipFiles
                     }
 
                     if (mountProcess.HasExited)
+                    {
                         _logger.Debug(
                             $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
+                    }
                     else
+                    {
                         _logger.Debug(
                             $"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                    }
                 }
                 catch (Exception termEx)
                 {
@@ -954,10 +986,14 @@ public class MountZipFiles : IMountZipFiles
 
             await Task.Delay(2000);
             if (Directory.Exists(mountDriveRootForChecks))
+            {
                 _logger.Debug(
                     $"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount.");
+            }
             else
+            {
                 _logger.Debug($"[MountZipFiles] Drive {mountDriveRootForChecks} successfully unmounted.");
+            }
 
             // Safety net: ensure all SimpleZipDrive processes are killed
             KillAllSimpleZipDriveProcesses(logErrors);
@@ -1015,11 +1051,13 @@ public class MountZipFiles : IMountZipFiles
 
             // If preferred is not available, search from Z: down to D:
             for (var letter = 'Z'; letter >= 'D'; letter--)
+            {
                 if (!existingDrives.Contains(letter))
                 {
                     _logger.Debug($"[MountZipFiles.GetAvailableDriveLetter] Found available drive letter: {letter}:");
                     return letter;
                 }
+            }
 
             _logger.Debug(
                 "[MountZipFiles.GetAvailableDriveLetter] No available drive letters found between D: and Z:.");

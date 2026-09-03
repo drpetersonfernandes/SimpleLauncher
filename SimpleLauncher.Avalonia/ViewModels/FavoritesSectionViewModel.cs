@@ -31,15 +31,15 @@ public partial class FavoritesSectionViewModel : ObservableObject
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly SystemManagerService _systemManager;
 
-    [ObservableProperty] private ObservableCollection<FavoriteRowViewModel> _favorites = [];
+    [ObservableProperty] public partial ObservableCollection<FavoriteRowViewModel> Favorites { get; set; } = [];
 
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] public partial bool IsLoading { get; set; }
 
-    [ObservableProperty] private string _loadingMessage = "";
+    [ObservableProperty] public partial string LoadingMessage { get; set; } = "";
 
-    [ObservableProperty] private string _previewImagePath = "";
+    [ObservableProperty] public partial string PreviewImagePath { get; set; } = "";
 
-    [ObservableProperty] private FavoriteRowViewModel? _selectedFavorite;
+    [ObservableProperty] public partial FavoriteRowViewModel? SelectedFavorite { get; set; }
 
     public FavoritesSectionViewModel(
         FavoritesManager favoritesManager,
@@ -97,13 +97,15 @@ public partial class FavoritesSectionViewModel : ObservableObject
             {
                 // Only reconcile when systems are actually configured: an empty list (e.g. a
                 // transient read failure) must never wipe every favorite as "missing systems".
-                var validSystemNames = _systemManager.LoadSystems().Select(static s => s.SystemName).ToList();
-                if (validSystemNames.Any())
+                var validSystemNames = _systemManager.LoadSystems().ConvertAll(static s => s.SystemName);
+                if (validSystemNames.Count != 0)
                 {
                     var removedCount = await _favoritesManager.RemoveFavoritesForMissingSystemsAsync(validSystemNames);
                     if (removedCount > 0)
+                    {
                         _logErrors.Information(
                             $"Removed {removedCount} favorite(s) referencing systems that no longer exist.");
+                    }
                 }
             }
             catch (Exception ex)
@@ -117,6 +119,7 @@ public partial class FavoritesSectionViewModel : ObservableObject
                 var rows = new List<FavoriteRowViewModel>(favorites.Count);
 
                 foreach (var favorite in favorites)
+                {
                     try
                     {
                         // WPF parity: FileName is a bare file name resolved against the
@@ -158,6 +161,7 @@ public partial class FavoritesSectionViewModel : ObservableObject
                             "Error processing a favorite entry; skipping it. FileName={FileName}, System={System}",
                             favorite.FileName, favorite.SystemName);
                     }
+                }
 
                 return rows;
             });

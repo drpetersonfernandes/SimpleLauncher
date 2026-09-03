@@ -45,8 +45,10 @@ public class DetectResourceKeyCountMismatchTests
         {
             var removed = DeleteExtraKeys(file, englishKeys);
             if (removed.Count > 0)
+            {
                 Trace.WriteLine(
                     $"Removed extra keys from {Path.GetFileName(file)}: {string.Join(", ", removed)}");
+            }
         }
 
         // Verify all files now have the same key count as English.

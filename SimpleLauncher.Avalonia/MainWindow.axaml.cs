@@ -283,8 +283,10 @@ public partial class MainWindow : Window, IPaginationHost
                     var selectedSystem = _viewModel.SelectedSystem;
                     if (!string.IsNullOrEmpty(selectedSystem)
                         && !string.Equals(selectedSystem, e.Value, StringComparison.OrdinalIgnoreCase))
+                    {
                         // File change is for a different system — ignore it.
                         return;
+                    }
 
                     // The affected system's cached file list is stale — drop it so the
                     // refresh below re-scans that system's folders from disk.
@@ -766,8 +768,10 @@ public partial class MainWindow : Window, IPaginationHost
         var column = e.Column;
         var sortMember = column.SortMemberPath;
         if (string.IsNullOrEmpty(sortMember))
+        {
             // Map header translate fallback
             sortMember = column.Header?.ToString() ?? "";
+        }
 
         // Map WPF header keys to sort fields
         var columnName = sortMember switch
@@ -1074,6 +1078,7 @@ public partial class MainWindow : Window, IPaginationHost
     private void OnPointerWheelChangedForZoom(object? sender, PointerWheelEventArgs e)
     {
         if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
+        {
             switch (e.Delta.Y)
             {
                 case > 0:
@@ -1085,6 +1090,7 @@ public partial class MainWindow : Window, IPaginationHost
                     e.Handled = true;
                     break;
             }
+        }
     }
 
     #endregion
@@ -1365,7 +1371,7 @@ public partial class MainWindow : Window, IPaginationHost
                 _ = CopyToClipboardAsync(fileName);
                 ShowToast(_localization.GetString("Context.Copied"), fileName);
             },
-            OnShowInFolder = g => { _ = ShowGameInFolderAsync(g); },
+            OnShowInFolder = g => _ = ShowGameInFolderAsync(g),
             OnEditSystem = OpenEditSystemForGame
         };
     }
@@ -1387,14 +1393,18 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             if (OperatingSystem.IsWindows())
+            {
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = "explorer.exe",
                     Arguments = $"/select,\"{game.FilePath}\"",
                     UseShellExecute = true
                 });
+            }
             else if (GetTopLevel(this)?.Launcher is { } launcher)
+            {
                 await launcher.LaunchDirectoryInfoAsync(new DirectoryInfo(directory));
+            }
         }
         catch (Exception ex)
         {
@@ -1494,7 +1504,9 @@ public partial class MainWindow : Window, IPaginationHost
 
             if (e.Source is not Visual favoritesVisual
                 || FindParent<DataGridRow>(favoritesVisual) is not { DataContext: FavoriteRowViewModel favorite })
+            {
                 return;
+            }
 
             // WPF stores favorites as a file NAME resolved against the system folders;
             // resolve it for launch/media actions while keeping the stored name for
@@ -1503,7 +1515,7 @@ public partial class MainWindow : Window, IPaginationHost
             var context = BuildRightClickContext(
                 filePath, favorite.SystemName,
                 fileNameWithExtensionOverride: favorite.FilePath,
-                onFavoriteRemoved: () => { _ = FavoritesSection.LoadFavoritesAsync(); });
+                onFavoriteRemoved: () => _ = FavoritesSection.LoadFavoritesAsync());
 
             _contextMenuService.ShowContextMenu(context, FavoritesDataGrid);
             e.Handled = true;
@@ -1523,7 +1535,9 @@ public partial class MainWindow : Window, IPaginationHost
 
             if (e.Source is not Visual historyVisual
                 || FindParent<DataGridRow>(historyVisual) is not { DataContext: PlayHistoryItem item })
+            {
                 return;
+            }
 
             var context = BuildRightClickContext(item.FileName, item.SystemName);
             _contextMenuService.ShowContextMenu(context, PlayHistoryDataGrid);
@@ -1544,7 +1558,9 @@ public partial class MainWindow : Window, IPaginationHost
 
             if (e.Source is not Visual searchVisual
                 || FindParent<DataGridRow>(searchVisual) is not { DataContext: SearchResult result })
+            {
                 return;
+            }
 
             var context = BuildRightClickContext(result.FilePath, result.SystemName);
             _contextMenuService.ShowContextMenu(context, GlobalSearchResultsDataGrid);
@@ -1719,8 +1735,10 @@ public partial class MainWindow : Window, IPaginationHost
         // Check exactly the language menu item whose code matches the active language
         var checkedName = _languageMenu.GetMenuItemNameForLanguageCode(lang);
         foreach (var item in LanguageMenu.Items.OfType<MenuItem>())
+        {
             item.IsChecked = _languageMenu.IsLanguageMenuItem(item.Name) &&
                              string.Equals(item.Name, checkedName, StringComparison.Ordinal);
+        }
     }
 
     private void UpdateThumbnailSizeCheckMarks(int size)
@@ -1796,7 +1814,8 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
-            if (sender is not MenuItem { Tag: string tag } || !int.TryParse(tag, CultureInfo.InvariantCulture, out var size)) return;
+            if (sender is not MenuItem { Tag: string tag } ||
+                !int.TryParse(tag, CultureInfo.InvariantCulture, out var size)) return;
 
             _settings.ThumbnailSize = size;
             await _settings.SaveAsync();
@@ -1840,7 +1859,8 @@ public partial class MainWindow : Window, IPaginationHost
     {
         try
         {
-            if (sender is not MenuItem { Tag: string tag } || !int.TryParse(tag, CultureInfo.InvariantCulture, out var page)) return;
+            if (sender is not MenuItem { Tag: string tag } ||
+                !int.TryParse(tag, CultureInfo.InvariantCulture, out var page)) return;
 
             _settings.GamesPerPage = page;
             await _settings.SaveAsync();
@@ -2312,7 +2332,8 @@ public partial class MainWindow : Window, IPaginationHost
             {
                 var template = _localization.GetString("FoundPcGamesDetail",
                     "Found {0} PC games. {1} the Microsoft Windows system with {2} new game shortcut(s).");
-                var detail = string.Format(CultureInfo.InvariantCulture, template, result.GamesFound, action, result.ShortcutsCreated);
+                var detail = string.Format(CultureInfo.InvariantCulture, template, result.GamesFound, action,
+                    result.ShortcutsCreated);
                 _viewModel.StatusText = detail;
                 ShowToast(scanCompleteTitle, detail);
             }
@@ -2389,6 +2410,7 @@ public partial class MainWindow : Window, IPaginationHost
 
             // System icon image — or fallback glyph if no icon resolved
             if (!string.IsNullOrEmpty(iconPath) && File.Exists(iconPath))
+            {
                 try
                 {
                     await using var stream = File.OpenRead(iconPath);
@@ -2413,7 +2435,9 @@ public partial class MainWindow : Window, IPaginationHost
                         Margin = new Thickness(0, 10, 0, 0)
                     });
                 }
+            }
             else
+            {
                 buttonContentPanel.Children.Add(new TextBlock
                 {
                     Text = "🎮",
@@ -2421,6 +2445,7 @@ public partial class MainWindow : Window, IPaginationHost
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Margin = new Thickness(0, 10, 0, 0)
                 });
+            }
 
             buttonContentPanel.Children.Add(new TextBlock
             {
@@ -2440,8 +2465,8 @@ public partial class MainWindow : Window, IPaginationHost
             {
                 Content = buttonContentPanel,
                 Tag = systemName,
-                Width = systemImageSize * 1.3 * 1.6 + 20,
-                Height = systemImageSize * 1.3 + 40 + 20,
+                Width = (systemImageSize * 1.3 * 1.6) + 20,
+                Height = (systemImageSize * 1.3) + 40 + 20,
                 Margin = new Thickness(5),
                 Padding = new Thickness(5)
             };
@@ -2451,11 +2476,11 @@ public partial class MainWindow : Window, IPaginationHost
             // Right-click context menu (WPF parity: Select / Edit / Delete)
             var contextMenu = new ContextMenu();
             var selectItem = new MenuItem { Header = _localization.GetString("SelectSystem", "Select System") };
-            selectItem.Click += (_, _) => { SystemComboBox.SelectedItem = systemName; };
+            selectItem.Click += (_, _) => SystemComboBox.SelectedItem = systemName;
             var editItem = new MenuItem { Header = _localization.GetString("EditSystem", "Edit System") };
             editItem.Click += (_, _) => EditSystemFromGrid(systemName);
             var deleteItem = new MenuItem { Header = _localization.GetString("DeleteSystem", "Delete System") };
-            deleteItem.Click += (_, _) => { _ = DeleteSystemFromGrid(systemName); };
+            deleteItem.Click += (_, _) => _ = DeleteSystemFromGrid(systemName);
             contextMenu.Items.Add(selectItem);
             contextMenu.Items.Add(editItem);
             contextMenu.Items.Add(deleteItem);

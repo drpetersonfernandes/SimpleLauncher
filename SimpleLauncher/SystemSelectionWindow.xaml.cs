@@ -26,7 +26,7 @@ public partial class SystemSelectionWindow
             Close();
         };
 
-        Closed += (_, _) => { DialogResult ??= false; };
+        Closed += (_, _) => DialogResult ??= false;
 
         DataContext = _viewModel;
     }

@@ -30,8 +30,10 @@ public static class SanitizeInputSystemName
         var foundInvalidChars = new List<char>();
 
         foreach (var c in name)
+        {
             if (invalidFileNameChars.Contains(c))
                 foundInvalidChars.Add(c);
+        }
 
         invalidChars = [.. foundInvalidChars];
         return invalidChars.Length > 0;
@@ -55,8 +57,10 @@ public static class SanitizeInputSystemName
         var foundInvalidChars = new List<char>();
 
         foreach (var c in path)
+        {
             if (invalidPathChars.Contains(c) && !foundInvalidChars.Contains(c))
                 foundInvalidChars.Add(c);
+        }
 
         invalidChars = [.. foundInvalidChars];
         return invalidChars.Length > 0;
@@ -90,9 +94,11 @@ public static class SanitizeInputSystemName
 
         // Ensure the name isn't empty *after* sanitization
         if (string.IsNullOrWhiteSpace(sanitizedName))
+        {
             // If sanitization resulted in an empty string (e.g., input was just "."),
             // return a placeholder.
             return "_invalid_sanitized_name_";
+        }
 
         // Check for Windows reserved device names
         if (Enumerable.Contains(ReservedNames, sanitizedName, StringComparer.OrdinalIgnoreCase))

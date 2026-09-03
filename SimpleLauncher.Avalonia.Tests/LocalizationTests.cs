@@ -104,8 +104,10 @@ public class LocalizationTests
             localization.LoadLanguage(lang);
 
             Assert.Equal(lang, localization.CurrentLanguage);
-            Assert.NotEqual("Sidebar.AllGames", localization.GetString("Sidebar.AllGames"), StringComparer.OrdinalIgnoreCase);
-            Assert.NotEqual("Toolbar.Search", localization.GetString("Toolbar.Search"), StringComparer.OrdinalIgnoreCase);
+            Assert.NotEqual("Sidebar.AllGames", localization.GetString("Sidebar.AllGames"),
+                StringComparer.OrdinalIgnoreCase);
+            Assert.NotEqual("Toolbar.Search", localization.GetString("Toolbar.Search"),
+                StringComparer.OrdinalIgnoreCase);
         }
     }
 
@@ -122,6 +124,7 @@ public class LocalizationTests
 
         localization.LoadLanguage("zh-hans");
         Assert.Equal("zh-Hans", localization.CurrentLanguage);
-        Assert.NotEqual("Sidebar.AllGames", localization.GetString("Sidebar.AllGames"), StringComparer.OrdinalIgnoreCase);
+        Assert.NotEqual("Sidebar.AllGames", localization.GetString("Sidebar.AllGames"),
+            StringComparer.OrdinalIgnoreCase);
     }
 }

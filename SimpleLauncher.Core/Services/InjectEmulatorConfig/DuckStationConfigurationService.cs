@@ -30,6 +30,7 @@ public static class DuckStationConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "DuckStation",
                 "settings.ini");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -41,8 +42,11 @@ public static class DuckStationConfigurationService
                     logger.Error(ex, $"[DuckStationConfig] Failed to create settings.ini from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("settings.ini not found and sample is missing.", samplePath);
+            }
         }
 
         logger.Debug($"[DuckStationConfig] Injecting configuration into: {configPath}");
@@ -162,6 +166,7 @@ public static class DuckStationConfigurationService
         }
 
         if (modified)
+        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -173,8 +178,11 @@ public static class DuckStationConfigurationService
                 logger.Error(ex, $"[DuckStationConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
+        }
         else
+        {
             logger.Debug("[DuckStationConfig] No changes needed.");
+        }
     }
 
     private static void ApplyUpdatesToSection(List<string> lines, string sectionName,

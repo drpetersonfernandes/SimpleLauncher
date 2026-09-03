@@ -19,22 +19,38 @@ public partial class InjectMameConfigViewModel : ObservableObject
     private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
     private string[] _listOfSecondarySystemFolders = null!;
-    [ObservableProperty] private bool _mameAutoframeskip;
-    [ObservableProperty] private bool _mameAutosave;
-    [ObservableProperty] private string _mameBgfxBackend = null!;
-    [ObservableProperty] private string _mameBgfxScreenChains = null!;
-    [ObservableProperty] private bool _mameCheat;
-    [ObservableProperty] private bool _mameConfirmQuit;
-    [ObservableProperty] private bool _mameFilter;
-    [ObservableProperty] private bool _mameJoystick;
-    [ObservableProperty] private bool _mameKeepAspect;
-    [ObservableProperty] private bool _mameMaximize;
-    [ObservableProperty] private bool _mameNvramSave;
-    [ObservableProperty] private bool _mameRewind;
-    [ObservableProperty] private bool _mameShowSettingsBeforeLaunch;
-    [ObservableProperty] private bool _mameSkipGameInfo;
-    [ObservableProperty] private string _mameVideo = null!;
-    [ObservableProperty] private bool _mameWindow;
+    [ObservableProperty] public partial bool MameAutoframeskip { get; set; }
+
+    [ObservableProperty] public partial bool MameAutosave { get; set; }
+
+    [ObservableProperty] public partial string MameBgfxBackend { get; set; } = null!;
+
+    [ObservableProperty] public partial string MameBgfxScreenChains { get; set; } = null!;
+
+    [ObservableProperty] public partial bool MameCheat { get; set; }
+
+    [ObservableProperty] public partial bool MameConfirmQuit { get; set; }
+
+    [ObservableProperty] public partial bool MameFilter { get; set; }
+
+    [ObservableProperty] public partial bool MameJoystick { get; set; }
+
+    [ObservableProperty] public partial bool MameKeepAspect { get; set; }
+
+    [ObservableProperty] public partial bool MameMaximize { get; set; }
+
+    [ObservableProperty] public partial bool MameNvramSave { get; set; }
+
+    [ObservableProperty] public partial bool MameRewind { get; set; }
+
+    [ObservableProperty] public partial bool MameShowSettingsBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial bool MameSkipGameInfo { get; set; }
+
+    [ObservableProperty] public partial string MameVideo { get; set; } = null!;
+
+    [ObservableProperty] public partial bool MameWindow { get; set; }
+
     private string _systemRomPath = null!;
 
     /// <summary>Initializes a new instance of the <see cref="InjectMameConfigViewModel" />.</summary>

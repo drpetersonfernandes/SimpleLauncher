@@ -203,6 +203,7 @@ public class App : Application, IDisposable
             }
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime nonFirstInstanceLifetime)
+            {
                 // Do NOT call Shutdown() synchronously here: the dispatcher main loop has not
                 // started yet, and DoShutdown() -> Dispatcher.UIThread.InvokeShutdown() leaves
                 // the dispatcher permanently shut down, so StartCore() then throws
@@ -210,6 +211,7 @@ public class App : Application, IDisposable
                 // calls Dispatcher.UIThread.MainLoop(...). Post the shutdown instead so it runs
                 // once the main loop is pumping (same clean-exit path as closing the main window).
                 Dispatcher.UIThread.Post(() => nonFirstInstanceLifetime.Shutdown());
+            }
 
             return;
         }
@@ -239,9 +241,9 @@ public class App : Application, IDisposable
                 Path.Combine(appDataLogFolder,
                     configuration.GetValue<string>("LogPath") ?? "error_user.log"),
                 LogEventLevel.Warning,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}",
                 rollingInterval: RollingInterval.Day,
-                retainedFileCountLimit: 7,
-                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}"))
+                retainedFileCountLimit: 7))
             .WriteTo.Sink(new DebugWindowSink())
             .WriteTo.Sink(bugReportSink)
             .CreateLogger();
@@ -260,7 +262,9 @@ public class App : Application, IDisposable
         var savedLanguage = ServiceProvider.GetRequiredService<SettingsManagerService>().Language;
         if (!string.IsNullOrEmpty(savedLanguage) &&
             !string.Equals(savedLanguage, "en", StringComparison.OrdinalIgnoreCase))
+        {
             localizationService.LoadLanguage(savedLanguage);
+        }
 
 
         // Initialize the bug report sink with DI services (queues Warning+ events to the API)

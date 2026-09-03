@@ -164,9 +164,11 @@ internal class EnvironmentInfo
                 // Windows 11 and Server 2022 both have build >= 22000
                 // Use registry to differentiate, or fall back to Major.Minor check
                 if (version is { Build: >= 22000, Major: 10 })
+                {
                     // Without registry, we can't be 100% sure, but we'll assume Windows 11 for client OS
                     // and note the uncertainty
                     return $"Windows 11 or Server 2022 (Build {version.Build})";
+                }
 
                 return version.Major switch
                 {

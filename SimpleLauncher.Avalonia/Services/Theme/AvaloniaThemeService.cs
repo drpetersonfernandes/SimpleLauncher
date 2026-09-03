@@ -127,8 +127,10 @@ public static class AvaloniaThemeService
         };
 
         foreach (var key in PaletteKeys)
+        {
             if (palette.TryGetValue(key, out var hex))
                 Application.Current.Resources[key] = Color.Parse(hex);
+        }
 
         if (!AccentHex.TryGetValue(effectiveAccent, out var accentHex)) accentHex = AccentHex["Blue"];
 
@@ -154,7 +156,7 @@ public static class AvaloniaThemeService
 
         byte L(byte v)
         {
-            return (byte)Math.Min(255, v + (255 - v) * amount);
+            return (byte)Math.Min(255, v + ((255 - v) * amount));
         }
     }
 

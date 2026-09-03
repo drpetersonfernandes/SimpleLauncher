@@ -83,24 +83,30 @@ public class LocalizationService
         }
 
         if (File.Exists(path))
+        {
             try
             {
                 var json = File.ReadAllText(path);
                 var dict = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
                 if (dict is not null)
+                {
                     foreach (var kvp in dict)
                         _strings[kvp.Key] = kvp.Value;
+                }
             }
             catch (Exception ex)
             {
                 // Fall through to English
                 Log.Error(ex, "Failed to load language file {Path}", path);
             }
+        }
 
         // If not English, merge English fallback for missing keys
         if (!string.Equals(lang, "en", StringComparison.OrdinalIgnoreCase) && _enFallback.Count > 0)
+        {
             foreach (var kvp in _enFallback)
                 _strings.TryAdd(kvp.Key, kvp.Value);
+        }
     }
 
     /// <summary>

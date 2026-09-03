@@ -19,8 +19,8 @@ public partial class SetFuzzyMatchingWindow : Window
     {
         InitializeComponent();
 
-        _saveCompletedHandler = (_, _) => { Close(); };
-        _cancelRequestedHandler = (_, _) => { Close(); };
+        _saveCompletedHandler = (_, _) => Close();
+        _cancelRequestedHandler = (_, _) => Close();
 
         viewModel.SaveCompleted += _saveCompletedHandler;
         viewModel.CancelRequested += _cancelRequestedHandler;

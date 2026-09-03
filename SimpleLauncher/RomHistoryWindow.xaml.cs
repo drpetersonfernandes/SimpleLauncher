@@ -26,15 +26,10 @@ public partial class RomHistoryWindow
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _requestNavigateHandler = OnHyperlinkRequestNavigate;
 
-        Loaded += (_, _) =>
-        {
-            HistoryMarkdownViewer.AddHandler(Hyperlink.RequestNavigateEvent, _requestNavigateHandler);
-        };
+        Loaded += (_, _) => HistoryMarkdownViewer.AddHandler(Hyperlink.RequestNavigateEvent, _requestNavigateHandler);
 
         Closed += (_, _) =>
-        {
             HistoryMarkdownViewer.RemoveHandler(Hyperlink.RequestNavigateEvent, _requestNavigateHandler);
-        };
 
         Loaded += async (_, _) =>
         {

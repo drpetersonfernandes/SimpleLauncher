@@ -94,6 +94,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                     Exception? lastException = null;
 
                     for (var attempt = 0; attempt < maxRetries; attempt++)
+                    {
                         try
                         {
                             var tempPath = systemXmlPath + ".tmp";
@@ -143,6 +144,7 @@ public class SystemConfigurationWriterService : ISystemConfigurationWriterServic
                                 retryDelayMs *= 2;
                             }
                         }
+                    }
 
                     throw new InvalidOperationException("Failed to save system configuration.", lastException);
                 }

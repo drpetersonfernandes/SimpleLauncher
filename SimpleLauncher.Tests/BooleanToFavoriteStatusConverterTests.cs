@@ -20,7 +20,7 @@ public class BooleanToFavoriteStatusConverterTests
     public void ConvertBackThrowsNotSupportedException()
     {
         Assert.Throws<NotSupportedException>(() =>
-            _converter.ConvertBack("Favorite", typeof(string), null!, CultureInfo.InvariantCulture));
+            _converter.ConvertBack("Favorite", typeof(string), null, CultureInfo.InvariantCulture));
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public class BooleanToFavoriteStatusConverterTests
     [Fact]
     public void ConvertTrueReturnsNonNullString()
     {
-        var result = _converter.Convert(true, typeof(string), null!, CultureInfo.InvariantCulture);
+        var result = _converter.Convert(true, typeof(string), null, CultureInfo.InvariantCulture);
         Assert.NotNull(result);
         Assert.IsType<string>(result);
     }
@@ -40,7 +40,7 @@ public class BooleanToFavoriteStatusConverterTests
     [Fact]
     public void ConvertFalseReturnsNonNullString()
     {
-        var result = _converter.Convert(false, typeof(string), null!, CultureInfo.InvariantCulture);
+        var result = _converter.Convert(false, typeof(string), null, CultureInfo.InvariantCulture);
         Assert.NotNull(result);
         Assert.IsType<string>(result);
     }
@@ -51,8 +51,8 @@ public class BooleanToFavoriteStatusConverterTests
     [Fact]
     public void ConvertTrueAndFalseReturnDifferentStrings()
     {
-        var trueResult = (string)_converter.Convert(true, typeof(string), null!, CultureInfo.InvariantCulture);
-        var falseResult = (string)_converter.Convert(false, typeof(string), null!, CultureInfo.InvariantCulture);
+        var trueResult = (string)_converter.Convert(true, typeof(string), null, CultureInfo.InvariantCulture);
+        var falseResult = (string)_converter.Convert(false, typeof(string), null, CultureInfo.InvariantCulture);
         Assert.NotEqual(trueResult, falseResult, StringComparer.Ordinal);
     }
 
@@ -62,7 +62,7 @@ public class BooleanToFavoriteStatusConverterTests
     [Fact]
     public void ConvertNonBoolReturnsNonNullString()
     {
-        var result = _converter.Convert("invalid", typeof(string), null!, CultureInfo.InvariantCulture);
+        var result = _converter.Convert("invalid", typeof(string), null, CultureInfo.InvariantCulture);
         Assert.NotNull(result);
         Assert.IsType<string>(result);
     }
@@ -73,7 +73,7 @@ public class BooleanToFavoriteStatusConverterTests
     [Fact]
     public void ConvertNullReturnsNonNullString()
     {
-        var result = _converter.Convert(null!, typeof(string), null!, CultureInfo.InvariantCulture);
+        var result = _converter.Convert(null, typeof(string), null, CultureInfo.InvariantCulture);
         Assert.NotNull(result);
         Assert.IsType<string>(result);
     }

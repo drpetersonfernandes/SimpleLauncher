@@ -166,6 +166,7 @@ public class ExtractionService : IExtractionService
                 // Check disk space using the resolved destination folder
                 var rootPath = Path.GetPathRoot(resolvedDestinationFolder);
                 if (!string.IsNullOrEmpty(rootPath))
+                {
                     try
                     {
                         var drive = new DriveInfo(rootPath);
@@ -193,14 +194,18 @@ public class ExtractionService : IExtractionService
 
                         throw new IOException($"Unable to check disk space for path {resolvedDestinationFolder}", ex);
                     }
+                }
 
                 // Path traversal check
                 var fullResolvedDestFolder = PathHelper.ResolveRelativeToAppDirectory(resolvedDestinationFolder);
                 if (fullResolvedDestFolder != null &&
                     !fullResolvedDestFolder.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+                {
                     fullResolvedDestFolder += Path.DirectorySeparatorChar;
+                }
 
                 foreach (var entry in entries)
+                {
                     if (entry.Key != null)
                     {
                         var entryDestinationPath = Path.GetFullPath(Path.Combine(resolvedDestinationFolder, entry.Key));
@@ -214,6 +219,7 @@ public class ExtractionService : IExtractionService
                             throw new SecurityException($"Potentially dangerous zip entry path: {entry.Key}");
                         }
                     }
+                }
 
                 // Extract all entries
                 foreach (var entry in entries)
@@ -267,6 +273,7 @@ public class ExtractionService : IExtractionService
             }
 
             if (!string.IsNullOrEmpty(resolvedDestinationFolder)) // Only attempt cleanup if resolution was successful
+            {
                 try
                 {
                     var extractionTrackingFile = Path.Combine(resolvedDestinationFolder, ".extraction_in_progress");
@@ -279,6 +286,7 @@ public class ExtractionService : IExtractionService
                     var contextMessage = $"Failed to clean up partial extraction in: {resolvedDestinationFolder}";
                     _logger.Error(cleanupEx, contextMessage);
                 }
+            }
 
             // Notify developer
             var exceptionDetails = GetDetailedExceptionInfo(ex);
@@ -335,7 +343,9 @@ public class ExtractionService : IExtractionService
             var randomName = Path.GetRandomFileName();
             if (randomName.Contains("..", StringComparison.Ordinal) || randomName.Contains('/') ||
                 randomName.Contains('\\'))
+            {
                 randomName = Guid.NewGuid().ToString("N");
+            }
 
             tempDirectory = Path.Combine(_tempFolder, randomName);
             Directory.CreateDirectory(tempDirectory);
@@ -357,8 +367,10 @@ public class ExtractionService : IExtractionService
                     {
                         var fullDestPath = Path.GetFullPath(Path.Combine(fullTempDir, entry.Key));
                         if (!fullDestPath.StartsWith(fullTempDir, StringComparison.OrdinalIgnoreCase))
+                        {
                             throw new SecurityException(
                                 $"Potential path traversal detected in archive entry: {entry.Key}");
+                        }
                     }
                 }
 
@@ -543,6 +555,7 @@ public class ExtractionService : IExtractionService
             _logger.Debug(
                 $"[ValidateAndFindGameFileAsync] Searching for formats: {string.Join(", ", fileFormatsToLaunch)} in {tempExtractLocation}");
             foreach (var formatToLaunch in fileFormatsToLaunch)
+            {
                 try
                 {
                     var searchPattern = $"*{formatToLaunch}";
@@ -565,6 +578,7 @@ public class ExtractionService : IExtractionService
                         $"[ValidateAndFindGameFileAsync] Exception searching for {formatToLaunch}: {ex.Message}");
                     // Continue to next format or fallback if this one fails
                 }
+            }
         }
         else
         {
@@ -574,6 +588,7 @@ public class ExtractionService : IExtractionService
 
         // If no specific format was found, or no formats were specified, try to find any file.
         if (string.IsNullOrEmpty(foundFile))
+        {
             try
             {
                 var allFiles = Directory.EnumerateFiles(tempExtractLocation, "*", SearchOption.AllDirectories)
@@ -591,6 +606,7 @@ public class ExtractionService : IExtractionService
                 _logger.Error(ex, $"Error enumerating all files in {tempExtractLocation} as a fallback.");
                 _logger.Debug($"[ValidateAndFindGameFileAsync] Error enumerating all files: {ex.Message}");
             }
+        }
 
         // If still no file found after all attempts
         const string notFoundContext =

@@ -20,12 +20,14 @@ public static class LanguageLaunchTestsBase
     {
         var dir = new DirectoryInfo(AppContext.BaseDirectory);
         for (var i = 0; i < 8 && dir is not null; i++, dir = dir.Parent)
+        {
             foreach (var config in new[] { "Debug", "Release" })
             {
                 var candidate = Path.Combine(dir.FullName, "SimpleLauncher", "bin", config, "net10.0-windows",
                     "SimpleLauncher.exe");
                 if (File.Exists(candidate)) return candidate;
             }
+        }
 
         throw new FileNotFoundException("SimpleLauncher.exe not found. Build the WPF project first.");
     }
@@ -59,6 +61,7 @@ public static class LanguageLaunchTestsBase
     private static string? ReadFileWithRetry(string file)
     {
         for (var attempt = 0; attempt < 5; attempt++)
+        {
             try
             {
                 using var fs = new FileStream(file, FileMode.Open, FileAccess.Read,
@@ -74,6 +77,7 @@ public static class LanguageLaunchTestsBase
             {
                 Thread.Sleep(300);
             }
+        }
 
         return null;
     }

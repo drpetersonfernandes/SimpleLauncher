@@ -50,7 +50,7 @@ public class AvaloniaContextMenuService
 
         // Launch Game Context Menu
         AddItem(contextMenu, "LaunchGame", "Launch Game", "launch.png",
-            () => { _ = SafeAsync(() => _functions.LaunchGameAsync(context)); });
+            () => _ = SafeAsync(() => _functions.LaunchGameAsync(context)));
 
         // Add To Favorites Context Menu
         AddItem(contextMenu, "AddToFavorites", "Add To Favorites", "heart.png", () =>
@@ -73,7 +73,7 @@ public class AvaloniaContextMenuService
         if (IsSystemSupportedForRetroAchievements(context))
         {
             AddItem(contextMenu, "ViewAchievements", "View Achievements", "trophy.png",
-                () => { _ = SafeAsync(() => _functions.OpenRetroAchievementsWindowAsync(context)); });
+                () => _ = SafeAsync(() => _functions.OpenRetroAchievementsWindowAsync(context)));
             contextMenu.Items.Add(new Separator());
         }
 
@@ -103,25 +103,25 @@ public class AvaloniaContextMenuService
         // Media entries (WPF order: cover, title snapshot, gameplay snapshot, cart,
         // video, manual, walkthrough, cabinet, flyer, pcb)
         AddItem(contextMenu, "Cover", "Cover", "cover.png",
-            () => { _ = SafeAsync(() => _functions.OpenCoverAsync(context)); });
+            () => _ = SafeAsync(() => _functions.OpenCoverAsync(context)));
         AddItem(contextMenu, "TitleSnapshot", "Title Snapshot", "snapshot.png",
-            () => { _ = SafeAsync(() => _functions.OpenTitleSnapshotAsync(context)); });
+            () => _ = SafeAsync(() => _functions.OpenTitleSnapshotAsync(context)));
         AddItem(contextMenu, "GameplaySnapshot", "Gameplay Snapshot", "snapshot.png",
-            () => { _ = SafeAsync(() => _functions.OpenGameplaySnapshotAsync(context)); });
+            () => _ = SafeAsync(() => _functions.OpenGameplaySnapshotAsync(context)));
         AddItem(contextMenu, "Cart", "Cart", "cart.png",
-            () => { _ = SafeAsync(() => _functions.OpenCartAsync(context)); });
+            () => _ = SafeAsync(() => _functions.OpenCartAsync(context)));
         AddItem(contextMenu, "Video", "Video", "video.png",
-            () => { _ = SafeAsync(() => _functions.PlayVideoAsync(context)); });
+            () => _ = SafeAsync(() => _functions.PlayVideoAsync(context)));
         AddItem(contextMenu, "Manual", "Manual", "manual.png",
-            () => { _ = SafeAsync(() => _functions.OpenManualAsync(context)); });
+            () => _ = SafeAsync(() => _functions.OpenManualAsync(context)));
         AddItem(contextMenu, "Walkthrough", "Walkthrough", "walkthrough.png",
-            () => { _ = SafeAsync(() => _functions.OpenWalkthroughAsync(context)); });
+            () => _ = SafeAsync(() => _functions.OpenWalkthroughAsync(context)));
         AddItem(contextMenu, "Cabinet", "Cabinet", "cabinet.png",
-            () => { _ = SafeAsync(() => _functions.OpenCabinetAsync(context)); });
+            () => _ = SafeAsync(() => _functions.OpenCabinetAsync(context)));
         AddItem(contextMenu, "Flyer", "Flyer", "flyer.png",
-            () => { _ = SafeAsync(() => _functions.OpenFlyerAsync(context)); });
+            () => _ = SafeAsync(() => _functions.OpenFlyerAsync(context)));
         AddItem(contextMenu, "PCB", "PCB", "pcb.png",
-            () => { _ = SafeAsync(() => _functions.OpenPcbAsync(context)); });
+            () => _ = SafeAsync(() => _functions.OpenPcbAsync(context)));
 
         contextMenu.Items.Add(new Separator());
 
@@ -164,7 +164,11 @@ public class AvaloniaContextMenuService
 
             void AddExtra(string resourceKey, string fallback, string glyph, Action<GameCardViewModel> action)
             {
-                var header = _localization.GetString(resourceKey) is { } s && !string.Equals(s, resourceKey, StringComparison.OrdinalIgnoreCase) ? s : fallback;
+                var header =
+                    _localization.GetString(resourceKey) is { } s &&
+                    !string.Equals(s, resourceKey, StringComparison.OrdinalIgnoreCase)
+                        ? s
+                        : fallback;
                 var menuItem = new MenuItem { Header = $"{glyph} {header}" };
                 menuItem.Click += (_, _) => action(card);
                 contextMenu.Items.Add(menuItem);
@@ -182,7 +186,11 @@ public class AvaloniaContextMenuService
 
     private void AddItem(ContextMenu contextMenu, string resourceKey, string fallback, string iconFile, Action click)
     {
-        var header = _localization.GetString(resourceKey) is { } s && !string.Equals(s, resourceKey, StringComparison.OrdinalIgnoreCase) ? s : fallback;
+        var header =
+            _localization.GetString(resourceKey) is { } s &&
+            !string.Equals(s, resourceKey, StringComparison.OrdinalIgnoreCase)
+                ? s
+                : fallback;
         var menuItem = new MenuItem
         {
             Header = header,
@@ -192,9 +200,14 @@ public class AvaloniaContextMenuService
         contextMenu.Items.Add(menuItem);
     }
 
-    private void AddItem(ContextMenu contextMenu, string resourceKey, string fallback, string iconFile, Func<Task> click)
+    private void AddItem(ContextMenu contextMenu, string resourceKey, string fallback, string iconFile,
+        Func<Task> click)
     {
-        var header = _localization.GetString(resourceKey) is { } s && !string.Equals(s, resourceKey, StringComparison.OrdinalIgnoreCase) ? s : fallback;
+        var header =
+            _localization.GetString(resourceKey) is { } s &&
+            !string.Equals(s, resourceKey, StringComparison.OrdinalIgnoreCase)
+                ? s
+                : fallback;
         var menuItem = new MenuItem
         {
             Header = header,
@@ -206,7 +219,9 @@ public class AvaloniaContextMenuService
 
     private string GetStatusOrFallback(string key, string fallback)
     {
-        return _localization.GetString(key) is { } s && !string.Equals(s, key, StringComparison.OrdinalIgnoreCase) ? s : fallback;
+        return _localization.GetString(key) is { } s && !string.Equals(s, key, StringComparison.OrdinalIgnoreCase)
+            ? s
+            : fallback;
     }
 
     private bool IsSystemSupportedForRetroAchievements(AvaloniaRightClickContext context)

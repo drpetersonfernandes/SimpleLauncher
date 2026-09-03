@@ -114,8 +114,10 @@ public class RetroAchievementsService
                     $"[RA Service] API_GetGameInfoAndUserProgress failed with status {response.StatusCode} for gameId {gameId}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
                     throw new RaUnauthorizedException(
                         "RetroAchievements API returned Unauthorized. Check username and API key.");
+                }
 
                 return (null, null);
             }
@@ -425,9 +427,13 @@ public class RetroAchievementsService
             if (apiResponse?.Results == null) return null;
 
             foreach (var game in apiResponse.Results)
+            {
                 if (!string.IsNullOrEmpty(game.ImageIcon) &&
                     !game.ImageIcon.StartsWith(_siteBaseUrl, StringComparison.OrdinalIgnoreCase))
+                {
                     game.ImageIcon = $"{_siteBaseUrl}{game.ImageIcon}";
+                }
+            }
 
             return apiResponse.Results;
         }

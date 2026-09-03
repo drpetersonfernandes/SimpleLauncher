@@ -19,11 +19,15 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
     private readonly SettingsManagerService _settings;
     private string _emulatorPath = "";
 
-    [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private int _height;
-    [ObservableProperty] private bool _maximized;
-    [ObservableProperty] private bool _showBeforeLaunch;
-    [ObservableProperty] private int _width;
+    [ObservableProperty] public partial bool Fullscreen { get; set; }
+
+    [ObservableProperty] public partial int Height { get; set; }
+
+    [ObservableProperty] public partial bool Maximized { get; set; }
+
+    [ObservableProperty] public partial bool ShowBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial int Width { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectFlycastConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
@@ -162,7 +166,7 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectFlycastConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }
@@ -192,7 +196,7 @@ public partial class InjectFlycastConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectFlycastConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }

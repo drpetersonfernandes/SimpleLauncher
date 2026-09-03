@@ -95,8 +95,10 @@ public class AvaloniaGameFileLoadingOrchestrator
             var doRecurse = system is not { DisableRecursiveSearch: true, GroupByFolder: false };
 
             foreach (var file in EnumerateFilesTolerant(resolvedFolder, doRecurse))
+            {
                 if (extensionSet.Contains(Path.GetExtension(file)))
                     yield return file;
+            }
         }
     }
 
@@ -135,7 +137,9 @@ public class AvaloniaGameFileLoadingOrchestrator
         }
 
         foreach (var subDirectory in subDirectories)
-        foreach (var file in EnumerateFilesTolerant(subDirectory, true))
-            yield return file;
+        {
+            foreach (var file in EnumerateFilesTolerant(subDirectory, true))
+                yield return file;
+        }
     }
 }

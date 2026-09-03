@@ -30,6 +30,7 @@ public static class RedreamConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Redream", "redream.cfg");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -41,8 +42,11 @@ public static class RedreamConfigurationService
                     logger.Error(ex, $"[RedreamConfig] Failed to create redream.cfg from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("redream.cfg not found and sample is missing.", samplePath);
+            }
         }
 
         logger.Debug($"[RedreamConfig] Injecting configuration into: {configPath}");
@@ -125,13 +129,16 @@ public static class RedreamConfigurationService
 
         // Add missing keys
         foreach (var kvp in updates)
+        {
             if (!keysFound.Contains(kvp.Key))
             {
                 lines.Add($"{kvp.Key}={kvp.Value}");
                 modified = true;
             }
+        }
 
         if (modified)
+        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -143,6 +150,7 @@ public static class RedreamConfigurationService
                 logger.Error(ex, $"[RedreamConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
+        }
     }
 
     private static bool IsWindowedMode(string fullmode)

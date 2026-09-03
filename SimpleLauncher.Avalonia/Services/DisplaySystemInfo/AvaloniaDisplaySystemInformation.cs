@@ -59,7 +59,10 @@ public class AvaloniaDisplaySystemInformation
         foreach (var emulator in config.Emulators)
         {
             if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) ||
-                CheckPath.IsValidEmulatorExecutablePath(emulator.EmulatorLocation)) continue;
+                CheckPath.IsValidEmulatorExecutablePath(emulator.EmulatorLocation))
+            {
+                continue;
+            }
 
             result.IsValid = false;
             result.InvalidEmulatorLocations.Add(emulator.EmulatorLocation);

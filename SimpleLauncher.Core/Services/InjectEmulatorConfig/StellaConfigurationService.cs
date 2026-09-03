@@ -30,6 +30,7 @@ public static class StellaConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Stella", "stella.sqlite3");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -41,8 +42,11 @@ public static class StellaConfigurationService
                     logger.Error(ex, $"[StellaConfig] Failed to create stella.sqlite3 from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("stella.sqlite3 not found and sample is missing.", samplePath);
+            }
         }
 
         logger.Debug($"[StellaConfig] Injecting configuration into: {configPath}");

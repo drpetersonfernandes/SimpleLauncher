@@ -112,6 +112,7 @@ public class MountXisoFiles : IMountXisoFiles
             logErrors.Error(ex, contextMessage);
 
             if (!mountProcess.HasExited)
+            {
                 try
                 {
                     mountProcess.Kill(true);
@@ -120,6 +121,7 @@ public class MountXisoFiles : IMountXisoFiles
                 {
                     /* ignore */
                 }
+            }
 
             mountProcess.Dispose();
 
@@ -146,8 +148,10 @@ public class MountXisoFiles : IMountXisoFiles
                 .ToHashSet();
 
             for (var letter = 'Z'; letter >= 'D'; letter--)
+            {
                 if (!existingDrives.Contains(letter))
                     return letter;
+            }
 
             return null;
         }
@@ -179,8 +183,10 @@ public class MountXisoFiles : IMountXisoFiles
             }
 
             if (Directory.Exists(driveRoot))
+            {
                 _logger.Debug(
                     $"[MountXisoFiles.WaitForDriveMountAsync] {driveRoot} drive exists after {retryCount * pollIntervalMs / 1000.0:F1} seconds, but '{defaultXbePath}' not found. Continuing to poll...");
+            }
 
             if (mountProcess.HasExited)
             {

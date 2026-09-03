@@ -31,6 +31,7 @@ public static class CemuConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Cemu", "settings.xml");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -42,8 +43,11 @@ public static class CemuConfigurationService
                     logger.Error(ex, $"[CemuConfig] Failed to create settings.xml from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("settings.xml not found and sample is missing.", samplePath);
+            }
         }
 
         logger.Debug($"[CemuConfig] Injecting configuration into: {configPath}");

@@ -19,7 +19,7 @@ public partial class WindowSelectionDialogWindow : Window
         InitializeComponent();
 
         _viewModel = viewModel;
-        _viewModel.DialogResultRequested += (_, _) => { Close(); };
+        _viewModel.DialogResultRequested += (_, _) => Close();
 
         DataContext = _viewModel;
     }

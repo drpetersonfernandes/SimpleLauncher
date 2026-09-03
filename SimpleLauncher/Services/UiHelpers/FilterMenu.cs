@@ -119,11 +119,13 @@ public class FilterMenu
         }
 
         if (newIndex >= 0 && newIndex < LetterPanel.Children.Count)
+        {
             if (LetterPanel.Children[newIndex] is Button targetButton)
             {
                 targetButton.Focus(); // Move keyboard focus to the target button
                 e.Handled = true; // Mark event as handled to prevent further processing
             }
+        }
     }
 
     private int FindNeighbor(Button currentButton, FocusNavigationDirection direction)
@@ -146,8 +148,8 @@ public class FilterMenu
 
             var isCorrectDirection = direction switch
             {
-                FocusNavigationDirection.Up => targetCenter.Y < currentCenter.Y - currentButton.ActualHeight / 2,
-                FocusNavigationDirection.Down => targetCenter.Y > currentCenter.Y + currentButton.ActualHeight / 2,
+                FocusNavigationDirection.Up => targetCenter.Y < currentCenter.Y - (currentButton.ActualHeight / 2),
+                FocusNavigationDirection.Down => targetCenter.Y > currentCenter.Y + (currentButton.ActualHeight / 2),
                 _ => false
             };
 
@@ -156,7 +158,7 @@ public class FilterMenu
                 // Calculate distance from the current center to the target center
                 var dx = targetCenter.X - currentCenter.X;
                 var dy = targetCenter.Y - currentCenter.Y;
-                var distance = Math.Sqrt(dx * dx + dy * dy);
+                var distance = Math.Sqrt((dx * dx) + (dy * dy));
 
                 if (distance < bestDistance)
                 {

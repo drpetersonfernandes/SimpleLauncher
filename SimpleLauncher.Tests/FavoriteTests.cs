@@ -97,7 +97,7 @@ public class FavoriteTests
         };
 
         var eventRaised = false;
-        favorite.PropertyChanged += (_, _) => { eventRaised = true; };
+        favorite.PropertyChanged += (_, _) => eventRaised = true;
 
         favorite.DefaultEmulator = "RetroArch";
         Assert.False(eventRaised);

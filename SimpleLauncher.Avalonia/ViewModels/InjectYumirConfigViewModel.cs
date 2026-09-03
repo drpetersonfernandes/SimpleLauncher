@@ -19,16 +19,25 @@ public partial class InjectYumirConfigViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    [ObservableProperty] private bool _yumirAutoDetectRegion;
-    [ObservableProperty] private bool _yumirForceAspectRatio;
-    [ObservableProperty] private double _yumirForcedAspect;
-    [ObservableProperty] private bool _yumirFullscreen;
-    [ObservableProperty] private bool _yumirMute;
-    [ObservableProperty] private bool _yumirPauseWhenUnfocused;
-    [ObservableProperty] private bool _yumirReduceLatency;
-    [ObservableProperty] private bool _yumirShowSettingsBeforeLaunch;
-    [ObservableProperty] private string _yumirVideoStandard = null!;
-    [ObservableProperty] private double _yumirVolume;
+    [ObservableProperty] public partial bool YumirAutoDetectRegion { get; set; }
+
+    [ObservableProperty] public partial bool YumirForceAspectRatio { get; set; }
+
+    [ObservableProperty] public partial double YumirForcedAspect { get; set; }
+
+    [ObservableProperty] public partial bool YumirFullscreen { get; set; }
+
+    [ObservableProperty] public partial bool YumirMute { get; set; }
+
+    [ObservableProperty] public partial bool YumirPauseWhenUnfocused { get; set; }
+
+    [ObservableProperty] public partial bool YumirReduceLatency { get; set; }
+
+    [ObservableProperty] public partial bool YumirShowSettingsBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial string YumirVideoStandard { get; set; } = null!;
+
+    [ObservableProperty] public partial double YumirVolume { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectYumirConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>

@@ -99,8 +99,10 @@ public partial class CheckForUpdatesService
         try
         {
             if (_httpClient == null)
+            {
                 throw new InvalidOperationException(
                     "HttpClientFactory is not initialized. Update check cannot proceed.");
+            }
 
             var (latestVersion, releasePackageUrl, updaterZipAssetUrl, fromFallback) =
                 await GetLatestReleaseInfoAsync();
@@ -150,8 +152,10 @@ public partial class CheckForUpdatesService
         try
         {
             if (_httpClient == null)
+            {
                 throw new InvalidOperationException(
                     "HttpClientFactory is not initialized. Update check cannot proceed.");
+            }
 
             var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl, fromFallback) =
                 await GetLatestReleaseInfoAsync();
@@ -214,8 +218,10 @@ public partial class CheckForUpdatesService
         try
         {
             if (_httpClient == null)
+            {
                 throw new InvalidOperationException(
                     "HttpClientFactory is not initialized. Update check cannot proceed.");
+            }
 
             var (latestVersion, _, updaterZipAssetUrl, _) = await GetLatestReleaseInfoAsync();
             return (updaterZipAssetUrl, latestVersion);
@@ -242,6 +248,7 @@ public partial class CheckForUpdatesService
         _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
 
         foreach (var repoOwner in RepoOwners)
+        {
             try
             {
                 var response =
@@ -265,6 +272,7 @@ public partial class CheckForUpdatesService
                 _logger.Debug(
                     $"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed: {ex.Message}; trying the next source.");
             }
+        }
 
         // Fallback: the secondary server hosts a version.txt file and the release packages.
         try
@@ -327,10 +335,14 @@ public partial class CheckForUpdatesService
             // (the update failed — an error was already shown to the user)
             logWindow.Log("Updater.exe launch failed.");
             if (!string.IsNullOrEmpty(releasePackageUrl))
+            {
                 logWindow.Log($"Please download the update package manually from: {releasePackageUrl}");
+            }
             else
+            {
                 logWindow.Log(
                     $"The update package URL was not found. Please visit the GitHub releases page for {RepoOwners[0]}/{RepoName}.");
+            }
         }
         catch (Exception ex)
         {
@@ -463,7 +475,7 @@ public partial class CheckForUpdatesService
             {
                 // Notify developer
                 _logger.Error(
-                    new ArgumentException(@"Current or latest version string is null or empty.",
+                    new ArgumentException("Current or latest version string is null or empty.",
                         nameof(currentVersion)), "Invalid version string for comparison.");
                 return false;
             }
@@ -475,7 +487,7 @@ public partial class CheckForUpdatesService
             {
                 // Notify developer
                 _logger.Error(
-                    new ArgumentException(@"Normalized version string is null or empty after regex replace.",
+                    new ArgumentException("Normalized version string is null or empty after regex replace.",
                         nameof(latestVersion)), "Invalid version string after normalization.");
                 return false;
             }
@@ -489,9 +501,11 @@ public partial class CheckForUpdatesService
             if (currentVersion == null) return false;
 
             if (latestVersion != null)
+            {
                 // Notify developer
                 _logger.Error(ex,
                     $"Invalid version number format after normalization. Current: '{currentVersion}' (Normalized: '{MyRegex1().Replace(currentVersion, "")}'), Latest: '{latestVersion}' (Normalized: '{MyRegex1().Replace(latestVersion, "")}').");
+            }
 
             return false;
         }
@@ -579,18 +593,22 @@ public partial class CheckForUpdatesService
                 }
 
                 if (foundUpdaterZipUrl == null)
+                {
                     // Notify developer
                     _logger.Error(
                         new FileNotFoundException(
                             $"'{expectedUpdaterFileName}' asset not found in release '{versionTag}'.",
                             expectedUpdaterFileName), "GitHub API Asset Info");
+                }
 
                 if (foundReleasePackageUrl == null)
+                {
                     // Notify developer
                     _logger.Error(
                         new FileNotFoundException(
                             $"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.",
                             expectedReleaseFileName), "GitHub API Asset Info");
+                }
 
                 return (extractedNormalizedVersion, foundReleasePackageUrl, foundUpdaterZipUrl);
             }

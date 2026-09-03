@@ -26,9 +26,9 @@ public partial class RetroAchievementsSettingsWindow : Window
 
         _viewModel = viewModel;
 
-        _saveCompletedHandler = (_, _) => { Close(); };
+        _saveCompletedHandler = (_, _) => Close();
 
-        _closeRequestedHandler = (_, _) => { Close(); };
+        _closeRequestedHandler = (_, _) => Close();
 
         _viewModel.SaveCompleted += _saveCompletedHandler;
         _viewModel.CloseRequested += _closeRequestedHandler;
@@ -41,8 +41,8 @@ public partial class RetroAchievementsSettingsWindow : Window
             _viewModel.RequestExePath -= OnRequestExePath;
         };
 
-        ApiKeyPasswordBox.TextChanged += (_, _) => { _viewModel.ApiKey = ApiKeyPasswordBox.Text ?? ""; };
-        RaPasswordPasswordBox.TextChanged += (_, _) => { _viewModel.Password = RaPasswordPasswordBox.Text ?? ""; };
+        ApiKeyPasswordBox.TextChanged += (_, _) => _viewModel.ApiKey = ApiKeyPasswordBox.Text ?? "";
+        RaPasswordPasswordBox.TextChanged += (_, _) => _viewModel.Password = RaPasswordPasswordBox.Text ?? "";
 
         Opened += (_, _) =>
         {

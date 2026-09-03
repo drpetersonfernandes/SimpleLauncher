@@ -63,7 +63,7 @@ public class UpdateSimulationTests : IDisposable
         });
 
         // Act: use the real extraction logic from CheckForUpdatesService
-        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null!, new NoOpLogger());
+        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogger());
 
         // Assert: extraction reported success
         Assert.True(result, "ExtractAllFromZip should return true for a valid ZIP.");
@@ -91,7 +91,7 @@ public class UpdateSimulationTests : IDisposable
         zipStream.Position = 0;
 
         // Act
-        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null!, new NoOpLogger());
+        var result = CheckForUpdatesService.ExtractAllFromZip(zipStream, _testDirectory, null, new NoOpLogger());
 
         // Assert
         Assert.False(result, "ExtractAllFromZip should return false for an empty ZIP.");

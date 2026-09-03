@@ -1,4 +1,5 @@
 // ReSharper disable once RedundantUsingDirective
+
 using NAudio;
 using NAudio.Wave;
 using SimpleLauncher.Core.Interfaces;
@@ -215,6 +216,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
         }
 
         if (player != null)
+        {
             try
             {
                 player.Dispose();
@@ -223,6 +225,7 @@ public class PlaySoundEffects : IPlaySoundEffects, IDisposable
             {
                 _logger.Debug($"[PlaySoundEffects] Error disposing player: {ex.Message}");
             }
+        }
     }
 
     private void OnPlaybackStopped(object? sender, StoppedEventArgs e)

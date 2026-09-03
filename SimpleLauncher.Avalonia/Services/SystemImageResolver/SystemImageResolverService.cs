@@ -90,7 +90,9 @@ public class SystemImageResolverService : ISystemImageResolverService
 
                     if (string.Equals(strippedSystemName, FindCoverImageService.StripAnnotations(fileWithoutExt),
                             StringComparison.OrdinalIgnoreCase))
+                    {
                         return fileInFolder;
+                    }
                 }
             }
         }

@@ -33,6 +33,7 @@ public static class CreateDefaultSystemFoldersService
         try
         {
             if (!string.IsNullOrEmpty(resolvedSystemFolder) && !Directory.Exists(resolvedSystemFolder))
+            {
                 try
                 {
                     Directory.CreateDirectory(resolvedSystemFolder);
@@ -45,8 +46,10 @@ public static class CreateDefaultSystemFoldersService
                     // Notify user
                     await messageBox.FolderCreationFailedMessageBoxAsync();
                 }
+            }
 
             if (!string.IsNullOrEmpty(resolvedSystemImageFolder) && !Directory.Exists(resolvedSystemImageFolder))
+            {
                 try
                 {
                     Directory.CreateDirectory(resolvedSystemImageFolder);
@@ -59,6 +62,7 @@ public static class CreateDefaultSystemFoldersService
                     // Notify user
                     await messageBox.FolderCreationFailedMessageBoxAsync();
                 }
+            }
 
             foreach (var folder in additionalFolders)
             {

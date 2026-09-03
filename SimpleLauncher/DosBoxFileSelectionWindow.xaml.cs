@@ -31,7 +31,7 @@ public partial class DosBoxFileSelectionWindow
 
         DataContext = _viewModel;
 
-        Closed += (_, _) => { DialogResult ??= false; };
+        Closed += (_, _) => DialogResult ??= false;
     }
 
     /// <summary>

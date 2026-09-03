@@ -13,7 +13,8 @@ public class DownloadErrorClassifierTests
     [Fact]
     public void ResiliencePipelineTimeoutIsExpected()
     {
-        var ex = new Polly.Timeout.TimeoutRejectedException("The operation didn't complete within the allowed timeout.");
+        var ex = new Polly.Timeout.TimeoutRejectedException(
+            "The operation didn't complete within the allowed timeout.");
 
         Assert.True(DownloadErrorClassifier.IsExpectedDownloadException(ex));
     }

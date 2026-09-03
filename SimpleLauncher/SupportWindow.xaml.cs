@@ -80,8 +80,10 @@ public partial class SupportWindow : ILoadingState
             MainContentGrid?.IsEnabled = !isLoading;
 
             if (isLoading)
+            {
                 LoadingOverlay.Content =
                     message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
         });
     }
 

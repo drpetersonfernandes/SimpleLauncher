@@ -95,10 +95,12 @@ public partial class SystemManagerService : ISystemManager
     {
         // ReSharper disable once ConditionIsAlwaysTrueOrFalse
         if (Volatile.Read(ref _fileLocation) == null)
+        {
             lock (FileLocationLock)
             {
                 _fileLocation ??= new DataFileLocation(configuration, "SystemXmlPath", "system.xml");
             }
+        }
 
         return Volatile.Read(ref _fileLocation)!.FilePath;
     }
@@ -175,6 +177,7 @@ public partial class SystemManagerService : ISystemManager
 
             // If no backup was restored, create a new empty system.xml file
             if (!File.Exists(systemXmlPath))
+            {
                 try
                 {
                     // Create a new XDocument with the root element
@@ -190,12 +193,15 @@ public partial class SystemManagerService : ISystemManager
 
                     // Notify user
                     if (messageBoxLibrary != null)
+                    {
                         _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(
                             PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ??
                                                           "error_user.log"));
+                    }
 
                     return []; // Return an empty list
                 }
+            }
         }
 
         lock (XmlLock)
@@ -218,7 +224,9 @@ public partial class SystemManagerService : ISystemManager
                     doc = XDocument.Load(reader, LoadOptions.None);
 
                     if (doc.Root != null)
+                    {
                         foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
+                        {
                             try
                             {
                                 ValidateSystemConfiguration(sysConfigElement, systemManagers);
@@ -227,11 +235,15 @@ public partial class SystemManagerService : ISystemManager
                             {
                                 var systemName = sysConfigElement.Element("SystemName")?.Value ?? "Unnamed System";
                                 if (!invalidManagers.ContainsKey(sysConfigElement))
+                                {
                                     invalidManagers[sysConfigElement] =
                                         $"The system '{systemName}' was removed due to the following error(s):\n";
+                                }
 
                                 invalidManagers[sysConfigElement] += $"- {ex.Message}\n";
                             }
+                        }
+                    }
                 }
                 catch (XmlException ex)
                 {
@@ -246,6 +258,7 @@ public partial class SystemManagerService : ISystemManager
                         var rawXml = File.ReadAllText(systemXmlPath);
                         var matches = MyRegex().Matches(rawXml);
                         foreach (Match match in matches)
+                        {
                             try
                             {
                                 var sysConfigElement = XElement.Parse(match.Value);
@@ -264,6 +277,7 @@ public partial class SystemManagerService : ISystemManager
                                 _logger?.Debug($"Failed to validate system configuration for '{sysName}'");
                                 logErrors?.Error(innerEx, $"Failed to validate system configuration for '{sysName}'");
                             }
+                        }
                     }
                     catch (Exception fatalEx)
                     {
@@ -278,9 +292,11 @@ public partial class SystemManagerService : ISystemManager
                             "No systems could be recovered from 'system.xml'. The file is completely corrupted.");
 
                         if (messageBoxLibrary != null)
+                        {
                             _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(
                                 PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ??
                                                               "error_user.log"));
+                        }
 
                         return [];
                     }
@@ -297,6 +313,7 @@ public partial class SystemManagerService : ISystemManager
                 var newRoot = new XElement("SystemConfigs");
                 foreach (var config in systemManagers.OrderBy(static c => c.SystemName,
                              StringComparer.OrdinalIgnoreCase))
+                {
                     newRoot.Add(new XElement("SystemConfig",
                         new XElement("SystemName", config.SystemName),
                         new XElement("SystemFolders",
@@ -337,14 +354,17 @@ public partial class SystemManagerService : ISystemManager
                             )
                         ))
                     ));
+                }
 
                 doc.Root.ReplaceNodes(newRoot.Nodes());
 
                 // Notify user about each invalid configuration that was removed
                 foreach (var error in invalidManagers.Values)
+                {
                     // Notify user
                     if (messageBoxLibrary != null)
                         _ = messageBoxLibrary.InvalidSystemConfigurationMessageBoxAsync(error);
+                }
 
                 // Save the cleaned, sorted, and reformatted document back to disk.
                 try
@@ -376,8 +396,10 @@ public partial class SystemManagerService : ISystemManager
 
                 // Notify user
                 if (messageBoxLibrary != null)
+                {
                     _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(
                         PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                }
 
                 return []; // Return an empty list
             }
@@ -407,13 +429,17 @@ public partial class SystemManagerService : ISystemManager
             }
 
             if (systemFolders.Count == 0)
+            {
                 throw new InvalidOperationException(
                     $"System '{systemName}': At least one 'System Folder' is required in XML.");
+            }
 
             var systemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value;
             if (string.IsNullOrEmpty(systemImageFolder))
+            {
                 throw new InvalidOperationException(
                     $"System '{systemName}': Missing or empty 'System Image Folder' in XML.");
+            }
 
             // Validate FileFormatsToSearch
             var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")
@@ -423,24 +449,32 @@ public partial class SystemManagerService : ISystemManager
                     !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
                 .ToList();
             if (formatsToSearch == null || formatsToSearch.Count == 0)
+            {
                 throw new InvalidOperationException(
                     $"System '{systemName}': 'File Extension To Search' should have at least one value.");
+            }
 
             // Validate ExtractFileBeforeLaunch
             var extractFileBeforeLaunch = false;
             var extractElement = sysConfigElement.Element("ExtractFileBeforeLaunch");
             if (extractElement != null)
+            {
                 if (!bool.TryParse(extractElement.Value, out extractFileBeforeLaunch))
+                {
                     // If parsing fails, we could either throw or default to false.
                     // Given we want it to be optional, defaulting to false is safer.
                     extractFileBeforeLaunch = false;
+                }
+            }
 
-            if (extractFileBeforeLaunch && (formatsToSearch == null || !formatsToSearch.All(static f =>
+            if (extractFileBeforeLaunch && (formatsToSearch?.All(static f =>
                     f.Equals("zip", StringComparison.OrdinalIgnoreCase) ||
                     f.Equals("7z", StringComparison.OrdinalIgnoreCase) ||
-                    f.Equals("rar", StringComparison.OrdinalIgnoreCase))))
+                    f.Equals("rar", StringComparison.OrdinalIgnoreCase)) != true))
+            {
                 throw new InvalidOperationException(
                     $"System '{systemName}': When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must ONLY contain 'zip', '7z', or 'rar'.");
+            }
 
             // Validate FileFormatsToLaunch
             var formatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch")
@@ -451,8 +485,10 @@ public partial class SystemManagerService : ISystemManager
                 .ToList();
             // If ExtractFileBeforeLaunch is true, FileFormatsToLaunch must have values.
             if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
+            {
                 throw new InvalidOperationException(
                     $"System '{systemName}': 'File Extension To Launch' should have at least one value when 'Extract File Before Launch' is set to true.");
+            }
 
             // Parse GroupByFolder
             if (!bool.TryParse(sysConfigElement.Element("GroupByFolder")?.Value, out var groupByFolder))
@@ -461,22 +497,28 @@ public partial class SystemManagerService : ISystemManager
             // Parse DisableRecursiveSearch
             if (!bool.TryParse(sysConfigElement.Element("DisableRecursiveSearch")?.Value,
                     out var disableRecursiveSearch))
+            {
                 disableRecursiveSearch = false;
+            }
 
             // Validate emulator configurations
             var emulators = new List<Emulator>();
             var emulatorElements = sysConfigElement.Element("Emulators")?.Elements("Emulator").ToList();
 
             if (emulatorElements == null || emulatorElements.Count == 0)
+            {
                 throw new InvalidOperationException(
                     $"System '{systemName}': Emulators list should not be empty or null."); // Need at least one EmulatorName element
+            }
 
             foreach (var emulatorElement in emulatorElements)
             {
                 var emulatorName = emulatorElement.Element("EmulatorName")?.Value;
                 if (string.IsNullOrEmpty(emulatorName))
+                {
                     throw new InvalidOperationException(
                         $"System '{systemName}': An 'Emulator Name' should not be empty or null.");
+                }
 
                 var emulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value ?? ""; // can be empty
                 var emulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value ?? ""; // can be empty
@@ -485,9 +527,13 @@ public partial class SystemManagerService : ISystemManager
                 // If the element is missing or parsing fails, it defaults to true.
                 var receiveNotification = true; // Default value
                 if (emulatorElement.Element("ReceiveANotificationOnEmulatorError") != null)
+                {
                     if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value,
                             out receiveNotification))
+                    {
                         receiveNotification = true; // Reset to default if parsing fails
+                    }
+                }
 
                 emulators.Add(new Emulator
                 {
@@ -536,6 +582,7 @@ public partial class SystemManagerService : ISystemManager
                     ? await messageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBoxAsync()
                     : MessageBoxResult.No;
                 if (restoreResult == MessageBoxResult.Yes)
+                {
                     try
                     {
                         // Copy the most recent backup file to system.xml, overwriting if a dummy file exists
@@ -551,6 +598,7 @@ public partial class SystemManagerService : ISystemManager
                         if (messageBoxLibrary != null)
                             _ = messageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBoxAsync();
                     }
+                }
             }
         }
         catch (Exception ex)
@@ -635,6 +683,7 @@ public partial class SystemManagerService : ISystemManager
                     {
                         var fallbackPath = _fileLocation.GetLocalAppDataPath();
                         if (File.Exists(fallbackPath))
+                        {
                             try
                             {
                                 var xmlContent = File.ReadAllText(fallbackPath);
@@ -651,8 +700,11 @@ public partial class SystemManagerService : ISystemManager
                             {
                                 xmlDoc = new XDocument(new XElement("SystemConfigs"));
                             }
+                        }
                         else
+                        {
                             xmlDoc = new XDocument(new XElement("SystemConfigs"));
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -689,6 +741,7 @@ public partial class SystemManagerService : ISystemManager
                     Exception? lastException = null;
 
                     for (var attempt = 0; attempt < maxRetries; attempt++)
+                    {
                         try
                         {
                             var tempPath = systemXmlPath + ".tmp";
@@ -728,6 +781,7 @@ public partial class SystemManagerService : ISystemManager
 
                             // If in portable mode and this is the last attempt, try falling back to LocalAppData
                             if (_fileLocation is { IsPortableMode: true } && attempt == maxRetries - 1)
+                            {
                                 try
                                 {
                                     // Store the old path for cleanup
@@ -751,6 +805,7 @@ public partial class SystemManagerService : ISystemManager
                                     Log.Debug(
                                         $"[SystemManagerService] FallbackToLocalAppData failed: {fallbackEx.Message}");
                                 }
+                            }
 
                             if (attempt < maxRetries - 1)
                             {
@@ -774,6 +829,7 @@ public partial class SystemManagerService : ISystemManager
                             lastException = ex;
                             break; // Don't retry non-transient errors
                         }
+                    }
 
                     // All retries exhausted or non-transient error
                     logErrors?.Error(lastException, "Error saving system.xml.");
@@ -918,8 +974,10 @@ public partial class SystemManagerService : ISystemManager
         if (!string.IsNullOrEmpty(emulatorConfig.ImagePackDownloadLink5))
             emulatorElement.Add(new XElement("ImagePackDownloadLink5", emulatorConfig.ImagePackDownloadLink5));
         if (!string.IsNullOrEmpty(emulatorConfig.ImagePackDownloadExtractPath))
+        {
             emulatorElement.Add(new XElement("ImagePackDownloadExtractPath",
                 emulatorConfig.ImagePackDownloadExtractPath));
+        }
 
         return emulatorElement;
     }

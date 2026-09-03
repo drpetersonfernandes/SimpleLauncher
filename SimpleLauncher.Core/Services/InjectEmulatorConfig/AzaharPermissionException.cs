@@ -23,7 +23,7 @@ public class AzaharPermissionException : Exception
     {
     }
 
-    public AzaharPermissionException() : base()
+    public AzaharPermissionException()
     {
     }
 }

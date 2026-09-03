@@ -77,6 +77,7 @@ internal class DownloadService
                 await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
 
                 while (true)
+                {
                     try
                     {
                         var bytesRead = await contentStream.ReadAsync(buffer, cancellationToken);
@@ -119,6 +120,7 @@ internal class DownloadService
                         Log.Information(ex, "Error reading from download stream or writing to memory stream");
                         throw;
                     }
+                }
 
                 stopwatch.Stop();
                 memoryStream.Position = 0;

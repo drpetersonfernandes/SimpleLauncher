@@ -71,8 +71,8 @@ public class DetectDuplicateResourceKeysTests
                 else
                 {
                     var values = elements
-                        .Select(static e => e.ToString(SaveOptions.DisableFormatting))
-                        .ToList();
+                            .ConvertAll(static e => e.ToString(SaveOptions.DisableFormatting))
+                        ;
                     conflicts.Add((Path.GetFileName(file), key, values));
                 }
             }

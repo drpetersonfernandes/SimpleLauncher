@@ -52,9 +52,11 @@ public class GetListOfFilesService : IGetListOfFilesService
                     cancellationToken);
 
                 if (restrictedFolders.Count > 0)
+                {
                     // Expected condition (access denied on some folders during scan): not a bug,
                     // keep it out of the bug report service.
                     _logger?.Information($"Skipped {restrictedFolders.Count} restricted folders during file scan.");
+                }
 
                 return foundFiles;
             }
@@ -87,8 +89,10 @@ public class GetListOfFilesService : IGetListOfFilesService
             }
 
             if (doRecurse)
+            {
                 foreach (var dir in Directory.EnumerateDirectories(path))
                     EnumerateFilesRecursive(dir, extensions, results, restrictedFolders, doRecurse, token);
+            }
         }
         catch (UnauthorizedAccessException)
         {

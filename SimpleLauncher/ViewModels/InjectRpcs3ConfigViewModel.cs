@@ -18,18 +18,29 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    [ObservableProperty] private int _rpcs3AnisotropicFilter;
-    [ObservableProperty] private string _rpcs3AspectRatio = null!;
-    [ObservableProperty] private bool _rpcs3AudioBuffering;
-    [ObservableProperty] private string _rpcs3AudioRenderer = null!;
-    [ObservableProperty] private string _rpcs3PpuDecoder = null!;
-    [ObservableProperty] private string _rpcs3Renderer = null!;
-    [ObservableProperty] private string _rpcs3Resolution = null!;
-    [ObservableProperty] private int _rpcs3ResolutionScale;
-    [ObservableProperty] private bool _rpcs3ShowSettingsBeforeLaunch;
-    [ObservableProperty] private string _rpcs3SpuDecoder = null!;
-    [ObservableProperty] private bool _rpcs3StartFullscreen;
-    [ObservableProperty] private bool _rpcs3Vsync;
+    [ObservableProperty] public partial int Rpcs3AnisotropicFilter { get; set; }
+
+    [ObservableProperty] public partial string Rpcs3AspectRatio { get; set; } = null!;
+
+    [ObservableProperty] public partial bool Rpcs3AudioBuffering { get; set; }
+
+    [ObservableProperty] public partial string Rpcs3AudioRenderer { get; set; } = null!;
+
+    [ObservableProperty] public partial string Rpcs3PpuDecoder { get; set; } = null!;
+
+    [ObservableProperty] public partial string Rpcs3Renderer { get; set; } = null!;
+
+    [ObservableProperty] public partial string Rpcs3Resolution { get; set; } = null!;
+
+    [ObservableProperty] public partial int Rpcs3ResolutionScale { get; set; }
+
+    [ObservableProperty] public partial bool Rpcs3ShowSettingsBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial string Rpcs3SpuDecoder { get; set; } = null!;
+
+    [ObservableProperty] public partial bool Rpcs3StartFullscreen { get; set; }
+
+    [ObservableProperty] public partial bool Rpcs3Vsync { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectRpcs3ConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>

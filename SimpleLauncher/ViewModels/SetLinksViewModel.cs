@@ -16,9 +16,9 @@ public partial class SetLinksViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
     private readonly SettingsManagerService _settingsManager;
-    [ObservableProperty] private string _infoUrl;
+    [ObservableProperty] public partial string InfoUrl { get; set; }
 
-    [ObservableProperty] private string _videoUrl;
+    [ObservableProperty] public partial string VideoUrl { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="SetLinksViewModel" /> class.</summary>
     /// <param name="settingsManager">The settings manager for reading and saving link URLs.</param>
@@ -32,9 +32,8 @@ public partial class SetLinksViewModel : ObservableObject
         _configuration = configuration;
         _messageBox = messageBox;
         _resourceProvider = resourceProvider;
-
-        _videoUrl = _settingsManager.VideoUrl;
-        _infoUrl = _settingsManager.InfoUrl;
+        VideoUrl = _settingsManager.VideoUrl;
+        InfoUrl = _settingsManager.InfoUrl;
     }
 
     /// <summary>Event raised when settings have been saved.</summary>

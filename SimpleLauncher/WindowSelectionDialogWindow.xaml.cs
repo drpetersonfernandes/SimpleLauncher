@@ -31,7 +31,7 @@ public partial class WindowSelectionDialogWindow
         DataContext = _viewModel;
 
         // Set default DialogResult to false
-        Closed += (_, _) => { DialogResult ??= false; };
+        Closed += (_, _) => DialogResult ??= false;
     }
 
     /// <summary>

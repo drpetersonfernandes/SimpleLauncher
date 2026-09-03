@@ -220,7 +220,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
         _gameLauncherService.GamePlayed += _gamePlayedHandler;
 
         // Store the Loaded handler reference so it can be unsubscribed later
-        _asyncLoadedHandler = (_, _) => { _ = OnLoadedAsync(); };
+        _asyncLoadedHandler = (_, _) => _ = OnLoadedAsync();
         Loaded += _asyncLoadedHandler;
     }
 
@@ -750,7 +750,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
 
             // If in list view, select the game in the DataGrid
             if (!string.Equals(_settings.ViewMode, "ListView", StringComparison.Ordinal) ||
-                GameDataGrid.Items.Count <= 0) return;
+                GameDataGrid.Items.Count <= 0)
+            {
+                return;
+            }
 
             GameDataGrid.SelectedIndex = 0;
             GameDataGrid.ScrollIntoView(GameDataGrid.SelectedItem);
@@ -916,8 +919,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable, ILoadingS
                 if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem) return;
 
                 if (string.IsNullOrEmpty(selectedItem.FilePath))
+                {
                     // This is likely the "No results found" placeholder item.
                     return;
+                }
 
                 // Delegate the double-click handling to the render service
                 await _gameBrowser.HandleDoubleClickAsync(selectedItem);

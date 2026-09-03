@@ -53,7 +53,7 @@ public class CheckForRequiredFilesServiceTests
             string? capturedList = null;
             _messageBoxMock
                 .Setup(x => x.HandleMissingRequiredFilesMessageBoxAsync(It.IsAny<string>()))
-                .Callback<string>(list => { capturedList = list; })
+                .Callback<string>(list => capturedList = list)
                 .Returns(Task.CompletedTask);
 
             await _service.CheckFilesAsync(EmptyConfiguration(), new NoOpLogger());

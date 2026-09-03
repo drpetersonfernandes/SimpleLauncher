@@ -43,17 +43,19 @@ public class AvaloniaGameFilterService
     ///     Filters the game list by a starting letter. "#" matches files starting with a digit.
     ///     Empty or null letter returns the list unfiltered.
     /// </summary>
-    public List<GameCardViewModel> FilterByLetter(List<GameCardViewModel> games, string letter)
+    public static List<GameCardViewModel> FilterByLetter(List<GameCardViewModel> games, string letter)
     {
         if (string.IsNullOrEmpty(letter))
             return games;
 
         if (string.Equals(letter, "#", StringComparison.Ordinal))
+        {
             return games.Where(game =>
             {
                 var fileName = Path.GetFileName(game.FilePath);
                 return !string.IsNullOrEmpty(fileName) && char.IsDigit(fileName[0]);
             }).ToList();
+        }
 
         return games.Where(game =>
         {
@@ -69,6 +71,7 @@ public class AvaloniaGameFilterService
     public List<GameCardViewModel> SortByMameOrder(List<GameCardViewModel> games, string mameSortOrder)
     {
         if (string.Equals(mameSortOrder, "MachineDescription", StringComparison.Ordinal))
+        {
             return games.OrderBy(game =>
             {
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(game.FilePath);
@@ -77,6 +80,7 @@ public class AvaloniaGameFilterService
                     ? description
                     : fileNameWithoutExtension;
             }, StringComparer.OrdinalIgnoreCase).ToList();
+        }
 
         return games.OrderBy(game => Path.GetFileName(game.FilePath), StringComparer.OrdinalIgnoreCase).ToList();
     }
@@ -84,7 +88,7 @@ public class AvaloniaGameFilterService
     /// <summary>
     ///     Filters the game list by a search query applied to DisplayTitle.
     /// </summary>
-    public List<GameCardViewModel> FilterBySearchQuery(List<GameCardViewModel> games, string searchQuery)
+    public static List<GameCardViewModel> FilterBySearchQuery(List<GameCardViewModel> games, string searchQuery)
     {
         if (string.IsNullOrWhiteSpace(searchQuery))
             return games;

@@ -112,17 +112,11 @@ public partial class MainWindow : Window
             });
         };
         _updateService.ExtractionStarted += (_, _) =>
-        {
-            Dispatcher.UIThread.Post(() => { ProgressStatusText.Text = "Extracting files..."; });
-        };
-        _updateService.ExtractionProgressChanged += (_, e) =>
-        {
-            Dispatcher.UIThread.Post(() => { ProgressStatusText.Text = e.StatusText; });
-        };
+            Dispatcher.UIThread.Post(() => ProgressStatusText.Text = "Extracting files...");
+        _updateService.ExtractionProgressChanged +=
+            (_, e) => Dispatcher.UIThread.Post(() => ProgressStatusText.Text = e.StatusText);
         _updateService.ExtractionCompleted += (_, _) =>
-        {
-            Dispatcher.UIThread.Post(() => { ProgressStatusText.Text = "Extraction complete"; });
-        };
+            Dispatcher.UIThread.Post(() => ProgressStatusText.Text = "Extraction complete");
         _updateService.DokanInstallationPrompt += () =>
         {
             if (!OperatingSystem.IsWindows()) return Task.FromResult(false); // Dokan is Windows-only
@@ -156,7 +150,9 @@ public partial class MainWindow : Window
             int? processId = null;
             if (_args.Length > 0 &&
                 int.TryParse(_args[0], CultureInfo.InvariantCulture, out var pid) && pid > 0)
+            {
                 processId = pid;
+            }
 
             CancelButton.IsEnabled = true;
 
@@ -221,6 +217,7 @@ public partial class MainWindow : Window
         }
 
         if (IsLoaded)
+        {
             try
             {
                 LogTextBox.Text += $"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}";
@@ -231,6 +228,7 @@ public partial class MainWindow : Window
                 // Window may have been closed, ignore logging but report bug (fire-and-forget)
                 _ = ReportBugFireAndForgetAsync(ex, "Error logging message to UI");
             }
+        }
     }
 
     /// <summary>

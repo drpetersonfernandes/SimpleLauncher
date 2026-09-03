@@ -24,7 +24,7 @@ internal partial class GlobalStatsWindow : IDisposable
         InitializeComponent();
 
         _viewModel = viewModel;
-        _closeRequestedHandler = (_, _) => { Application.Current.Dispatcher.InvokeAsync(Close); };
+        _closeRequestedHandler = (_, _) => Application.Current.Dispatcher.InvokeAsync(Close);
         _viewModel.CloseRequested += _closeRequestedHandler;
 
         DataContext = _viewModel;

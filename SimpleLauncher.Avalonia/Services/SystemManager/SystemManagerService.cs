@@ -20,10 +20,12 @@ public class SystemManagerService
     private static readonly Lock XmlLock = new();
 
     private static readonly Regex SystemConfigBlockRegexInstance =
-        new(@"<SystemConfig\b[^>]*>.*?</SystemConfig>", RegexOptions.Singleline | RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+        new(@"<SystemConfig\b[^>]*>.*?</SystemConfig>", RegexOptions.Singleline | RegexOptions.IgnoreCase,
+            TimeSpan.FromSeconds(1));
 
     private static readonly Regex SystemNameRegexInstance =
-        new(@"<SystemName>\s*(.*?)\s*</SystemName>", RegexOptions.Singleline | RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+        new(@"<SystemName>\s*(.*?)\s*</SystemName>", RegexOptions.Singleline | RegexOptions.IgnoreCase,
+            TimeSpan.FromSeconds(1));
 
     private readonly IConfiguration _configuration;
     private readonly IMessageBoxLibraryService? _messageBox;
@@ -68,7 +70,9 @@ public class SystemManagerService
             var doc = XDocument.Load(reader, LoadOptions.None);
 
             if (doc.Root != null)
+            {
                 foreach (var element in doc.Root.Elements("SystemConfig"))
+                {
                     try
                     {
                         var config = ParseSystemElement(element);
@@ -81,6 +85,8 @@ public class SystemManagerService
                             $"The system '{name}' was removed due to the following error(s):\n- {ex.Message}");
                         dirty = true;
                     }
+                }
+            }
         }
         catch (XmlException ex)
         {
@@ -91,6 +97,7 @@ public class SystemManagerService
             {
                 var rawXml = File.ReadAllText(path);
                 foreach (Match match in SystemConfigBlockRegexInstance.Matches(rawXml))
+                {
                     try
                     {
                         var sysConfigElement = XElement.Parse(match.Value);
@@ -106,6 +113,7 @@ public class SystemManagerService
                         Log.Error(innerEx, "Failed to validate system configuration during recovery for '{SysName}'",
                             sysName);
                     }
+                }
             }
             catch (Exception recoveryEx)
             {
@@ -130,6 +138,7 @@ public class SystemManagerService
 
         // Rewrite a cleaned, sorted copy so future loads don't re-corrupt.
         if (dirty && _cachedSystems.Count > 0)
+        {
             try
             {
                 SaveCleanedSystems(_cachedSystems, path);
@@ -138,6 +147,7 @@ public class SystemManagerService
             {
                 Log.Error(saveEx, "Error saving cleaned 'system.xml' after loading.");
             }
+        }
 
         return _cachedSystems;
     }
@@ -233,6 +243,7 @@ public class SystemManagerService
         const int maxRetries = 3;
         var retryDelayMs = 500;
         for (var attempt = 0; attempt < maxRetries; attempt++)
+        {
             try
             {
                 var tempPath = path + ".tmp";
@@ -275,6 +286,7 @@ public class SystemManagerService
                     Log.Error(ex, "Error saving cleaned 'system.xml'.");
                 }
             }
+        }
     }
 
     /// <summary>
@@ -372,6 +384,7 @@ public class SystemManagerService
                         // cannot be read at the portable path (read-only/blocked deployment).
                         var fallbackPath = fileLocation.GetLocalAppDataPath();
                         if (File.Exists(fallbackPath))
+                        {
                             try
                             {
                                 var xmlContent = File.ReadAllText(fallbackPath);
@@ -387,8 +400,11 @@ public class SystemManagerService
                             {
                                 xmlDoc = new XDocument(new XElement("SystemConfigs"));
                             }
+                        }
                         else
+                        {
                             xmlDoc = new XDocument(new XElement("SystemConfigs"));
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -434,6 +450,7 @@ public class SystemManagerService
                     Exception? lastException = null;
 
                     for (var attempt = 0; attempt < maxRetries; attempt++)
+                    {
                         try
                         {
                             var tempPath = systemXmlPath + ".tmp";
@@ -471,6 +488,7 @@ public class SystemManagerService
                             // WPF parity: in portable mode, when the final in-place attempt fails
                             // (read-only/blocked deployment), fall back to LocalAppData and retry.
                             if (fileLocation.IsPortableMode && attempt == maxRetries - 1)
+                            {
                                 try
                                 {
                                     var oldSystemXmlPath = systemXmlPath;
@@ -488,6 +506,7 @@ public class SystemManagerService
                                 {
                                     Log.Debug(fallbackEx, "Fallback to LocalAppData failed while saving system.xml.");
                                 }
+                            }
 
                             if (attempt < maxRetries - 1)
                             {
@@ -510,6 +529,7 @@ public class SystemManagerService
                             lastException = ex;
                             break;
                         }
+                    }
 
                     logErrors?.Error(lastException, "Error saving system.xml.");
                     throw new InvalidOperationException("Failed to save system configuration.", lastException);
@@ -549,12 +569,14 @@ public class SystemManagerService
         // Legacy format: <SystemFolders> containing <SystemFolder> children
         var foldersElement = systemConfigElement.Element("SystemFolders");
         if (foldersElement != null)
+        {
             return
             [
                 .. foldersElement.Elements("SystemFolder")
                     .Select(f => f.Value.Trim())
                     .Where(f => !string.IsNullOrEmpty(f))
             ];
+        }
 
         // Simplified format: direct <SystemFolder> child, semicolon-separated
         var directValue = systemConfigElement.Element("SystemFolder")?.Value;
@@ -575,12 +597,14 @@ public class SystemManagerService
         // Legacy format: child elements
         var childItems = container.Elements(itemElementName).ToList();
         if (childItems.Count > 0)
+        {
             return
             [
                 .. childItems
                     .Select(e => e.Value.Trim())
                     .Where(v => !string.IsNullOrEmpty(v))
             ];
+        }
 
         // Simplified format: comma-separated value
         return ParseCommaList(container.Value);
@@ -618,6 +642,7 @@ public class SystemManagerService
         if (emulatorsElement is null) return emulators;
 
         foreach (var el in emulatorsElement.Elements("Emulator"))
+        {
             emulators.Add(new Emulator
             {
                 EmulatorName = el.Element("EmulatorName")?.Value ?? "",
@@ -633,6 +658,7 @@ public class SystemManagerService
                 ImagePackDownloadLink5 = el.Element("ImagePackDownloadLink5")?.Value ?? "",
                 ImagePackDownloadExtractPath = el.Element("ImagePackDownloadExtractPath")?.Value ?? ""
             });
+        }
 
         return emulators;
     }
@@ -724,13 +750,11 @@ public class SystemManagerService
 
         // Merge FileFormatsToSearch
         var searchEl = existing.Element("FileFormatsToSearch");
-        if (searchEl != null)
-            searchEl.ReplaceNodes(fileFormatsToSearch.Select(f => new XElement("FormatToSearch", f)));
+        searchEl?.ReplaceNodes(fileFormatsToSearch.Select(f => new XElement("FormatToSearch", f)));
 
         // Merge FileFormatsToLaunch
         var launchEl = existing.Element("FileFormatsToLaunch");
-        if (launchEl != null)
-            launchEl.ReplaceNodes(fileFormatsToLaunch.Select(f => new XElement("FormatToLaunch", f)));
+        launchEl?.ReplaceNodes(fileFormatsToLaunch.Select(f => new XElement("FormatToLaunch", f)));
 
         // Only set GroupByFolder if not already present (preserve user preference)
         if (existing.Element("GroupByFolder") == null)

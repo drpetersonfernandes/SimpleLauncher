@@ -52,7 +52,9 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     {
         if (string.IsNullOrEmpty(context.EmulatorName) ||
             string.IsNullOrEmpty(context.ResolvedFilePath))
+        {
             return false;
+        }
 
         if (!IsDosBoxEmulator(context))
             return false;
@@ -194,6 +196,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         var foundFiles = new List<string>();
 
         foreach (var format in PriorityGameFormats)
+        {
             try
             {
                 var files = Directory.GetFiles(directory, $"*{format}", SearchOption.AllDirectories);
@@ -203,6 +206,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             {
                 _logger.Debug($"[DosBoxLaunchStrategy] Error searching for *{format}: {ex.Message}");
             }
+        }
 
         _logger.Debug($"[DosBoxLaunchStrategy] Found {foundFiles.Count} game file(s) in {directory}");
         return foundFiles;
@@ -403,11 +407,13 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
     {
         var launchParameters = parameters ?? "";
         if (!launchParameters.Contains("-conf", StringComparison.OrdinalIgnoreCase))
+        {
             launchParameters = string.IsNullOrWhiteSpace(launchParameters)
                 ? "-conf %ROM%"
                 : launchParameters.Contains("%ROM%", StringComparison.OrdinalIgnoreCase)
                     ? launchParameters.Replace("%ROM%", "-conf %ROM%", StringComparison.OrdinalIgnoreCase)
                     : $"-conf %ROM% {launchParameters}";
+        }
 
         return launchParameters;
     }

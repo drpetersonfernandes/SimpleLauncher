@@ -18,7 +18,7 @@ public partial class SetLinksWindow : Window
     {
         InitializeComponent();
 
-        _saveCompletedHandler = (_, _) => { Close(); };
+        _saveCompletedHandler = (_, _) => Close();
 
         viewModel.SaveCompleted += _saveCompletedHandler;
         viewModel.CloseRequested += OnCloseRequested;

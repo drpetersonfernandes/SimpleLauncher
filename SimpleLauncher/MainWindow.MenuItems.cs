@@ -287,7 +287,10 @@ public partial class MainWindow
 
             var sizeText = clickedItem.Name.Replace("Size", "");
             if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()),
-                    CultureInfo.InvariantCulture, out var newSize)) return;
+                    CultureInfo.InvariantCulture, out var newSize))
+            {
+                return;
+            }
 
             await _menuOrchestrator.HandleButtonSizeAsync(newSize);
         }
@@ -319,7 +322,10 @@ public partial class MainWindow
 
             var pageText = clickedItem.Name.Replace("Page", "");
             if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()),
-                    CultureInfo.InvariantCulture, out var newPage)) return;
+                    CultureInfo.InvariantCulture, out var newPage))
+            {
+                return;
+            }
 
             await _menuOrchestrator.HandleGamesPerPageAsync(newPage);
         }

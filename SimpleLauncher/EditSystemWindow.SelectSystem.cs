@@ -211,7 +211,10 @@ internal partial class EditSystemWindow
         // Also check if the resolved path is valid before attempting creation
         if (string.IsNullOrEmpty(resolvedCurrentPath) ||
             !resolvedCurrentPath.Equals(resolvedDefaultPatternPath, StringComparison.OrdinalIgnoreCase) ||
-            Directory.Exists(resolvedCurrentPath)) return;
+            Directory.Exists(resolvedCurrentPath))
+        {
+            return;
+        }
 
         try
         {

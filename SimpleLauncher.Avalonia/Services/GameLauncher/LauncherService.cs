@@ -78,8 +78,11 @@ public class LauncherService : ILauncherService
             .GetSection("EmulatorsToSkipErrorChecking")
             .Get<string[]>();
         if (configEmulatorsToSkip is { Length: > 0 })
+        {
             _emulatorsToSkipErrorChecking = configEmulatorsToSkip.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        }
         else
+        {
             // Hardcoded fallback matching WPF DoNotCheckErrorsOnSpecificEmulators
             _emulatorsToSkipErrorChecking = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
@@ -91,6 +94,7 @@ public class LauncherService : ILauncherService
                 "fMSX.exe", "fMSX",
                 "Projec(t)64.exe"
             };
+        }
 
         _playHistoryManager = playHistoryManager;
         _stats = stats;
@@ -175,20 +179,26 @@ public class LauncherService : ILauncherService
                             _localization.GetString("Mountingarchive", "Mounting archive..."));
 
                         if (isRpcs3)
+                        {
                             await _mountZipFiles.MountZipFileAndLoadEbootBinAsync(
                                 resolvedFilePath, selectedSystemManager.SystemName, emulatorName,
                                 selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters,
                                 windowContext, logPath, this, Log.Logger, _messageBox);
+                        }
                         else if (isScummVm)
+                        {
                             await _mountZipFiles.MountZipFileAndLoadWithScummVmAsync(
                                 resolvedFilePath, selectedSystemManager.SystemName, emulatorName,
                                 selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters,
                                 logPath, Log.Logger, _messageBox);
+                        }
                         else
+                        {
                             await _mountZipFiles.MountZipFileAndSearchForFileToLoadAsync(
                                 resolvedFilePath, selectedSystemManager.SystemName, emulatorName,
                                 selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters,
                                 windowContext, logPath, this, Log.Logger, _messageBox);
+                        }
 
                         loadingStateProvider?.SetLoadingState(false);
                         return;
@@ -585,8 +595,10 @@ public class LauncherService : ILauncherService
 
             // ── Post-exit error analysis (ported from the WPF GameLauncherService) ──
             if (!string.IsNullOrWhiteSpace(stderrOutput))
+            {
                 Log.Debug("Emulator stderr for {Emulator}: {Stderr}", emulatorName,
                     stderrOutput.Length > 2000 ? stderrOutput[..2000] : stderrOutput);
+            }
 
             await AnalyzeProcessExitAsync(
                 processExitCode, stdoutOutput, stderrOutput,
@@ -610,6 +622,7 @@ public class LauncherService : ILauncherService
         {
             // Clean up temp extraction directory
             if (cleanupPath is not null)
+            {
                 try
                 {
                     Directory.Delete(cleanupPath, true);
@@ -618,9 +631,11 @@ public class LauncherService : ILauncherService
                 {
                     Log.Debug(ex, "Failed to delete temp extraction dir {Path}", cleanupPath);
                 }
+            }
 
             // Unmount the drives AFTER the emulator exited (kills the mount processes)
             if (mountedChd is not null)
+            {
                 try
                 {
                     await mountedChd.DisposeAsync();
@@ -629,8 +644,10 @@ public class LauncherService : ILauncherService
                 {
                     Log.Debug(ex, "Failed to unmount CHD drive");
                 }
+            }
 
             if (mountedXiso is not null)
+            {
                 try
                 {
                     await mountedXiso.DisposeAsync();
@@ -639,6 +656,7 @@ public class LauncherService : ILauncherService
                 {
                     Log.Debug(ex, "Failed to unmount XISO drive");
                 }
+            }
         }
     }
 
@@ -736,7 +754,7 @@ public class LauncherService : ILauncherService
         }
         catch (Exception ex)
         {
-            var detailedMessage = $"Launch Pipeline Failed.\n" +
+            var detailedMessage = "Launch Pipeline Failed.\n" +
                                   $"Exception Type: {ex.GetType().FullName}\n" +
                                   $"SystemName: '{context.SystemName ?? "null"}'\n" +
                                   $"EmulatorName: '{context.EmulatorName ?? "null"}'\n" +
@@ -816,6 +834,7 @@ public class LauncherService : ILauncherService
         // Helps identify Unicode normalization or path handling issues; logged for developer
         // investigation but does not block the launch.
         if (standardFileExists != longFileExists || standardDirExists != longDirExists)
+        {
             Log.Error(
                 "Path validation mismatch detected:\n" +
                 "  Original Path: {Original}\n" +
@@ -827,6 +846,7 @@ public class LauncherService : ILauncherService
                 "  This may indicate a Unicode normalization or path handling issue.",
                 context.FilePath, standardPath, longPath, normalizedPath ?? "N/A",
                 standardFileExists, longFileExists, standardDirExists, longDirExists);
+        }
 
         if (string.IsNullOrWhiteSpace(context.EmulatorName))
         {
@@ -1382,23 +1402,33 @@ public class LauncherService : ILauncherService
 
         if (emulatorName.Contains("RetroArch", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("retroarch.exe", StringComparison.OrdinalIgnoreCase))
+        {
             return ChdGameFileKind.None;
+        }
 
         if (emulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("rpcs3", StringComparison.OrdinalIgnoreCase))
+        {
             return ChdGameFileKind.EbootBin;
+        }
 
         if (emulatorName.Contains("Xenia", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("xenia", StringComparison.OrdinalIgnoreCase))
+        {
             return ChdGameFileKind.DefaultXex;
+        }
 
         if (emulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("xemu", StringComparison.OrdinalIgnoreCase))
+        {
             return ChdGameFileKind.ImageIso;
+        }
 
         if (emulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("cxbx", StringComparison.OrdinalIgnoreCase))
+        {
             return ChdGameFileKind.DefaultXbe;
+        }
 
         if (emulatorName.Contains("Gens", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("gens.exe", StringComparison.OrdinalIgnoreCase) ||
@@ -1408,7 +1438,9 @@ public class LauncherService : ILauncherService
             emulatorName.Contains("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
             emulatorName.Contains("Fusion", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("fusion.exe", StringComparison.OrdinalIgnoreCase))
+        {
             return ChdGameFileKind.BinFile;
+        }
 
         if (emulatorName.Contains("Genesis Plus GX", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("gen_sdl.exe", StringComparison.OrdinalIgnoreCase) ||
@@ -1444,7 +1476,9 @@ public class LauncherService : ILauncherService
             loc.Contains("Tsugaru_CUI.exe", StringComparison.OrdinalIgnoreCase) ||
             emulatorName.Contains("Yabause", StringComparison.OrdinalIgnoreCase) ||
             loc.Contains("yabause.exe", StringComparison.OrdinalIgnoreCase))
+        {
             return ChdGameFileKind.CueFile;
+        }
 
         return ChdGameFileKind.None;
     }
@@ -1489,8 +1523,10 @@ public class LauncherService : ILauncherService
         try
         {
             foreach (var line in File.ReadAllLines(shortcutPath))
+            {
                 if (line.StartsWith("URL=", StringComparison.OrdinalIgnoreCase))
                     return line["URL=".Length..].Trim();
+            }
         }
         catch (Exception ex)
         {

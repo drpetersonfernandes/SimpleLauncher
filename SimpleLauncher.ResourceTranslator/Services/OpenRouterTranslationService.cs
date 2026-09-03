@@ -171,7 +171,9 @@ public class OpenRouterTranslationService
         if (!doc.RootElement.TryGetProperty("choices", out var choices) ||
             choices.ValueKind != JsonValueKind.Array ||
             choices.GetArrayLength() == 0)
+        {
             throw new InvalidOperationException("No choices in OpenRouter response.");
+        }
 
         var first = choices[0];
         if (first.TryGetProperty("finish_reason", out var finishReason))
@@ -183,7 +185,9 @@ public class OpenRouterTranslationService
 
         if (!first.TryGetProperty("message", out var message) ||
             !message.TryGetProperty("content", out var contentElement))
+        {
             throw new InvalidOperationException("Unable to extract content from OpenRouter response.");
+        }
 
         return contentElement.GetString() ?? "";
     }

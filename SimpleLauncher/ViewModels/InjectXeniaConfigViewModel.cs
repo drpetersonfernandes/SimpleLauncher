@@ -19,23 +19,39 @@ public partial class InjectXeniaConfigViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    [ObservableProperty] private string _xeniaAa = null!;
-    [ObservableProperty] private bool _xeniaApplyPatches;
-    [ObservableProperty] private string _xeniaApu = null!;
-    [ObservableProperty] private bool _xeniaFullscreen;
-    [ObservableProperty] private bool _xeniaGammaSrgb;
-    [ObservableProperty] private string _xeniaGpu = null!;
-    [ObservableProperty] private string _xeniaHid = null!;
-    [ObservableProperty] private bool _xeniaMountCache;
-    [ObservableProperty] private bool _xeniaMute;
-    [ObservableProperty] private string _xeniaReadbackResolve = null!;
-    [ObservableProperty] private int _xeniaResScaleX;
-    [ObservableProperty] private int _xeniaResScaleY;
-    [ObservableProperty] private string _xeniaScaling = null!;
-    [ObservableProperty] private bool _xeniaShowSettingsBeforeLaunch;
-    [ObservableProperty] private int _xeniaUserLanguage;
-    [ObservableProperty] private bool _xeniaVibration;
-    [ObservableProperty] private bool _xeniaVsync;
+    [ObservableProperty] public partial string XeniaAa { get; set; } = null!;
+
+    [ObservableProperty] public partial bool XeniaApplyPatches { get; set; }
+
+    [ObservableProperty] public partial string XeniaApu { get; set; } = null!;
+
+    [ObservableProperty] public partial bool XeniaFullscreen { get; set; }
+
+    [ObservableProperty] public partial bool XeniaGammaSrgb { get; set; }
+
+    [ObservableProperty] public partial string XeniaGpu { get; set; } = null!;
+
+    [ObservableProperty] public partial string XeniaHid { get; set; } = null!;
+
+    [ObservableProperty] public partial bool XeniaMountCache { get; set; }
+
+    [ObservableProperty] public partial bool XeniaMute { get; set; }
+
+    [ObservableProperty] public partial string XeniaReadbackResolve { get; set; } = null!;
+
+    [ObservableProperty] public partial int XeniaResScaleX { get; set; }
+
+    [ObservableProperty] public partial int XeniaResScaleY { get; set; }
+
+    [ObservableProperty] public partial string XeniaScaling { get; set; } = null!;
+
+    [ObservableProperty] public partial bool XeniaShowSettingsBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial int XeniaUserLanguage { get; set; }
+
+    [ObservableProperty] public partial bool XeniaVibration { get; set; }
+
+    [ObservableProperty] public partial bool XeniaVsync { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectXeniaConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>

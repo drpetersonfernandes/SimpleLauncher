@@ -143,7 +143,7 @@ public class RetroAchievementsSettingsViewModelTests
         // verify the configurator is still invoked when a token is already present (login skipped).
         // ReSharper disable once UnusedVariable
         var (vm, settings, messageBox, configurator, _) = CreateVm(_ => LoginSuccess("newToken"),
-            initialToken: "existingToken", initialApiKey: "key");
+            initialApiKey: "key", initialToken: "existingToken");
         vm.Username = "user";
         vm.Password = "pass";
         configurator.Setup(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
@@ -162,7 +162,7 @@ public class RetroAchievementsSettingsViewModelTests
         // Simulate a login failure when no token is present — WPF service may return null without
         // invoking the FailedToLogin path if Http is not mocked fully. Verify only that the command
         // does not succeed (no success message) when login cannot be completed.
-        var (vm, _, messageBox, _, _) = CreateVm(_ => LoginFailure(), initialToken: "", initialApiKey: "");
+        var (vm, _, messageBox, _, _) = CreateVm(_ => LoginFailure(), initialApiKey: "", initialToken: "");
         vm.Username = "user";
         vm.Password = "pass";
         vm.RequestExePath = () => "C:\\emu\\pcsx2.exe";
@@ -180,7 +180,7 @@ public class RetroAchievementsSettingsViewModelTests
         {
             httpCalled = true;
             return LoginSuccess();
-        }, initialToken: "existingToken", initialApiKey: "key");
+        }, initialApiKey: "key", initialToken: "existingToken");
         vm.Username = "user";
         vm.Password = "pass";
         configurator.Setup(c => c.ConfigureDuckStation(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))

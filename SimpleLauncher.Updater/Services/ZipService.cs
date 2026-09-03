@@ -153,6 +153,7 @@ internal class ZipService
 
             // Clear read-only attribute if the file already exists (e.g., from a previous installation)
             if (File.Exists(destinationPath))
+            {
                 try
                 {
                     var attributes = File.GetAttributes(destinationPath);
@@ -163,6 +164,7 @@ internal class ZipService
                 {
                     // Best effort — extraction will report the error if this fails
                 }
+            }
 
             try
             {
@@ -192,8 +194,10 @@ internal class ZipService
 
         // All retry attempts failed
         if (lastException != null)
+        {
             throw new IOException(
                 $"Failed to extract file after {FileWriteRetryAttempts} attempts: {entryKey}. " +
-                $"The file may be locked by another process or has restricted permissions.", lastException);
+                "The file may be locked by another process or has restricted permissions.", lastException);
+        }
     }
 }

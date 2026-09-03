@@ -36,27 +36,27 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
     private readonly IList<SystemManager> _systemManagers;
     private CancellationTokenSource _cancellationTokenSource;
 
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] public partial bool IsLoading { get; set; }
 
-    [ObservableProperty] private bool _launchButtonEnabled;
+    [ObservableProperty] public partial bool LaunchButtonEnabled { get; set; }
 
-    [ObservableProperty] private string _loadingMessage = "";
+    [ObservableProperty] public partial string LoadingMessage { get; set; } = "";
 
-    [ObservableProperty] private bool _noResultsVisible;
+    [ObservableProperty] public partial bool NoResultsVisible { get; set; }
 
-    [ObservableProperty] private Stream? _previewImageSource;
+    [ObservableProperty] public partial Stream? PreviewImageSource { get; set; }
 
-    [ObservableProperty] private string _resultsCountText = "";
+    [ObservableProperty] public partial string ResultsCountText { get; set; } = "";
 
-    [ObservableProperty] private bool _resultsCountVisible;
+    [ObservableProperty] public partial bool ResultsCountVisible { get; set; }
 
-    [ObservableProperty] private ObservableCollection<SearchResult> _searchResults = [];
+    [ObservableProperty] public partial ObservableCollection<SearchResult> SearchResults { get; set; } = [];
 
-    [ObservableProperty] private SearchResult? _selectedResult;
+    [ObservableProperty] public partial SearchResult? SelectedResult { get; set; }
 
-    [ObservableProperty] private int _selectedSystemIndex;
+    [ObservableProperty] public partial int SelectedSystemIndex { get; set; }
 
-    [ObservableProperty] private List<string> _systemNames = [];
+    [ObservableProperty] public partial List<string> SystemNames { get; set; } = [];
 
     /// <summary>Initializes a new instance of the <see cref="GlobalSearchViewModel" />.</summary>
     /// <param name="configuration">The application configuration.</param>
@@ -231,8 +231,10 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
         var allSystemsString = _resourceProvider.GetString("AllSystems", "All Systems");
         IEnumerable<SystemManager> systemsToSearch = _systemManagers;
         if (!string.Equals(selectedSystem, allSystemsString, StringComparison.Ordinal))
+        {
             systemsToSearch = _systemManagers.Where(sm =>
                 sm.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+        }
 
         foreach (var systemManager in systemsToSearch)
         {
@@ -274,7 +276,9 @@ public partial class GlobalSearchViewModel : ObservableObject, IDisposable
                 var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
                 if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) ||
                     systemManager.FileFormatsToSearch == null)
+                {
                     continue;
+                }
 
                 var matchedFilesList = await _getListOfFiles.GetFilesAsync(
                     systemFolderPath, systemManager.FileFormatsToSearch, effectiveSystemManager.DisableRecursiveSearch,

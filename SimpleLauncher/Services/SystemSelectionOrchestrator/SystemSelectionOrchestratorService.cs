@@ -313,9 +313,9 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
                     }
 
                     var formats = selectedManager.FileFormatsToSearch;
-                    _host.IsPlayTimeVisible = formats == null || !formats.Any(static f =>
+                    _host.IsPlayTimeVisible = formats?.Any(static f =>
                         f.Equals("url", StringComparison.OrdinalIgnoreCase) ||
-                        f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+                        f.Equals("lnk", StringComparison.OrdinalIgnoreCase)) != true;
 
                     ((IUiResetHost)_host).MameSortOrder = AppConstants.MameSortOrderFileName;
                     _host.UpdateSortOrderButtonUi();
@@ -453,8 +453,8 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
             {
                 Content = buttonContentPanel,
                 Tag = config.SystemName,
-                Width = systemImageSize * 1.3 * 1.6 + 20,
-                Height = systemImageSize * 1.3 + 40 + 20,
+                Width = (systemImageSize * 1.3 * 1.6) + 20,
+                Height = (systemImageSize * 1.3) + 40 + 20,
                 Margin = new Thickness(5),
                 Padding = new Thickness(5)
             };
@@ -529,7 +529,10 @@ public class SystemSelectionOrchestratorService : ISystemSelectionOrchestrator
         {
             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
             if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) ||
-                selectedManager.FileFormatsToSearch == null) continue;
+                selectedManager.FileFormatsToSearch == null)
+            {
+                continue;
+            }
 
             var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath,
                 selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch,

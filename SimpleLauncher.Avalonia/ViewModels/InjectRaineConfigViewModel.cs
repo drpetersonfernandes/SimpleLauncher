@@ -20,22 +20,38 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
     private string _gameFilePath = null!;
-    [ObservableProperty] private bool _raineFixAspectRatio;
-    [ObservableProperty] private int _raineFrameSkip;
-    [ObservableProperty] private bool _raineFullscreen;
-    [ObservableProperty] private int _raineMusicVolume;
-    [ObservableProperty] private bool _raineMuteMusic;
-    [ObservableProperty] private bool _raineMuteSfx;
-    [ObservableProperty] private string _raineNeoCdBios = null!;
-    [ObservableProperty] private int _raineResX;
-    [ObservableProperty] private int _raineResY;
-    [ObservableProperty] private string _raineRomDirectory = null!;
-    [ObservableProperty] private int _raineSampleRate;
-    [ObservableProperty] private int _raineSfxVolume;
-    [ObservableProperty] private bool _raineShowFps;
-    [ObservableProperty] private bool _raineShowSettingsBeforeLaunch;
-    [ObservableProperty] private string _raineSoundDriver = null!;
-    [ObservableProperty] private bool _raineVsync;
+    [ObservableProperty] public partial bool RaineFixAspectRatio { get; set; }
+
+    [ObservableProperty] public partial int RaineFrameSkip { get; set; }
+
+    [ObservableProperty] public partial bool RaineFullscreen { get; set; }
+
+    [ObservableProperty] public partial int RaineMusicVolume { get; set; }
+
+    [ObservableProperty] public partial bool RaineMuteMusic { get; set; }
+
+    [ObservableProperty] public partial bool RaineMuteSfx { get; set; }
+
+    [ObservableProperty] public partial string RaineNeoCdBios { get; set; } = null!;
+
+    [ObservableProperty] public partial int RaineResX { get; set; }
+
+    [ObservableProperty] public partial int RaineResY { get; set; }
+
+    [ObservableProperty] public partial string RaineRomDirectory { get; set; } = null!;
+
+    [ObservableProperty] public partial int RaineSampleRate { get; set; }
+
+    [ObservableProperty] public partial int RaineSfxVolume { get; set; }
+
+    [ObservableProperty] public partial bool RaineShowFps { get; set; }
+
+    [ObservableProperty] public partial bool RaineShowSettingsBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial string RaineSoundDriver { get; set; } = null!;
+
+    [ObservableProperty] public partial bool RaineVsync { get; set; }
+
     private string _systemRomPath = null!;
 
     /// <summary>Initializes a new instance of the <see cref="InjectRaineConfigViewModel" />.</summary>
@@ -250,7 +266,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRaineConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }
@@ -280,7 +296,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRaineConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }

@@ -19,16 +19,23 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
-    [ObservableProperty] private string _aspect = "";
-    [ObservableProperty] private string _audioRate = "";
+    [ObservableProperty] public partial string Aspect { get; set; } = "";
+
+    [ObservableProperty] public partial string AudioRate { get; set; } = "";
+
     private string _emulatorPath = "";
 
-    [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private string _scaling = "";
-    [ObservableProperty] private bool _scanlines;
-    [ObservableProperty] private bool _showBeforeLaunch;
-    [ObservableProperty] private string _syncSource = "";
-    [ObservableProperty] private bool _vsync;
+    [ObservableProperty] public partial bool Fullscreen { get; set; }
+
+    [ObservableProperty] public partial string Scaling { get; set; } = "";
+
+    [ObservableProperty] public partial bool Scanlines { get; set; }
+
+    [ObservableProperty] public partial bool ShowBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial string SyncSource { get; set; } = "";
+
+    [ObservableProperty] public partial bool Vsync { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectBlastemConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
@@ -221,7 +228,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectBlastemConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }
@@ -251,7 +258,7 @@ public partial class InjectBlastemConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectBlastemConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }

@@ -34,9 +34,9 @@ public static class Program
             .WriteTo.Async(a => a.File(
                 Path.Combine(appDataLogFolder, "error_user.log"),
                 LogEventLevel.Warning,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}",
                 rollingInterval: RollingInterval.Day,
-                retainedFileCountLimit: 7,
-                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}"))
+                retainedFileCountLimit: 7))
             .WriteTo.Sink(bugReportSink)
             .CreateLogger();
 
@@ -197,9 +197,11 @@ public static class Program
         Console.WriteLine();
 
         foreach (var batch in batches)
+        {
             Log.Information(
                 "  [{LanguageCode}] {LanguageName}: {MissingCount} missing, {DuplicateCount} duplicates",
                 batch.LanguageCode, batch.LanguageName, batch.MissingKeys.Count, batch.DuplicateKeysRemoved.Count);
+        }
 
         Console.WriteLine();
         Console.WriteLine("Press any key to proceed with translation, or Ctrl+C to cancel...");
@@ -222,7 +224,7 @@ public static class Program
             for (var i = 0; i < missingList.Count; i += BatchSize)
             {
                 var currentBatch = missingList.Skip(i).Take(BatchSize).ToList();
-                var batchNumber = i / BatchSize + 1;
+                var batchNumber = (i / BatchSize) + 1;
 
                 Console.Write($"  Batch {batchNumber}/{totalBatches} ({currentBatch.Count} keys)... ");
                 var sw = Stopwatch.StartNew();
@@ -318,7 +320,8 @@ public static class Program
     private static string? FindAvaloniaResourcesPath()
     {
         // If running from the project directory (development)
-        var devPath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "SimpleLauncher.Avalonia", "Resources");
+        var devPath = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "SimpleLauncher.Avalonia",
+            "Resources");
         if (Directory.Exists(devPath))
         {
             var fullPath = Path.GetFullPath(devPath);

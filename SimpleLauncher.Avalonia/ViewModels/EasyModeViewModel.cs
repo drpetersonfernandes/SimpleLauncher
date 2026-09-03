@@ -36,62 +36,63 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly SystemManagerService? _systemManager;
 
-    [ObservableProperty] private bool _canStopDownload;
+    [ObservableProperty] public partial bool CanStopDownload { get; set; }
+
     private string? _currentDownloadType;
     private bool _disposed;
 
-    [ObservableProperty] private double _downloadProgress;
+    [ObservableProperty] public partial double DownloadProgress { get; set; }
 
-    [ObservableProperty] private string _downloadStatus = "";
+    [ObservableProperty] public partial string DownloadStatus { get; set; } = "";
 
-    [ObservableProperty] private bool _isAddSystemEnabled;
+    [ObservableProperty] public partial bool IsAddSystemEnabled { get; set; }
 
     // WPF parity: controls are disabled when no systems are configured
-    [ObservableProperty] private bool _isContentEnabled = true;
+    [ObservableProperty] public partial bool IsContentEnabled { get; set; } = true;
 
-    [ObservableProperty] private bool _isCoreDownloaded = true;
+    [ObservableProperty] public partial bool IsCoreDownloaded { get; set; } = true;
 
     // Download state bools (bound to button IsEnabled via InverseBool:
     // true = downloaded/downloading → button disabled)
-    [ObservableProperty] private bool _isEmulatorDownloaded = true;
+    [ObservableProperty] public partial bool IsEmulatorDownloaded { get; set; } = true;
 
     // Availability (whether a download link + extract path exists for each image pack)
-    [ObservableProperty] private bool _isImagePack1Available;
+    [ObservableProperty] public partial bool IsImagePack1Available { get; set; }
 
-    [ObservableProperty] private bool _isImagePack1Downloaded = true;
+    [ObservableProperty] public partial bool IsImagePack1Downloaded { get; set; } = true;
 
-    [ObservableProperty] private bool _isImagePack2Available;
+    [ObservableProperty] public partial bool IsImagePack2Available { get; set; }
 
-    [ObservableProperty] private bool _isImagePack2Downloaded = true;
+    [ObservableProperty] public partial bool IsImagePack2Downloaded { get; set; } = true;
 
-    [ObservableProperty] private bool _isImagePack3Available;
+    [ObservableProperty] public partial bool IsImagePack3Available { get; set; }
 
-    [ObservableProperty] private bool _isImagePack3Downloaded = true;
+    [ObservableProperty] public partial bool IsImagePack3Downloaded { get; set; } = true;
 
-    [ObservableProperty] private bool _isImagePack4Available;
+    [ObservableProperty] public partial bool IsImagePack4Available { get; set; }
 
-    [ObservableProperty] private bool _isImagePack4Downloaded = true;
+    [ObservableProperty] public partial bool IsImagePack4Downloaded { get; set; } = true;
 
-    [ObservableProperty] private bool _isImagePack5Available;
+    [ObservableProperty] public partial bool IsImagePack5Available { get; set; }
 
-    [ObservableProperty] private bool _isImagePack5Downloaded = true;
+    [ObservableProperty] public partial bool IsImagePack5Downloaded { get; set; } = true;
 
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] public partial bool IsLoading { get; set; }
 
-    [ObservableProperty] private bool _isOperationInProgress;
+    [ObservableProperty] public partial bool IsOperationInProgress { get; set; }
 
-    [ObservableProperty] private string _loadingMessage = "Loading configuration...";
+    [ObservableProperty] public partial string LoadingMessage { get; set; } = "Loading configuration...";
 
     private EasyModeManager? _manager;
     private int _operationInProgressFlag;
 
-    [ObservableProperty] private EasyModeSystemConfig? _selectedSystem;
+    [ObservableProperty] public partial EasyModeSystemConfig? SelectedSystem { get; set; }
 
-    [ObservableProperty] private string _systemFolderPath = "";
+    [ObservableProperty] public partial string SystemFolderPath { get; set; } = "";
 
     // ── Observable properties ─────────────────────────────────────────
 
-    [ObservableProperty] private ObservableCollection<EasyModeSystemConfig> _systems = [];
+    [ObservableProperty] public partial ObservableCollection<EasyModeSystemConfig> Systems { get; set; } = [];
 
     public EasyModeViewModel(
         EasyModeManager easyModeManager,
@@ -528,7 +529,7 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
 
                     success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
 
-                    await Dispatcher.UIThread.InvokeAsync(() => { IsLoading = false; });
+                    await Dispatcher.UIThread.InvokeAsync(() => IsLoading = false);
                 }
 
                 if (success)
@@ -604,7 +605,8 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
                        ioEx.Message.Contains("Cannot check disk space", StringComparison.Ordinal))))
                 {
                     if (DownloadErrorClassifier.IsExpectedDownloadException(ex))
-                        _logger.Information(ex, "Error downloading {Component}. URL: {Url}", componentName, downloadUrl);
+                        _logger.Information(ex, "Error downloading {Component}. URL: {Url}", componentName,
+                            downloadUrl);
                     else
                         _logger.Error(ex, "Error downloading {Component}. URL: {Url}", componentName, downloadUrl);
                 }
@@ -748,14 +750,18 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
         // app, which marshals via Dispatcher.InvokeAsync). Marshal to the UI thread before
         // touching bound properties so the progress bar and status text update reliably.
         if (Dispatcher.UIThread.CheckAccess())
+        {
             ApplyProgressUpdate(e);
+        }
         else
+        {
             Dispatcher.UIThread.Post(() =>
             {
                 if (_disposed) return;
 
                 ApplyProgressUpdate(e);
             });
+        }
     }
 
     private void ApplyProgressUpdate(DownloadProgressEventArgs e)

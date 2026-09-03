@@ -7,7 +7,7 @@ namespace SimpleLauncher.Avalonia.ViewModels;
 /// </summary>
 public partial class SidebarSystemItem : ObservableObject
 {
-    [ObservableProperty] private int _count;
+    [ObservableProperty] public partial int Count { get; set; }
 
     /// <summary>System name — used as the navigation tag.</summary>
     public string SystemName { get; init; } = "";

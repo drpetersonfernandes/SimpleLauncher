@@ -132,7 +132,7 @@ public class ImagePackDownloadItemTests
     {
         var item = new ImagePackDownloadItem { State = DownloadButtonState.Idle };
         var eventRaised = false;
-        item.PropertyChanged += (_, _) => { eventRaised = true; };
+        item.PropertyChanged += (_, _) => eventRaised = true;
 
         item.State = DownloadButtonState.Idle;
 

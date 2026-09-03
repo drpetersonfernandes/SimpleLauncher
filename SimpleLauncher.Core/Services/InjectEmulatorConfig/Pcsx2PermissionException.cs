@@ -23,7 +23,7 @@ public class Pcsx2PermissionException : Exception
     {
     }
 
-    public Pcsx2PermissionException() : base()
+    public Pcsx2PermissionException()
     {
     }
 }

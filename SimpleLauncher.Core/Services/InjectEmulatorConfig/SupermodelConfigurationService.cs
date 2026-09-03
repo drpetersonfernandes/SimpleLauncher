@@ -39,6 +39,7 @@ public static class SupermodelConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Supermodel",
                 "Supermodel.ini");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(configPath) ??
@@ -53,8 +54,11 @@ public static class SupermodelConfigurationService
                     logger.Error(ex, $"[SupermodelConfig] Failed to create Supermodel.ini from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("Supermodel.ini not found and sample missing.");
+            }
         }
 
         var updates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)

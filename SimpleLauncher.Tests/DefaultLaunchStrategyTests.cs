@@ -184,7 +184,7 @@ public class DefaultLaunchStrategyTests
             context.EmulatorManager!,
             context.Parameters,
             context.WindowContext!,
-            context.LoadingState!,
+            context.LoadingState,
             null), Times.Once);
     }
 

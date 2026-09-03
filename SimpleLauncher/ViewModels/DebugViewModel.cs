@@ -42,7 +42,7 @@ public partial class DebugViewModel : ObservableObject
     public void AppendLogMessage(string formattedMessage)
     {
         var dispatcher = Application.Current?.Dispatcher;
-        if (dispatcher is not null && !dispatcher.CheckAccess())
+        if (dispatcher?.CheckAccess() == false)
         {
             dispatcher.BeginInvoke(() => AppendLogMessage(formattedMessage));
             return;
@@ -67,7 +67,7 @@ public partial class DebugViewModel : ObservableObject
     public void LoadBufferedMessages(IEnumerable<string> formattedMessages)
     {
         var dispatcher = Application.Current?.Dispatcher;
-        if (dispatcher is not null && !dispatcher.CheckAccess())
+        if (dispatcher?.CheckAccess() == false)
         {
             dispatcher.Invoke(() => LoadBufferedMessages(formattedMessages));
             return;
@@ -91,7 +91,7 @@ public partial class DebugViewModel : ObservableObject
     private void ClearLog()
     {
         var dispatcher = Application.Current?.Dispatcher;
-        if (dispatcher is not null && !dispatcher.CheckAccess())
+        if (dispatcher?.CheckAccess() == false)
         {
             dispatcher.Invoke(ClearLog);
             return;

@@ -29,13 +29,16 @@ public class RetroAchievementsManager
     {
         var manager = new RetroAchievementsManager { _logger = logger };
         if (File.Exists(DatFilePath))
+        {
             try
             {
                 var bytes = File.ReadAllBytes(DatFilePath);
                 if (bytes.Length > 0)
+                {
                     // The root object in the .dat file is a List<RaGameInfo>,
                     // so we deserialize that directly and wrap it in our manager.
                     manager.AllGames = MessagePackSerializer.Deserialize<List<RaGameInfo>>(bytes);
+                }
             }
             catch (Exception ex)
             {
@@ -46,6 +49,7 @@ public class RetroAchievementsManager
 
                 logger.Debug($"[RA Manager] Failed to load RetroAchievements.dat: {ex.Message}");
             }
+        }
 
         // Populate the hash lookup dictionary after loading AllGames
         manager.PopulateHashLookup();
@@ -70,11 +74,15 @@ public class RetroAchievementsManager
     {
         _hashToGameInfoLookup = new Dictionary<string, RaGameInfo>(StringComparer.OrdinalIgnoreCase);
         foreach (var game in AllGames)
-        foreach (var hash in game.Hashes)
-            // Add the hash to the dictionary. If a hash maps to multiple games,
-            // we'll just take the first one encountered. This is a simplification.
-            // RetroAchievements API usually handles this by returning the primary game.
-            _hashToGameInfoLookup.TryAdd(hash, game);
+        {
+            foreach (var hash in game.Hashes)
+            {
+                // Add the hash to the dictionary. If a hash maps to multiple games,
+                // we'll just take the first one encountered. This is a simplification.
+                // RetroAchievements API usually handles this by returning the primary game.
+                _hashToGameInfoLookup.TryAdd(hash, game);
+            }
+        }
 
         _logger.Debug($"[RA Manager] Populated hash lookup with {_hashToGameInfoLookup.Count} entries.");
     }

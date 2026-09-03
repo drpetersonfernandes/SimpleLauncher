@@ -30,7 +30,7 @@ public partial class DetectMismatchedResourceStringsTests
                           "\n",
                           mismatches.Select(static m =>
                               $"Key: {m.Key}\n" +
-                              $"Values Found:\n" +
+                              "Values Found:\n" +
                               string.Join("\n", m.Values.Select(static v => $"  - {v}")) +
                               "\n"
                           )

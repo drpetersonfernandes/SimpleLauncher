@@ -87,7 +87,7 @@ public class FormatFileSizeServiceExtendedTests
     [Fact]
     public void FormatToHumanReadableExactlyOneMbBoundary()
     {
-        var result = _service.FormatToHumanReadable(1024L * 1024 - 1);
+        var result = _service.FormatToHumanReadable((1024L * 1024) - 1);
         Assert.EndsWith("KB", result, StringComparison.Ordinal);
     }
 
@@ -97,7 +97,7 @@ public class FormatFileSizeServiceExtendedTests
     [Fact]
     public void FormatToHumanReadableExactlyOneGbBoundary()
     {
-        var result = _service.FormatToHumanReadable(1024L * 1024 * 1024 - 1);
+        var result = _service.FormatToHumanReadable((1024L * 1024 * 1024) - 1);
         Assert.EndsWith("MB", result, StringComparison.Ordinal);
     }
 
@@ -107,7 +107,7 @@ public class FormatFileSizeServiceExtendedTests
     [Fact]
     public void FormatToHumanReadableExactlyOneTbBoundary()
     {
-        var result = _service.FormatToHumanReadable(1024L * 1024 * 1024 * 1024 - 1);
+        var result = _service.FormatToHumanReadable((1024L * 1024 * 1024 * 1024) - 1);
         Assert.EndsWith("GB", result, StringComparison.Ordinal);
     }
 
@@ -127,7 +127,7 @@ public class FormatFileSizeServiceExtendedTests
     [Fact]
     public void FormatToHumanReadableFractionalMb()
     {
-        var result = _service.FormatToHumanReadable(1024L * 1024 + 512L * 1024); // 1.5 MB
+        var result = _service.FormatToHumanReadable((1024L * 1024) + (512L * 1024)); // 1.5 MB
         Assert.Equal("1.50 MB", result);
     }
 
@@ -137,7 +137,7 @@ public class FormatFileSizeServiceExtendedTests
     [Fact]
     public void FormatToHumanReadableFractionalGb()
     {
-        var result = _service.FormatToHumanReadable(1024L * 1024 * 1024 + 512L * 1024 * 1024); // 1.5 GB
+        var result = _service.FormatToHumanReadable((1024L * 1024 * 1024) + (512L * 1024 * 1024)); // 1.5 GB
         Assert.Equal("1.50 GB", result);
     }
 

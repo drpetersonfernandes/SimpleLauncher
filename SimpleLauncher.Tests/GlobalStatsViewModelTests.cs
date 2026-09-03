@@ -109,7 +109,7 @@ public class GlobalStatsViewModelTests : IDisposable
             new NoOpMessageBoxLibraryService(), new NoOpResourceProvider());
         viewModel.Initialize(systemManagers);
 
-        Assert.IsAssignableFrom<INotifyPropertyChanged>(viewModel);
+        Assert.IsType<INotifyPropertyChanged>(viewModel, exactMatch: false);
     }
 
     /// <summary>
@@ -262,7 +262,7 @@ public class GlobalStatsViewModelTests : IDisposable
 
         // Verify event can be subscribed to
         var eventRaised = false;
-        viewModel.CloseRequested += (_, _) => { eventRaised = true; };
+        viewModel.CloseRequested += (_, _) => eventRaised = true;
 
         Assert.False(eventRaised); // Event was just subscribed, not raised
     }

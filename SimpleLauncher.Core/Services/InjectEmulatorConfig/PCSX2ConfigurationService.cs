@@ -30,6 +30,7 @@ public static class Pcsx2ConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "PCSX2", "PCSX2.ini");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(configPath) ??
@@ -52,8 +53,11 @@ public static class Pcsx2ConfigurationService
                     logger.Error(ex, $"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("PCSX2.ini not found and sample is missing.", samplePath);
+            }
         }
 
         var uiUpdates = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -155,6 +159,7 @@ public static class Pcsx2ConfigurationService
         if (achUpdates.Count > 0) ApplyUpdatesToSection(lines, "[Achievements]", achUpdates, ref modified);
 
         if (modified)
+        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -172,6 +177,7 @@ public static class Pcsx2ConfigurationService
                 logger.Error(ex, $"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
+        }
     }
 
     private static string ResolveConfigPath(string emuDir, ILogger logger)

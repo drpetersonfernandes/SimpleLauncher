@@ -40,16 +40,16 @@ internal static class DialogHelper
         if (yesNo)
         {
             var yesButton = new Button { Content = "Yes", Width = 90, IsDefault = true };
-            yesButton.Click += (_, _) => { tcs.TrySetResult(true); };
+            yesButton.Click += (_, _) => tcs.TrySetResult(true);
             var noButton = new Button { Content = "No", Width = 90, IsCancel = true };
-            noButton.Click += (_, _) => { tcs.TrySetResult(false); };
+            noButton.Click += (_, _) => tcs.TrySetResult(false);
             buttons.Children.Add(yesButton);
             buttons.Children.Add(noButton);
         }
         else
         {
             var okButton = new Button { Content = "OK", Width = 90, IsDefault = true };
-            okButton.Click += (_, _) => { tcs.TrySetResult(false); };
+            okButton.Click += (_, _) => tcs.TrySetResult(false);
             buttons.Children.Add(okButton);
         }
 

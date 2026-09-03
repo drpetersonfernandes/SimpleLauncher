@@ -140,6 +140,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
             {
                 _logger.Error(ex, "An error occurred while calculating Global Statistics.");
                 if (!_forceClose)
+                {
                     try
                     {
                         await _messageBox.ErrorCalculatingStatsMessageBoxAsync();
@@ -148,6 +149,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                     {
                         // Swallow message-box failures to ensure UI is always reset
                     }
+                }
 
                 ResetUiAfterProcessing();
             }
@@ -244,10 +246,10 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                 // Update UI overlay text to show current system
                 var dispatcher = Application.Current?.Dispatcher;
                 if (dispatcher != null)
+                {
                     await dispatcher.InvokeAsync(() =>
-                    {
-                        BusyOverlayText = $"{processingText}\n{processingSystemText} {systemManager.SystemName}";
-                    });
+                        BusyOverlayText = $"{processingText}\n{processingSystemText} {systemManager.SystemName}");
+                }
 
                 var allRomFiles = new List<string>();
                 foreach (var folderRaw in systemManager.SystemFolders)
@@ -360,6 +362,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
         };
 
         if (saveFileDialog.ShowDialog() == true)
+        {
             try
             {
                 var systemStatsList = SystemStats.ToList();
@@ -372,6 +375,7 @@ public class GlobalStatsViewModel : ObservableObject, IDisposable
                 _logger.Error(ex, "Failed to save report.");
                 await _messageBox.FailedSaveReportMessageBoxAsync();
             }
+        }
     }
 
     private string GenerateReportText(GlobalStatsData globalStats, IEnumerable<SystemStatsData> systemStats)

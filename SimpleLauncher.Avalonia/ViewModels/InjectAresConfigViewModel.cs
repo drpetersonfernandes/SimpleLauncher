@@ -19,20 +19,30 @@ public partial class InjectAresConfigViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
-    [ObservableProperty] private string _aspectCorrection = "";
-    [ObservableProperty] private bool _autoSaveMemory;
-    private string _emulatorPath = "";
-    [ObservableProperty] private bool _exclusive;
-    [ObservableProperty] private bool _fastBoot;
-    [ObservableProperty] private string _multiplier = "";
-    [ObservableProperty] private bool _mute;
-    [ObservableProperty] private bool _rewind;
-    [ObservableProperty] private bool _runAhead;
-    [ObservableProperty] private string _shader = "";
-    [ObservableProperty] private bool _showBeforeLaunch;
+    [ObservableProperty] public partial string AspectCorrection { get; set; } = "";
 
-    [ObservableProperty] private string _videoDriver = "";
-    [ObservableProperty] private double _volume;
+    [ObservableProperty] public partial bool AutoSaveMemory { get; set; }
+
+    private string _emulatorPath = "";
+    [ObservableProperty] public partial bool Exclusive { get; set; }
+
+    [ObservableProperty] public partial bool FastBoot { get; set; }
+
+    [ObservableProperty] public partial string Multiplier { get; set; } = "";
+
+    [ObservableProperty] public partial bool Mute { get; set; }
+
+    [ObservableProperty] public partial bool Rewind { get; set; }
+
+    [ObservableProperty] public partial bool RunAhead { get; set; }
+
+    [ObservableProperty] public partial string Shader { get; set; } = "";
+
+    [ObservableProperty] public partial bool ShowBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial string VideoDriver { get; set; } = "";
+
+    [ObservableProperty] public partial double Volume { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectAresConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
@@ -214,7 +224,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAresConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }
@@ -244,7 +254,7 @@ public partial class InjectAresConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectAresConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }

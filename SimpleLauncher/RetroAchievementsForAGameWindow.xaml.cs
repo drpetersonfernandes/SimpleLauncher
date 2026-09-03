@@ -83,8 +83,10 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         {
             LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
             if (isLoading)
+            {
                 LoadingOverlay.Content =
                     message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
         });
     }
 
@@ -190,8 +192,10 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                     var casualText = progress.UserCompletion.Replace("%", "").Trim();
                     if (!double.TryParse(casualText, NumberStyles.Float, CultureInfo.InvariantCulture,
                             out casualCompletion))
+                    {
                         _logger.Warning(
                             $"Failed to parse casual completion percentage: '{casualText}' (original: '{progress.UserCompletion}')");
+                    }
                 }
 
                 if (!string.IsNullOrWhiteSpace(progress.UserCompletionHardcore))
@@ -199,8 +203,10 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                     var hardcoreText = progress.UserCompletionHardcore.Replace("%", "").Trim();
                     if (!double.TryParse(hardcoreText, NumberStyles.Float, CultureInfo.InvariantCulture,
                             out hardcoreCompletion))
+                    {
                         _logger.Warning(
                             $"Failed to parse hardcore completion percentage: '{hardcoreText}' (original: '{progress.UserCompletionHardcore}')");
+                    }
                 }
 
                 // Update progress bars
@@ -247,11 +253,15 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
 
                 if (DateTime.TryParse(progress.HighestAwardDate, CultureInfo.InvariantCulture,
                         DateTimeStyles.AdjustToUniversal, out var awardDate))
+                {
                     HighestAwardDateText.Text =
                         awardDate.ToLocalTime().ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                }
                 else
+                {
                     HighestAwardDateText.Text =
                         (string)Application.Current.TryFindResource("RaStatusNotApplicable") ?? "N/A";
+                }
             }
             catch (Exception ex)
             {
@@ -477,13 +487,17 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 // If progress is null, it indicates an API failure (since credentials were provided)
                 // If progress is not null but achievements is empty, it means no achievements for the game.
                 if (progress == null)
+                {
                     NoAchievementsMessage.Text =
                         (string)Application.Current.TryFindResource("RaErrorFailedToLoadAchievements") ??
                         "Failed to load achievements. Please check your RetroAchievements credentials or try again later.";
+                }
                 else // progress is not null, but achievements is empty
+                {
                     NoAchievementsMessage.Text =
                         (string)Application.Current.TryFindResource("RaInfoNoAchievementsForGame") ??
                         "No achievements found for this game.";
+                }
             }
         }
         catch (RaUnauthorizedException)
@@ -537,6 +551,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             {
                 // Load game icon (for header and the new image section)
                 if (!string.IsNullOrEmpty(gameInfo.ImageIcon))
+                {
                     try
                     {
                         GameInfoImageIcon.Source =
@@ -546,11 +561,15 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                     {
                         GameInfoImageIcon.Source = null;
                     }
+                }
                 else
+                {
                     GameInfoImageIcon.Source = null;
+                }
 
                 // Game images
                 if (!string.IsNullOrEmpty(gameInfo.ImageTitle))
+                {
                     try
                     {
                         GameInfoTitleImage.Source =
@@ -560,10 +579,14 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                     {
                         GameInfoTitleImage.Source = null;
                     }
+                }
                 else
+                {
                     GameInfoTitleImage.Source = null;
+                }
 
                 if (!string.IsNullOrEmpty(gameInfo.ImageIngame))
+                {
                     try
                     {
                         GameInfoIngameImage.Source =
@@ -573,10 +596,14 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                     {
                         GameInfoIngameImage.Source = null;
                     }
+                }
                 else
+                {
                     GameInfoIngameImage.Source = null;
+                }
 
                 if (!string.IsNullOrEmpty(gameInfo.ImageBoxArt))
+                {
                     try
                     {
                         GameInfoBoxArtImage.Source =
@@ -586,8 +613,11 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                     {
                         GameInfoBoxArtImage.Source = null;
                     }
+                }
                 else
+                {
                     GameInfoBoxArtImage.Source = null;
+                }
 
                 // Basic details
                 GameInfoGenre.Text = string.IsNullOrWhiteSpace(gameInfo.Genre)
@@ -792,7 +822,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 await _raService.GetUserGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
             if (userGameRankAndScoreList is { Count: > 0 })
             {
-                var userData = userGameRankAndScoreList.First();
+                var userData = userGameRankAndScoreList[0];
 
                 // Apply the requested logic: if UserRank is null or 0, display "Unranked"
                 if (userData.UserRank is null or 0)
@@ -902,10 +932,14 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
             {
                 // Basic profile info
                 if (!string.IsNullOrEmpty(userProfile.UserPic))
+                {
                     UserProfilePic.Source =
                         await LoadImageFromUrlAsync($"https://retroachievements.org{userProfile.UserPic}");
+                }
                 else
+                {
                     UserProfilePic.Source = null; // Clear image if not available
+                }
 
                 UserProfileUser.Text = userProfile.User;
                 UserProfileMotto.Text = string.IsNullOrWhiteSpace(userProfile.Motto)
@@ -929,12 +963,16 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
                 // Format MemberSince date
                 if (DateTime.TryParse(userProfile.MemberSince, CultureInfo.InvariantCulture,
                         DateTimeStyles.AdjustToUniversal, out var memberSinceDate))
+                {
                     UserProfileMemberSince.Text = memberSinceDate.ToLocalTime()
                         .ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                }
                 else
+                {
                     UserProfileMemberSince.Text = string.IsNullOrWhiteSpace(userProfile.MemberSince)
                         ? (string)Application.Current.TryFindResource("RaStatusUnknown") ?? "Unknown"
                         : userProfile.MemberSince;
+                }
 
                 // Additional details
                 UserProfileId.Text = userProfile.Id.ToString(CultureInfo.InvariantCulture);
@@ -1251,7 +1289,7 @@ public partial class RetroAchievementsForAGameWindow : ILoadingState
         try
         {
             var imageBytes = await SharedHttpClient.GetByteArrayAsync(url);
-            using var ms = new MemoryStream(imageBytes);
+            await using var ms = new MemoryStream(imageBytes);
             var bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
             bitmapImage.CacheOption = BitmapCacheOption.OnLoad;

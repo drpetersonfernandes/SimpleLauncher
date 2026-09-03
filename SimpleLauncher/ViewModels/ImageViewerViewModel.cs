@@ -50,7 +50,7 @@ public class ImageViewerViewModel : ObservableObject
         try
         {
             var imageData = await File.ReadAllBytesAsync(imagePath!);
-            using var ms = new MemoryStream(imageData);
+            await using var ms = new MemoryStream(imageData);
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.CacheOption = BitmapCacheOption.OnLoad;

@@ -138,7 +138,7 @@ public class PlayHistoryItemTests
     {
         var item = new PlayHistoryItem();
         var eventRaised = false;
-        item.PropertyChanged += (_, _) => { eventRaised = true; };
+        item.PropertyChanged += (_, _) => eventRaised = true;
 
         // Trigger via reflection since OnPropertyChanged is protected
         var method = typeof(PlayHistoryItem).GetMethod("OnPropertyChanged",
@@ -247,7 +247,10 @@ public class PlayHistoryItemTests
         item.PropertyChanged += (_, args) =>
         {
             if (string.Equals(args.PropertyName, nameof(PlayHistoryItem.FormattedPlayTime),
-                    StringComparison.Ordinal)) raised = true;
+                    StringComparison.Ordinal))
+            {
+                raised = true;
+            }
         };
 
         item.TotalPlayTime = 100;
@@ -262,7 +265,7 @@ public class PlayHistoryItemTests
     {
         var item = new PlayHistoryItem { TotalPlayTime = 100 };
         var raised = false;
-        item.PropertyChanged += (_, _) => { raised = true; };
+        item.PropertyChanged += (_, _) => raised = true;
 
         item.TotalPlayTime = 100;
         Assert.False(raised);

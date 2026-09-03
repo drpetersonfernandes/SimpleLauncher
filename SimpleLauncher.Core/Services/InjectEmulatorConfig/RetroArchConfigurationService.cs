@@ -32,6 +32,7 @@ public static class RetroArchConfigurationService
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Retroarch",
                 "retroarch.cfg");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -43,9 +44,12 @@ public static class RetroArchConfigurationService
                     logger.Error(ex, $"[RetroArchConfig] Failed to create retroarch.cfg from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException(
                     $"retroarch.cfg not found in {emuDir} and sample not available at {samplePath}");
+            }
         }
 
         logger.Debug($"[RetroArchConfig] Injecting configuration into: {configPath}");
@@ -127,8 +131,10 @@ public static class RetroArchConfigurationService
 
         // Append missing keys
         foreach (var kvp in updates)
+        {
             if (!keysFound.Contains(kvp.Key))
                 lines.Add($"{kvp.Key} = {kvp.Value}");
+        }
 
         try
         {

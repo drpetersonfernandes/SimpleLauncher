@@ -35,11 +35,13 @@ public static class MameFullProcessor
                 logger.Info($"Found {machineElements.Count} machine entries in the MAME full driver XML.");
 
                 foreach (var m in machineElements)
+                {
                     machines.Add(new MachineInfo
                     {
                         MachineName = m.Attribute("name")?.Value ?? "",
                         Description = m.Element("description")?.Value ?? ""
                     });
+                }
 
                 return machines;
             }

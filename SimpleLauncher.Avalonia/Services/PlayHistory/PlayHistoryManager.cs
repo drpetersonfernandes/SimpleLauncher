@@ -73,6 +73,7 @@ public class PlayHistoryManager
         var attempt = 0;
 
         while (attempt < maxRetries)
+        {
             try
             {
                 var bytes = MessagePackSerializer.Serialize(this);
@@ -87,6 +88,7 @@ public class PlayHistoryManager
 
                 // If in portable mode and retries exhausted, fall back to LocalAppData
                 if (IsPortableMode && attempt >= maxRetries)
+                {
                     try
                     {
                         if (FileLocation.TryFallbackToLocalAppData())
@@ -99,6 +101,7 @@ public class PlayHistoryManager
                     {
                         _logger?.Debug("FallbackToLocalAppData failed: {Message}", fallbackEx.Message);
                     }
+                }
 
                 if (attempt < maxRetries)
                 {
@@ -121,6 +124,7 @@ public class PlayHistoryManager
                 attempt++;
                 if (attempt < maxRetries) Thread.Sleep(retryDelayMs);
             }
+        }
     }
 
     /// <summary>
@@ -151,6 +155,7 @@ public class PlayHistoryManager
         var attempt = 0;
 
         while (attempt < maxRetries)
+        {
             try
             {
                 var bytes = MessagePackSerializer.Serialize(this);
@@ -165,6 +170,7 @@ public class PlayHistoryManager
 
                 // If in portable mode and retries exhausted, fall back to LocalAppData
                 if (IsPortableMode && attempt >= maxRetries)
+                {
                     try
                     {
                         if (FileLocation.TryFallbackToLocalAppData())
@@ -177,6 +183,7 @@ public class PlayHistoryManager
                     {
                         _logger?.Debug("FallbackToLocalAppData failed: {Message}", fallbackEx.Message);
                     }
+                }
 
                 if (attempt < maxRetries)
                 {
@@ -199,6 +206,7 @@ public class PlayHistoryManager
                 attempt++;
                 if (attempt < maxRetries) await Task.Delay(retryDelayMs);
             }
+        }
     }
 
     /// <summary>
@@ -213,11 +221,13 @@ public class PlayHistoryManager
         lock (_historyLock)
         {
             foreach (var item in PlayHistoryList)
+            {
                 if (item.SystemName.Equals(oldSystemName, StringComparison.OrdinalIgnoreCase))
                 {
                     item.SystemName = newSystemName;
                     changed = true;
                 }
+            }
         }
 
         if (changed) await SavePlayHistoryAsync();

@@ -53,6 +53,7 @@ public class LogError
     public async Task<string> ReadLogAsync()
     {
         if (File.Exists(LogFilePath))
+        {
             try
             {
                 return await File.ReadAllTextAsync(LogFilePath);
@@ -62,6 +63,7 @@ public class LogError
                 Log.Warning(ex, "Error reading log file");
                 return $"Error reading log file: {ex.Message}";
             }
+        }
 
         return "No error log found.";
     }
@@ -72,6 +74,7 @@ public class LogError
     public void ClearLog()
     {
         if (File.Exists(LogFilePath))
+        {
             try
             {
                 File.Delete(LogFilePath);
@@ -80,5 +83,6 @@ public class LogError
             {
                 Log.Warning(ex, "Error clearing log file");
             }
+        }
     }
 }

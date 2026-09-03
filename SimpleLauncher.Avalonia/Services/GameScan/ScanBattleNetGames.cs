@@ -72,6 +72,7 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
                 if (baseKey == null) continue;
 
                 foreach (var subKeyName in baseKey.GetSubKeyNames())
+                {
                     try
                     {
                         using var subKey = baseKey.OpenSubKey(subKeyName);
@@ -109,8 +110,10 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
                                 await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
                                 if (!string.IsNullOrEmpty(installLocation) && Directory.Exists(installLocation))
+                                {
                                     await gameScannerService.FindAndSaveGameImageAsync(logErrors, def.Name,
                                         installLocation, sanitizedGameName, windowsImagesPath);
+                                }
                             }
                         }
                         else if (displayName != null && AppDefinitions.Any(a =>
@@ -140,6 +143,7 @@ public partial class ScanBattleNetGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Error processing Battle.net game registry key: {subKeyName}");
                     }
+                }
             }
         }
         catch (Exception ex)

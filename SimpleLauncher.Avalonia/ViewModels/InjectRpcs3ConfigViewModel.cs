@@ -19,18 +19,29 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
     private string _emulatorPath = "";
-    [ObservableProperty] private int _rpcs3AnisotropicFilter;
-    [ObservableProperty] private string _rpcs3AspectRatio = "";
-    [ObservableProperty] private bool _rpcs3AudioBuffering;
-    [ObservableProperty] private string _rpcs3AudioRenderer = "";
-    [ObservableProperty] private string _rpcs3PpuDecoder = "";
-    [ObservableProperty] private string _rpcs3Renderer = "";
-    [ObservableProperty] private string _rpcs3Resolution = "";
-    [ObservableProperty] private int _rpcs3ResolutionScale;
-    [ObservableProperty] private bool _rpcs3ShowSettingsBeforeLaunch;
-    [ObservableProperty] private string _rpcs3SpuDecoder = "";
-    [ObservableProperty] private bool _rpcs3StartFullscreen;
-    [ObservableProperty] private bool _rpcs3Vsync;
+    [ObservableProperty] public partial int Rpcs3AnisotropicFilter { get; set; }
+
+    [ObservableProperty] public partial string Rpcs3AspectRatio { get; set; } = "";
+
+    [ObservableProperty] public partial bool Rpcs3AudioBuffering { get; set; }
+
+    [ObservableProperty] public partial string Rpcs3AudioRenderer { get; set; } = "";
+
+    [ObservableProperty] public partial string Rpcs3PpuDecoder { get; set; } = "";
+
+    [ObservableProperty] public partial string Rpcs3Renderer { get; set; } = "";
+
+    [ObservableProperty] public partial string Rpcs3Resolution { get; set; } = "";
+
+    [ObservableProperty] public partial int Rpcs3ResolutionScale { get; set; }
+
+    [ObservableProperty] public partial bool Rpcs3ShowSettingsBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial string Rpcs3SpuDecoder { get; set; } = "";
+
+    [ObservableProperty] public partial bool Rpcs3StartFullscreen { get; set; }
+
+    [ObservableProperty] public partial bool Rpcs3Vsync { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectRpcs3ConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
@@ -232,7 +243,7 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRpcs3ConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }
@@ -262,7 +273,7 @@ public partial class InjectRpcs3ConfigViewModel : ObservableObject
         {
             var emulatorName = InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectRpcs3ConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }

@@ -19,21 +19,35 @@ public partial class InjectSupermodelConfigViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private string _inputSystem = null!;
-    [ObservableProperty] private bool _multiThreaded;
-    [ObservableProperty] private int _musicVolume;
-    [ObservableProperty] private bool _new3DEngine;
-    [ObservableProperty] private string _powerPcFrequency = null!;
-    [ObservableProperty] private bool _quadRendering;
-    [ObservableProperty] private int _resX;
-    [ObservableProperty] private int _resY;
-    [ObservableProperty] private bool _showBeforeLaunch;
-    [ObservableProperty] private int _soundVolume;
-    [ObservableProperty] private bool _stretch;
-    [ObservableProperty] private bool _throttle;
-    [ObservableProperty] private bool _vsync;
-    [ObservableProperty] private bool _wideScreen;
+    [ObservableProperty] public partial bool Fullscreen { get; set; }
+
+    [ObservableProperty] public partial string InputSystem { get; set; } = null!;
+
+    [ObservableProperty] public partial bool MultiThreaded { get; set; }
+
+    [ObservableProperty] public partial int MusicVolume { get; set; }
+
+    [ObservableProperty] public partial bool New3DEngine { get; set; }
+
+    [ObservableProperty] public partial string PowerPcFrequency { get; set; } = null!;
+
+    [ObservableProperty] public partial bool QuadRendering { get; set; }
+
+    [ObservableProperty] public partial int ResX { get; set; }
+
+    [ObservableProperty] public partial int ResY { get; set; }
+
+    [ObservableProperty] public partial bool ShowBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial int SoundVolume { get; set; }
+
+    [ObservableProperty] public partial bool Stretch { get; set; }
+
+    [ObservableProperty] public partial bool Throttle { get; set; }
+
+    [ObservableProperty] public partial bool Vsync { get; set; }
+
+    [ObservableProperty] public partial bool WideScreen { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectSupermodelConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>

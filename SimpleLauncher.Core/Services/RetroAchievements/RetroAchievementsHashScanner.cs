@@ -180,7 +180,10 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
             var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(folder);
             if (string.IsNullOrEmpty(resolvedPath) ||
                 !Directory.Exists(resolvedPath) ||
-                target.FileFormatsToSearch == null) continue;
+                target.FileFormatsToSearch == null)
+            {
+                continue;
+            }
 
             var filesInFolder = await _getListOfFiles.GetFilesAsync(
                 resolvedPath, target.FileFormatsToSearch, target.DisableRecursiveSearch, target.GroupByFolder,
@@ -300,6 +303,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
         finally
         {
             if (!string.IsNullOrEmpty(tempExtractionPath))
+            {
                 try
                 {
                     if (Directory.Exists(tempExtractionPath)) Directory.Delete(tempExtractionPath, true);
@@ -309,6 +313,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
                     _logger.Debug(
                         $"[RA Hash Scanner] Failed to clean up temporary extraction folder '{tempExtractionPath}': {ex.Message}");
                 }
+            }
         }
     }
 

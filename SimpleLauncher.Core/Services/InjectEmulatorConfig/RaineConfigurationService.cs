@@ -45,6 +45,7 @@ public static class RaineConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Raine", "raine32_sdl.cfg");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -55,9 +56,12 @@ public static class RaineConfigurationService
                     logger.Error(ex, "Failed to create Raine config from sample.");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("Raine configuration file not found and sample is missing.",
                     samplePath);
+            }
         }
 
         // Determine if we are in NeoGeo CD mode
@@ -99,17 +103,21 @@ public static class RaineConfigurationService
         else if (!string.IsNullOrEmpty(systemRomPath)) effectiveRomDir = systemRomPath;
 
         if (!string.IsNullOrEmpty(effectiveRomDir))
+        {
             updates["Directories"]["rom_dir_0"] = effectiveRomDir.EndsWith(Path.DirectorySeparatorChar)
                 ? effectiveRomDir
                 : effectiveRomDir + Path.DirectorySeparatorChar;
+        }
 
         // Inject NeoGeo CD specific settings
         if (isNeoGeoCd)
         {
             if (!string.IsNullOrEmpty(gameDir))
+            {
                 updates["neocd"]["neocd_dir"] = gameDir.EndsWith(Path.DirectorySeparatorChar)
                     ? gameDir
                     : gameDir + Path.DirectorySeparatorChar;
+            }
 
             updates["neocd"]["neocd_bios"] = settings.Raine.NeoCdBios;
             updates["neocd"]["music_volume"] = settings.Raine.MusicVolume.ToString(CultureInfo.InvariantCulture);
@@ -176,6 +184,7 @@ public static class RaineConfigurationService
 
         // Add missing keys/sections
         foreach (var section in updates)
+        {
             if (section.Value.Count > 0)
             {
                 modified = true;
@@ -191,8 +200,10 @@ public static class RaineConfigurationService
 
                 foreach (var kvp in section.Value) lines.Insert(sectionIndex + 1, $"{kvp.Key} = {kvp.Value}");
             }
+        }
 
         if (modified)
+        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -203,5 +214,6 @@ public static class RaineConfigurationService
                 logger.Error(ex, "Failed to inject Raine configuration.");
                 throw;
             }
+        }
     }
 }

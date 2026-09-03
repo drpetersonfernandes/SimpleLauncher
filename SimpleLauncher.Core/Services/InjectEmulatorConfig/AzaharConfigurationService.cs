@@ -38,6 +38,7 @@ public static class AzaharConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Azahar", "qt-config.ini");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -56,8 +57,11 @@ public static class AzaharConfigurationService
                     logger.Error(ex, $"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("qt-config.ini not found and sample is missing.");
+            }
         }
 
         var updates = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase)
@@ -181,6 +185,7 @@ public static class AzaharConfigurationService
         }
 
         if (modified)
+        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -198,6 +203,7 @@ public static class AzaharConfigurationService
                 logger.Error(ex, $"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
+        }
     }
 
     /// <summary>

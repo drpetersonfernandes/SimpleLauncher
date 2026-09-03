@@ -157,8 +157,10 @@ public partial class RetroAchievementsForAGameWindow : Window, ILoadingState
                 var casualText = progress.UserCompletion.Replace("%", "").Trim();
                 if (!double.TryParse(casualText, NumberStyles.Float, CultureInfo.InvariantCulture,
                         out casualCompletion))
+                {
                     _logger.Warning(
                         $"Failed to parse casual completion percentage: '{casualText}' (original: '{progress.UserCompletion}')");
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(progress.UserCompletionHardcore))
@@ -166,8 +168,10 @@ public partial class RetroAchievementsForAGameWindow : Window, ILoadingState
                 var hardcoreText = progress.UserCompletionHardcore.Replace("%", "").Trim();
                 if (!double.TryParse(hardcoreText, NumberStyles.Float, CultureInfo.InvariantCulture,
                         out hardcoreCompletion))
+                {
                     _logger.Warning(
                         $"Failed to parse hardcore completion percentage: '{hardcoreText}' (original: '{progress.UserCompletionHardcore}')");
+                }
             }
 
             // Update progress bars
@@ -206,10 +210,14 @@ public partial class RetroAchievementsForAGameWindow : Window, ILoadingState
 
             if (DateTime.TryParse(progress.HighestAwardDate, CultureInfo.InvariantCulture,
                     DateTimeStyles.AdjustToUniversal, out var awardDate))
+            {
                 HighestAwardDateText.Text =
                     awardDate.ToLocalTime().ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            }
             else
+            {
                 HighestAwardDateText.Text = L("RaStatusNotApplicable", "N/A");
+            }
         }
         catch (Exception ex)
         {
@@ -334,6 +342,7 @@ public partial class RetroAchievementsForAGameWindow : Window, ILoadingState
 
             // Reload current tab using Tag instead of Header
             if (TabControl.SelectedItem is TabItem selectedTab)
+            {
                 switch (selectedTab.Tag?.ToString())
                 {
                     case "Achievements":
@@ -361,6 +370,7 @@ public partial class RetroAchievementsForAGameWindow : Window, ILoadingState
                         _ = LoadUserProgressAsync();
                         break;
                 }
+            }
         }
         catch (Exception ex)
         {
@@ -683,7 +693,7 @@ public partial class RetroAchievementsForAGameWindow : Window, ILoadingState
                 await _raService.GetUserGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
             if (userGameRankAndScoreList is { Count: > 0 })
             {
-                var userData = userGameRankAndScoreList.First();
+                var userData = userGameRankAndScoreList[0];
 
                 // Apply the requested logic: if UserRank is null or 0, display "Unranked"
                 UserRankText.Text = userData.UserRank is null or 0
@@ -808,12 +818,16 @@ public partial class RetroAchievementsForAGameWindow : Window, ILoadingState
                 // Format MemberSince date
                 if (DateTime.TryParse(userProfile.MemberSince, CultureInfo.InvariantCulture,
                         DateTimeStyles.AdjustToUniversal, out var memberSinceDate))
+                {
                     UserProfileMemberSince.Text = memberSinceDate.ToLocalTime()
                         .ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                }
                 else
+                {
                     UserProfileMemberSince.Text = string.IsNullOrWhiteSpace(userProfile.MemberSince)
                         ? L("RaStatusUnknown", "Unknown")
                         : userProfile.MemberSince;
+                }
 
                 // Additional details
                 UserProfileId.Text = userProfile.Id.ToString(CultureInfo.InvariantCulture);

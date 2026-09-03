@@ -227,10 +227,14 @@ public class EasyModeManager : IDisposable
             // conditions with a working fallback. Per repo policy they must not be reported
             // as bugs, so log them at Information (below the Warning+ sink threshold).
             if (IsConnectivityError(ex))
+            {
                 _logger.Information(ex,
                     "EasyMode configuration could not be loaded from the API due to a connectivity issue. Falling back to local/default configuration.");
+            }
             else
+            {
                 _logger.Error(ex, "An error occurred while loading EasyMode configuration from the API.");
+            }
 
             return null;
         }
@@ -244,6 +248,7 @@ public class EasyModeManager : IDisposable
     private static bool IsConnectivityError(Exception ex)
     {
         for (var current = ex; current != null; current = current.InnerException)
+        {
             switch (current)
             {
                 case HttpRequestException:
@@ -253,6 +258,7 @@ public class EasyModeManager : IDisposable
                 case OperationCanceledException:
                     return true;
             }
+        }
 
         var message = ex.ToString();
         return message.Contains("No such host", StringComparison.OrdinalIgnoreCase)
@@ -327,10 +333,14 @@ public class EasyModeManager : IDisposable
             // (the user may simply have no internet). Per repo policy it must not be
             // reported as a bug, so log it at Information when it is a connectivity error.
             if (IsConnectivityError(ex))
+            {
                 _logger.Information(ex,
                     "EasyMode configuration could not be loaded from the Cloudflare fallback URL due to a connectivity issue.");
+            }
             else
+            {
                 _logger.Error(ex, "An error occurred while loading EasyMode configuration from the fallback URL.");
+            }
 
             return null;
         }

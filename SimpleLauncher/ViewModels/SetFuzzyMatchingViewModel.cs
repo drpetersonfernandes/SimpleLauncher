@@ -50,17 +50,17 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
     /// <summary>
     ///     Gets the minimum threshold value for the slider.
     /// </summary>
-    public double Minimum => MinimumThreshold;
+    public static double Minimum => MinimumThreshold;
 
     /// <summary>
     ///     Gets the maximum threshold value for the slider.
     /// </summary>
-    public double Maximum => MaximumThreshold;
+    public static double Maximum => MaximumThreshold;
 
     /// <summary>
     ///     Gets the tick frequency for the slider.
     /// </summary>
-    public double TickFrequencyValue => TickFrequency;
+    public static double TickFrequencyValue => TickFrequency;
 
     /// <summary>
     ///     Gets or sets the current threshold value from the slider.
@@ -71,8 +71,10 @@ public partial class SetFuzzyMatchingViewModel : ObservableObject
         set
         {
             if (SetProperty(ref _thresholdValue, value))
+            {
                 // Update the percentage display when value changes
                 OnPropertyChanged(nameof(ThresholdPercentage));
+            }
         }
     }
 

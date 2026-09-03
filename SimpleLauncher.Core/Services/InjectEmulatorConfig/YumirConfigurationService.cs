@@ -29,6 +29,7 @@ public static class YumirConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Yumir", "Ymir.toml");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -40,8 +41,11 @@ public static class YumirConfigurationService
                     logger.Error(ex, $"[YumirConfig] Failed to create Ymir.toml from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("Ymir.toml not found and sample is missing.", samplePath);
+            }
         }
 
         logger.Debug($"[YumirConfig] Injecting configuration into: {configPath}");

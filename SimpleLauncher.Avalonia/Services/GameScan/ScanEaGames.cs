@@ -43,6 +43,7 @@ public class ScanEaGames : IGamePlatformScanner
             var candidates = new List<EaGameCandidate>();
 
             foreach (var contentId in baseKey.GetSubKeyNames())
+            {
                 try
                 {
                     using var gameKey = baseKey.OpenSubKey(contentId);
@@ -65,6 +66,7 @@ public class ScanEaGames : IGamePlatformScanner
                 {
                     logErrors.Error(ex, $"Error processing EA game: {contentId}");
                 }
+            }
 
             if (candidates.Count == 0) return;
 
@@ -81,6 +83,7 @@ public class ScanEaGames : IGamePlatformScanner
                 Directory.CreateDirectory(windowsRomsPath);
 
                 foreach (var game in confirmedGames)
+                {
                     try
                     {
                         var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(game.Name);
@@ -96,6 +99,7 @@ public class ScanEaGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Error creating shortcut for EA game: {game.Name}");
                     }
+                }
             }
             else
             {
@@ -117,14 +121,14 @@ public class ScanEaGames : IGamePlatformScanner
 
             var requestBody = new
             {
-                SoftwareNames = installedApps.Select(static app => new
+                SoftwareNames = installedApps.ConvertAll(static app => new
                 {
                     app.Name,
                     app.AppId,
                     app.InstallLocation,
                     PackageFamilyName = "",
                     LogoRelativePath = ""
-                }).ToList()
+                })
             };
 
             var jsonContent = JsonSerializer.Serialize(requestBody);

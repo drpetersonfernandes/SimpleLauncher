@@ -43,7 +43,7 @@ internal partial class EditSystemWindow
             allSystemFolders = allSystemFolders.Where(static f => !string.IsNullOrWhiteSpace(f)).ToList();
 
             // --- Apply %BASEFOLDER% prefix to relative paths before validation/saving ---
-            allSystemFolders = allSystemFolders.Select(MaybeAddBaseFolderPrefix).ToList();
+            allSystemFolders = allSystemFolders.ConvertAll(MaybeAddBaseFolderPrefix);
             varSystemImageFolderText = MaybeAddBaseFolderPrefix(varSystemImageFolderText);
             emulator1LocationText = MaybeAddBaseFolderPrefix(emulator1LocationText);
             emulator2LocationText = MaybeAddBaseFolderPrefix(emulator2LocationText);
@@ -162,7 +162,10 @@ internal partial class EditSystemWindow
             // Check if any of the *location* paths are invalid after prefixing/validation
             if (await CheckPathsAsync(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid,
                     isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid,
-                    isEmulator5LocationValid)) return;
+                    isEmulator5LocationValid))
+            {
+                return;
+            }
 
             // Warn user if GroupByFolder is true with neither MAME nor DOSBox configured
             if (groupByFolder)
@@ -255,11 +258,13 @@ internal partial class EditSystemWindow
                 var currentReceiveNotification = receiveNotifications[i];
 
                 if (!string.IsNullOrEmpty(currentEmulatorLocation) || !string.IsNullOrEmpty(currentEmulatorParameters))
+                {
                     if (string.IsNullOrEmpty(currentEmulatorName))
                     {
                         await _messageBox.EmulatorNameRequiredMessageBoxAsync(i + 2); // Pass emulator number (2-5)
                         return;
                     }
+                }
 
                 if (string.IsNullOrEmpty(currentEmulatorName)) continue;
 
@@ -299,7 +304,7 @@ internal partial class EditSystemWindow
             try
             {
                 SaveSystemButton.IsEnabled = false;
-                await SystemManagerService.SaveSystemConfigurationAsync(systemToSave, originalSystemNameToUse!);
+                await SystemManagerService.SaveSystemConfigurationAsync(systemToSave, originalSystemNameToUse);
 
                 await LoadSystemsAsync();
                 SystemNameDropdown.SelectedItem = systemNameText;
@@ -326,8 +331,10 @@ internal partial class EditSystemWindow
                     PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(varSystemImageFolderText);
                 if (resolvedSystemFolder != null && resolvedSystemImageFolder != null)
+                {
                     await CreateDefaultSystemFoldersService.CreateFoldersAsync(systemNameText, resolvedSystemFolder,
                         resolvedSystemImageFolder, _configuration, _logger, _messageBox);
+                }
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
             }

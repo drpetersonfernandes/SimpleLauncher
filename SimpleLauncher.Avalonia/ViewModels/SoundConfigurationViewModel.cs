@@ -18,9 +18,11 @@ public partial class SoundConfigurationViewModel : ObservableObject
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly SettingsManagerService _settings;
 
-    [ObservableProperty] private bool _enableNotificationSound;
-    [ObservableProperty] private bool _isSoundControlsEnabled;
-    [ObservableProperty] private string _notificationSoundFile;
+    [ObservableProperty] public partial bool EnableNotificationSound { get; set; }
+
+    [ObservableProperty] public partial bool IsSoundControlsEnabled { get; set; }
+
+    [ObservableProperty] public partial string NotificationSoundFile { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="SoundConfigurationViewModel" /> class.</summary>
     /// <param name="settings">The settings manager for reading and saving sound configuration.</param>
@@ -36,10 +38,9 @@ public partial class SoundConfigurationViewModel : ObservableObject
         _logger = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
         _messageBox = messageBox;
         _ = resourceProvider;
-
-        _enableNotificationSound = _settings.EnableNotificationSound;
-        _notificationSoundFile = _settings.CustomNotificationSoundFile;
-        _isSoundControlsEnabled = _enableNotificationSound;
+        EnableNotificationSound = _settings.EnableNotificationSound;
+        NotificationSoundFile = _settings.CustomNotificationSoundFile;
+        IsSoundControlsEnabled = EnableNotificationSound;
     }
 
     /// <summary>Event raised to request a sound file path from the view.</summary>
@@ -72,7 +73,9 @@ public partial class SoundConfigurationViewModel : ObservableObject
 
             if (!string.Equals(Path.GetFullPath(sourceFilePath), Path.GetFullPath(destinationFilePath),
                     StringComparison.OrdinalIgnoreCase))
+            {
                 File.Copy(sourceFilePath, destinationFilePath, true);
+            }
 
             NotificationSoundFile = chosenFileName;
         }

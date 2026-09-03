@@ -21,11 +21,13 @@ public partial class SupportViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly PlaySoundEffects _playSoundEffects;
-    [ObservableProperty] private string _email = "";
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] public partial string Email { get; set; } = "";
 
-    [ObservableProperty] private string _name = "";
-    [ObservableProperty] private string _supportRequest = "";
+    [ObservableProperty] public partial bool IsLoading { get; set; }
+
+    [ObservableProperty] public partial string Name { get; set; } = "";
+
+    [ObservableProperty] public partial string SupportRequest { get; set; } = "";
 
     /// <summary>Initializes a new instance of the <see cref="SupportViewModel" /> class.</summary>
     /// <param name="playSoundEffects">The sound effects service for playing notification sounds.</param>

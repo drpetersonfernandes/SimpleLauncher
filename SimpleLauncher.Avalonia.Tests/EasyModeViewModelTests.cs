@@ -89,7 +89,8 @@ public class EasyModeViewModelTests
         try
         {
             await vm.LoadCommand.ExecuteAsync(null);
-            vm.SelectedSystem = vm.Systems.FirstOrDefault(s => string.Equals(s.SystemName, "NES", StringComparison.OrdinalIgnoreCase));
+            vm.SelectedSystem = vm.Systems.FirstOrDefault(s =>
+                string.Equals(s.SystemName, "NES", StringComparison.OrdinalIgnoreCase));
 
             // Available packs (link + extract path) are shown and enabled for download.
             Assert.True(vm.IsImagePack1Available);
@@ -114,7 +115,8 @@ public class EasyModeViewModelTests
         try
         {
             await vm.LoadCommand.ExecuteAsync(null);
-            vm.SelectedSystem = vm.Systems.FirstOrDefault(s => string.Equals(s.SystemName, "NoPackSystem", StringComparison.OrdinalIgnoreCase));
+            vm.SelectedSystem = vm.Systems.FirstOrDefault(s =>
+                string.Equals(s.SystemName, "NoPackSystem", StringComparison.OrdinalIgnoreCase));
 
             Assert.False(vm.IsImagePack1Available);
             Assert.False(vm.IsImagePack2Available);
@@ -136,7 +138,8 @@ public class EasyModeViewModelTests
         try
         {
             await vm.LoadCommand.ExecuteAsync(null);
-            vm.SelectedSystem = vm.Systems.FirstOrDefault(s => string.Equals(s.SystemName, "NES", StringComparison.OrdinalIgnoreCase));
+            vm.SelectedSystem = vm.Systems.FirstOrDefault(s =>
+                string.Equals(s.SystemName, "NES", StringComparison.OrdinalIgnoreCase));
             Assert.True(vm.IsImagePack1Available);
 
             vm.SelectedSystem = null;
@@ -169,7 +172,8 @@ public class EasyModeViewModelTests
         try
         {
             await vm.LoadCommand.ExecuteAsync(null);
-            vm.SelectedSystem = vm.Systems.FirstOrDefault(s => string.Equals(s.SystemName, "NES", StringComparison.OrdinalIgnoreCase));
+            vm.SelectedSystem = vm.Systems.FirstOrDefault(s =>
+                string.Equals(s.SystemName, "NES", StringComparison.OrdinalIgnoreCase));
             Assert.False(vm.IsImagePack1Downloaded);
 
             var downloadTask = vm.DownloadImagePack1Command.ExecuteAsync(null);
@@ -177,7 +181,8 @@ public class EasyModeViewModelTests
             // While the archive is being extracted the loading overlay is visible with
             // the extraction message and the progress bar is reset to the start (WPF parity).
             await extractionStarted.Task;
-            await HeadlessAvalonia.WaitUntilAsync(() => vm.IsLoading && vm.LoadingMessage.Contains("Extracting", StringComparison.OrdinalIgnoreCase));
+            await HeadlessAvalonia.WaitUntilAsync(() =>
+                vm.IsLoading && vm.LoadingMessage.Contains("Extracting", StringComparison.OrdinalIgnoreCase));
             Assert.Equal(0.0, vm.DownloadProgress, 3);
             Assert.Contains("Extracting", vm.LoadingMessage, StringComparison.OrdinalIgnoreCase);
 

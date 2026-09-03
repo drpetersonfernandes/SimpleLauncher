@@ -12,7 +12,10 @@ public class LanguageLaunchProcessTests
     public async Task Launch_AllSupportedLanguages_Succeeds()
     {
         if (Process.GetProcessesByName("SimpleLauncher").Length >
-            0) return; // an instance is already running — the single-instance mutex would interfere
+            0)
+        {
+            return; // an instance is already running — the single-instance mutex would interfere
+        }
 
         var exe = LanguageLaunchTestsBase.FindAppExecutable();
 
@@ -81,7 +84,9 @@ public class LanguageLaunchProcessTests
 
             if (LanguageLaunchTestsBase.CountLogMarker(FailedToApplyMarker) > failedBefore ||
                 LanguageLaunchTestsBase.CountLogMarker(FallbackMarker) > fallbackBefore)
+            {
                 return Outcome.FellBackToEnglish;
+            }
 
             if (DateTime.UtcNow - started > settleTime)
                 return Outcome.Success; // app stable for the settle period with no language failure

@@ -60,12 +60,14 @@ public partial class DetectMissingResourceStringsTests
 
         // Always fail when there are missing keys so the developer knows what happened.
         var message = new StringBuilder();
-        message.AppendLine(string.Create(CultureInfo.InvariantCulture, $"Found {missingKeys.Count} resource key(s) referenced in source code but missing from strings.en.json."));
+        message.AppendLine(string.Create(CultureInfo.InvariantCulture,
+            $"Found {missingKeys.Count} resource key(s) referenced in source code but missing from strings.en.json."));
         message.AppendLine();
 
         if (keysWithValues.Count > 0)
         {
-            message.AppendLine(string.Create(CultureInfo.InvariantCulture, $"The following {keysWithValues.Count} key(s) were automatically added to strings.en.json (with their English fallback):"));
+            message.AppendLine(string.Create(CultureInfo.InvariantCulture,
+                $"The following {keysWithValues.Count} key(s) were automatically added to strings.en.json (with their English fallback):"));
             message.AppendLine();
             foreach (var key in keysWithValues.Keys.OrderBy(k => k, StringComparer.OrdinalIgnoreCase))
                 message.AppendLine(string.Create(CultureInfo.InvariantCulture, $"  - {key}"));
@@ -75,14 +77,16 @@ public partial class DetectMissingResourceStringsTests
 
         if (keysWithoutValues.Count > 0)
         {
-            message.AppendLine(string.Create(CultureInfo.InvariantCulture, $"The following {keysWithoutValues.Count} key(s) could not be automatically added because no fallback value is known. Please add them manually to strings.en.json:"));
+            message.AppendLine(string.Create(CultureInfo.InvariantCulture,
+                $"The following {keysWithoutValues.Count} key(s) could not be automatically added because no fallback value is known. Please add them manually to strings.en.json:"));
             message.AppendLine();
             foreach (var key in keysWithoutValues.OrderBy(k => k, StringComparer.OrdinalIgnoreCase))
                 message.AppendLine(string.Create(CultureInfo.InvariantCulture, $"  - {key}"));
         }
 
         message.AppendLine();
-        message.AppendLine("After the English pack is complete, run the SimpleLauncher.ResourceTranslator project to propagate the new keys to the other language files.");
+        message.AppendLine(
+            "After the English pack is complete, run the SimpleLauncher.ResourceTranslator project to propagate the new keys to the other language files.");
 
         Assert.Fail(message.ToString());
     }
@@ -200,7 +204,8 @@ public partial class DetectMissingResourceStringsTests
 
     [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
         Justification = "Capturing groups are needed to extract key and fallback value")]
-    [GeneratedRegex("""GetString\(\s*"((?:[^"\\]|\\.)*)"\s*,\s*"((?:[^"\\]|\\.)*)"\s*\)""", RegexOptions.Compiled, 1000)]
+    [GeneratedRegex("""GetString\(\s*"((?:[^"\\]|\\.)*)"\s*,\s*"((?:[^"\\]|\\.)*)"\s*\)""", RegexOptions.Compiled,
+        1000)]
     private static partial Regex GetStringWithFallbackRegex();
 
     [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",

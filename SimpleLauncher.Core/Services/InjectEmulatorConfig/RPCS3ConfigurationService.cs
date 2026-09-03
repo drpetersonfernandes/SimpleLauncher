@@ -29,6 +29,7 @@ public static class Rpcs3ConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "RPCS3", "config.yml");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -40,8 +41,11 @@ public static class Rpcs3ConfigurationService
                     logger.Error(ex, $"[RPCS3Config] Failed to create config.yml from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("config.yml not found and sample is missing.", samplePath);
+            }
         }
 
         logger.Debug($"[RPCS3Config] Injecting configuration into: {configPath}");

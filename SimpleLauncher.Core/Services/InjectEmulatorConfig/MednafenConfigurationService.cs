@@ -39,6 +39,7 @@ public static class MednafenConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Mednafen", "mednafen.cfg");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -50,9 +51,12 @@ public static class MednafenConfigurationService
                     logger.Error(ex, $"[MednafenConfig] Failed to create mednafen.cfg from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 // If no config and no sample, we can't proceed.
                 throw new FileNotFoundException("mednafen.cfg not found and sample is missing.", samplePath);
+            }
         }
 
         logger.Debug($"[MednafenConfig] Injecting configuration into: {configPath}");
@@ -124,13 +128,16 @@ public static class MednafenConfigurationService
 
         // Append any keys that were not found in the file
         foreach (var kvp in updates)
+        {
             if (!keysFound.Contains(kvp.Key))
             {
                 lines.Add($"{kvp.Key} {kvp.Value}");
                 modified = true;
             }
+        }
 
         if (modified)
+        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -142,7 +149,10 @@ public static class MednafenConfigurationService
                 logger.Error(ex, $"[MednafenConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
+        }
         else
+        {
             logger.Debug("[MednafenConfig] No changes needed.");
+        }
     }
 }

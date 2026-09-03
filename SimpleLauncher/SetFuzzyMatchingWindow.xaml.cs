@@ -43,7 +43,7 @@ public partial class SetFuzzyMatchingWindow
             viewModel.CancelRequested -= _cancelRequestedHandler;
         };
 
-        Closed += (_, _) => { DialogResult ??= false; };
+        Closed += (_, _) => DialogResult ??= false;
 
         DataContext = viewModel;
     }

@@ -301,8 +301,10 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             MainContentGrid?.IsEnabled = !isLoading;
 
             if (isLoading)
+            {
                 LoadingOverlay.Content =
                     message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
         });
     }
 
@@ -409,6 +411,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         PopulateSystemDropdown();
     }
 
+    /// <summary>
     /// Populates the system dropdown with a sorted list of system names based on the configuration data.
     /// The method retrieves the list of system configurations from the EasyModeManager. It filters systems
     /// that have a non-empty and valid `EmulatorDownloadLink` in their corresponding emulator configuration.
@@ -423,6 +426,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
     /// Applies to:
     /// - The method is specifically designed for use in the `EasyModeWindow` class and interacts
     /// with its UI components
+    /// </summary>
     private void PopulateSystemDropdown()
     {
         try
@@ -481,8 +485,10 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
         var selectedSystem = _manager?.Systems.FirstOrDefault(system =>
             system.SystemName.Equals(SystemNameDropdown.SelectedItem.ToString(), StringComparison.OrdinalIgnoreCase));
         if (selectedSystem == null)
+        {
             // This should ideally not happen if PopulateSystemDropdown is correct, but handle defensively
             return;
+        }
 
         var emulator = selectedSystem.Emulators?.Emulator;
         // Determine if download links exist for image packs (for visibility)
@@ -578,6 +584,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             finally
             {
                 if (!_disposed)
+                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     // Only reset to Failed if still in Downloading state (not if successfully Downloaded)
                     if (GetDownloadState(EasyModeManager.DownloadType.Emulator) == DownloadButtonState.Downloading)
@@ -585,6 +592,7 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
                         SetDownloadState(EasyModeManager.DownloadType.Emulator, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsEmulatorDownloaded));
                     }
+                }
             }
         }
         catch (Exception ex)
@@ -617,12 +625,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             finally
             {
                 if (!_disposed)
+                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     if (GetDownloadState(EasyModeManager.DownloadType.Core) == DownloadButtonState.Downloading)
                     {
                         SetDownloadState(EasyModeManager.DownloadType.Core, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsCoreDownloaded));
                     }
+                }
             }
         }
         catch (Exception ex)
@@ -655,12 +665,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             finally
             {
                 if (!_disposed)
+                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     if (GetDownloadState(EasyModeManager.DownloadType.ImagePack1) == DownloadButtonState.Downloading)
                     {
                         SetDownloadState(EasyModeManager.DownloadType.ImagePack1, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsImagePack1Downloaded));
                     }
+                }
             }
         }
         catch (Exception ex)
@@ -693,12 +705,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             finally
             {
                 if (!_disposed)
+                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     if (GetDownloadState(EasyModeManager.DownloadType.ImagePack2) == DownloadButtonState.Downloading)
                     {
                         SetDownloadState(EasyModeManager.DownloadType.ImagePack2, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsImagePack2Downloaded));
                     }
+                }
             }
         }
         catch (Exception ex)
@@ -731,12 +745,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             finally
             {
                 if (!_disposed)
+                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     if (GetDownloadState(EasyModeManager.DownloadType.ImagePack3) == DownloadButtonState.Downloading)
                     {
                         SetDownloadState(EasyModeManager.DownloadType.ImagePack3, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsImagePack3Downloaded));
                     }
+                }
             }
         }
         catch (Exception ex)
@@ -769,12 +785,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             finally
             {
                 if (!_disposed)
+                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     if (GetDownloadState(EasyModeManager.DownloadType.ImagePack4) == DownloadButtonState.Downloading)
                     {
                         SetDownloadState(EasyModeManager.DownloadType.ImagePack4, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsImagePack4Downloaded));
                     }
+                }
             }
         }
         catch (Exception ex)
@@ -807,12 +825,14 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             finally
             {
                 if (!_disposed)
+                {
                     // EndOperation is called by HandleDownloadAndExtractComponentAsync
                     if (GetDownloadState(EasyModeManager.DownloadType.ImagePack5) == DownloadButtonState.Downloading)
                     {
                         SetDownloadState(EasyModeManager.DownloadType.ImagePack5, DownloadButtonState.Failed);
                         OnPropertyChanged(nameof(IsImagePack5Downloaded));
                     }
+                }
             }
         }
         catch (Exception ex)
@@ -1322,9 +1342,11 @@ internal partial class EasyModeWindow : IDisposable, INotifyPropertyChanged, ILo
             Dispose();
 
             if (wasDownloading)
+            {
                 // Give the cancelled download time to observe the token and release its
                 // resources; cleanup itself has already run, so this delay is non-critical.
                 await Task.Delay(200);
+            }
         }
         catch (Exception ex)
         {

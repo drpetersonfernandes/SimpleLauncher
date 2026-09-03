@@ -113,8 +113,10 @@ internal partial class EditSystemWindow : ILoadingState
             LoadingOverlay.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
             MainContentGrid.IsEnabled = !isLoading;
             if (isLoading)
+            {
                 LoadingOverlay.Content =
                     message ?? (string)Application.Current.TryFindResource("Loading") ?? "Loading...";
+            }
         });
     }
 
@@ -312,7 +314,9 @@ internal partial class EditSystemWindow : ILoadingState
                      Emulator4NameTextBox, Emulator4PathTextBox, Emulator4ParametersTextBox,
                      Emulator5NameTextBox, Emulator5PathTextBox, Emulator5ParametersTextBox
                  })
+        {
             SetReadOnlyField(textBox, enabled);
+        }
 
         foreach (var notification in new[]
                  {
@@ -320,7 +324,9 @@ internal partial class EditSystemWindow : ILoadingState
                      ReceiveANotificationOnEmulatorError3, ReceiveANotificationOnEmulatorError4,
                      ReceiveANotificationOnEmulatorError5
                  })
+        {
             notification.IsEnabled = enabled;
+        }
 
         foreach (var button in new[]
                  {
@@ -331,7 +337,9 @@ internal partial class EditSystemWindow : ILoadingState
                      SuggestEmulator3ParametersButton, SuggestEmulator4ParametersButton,
                      SuggestEmulator5ParametersButton
                  })
+        {
             button.IsEnabled = enabled;
+        }
     }
 
     private static void SetReadOnlyField(TextBox textBox, bool enabled)
@@ -611,6 +619,7 @@ internal partial class EditSystemWindow : ILoadingState
                 const int maxRetries = 3;
                 const int retryDelayMs = 500;
                 for (var attempt = 1; attempt <= maxRetries; attempt++)
+                {
                     try
                     {
                         File.Copy(sourceFilePath, destFilePath, true);
@@ -620,6 +629,7 @@ internal partial class EditSystemWindow : ILoadingState
                     {
                         await Task.Delay(retryDelayMs * attempt);
                     }
+                }
 
                 UpdateSystemImagePreview();
             }
@@ -642,6 +652,7 @@ internal partial class EditSystemWindow : ILoadingState
         string? imagePath = null;
 
         if (!string.IsNullOrEmpty(systemName))
+        {
             foreach (var ext in new[] { ".png", ".jpg", ".jpeg" })
             {
                 var path = Path.Combine(imagesSystemsDir, $"{systemName}{ext}");
@@ -651,6 +662,7 @@ internal partial class EditSystemWindow : ILoadingState
                     break;
                 }
             }
+        }
 
         if (string.IsNullOrEmpty(imagePath)) imagePath = Path.Combine(imagesSystemsDir, "default.png");
 
@@ -811,7 +823,9 @@ internal partial class EditSystemWindow : ILoadingState
                     var explanationFromParam = suggestedParam["Explanation:".Length..].Trim();
                     if (string.IsNullOrEmpty(explanation) ||
                         !explanation.Equals(explanationFromParam, StringComparison.OrdinalIgnoreCase))
+                    {
                         explanation = explanationFromParam;
+                    }
 
                     suggestedParam = "";
                 }

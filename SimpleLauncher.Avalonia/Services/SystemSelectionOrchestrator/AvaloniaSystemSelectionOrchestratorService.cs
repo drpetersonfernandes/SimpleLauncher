@@ -119,10 +119,9 @@ public class AvaloniaSystemSelectionOrchestratorService
             }
 
             // Hide the play-time display for url/lnk systems (WPF IsPlayTimeVisible parity).
-            _host.IsPlayTimeVisible = selectedManager.FileFormatsToSearch == null
-                                      || !selectedManager.FileFormatsToSearch.Any(static f =>
-                                          f.Equals("url", StringComparison.OrdinalIgnoreCase) ||
-                                          f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+            _host.IsPlayTimeVisible = selectedManager.FileFormatsToSearch?.Any(static f =>
+                f.Equals("url", StringComparison.OrdinalIgnoreCase) ||
+                f.Equals("lnk", StringComparison.OrdinalIgnoreCase)) != true;
 
             if (_settings is { } settings)
             {

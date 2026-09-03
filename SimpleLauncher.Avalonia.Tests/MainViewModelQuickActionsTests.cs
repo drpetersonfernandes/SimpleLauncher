@@ -233,7 +233,8 @@ public class MainViewModelQuickActionsTests : IDisposable
         // The pick comes from the FULL system library, not the letter-filtered subset
         Assert.NotNull(randomGame);
         Assert.Equal("", _viewModel.LetterFilter);
-        Assert.Contains(_viewModel.Games, g => string.Equals(g.FilePath, randomGame.FilePath, StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(_viewModel.Games,
+            g => string.Equals(g.FilePath, randomGame.FilePath, StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]

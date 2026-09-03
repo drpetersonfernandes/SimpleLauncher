@@ -28,7 +28,7 @@ public static class RemoteImageLoader
         try
         {
             var bytes = await Http.GetByteArrayAsync(url).ConfigureAwait(false);
-            using var ms = new MemoryStream(bytes);
+            await using var ms = new MemoryStream(bytes);
             var bitmap = Bitmap.DecodeToWidth(ms, 400);
 
             lock (CacheLock)

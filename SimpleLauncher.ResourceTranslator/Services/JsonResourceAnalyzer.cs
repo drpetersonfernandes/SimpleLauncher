@@ -100,6 +100,7 @@ public static class JsonResourceAnalyzer
                 .ToList();
 
             if (missing.Count > 0 || duplicateKeys.Count > 0)
+            {
                 batches.Add(new MissingKeyBatch
                 {
                     FilePath = file,
@@ -109,6 +110,7 @@ public static class JsonResourceAnalyzer
                     DuplicateKeysRemoved = duplicateKeys.Distinct(StringComparer.Ordinal).ToList(),
                     Format = ResourceFormat.AvaloniaJson
                 });
+            }
         }
 
         return batches;

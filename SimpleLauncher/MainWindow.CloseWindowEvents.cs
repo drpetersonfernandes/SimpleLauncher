@@ -136,8 +136,10 @@ public partial class MainWindow
 
         // Unsubscribe emergency button click handler if it was wired
         if (_emergencyButtonClickHandler != null && LoadingOverlay?.Template != null)
+        {
             if (LoadingOverlay.Template.FindName("PART_EmergencyReturnButton", LoadingOverlay) is Button emergencyBtn)
                 emergencyBtn.Click -= _emergencyButtonClickHandler;
+        }
 
         // Unsubscribe and stop game file watcher
         _lifecycle.UnsubscribeGameFilesChanged(_gameFilesChangedHandler);

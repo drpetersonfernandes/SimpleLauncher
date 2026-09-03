@@ -36,7 +36,9 @@ public class XisoMountStrategy : ILaunchStrategy
     {
         if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
             string.IsNullOrEmpty(context.EmulatorName))
+        {
             return false;
+        }
 
         return context.EmulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) &&
                Path.GetExtension(context.ResolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase);
@@ -49,8 +51,10 @@ public class XisoMountStrategy : ILaunchStrategy
             PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ?? "error_user.log"),
             _logger, _messageBox);
         if (mountedDrive.IsMounted)
+        {
             await launcher.LaunchRegularEmulatorAsync(mountedDrive.MountedPath, context.EmulatorName,
                 context.SystemManagerService!, context.EmulatorManager!, context.Parameters, context.WindowContext!,
                 context.LoadingState, context.ResolvedFilePath);
+        }
     }
 }

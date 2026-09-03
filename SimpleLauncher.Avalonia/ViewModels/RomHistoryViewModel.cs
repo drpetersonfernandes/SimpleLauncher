@@ -15,13 +15,16 @@ public partial class RomHistoryViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IResourceProvider _resourceProvider;
-    [ObservableProperty] private string _historyText = null!;
-    [ObservableProperty] private bool _isDescriptionVisible;
-    [ObservableProperty] private string _romDescriptionText = null!;
+    [ObservableProperty] public partial string HistoryText { get; set; } = null!;
+
+    [ObservableProperty] public partial bool IsDescriptionVisible { get; set; }
+
+    [ObservableProperty] public partial string RomDescriptionText { get; set; } = null!;
 
     private string _romName = null!;
 
-    [ObservableProperty] private string _romNameText = null!;
+    [ObservableProperty] public partial string RomNameText { get; set; } = null!;
+
     private string _searchTerm = null!;
     private string _systemName = null!;
 

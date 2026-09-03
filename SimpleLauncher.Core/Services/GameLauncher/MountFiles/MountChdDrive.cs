@@ -97,11 +97,15 @@ public class MountChdDrive : IAsyncDisposable
                 }
 
                 if (_mountProcess.HasExited)
+                {
                     _logger.Debug(
                         $"[MountChdDrive.DisposeAsync] CHDMounter (ID: {_mountProcessId}) terminated. Exit code: {_mountProcess.ExitCode}.");
+                }
                 else
+                {
                     _logger.Debug(
                         $"[MountChdDrive.DisposeAsync] CHDMounter (ID: {_mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                }
             }
         }
         catch (Exception termEx)
@@ -120,10 +124,14 @@ public class MountChdDrive : IAsyncDisposable
             var driveRoot = $"{MountedDriveLetter}:\\";
             await Task.Delay(1000);
             if (Directory.Exists(driveRoot))
+            {
                 _logger.Debug(
                     $"[MountChdDrive.DisposeAsync] WARNING: Drive {driveRoot} still exists after attempting to unmount.");
+            }
             else
+            {
                 _logger.Debug($"[MountChdDrive.DisposeAsync] Drive {driveRoot} successfully unmounted.");
+            }
         }
 
         GC.SuppressFinalize(this);

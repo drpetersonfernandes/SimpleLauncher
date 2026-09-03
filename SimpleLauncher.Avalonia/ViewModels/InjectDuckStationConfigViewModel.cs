@@ -19,22 +19,36 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
-    [ObservableProperty] private string _duckStationAspectRatio = "";
-    [ObservableProperty] private bool _duckStationOutputMuted;
-    [ObservableProperty] private int _duckStationOutputVolume;
-    [ObservableProperty] private bool _duckStationPauseOnFocusLoss;
-    [ObservableProperty] private bool _duckStationPgxpEnable;
-    [ObservableProperty] private string _duckStationRenderer = "";
-    [ObservableProperty] private int _duckStationResolutionScale;
-    [ObservableProperty] private bool _duckStationRewindEnable;
-    [ObservableProperty] private int _duckStationRunaheadFrameCount;
-    [ObservableProperty] private bool _duckStationSaveStateOnExit;
-    [ObservableProperty] private bool _duckStationShowSettingsBeforeLaunch;
+    [ObservableProperty] public partial string DuckStationAspectRatio { get; set; } = "";
 
-    [ObservableProperty] private bool _duckStationStartFullscreen;
-    [ObservableProperty] private string _duckStationTextureFilter = "";
-    [ObservableProperty] private bool _duckStationVsync;
-    [ObservableProperty] private bool _duckStationWidescreenHack;
+    [ObservableProperty] public partial bool DuckStationOutputMuted { get; set; }
+
+    [ObservableProperty] public partial int DuckStationOutputVolume { get; set; }
+
+    [ObservableProperty] public partial bool DuckStationPauseOnFocusLoss { get; set; }
+
+    [ObservableProperty] public partial bool DuckStationPgxpEnable { get; set; }
+
+    [ObservableProperty] public partial string DuckStationRenderer { get; set; } = "";
+
+    [ObservableProperty] public partial int DuckStationResolutionScale { get; set; }
+
+    [ObservableProperty] public partial bool DuckStationRewindEnable { get; set; }
+
+    [ObservableProperty] public partial int DuckStationRunaheadFrameCount { get; set; }
+
+    [ObservableProperty] public partial bool DuckStationSaveStateOnExit { get; set; }
+
+    [ObservableProperty] public partial bool DuckStationShowSettingsBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial bool DuckStationStartFullscreen { get; set; }
+
+    [ObservableProperty] public partial string DuckStationTextureFilter { get; set; } = "";
+
+    [ObservableProperty] public partial bool DuckStationVsync { get; set; }
+
+    [ObservableProperty] public partial bool DuckStationWidescreenHack { get; set; }
+
     private string _emulatorPath = "";
 
     /// <summary>Initializes a new instance of the <see cref="InjectDuckStationConfigViewModel" />.</summary>
@@ -233,7 +247,7 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
             var emulatorName =
                 InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectDuckStationConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleRunButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }
@@ -264,7 +278,7 @@ public partial class InjectDuckStationConfigViewModel : ObservableObject
             var emulatorName =
                 InjectionErrorHandler.GetEmulatorName(_emulatorPath, typeof(InjectDuckStationConfigWindow));
             var window = GetOwnerWindow?.Invoke();
-            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window!,
+            InjectionErrorHandler.HandleSaveButtonFailure(_logger, ex, emulatorName, _emulatorPath, window,
                 _messageBox);
         }
     }

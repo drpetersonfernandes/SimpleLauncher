@@ -108,7 +108,8 @@ public class GameScannerServiceTests : IDisposable
 
         var doc = XDocument.Load(systemXml);
         var config = Assert.Single(doc.Root!.Elements("SystemConfig"),
-            static e => string.Equals(e.Element("SystemName")?.Value, GameScannerService.WindowsSystemName, StringComparison.OrdinalIgnoreCase));
+            static e => string.Equals(e.Element("SystemName")?.Value, GameScannerService.WindowsSystemName,
+                StringComparison.OrdinalIgnoreCase));
         Assert.Equal(GameScannerService.WindowsSystemName, config.Element("SystemName")?.Value);
         Assert.Equal(
             ["url", "lnk", "bat"],
@@ -141,7 +142,8 @@ public class GameScannerServiceTests : IDisposable
 
         var doc = XDocument.Load(systemXml);
         _ = Assert.Single(doc.Root!.Elements("SystemConfig"),
-            static e => string.Equals(e.Element("SystemName")?.Value, GameScannerService.WindowsSystemName, StringComparison.OrdinalIgnoreCase));
+            static e => string.Equals(e.Element("SystemName")?.Value, GameScannerService.WindowsSystemName,
+                StringComparison.OrdinalIgnoreCase));
 
         // Existing shortcut content is never overwritten
         var doomShortcut = Path.Combine(DefaultRomsPath, "Doom.url");

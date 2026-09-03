@@ -38,10 +38,12 @@ public static class AppDataPaths
     internal static string Resolve(string? localAppData, string? userProfile, bool isWindows)
     {
         if (string.IsNullOrWhiteSpace(localAppData) || !Path.IsPathRooted(localAppData))
+        {
             if (!string.IsNullOrWhiteSpace(userProfile))
                 localAppData = isWindows
                     ? Path.Combine(userProfile, "AppData", "Local")
                     : Path.Combine(userProfile, ".local", "share");
+        }
 
         if (string.IsNullOrWhiteSpace(localAppData) || !Path.IsPathRooted(localAppData))
             localAppData = AppDomain.CurrentDomain.BaseDirectory; // last resort

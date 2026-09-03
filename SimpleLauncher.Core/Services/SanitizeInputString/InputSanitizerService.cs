@@ -28,8 +28,10 @@ public class InputSanitizerService : IInputSanitizerService
         var foundInvalidChars = new List<char>();
 
         foreach (var c in name)
+        {
             if (invalidFileNameChars.Contains(c))
                 foundInvalidChars.Add(c);
+        }
 
         invalidChars = [.. foundInvalidChars];
         return invalidChars.Length > 0;
@@ -48,8 +50,10 @@ public class InputSanitizerService : IInputSanitizerService
         var foundInvalidChars = new List<char>();
 
         foreach (var c in path)
+        {
             if (invalidPathChars.Contains(c) && !foundInvalidChars.Contains(c))
                 foundInvalidChars.Add(c);
+        }
 
         invalidChars = [.. foundInvalidChars];
         return invalidChars.Length > 0;

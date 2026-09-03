@@ -140,8 +140,10 @@ public class GamePadController : IDisposable
             // Enforce proper disposal semantics: do not allow restarting a disposed instance.
             // Once disposed, a new instance must be created. This prevents resource leaks and undefined behavior.
             if (_isDisposed)
+            {
                 throw new ObjectDisposedException(nameof(GamePadController),
                     "Cannot start a disposed GamePadController. A new instance must be created.");
+            }
 
             try
             {
@@ -160,8 +162,10 @@ public class GamePadController : IDisposable
 
         // Notify user (outside lock to allow async/await)
         if (startException != null)
+        {
             return _messageBoxLibrary.GamePadErrorMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+        }
 
         return Task.CompletedTask;
     }
@@ -193,8 +197,10 @@ public class GamePadController : IDisposable
 
         // Notify user (outside lock to allow async/await)
         if (stopException != null)
+        {
             return _messageBoxLibrary.GamePadErrorMessageBoxAsync(
                 PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+        }
 
         return Task.CompletedTask;
     }
@@ -250,10 +256,14 @@ public class GamePadController : IDisposable
             // Only wait if Dispose returns true (meaning a callback was pending and needs to signal completion).
             // If timer is null or already disposed, Dispose returns false and we skip WaitOne to prevent blocking.
             if (_timer?.Dispose(waitHandle) ?? false)
+            {
                 // Use a generous timeout (2-3s) to account for slower systems
                 if (!waitHandle.WaitOne(TimeSpan.FromSeconds(2)))
+                {
                     ErrorLogger?.Invoke(null,
                         "GamePadController timer disposal timed out. A callback may be stuck.");
+                }
+            }
         }
         catch (Exception ex)
         {
@@ -381,7 +391,10 @@ public class GamePadController : IDisposable
                         else
                         {
                             if (!((DateTime.Now - _lastReconnectAttempt).TotalMilliseconds >
-                                  ReconnectDelayMilliseconds)) return;
+                                  ReconnectDelayMilliseconds))
+                            {
+                                return;
+                            }
 
                             CheckAndReconnectControllers();
                             _lastReconnectAttempt = DateTime.Now;
@@ -412,8 +425,10 @@ public class GamePadController : IDisposable
                                 .ContinueWith(static (t, state) =>
                                 {
                                     if (t.IsFaulted)
+                                    {
                                         (state as ILogger)?.Error(t.Exception,
                                             "Error showing GamePadErrorMessageBoxAsync");
+                                    }
                                 }, _logger, TaskContinuationOptions.OnlyOnFaulted);
                         }
 
@@ -479,6 +494,7 @@ public class GamePadController : IDisposable
 
                 // If DirectInput object is null or disposed, try to recreate it
                 if (_directInput == null || _directInput.IsDisposed)
+                {
                     // Recreate DirectInput object
                     try
                     {
@@ -502,6 +518,7 @@ public class GamePadController : IDisposable
                         _directInput = null; // Ensure it's null if creation failed
                         return; // Cannot proceed without a valid DirectInput object
                     }
+                }
 
                 // Find and reconnect DirectInput devices
                 // Check if the previously connected PlayStation controller is attached
@@ -512,6 +529,7 @@ public class GamePadController : IDisposable
 
                 // First, try to find the specific controller by GUID if we had one
                 if (_playStationControllerGuid != Guid.Empty)
+                {
                     foreach (var deviceInstance in devices)
                     {
                         if (deviceInstance.InstanceGuid != _playStationControllerGuid) continue;
@@ -520,6 +538,7 @@ public class GamePadController : IDisposable
                         found = true;
                         break;
                     }
+                }
 
                 // If the specific GUID wasn't found or we didn't have one, just take the first available gamepad
                 if (!found && devices.Count > 0)

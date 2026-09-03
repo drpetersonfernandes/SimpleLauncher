@@ -42,7 +42,9 @@ public static partial class PathHelper
 
         if (!normalizedBase.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal) &&
             !normalizedBase.EndsWith(Path.AltDirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+        {
             normalizedBase += Path.DirectorySeparatorChar;
+        }
 
         return normalizedResolved.StartsWith(normalizedBase, StringComparison.OrdinalIgnoreCase);
     }
@@ -100,13 +102,17 @@ public static partial class PathHelper
                  !tokenForLogic.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase) &&
                  !tokenForLogic.Contains("%ROM%", StringComparison.OrdinalIgnoreCase) &&
                  !tokenForLogic.Contains("%NAME%", StringComparison.OrdinalIgnoreCase)))
+            {
                 return originalToken;
+            }
 
             var processedToken = tokenForLogic;
 
             if (processedToken.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
+            {
                 processedToken = processedToken.Replace("%BASEFOLDER%",
                     SanitizePathToken(AppDomain.CurrentDomain.BaseDirectory), StringComparison.OrdinalIgnoreCase);
+            }
 
             if (processedToken.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
@@ -128,22 +134,30 @@ public static partial class PathHelper
 
             if (!string.IsNullOrEmpty(romSystemFolder) &&
                 processedToken.Contains("%ROMSYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
+            {
                 processedToken = processedToken.Replace("%ROMSYSTEMFOLDER%", SanitizePathToken(romSystemFolder),
                     StringComparison.OrdinalIgnoreCase);
+            }
 
             if (!string.IsNullOrEmpty(resolvedEmulatorFolderPath) &&
                 processedToken.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase))
+            {
                 processedToken = processedToken.Replace("%EMULATORFOLDER%",
                     SanitizePathToken(resolvedEmulatorFolderPath), StringComparison.OrdinalIgnoreCase);
+            }
 
             if (!string.IsNullOrEmpty(resolvedRomPath) &&
                 processedToken.Contains("%ROM%", StringComparison.OrdinalIgnoreCase))
+            {
                 processedToken = processedToken.Replace("%ROM%", SanitizePathToken(resolvedRomPath),
                     StringComparison.OrdinalIgnoreCase);
+            }
 
             if (!string.IsNullOrEmpty(resolvedRomName) &&
                 processedToken.Contains("%NAME%", StringComparison.OrdinalIgnoreCase))
+            {
                 processedToken = processedToken.Replace("%NAME%", resolvedRomName, StringComparison.OrdinalIgnoreCase);
+            }
 
             processedToken = Environment.ExpandEnvironmentVariables(processedToken);
 
@@ -159,7 +173,9 @@ public static partial class PathHelper
 
             if (finalTokenValue.Contains(' ') && !isQuotedToken && !finalTokenValue.Contains('"') &&
                 !finalTokenValue.Contains('\''))
+            {
                 return $"\"{finalTokenValue}\"";
+            }
 
             return finalTokenValue;
         });
@@ -179,7 +195,9 @@ public static partial class PathHelper
 
         if ((path.StartsWith('"') && path.EndsWith('"')) ||
             (path.StartsWith('\'') && path.EndsWith('\'')))
+        {
             path = path[1..^1];
+        }
 
         string basePath;
         var remainingPath = path;
@@ -317,7 +335,9 @@ public static partial class PathHelper
         if (string.IsNullOrWhiteSpace(path) ||
             path.StartsWith(@"\\?\", StringComparison.OrdinalIgnoreCase) ||
             path.StartsWith(@"\\.\", StringComparison.OrdinalIgnoreCase))
+        {
             return path;
+        }
 
         if (path.StartsWith(@"\\", StringComparison.Ordinal)) return @"\\?\UNC\" + path[2..];
 
@@ -435,8 +455,10 @@ public static partial class PathHelper
                 var existingFileName = Path.GetFileName(existingFile);
 
                 foreach (var normalizedFileName in normalizedFileNames)
+                {
                     if (existingFileName.Equals(normalizedFileName, StringComparison.OrdinalIgnoreCase))
                         return existingFile;
+                }
             }
 
             foreach (var existingDir in Directory.EnumerateDirectories(directoryPath))
@@ -444,8 +466,10 @@ public static partial class PathHelper
                 var existingDirName = Path.GetFileName(existingDir);
 
                 foreach (var normalizedFileName in normalizedFileNames)
+                {
                     if (existingDirName.Equals(normalizedFileName, StringComparison.OrdinalIgnoreCase))
                         return existingDir;
+                }
             }
         }
         catch (Exception ex)

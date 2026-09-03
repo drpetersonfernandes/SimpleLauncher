@@ -65,10 +65,12 @@ public partial class DetectMissingResourceProviderKeysTests
         var keysWithoutDefaults = new List<string>();
 
         foreach (var key in missingKeys)
+        {
             if (providerKeys.TryGetValue(key, out var defaultValue) && !string.IsNullOrEmpty(defaultValue))
                 keysWithDefaults[key] = defaultValue;
             else
                 keysWithoutDefaults.Add(key);
+        }
 
         // Step 6: Auto-add keys that have a known non-empty default value.
         if (keysWithDefaults.Count > 0) AppendMissingEntries(stringsEnPath, keysWithDefaults);
@@ -259,11 +261,13 @@ public partial class DetectMissingResourceProviderKeysTests
         // Merge missing entries.
         var addedEntries = new Dictionary<string, string>(StringComparer.Ordinal);
         foreach (var kvp in missingEntries)
+        {
             if (!existingEntries.ContainsKey(kvp.Key))
             {
                 existingEntries[kvp.Key] = kvp.Value;
                 addedEntries[kvp.Key] = kvp.Value;
             }
+        }
 
         // Only rewrite if we actually added entries.
         if (addedEntries.Count == 0)

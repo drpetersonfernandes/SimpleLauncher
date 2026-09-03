@@ -18,22 +18,37 @@ public partial class InjectRedreamConfigViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    [ObservableProperty] private string _redreamAspect = null!;
-    [ObservableProperty] private string _redreamBroadcast = null!;
-    [ObservableProperty] private string _redreamCable = null!;
-    [ObservableProperty] private bool _redreamFramerate;
-    [ObservableProperty] private bool _redreamFrameskip;
-    [ObservableProperty] private string _redreamFullmode = null!;
-    [ObservableProperty] private int _redreamHeight;
-    [ObservableProperty] private string _redreamLanguage = null!;
-    [ObservableProperty] private int _redreamLatency;
-    [ObservableProperty] private string _redreamRegion = null!;
-    [ObservableProperty] private string _redreamRenderer = null!;
-    [ObservableProperty] private int _redreamRes;
-    [ObservableProperty] private bool _redreamShowSettingsBeforeLaunch;
-    [ObservableProperty] private int _redreamVolume;
-    [ObservableProperty] private bool _redreamVsync;
-    [ObservableProperty] private int _redreamWidth;
+    [ObservableProperty] public partial string RedreamAspect { get; set; } = null!;
+
+    [ObservableProperty] public partial string RedreamBroadcast { get; set; } = null!;
+
+    [ObservableProperty] public partial string RedreamCable { get; set; } = null!;
+
+    [ObservableProperty] public partial bool RedreamFramerate { get; set; }
+
+    [ObservableProperty] public partial bool RedreamFrameskip { get; set; }
+
+    [ObservableProperty] public partial string RedreamFullmode { get; set; } = null!;
+
+    [ObservableProperty] public partial int RedreamHeight { get; set; }
+
+    [ObservableProperty] public partial string RedreamLanguage { get; set; } = null!;
+
+    [ObservableProperty] public partial int RedreamLatency { get; set; }
+
+    [ObservableProperty] public partial string RedreamRegion { get; set; } = null!;
+
+    [ObservableProperty] public partial string RedreamRenderer { get; set; } = null!;
+
+    [ObservableProperty] public partial int RedreamRes { get; set; }
+
+    [ObservableProperty] public partial bool RedreamShowSettingsBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial int RedreamVolume { get; set; }
+
+    [ObservableProperty] public partial bool RedreamVsync { get; set; }
+
+    [ObservableProperty] public partial int RedreamWidth { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectRedreamConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>

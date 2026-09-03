@@ -87,6 +87,7 @@ public partial class DetectMismatchedResourceStringsTests
 
     [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",
         Justification = "Capturing groups are needed to extract key and fallback value")]
-    [GeneratedRegex("""GetString\(\s*"((?:[^"\\]|\\.)*)"\s*,\s*"((?:[^"\\]|\\.)*)"\s*\)""", RegexOptions.Compiled, 1000)]
+    [GeneratedRegex("""GetString\(\s*"((?:[^"\\]|\\.)*)"\s*,\s*"((?:[^"\\]|\\.)*)"\s*\)""", RegexOptions.Compiled,
+        1000)]
     private static partial Regex MyRegex();
 }

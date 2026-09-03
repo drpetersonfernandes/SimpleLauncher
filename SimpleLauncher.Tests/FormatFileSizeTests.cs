@@ -44,12 +44,12 @@ public class FormatFileSizeTests
     [InlineData(1025, "1.00 KB")]
     [InlineData(1536, "1.50 KB")]
     [InlineData(1024 * 1024, "1.00 MB")]
-    [InlineData(1024 * 1024 + 1, "1.00 MB")]
+    [InlineData((1024 * 1024) + 1, "1.00 MB")]
     [InlineData(1536 * 1024, "1.50 MB")]
     [InlineData(1024L * 1024 * 1024, "1.00 GB")]
-    [InlineData(1024L * 1024 * 1024 + 1, "1.00 GB")]
+    [InlineData((1024L * 1024 * 1024) + 1, "1.00 GB")]
     [InlineData(1024L * 1024 * 1024 * 1024, "1.00 TB")]
-    [InlineData(1024L * 1024 * 1024 * 1024 + 1, "1.00 TB")]
+    [InlineData((1024L * 1024 * 1024 * 1024) + 1, "1.00 TB")]
     public void FormatToHumanReadableReturnsExpected(long bytes, string expected)
     {
         var result = FormatFileSize.FormatToHumanReadable(bytes);
@@ -62,7 +62,7 @@ public class FormatFileSizeTests
     [Fact]
     public void FormatToHumanReadableJustUnder1MbUsesKbUnit()
     {
-        var result = FormatFileSize.FormatToHumanReadable(1024L * 1024 - 1);
+        var result = FormatFileSize.FormatToHumanReadable((1024L * 1024) - 1);
         Assert.Contains("KB", result, StringComparison.Ordinal);
     }
 
@@ -72,7 +72,7 @@ public class FormatFileSizeTests
     [Fact]
     public void FormatToHumanReadableJustUnder1GbUsesMbUnit()
     {
-        var result = FormatFileSize.FormatToHumanReadable(1024L * 1024 * 1024 - 1);
+        var result = FormatFileSize.FormatToHumanReadable((1024L * 1024 * 1024) - 1);
         Assert.Contains("MB", result, StringComparison.Ordinal);
     }
 

@@ -23,6 +23,7 @@ public static class DeleteFiles
         if (!File.Exists(longPath)) return;
 
         for (var i = 0; i < MaxDeleteRetries; i++)
+        {
             try
             {
                 // Remove read-only attribute if needed. This is inside the retry
@@ -56,6 +57,7 @@ public static class DeleteFiles
                 // If the file is Updater.exe and an Updater process is still running,
                 // skip silently — the file is locked and will be cleaned up on next launch
                 if (Path.GetFileName(filePath).Equals("Updater.exe", StringComparison.OrdinalIgnoreCase))
+                {
                     try
                     {
                         if (Process.GetProcessesByName("Updater").Length != 0) return;
@@ -64,6 +66,7 @@ public static class DeleteFiles
                     {
                         // Process check failed, proceed with normal retry logic
                     }
+                }
 
                 // If this is the last attempt, log final failure
                 if (i == MaxDeleteRetries - 1)
@@ -84,6 +87,7 @@ public static class DeleteFiles
 
                 return;
             }
+        }
     }
 
     /// <summary>
@@ -98,6 +102,7 @@ public static class DeleteFiles
         if (!File.Exists(longPath)) return;
 
         for (var i = 0; i < MaxDeleteRetries; i++)
+        {
             try
             {
                 // Remove read-only attribute if needed. This is inside the retry
@@ -129,6 +134,7 @@ public static class DeleteFiles
                 // If the file is Updater.exe and an Updater process is still running,
                 // skip silently — the file is locked and will be cleaned up on next launch
                 if (Path.GetFileName(filePath).Equals("Updater.exe", StringComparison.OrdinalIgnoreCase))
+                {
                     try
                     {
                         if (Process.GetProcessesByName("Updater").Length != 0) return;
@@ -137,6 +143,7 @@ public static class DeleteFiles
                     {
                         // Process check failed, proceed with normal retry logic
                     }
+                }
 
                 // If this is the last attempt, log final failure
                 if (i == MaxDeleteRetries - 1)
@@ -157,5 +164,6 @@ public static class DeleteFiles
 
                 return;
             }
+        }
     }
 }

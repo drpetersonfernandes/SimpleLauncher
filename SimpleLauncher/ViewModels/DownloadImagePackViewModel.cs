@@ -259,6 +259,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
     private void AddImagePackItemIfValid(string? downloadLink, string? extractPath, string displayName)
     {
         if (!string.IsNullOrEmpty(downloadLink) && !string.IsNullOrEmpty(extractPath))
+        {
             ImagePacksToDisplay.Add(new ImagePackDownloadItem
             {
                 DisplayName = displayName,
@@ -266,6 +267,7 @@ public partial class DownloadImagePackViewModel : ObservableObject, IDisposable
                 ExtractPath = extractPath,
                 State = DownloadButtonState.Idle
             });
+        }
     }
 
     private async void ExecuteDownloadAsync(object? parameter)

@@ -151,7 +151,7 @@ public class AvaloniaStartupInitializationService
     {
         try
         {
-            _gamePadController.ErrorLogger = (ex, msg) => { _logger.Error(ex, msg); };
+            _gamePadController.ErrorLogger = (ex, msg) => _logger.Error(ex, msg);
             _gamePadController.DeadZoneX = _settings.DeadZoneX;
             _gamePadController.DeadZoneY = _settings.DeadZoneY;
 

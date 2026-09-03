@@ -79,7 +79,7 @@ public class SystemSelectionViewModelTests
         var viewModel = CreateViewModel();
         viewModel.Initialize("Unknown Console");
         var raised = 0;
-        viewModel.DialogResultRequested += (_, _) => { raised++; };
+        viewModel.DialogResultRequested += (_, _) => raised++;
 
         viewModel.ConfirmCommand.Execute(null);
 
@@ -91,7 +91,7 @@ public class SystemSelectionViewModelTests
     {
         var viewModel = CreateViewModel();
         bool? result = null;
-        viewModel.DialogResultRequested += (_, e) => { result = e.Value; };
+        viewModel.DialogResultRequested += (_, e) => result = e.Value;
 
         viewModel.CancelCommand.Execute(null);
 

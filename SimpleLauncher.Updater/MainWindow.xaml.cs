@@ -115,17 +115,11 @@ public partial class MainWindow
             });
         };
         _updateService.ExtractionStarted += (_, _) =>
-        {
-            Dispatcher.BeginInvoke(() => { ProgressStatusText.Text = "Extracting files..."; });
-        };
-        _updateService.ExtractionProgressChanged += (_, e) =>
-        {
-            Dispatcher.BeginInvoke(() => { ProgressStatusText.Text = e.StatusText; });
-        };
+            Dispatcher.BeginInvoke(() => ProgressStatusText.Text = "Extracting files...");
+        _updateService.ExtractionProgressChanged +=
+            (_, e) => Dispatcher.BeginInvoke(() => ProgressStatusText.Text = e.StatusText);
         _updateService.ExtractionCompleted += (_, _) =>
-        {
-            Dispatcher.BeginInvoke(() => { ProgressStatusText.Text = "Extraction complete"; });
-        };
+            Dispatcher.BeginInvoke(() => ProgressStatusText.Text = "Extraction complete");
         _updateService.DokanInstallationPrompt += async () =>
         {
             return await Dispatcher.InvokeAsync(static () =>
@@ -163,7 +157,9 @@ public partial class MainWindow
             int? processId = null;
             if (_args.Length > 0 &&
                 int.TryParse(_args[0], CultureInfo.InvariantCulture, out var pid) && pid > 0)
+            {
                 processId = pid;
+            }
 
             // Execute the update through the service
             var result = await _updateService.ExecuteUpdateAsync(processId, IgnoredFiles, cancellationToken);
@@ -229,6 +225,7 @@ public partial class MainWindow
         }
 
         if (IsLoaded)
+        {
             try
             {
                 LogTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
@@ -239,6 +236,7 @@ public partial class MainWindow
                 // Window may have been closed, ignore logging but report bug (fire-and-forget)
                 _ = ReportBugFireAndForgetAsync(ex, "Error logging message to UI");
             }
+        }
     }
 
     /// <summary>

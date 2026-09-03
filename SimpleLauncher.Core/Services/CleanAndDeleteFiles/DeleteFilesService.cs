@@ -36,6 +36,7 @@ public class DeleteFilesService : IDeleteFilesService
         if (!File.Exists(longPath)) return;
 
         for (var i = 0; i < MaxDeleteRetries; i++)
+        {
             try
             {
                 var fileInfo = new FileInfo(longPath);
@@ -58,6 +59,7 @@ public class DeleteFilesService : IDeleteFilesService
             catch (UnauthorizedAccessException ex)
             {
                 if (Path.GetFileName(filePath).Equals("Updater.exe", StringComparison.OrdinalIgnoreCase))
+                {
                     try
                     {
                         if (Process.GetProcessesByName("Updater").Length != 0) return;
@@ -66,6 +68,7 @@ public class DeleteFilesService : IDeleteFilesService
                     {
                         // Process check failed, proceed with normal retry logic
                     }
+                }
 
                 if (i == MaxDeleteRetries - 1)
                 {
@@ -82,6 +85,7 @@ public class DeleteFilesService : IDeleteFilesService
                     $"[DeleteFiles] Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}': {ex.Message}");
                 return;
             }
+        }
     }
 
     /// <summary>
@@ -97,6 +101,7 @@ public class DeleteFilesService : IDeleteFilesService
         if (!File.Exists(longPath)) return;
 
         for (var i = 0; i < MaxDeleteRetries; i++)
+        {
             try
             {
                 var fileInfo = new FileInfo(longPath);
@@ -119,6 +124,7 @@ public class DeleteFilesService : IDeleteFilesService
             catch (UnauthorizedAccessException ex)
             {
                 if (Path.GetFileName(filePath).Equals("Updater.exe", StringComparison.OrdinalIgnoreCase))
+                {
                     try
                     {
                         if (Process.GetProcessesByName("Updater").Length != 0) return;
@@ -127,6 +133,7 @@ public class DeleteFilesService : IDeleteFilesService
                     {
                         // Process check failed, proceed with normal retry logic
                     }
+                }
 
                 if (i == MaxDeleteRetries - 1)
                 {
@@ -143,6 +150,7 @@ public class DeleteFilesService : IDeleteFilesService
                     $"[DeleteFiles] Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{longPath}': {ex.Message}");
                 return;
             }
+        }
     }
 
     /// <summary>

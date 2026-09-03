@@ -147,6 +147,7 @@ internal partial class GitHubService
             LogMessage?.Invoke(this, new EventArgs<string>($"Searching for asset: {expectedAssetName}"));
 
             if (root.TryGetProperty("assets", out var assetsElement))
+            {
                 foreach (var asset in assetsElement.EnumerateArray())
                 {
                     var assetName = asset.GetProperty("name").GetString();
@@ -164,6 +165,7 @@ internal partial class GitHubService
                         }
                     }
                 }
+            }
 
             LogMessage?.Invoke(this,
                 new EventArgs<string>(
@@ -207,8 +209,10 @@ internal partial class GitHubService
 
             var versionResponse = await _httpClient.GetAsync(versionUrl, cancellationToken);
             if (!versionResponse.IsSuccessStatusCode)
+            {
                 throw new HttpRequestException(
                     $"Failed to fetch version from secondary server. Status Code: {versionResponse.StatusCode}");
+            }
 
             var versionText = (await versionResponse.Content.ReadAsStringAsync(cancellationToken)).Trim();
 
@@ -220,8 +224,10 @@ internal partial class GitHubService
             // Validate that version has at least major.minor format
             var versionParts = rawVersionString.Split('.');
             if (versionParts.Length < 2)
+            {
                 throw new InvalidOperationException(
                     $"Invalid version format: '{rawVersionString}'. Version must have at least major.minor components.");
+            }
 
             var normalizedVersion = NormalizeVersion(rawVersionString);
             var expectedAssetName = $"release_{rawVersionString}_{CurrentRuntimeIdentifier}.zip";

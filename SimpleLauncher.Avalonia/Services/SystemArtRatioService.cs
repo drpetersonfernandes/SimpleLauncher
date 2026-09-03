@@ -143,7 +143,7 @@ public class SystemArtRatioService
     ///     Gets the box-art aspect ratio (height/width) for a given system.
     ///     Returns 1.0 for unknown systems.
     /// </summary>
-    public double GetRatio(string systemName)
+    public static double GetRatio(string systemName)
     {
         if (string.IsNullOrWhiteSpace(systemName))
             return 1.0;
@@ -160,7 +160,8 @@ public class SystemArtRatioService
         // (same as the WPF GameButtonFactory). Unknown values fall back to the
         // per-system art ratio for the current view.
         var overrideRatio = GetAspectRatioOverride(_settings.ButtonAspectRatio);
-        var ratio = overrideRatio > 0.0 ? overrideRatio : isMixedView ? 0.73 : GetRatio(systemName);
+        var ratio = overrideRatio > 0.0 ? overrideRatio :
+            isMixedView ? 0.73 : SystemArtRatioService.GetRatio(systemName);
         return cardWidth * ratio;
     }
 }

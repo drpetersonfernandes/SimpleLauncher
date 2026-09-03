@@ -188,7 +188,8 @@ public partial class EditSystemWindow : Window
                 DisableAllEditableFields();
                 SaveSystemButton.IsEnabled = false;
                 DeleteSystemButton.IsEnabled = false;
-                StatusTextBlock.Text = _localization.GetString("EditSystemWindow_Select_a_system_to_edit_or_click_Add_New",
+                StatusTextBlock.Text = _localization.GetString(
+                    "EditSystemWindow_Select_a_system_to_edit_or_click_Add_New",
                     "Select a system to edit, or click Add New to create one.");
                 ClearSystemHelp();
             }
@@ -336,7 +337,10 @@ public partial class EditSystemWindow : Window
         var resolvedDefaultPatternPath = PathHelper.ResolveRelativeToAppDirectory(defaultPatternPathWithSystemName);
         if (string.IsNullOrEmpty(resolvedCurrentPath) ||
             !resolvedCurrentPath.Equals(resolvedDefaultPatternPath, StringComparison.OrdinalIgnoreCase) ||
-            Directory.Exists(resolvedCurrentPath)) return;
+            Directory.Exists(resolvedCurrentPath))
+        {
+            return;
+        }
 
         try
         {
@@ -405,7 +409,8 @@ public partial class EditSystemWindow : Window
             if (SystemNameDropdown.Items.Count == 0 || SystemNameDropdown.SelectedItem == null)
                 PopulateSystemNamesDropdown();
 
-            StatusTextBlock.Text = $"{_localization.GetString("Systemdeleted", "System deleted: ")}{selectedSystemName}";
+            StatusTextBlock.Text =
+                $"{_localization.GetString("Systemdeleted", "System deleted: ")}{selectedSystemName}";
             await _messageBox.SystemHasBeenDeletedMessageBoxAsync(selectedSystemName);
         }
         catch (Exception ex)
@@ -478,7 +483,9 @@ public partial class EditSystemWindow : Window
                      Emulator4NameTextBox, Emulator4PathTextBox, Emulator4ParametersTextBox,
                      Emulator5NameTextBox, Emulator5PathTextBox, Emulator5ParametersTextBox
                  })
+        {
             tb.IsEnabled = enabled;
+        }
 
         foreach (var combo in new[]
                  {
@@ -486,7 +493,9 @@ public partial class EditSystemWindow : Window
                      ReceiveANotificationOnEmulatorError3, ReceiveANotificationOnEmulatorError4,
                      ReceiveANotificationOnEmulatorError5
                  })
+        {
             combo.IsEnabled = enabled;
+        }
     }
 
     private void ClearFields()
@@ -706,6 +715,7 @@ public partial class EditSystemWindow : Window
                 const int maxRetries = 3;
                 const int retryDelayMs = 500;
                 for (var attempt = 1; attempt <= maxRetries; attempt++)
+                {
                     try
                     {
                         File.Copy(sourceFilePath, destFilePath, true);
@@ -715,6 +725,7 @@ public partial class EditSystemWindow : Window
                     {
                         await Task.Delay(retryDelayMs * attempt);
                     }
+                }
 
                 UpdateSystemImagePreview();
             }
@@ -737,6 +748,7 @@ public partial class EditSystemWindow : Window
         string? imagePath = null;
 
         if (!string.IsNullOrEmpty(systemName))
+        {
             foreach (var ext in new[] { ".png", ".jpg", ".jpeg" })
             {
                 var path = Path.Combine(imagesSystemsDir, $"{systemName}{ext}");
@@ -746,6 +758,7 @@ public partial class EditSystemWindow : Window
                     break;
                 }
             }
+        }
 
         imagePath ??= Path.Combine(imagesSystemsDir, "default.png");
 
@@ -864,8 +877,10 @@ public partial class EditSystemWindow : Window
     {
         var successTitle = _localization.GetString("ParameterResolverSuccess", "Parameter Suggestion");
         var errorTitle = _localization.GetString("ParameterResolverError", "Error");
-        var errorMessage = _localization.GetString("ErrorProcessingRequest", "There was an error processing your request.");
-        var confirmMessage = _localization.GetString("ParameterResolverConfirmApply", "Do you want to apply this parameter?");
+        var errorMessage =
+            _localization.GetString("ErrorProcessingRequest", "There was an error processing your request.");
+        var confirmMessage =
+            _localization.GetString("ParameterResolverConfirmApply", "Do you want to apply this parameter?");
 
         if (string.IsNullOrWhiteSpace(emulatorName))
         {
@@ -874,7 +889,8 @@ public partial class EditSystemWindow : Window
             return;
         }
 
-        SetLoadingState(true, _localization.GetString("ParameterResolverLoading", "Resolving parameters, please wait..."));
+        SetLoadingState(true,
+            _localization.GetString("ParameterResolverLoading", "Resolving parameters, please wait..."));
 
         try
         {
@@ -911,7 +927,9 @@ public partial class EditSystemWindow : Window
                     var explanationFromParam = suggestedParam["Explanation:".Length..].Trim();
                     if (string.IsNullOrEmpty(explanation) ||
                         !explanation.Equals(explanationFromParam, StringComparison.OrdinalIgnoreCase))
+                    {
                         explanation = explanationFromParam;
+                    }
 
                     suggestedParam = "";
                 }
@@ -1001,7 +1019,7 @@ public partial class EditSystemWindow : Window
             allSystemFolders = allSystemFolders.Where(static f => !string.IsNullOrWhiteSpace(f)).ToList();
 
             // Apply %BASEFOLDER% prefix to relative paths
-            allSystemFolders = allSystemFolders.Select(MaybeAddBaseFolderPrefix).ToList();
+            allSystemFolders = allSystemFolders.ConvertAll(MaybeAddBaseFolderPrefix);
             systemImageFolderText = MaybeAddBaseFolderPrefix(systemImageFolderText);
             emulator1LocationText = MaybeAddBaseFolderPrefix(emulator1LocationText);
             emulator2LocationText = MaybeAddBaseFolderPrefix(emulator2LocationText);
@@ -1114,7 +1132,10 @@ public partial class EditSystemWindow : Window
 
             if (await CheckPathsAsync(isSystemFolderValid, isSystemImageFolderValid,
                     isEmulator1LocationValid, isEmulator2LocationValid, isEmulator3LocationValid,
-                    isEmulator4LocationValid, isEmulator5LocationValid)) return;
+                    isEmulator4LocationValid, isEmulator5LocationValid))
+            {
+                return;
+            }
 
             // Warn user if GroupByFolder is true with neither MAME nor DOSBox configured
             if (groupByFolder)
@@ -1206,11 +1227,13 @@ public partial class EditSystemWindow : Window
                 var currentReceiveNotification = receiveNotifications[i];
 
                 if (!string.IsNullOrEmpty(currentEmulatorLocation) || !string.IsNullOrEmpty(currentEmulatorParameters))
+                {
                     if (string.IsNullOrEmpty(currentEmulatorName))
                     {
                         await _messageBox.EmulatorNameRequiredMessageBoxAsync(i + 2);
                         return;
                     }
+                }
 
                 if (string.IsNullOrEmpty(currentEmulatorName)) continue;
 
@@ -1281,9 +1304,11 @@ public partial class EditSystemWindow : Window
                     PathHelper.ResolveRelativeToAppDirectory(allSystemFolders.FirstOrDefault() ?? "");
                 var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderText);
                 if (resolvedSystemFolder != null && resolvedSystemImageFolder != null)
+                {
                     await CreateDefaultSystemFoldersService.CreateFoldersAsync(
                         systemNameText, resolvedSystemFolder, resolvedSystemImageFolder,
                         _configuration, _logger, _messageBox);
+                }
 
                 _originalSystemName = systemNameText;
             }
@@ -1381,7 +1406,10 @@ public partial class EditSystemWindow : Window
         bool isEmulator4LocationValid, bool isEmulator5LocationValid)
     {
         if (isSystemFolderValid && isSystemImageFolderValid && isEmulator1LocationValid && isEmulator2LocationValid &&
-            isEmulator3LocationValid && isEmulator4LocationValid && isEmulator5LocationValid) return false;
+            isEmulator3LocationValid && isEmulator4LocationValid && isEmulator5LocationValid)
+        {
+            return false;
+        }
 
         await _messageBox.PathOrParameterInvalidMessageBoxAsync();
         return true;
@@ -1563,7 +1591,10 @@ public partial class EditSystemWindow : Window
         var normalizedPath = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
 
         if (Path.IsPathRooted(normalizedPath) ||
-            normalizedPath.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase)) return normalizedPath;
+            normalizedPath.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
+        {
+            return normalizedPath;
+        }
 
         var trimmedPath = normalizedPath.TrimStart('.', Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         return Path.Combine("%BASEFOLDER%", trimmedPath);

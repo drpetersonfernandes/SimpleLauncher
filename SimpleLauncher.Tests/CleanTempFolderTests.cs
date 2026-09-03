@@ -14,7 +14,7 @@ public class CleanTempFolderTests
     [Fact]
     public async Task CleanupTempDirectoryAsyncNullPathDoesNotThrow()
     {
-        var ex = await Record.ExceptionAsync(static () => CleanTempFolder.CleanupTempDirectoryAsync(null!));
+        var ex = await Record.ExceptionAsync(static () => CleanTempFolder.CleanupTempDirectoryAsync(null));
         Assert.Null(ex);
     }
 

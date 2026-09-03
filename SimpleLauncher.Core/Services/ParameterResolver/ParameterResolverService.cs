@@ -49,6 +49,7 @@ public class ParameterResolverService : IParameterResolverService
         var responseBody = await response.Content.ReadAsStringAsync();
 
         if (response.IsSuccessStatusCode)
+        {
             try
             {
                 return JsonSerializer.Deserialize<ParameterResolverResult>(responseBody, JsonOptions);
@@ -59,6 +60,7 @@ public class ParameterResolverService : IParameterResolverService
                 _logger.Error(ex, "ParameterResolver API returned malformed JSON");
                 return null;
             }
+        }
 
         var apiException =
             new InvalidOperationException($"ParameterResolver API returned {(int)response.StatusCode}: {responseBody}");

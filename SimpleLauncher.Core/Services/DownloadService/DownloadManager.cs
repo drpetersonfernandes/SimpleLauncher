@@ -208,6 +208,7 @@ public class DownloadManager : IDisposable
 
         // Determine file name if not provided
         if (string.IsNullOrEmpty(fileName))
+        {
             try
             {
                 fileName = Path.GetFileName(downloadUrl);
@@ -217,6 +218,7 @@ public class DownloadManager : IDisposable
             {
                 fileName = "download_" + Guid.NewGuid().ToString("N");
             }
+        }
 
         // Create temp file path
         var downloadFilePath = Path.Combine(TempFolder, fileName);
@@ -224,6 +226,7 @@ public class DownloadManager : IDisposable
         // Attempt to delete any existing file to avoid file-lock issues
         // from a previous failed or cancelled download
         if (File.Exists(downloadFilePath))
+        {
             try
             {
                 File.Delete(downloadFilePath);
@@ -232,6 +235,7 @@ public class DownloadManager : IDisposable
             {
                 // File may be locked by another process; proceed and let FileStream report the error
             }
+        }
 
         // Check disk space
         var diskSpaceCheckResult = CheckAvailableDiskSpace(TempFolder);
@@ -267,6 +271,7 @@ public class DownloadManager : IDisposable
         var currentRetry = 0;
 
         while (currentRetry <= RetryMaxAttempts && !IsUserCancellation)
+        {
             try
             {
                 await DownloadWithProgressAsync(downloadUrl, downloadFilePath, token);
@@ -276,7 +281,7 @@ public class DownloadManager : IDisposable
                 currentRetry++;
             }
             catch (Exception ex) when (ex is HttpRequestException or IOException or TaskCanceledException
-                or Polly.Timeout.TimeoutRejectedException)
+                                           or Polly.Timeout.TimeoutRejectedException)
             {
                 if (IsUserCancellation) return null;
 
@@ -318,6 +323,7 @@ public class DownloadManager : IDisposable
                     return null;
                 }
             }
+        }
 
         return null;
     }
@@ -346,6 +352,7 @@ public class DownloadManager : IDisposable
             var result = await _extractionService.ExtractToFolderAsync(filePath, destinationPath);
 
             if (result)
+            {
                 await _dispatcherService.InvokeAsync(() =>
                 {
                     OnProgressChanged(new DownloadProgressEventArgs
@@ -354,7 +361,9 @@ public class DownloadManager : IDisposable
                         StatusMessage = GetResourceString("ExtractionCompleted", "Extraction completed successfully.")
                     });
                 });
+            }
             else
+            {
                 await _dispatcherService.InvokeAsync(() =>
                 {
                     OnProgressChanged(new DownloadProgressEventArgs
@@ -363,6 +372,7 @@ public class DownloadManager : IDisposable
                         StatusMessage = GetResourceString("ExtractionFailed", "Extraction failed.")
                     });
                 });
+            }
 
             return result;
         }

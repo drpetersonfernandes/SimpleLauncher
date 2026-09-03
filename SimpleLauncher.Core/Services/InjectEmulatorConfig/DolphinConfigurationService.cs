@@ -57,6 +57,7 @@ public static class DolphinConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Dolphin", "Dolphin.ini");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     if (configDir != null) Directory.CreateDirectory(configDir);
@@ -69,8 +70,11 @@ public static class DolphinConfigurationService
                     logger.Error(ex, contextMessage);
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("Dolphin.ini not found and sample is missing.", samplePath);
+            }
         }
 
         logger.Debug($"[DolphinConfig] Injecting configuration into: {configPath}");
@@ -155,6 +159,7 @@ public static class DolphinConfigurationService
         }
 
         if (modified)
+        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -166,8 +171,11 @@ public static class DolphinConfigurationService
                 logger.Error(ex, $"[DolphinConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
+        }
         else
+        {
             logger.Debug("[DolphinConfig] No changes needed.");
+        }
     }
 
     private static void ApplyUpdatesToSection(List<string> lines, string sectionName,

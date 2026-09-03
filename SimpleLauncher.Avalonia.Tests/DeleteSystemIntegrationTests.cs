@@ -106,7 +106,8 @@ public class DeleteSystemIntegrationTests : IDisposable
         manager.InvalidateCache();
         var after = manager.LoadSystems();
         Assert.Equal(2, after.Count);
-        Assert.DoesNotContain(after, m => string.Equals(m.SystemName, "Atari 2600", StringComparison.OrdinalIgnoreCase));
+        Assert.DoesNotContain(after,
+            m => string.Equals(m.SystemName, "Atari 2600", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(after, m => string.Equals(m.SystemName, "NES", StringComparison.OrdinalIgnoreCase));
     }
 

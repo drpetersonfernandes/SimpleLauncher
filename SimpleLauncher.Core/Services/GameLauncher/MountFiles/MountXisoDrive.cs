@@ -99,11 +99,15 @@ public class MountXisoDrive : IAsyncDisposable
                 }
 
                 if (_mountProcess.HasExited)
+                {
                     _logger.Debug(
                         $"[MountXisoDrive.DisposeAsync] Mounting tool (ID: {_mountProcessId}) terminated. Exit code: {_mountProcess.ExitCode}.");
+                }
                 else
+                {
                     _logger.Debug(
                         $"[MountXisoDrive.DisposeAsync] xbox-iso-vfs.exe (ID: {_mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                }
             }
         }
         catch (Exception termEx)
@@ -123,10 +127,14 @@ public class MountXisoDrive : IAsyncDisposable
             var driveRoot = Path.GetPathRoot(MountedPath);
             await Task.Delay(1000); // Give OS a moment to release the drive
             if (Directory.Exists(driveRoot))
+            {
                 _logger.Debug(
                     $"[MountXisoDrive.DisposeAsync] WARNING: {driveRoot} drive still exists after attempting to unmount.");
+            }
             else
+            {
                 _logger.Debug($"[MountXisoDrive.DisposeAsync] {driveRoot} drive successfully unmounted.");
+            }
         }
 
         GC.SuppressFinalize(this);

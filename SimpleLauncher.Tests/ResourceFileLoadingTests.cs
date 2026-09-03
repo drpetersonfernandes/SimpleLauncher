@@ -30,16 +30,19 @@ public class ResourceFileLoadingTests
         var failures = new List<(string FileName, string Error)>();
 
         foreach (var file in resourceFiles)
+        {
             try
             {
                 using var stream = File.OpenRead(file);
                 var loadedObject = XamlReader.Load(stream);
 
                 if (loadedObject is not ResourceDictionary)
+                {
                     failures.Add((
                         Path.GetFileName(file),
                         $"Root element is {loadedObject?.GetType().Name ?? "null"}, expected ResourceDictionary."
                     ));
+                }
             }
             catch (XamlParseException ex)
             {
@@ -49,6 +52,7 @@ public class ResourceFileLoadingTests
             {
                 failures.Add((Path.GetFileName(file), $"{ex.GetType().Name}: {ex.Message}"));
             }
+        }
 
         if (failures.Count == 0)
             return;

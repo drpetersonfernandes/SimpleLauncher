@@ -31,9 +31,9 @@ file static class Program
             .WriteTo.Async(a => a.File(
                 Path.Combine(appDataLogFolder, "error_user.log"),
                 LogEventLevel.Warning,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}",
                 rollingInterval: RollingInterval.Day,
-                retainedFileCountLimit: 7,
-                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}"))
+                retainedFileCountLimit: 7))
             .WriteTo.Sink(bugReportSink)
             .CreateLogger();
 
@@ -237,14 +237,15 @@ file static class Program
         }
     }
 
-    private static Task<RaSettings> LoadOrPromptSettings()
+    private static async Task<RaSettings> LoadOrPromptSettings()
     {
         var settings = new RaSettings();
 
         if (File.Exists(SettingsFilePath))
+        {
             try
             {
-                using var stream = new FileStream(SettingsFilePath, FileMode.Open, FileAccess.Read);
+                await using var stream = new FileStream(SettingsFilePath, FileMode.Open, FileAccess.Read);
                 using var xmlReader = XmlReader.Create(stream, new XmlReaderSettings
                 {
                     DtdProcessing = DtdProcessing.Prohibit,
@@ -260,6 +261,7 @@ file static class Program
                 Log.Warning(ex, "Failed to load settings");
                 settings = new RaSettings();
             }
+        }
 
         var hasValidSettings = !string.IsNullOrWhiteSpace(settings.Username) &&
                                !string.IsNullOrWhiteSpace(settings.WebApiKey);
@@ -272,7 +274,9 @@ file static class Program
 
             if (!string.Equals(response, "y", StringComparison.Ordinal) &&
                 !string.Equals(response, "yes", StringComparison.Ordinal))
-                return Task.FromResult(settings);
+            {
+                return await Task.FromResult(settings);
+            }
         }
         else
         {
@@ -293,8 +297,8 @@ file static class Program
 
         try
         {
-            using var stream = new FileStream(SettingsFilePath, FileMode.Create, FileAccess.Write);
-            using var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings
+            await using var stream = new FileStream(SettingsFilePath, FileMode.Create, FileAccess.Write);
+            await using var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings
             {
                 Indent = true,
                 Encoding = Encoding.UTF8
@@ -308,7 +312,7 @@ file static class Program
             Log.Warning(ex, "Could not save settings");
         }
 
-        return Task.FromResult(settings);
+        return await Task.FromResult(settings);
     }
 
     private static async Task SaveConsoleListAsync(List<ConsoleInfo> consoles)

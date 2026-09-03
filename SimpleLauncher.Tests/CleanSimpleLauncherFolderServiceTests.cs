@@ -26,7 +26,7 @@ public class CleanSimpleLauncherFolderServiceTests
     public void ImplementsICleanSimpleLauncherFolderService()
     {
         var service = new CleanSimpleLauncherFolderService(new NoOpDeleteFilesService());
-        Assert.IsAssignableFrom<ICleanSimpleLauncherFolderService>(service);
+        Assert.IsType<ICleanSimpleLauncherFolderService>(service, exactMatch: false);
     }
 
     /// <summary>

@@ -17,16 +17,20 @@ public class BooleanToFavoriteStatusConverter : IValueConverter
     {
         var localization = GetLocalizationService();
         if (value is bool isFavorite)
+        {
             return isFavorite
                 ? Localized("FavoriteStatusLabel", "Favorite")
                 : Localized("NotFavoriteStatusLabel", "Not Favorite");
+        }
 
         return Localized("UnknownFavoriteStatusLabel", "Unknown Favorite Status");
 
         string Localized(string key, string fallback)
         {
             var result = localization?.GetString(key);
-            return string.IsNullOrEmpty(result) || string.Equals(result, key, StringComparison.OrdinalIgnoreCase) ? fallback : result;
+            return string.IsNullOrEmpty(result) || string.Equals(result, key, StringComparison.OrdinalIgnoreCase)
+                ? fallback
+                : result;
         }
     }
 

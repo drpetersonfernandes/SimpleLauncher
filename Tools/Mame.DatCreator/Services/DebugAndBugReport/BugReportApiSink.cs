@@ -35,7 +35,7 @@ public class BugReportApiSink : ILogEventSink, IDisposable
     private readonly HttpClient _httpClient = new() { Timeout = TimeSpan.FromSeconds(30) };
     private readonly string _logFolder;
     private bool _disposed;
-    private Task _processTask;
+    private readonly Task _processTask;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="BugReportApiSink" /> class.
@@ -83,15 +83,19 @@ public class BugReportApiSink : ILogEventSink, IDisposable
     private async Task ProcessQueueAsync(CancellationToken cancellationToken)
     {
         while (await _channel.Reader.WaitToReadAsync(cancellationToken))
-        while (_channel.Reader.TryRead(out var logEvent))
-            try
+        {
+            while (_channel.Reader.TryRead(out var logEvent))
             {
-                await SendReportAsync(logEvent);
+                try
+                {
+                    await SendReportAsync(logEvent);
+                }
+                catch
+                {
+                    WriteCriticalError(logEvent);
+                }
             }
-            catch
-            {
-                WriteCriticalError(logEvent);
-            }
+        }
     }
 
     private async Task SendReportAsync(LogEvent logEvent)
@@ -124,6 +128,7 @@ public class BugReportApiSink : ILogEventSink, IDisposable
             using var response = await _httpClient.SendAsync(request, cts.Token);
 
             if (response.IsSuccessStatusCode && File.Exists(errorLogPath))
+            {
                 try
                 {
                     File.Delete(errorLogPath);
@@ -132,6 +137,7 @@ public class BugReportApiSink : ILogEventSink, IDisposable
                 {
                     /* Ignore */
                 }
+            }
         }
         catch
         {

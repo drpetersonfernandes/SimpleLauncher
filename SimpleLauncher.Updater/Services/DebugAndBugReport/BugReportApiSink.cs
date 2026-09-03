@@ -32,7 +32,7 @@ internal class BugReportApiSink : ILogEventSink, IDisposable
     private readonly CancellationTokenSource _cts = new();
     private readonly string _logFolder;
     private bool _disposed;
-    private Task _processTask;
+    private readonly Task _processTask;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="BugReportApiSink" /> class and starts the background queue processor.
@@ -76,15 +76,19 @@ internal class BugReportApiSink : ILogEventSink, IDisposable
     private async Task ProcessQueueAsync(CancellationToken cancellationToken)
     {
         while (await _channel.Reader.WaitToReadAsync(cancellationToken))
-        while (_channel.Reader.TryRead(out var logEvent))
-            try
+        {
+            while (_channel.Reader.TryRead(out var logEvent))
             {
-                await SendReportAsync(logEvent);
+                try
+                {
+                    await SendReportAsync(logEvent);
+                }
+                catch
+                {
+                    WriteCriticalError(logEvent);
+                }
             }
-            catch
-            {
-                WriteCriticalError(logEvent);
-            }
+        }
     }
 
     private async Task SendReportAsync(LogEvent logEvent)
@@ -122,6 +126,7 @@ internal class BugReportApiSink : ILogEventSink, IDisposable
             using var response = await MainWindow.HttpClient.SendAsync(request, cts.Token);
 
             if (response.IsSuccessStatusCode && File.Exists(errorLogPath))
+            {
                 try
                 {
                     File.Delete(errorLogPath);
@@ -130,6 +135,7 @@ internal class BugReportApiSink : ILogEventSink, IDisposable
                 {
                     // Ignore deletion failures
                 }
+            }
         }
         catch
         {

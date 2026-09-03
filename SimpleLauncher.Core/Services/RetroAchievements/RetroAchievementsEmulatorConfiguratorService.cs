@@ -195,11 +195,15 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         string configDir;
 
         if (exeDir != null && File.Exists(Path.Combine(exeDir, "portable.txt")))
+        {
             configDir = Path.Combine(exeDir, "User", "Config");
+        }
         else
+        {
             // Standard Dolphin user path is in Documents
             configDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 "Dolphin Emulator", "Config");
+        }
 
         var configPath = Path.Combine(configDir, "RetroAchievements.ini");
 
@@ -207,8 +211,10 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
         {
             // Restore from sample if missing (before creating empty file)
             if (!RestoreConfigFromSample("dolphin", configPath))
+            {
                 // If no sample, create directory and empty file as fallback
                 _logger.Debug($"[RA Configurator] No sample found for Dolphin, creating empty config at {configPath}");
+            }
 
             if (!Directory.Exists(configDir)) Directory.CreateDirectory(configDir);
             if (!File.Exists(configPath)) File.WriteAllText(configPath, ""); // Create empty file if missing
@@ -425,8 +431,10 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
                 if (trimmedLine.StartsWith('[') && trimmedLine.EndsWith(']'))
                 {
                     if (inSection)
+                    {
                         // We've left the target section
                         break;
+                    }
 
                     if (trimmedLine.Equals($"[{section}]", StringComparison.OrdinalIgnoreCase))
                     {
@@ -456,7 +464,9 @@ public class RetroAchievementsEmulatorConfiguratorService : IRetroAchievementsEm
                 var insertIndex = sectionLineIndex + 1;
                 while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
                        !lines[insertIndex].Trim().StartsWith('['))
+                {
                     insertIndex++;
+                }
 
                 foreach (var key in updatedSettings.Reverse()) // Insert in reverse to maintain order
                     lines.Insert(insertIndex, $"{key} = {settingsToUpdate[key]}");

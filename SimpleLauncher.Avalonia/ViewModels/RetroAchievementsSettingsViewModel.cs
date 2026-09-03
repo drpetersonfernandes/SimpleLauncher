@@ -18,10 +18,11 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     private readonly RetroAchievementsService _raService;
     private readonly IResourceProvider _resourceProvider;
     private readonly SettingsManagerService _settings;
-    [ObservableProperty] private string _apiKey;
-    [ObservableProperty] private string _password;
+    [ObservableProperty] public partial string ApiKey { get; set; }
 
-    [ObservableProperty] private string _username;
+    [ObservableProperty] public partial string Password { get; set; }
+
+    [ObservableProperty] public partial string Username { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="RetroAchievementsSettingsViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
@@ -40,10 +41,9 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
         _raService = raService;
         _resourceProvider = resourceProvider;
         _configurator = configurator;
-
-        _username = _settings.RaUsername;
-        _apiKey = _settings.RaApiKey;
-        _password = _settings.RaPassword;
+        Username = _settings.RaUsername;
+        ApiKey = _settings.RaApiKey;
+        Password = _settings.RaPassword;
     }
 
     /// <summary>Event raised to request the emulator executable path from the view.</summary>
@@ -101,6 +101,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
 
             var token = _settings.RaToken;
             if (!string.Equals(emulatorName, "RetroArch", StringComparison.Ordinal))
+            {
                 if (string.IsNullOrEmpty(token) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
                 {
                     token = await _raService.GetSessionTokenAsync(username, password);
@@ -116,6 +117,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
                         return;
                     }
                 }
+            }
 
             if (RequestExePath is not { } request) return;
 

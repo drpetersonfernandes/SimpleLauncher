@@ -13,15 +13,21 @@ public partial class InjectDaphneConfigViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
-    [ObservableProperty] private bool _daphneBilinear;
-    [ObservableProperty] private bool _daphneDisableCrosshairs;
-    [ObservableProperty] private bool _daphneEnableSound;
+    [ObservableProperty] public partial bool DaphneBilinear { get; set; }
 
-    [ObservableProperty] private bool _daphneFullscreen;
-    [ObservableProperty] private int _daphneResX;
-    [ObservableProperty] private int _daphneResY;
-    [ObservableProperty] private bool _daphneShowSettingsBeforeLaunch;
-    [ObservableProperty] private bool _daphneUseOverlays;
+    [ObservableProperty] public partial bool DaphneDisableCrosshairs { get; set; }
+
+    [ObservableProperty] public partial bool DaphneEnableSound { get; set; }
+
+    [ObservableProperty] public partial bool DaphneFullscreen { get; set; }
+
+    [ObservableProperty] public partial int DaphneResX { get; set; }
+
+    [ObservableProperty] public partial int DaphneResY { get; set; }
+
+    [ObservableProperty] public partial bool DaphneShowSettingsBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial bool DaphneUseOverlays { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectDaphneConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>

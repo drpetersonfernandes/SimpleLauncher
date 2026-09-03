@@ -21,7 +21,9 @@ public class AvaloniaMenuCheckMarkService
     public void UpdateCheckedByTag(IEnumerable<MenuItem> menuItems, int selectedValue)
     {
         foreach (var item in menuItems)
-            item.IsChecked = item.Tag is string tag && int.TryParse(tag, System.Globalization.CultureInfo.InvariantCulture, out var tagValue) && tagValue == selectedValue;
+            item.IsChecked = item.Tag is string tag &&
+                             int.TryParse(tag, System.Globalization.CultureInfo.InvariantCulture, out var tagValue) &&
+                             tagValue == selectedValue;
     }
 
     /// <summary>

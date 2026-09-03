@@ -29,6 +29,7 @@ public static class FlycastConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Flycast", "emu.cfg");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -40,8 +41,11 @@ public static class FlycastConfigurationService
                     logger.Error(ex, $"[FlycastConfig] Failed to create emu.cfg from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("emu.cfg not found and sample is missing.", samplePath);
+            }
         }
 
         logger.Debug($"[FlycastConfig] Injecting configuration into: {configPath}");
@@ -115,7 +119,9 @@ public static class FlycastConfigurationService
                 var insertIndex = windowIndex + 1;
                 while (insertIndex < lines.Count && !string.IsNullOrWhiteSpace(lines[insertIndex]) &&
                        !lines[insertIndex].Trim().StartsWith('['))
+                {
                     insertIndex++;
+                }
 
                 foreach (var kvp in windowUpdates) lines.Insert(insertIndex++, $"{kvp.Key} = {kvp.Value}");
             }
@@ -128,6 +134,7 @@ public static class FlycastConfigurationService
         }
 
         if (modified)
+        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -139,7 +146,10 @@ public static class FlycastConfigurationService
                 logger.Error(ex, $"[FlycastConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
+        }
         else
+        {
             logger.Debug("[FlycastConfig] No changes needed.");
+        }
     }
 }

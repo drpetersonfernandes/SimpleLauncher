@@ -362,8 +362,7 @@ public class AvaloniaHelpUserService
         // "## Heading" to "**Heading**" so Markdown.Avalonia renders it as bold like WPF's
         // FlowDocument (WPF HeadingRegex -> **bold**). Keeps **bold**, [text](url) and raw URLs intact.
         var text = GetSystemDetails(canonicalName).Replace("<br>", string.Empty, StringComparison.Ordinal);
-        text = HeadingRegex.Replace(text, static m => $"**{m.Groups[1].Value.Trim()}**");
-        return text;
+        return HeadingRegex.Replace(text, static m => $"**{m.Groups[1].Value.Trim()}**");
     }
 
     /// <summary>

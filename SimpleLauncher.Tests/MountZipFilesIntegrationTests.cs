@@ -192,8 +192,10 @@ public sealed class MountZipFilesIntegrationTests
                     $"Entry with empty/whitespace name found in '{gameName}': {entry}");
 
                 foreach (var invalidChar in Path.GetInvalidFileNameChars())
+                {
                     Assert.False(name.Contains(invalidChar),
                         $"Entry name contains invalid character 0x{(int)invalidChar:X2} in '{gameName}': {name}");
+                }
             }
         }
         finally
@@ -324,8 +326,10 @@ public sealed class MountZipFilesIntegrationTests
 
         // Search from Z: down to D:
         for (var letter = 'Z'; letter >= 'D'; letter--)
+        {
             if (!existingDrives.Contains(letter))
                 return letter;
+        }
 
         return null;
     }

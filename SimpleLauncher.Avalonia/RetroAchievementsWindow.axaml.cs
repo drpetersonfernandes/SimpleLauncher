@@ -273,6 +273,7 @@ public partial class RetroAchievementsWindow : Window
 
             // Reload current tab
             if (TabControl.SelectedItem is TabItem selectedTab)
+            {
                 switch (selectedTab.Tag?.ToString())
                 {
                     case "MyProfile":
@@ -288,6 +289,7 @@ public partial class RetroAchievementsWindow : Window
                         _ = LoadUserProgressAsync();
                         break;
                 }
+            }
         }
         catch (Exception ex)
         {

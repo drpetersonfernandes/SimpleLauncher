@@ -52,7 +52,9 @@ public partial class MessageDialogWindow : Window
         IconText.Text = glyph;
         if (this.TryFindResource(brush, out var brushResource) &&
             brushResource is IBrush foundBrush)
+        {
             IconText.Foreground = foundBrush;
+        }
 
         IconText.IsVisible = true;
     }

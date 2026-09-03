@@ -156,9 +156,9 @@ public partial class App : IDisposable
             .WriteTo.Async(a => a.File(
                 logFilePath,
                 LogEventLevel.Warning,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}",
                 rollingInterval: RollingInterval.Day,
-                retainedFileCountLimit: 7,
-                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}"))
+                retainedFileCountLimit: 7))
             .WriteTo.Sink(bugReportSink)
             .CreateLogger();
 
@@ -686,6 +686,7 @@ public partial class App : IDisposable
         // Show UpdateHistoryWindow if -whatsnew argument is present
         // This is done after ensuring we're the single instance and after initialization
         if (displayHistoryWindow)
+        {
             // Use Dispatcher.BeginInvoke to show the window after the main window is loaded
             Dispatcher.BeginInvoke(new Action(static () =>
             {
@@ -701,6 +702,7 @@ public partial class App : IDisposable
                     ServiceProvider.GetRequiredService<ILogger>().Error(ex, contextMessage);
                 }
             }));
+        }
 
         return;
 
@@ -751,8 +753,10 @@ public partial class App : IDisposable
         try
         {
             if (ex is COMException { HResult: unchecked((int)0x88980406) })
+            {
                 contextMessage =
                     $"[RenderingEngineFailure] {contextMessage} | HResult=0x88980406 (UCEERR_RENDERTHREADFAILURE). Commonly triggered by GPU driver issues or WPF per-pixel transparency.";
+            }
 
             Log.Error(ex, contextMessage);
         }
@@ -821,11 +825,13 @@ public partial class App : IDisposable
             // shutdown, so only log the fault and let the app exit.
             var stopTask = gamePadController.StopAsync();
             if (!stopTask.IsCompleted)
+            {
                 _ = stopTask.ContinueWith(static (t, state) =>
                 {
                     if (t.IsFaulted)
                         (state as ILogger)?.Error(t.Exception, "Failed to stop the gamepad controller on exit.");
                 }, ServiceProvider.GetRequiredService<ILogger>(), TaskContinuationOptions.OnlyOnFaulted);
+            }
 
             // Dispose gamepad resources
             gamePadController.Dispose();
@@ -845,6 +851,7 @@ public partial class App : IDisposable
         // The new instance (started with --restarting) didn't acquire the mutex, so _isFirstInstance will be false,
         // and it won't try to release it.
         if (_isFirstInstance)
+        {
             try
             {
                 _singleInstanceMutex.ReleaseMutex();
@@ -871,6 +878,7 @@ public partial class App : IDisposable
             {
                 _singleInstanceMutex?.Dispose();
             }
+        }
 
         DebugWindow.ShutdownWindow();
         Log.CloseAndFlush();
@@ -892,8 +900,10 @@ public partial class App : IDisposable
 
             if (arg.Equals("--language", StringComparison.OrdinalIgnoreCase) ||
                 arg.Equals("-language", StringComparison.OrdinalIgnoreCase))
+            {
                 if (i + 1 < args.Length)
                     return args[i + 1];
+            }
         }
 
         return null;
@@ -944,8 +954,7 @@ public partial class App : IDisposable
             // Find and remove any existing language dictionaries first
             var existingLanguageDictionaries = Current.Resources.MergedDictionaries
                 .Where(static d =>
-                    d.Source != null &&
-                    d.Source.OriginalString.Contains("/resources/strings.", StringComparison.Ordinal))
+                    d.Source?.OriginalString.Contains("/resources/strings.", StringComparison.Ordinal) == true)
                 .ToList();
 
             foreach (var dict in existingLanguageDictionaries) Current.Resources.MergedDictionaries.Remove(dict);
@@ -1260,6 +1269,7 @@ public partial class App : IDisposable
         {
             var currentProcess = Process.GetCurrentProcess();
             foreach (var process in Process.GetProcessesByName(currentProcess.ProcessName))
+            {
                 if (process.Id != currentProcess.Id && process.MainWindowHandle != IntPtr.Zero)
                 {
                     var hWnd = process.MainWindowHandle;
@@ -1268,6 +1278,7 @@ public partial class App : IDisposable
                     SetForegroundWindow(hWnd);
                     break;
                 }
+            }
         }
         catch (Exception ex)
         {

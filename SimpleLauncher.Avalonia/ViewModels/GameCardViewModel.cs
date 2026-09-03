@@ -46,39 +46,41 @@ public partial class GameCardViewModel : ObservableObject
         "Philips CD-i"
     };
 
-    [ObservableProperty] private string _coverPath = "";
-    [ObservableProperty] private string _displayTitle = "";
+    [ObservableProperty] public partial string CoverPath { get; set; } = "";
 
-    [ObservableProperty] private string _fileName = "";
+    [ObservableProperty] public partial string DisplayTitle { get; set; } = "";
 
-    [ObservableProperty] private string _filePath = "";
+    [ObservableProperty] public partial string FileName { get; set; } = "";
 
-    [ObservableProperty] private string _folderPath = "";
+    [ObservableProperty] public partial string FilePath { get; set; } = "";
 
-    [ObservableProperty] private bool _hasCover;
+    [ObservableProperty] public partial string FolderPath { get; set; } = "";
 
-    [ObservableProperty] private bool _isFavorite;
+    [ObservableProperty] public partial bool HasCover { get; set; }
+
+    [ObservableProperty] public partial bool IsFavorite { get; set; }
 
     /// <summary>
     ///     Whether this game's system is supported by RetroAchievements.
     /// </summary>
-    [ObservableProperty] private bool _isRaSupported;
+    [ObservableProperty]
+    public partial bool IsRaSupported { get; set; }
 
-    [ObservableProperty] private string? _lastPlayed;
+    [ObservableProperty] public partial string? LastPlayed { get; set; }
 
-    [ObservableProperty] private string _machineDescription = "";
+    [ObservableProperty] public partial string MachineDescription { get; set; } = "";
 
-    [ObservableProperty] private string _placeholderColor = "#15FFFFFF";
+    [ObservableProperty] public partial string PlaceholderColor { get; set; } = "#15FFFFFF";
 
-    [ObservableProperty] private int _playCount;
+    [ObservableProperty] public partial int PlayCount { get; set; }
 
-    [ObservableProperty] private string _playTime = "0m 0s";
+    [ObservableProperty] public partial string PlayTime { get; set; } = "0m 0s";
 
-    [ObservableProperty] private int? _rating; // 0-5, null when no rating is known (hides the star row)
+    [ObservableProperty] public partial int? Rating { get; set; }
 
-    [ObservableProperty] private string _systemName = "";
+    [ObservableProperty] public partial string SystemName { get; set; } = "";
 
-    [ObservableProperty] private string _timesPlayed = "0";
+    [ObservableProperty] public partial string TimesPlayed { get; set; } = "0";
 
     public static bool IsSystemRaSupported(string systemName)
     {

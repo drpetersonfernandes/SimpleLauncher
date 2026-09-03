@@ -40,8 +40,8 @@ public partial class RetroAchievementsSettingsWindow
             _viewModel.RequestExePath -= OnRequestExePath;
         };
 
-        ApiKeyPasswordBox.PasswordChanged += (_, _) => { _viewModel.ApiKey = ApiKeyPasswordBox.Password; };
-        RaPasswordPasswordBox.PasswordChanged += (_, _) => { _viewModel.Password = RaPasswordPasswordBox.Password; };
+        ApiKeyPasswordBox.PasswordChanged += (_, _) => _viewModel.ApiKey = ApiKeyPasswordBox.Password;
+        RaPasswordPasswordBox.PasswordChanged += (_, _) => _viewModel.Password = RaPasswordPasswordBox.Password;
 
         Loaded += (_, _) =>
         {

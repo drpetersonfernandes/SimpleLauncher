@@ -99,7 +99,7 @@ public class DownloadProgressEventArgsTests
     public void InheritsFromEventArgs()
     {
         var args = new DownloadProgressEventArgs();
-        Assert.IsAssignableFrom<EventArgs>(args);
+        Assert.IsType<EventArgs>(args, exactMatch: false);
     }
 
     /// <summary>

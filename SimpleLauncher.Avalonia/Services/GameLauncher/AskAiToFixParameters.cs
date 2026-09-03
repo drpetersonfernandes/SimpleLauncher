@@ -99,7 +99,9 @@ public class AskAiToFixParameters
                     var explanationFromParam = suggestedParam["Explanation:".Length..].Trim();
                     if (string.IsNullOrEmpty(explanation) ||
                         !explanation.Equals(explanationFromParam, StringComparison.OrdinalIgnoreCase))
+                    {
                         explanation = explanationFromParam;
+                    }
 
                     suggestedParam = "";
                 }
@@ -121,7 +123,9 @@ public class AskAiToFixParameters
                 // replace only the matching one's parameters.
                 var updatedEmulators = new List<Emulator>();
                 foreach (var emu in systemManager.Emulators.Cast<Emulator>())
+                {
                     if (emu.EmulatorName.Equals(emulatorManager.EmulatorName, StringComparison.OrdinalIgnoreCase))
+                    {
                         updatedEmulators.Add(new Emulator
                         {
                             EmulatorName = emu.EmulatorName,
@@ -135,8 +139,12 @@ public class AskAiToFixParameters
                             ImagePackDownloadLink5 = emu.ImagePackDownloadLink5,
                             ImagePackDownloadExtractPath = emu.ImagePackDownloadExtractPath
                         });
+                    }
                     else
+                    {
                         updatedEmulators.Add(emu);
+                    }
+                }
 
                 var systemToSave = new SystemManagerConfig
                 {

@@ -193,6 +193,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             var seenAppIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
             foreach (var element in doc.RootElement.EnumerateArray())
+            {
                 try
                 {
                     var name = element.GetProperty("Name").GetString();
@@ -220,6 +221,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                 {
                     logErrors.Error(ex, "Error processing Microsoft Store game entry.");
                 }
+            }
 
             if (allInstalledApps.Count == 0)
             {
@@ -230,8 +232,10 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             _logger.Debug(
                 $"[ScanMicrosoftStoreGames] Found {allInstalledApps.Count} Microsoft Store apps. Sending to classification API...");
             foreach (var app in allInstalledApps)
+            {
                 _logger.Debug(
                     $"[ScanMicrosoftStoreGames]   -> Sending: Name=\"{app.Name}\" (Normalized=\"{app.Name.Trim().ToUpperInvariant()}\") AppId=\"{app.AppId}\"");
+            }
 
             var confirmedGames = await ClassifyGamesViaApiAsync(allInstalledApps, logErrors);
 
@@ -250,8 +254,10 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                     await File.WriteAllTextAsync(shortcutPath, batchContent);
 
                     if (!string.IsNullOrEmpty(game.InstallLocation) && Directory.Exists(game.InstallLocation))
+                    {
                         await TryExtractStoreIconAsync(gameScannerService, logErrors, game.Name, game.InstallLocation,
                             game.LogoRelativePath, sanitizedGameName, windowsImagesPath);
+                    }
                 }
             }
             else
@@ -274,14 +280,14 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
 
             var requestBody = new
             {
-                SoftwareNames = installedApps.Select(static app => new
+                SoftwareNames = installedApps.ConvertAll(static app => new
                 {
                     app.Name,
                     app.AppId,
                     app.InstallLocation,
                     app.PackageFamilyName,
                     app.LogoRelativePath
-                }).ToList()
+                })
             };
 
             var jsonContent = JsonSerializer.Serialize(requestBody);
@@ -370,6 +376,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             {
                 var fullLogoPath = Path.Combine(installPath, logoRelativePath);
                 if (File.Exists(fullLogoPath))
+                {
                     // Use try-catch for file operations
                     try
                     {
@@ -398,6 +405,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
                     }
+                }
             }
 
             // 3. Heuristic Search: Look for common logo names
@@ -422,6 +430,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                 {
                     var p = Path.Combine(dir, fileName);
                     if (File.Exists(p))
+                    {
                         try
                         {
                             await Task.Run(() => File.Copy(p, destPath, true));
@@ -450,6 +459,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                             logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
                             // Continue to next possibility
                         }
+                    }
                 }
 
                 // Check for high-res targetsize images
@@ -486,6 +496,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                     .FirstOrDefault();
 
                 if (bestIcon != null)
+                {
                     try
                     {
                         await Task.Run(() => File.Copy(bestIcon, destPath, true));
@@ -513,6 +524,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
                     }
+                }
 
                 // Fallback: Just take the largest PNG in the Assets folder
                 if (dir.EndsWith("Assets", StringComparison.Ordinal) ||
@@ -530,6 +542,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                         }
                     }).FirstOrDefault();
                     if (largestPng != null)
+                    {
                         try
                         {
                             await Task.Run(() => File.Copy(largestPng, destPath, true));
@@ -557,6 +570,7 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                         {
                             logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
                         }
+                    }
                 }
             }
 

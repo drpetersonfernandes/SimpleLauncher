@@ -47,8 +47,10 @@ public class DatCreatorLogic
 
             // Add machines from the full list FIRST (full list has priority)
             foreach (var machine in fullList)
+            {
                 if (!string.IsNullOrEmpty(machine.MachineName))
                     uniqueMachines.TryAdd(machine.MachineName, machine);
+            }
 
             _logger.Info($"After processing full list, there are {uniqueMachines.Count} unique machines.");
 
@@ -57,14 +59,20 @@ public class DatCreatorLogic
             var addedCount = 0;
 
             foreach (var machine in softwareList)
+            {
                 if (!string.IsNullOrEmpty(machine.MachineName))
                 {
                     if (!uniqueMachines.TryAdd(machine.MachineName, machine))
+                    {
                         // Skip - full list entry takes priority
                         skippedCount++;
+                    }
                     else
+                    {
                         addedCount++;
+                    }
                 }
+            }
 
             _logger.Info(
                 $"Software list processing: {addedCount} new entries added, {skippedCount} duplicates skipped (full list has priority).");

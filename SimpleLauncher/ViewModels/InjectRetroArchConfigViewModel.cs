@@ -17,30 +17,52 @@ public partial class InjectRetroArchConfigViewModel : ObservableObject
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
-    [ObservableProperty] private string _aspectRatioIndex = null!;
-    [ObservableProperty] private bool _audioEnable;
-    [ObservableProperty] private bool _audioMute;
-    [ObservableProperty] private bool _autoLoadState;
-    [ObservableProperty] private bool _autoSaveState;
-    [ObservableProperty] private bool _bilinear;
-    [ObservableProperty] private bool _cheevosEnable;
-    [ObservableProperty] private bool _cheevosHardcore;
-    [ObservableProperty] private bool _discordAllow;
+    [ObservableProperty] public partial string AspectRatioIndex { get; set; } = null!;
+
+    [ObservableProperty] public partial bool AudioEnable { get; set; }
+
+    [ObservableProperty] public partial bool AudioMute { get; set; }
+
+    [ObservableProperty] public partial bool AutoLoadState { get; set; }
+
+    [ObservableProperty] public partial bool AutoSaveState { get; set; }
+
+    [ObservableProperty] public partial bool Bilinear { get; set; }
+
+    [ObservableProperty] public partial bool CheevosEnable { get; set; }
+
+    [ObservableProperty] public partial bool CheevosHardcore { get; set; }
+
+    [ObservableProperty] public partial bool DiscordAllow { get; set; }
+
     private string _emulatorPath = null!;
-    [ObservableProperty] private bool _fullscreen;
-    [ObservableProperty] private bool _hardSync;
-    [ObservableProperty] private string _menuDriver = null!;
-    [ObservableProperty] private bool _pauseNonActive;
-    [ObservableProperty] private bool _rewind;
-    [ObservableProperty] private bool _runAhead;
-    [ObservableProperty] private bool _saveOnExit;
-    [ObservableProperty] private bool _scaleInteger;
-    [ObservableProperty] private bool _shaderEnable;
-    [ObservableProperty] private bool _showAdvancedSettings;
-    [ObservableProperty] private bool _showBeforeLaunch;
-    [ObservableProperty] private bool _threadedVideo;
-    [ObservableProperty] private string _videoDriver = null!;
-    [ObservableProperty] private bool _vsync;
+    [ObservableProperty] public partial bool Fullscreen { get; set; }
+
+    [ObservableProperty] public partial bool HardSync { get; set; }
+
+    [ObservableProperty] public partial string MenuDriver { get; set; } = null!;
+
+    [ObservableProperty] public partial bool PauseNonActive { get; set; }
+
+    [ObservableProperty] public partial bool Rewind { get; set; }
+
+    [ObservableProperty] public partial bool RunAhead { get; set; }
+
+    [ObservableProperty] public partial bool SaveOnExit { get; set; }
+
+    [ObservableProperty] public partial bool ScaleInteger { get; set; }
+
+    [ObservableProperty] public partial bool ShaderEnable { get; set; }
+
+    [ObservableProperty] public partial bool ShowAdvancedSettings { get; set; }
+
+    [ObservableProperty] public partial bool ShowBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial bool ThreadedVideo { get; set; }
+
+    [ObservableProperty] public partial string VideoDriver { get; set; } = null!;
+
+    [ObservableProperty] public partial bool Vsync { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectRetroArchConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>

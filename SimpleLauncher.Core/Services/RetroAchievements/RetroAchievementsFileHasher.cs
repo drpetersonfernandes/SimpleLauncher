@@ -279,7 +279,9 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
                 if (!row.TryGetProperty("path", out var pathElement) ||
                     !row.TryGetProperty("hash", out var hashElement) ||
                     string.IsNullOrEmpty(hashElement.GetString()))
+                {
                     continue;
+                }
 
                 var path = pathElement.GetString();
                 var hash = ParseHash(hashElement.GetString()!);

@@ -323,6 +323,7 @@ public class SettingsManagerService : IDisposable
         // Read from disk without holding any lock — disk I/O is slow and
         // does not mutate shared state, so concurrent readers are unaffected.
         if (File.Exists(_fileLocation.FilePath))
+        {
             try
             {
                 settings = XElement.Load(_fileLocation.FilePath);
@@ -331,6 +332,7 @@ public class SettingsManagerService : IDisposable
             {
                 _logger.Error(ex, "Error loading settings.xml.");
             }
+        }
 
         // Take a write lock only for the in-memory property updates.
         _settingsLock.EnterWriteLock();
@@ -439,7 +441,9 @@ public class SettingsManagerService : IDisposable
         if (bool.TryParse(
                 app?.Element("EnableGamePadNavigation")?.Value ?? settings.Element("EnableGamePadNavigation")?.Value,
                 out var gp))
+        {
             EnableGamePadNavigation = gp;
+        }
 
         VideoUrl = app?.Element("VideoUrl")?.Value ?? settings.Element("VideoUrl")?.Value ?? VideoUrl;
         InfoUrl = app?.Element("InfoUrl")?.Value ?? settings.Element("InfoUrl")?.Value ?? InfoUrl;
@@ -456,7 +460,9 @@ public class SettingsManagerService : IDisposable
                                                           settings.Element("FilenameDisplayMode")?.Value ?? "");
         if (bool.TryParse(app?.Element("DisplayMachineName")?.Value ?? settings.Element("DisplayMachineName")?.Value,
                 out var dmn))
+        {
             DisplayMachineName = dmn;
+        }
 
         FilenameFontSize = ValidateFontSize(app?.Element("FilenameFontSize")?.Value ??
                                             settings.Element("FilenameFontSize")?.Value ?? "");
@@ -475,30 +481,42 @@ public class SettingsManagerService : IDisposable
 
         if (float.TryParse(app?.Element("DeadZoneX")?.Value ?? settings.Element("DeadZoneX")?.Value, NumberStyles.Any,
                 CultureInfo.InvariantCulture, out var dzx))
+        {
             DeadZoneX = dzx;
+        }
 
         if (float.TryParse(app?.Element("DeadZoneY")?.Value ?? settings.Element("DeadZoneY")?.Value, NumberStyles.Any,
                 CultureInfo.InvariantCulture, out var dzy))
+        {
             DeadZoneY = dzy;
+        }
 
         if (bool.TryParse(app?.Element("EnableFuzzyMatching")?.Value ?? settings.Element("EnableFuzzyMatching")?.Value,
                 out var fm))
+        {
             EnableFuzzyMatching = fm;
+        }
 
         if (double.TryParse(
                 app?.Element("FuzzyMatchingThreshold")?.Value ?? settings.Element("FuzzyMatchingThreshold")?.Value,
                 NumberStyles.Any, CultureInfo.InvariantCulture, out var fmt))
+        {
             FuzzyMatchingThreshold = fmt;
+        }
 
         if (bool.TryParse(
                 app?.Element("EnableAnnotationStripping")?.Value ??
                 settings.Element("EnableAnnotationStripping")?.Value, out var ans))
+        {
             EnableAnnotationStripping = ans;
+        }
 
         if (bool.TryParse(
                 app?.Element("EnableNotificationSound")?.Value ?? settings.Element("EnableNotificationSound")?.Value,
                 out var ens))
+        {
             EnableNotificationSound = ens;
+        }
 
         CustomNotificationSoundFile = app?.Element("CustomNotificationSoundFile")?.Value ??
                                       settings.Element("CustomNotificationSoundFile")?.Value ??
@@ -506,42 +524,60 @@ public class SettingsManagerService : IDisposable
         if (bool.TryParse(
                 app?.Element("OverlayRetroAchievementButton")?.Value ??
                 settings.Element("OverlayRetroAchievementButton")?.Value, out var ora))
+        {
             OverlayRetroAchievementButton = ora;
+        }
 
         if (bool.TryParse(
                 app?.Element("OverlayOpenVideoButton")?.Value ?? settings.Element("OverlayOpenVideoButton")?.Value,
                 out var ovb))
+        {
             OverlayOpenVideoButton = ovb;
+        }
 
         if (bool.TryParse(
                 app?.Element("OverlayOpenInfoButton")?.Value ?? settings.Element("OverlayOpenInfoButton")?.Value,
                 out var oib))
+        {
             OverlayOpenInfoButton = oib;
+        }
 
         if (bool.TryParse(
                 app?.Element("AdditionalSystemFoldersExpanded")?.Value ??
                 settings.Element("AdditionalSystemFoldersExpanded")?.Value, out var asfe))
+        {
             AdditionalSystemFoldersExpanded = asfe;
+        }
 
         if (bool.TryParse(app?.Element("Emulator1Expanded")?.Value ?? settings.Element("Emulator1Expanded")?.Value,
                 out var e1E))
+        {
             Emulator1Expanded = e1E;
+        }
 
         if (bool.TryParse(app?.Element("Emulator2Expanded")?.Value ?? settings.Element("Emulator2Expanded")?.Value,
                 out var e2E))
+        {
             Emulator2Expanded = e2E;
+        }
 
         if (bool.TryParse(app?.Element("Emulator3Expanded")?.Value ?? settings.Element("Emulator3Expanded")?.Value,
                 out var e3E))
+        {
             Emulator3Expanded = e3E;
+        }
 
         if (bool.TryParse(app?.Element("Emulator4Expanded")?.Value ?? settings.Element("Emulator4Expanded")?.Value,
                 out var e4E))
+        {
             Emulator4Expanded = e4E;
+        }
 
         if (bool.TryParse(app?.Element("Emulator5Expanded")?.Value ?? settings.Element("Emulator5Expanded")?.Value,
                 out var e5E))
+        {
             Emulator5Expanded = e5E;
+        }
 
         // Delegate emulator settings loading to each emulator's LoadFromXml
         Ares.LoadFromXml(settings);
@@ -622,6 +658,7 @@ public class SettingsManagerService : IDisposable
 
             var settingsDirectory = Path.GetDirectoryName(_fileLocation.FilePath);
             if (!string.IsNullOrEmpty(settingsDirectory) && !Directory.Exists(settingsDirectory))
+            {
                 try
                 {
                     Directory.CreateDirectory(settingsDirectory);
@@ -630,9 +667,11 @@ public class SettingsManagerService : IDisposable
                 {
                     _logger.Error(ex, "Error creating settings directory.");
                 }
+            }
 
             var attempt = 0;
             while (attempt < maxRetries)
+            {
                 try
                 {
                     var root = BuildXElement(snapshot);
@@ -656,6 +695,7 @@ public class SettingsManagerService : IDisposable
                     attempt++;
 
                     if (IsPortableMode && attempt >= maxRetries)
+                    {
                         try
                         {
                             if (_fileLocation.TryFallbackToLocalAppData())
@@ -669,6 +709,7 @@ public class SettingsManagerService : IDisposable
                         {
                             // Fallback failed
                         }
+                    }
 
                     if (attempt < maxRetries)
                     {
@@ -690,6 +731,7 @@ public class SettingsManagerService : IDisposable
                     lastException = ex;
                     break;
                 }
+            }
 
             _logger.Error(lastException, "Error saving settings.xml");
 

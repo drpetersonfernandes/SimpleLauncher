@@ -43,6 +43,7 @@ public class DolphinConfigHandler : IEmulatorConfigHandler
             if (context.Settings is { Dolphin.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
+                {
                     await context.WindowContext.Dispatcher.InvokeAsync(async () =>
                     {
                         var win = _scopeFactory.CreateScope().ServiceProvider
@@ -51,6 +52,7 @@ public class DolphinConfigHandler : IEmulatorConfigHandler
                         await win.ShowDialog((Window)context.WindowContext.PlatformWindow);
                         shouldRun = win.ShouldRun;
                     });
+                }
             }
             else if (File.Exists(resolvedExe))
             {

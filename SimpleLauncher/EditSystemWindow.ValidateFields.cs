@@ -88,7 +88,10 @@ internal partial class EditSystemWindow
         bool isEmulator5LocationValid)
     {
         if (isSystemFolderValid && isSystemImageFolderValid && isEmulator1LocationValid && isEmulator2LocationValid &&
-            isEmulator3LocationValid && isEmulator4LocationValid && isEmulator5LocationValid) return false;
+            isEmulator3LocationValid && isEmulator4LocationValid && isEmulator5LocationValid)
+        {
+            return false;
+        }
 
         // Notify user
         await _messageBox.PathOrParameterInvalidMessageBoxAsync();

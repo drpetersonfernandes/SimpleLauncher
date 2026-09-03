@@ -28,33 +28,33 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
     private readonly SystemManagerService _systemManagerService;
     private CancellationTokenSource _cancellationTokenSource = new();
 
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] public partial bool IsLoading { get; set; }
 
-    [ObservableProperty] private bool _launchButtonEnabled;
+    [ObservableProperty] public partial bool LaunchButtonEnabled { get; set; }
 
-    [ObservableProperty] private string _loadingMessage = "";
+    [ObservableProperty] public partial string LoadingMessage { get; set; } = "";
 
-    [ObservableProperty] private bool _noResultsVisible;
+    [ObservableProperty] public partial bool NoResultsVisible { get; set; }
 
-    [ObservableProperty] private string _resultsCountText = "";
+    [ObservableProperty] public partial string ResultsCountText { get; set; } = "";
 
-    [ObservableProperty] private bool _searchFilename = true;
+    [ObservableProperty] public partial bool SearchFilename { get; set; } = true;
 
-    [ObservableProperty] private bool _searchFolderName;
+    [ObservableProperty] public partial bool SearchFolderName { get; set; }
 
-    [ObservableProperty] private bool _searchMameDescription = true;
+    [ObservableProperty] public partial bool SearchMameDescription { get; set; } = true;
 
-    [ObservableProperty] private bool _searchRecursively;
+    [ObservableProperty] public partial bool SearchRecursively { get; set; }
 
-    [ObservableProperty] private ObservableCollection<SearchResult> _searchResults = [];
+    [ObservableProperty] public partial ObservableCollection<SearchResult> SearchResults { get; set; } = [];
 
-    [ObservableProperty] private string _searchText = "";
+    [ObservableProperty] public partial string SearchText { get; set; } = "";
 
-    [ObservableProperty] private SearchResult? _selectedResult;
+    [ObservableProperty] public partial SearchResult? SelectedResult { get; set; }
 
-    [ObservableProperty] private int _selectedSystemIndex;
+    [ObservableProperty] public partial int SelectedSystemIndex { get; set; }
 
-    [ObservableProperty] private List<string> _systemNames = [];
+    [ObservableProperty] public partial List<string> SystemNames { get; set; } = [];
 
     public GlobalSearchSectionViewModel(
         SystemManagerService systemManagerService,
@@ -113,7 +113,8 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
 
             if (string.IsNullOrWhiteSpace(searchTerm))
             {
-                _mainViewModel.StatusText = _localization.GetString("Pleaseenterasearchterm", "Please enter a search term.");
+                _mainViewModel.StatusText =
+                    _localization.GetString("Pleaseenterasearchterm", "Please enter a search term.");
                 return;
             }
 
@@ -191,8 +192,10 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
         IEnumerable<SystemManagerConfig> systemsToSearch = systems;
         if (!string.IsNullOrEmpty(selectedSystem) &&
             !string.Equals(selectedSystem, "All Systems", StringComparison.Ordinal))
+        {
             systemsToSearch = systems.Where(sm =>
                 sm.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+        }
 
         foreach (var systemManager in systemsToSearch)
         {

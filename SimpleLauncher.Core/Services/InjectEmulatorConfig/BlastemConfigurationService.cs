@@ -32,6 +32,7 @@ public static partial class BlastemConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Blastem", "default.cfg");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -43,8 +44,11 @@ public static partial class BlastemConfigurationService
                     logger.Error(ex, $"[BlastemConfig] Failed to create default.cfg from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("default.cfg not found and sample is missing.", samplePath);
+            }
         }
 
         logger.Debug($"[BlastemConfig] Injecting configuration into: {configPath}");
@@ -129,7 +133,9 @@ public static partial class BlastemConfigurationService
             var currentBlock = blockStack.Count > 0 ? blockStack.Peek() : "";
             if (keyBlocks.TryGetValue(key, out var expectedBlock) &&
                 !string.Equals(currentBlock, expectedBlock, StringComparison.Ordinal))
+            {
                 continue; // Key found in wrong scope (e.g., comment or user custom section), skip it
+            }
 
             // Preserve original indentation and trailing comments
             var indentMatch = MyRegex().Match(originalLine);
@@ -146,6 +152,7 @@ public static partial class BlastemConfigurationService
         }
 
         if (modified)
+        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -157,8 +164,11 @@ public static partial class BlastemConfigurationService
                 logger.Error(ex, $"[BlastemConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
+        }
         else
+        {
             logger.Debug("[BlastemConfig] No changes needed for Blastem configuration.");
+        }
     }
 
     [GeneratedRegex(@"^\s*", RegexOptions.None, 1000)]

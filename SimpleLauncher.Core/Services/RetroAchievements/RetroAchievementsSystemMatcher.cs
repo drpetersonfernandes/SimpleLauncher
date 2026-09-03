@@ -249,8 +249,10 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
 
         // Direct exact match (faster for common cases)
         foreach (var kvp in SystemMappings)
+        {
             if (kvp.Value.Aliases.Any(pattern => pattern.Equals(normalizedInput, StringComparison.OrdinalIgnoreCase)))
                 return kvp.Key;
+        }
 
         // No match found, log it once per unique system name for future improvement
         if (_loggedUnmatchedSystems.Add(inputSystemName))
@@ -309,8 +311,10 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         var normalizedInput = inputSystemName.Trim().ToLowerInvariant();
 
         foreach (var kvp in SystemMappings)
+        {
             if (kvp.Value.Aliases.Any(pattern => pattern.Equals(normalizedInput, StringComparison.OrdinalIgnoreCase)))
                 return kvp.Key; // Found 100% match
+        }
 
         return null; // No exact match
     }
@@ -334,11 +338,13 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
 
         // Check if input matches any alias in any system
         foreach (var kvp in SystemMappings)
+        {
             if (kvp.Value.Aliases.Any(alias =>
                     alias.Equals(normalizedInput, StringComparison.OrdinalIgnoreCase) ||
                     alias.Contains(normalizedInput, StringComparison.OrdinalIgnoreCase) ||
                     normalizedInput.Contains(alias, StringComparison.OrdinalIgnoreCase)))
                 return true;
+        }
 
         // Try fuzzy matching as a last resort
         var bestMatch = GetBestMatchSystemName(systemName);

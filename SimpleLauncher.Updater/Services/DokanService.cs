@@ -95,7 +95,7 @@ internal class DokanService
             _downloadService.LogMessage += (_, e) => LogMessage?.Invoke(this, e);
             _downloadService.ProgressChanged += (_, e) => ProgressChanged?.Invoke(this, e);
 
-            using var memoryStream = await _downloadService.DownloadToMemoryAsync(downloadUrl);
+            await using var memoryStream = await _downloadService.DownloadToMemoryAsync(downloadUrl);
 
             // Save to disk
             LogMessage?.Invoke(this, new EventArgs<string>($"Saving installer to: {msiPath}"));
@@ -174,18 +174,22 @@ internal class DokanService
             if (uninstallKey == null) return false;
 
             foreach (var subKeyName in uninstallKey.GetSubKeyNames())
+            {
                 try
                 {
                     using var subKey = uninstallKey.OpenSubKey(subKeyName);
                     var displayName = subKey?.GetValue("DisplayName") as string;
                     if (!string.IsNullOrEmpty(displayName) &&
                         displayName.Contains("Dokan", StringComparison.OrdinalIgnoreCase))
+                    {
                         return true;
+                    }
                 }
                 catch
                 {
                     // Skip keys that can't be read
                 }
+            }
         }
         catch
         {

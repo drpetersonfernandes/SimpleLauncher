@@ -91,6 +91,7 @@ public static class ResourceAnalyzer
                 .ToList();
 
             if (missing.Count > 0 || duplicateKeys.Count > 0)
+            {
                 batches.Add(new MissingKeyBatch
                 {
                     FilePath = file,
@@ -99,6 +100,7 @@ public static class ResourceAnalyzer
                     MissingKeys = missing,
                     DuplicateKeysRemoved = duplicateKeys.Distinct(StringComparer.Ordinal).ToList()
                 });
+            }
         }
 
         return batches;

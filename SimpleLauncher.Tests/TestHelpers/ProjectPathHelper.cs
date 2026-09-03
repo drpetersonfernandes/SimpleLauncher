@@ -19,7 +19,9 @@ public static class ProjectPathHelper
             var candidate = Path.Combine(dir.FullName, "SimpleLauncher");
             if (Directory.Exists(candidate) &&
                 File.Exists(Path.Combine(candidate, "SimpleLauncher.csproj")))
+            {
                 return candidate;
+            }
 
             dir = dir.Parent;
         }

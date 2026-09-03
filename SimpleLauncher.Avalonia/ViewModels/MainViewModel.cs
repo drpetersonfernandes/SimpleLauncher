@@ -56,9 +56,10 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     /// <summary>
     ///     Font size for the game title caption on cards (from the Filename Font Size setting).
     /// </summary>
-    [ObservableProperty] private double _captionFontSize = 13;
+    [ObservableProperty]
+    public partial double CaptionFontSize { get; set; } = 13;
 
-    [ObservableProperty] private double _cardWidth = 168;
+    [ObservableProperty] public partial double CardWidth { get; set; } = 168;
 
     /// <summary>
     ///     The full (un-paginated) game list of the current view. Pagination slices this
@@ -74,31 +75,33 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
     private HashSet<string> _favoritePaths;
 
-    [ObservableProperty] private string _gameCountText = "0 games";
+    [ObservableProperty] public partial string GameCountText { get; set; } = "0 games";
 
-    [ObservableProperty] private ObservableCollection<GameCardViewModel> _games = new();
+    [ObservableProperty] public partial ObservableCollection<GameCardViewModel> Games { get; set; } = new();
 
-    [ObservableProperty] private bool _isGridView = true;
+    [ObservableProperty] public partial bool IsGridView { get; set; } = true;
 
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] public partial bool IsLoading { get; set; }
 
-    [ObservableProperty] private bool _isMixedView = true;
+    [ObservableProperty] public partial bool IsMixedView { get; set; } = true;
 
     /// <summary>
     ///     Whether the play-time display is visible for the selected system (hidden for
     ///     url/lnk systems, matching WPF IsPlayTimeVisible).
     /// </summary>
-    [ObservableProperty] private bool _isPlayTimeVisible = true;
+    [ObservableProperty]
+    public partial bool IsPlayTimeVisible { get; set; } = true;
 
-    [ObservableProperty] private bool _isShowingFavorites;
+    [ObservableProperty] public partial bool IsShowingFavorites { get; set; }
 
     /// <summary>
     ///     True when the game list is filtered to RetroAchievements-compatible games
     ///     (hash-based match, same as the WPF "Show Games With RetroAchievements").
     /// </summary>
-    [ObservableProperty] private bool _isShowingRetroAchievements;
+    [ObservableProperty]
+    public partial bool IsShowingRetroAchievements { get; set; }
 
-    [ObservableProperty] private string _loadingMessage = "Loading…";
+    [ObservableProperty] public partial string LoadingMessage { get; set; } = "Loading…";
 
     /// <summary>
     ///     MAME sort order toggle state: "FileName" (default) or "MachineDescription".
@@ -110,15 +113,16 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     ///     Play-time string shown for the selected system (WPF PlayTime parity, driven by
     ///     the system selection orchestrator from the user's play-time settings).
     /// </summary>
-    [ObservableProperty] private string _playTime = "00:00:00";
+    [ObservableProperty]
+    public partial string PlayTime { get; set; } = "00:00:00";
 
     private CancellationTokenSource? _searchCts;
 
-    [ObservableProperty] private string _searchText = "";
+    [ObservableProperty] public partial string SearchText { get; set; } = "";
 
-    [ObservableProperty] private string _selectedSystem = "";
+    [ObservableProperty] public partial string SelectedSystem { get; set; } = "";
 
-    [ObservableProperty] private string _statusText = "Ready";
+    [ObservableProperty] public partial string StatusText { get; set; } = "Ready";
 
     /// <summary>
     ///     Guards the programmatic <see cref="SearchText" /> reset inside
@@ -127,7 +131,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     /// </summary>
     private bool _suppressSearchReload;
 
-    [ObservableProperty] private string _toolbarTitle = "SimpleLauncher";
+    [ObservableProperty] public partial string ToolbarTitle { get; set; } = "SimpleLauncher";
 
     public MainViewModel(
         FavoritesManager favoritesManager,
@@ -297,7 +301,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     /// </summary>
     private void ReapplyPagination()
     {
-        var pageFiles = _pagination.ApplyPagination(_currentAllGames.Select(g => g.FilePath).ToList());
+        var pageFiles = _pagination.ApplyPagination(_currentAllGames.ConvertAll(g => g.FilePath));
         var pageSet = pageFiles.ToHashSet(StringComparer.OrdinalIgnoreCase);
 
         Games = new ObservableCollection<GameCardViewModel>(
@@ -331,7 +335,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     /// </summary>
     private List<GameCardViewModel> ApplyLetterFilter(List<GameCardViewModel> games)
     {
-        return _gameFilter.FilterByLetter(games, LetterFilter);
+        return AvaloniaGameFilterService.FilterByLetter(games, LetterFilter);
     }
 
     /// <summary>
@@ -501,7 +505,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
     private void AdjustZoomStep(int direction)
     {
-        var newSize = Math.Clamp((int)CardWidth + direction * ZoomStep, MinThumbnailSize, MaxThumbnailSize);
+        var newSize = Math.Clamp((int)CardWidth + (direction * ZoomStep), MinThumbnailSize, MaxThumbnailSize);
         if (newSize == (int)CardWidth) return;
 
         CardWidth = newSize;
@@ -600,8 +604,10 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
                 var result = await _messageBox.ScanGamePathForRetroAchievementsMessageBoxAsync();
                 if (result != MessageBoxResult.Yes)
+                {
                     // User cancelled: do not filter the list of games
                     return;
+                }
 
                 // Non-blocking notification: the app stays fully responsive while
                 // the hash calculation runs in the background
@@ -732,8 +738,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             // are dropped so they never linger in the favorites filter.
             // Only reconcile when systems are actually loaded: an empty list must never be
             // interpreted as "every favorite belongs to a missing system" (which would wipe them).
-            var validSystemNames = _allSystems.Select(static s => s.SystemName).ToList();
-            if (validSystemNames.Any())
+            var validSystemNames = _allSystems.ConvertAll(static s => s.SystemName);
+            if (validSystemNames.Count != 0)
             {
                 var removedCount = await _favoritesManager.RemoveFavoritesForMissingSystemsAsync(validSystemNames);
                 if (removedCount > 0) _favoritePaths = _favoritesManager.GetFavoritePaths();
@@ -855,12 +861,13 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         LetterFilter = "";
 
         var allGames = ScanGames(_allSystems);
-        var results = _gameFilter.FilterBySearchQuery(allGames, validation.ValidatedQuery);
+        var results = AvaloniaGameFilterService.FilterBySearchQuery(allGames, validation.ValidatedQuery);
 
         ApplyFavoritesAndHistory(results);
         ShowGames(results);
         var searchResultsTemplate = _localization.GetString("Status.SearchResults", "{0} result(s) for \"{1}\"");
-        StatusText = string.Format(CultureInfo.InvariantCulture, searchResultsTemplate, results.Count, validation.ValidatedQuery);
+        StatusText = string.Format(CultureInfo.InvariantCulture, searchResultsTemplate, results.Count,
+            validation.ValidatedQuery);
     }
 
     [RelayCommand]
@@ -1131,7 +1138,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         }
 
         IsLoading = true;
-        StatusText = string.Format(CultureInfo.InvariantCulture, _localization.GetString("Launch.Launching", "Launching: {0}..."),
+        StatusText = string.Format(CultureInfo.InvariantCulture,
+            _localization.GetString("Launch.Launching", "Launching: {0}..."),
             Path.GetFileNameWithoutExtension(filePath));
 
         try
@@ -1150,7 +1158,8 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
             // LauncherService.HandleButtonClickAsync -> UpdateStatsAndPlayCountAsync.
             // Recording them again here would double-count launches.
 
-            StatusText = string.Format(CultureInfo.InvariantCulture, _localization.GetString("Status.Played", "Played: {0}"),
+            StatusText = string.Format(CultureInfo.InvariantCulture,
+                _localization.GetString("Status.Played", "Played: {0}"),
                 Path.GetFileNameWithoutExtension(filePath));
             return _launcher.LastPlayTime;
         }
@@ -1204,31 +1213,33 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
         var games = new List<GameCardViewModel>();
 
         foreach (var system in systems)
-        foreach (var file in _loadingOrchestrator.GetGameFiles(system))
         {
-            var coverPath = _findCoverImage.FindCoverImagePath(
-                Path.GetFileNameWithoutExtension(file),
-                system.SystemName,
-                system.SystemImageFolder);
-
-            var fileNameWithoutExt = Path.GetFileNameWithoutExtension(file) ?? file;
-            var machineDescription = _mameData.Lookup.TryGetValue(fileNameWithoutExt, out var desc) ? desc : "";
-            var folderPath = Path.GetDirectoryName(file) ?? "";
-
-            games.Add(new GameCardViewModel
+            foreach (var file in _loadingOrchestrator.GetGameFiles(system))
             {
-                DisplayTitle = GetDisplayTitle(file),
-                FileName = fileNameWithoutExt,
-                FilePath = file,
-                FolderPath = folderPath,
-                MachineDescription = machineDescription,
-                SystemName = system.SystemName,
-                CoverPath = coverPath,
-                // Show art only when the file actually exists (the service falls back
-                // to default.png, which may itself be missing → placeholder instead)
-                HasCover = File.Exists(coverPath),
-                IsRaSupported = GameCardViewModel.IsSystemRaSupported(system.SystemName)
-            });
+                var coverPath = _findCoverImage.FindCoverImagePath(
+                    Path.GetFileNameWithoutExtension(file),
+                    system.SystemName,
+                    system.SystemImageFolder);
+
+                var fileNameWithoutExt = Path.GetFileNameWithoutExtension(file) ?? file;
+                var machineDescription = _mameData.Lookup.TryGetValue(fileNameWithoutExt, out var desc) ? desc : "";
+                var folderPath = Path.GetDirectoryName(file) ?? "";
+
+                games.Add(new GameCardViewModel
+                {
+                    DisplayTitle = GetDisplayTitle(file),
+                    FileName = fileNameWithoutExt,
+                    FilePath = file,
+                    FolderPath = folderPath,
+                    MachineDescription = machineDescription,
+                    SystemName = system.SystemName,
+                    CoverPath = coverPath,
+                    // Show art only when the file actually exists (the service falls back
+                    // to default.png, which may itself be missing → placeholder instead)
+                    HasCover = File.Exists(coverPath),
+                    IsRaSupported = GameCardViewModel.IsSystemRaSupported(system.SystemName)
+                });
+            }
         }
 
         return games;
@@ -1377,6 +1388,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     private void UpdateGameCount(int? count = null)
     {
         var c = count ?? Games.Count;
-        GameCountText = string.Format(CultureInfo.InvariantCulture, _localization.GetString("Status.Games", "{0} game(s)"), c);
+        GameCountText = string.Format(CultureInfo.InvariantCulture,
+            _localization.GetString("Status.Games", "{0} game(s)"), c);
     }
 }

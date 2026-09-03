@@ -98,8 +98,10 @@ public class Stats
 
         // Use the loaded API URL
         if (await TryApiAsync(callType, payloadEmulatorName))
+        {
             // ReSharper disable once RedundantJumpStatement
             return; // Success.
+        }
     }
 
     private async Task<bool> TryApiAsync(string callType, string? emulatorName)
@@ -160,7 +162,8 @@ public class Stats
                                      (string.Equals(callType, "emulator", StringComparison.Ordinal)
                                          ? $", EmulatorName: {emulatorName}"
                                          : "");
-                _logger.Information(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
+                _logger.Information(new HttpRequestException($"Stats API error: {response.StatusCode}"),
+                    contextMessage);
             }
 
             return false;

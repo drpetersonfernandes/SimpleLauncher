@@ -103,6 +103,7 @@ public partial class GlobalHotkeyService : IDisposable
         {
             var handler = F8Pressed;
             if (handler != null)
+            {
                 _ = Task.Run(async () =>
                 {
                     try
@@ -114,6 +115,7 @@ public partial class GlobalHotkeyService : IDisposable
                         _logger.Error(ex, "[GlobalHotkeyService] Error invoking F8Pressed event.");
                     }
                 });
+            }
 
             handled = true;
         }

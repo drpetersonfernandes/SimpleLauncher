@@ -32,6 +32,7 @@ public static class MesenConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Mesen", "settings.json");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -43,9 +44,12 @@ public static class MesenConfigurationService
                     logger.Error(ex, $"[MesenConfig] Failed to create settings.json from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException(
                     $"settings.json not found in {emuDir} and sample not available at {samplePath}");
+            }
         }
 
         logger.Debug($"[MesenConfig] Injecting configuration into: {configPath}");

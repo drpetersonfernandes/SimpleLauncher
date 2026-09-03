@@ -23,11 +23,13 @@ public partial class SupportViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly IResourceProvider _resourceProvider;
-    [ObservableProperty] private string _email = "";
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] public partial string Email { get; set; } = "";
 
-    [ObservableProperty] private string _name = "";
-    [ObservableProperty] private string _supportRequest = "";
+    [ObservableProperty] public partial bool IsLoading { get; set; }
+
+    [ObservableProperty] public partial string Name { get; set; } = "";
+
+    [ObservableProperty] public partial string SupportRequest { get; set; } = "";
 
     /// <summary>Initializes a new instance of the <see cref="SupportViewModel" /> class.</summary>
     /// <param name="playSoundEffects">The sound effects service for playing notification sounds.</param>
@@ -177,8 +179,10 @@ public partial class SupportViewModel : ObservableObject
                 _logger.Debug($"[Support]   {header.Key}: {string.Join(", ", header.Value)}");
 
             if (response.Content != null)
+            {
                 foreach (var header in response.Content.Headers)
                     _logger.Debug($"[Support]   {header.Key}: {string.Join(", ", header.Value)}");
+            }
 
             if (response.Content != null)
             {

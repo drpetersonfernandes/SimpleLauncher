@@ -35,15 +35,15 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
     private readonly SettingsManagerService _settings;
     private readonly IList<SystemManager> _systemManagers;
 
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] public partial bool IsLoading { get; set; }
 
-    [ObservableProperty] private string _loadingMessage = "";
+    [ObservableProperty] public partial string LoadingMessage { get; set; } = "";
 
-    [ObservableProperty] private ObservableCollection<PlayHistoryItem> _playHistoryList = [];
+    [ObservableProperty] public partial ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
 
-    [ObservableProperty] private Stream? _previewImageSource;
+    [ObservableProperty] public partial Stream? PreviewImageSource { get; set; }
 
-    [ObservableProperty] private PlayHistoryItem? _selectedItem;
+    [ObservableProperty] public partial PlayHistoryItem? SelectedItem { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="PlayHistoryViewModel" />.</summary>
     /// <param name="configuration">The application configuration.</param>
@@ -309,7 +309,9 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
         {
             if (DateTime.TryParseExact($"{dateStr} {timeStr}", "yyyy-MM-dd HH:mm:ss",
                     InvariantCulture, DateTimeStyles.None, out var result))
+            {
                 return result;
+            }
 
             string[] dateFormats =
             [
@@ -318,9 +320,13 @@ public partial class PlayHistoryViewModel : ObservableObject, IDisposable
                 "d", "D"
             ];
             foreach (var df in dateFormats)
+            {
                 if (DateTime.TryParseExact($"{dateStr} {timeStr}",
                         $"{df} {TimeFormat}", InvariantCulture, DateTimeStyles.None, out result))
+                {
                     return result;
+                }
+            }
 
             if (DateTime.TryParse($"{dateStr} {timeStr}", InvariantCulture, DateTimeStyles.None, out result))
                 return result;

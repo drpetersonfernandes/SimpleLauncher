@@ -69,7 +69,8 @@ public class RomHistoryViewModelTests
             await vm.LoadRomHistoryAsync();
 
             Assert.True(vm.IsDescriptionVisible);
-            Assert.Contains("The classic platformer released in 1985.", vm.HistoryText, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("The classic platformer released in 1985.", vm.HistoryText,
+                StringComparison.OrdinalIgnoreCase);
             messageBox.Verify(m => m.NoHistoryXmlOrDatFoundMessageBoxAsync(), Times.Never);
             messageBox.Verify(m => m.SearchOnlineForRomHistoryMessageBoxAsync(), Times.Never);
         }

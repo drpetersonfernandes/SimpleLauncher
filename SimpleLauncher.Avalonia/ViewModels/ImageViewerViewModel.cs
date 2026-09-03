@@ -51,7 +51,7 @@ public class ImageViewerViewModel : ObservableObject
         try
         {
             var imageData = await File.ReadAllBytesAsync(imagePath!);
-            using var ms = new MemoryStream(imageData);
+            await using var ms = new MemoryStream(imageData);
             var bitmap = Bitmap.DecodeToWidth(ms, 1200);
 
             ImageSource = bitmap;

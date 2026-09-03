@@ -26,13 +26,13 @@ public partial class PlayHistorySectionViewModel : ObservableObject
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly SystemManagerService _systemManager;
 
-    [ObservableProperty] private bool _isLoading;
+    [ObservableProperty] public partial bool IsLoading { get; set; }
 
-    [ObservableProperty] private string _loadingMessage = "";
+    [ObservableProperty] public partial string LoadingMessage { get; set; } = "";
 
-    [ObservableProperty] private ObservableCollection<PlayHistoryItem> _playHistoryList = [];
+    [ObservableProperty] public partial ObservableCollection<PlayHistoryItem> PlayHistoryList { get; set; } = [];
 
-    [ObservableProperty] private PlayHistoryItem? _selectedItem;
+    [ObservableProperty] public partial PlayHistoryItem? SelectedItem { get; set; }
 
     public PlayHistorySectionViewModel(
         PlayHistoryManager playHistoryManager,
@@ -254,7 +254,9 @@ public partial class PlayHistorySectionViewModel : ObservableObject
         {
             if (DateTime.TryParseExact($"{dateStr} {timeStr}", "yyyy-MM-dd HH:mm:ss",
                     CultureInfo.InvariantCulture, DateTimeStyles.None, out var result))
+            {
                 return result;
+            }
 
             string[] dateFormats =
             [
@@ -263,9 +265,13 @@ public partial class PlayHistorySectionViewModel : ObservableObject
                 "d", "D"
             ];
             foreach (var format in dateFormats)
+            {
                 if (DateTime.TryParseExact($"{dateStr} {timeStr}",
                         $"{format} HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+                {
                     return result;
+                }
+            }
 
             return DateTime.TryParse($"{dateStr} {timeStr}", CultureInfo.InvariantCulture, DateTimeStyles.None,
                 out result)

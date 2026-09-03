@@ -204,6 +204,7 @@ public partial class AvaloniaCheckForUpdatesService
     public async Task ReinstallAndShutdownAsync(string? updaterZipAssetUrl = null)
     {
         if (string.IsNullOrWhiteSpace(updaterZipAssetUrl))
+        {
             try
             {
                 var (_, _, foundUpdaterUrl, _) = await GetLatestReleaseInfoAsync();
@@ -213,6 +214,7 @@ public partial class AvaloniaCheckForUpdatesService
             {
                 _logger.Error(ex, "Failed to resolve the updater package URL for reinstall.");
             }
+        }
 
         await LaunchUpdaterAndShutdownAsync(updaterZipAssetUrl);
     }
@@ -285,11 +287,13 @@ public partial class AvaloniaCheckForUpdatesService
         {
             logWindow = TryResolveUpdateLogWindow();
             if (logWindow is not null)
+            {
                 await RunOnUiThreadAsync(() =>
                 {
                     logWindow.Show();
                     logWindow.Log("Starting update process...");
                 });
+            }
 
             if (owner is not null)
                 await RunOnUiThreadAsync(owner.Hide);
@@ -305,10 +309,14 @@ public partial class AvaloniaCheckForUpdatesService
             // application down (the update failed — an error was already shown to the user).
             logWindow?.Log("Updater launch failed.");
             if (!string.IsNullOrEmpty(releasePackageUrl))
+            {
                 logWindow?.Log($"Please download the update package manually from: {releasePackageUrl}");
+            }
             else
+            {
                 logWindow?.Log(
                     $"The update package URL was not found. Please visit the GitHub releases page for {RepoOwners[0]}/{RepoName}.");
+            }
         }
         catch (Exception ex)
         {
@@ -421,6 +429,7 @@ public partial class AvaloniaCheckForUpdatesService
         _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "request");
 
         foreach (var repoOwner in RepoOwners)
+        {
             try
             {
                 var response =
@@ -444,6 +453,7 @@ public partial class AvaloniaCheckForUpdatesService
                 _logger.Debug(
                     $"[UpdateChecker] GitHub API check for '{repoOwner}/{RepoName}' failed: {ex.Message}; trying the next source.");
             }
+        }
 
         // Fallback: the secondary server hosts a version.txt file and the release packages.
         try
@@ -512,8 +522,10 @@ public partial class AvaloniaCheckForUpdatesService
             if (currentVersion == null) return false;
 
             if (latestVersion != null)
+            {
                 _logger.Error(ex,
                     $"Invalid version number format after normalization. Current: '{currentVersion}', Latest: '{latestVersion}'.");
+            }
 
             return false;
         }
@@ -592,16 +604,20 @@ public partial class AvaloniaCheckForUpdatesService
                 }
 
                 if (foundUpdaterZipUrl == null)
+                {
                     _logger.Error(
                         new FileNotFoundException(
                             $"'{expectedUpdaterFileName}' asset not found in release '{versionTag}'.",
                             expectedUpdaterFileName), "GitHub API Asset Info");
+                }
 
                 if (foundReleasePackageUrl == null)
+                {
                     _logger.Error(
                         new FileNotFoundException(
                             $"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.",
                             expectedReleaseFileName), "GitHub API Asset Info");
+                }
 
                 return (extractedNormalizedVersion, foundReleasePackageUrl, foundUpdaterZipUrl);
             }

@@ -282,7 +282,7 @@ public class StatsApiConnectionTests
         using var response = await HttpClient.SendAsync(request);
 
         // The API may reject or accept the invalid key; we just verify the call completes without crashing
-        Assert.True(Enum.IsDefined(typeof(HttpStatusCode), response.StatusCode),
+        Assert.True(Enum.IsDefined(response.StatusCode),
             $"Stats API {url} returned an undefined status code with invalid key.");
     }
 

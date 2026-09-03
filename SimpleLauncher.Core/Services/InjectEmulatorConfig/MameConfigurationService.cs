@@ -36,6 +36,7 @@ public static partial class MameConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "MAME", "mame.ini");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -47,9 +48,12 @@ public static partial class MameConfigurationService
                     logger.Error(ex, $"[MameConfig] Failed to create mame.ini from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException(
                     $"mame.ini not found in {emuDir} and sample not available at {samplePath}");
+            }
         }
 
         logger.Debug($"[MameConfig] Injecting configuration into: {configPath}");
@@ -147,6 +151,7 @@ public static partial class MameConfigurationService
 
                 // 3. Process secondary ROM paths
                 if (listOfSecondaryRomPath != null)
+                {
                     foreach (var secondaryPath in listOfSecondaryRomPath)
                     {
                         if (string.IsNullOrWhiteSpace(secondaryPath))
@@ -162,8 +167,11 @@ public static partial class MameConfigurationService
                         var fullPath = NormalizePath(GetFullPathSafe(resolvedSecondaryPath, emuDir)!);
                         if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) &&
                             uniqueFullPaths.Add(fullPath))
+                        {
                             finalPathList.Add(RemoveQuotes(resolvedSecondaryPath));
+                        }
                     }
+                }
 
                 // Reconstruct the value with unique, unquoted paths
                 var newRomPathValue = string.Join(";", finalPathList);
@@ -177,11 +185,13 @@ public static partial class MameConfigurationService
 
         // Add missing keys at the end
         foreach (var kvp in updates)
+        {
             if (!keysFound.Contains(kvp.Key))
             {
                 lines.Add($"{kvp.Key} {kvp.Value}");
                 modified = true;
             }
+        }
 
         // Add missing rompath key if not present in the original file
         if (!keysFound.Contains("rompath"))
@@ -199,6 +209,7 @@ public static partial class MameConfigurationService
 
             // Process secondary ROM paths
             if (listOfSecondaryRomPath != null)
+            {
                 foreach (var secondaryPath in listOfSecondaryRomPath)
                 {
                     if (string.IsNullOrWhiteSpace(secondaryPath))
@@ -215,6 +226,7 @@ public static partial class MameConfigurationService
                     if (!string.IsNullOrEmpty(fullPath) && Directory.Exists(fullPath) && uniqueFullPaths.Add(fullPath))
                         finalPathList.Add(RemoveQuotes(resolvedSecondaryPath));
                 }
+            }
 
             if (finalPathList.Count > 0)
             {
@@ -241,6 +253,7 @@ public static partial class MameConfigurationService
             {
                 // Clean up temp file if it exists
                 if (File.Exists(tempPath))
+                {
                     try
                     {
                         File.Delete(tempPath);
@@ -249,6 +262,7 @@ public static partial class MameConfigurationService
                     {
                         /* Ignore cleanup errors */
                     }
+                }
 
                 logger.Debug("[MameConfig] Failed to inject configuration changes.");
                 logger.Error(ex, "[MameConfig] Failed to inject configuration changes.");

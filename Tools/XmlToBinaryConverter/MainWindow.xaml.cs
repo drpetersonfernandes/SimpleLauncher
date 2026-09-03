@@ -133,15 +133,19 @@ public partial class MainWindow
                     ?.Content.ToString();
 
                 // Create a progress reporter to update status
-                var progress = new Progress<string>(status => { StatusMessageTextBlock.Text = status; });
+                var progress = new Progress<string>(status => StatusMessageTextBlock.Text = status);
 
                 // Start the conversion based on the type
                 if (string.Equals(conversionType, "XML to Binary", StringComparison.Ordinal))
+                {
                     await _converterService.ConvertXmlToBinaryAsync(InputFilePathTextBox.Text,
                         OutputFilePathTextBox.Text, progress);
+                }
                 else
+                {
                     await _converterService.ConvertBinaryToXmlAsync(InputFilePathTextBox.Text,
                         OutputFilePathTextBox.Text, progress);
+                }
 
                 // Show success message
                 MessageBox.Show($"Conversion completed successfully!\nOutput file: {OutputFilePathTextBox.Text}",

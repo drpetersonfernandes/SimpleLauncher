@@ -62,10 +62,12 @@ public partial class UrlValidationTests
             {
                 var error = await CheckUrlAsync(url);
                 if (error != null)
+                {
                     lock (brokenUrls)
                     {
                         brokenUrls.Add(error);
                     }
+                }
             }
             finally
             {
@@ -162,10 +164,12 @@ public partial class UrlValidationTests
             {
                 var error = await CheckUrlAsync(url);
                 if (error != null)
+                {
                     lock (brokenUrls)
                     {
                         brokenUrls.Add($"{xmlFileName} -> {error}");
                     }
+                }
             }
             finally
             {
@@ -247,10 +251,12 @@ public partial class UrlValidationTests
             {
                 var error = await CheckUrlAsync(url);
                 if (error != null)
+                {
                     lock (brokenUrls)
                     {
                         brokenUrls.Add($"{xmlUrl} -> {error}");
                     }
+                }
             }
             finally
             {
@@ -270,6 +276,7 @@ public partial class UrlValidationTests
     {
         const int maxRetries = 2;
         for (var attempt = 0; attempt <= maxRetries; attempt++)
+        {
             try
             {
                 using var headRequest = new HttpRequestMessage(HttpMethod.Head, url);
@@ -307,6 +314,7 @@ public partial class UrlValidationTests
             {
                 return $"{url} -> {ex.GetType().Name}: {ex.Message}";
             }
+        }
 
         return null;
     }

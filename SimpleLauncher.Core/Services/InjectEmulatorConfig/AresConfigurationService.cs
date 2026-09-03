@@ -29,6 +29,7 @@ public static class AresConfigurationService
         {
             var samplePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "samples", "Ares", "settings.bml");
             if (File.Exists(samplePath))
+            {
                 try
                 {
                     File.Copy(samplePath, configPath);
@@ -40,8 +41,11 @@ public static class AresConfigurationService
                     logger.Error(ex, $"[AresConfig] Failed to create settings.bml from sample: {ex.Message}");
                     throw;
                 }
+            }
             else
+            {
                 throw new FileNotFoundException("settings.bml not found and sample is missing.", samplePath);
+            }
         }
 
         logger.Debug($"[AresConfig] Injecting configuration into: {configPath}");
@@ -134,6 +138,7 @@ public static class AresConfigurationService
         }
 
         if (modified)
+        {
             try
             {
                 File.WriteAllLines(configPath, lines, new UTF8Encoding(false));
@@ -145,7 +150,10 @@ public static class AresConfigurationService
                 logger.Error(ex, $"[AresConfig] Failed to inject configuration changes: {ex.Message}");
                 throw;
             }
+        }
         else
+        {
             logger.Debug("[AresConfig] No changes needed.");
+        }
     }
 }

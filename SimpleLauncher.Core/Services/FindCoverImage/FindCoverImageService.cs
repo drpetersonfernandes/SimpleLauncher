@@ -50,10 +50,14 @@ public class FindCoverImageService : IFindCoverImageService
 
         string resolvedImageFolder;
         if (string.IsNullOrEmpty(systemImageFolder))
+        {
             resolvedImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName ?? "");
+        }
         else
+        {
             resolvedImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder) ??
                                   Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName ?? "");
+        }
 
         if (!string.IsNullOrEmpty(resolvedImageFolder) && Directory.Exists(resolvedImageFolder))
         {
@@ -89,7 +93,9 @@ public class FindCoverImageService : IFindCoverImageService
 
                         if (string.Equals(strippedRomName, StripAnnotations(fileWithoutExt),
                                 StringComparison.OrdinalIgnoreCase))
+                        {
                             return fileInFolder;
+                        }
                     }
                 }
             }
@@ -256,9 +262,11 @@ public class FindCoverImageService : IFindCoverImageService
 
         var prefix = 0;
         for (var i = 0; i < Math.Min(MaxPrefixLength, Math.Min(len1, len2)); i++)
+        {
             if (s1[i] == s2[i])
                 prefix++;
             else break;
+        }
 
         return jaroDistance + prefix * PrefixScale * (1 - jaroDistance);
     }

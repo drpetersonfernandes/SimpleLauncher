@@ -35,6 +35,7 @@ public class FavoritesManager
     public static FavoritesManager LoadFavorites(ILogger? logErrors = null)
     {
         if (File.Exists(DatFilePath))
+        {
             try
             {
                 var bytes = File.ReadAllBytes(DatFilePath);
@@ -46,6 +47,7 @@ public class FavoritesManager
             {
                 logErrors?.Error(ex, "Error loading favorites.dat");
             }
+        }
 
         var newManager = new FavoritesManager { _logger = logErrors };
         // Write the initial file synchronously. This runs on the UI thread at startup —
@@ -76,6 +78,7 @@ public class FavoritesManager
         var attempt = 0;
 
         while (attempt < maxRetries)
+        {
             try
             {
                 // Serialize the sorted snapshot
@@ -101,6 +104,7 @@ public class FavoritesManager
 
                 // If in portable mode, try falling back to LocalAppData and reset retries
                 if (IsPortableMode && attempt >= maxRetries)
+                {
                     try
                     {
                         if (FileLocation.TryFallbackToLocalAppData())
@@ -113,6 +117,7 @@ public class FavoritesManager
                     {
                         Log.Debug($"[FavoritesManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                     }
+                }
 
                 if (attempt < maxRetries)
                 {
@@ -135,6 +140,7 @@ public class FavoritesManager
                 lastException = ex;
                 break; // Don't retry non-transient errors
             }
+        }
 
         // All retries exhausted or non-transient error
         _logger?.Error(lastException, "Error saving favorites.dat");
@@ -170,6 +176,7 @@ public class FavoritesManager
         var attempt = 0;
 
         while (attempt < maxRetries)
+        {
             try
             {
                 // Serialize using the sorted snapshot
@@ -193,6 +200,7 @@ public class FavoritesManager
 
                 // If in portable mode, try falling back to LocalAppData and reset retries
                 if (IsPortableMode && attempt >= maxRetries)
+                {
                     try
                     {
                         if (FileLocation.TryFallbackToLocalAppData())
@@ -205,6 +213,7 @@ public class FavoritesManager
                     {
                         Log.Debug($"[FavoritesManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                     }
+                }
 
                 if (attempt < maxRetries)
                 {
@@ -227,6 +236,7 @@ public class FavoritesManager
                 lastException = ex;
                 break; // Don't retry non-transient errors
             }
+        }
 
         // All retries exhausted or non-transient error
         _logger?.Error(lastException, "Error saving favorites.dat");
@@ -277,7 +287,9 @@ public class FavoritesManager
         {
             if (FavoriteList.Any(f =>
                     string.Equals(ToBareName(f.FileName), bareName, StringComparison.OrdinalIgnoreCase)))
+            {
                 return false;
+            }
 
             FavoriteList.Add(new Favorite
             {
@@ -336,11 +348,13 @@ public class FavoritesManager
         lock (ListLock)
         {
             foreach (var favorite in FavoriteList)
+            {
                 if (favorite.SystemName.Equals(oldSystemName, StringComparison.OrdinalIgnoreCase))
                 {
                     favorite.SystemName = newSystemName;
                     changed = true;
                 }
+            }
         }
 
         if (changed) await SaveFavoritesAsync();
@@ -360,8 +374,10 @@ public class FavoritesManager
         lock (ListLock)
         {
             foreach (var favorite in FavoriteList)
+            {
                 if (!validNames.Any(name => name.Equals(favorite.SystemName, StringComparison.OrdinalIgnoreCase)))
                     toRemove.Add(favorite);
+            }
 
             foreach (var favorite in toRemove) FavoriteList.Remove(favorite);
         }

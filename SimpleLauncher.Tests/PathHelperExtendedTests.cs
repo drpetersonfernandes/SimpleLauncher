@@ -273,7 +273,7 @@ public class PathHelperExtendedTests
     [Fact]
     public void FindFileInSystemFoldersNullListReturnsNull()
     {
-        var result = PathHelper.FindFileInSystemFolders(null!, "game.zip");
+        var result = PathHelper.FindFileInSystemFolders(null, "game.zip");
         Assert.Null(result);
     }
 
@@ -293,7 +293,7 @@ public class PathHelperExtendedTests
     [Fact]
     public void FindFileInSystemFoldersNullFileNameReturnsNull()
     {
-        var result = PathHelper.FindFileInSystemFolders(["C:\\roms"], null!);
+        var result = PathHelper.FindFileInSystemFolders(["C:\\roms"], null);
         Assert.Null(result);
     }
 

@@ -44,9 +44,11 @@ internal class ProcessService
                 cancellationToken.ThrowIfCancellationRequested();
 
                 if (!mainAppProcess.HasExited)
+                {
                     throw new TimeoutException(
                         $"Simple Launcher (PID: {processId}) did not exit within {ProcessExitTimeoutMs / 1000} seconds. " +
                         "The process may be unresponsive or still shutting down.");
+                }
 
                 // Add a small delay to ensure file handles are released
                 await Task.Delay(500, cancellationToken);
@@ -70,6 +72,7 @@ internal class ProcessService
 
             var processes = Process.GetProcessesByName("SimpleLauncher");
             if (processes.Length > 0)
+            {
                 try
                 {
                     var process = processes[0];
@@ -89,11 +92,15 @@ internal class ProcessService
                     cancellationToken.ThrowIfCancellationRequested();
 
                     if (!hasExited)
+                    {
                         LogMessage?.Invoke(this,
                             new EventArgs<string>(
                                 $"SimpleLauncher process did not exit within {ProcessExitTimeoutMs / 1000} seconds. Proceeding anyway."));
+                    }
                     else
+                    {
                         LogMessage?.Invoke(this, new EventArgs<string>("SimpleLauncher has exited."));
+                    }
                 }
                 catch (InvalidOperationException)
                 {
@@ -106,9 +113,12 @@ internal class ProcessService
                 {
                     foreach (var p in processes) p.Dispose();
                 }
+            }
             else
+            {
                 LogMessage?.Invoke(this,
                     new EventArgs<string>("SimpleLauncher process not found. Proceeding immediately."));
+            }
 
             // Small delay to ensure file handles are released
             await Task.Delay(500, cancellationToken);

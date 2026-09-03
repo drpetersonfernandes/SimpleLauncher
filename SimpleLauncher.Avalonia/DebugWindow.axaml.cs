@@ -58,13 +58,19 @@ public partial class DebugWindow : Window
             PropertyChangedEventHandler logTextPropertyChangedHandler = (_, args) =>
             {
                 if (string.Equals(args.PropertyName, nameof(DebugViewModel.LogText), StringComparison.Ordinal))
+                {
                     if (Instance is { IsLoaded: true } debugWindow)
+                    {
                         Dispatcher.UIThread.Post(() =>
                         {
                             if (debugWindow is { IsLoaded: true, LogTextBox: { } textBox })
+                            {
                                 // Move the caret to the end so the view scrolls to the newest line
                                 textBox.CaretIndex = textBox.Text?.Length ?? 0;
+                            }
                         });
+                    }
+                }
             };
 
             viewModel.PropertyChanged += logTextPropertyChangedHandler;

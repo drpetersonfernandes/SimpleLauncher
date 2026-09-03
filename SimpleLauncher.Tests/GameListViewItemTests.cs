@@ -74,7 +74,7 @@ public class GameListViewItemTests
     {
         var item = new GameListViewItem { IsFavorite = true };
         var eventRaised = false;
-        item.PropertyChanged += (_, _) => { eventRaised = true; };
+        item.PropertyChanged += (_, _) => eventRaised = true;
 
         item.IsFavorite = true;
 
@@ -109,7 +109,7 @@ public class GameListViewItemTests
     {
         var item = new GameListViewItem { MachineDescription = "Neo Geo" };
         var eventRaised = false;
-        item.PropertyChanged += (_, _) => { eventRaised = true; };
+        item.PropertyChanged += (_, _) => eventRaised = true;
 
         item.MachineDescription = "Neo Geo";
 
@@ -144,7 +144,7 @@ public class GameListViewItemTests
     {
         var item = new GameListViewItem { TimesPlayed = "3" };
         var eventRaised = false;
-        item.PropertyChanged += (_, _) => { eventRaised = true; };
+        item.PropertyChanged += (_, _) => eventRaised = true;
 
         item.TimesPlayed = "3";
 
@@ -179,7 +179,7 @@ public class GameListViewItemTests
     {
         var item = new GameListViewItem { PlayTime = "10m 0s" };
         var eventRaised = false;
-        item.PropertyChanged += (_, _) => { eventRaised = true; };
+        item.PropertyChanged += (_, _) => eventRaised = true;
 
         item.PlayTime = "10m 0s";
 
@@ -254,7 +254,7 @@ public class GameListViewItemTests
     {
         var item = new GameListViewItem { AchievementsEarned = 5 };
         var eventRaised = false;
-        item.PropertyChanged += (_, _) => { eventRaised = true; };
+        item.PropertyChanged += (_, _) => eventRaised = true;
 
         item.AchievementsEarned = 5;
 
@@ -269,7 +269,7 @@ public class GameListViewItemTests
     {
         var item = new GameListViewItem { AchievementsTotal = 20 };
         var eventRaised = false;
-        item.PropertyChanged += (_, _) => { eventRaised = true; };
+        item.PropertyChanged += (_, _) => eventRaised = true;
 
         item.AchievementsTotal = 20;
 
@@ -284,8 +284,8 @@ public class GameListViewItemTests
     {
         var item = new GameListViewItem();
         var count = 0;
-        item.PropertyChanged += (_, _) => { count++; };
-        item.PropertyChanged += (_, _) => { count++; };
+        item.PropertyChanged += (_, _) => count++;
+        item.PropertyChanged += (_, _) => count++;
 
         item.IsFavorite = true;
         Assert.Equal(2, count);
@@ -299,7 +299,7 @@ public class GameListViewItemTests
     {
         var item = new GameListViewItem();
         object? sender = null;
-        item.PropertyChanged += (s, _) => { sender = s; };
+        item.PropertyChanged += (s, _) => sender = s;
 
         item.IsFavorite = true;
         Assert.Same(item, sender);
@@ -313,7 +313,7 @@ public class GameListViewItemTests
     {
         var item = new GameListViewItem();
         string? propertyName = null;
-        item.PropertyChanged += (_, args) => { propertyName = args.PropertyName; };
+        item.PropertyChanged += (_, args) => propertyName = args.PropertyName;
 
         item.IsFavorite = true;
         Assert.Equal(nameof(GameListViewItem.IsFavorite), propertyName);

@@ -18,18 +18,29 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    [ObservableProperty] private bool _mednafenBilinear;
-    [ObservableProperty] private bool _mednafenCheats;
-    [ObservableProperty] private bool _mednafenFullscreen;
-    [ObservableProperty] private bool _mednafenRewind;
-    [ObservableProperty] private int _mednafenScanlines;
-    [ObservableProperty] private string _mednafenShader = null!;
-    [ObservableProperty] private bool _mednafenShowSettingsBeforeLaunch;
-    [ObservableProperty] private string _mednafenSpecial = null!;
-    [ObservableProperty] private string _mednafenStretch = null!;
-    [ObservableProperty] private string _mednafenVideoDriver = null!;
-    [ObservableProperty] private int _mednafenVolume;
-    [ObservableProperty] private bool _mednafenVsync;
+    [ObservableProperty] public partial bool MednafenBilinear { get; set; }
+
+    [ObservableProperty] public partial bool MednafenCheats { get; set; }
+
+    [ObservableProperty] public partial bool MednafenFullscreen { get; set; }
+
+    [ObservableProperty] public partial bool MednafenRewind { get; set; }
+
+    [ObservableProperty] public partial int MednafenScanlines { get; set; }
+
+    [ObservableProperty] public partial string MednafenShader { get; set; } = null!;
+
+    [ObservableProperty] public partial bool MednafenShowSettingsBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial string MednafenSpecial { get; set; } = null!;
+
+    [ObservableProperty] public partial string MednafenStretch { get; set; } = null!;
+
+    [ObservableProperty] public partial string MednafenVideoDriver { get; set; } = null!;
+
+    [ObservableProperty] public partial int MednafenVolume { get; set; }
+
+    [ObservableProperty] public partial bool MednafenVsync { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectMednafenConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>
@@ -108,9 +119,13 @@ public partial class InjectMednafenConfigViewModel : ObservableObject
 
         if (!string.IsNullOrEmpty(_settings.Mednafen.Special) &&
             !string.Equals(_settings.Mednafen.Special, "none", StringComparison.Ordinal))
+        {
             MednafenShader = _settings.Mednafen.Special;
+        }
         else
+        {
             MednafenShader = _settings.Mednafen.Shader;
+        }
 
         MednafenSpecial = _settings.Mednafen.Special;
         MednafenFullscreen = _settings.Mednafen.Fullscreen;

@@ -89,6 +89,7 @@ public sealed class GameFileWatcherService : IDisposable
         lock (_lock)
         {
             foreach (var folder in resolvedFolders)
+            {
                 try
                 {
                     if (folder != null)
@@ -115,6 +116,7 @@ public sealed class GameFileWatcherService : IDisposable
                 {
                     _logger.Debug($"[GameFileWatcherService] Failed to watch '{folder}': {ex.Message}");
                 }
+            }
         }
 
         lock (_lock)
@@ -132,6 +134,7 @@ public sealed class GameFileWatcherService : IDisposable
         lock (_lock)
         {
             foreach (var (watcher, _) in _watchers)
+            {
                 try
                 {
                     watcher.EnableRaisingEvents = false;
@@ -145,6 +148,7 @@ public sealed class GameFileWatcherService : IDisposable
                 {
                     _logger.Debug($"[GameFileWatcherService] Error disposing watcher: {ex.Message}");
                 }
+            }
 
             _watchers.Clear();
         }
@@ -171,7 +175,10 @@ public sealed class GameFileWatcherService : IDisposable
         {
             var ext = Path.GetExtension(e.Name)?.TrimStart('.').ToLowerInvariant();
             if (!string.IsNullOrEmpty(ext) &&
-                !tag.Extensions.Contains(ext)) return; // Ignore files with non-matching extensions
+                !tag.Extensions.Contains(ext))
+            {
+                return; // Ignore files with non-matching extensions
+            }
         }
 
         _logger.Debug(

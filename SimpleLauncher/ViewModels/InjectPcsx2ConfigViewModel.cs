@@ -18,17 +18,27 @@ public partial class InjectPcsx2ConfigViewModel : ObservableObject
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly SettingsManagerService _settings;
     private string _emulatorPath = null!;
-    [ObservableProperty] private bool _pcsx2AchievementsEnabled;
-    [ObservableProperty] private bool _pcsx2AchievementsHardcore;
-    [ObservableProperty] private string _pcsx2AspectRatio = null!;
-    [ObservableProperty] private bool _pcsx2EnableCheats;
-    [ObservableProperty] private bool _pcsx2EnableWidescreenPatches;
-    [ObservableProperty] private int _pcsx2Renderer;
-    [ObservableProperty] private bool _pcsx2ShowSettingsBeforeLaunch;
-    [ObservableProperty] private bool _pcsx2StartFullscreen;
-    [ObservableProperty] private int _pcsx2UpscaleMultiplier;
-    [ObservableProperty] private int _pcsx2Volume;
-    [ObservableProperty] private bool _pcsx2Vsync;
+    [ObservableProperty] public partial bool Pcsx2AchievementsEnabled { get; set; }
+
+    [ObservableProperty] public partial bool Pcsx2AchievementsHardcore { get; set; }
+
+    [ObservableProperty] public partial string Pcsx2AspectRatio { get; set; } = null!;
+
+    [ObservableProperty] public partial bool Pcsx2EnableCheats { get; set; }
+
+    [ObservableProperty] public partial bool Pcsx2EnableWidescreenPatches { get; set; }
+
+    [ObservableProperty] public partial int Pcsx2Renderer { get; set; }
+
+    [ObservableProperty] public partial bool Pcsx2ShowSettingsBeforeLaunch { get; set; }
+
+    [ObservableProperty] public partial bool Pcsx2StartFullscreen { get; set; }
+
+    [ObservableProperty] public partial int Pcsx2UpscaleMultiplier { get; set; }
+
+    [ObservableProperty] public partial int Pcsx2Volume { get; set; }
+
+    [ObservableProperty] public partial bool Pcsx2Vsync { get; set; }
 
     /// <summary>Initializes a new instance of the <see cref="InjectPcsx2ConfigViewModel" />.</summary>
     /// <param name="settings">The settings manager service.</param>

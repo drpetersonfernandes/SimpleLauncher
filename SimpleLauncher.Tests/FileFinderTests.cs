@@ -28,6 +28,7 @@ public class FileFinderTests : IDisposable
     public void Dispose()
     {
         if (Directory.Exists(_tempDir))
+        {
             try
             {
                 Directory.Delete(_tempDir, true);
@@ -36,6 +37,7 @@ public class FileFinderTests : IDisposable
             {
                 /* best effort cleanup */
             }
+        }
 
         GC.SuppressFinalize(this);
     }
