@@ -24,6 +24,7 @@ public class ImageUrlConverter : IValueConverter
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is string url && !string.IsNullOrWhiteSpace(url))
+        {
             try
             {
                 return new BitmapImage(new Uri(url, UriKind.Absolute));
@@ -33,6 +34,7 @@ public class ImageUrlConverter : IValueConverter
                 // If URL is invalid, return placeholder
                 return PlaceholderImage;
             }
+        }
 
         // Return placeholder for null/empty values
         return PlaceholderImage;

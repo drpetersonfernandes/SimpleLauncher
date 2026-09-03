@@ -91,26 +91,36 @@ public class ContextMenuService : IContextMenuService
                 string? selectedEmulatorName;
 
                 if (context.EmulatorComboBox is { SelectedItem: not null })
+                {
                     selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
+                }
                 else if
                     (context.Emulator !=
                      null) // This branch is taken if EmulatorComboBox is null (e.g., from GlobalSearch)
+                {
                     selectedEmulatorName = context.Emulator.EmulatorName;
+                }
                 else if (context.SelectedSystemManager.Emulators.FirstOrDefault() is { } fallbackEmulator)
+                {
                     // Fallback when no emulator source was supplied (e.g., list-view context menu):
                     // use the system's first configured emulator.
                     selectedEmulatorName = fallbackEmulator.EmulatorName;
+                }
                 else
+                {
                     selectedEmulatorName = null; // <-- selectedEmulatorName could be null here
+                }
 
                 if (await CheckParametersForNullOrEmptyAsync(selectedEmulatorName))
                     return; // The finally block will still execute
 
                 if (context.GameLauncherService != null)
+                {
                     await context.GameLauncherService.HandleButtonClickAsync(context.FilePath, selectedEmulatorName!,
                         context.SelectedSystemName, context.SelectedSystemManager, context.Settings,
                         WpfWindowContext.FromMainWindow(context.MainWindow), context.GamePadController,
                         context.LoadingStateProvider);
+                }
 
                 // Notify user
                 context.MainWindow.UpdateStatusBarService.UpdateContent(
@@ -572,6 +582,7 @@ public class ContextMenuService : IContextMenuService
                 var result =
                     await _messageBox.AreYouSureYouWantToDeleteTheGameMessageBoxAsync(context.FileNameWithExtension);
                 if (result == CoreMessageBoxResult.Yes)
+                {
                     try
                     {
                         await contextMenuFunctions.RemoveFromFavoritesAsync(context.SelectedSystemName,
@@ -594,6 +605,7 @@ public class ContextMenuService : IContextMenuService
                         // Notify user
                         await _messageBox.ThereWasAnErrorDeletingTheGameMessageBoxAsync();
                     }
+                }
             }
             catch (Exception ex)
             {
@@ -628,6 +640,7 @@ public class ContextMenuService : IContextMenuService
                     await _messageBox.AreYouSureYouWantToDeleteTheCoverImageMessageBoxAsync(
                         context.FileNameWithoutExtension);
                 if (result == CoreMessageBoxResult.Yes)
+                {
                     try
                     {
                         await contextMenuFunctions.DeleteCoverImageAsync(context.FileNameWithoutExtension,
@@ -643,6 +656,7 @@ public class ContextMenuService : IContextMenuService
                         // Notify user
                         await _messageBox.ThereWasAnErrorDeletingTheCoverImageMessageBoxAsync();
                     }
+                }
             }
             catch (Exception ex)
             {

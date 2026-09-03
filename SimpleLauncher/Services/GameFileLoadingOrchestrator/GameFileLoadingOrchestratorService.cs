@@ -284,7 +284,9 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                     {
                         if (!systemHashes.Hashes.TryGetValue(filePath, out var hash) ||
                             string.IsNullOrEmpty(hash))
+                        {
                             return false;
+                        }
 
                         return _retroAchievementsService.RaManager.GetGameInfoByHash(hash) != null;
                     }).ToList();
@@ -339,7 +341,10 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                             token.ThrowIfCancellationRequested();
                             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
                             if (string.IsNullOrEmpty(resolvedSystemFolderPath) ||
-                                !Directory.Exists(resolvedSystemFolderPath)) continue;
+                                !Directory.Exists(resolvedSystemFolderPath))
+                            {
+                                continue;
+                            }
 
                             var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath,
                                 selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch,
@@ -365,7 +370,10 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                             token.ThrowIfCancellationRequested();
                             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
                             if (string.IsNullOrEmpty(resolvedSystemFolderPath) ||
-                                !Directory.Exists(resolvedSystemFolderPath)) continue;
+                                !Directory.Exists(resolvedSystemFolderPath))
+                            {
+                                continue;
+                            }
 
                             var filesInFolder = await _getListOfFiles.GetFilesAsync(resolvedSystemFolderPath,
                                 selectedManager.FileFormatsToSearch, selectedManager.DisableRecursiveSearch,

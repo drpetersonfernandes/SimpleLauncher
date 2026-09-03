@@ -130,7 +130,6 @@ public class GameItemRenderService : IGameItemRenderService
             _host.MainWindow,
             _gamePadController,
             _gameLauncher,
-            _playSoundEffects,
             _configuration,
             _logger,
             _getListOfFiles,
@@ -221,11 +220,13 @@ public class GameItemRenderService : IGameItemRenderService
         }
 
         if (buttonBatch.Count > 0)
+        {
             _host.GameFileGrid.Dispatcher.Invoke(() =>
             {
                 foreach (var btn in buttonBatch)
                     _host.GameFileGrid.Children.Add(btn);
             });
+        }
     }
 
     private async Task RenderListViewAsync(IList<string> files, string systemName,
@@ -253,10 +254,12 @@ public class GameItemRenderService : IGameItemRenderService
         }
 
         if (itemBatch.Count > 0)
+        {
             await _host.Dispatcher.InvokeAsync(() =>
             {
                 foreach (var item in itemBatch)
                     _host.GameListItems.Add(item);
             });
+        }
     }
 }

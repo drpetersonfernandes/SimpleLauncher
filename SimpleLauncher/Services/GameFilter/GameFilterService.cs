@@ -81,9 +81,11 @@ public partial class GameFilterService : IGameFilterService
                 return files;
 
             if (string.Equals(startLetter, "#", StringComparison.Ordinal))
+            {
                 return files.Where(static file => !string.IsNullOrEmpty(file) &&
                                                   file.Length > 0 &&
                                                   char.IsDigit(Path.GetFileName(file)[0])).ToList();
+            }
 
             return files.Where(file => !string.IsNullOrEmpty(file) &&
                                        Path.GetFileName(file)
@@ -98,6 +100,7 @@ public partial class GameFilterService : IGameFilterService
         IList<string> files, string mameSortOrder, IDictionary<string, string> mameLookup)
     {
         if (string.Equals(mameSortOrder, AppConstants.MameSortOrderMachineDescription, StringComparison.Ordinal))
+        {
             return files.OrderBy(f =>
             {
                 var fileName = Path.GetFileNameWithoutExtension(f);
@@ -105,6 +108,7 @@ public partial class GameFilterService : IGameFilterService
                     ? description
                     : fileName;
             }, StringComparer.OrdinalIgnoreCase).ToList();
+        }
 
         return files.OrderBy(static f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase).ToList();
     }
@@ -129,7 +133,9 @@ public partial class GameFilterService : IGameFilterService
                 var searchText = fileName;
                 if (mameLookup != null && mameLookup.TryGetValue(fileName, out var description)
                                        && !string.IsNullOrWhiteSpace(description))
-                    searchText = string.Concat(fileName, " ", description);
+                {
+                    searchText = $"{fileName} {description}";
+                }
 
                 return MatchesSearchQuery(searchText, searchTerms);
             }).ToList());

@@ -116,8 +116,10 @@ public partial class GameLauncherService : ILauncherService
                 : "User was not notified.";
             _logger.Error(new DirectoryNotFoundException(msg), $"{msg}\n{userNotified}");
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            {
                 await _messageBoxLibrary.BatchFileFailedMessageBoxAsync(resolvedFilePath,
                     $"Working directory not found: {psi.WorkingDirectory}", logPath);
+            }
 
             return;
         }
@@ -176,8 +178,10 @@ public partial class GameLauncherService : ILauncherService
                 LogBatchFileContentsOnError(resolvedFilePath);
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
                     await _messageBoxLibrary.BatchFileFailedMessageBoxAsync(resolvedFilePath,
                         $"Exit code: {process.ExitCode}", logPath, process.ExitCode);
+                }
 
                 _toastNotificationService.ShowToast("Simple Launcher", $"Error: {batchShortName} failed");
                 _updateStatusBar.UpdateContent($"Error: {batchShortName} failed");
@@ -278,8 +282,10 @@ public partial class GameLauncherService : ILauncherService
                 var urlMatch = MyRegex().Match(urlContent);
 
                 if (!urlMatch.Success || string.IsNullOrWhiteSpace(urlMatch.Groups[1].Value))
+                {
                     throw new InvalidOperationException(
                         $"Invalid .url file format or missing URL in: {resolvedFilePath}");
+                }
 
                 var targetUrl = urlMatch.Groups[1].Value.Trim();
                 _logger.Debug(
@@ -356,7 +362,7 @@ public partial class GameLauncherService : ILauncherService
                 var fileContent = longPathForContent != null && File.Exists(longPathForContent)
                     ? $"\nFile Content:\n{await File.ReadAllTextAsync(longPathForContent)}"
                     : "\nFile does not exist.";
-                var errorDetail = $"Exception launching the shortcut file.\n" +
+                var errorDetail = "Exception launching the shortcut file.\n" +
                                   $"Shortcut file: {resolvedFilePath}\n" +
                                   $"Exception: {ex.Message}" +
                                   fileContent;
@@ -383,7 +389,7 @@ public partial class GameLauncherService : ILauncherService
                 ? $"\nFile Content:\n{await File.ReadAllTextAsync(resolvedFilePath)}"
                 : "\nFile content not displayed (binary .LNK or missing file).";
 
-            var errorDetail = $"Exception launching the shortcut file.\n" +
+            var errorDetail = "Exception launching the shortcut file.\n" +
                               $"Shortcut file: {resolvedFilePath}\n" +
                               $"Exception: {ex.Message}" +
                               fileContent;
@@ -458,7 +464,7 @@ public partial class GameLauncherService : ILauncherService
             // Only check for critical failures (crashes, not normal exit codes like 1)
             if (process.ExitCode < 0) // Negative exit codes typically indicate system-level failures
             {
-                var errorDetail = $"Executable process exited with system error code.\n" +
+                var errorDetail = "Executable process exited with system error code.\n" +
                                   $"Executable file: {psi.FileName}\n" +
                                   $"Exit code: {process.ExitCode}";
                 var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError
@@ -468,8 +474,10 @@ public partial class GameLauncherService : ILauncherService
                 _logger.Warning(contextMessage);
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
                     await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(
                         PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                }
             }
         }
         catch (Win32Exception ex)
@@ -504,7 +512,7 @@ public partial class GameLauncherService : ILauncherService
                     exitCodeInfo = "Exit code: N/A (Process not associated)";
                 }
 
-                var errorDetail = $"Exception launching the executable file.\n" +
+                var errorDetail = "Exception launching the executable file.\n" +
                                   $"Executable file: {psi.FileName}\n" +
                                   $"{exitCodeInfo}\n" +
                                   $"Exception: {ex.Message}";
@@ -515,8 +523,10 @@ public partial class GameLauncherService : ILauncherService
                 _logger.Information(contextMessage);
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
                     await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(
                         PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                }
             }
             else
             {
@@ -531,7 +541,7 @@ public partial class GameLauncherService : ILauncherService
                     exitCodeInfo = "Exit code: N/A (Process not associated)";
                 }
 
-                var errorDetail = $"Exception launching the executable file.\n" +
+                var errorDetail = "Exception launching the executable file.\n" +
                                   $"Executable file: {psi.FileName}\n" +
                                   $"{exitCodeInfo}\n" +
                                   $"Exception: {ex.Message}";
@@ -542,8 +552,10 @@ public partial class GameLauncherService : ILauncherService
                 _logger.Error(ex, contextMessage);
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
                     await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(
                         PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                }
             }
         }
         catch (Exception ex)
@@ -559,7 +571,7 @@ public partial class GameLauncherService : ILauncherService
                 exitCodeInfo = "Exit code: N/A (Process not associated)";
             }
 
-            var errorDetail = $"Exception launching the executable file.\n" +
+            var errorDetail = "Exception launching the executable file.\n" +
                               $"Executable file: {psi.FileName}\n" +
                               $"{exitCodeInfo}\n" +
                               $"Exception: {ex.Message}";
@@ -570,8 +582,10 @@ public partial class GameLauncherService : ILauncherService
             _logger.Error(ex, contextMessage);
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            {
                 await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(
                     PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            }
         }
     }
 
@@ -691,8 +705,8 @@ public partial class GameLauncherService : ILauncherService
 
         var fileExtension = Path.GetExtension(resolvedFilePath).ToLowerInvariant();
 
-        if (isRetroArch && selectedEmulatorManager != null &&
-            !selectedEmulatorManager.EmulatorParameters.Contains("-L", StringComparison.OrdinalIgnoreCase))
+        if (isRetroArch &&
+            selectedEmulatorManager?.EmulatorParameters.Contains("-L", StringComparison.OrdinalIgnoreCase) == false)
         {
             var errorMessage =
                 $"[LaunchRegularEmulatorAsync] RetroArch parameter should contain -L. Parameter field: {selectedEmulatorManager.EmulatorParameters}";
@@ -708,8 +722,8 @@ public partial class GameLauncherService : ILauncherService
             return;
         }
 
-        if (isXemu && selectedEmulatorManager != null &&
-            !selectedEmulatorManager.EmulatorParameters.Contains("-dvd_path", StringComparison.OrdinalIgnoreCase))
+        if (isXemu && selectedEmulatorManager?.EmulatorParameters.Contains("-dvd_path",
+                StringComparison.OrdinalIgnoreCase) == false)
         {
             var errorMessage =
                 $"[LaunchRegularEmulatorAsync] Xemu parameter should contain '-dvd_path'. Parameter field: {selectedEmulatorManager.EmulatorParameters}";
@@ -727,6 +741,7 @@ public partial class GameLauncherService : ILauncherService
 
         if ((selectedSystemManager.ExtractFileBeforeLaunch || isAzahar || isCitra || isDuckstation || isOotake ||
              isSameboy) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
+        {
             if (fileExtension is ".zip" or ".rar" or ".7z")
             {
                 var extractingMsg = (string)Application.Current.TryFindResource("ExtractingEllipsis") ??
@@ -755,6 +770,7 @@ public partial class GameLauncherService : ILauncherService
                 var launchingMsg = (string)Application.Current.TryFindResource("Launching") ?? "Launching...";
                 _updateStatusBar.UpdateContent(launchingMsg);
             }
+        }
 
         if (isOotake && (isChd || isBin || isCue || isIso))
         {
@@ -807,8 +823,8 @@ public partial class GameLauncherService : ILauncherService
             {
                 // Notify developer
                 var contextMessage = $"EmulatorLocation is null or empty for emulator '{selectedEmulatorName}'. " +
-                                     $"This typically means the system was configured to run directly executable files (.bat, .exe, .lnk) " +
-                                     $"but the user is trying to launch a non-executable file that requires an emulator.";
+                                     "This typically means the system was configured to run directly executable files (.bat, .exe, .lnk) " +
+                                     "but the user is trying to launch a non-executable file that requires an emulator.";
                 _logger.Warning(contextMessage);
                 _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
@@ -970,7 +986,7 @@ public partial class GameLauncherService : ILauncherService
                 StandardErrorEncoding = Encoding.UTF8
             };
 
-            _logger.Debug($"LaunchRegularEmulatorAsync:\n\n" +
+            _logger.Debug("LaunchRegularEmulatorAsync:\n\n" +
                           $"Program Location: {resolvedEmulatorExePath}\n" +
                           $"Arguments: {arguments}\n" +
                           $"Working Directory: {psi.WorkingDirectory}\n" +
@@ -1014,7 +1030,10 @@ public partial class GameLauncherService : ILauncherService
                     if (process.HasExited)
                     {
                         if (DoNotCheckErrorsOnSpecificEmulators(selectedEmulatorName, resolvedEmulatorExePath, process,
-                                psi, output, error)) return;
+                                psi, output, error))
+                        {
+                            return;
+                        }
 
                         await CheckForMemoryAccessViolationAsync(process, psi, output, error);
                         await CheckForDepViolationAsync(process, psi, output, error, selectedEmulatorManager);
@@ -1149,6 +1168,7 @@ public partial class GameLauncherService : ILauncherService
 
             // Only attempt to delete if a temporary extraction path was actually set
             if (!string.IsNullOrEmpty(tempExtractionPath) && Directory.Exists(tempExtractionPath))
+            {
                 try
                 {
                     _logger.Debug(
@@ -1164,6 +1184,7 @@ public partial class GameLauncherService : ILauncherService
                     _logger.Debug(
                         $"[LaunchRegularEmulatorAsync] Error deleting temporary extraction directory {tempExtractionPath}: {ex.Message}");
                 }
+            }
         }
     }
 
@@ -1211,7 +1232,7 @@ public partial class GameLauncherService : ILauncherService
             // 2. Validate SystemManagerService and Emulators before resolving
             if (context.SystemManagerService == null)
             {
-                var contextMessage = $"SystemManagerService is null when attempting to launch.\n" +
+                var contextMessage = "SystemManagerService is null when attempting to launch.\n" +
                                      $"SystemName: '{context.SystemName}', EmulatorName: '{context.EmulatorName}', FilePath: '{context.FilePath}'";
                 // Expected user-error condition (missing/misconfigured system): not a bug.
                 _logger.Information(contextMessage);
@@ -1255,8 +1276,10 @@ public partial class GameLauncherService : ILauncherService
             var handler = _configHandlers.FirstOrDefault(h =>
                 h.IsMatch(context.EmulatorName, context.EmulatorManager.EmulatorLocation));
             if (handler != null)
+            {
                 if (!await handler.HandleConfigurationAsync(context))
                     return;
+            }
 
             // 7. Pre-launch UI/State
             var wasGamePadRunning = gamePadController.IsRunning;
@@ -1297,7 +1320,7 @@ public partial class GameLauncherService : ILauncherService
         }
         catch (Exception ex)
         {
-            var detailedMessage = $"Launch Pipeline Failed.\n" +
+            var detailedMessage = "Launch Pipeline Failed.\n" +
                                   $"Exception Type: {ex.GetType().FullName}\n" +
                                   $"SystemName: '{context.SystemName ?? "null"}'\n" +
                                   $"EmulatorName: '{context.EmulatorName ?? "null"}'\n" +
@@ -1362,12 +1385,16 @@ public partial class GameLauncherService : ILauncherService
                 var parentDir = Path.GetDirectoryName(context.ResolvedFilePath);
                 var oneDriveFolderExists = !string.IsNullOrEmpty(parentDir) && Directory.Exists(parentDir);
                 if (!oneDriveFolderExists)
+                {
                     msg += "\nThe parent OneDrive folder does not exist or is not accessible. " +
                            "Ensure OneDrive is signed in and synced, and that the folder is available on this device.";
+                }
                 else
+                {
                     msg += "\nThe file is in a OneDrive folder but could not be found. " +
                            "Ensure the file is synced and downloaded to your device. " +
                            "Right-click the file in File Explorer and select 'Always keep on this device'.";
+                }
             }
 
             // Expected condition: the game entry is stale (file deleted/moved since the list was
@@ -1385,7 +1412,7 @@ public partial class GameLauncherService : ILauncherService
 
         if (hasFileMismatch || hasDirMismatch)
         {
-            var mismatchDetails = $"Path validation mismatch detected:\n" +
+            var mismatchDetails = "Path validation mismatch detected:\n" +
                                   $"  Original Path: {context.FilePath}\n" +
                                   $"  Resolved Path: {standardPath}\n" +
                                   $"  Long Path: {longPath}\n" +
@@ -1394,7 +1421,7 @@ public partial class GameLauncherService : ILauncherService
                                   $"  Long Path File.Exists: {longFileExists}\n" +
                                   $"  Standard Directory.Exists: {standardDirExists}\n" +
                                   $"  Long Path Directory.Exists: {longDirExists}\n" +
-                                  $"  This may indicate a Unicode normalization or path handling issue.";
+                                  "  This may indicate a Unicode normalization or path handling issue.";
 
             _logger.Debug(mismatchDetails);
 
@@ -1484,7 +1511,7 @@ public partial class GameLauncherService : ILauncherService
         var userNotified = emulatorManager.ReceiveANotificationOnEmulatorError
             ? "User was notified."
             : "User was not notified.";
-        var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
+        var contextMessage = "The emulator could not open the game with the provided parameters.\n" +
                              $"{userNotified}\n\n" +
                              $"Exit code: {process.ExitCode}\n" +
                              $"Emulator: {psi.FileName}\n" +
@@ -1495,7 +1522,9 @@ public partial class GameLauncherService : ILauncherService
         // Ignore MemoryAccessViolation and DepViolation
         if (!process.HasExited || process.ExitCode == 0 || process.ExitCode == MemoryAccessViolation ||
             process.ExitCode == DepViolation)
+        {
             return;
+        }
 
         // Handle common RetroArch error that should be ignored
         if (output.ToString().Contains("File open/read error", StringComparison.OrdinalIgnoreCase))
@@ -1661,8 +1690,8 @@ public partial class GameLauncherService : ILauncherService
         if (process.HasExited && process.ExitCode != MemoryAccessViolation) return Task.CompletedTask;
 
         // Notify developer
-        var contextMessage = $"There was a memory access violation error running the emulator.\n" +
-                             $"User was not notified.\n\n" +
+        var contextMessage = "There was a memory access violation error running the emulator.\n" +
+                             "User was not notified.\n\n" +
                              $"Exit code: {process.ExitCode}\n" +
                              $"Emulator: {psi.FileName}\n" +
                              $"Calling parameters: {psi.Arguments}\n" +
@@ -1680,8 +1709,8 @@ public partial class GameLauncherService : ILauncherService
         if (process.HasExited && process.ExitCode != DepViolation) return Task.CompletedTask;
 
         // Notify developer
-        var contextMessage = $"Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
-                             $"User was not notified.\n" +
+        var contextMessage = "Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
+                             "User was not notified.\n" +
                              $"Exit code: {process.ExitCode}\n" +
                              $"Emulator: {psi.FileName}\n" +
                              $"Calling parameters: {psi.Arguments}\n" +
@@ -1703,11 +1732,12 @@ public partial class GameLauncherService : ILauncherService
         ];
 
         foreach (var emulatorToSkip in emulatorsToSkipErrorChecking)
+        {
             if (selectedEmulatorName.Contains(emulatorToSkip, StringComparison.OrdinalIgnoreCase) ||
                 resolvedEmulatorExePath.Contains(emulatorToSkip, StringComparison.OrdinalIgnoreCase))
             {
                 var contextMessage = $"User just ran {selectedEmulatorName}.\n" +
-                                     $"'Simple Launcher' do not track error codes for this emulator.\n\n" +
+                                     "'Simple Launcher' do not track error codes for this emulator.\n\n" +
                                      $"Exit code: {process.ExitCode}\n" +
                                      $"Emulator: {psi.FileName}\n" +
                                      $"Calling parameters: {psi.Arguments}\n" +
@@ -1717,6 +1747,7 @@ public partial class GameLauncherService : ILauncherService
 
                 return true;
             }
+        }
 
         return false;
     }

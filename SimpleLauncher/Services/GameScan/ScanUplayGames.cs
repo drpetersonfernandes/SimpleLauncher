@@ -32,6 +32,7 @@ public class ScanUplayGames : IGamePlatformScanner
                 if (baseKey == null) continue;
 
                 foreach (var gameId in baseKey.GetSubKeyNames())
+                {
                     try
                     {
                         using var gameKey = baseKey.OpenSubKey(gameId);
@@ -63,6 +64,7 @@ public class ScanUplayGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Error processing Ubisoft game registry key: {gameId}");
                     }
+                }
             }
         }
         catch (Exception ex)

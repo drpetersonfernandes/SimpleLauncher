@@ -272,7 +272,9 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         {
             if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult ||
                 string.IsNullOrEmpty(selectedResult.FilePath))
+            {
                 return;
+            }
 
             var systemManager = _viewModel.GetSystemManager(selectedResult.SystemName);
             if (systemManager == null)
@@ -334,7 +336,10 @@ internal partial class GlobalSearchPage : IDisposable, ILoadingState
         try
         {
             if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult ||
-                string.IsNullOrEmpty(selectedResult.FilePath)) return;
+                string.IsNullOrEmpty(selectedResult.FilePath))
+            {
+                return;
+            }
 
             _playSoundEffects.PlayNotificationSound();
             await LaunchGameFromSearchResultAsync(selectedResult.FilePath, selectedResult.SystemName,

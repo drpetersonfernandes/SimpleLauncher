@@ -91,7 +91,10 @@ public class PlayHistoryManager
 
             // Convert the old format to ISO format
             if (!TryParseAndConvertDate(item.LastPlayDate, item.LastPlayTime,
-                    out var newDate, out var newTime)) continue;
+                    out var newDate, out var newTime))
+            {
+                continue;
+            }
 
             item.LastPlayDate = newDate;
             item.LastPlayTime = newTime;
@@ -150,6 +153,7 @@ public class PlayHistoryManager
                 "MM/dd/yyyy", "dd/MM/yyyy", "d", "D"
             ];
             foreach (var df in dateFormats)
+            {
                 if (DateTime.TryParseExact($"{dateStr} {timeStr}",
                         $"{df} {IsoTimeFormat}", CultureInfo.InvariantCulture,
                         DateTimeStyles.None, out dateTime))
@@ -158,6 +162,7 @@ public class PlayHistoryManager
                     newTimeStr = dateTime.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
                     return true;
                 }
+            }
 
             // Fallback: Try with InvariantCulture (assumes US format for ambiguous dates like 01/02/2024 -> Jan 2)
             if (DateTime.TryParse($"{dateStr} {timeStr}",
@@ -172,7 +177,10 @@ public class PlayHistoryManager
             foreach (var df in dateFormats)
             {
                 if (!DateTime.TryParseExact(dateStr, df, CultureInfo.InvariantCulture,
-                        DateTimeStyles.None, out dateTime)) continue;
+                        DateTimeStyles.None, out dateTime))
+                {
+                    continue;
+                }
 
                 newDateStr = dateTime.ToString(IsoDateFormat, CultureInfo.InvariantCulture);
 
@@ -222,6 +230,7 @@ public class PlayHistoryManager
             var attempt = 0;
 
             while (attempt < maxRetries)
+            {
                 try
                 {
                     // Notify user
@@ -250,6 +259,7 @@ public class PlayHistoryManager
 
                     // If in portable mode, try falling back to LocalAppData and reset retries
                     if (FileLocation.IsPortableMode && attempt >= maxRetries)
+                    {
                         try
                         {
                             if (FileLocation.TryFallbackToLocalAppData())
@@ -262,6 +272,7 @@ public class PlayHistoryManager
                         {
                             Log.Debug($"[PlayHistoryManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                         }
+                    }
 
                     if (attempt < maxRetries)
                     {
@@ -284,6 +295,7 @@ public class PlayHistoryManager
                     lastException = ex;
                     break; // Don't retry non-transient errors
                 }
+            }
 
             // All retries exhausted or non-transient error
             _logger?.Error(lastException, "Error saving playhistory.dat");
@@ -312,11 +324,13 @@ public class PlayHistoryManager
         lock (_historyLock)
         {
             foreach (var item in PlayHistoryList)
+            {
                 if (item.SystemName.Equals(oldSystemName, StringComparison.OrdinalIgnoreCase))
                 {
                     item.SystemName = newSystemName;
                     changed = true;
                 }
+            }
         }
 
         return changed ? SavePlayHistoryAsync() : Task.CompletedTask;
@@ -357,7 +371,7 @@ public class PlayHistoryManager
                 {
                     // Update existing record
                     existingItem.TotalPlayTime += (long)playTime.TotalSeconds;
-                    existingItem.TimesPlayed += 1;
+                    existingItem.TimesPlayed++;
                     existingItem.LastPlayDate = dateStr;
                     existingItem.LastPlayTime = timeStr;
                 }
@@ -399,6 +413,7 @@ public class PlayHistoryManager
         lock (_historyLock)
         {
             foreach (var item in PlayHistoryList)
+            {
                 // If the path is not rooted, it's an old "filename only" record
                 if (!Path.IsPathRooted(item.FileName))
                 {
@@ -414,6 +429,7 @@ public class PlayHistoryManager
                         }
                     }
                 }
+            }
         }
 
         if (needsSave) SavePlayHistoryAsync();

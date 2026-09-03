@@ -75,7 +75,9 @@ public static class InjectionErrorHandler
         var typeName = windowType.Name;
         if (typeName.StartsWith("Inject", StringComparison.Ordinal) &&
             typeName.EndsWith("ConfigWindow", StringComparison.Ordinal))
+        {
             return typeName.Substring(6, typeName.Length - 6 - 12);
+        }
 
         return typeName;
     }

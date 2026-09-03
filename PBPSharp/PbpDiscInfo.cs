@@ -298,7 +298,7 @@ public sealed class PbpDiscInfo
     {
         var ones = value % 16;
         var tens = value / 16;
-        return tens * 10 + ones;
+        return (tens * 10) + ones;
     }
 
     private sealed class IsoIndexEntry

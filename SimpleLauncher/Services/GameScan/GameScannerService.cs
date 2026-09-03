@@ -213,7 +213,8 @@ public class GameScannerService
         {
             // Expected condition: app is in a protected directory (e.g. Program Files).
             // Log at Information level so the bug report API does not pick it up.
-            _logger.Information(ex, "Cannot create 'Microsoft Windows' system directories in protected location. Falling back to default paths.");
+            _logger.Information(ex,
+                "Cannot create 'Microsoft Windows' system directories in protected location. Falling back to default paths.");
 
             // Fall back to default paths even on error
             var fallbackRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", "Microsoft Windows");
@@ -247,6 +248,7 @@ public class GameScannerService
 
         // Try up to 2 times (initial attempt + 1 retry after 5 seconds)
         for (var attempt = 0; attempt < 2; attempt++)
+        {
             try
             {
                 using var client = _httpClientFactory.CreateClient("GameImageClient");
@@ -257,8 +259,10 @@ public class GameScannerService
                 if (!response.IsSuccessStatusCode)
                 {
                     if (response.StatusCode != HttpStatusCode.NotFound)
+                    {
                         _logger.Debug(
                             $"[GameScannerService] API query for '{gameName}' failed with status: {response.StatusCode}");
+                    }
 
                     return false;
                 }
@@ -320,6 +324,7 @@ public class GameScannerService
                     }
                 }
             }
+        }
 
         return false;
     }
@@ -465,12 +470,10 @@ public class GameScannerService
 
         var details = " Inner exceptions:";
         var current = inner;
-        var depth = 1;
-        while (current != null && depth <= 3)
+        for (var depth = 1; current != null && depth <= 3; depth++)
         {
             details += $" [{depth}] {current.GetType().Name}: {current.Message}";
             current = current.InnerException;
-            depth++;
         }
 
         return details;

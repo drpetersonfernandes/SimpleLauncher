@@ -30,12 +30,17 @@ public class ScanHumbleGames : IGamePlatformScanner
             using var doc = JsonDocument.Parse(jsonContent);
 
             if (doc.RootElement.TryGetProperty("game-collection-4", out var collection))
+            {
                 foreach (var game in collection.EnumerateArray())
+                {
                     try
                     {
                         var status = game.GetProperty("status").GetString();
                         if (!string.Equals(status, "installed", StringComparison.Ordinal) &&
-                            !string.Equals(status, "downloaded", StringComparison.Ordinal)) continue;
+                            !string.Equals(status, "downloaded", StringComparison.Ordinal))
+                        {
+                            continue;
+                        }
 
                         if (!game.TryGetProperty("machineName", out var machineNameProp)) continue;
 
@@ -84,6 +89,8 @@ public class ScanHumbleGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, "Error processing Humble game entry.");
                     }
+                }
+            }
         }
         catch (Exception ex)
         {

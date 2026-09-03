@@ -5,7 +5,6 @@ using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.MameManager;
-using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.Core.Services.SettingsManager;
 using SimpleLauncher.Services.Favorites;
 using SimpleLauncher.Services.GameLauncher;
@@ -32,7 +31,6 @@ public class GameListFactory(
     MainWindow mainWindow,
     GamePadController gamePadController,
     GameLauncherService gameLauncher,
-    PlaySoundEffects playSoundEffects,
     IConfiguration configuration,
     ILogger logErrors,
     IGetListOfFilesService getListOfFiles,
@@ -55,7 +53,6 @@ public class GameListFactory(
     private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
 
     // ReSharper disable once UnusedMember.Local
-    private readonly PlaySoundEffects _playSoundEffects = playSoundEffects;
     private readonly SettingsManagerService _settings = settings;
     private readonly ComboBox _systemComboBox = systemComboBox;
     private readonly IList<SystemManagerService> _systemManagers = systemManagers;
@@ -166,7 +163,7 @@ public class GameListFactory(
                 {
                     // Notify developer
                     _logger.Error(
-                        new ArgumentException(@"selectedItem.FilePath is null or empty.", nameof(selectedItem)),
+                        new ArgumentException("selectedItem.FilePath is null or empty.", nameof(selectedItem)),
                         "Selected item has an invalid file path. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
@@ -216,6 +213,7 @@ public class GameListFactory(
                 var previewImagePath = _findCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem,
                     systemManager.SystemImageFolder);
                 if (isDirectory) // GroupByFolder is true
+                {
                     // First, try to find an image with the same name as the folder name.
                     // If the found path is a default image, try the fallback logic.
                     if (previewImagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
@@ -226,12 +224,13 @@ public class GameListFactory(
                             systemManager.GroupByFolder);
                         if (filesInFolder.Count != 0)
                         {
-                            var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder.First());
+                            var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder[0]);
                             // Now search again with the new name.
                             previewImagePath = _findCoverImage.FindCoverImagePath(representativeFileName,
                                 selectedSystem, systemManager.SystemImageFolder);
                         }
                     }
+                }
 
                 // This is the logic for non-grouped files, which remains the same.
                 _mainWindow.PreviewImage.Source = null; // Clear existing image before loading new one
@@ -264,7 +263,9 @@ public class GameListFactory(
                         // Race condition check: Only assign if the selected item hasn't changed (or is now null)
                         if (_mainWindow.GameDataGrid.SelectedItem == selectedItem ||
                             _mainWindow.GameDataGrid.SelectedItem == null)
+                        {
                             _mainWindow?.PreviewImage?.Source = defaultImageStream.ToBitmapImage();
+                        }
                     });
                 }
                 catch (Exception fallbackEx)

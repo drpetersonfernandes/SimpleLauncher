@@ -45,6 +45,7 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
             if (context.Settings is { Azahar.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
+                {
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
                         var win = _scopeFactory.CreateScope().ServiceProvider
@@ -54,6 +55,7 @@ public class AzaharConfigHandler : IEmulatorConfigHandler
                         win.ShowDialog();
                         shouldRun = win.ShouldRun;
                     });
+                }
             }
             else if (File.Exists(resolvedExe))
             {

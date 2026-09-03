@@ -373,7 +373,10 @@ public class ContextMenuFunctions : IContextMenuFunctions
 
                 // If user didn't save credentials, or saved empty ones, return
                 if (string.IsNullOrWhiteSpace(settings.RaApiKey) ||
-                    string.IsNullOrWhiteSpace(settings.RaUsername)) return;
+                    string.IsNullOrWhiteSpace(settings.RaUsername))
+                {
+                    return;
+                }
             }
 
             var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
@@ -511,9 +514,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
             }
 
             Application.Current.Dispatcher.Invoke(() =>
-            {
-                mainWindow.UpdateStatusBarService.UpdateContent("Calculating the hash of the selected game");
-            });
+                mainWindow.UpdateStatusBarService.UpdateContent("Calculating the hash of the selected game"));
 
             var hash = raHashResult.Hash;
             tempExtractionPath = raHashResult.TempExtractionPath;
@@ -556,9 +557,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                     await messageBox.ExtractionFailedMessageBoxAsync(); // Inform user about extraction failure
 
                     Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        mainWindow.UpdateStatusBarService.UpdateContent("Error extracting the file for hashing");
-                    });
+                        mainWindow.UpdateStatusBarService.UpdateContent("Error extracting the file for hashing"));
                 }
                 else // A generic hashing failure not covered by the above
                 {
@@ -625,9 +624,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 _logger.Debug($"[RA Service] No match found for hash: {hash}");
 
                 Application.Current.Dispatcher.Invoke(() =>
-                {
-                    mainWindow.UpdateStatusBarService.UpdateContent($"No match found for hash: {hash}");
-                });
+                    mainWindow.UpdateStatusBarService.UpdateContent($"No match found for hash: {hash}"));
 
                 var messageBoxResult = await messageBox.GameNotSupportedByRetroAchievementsMessageBoxAsync();
                 if (messageBoxResult == CoreMessageBoxResult.Yes)
@@ -1107,8 +1104,10 @@ public class ContextMenuFunctions : IContextMenuFunctions
             var systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemImageFolder);
 
             if (string.IsNullOrEmpty(systemImageFolder))
+            {
                 // Fallback to default if resolution fails or path is empty
                 systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedSystemName);
+            }
 
             try
             {
@@ -1118,8 +1117,10 @@ public class ContextMenuFunctions : IContextMenuFunctions
             {
                 // Notify developer
                 if (App.ServiceProvider != null)
+                {
                     logErrors.Error(ex,
                         $"[TakeScreenshotOfSelectedWindow] Could not create the system image folder: {systemImageFolder}");
+                }
             }
 
             // Capture initial window count before launch
@@ -1157,8 +1158,10 @@ public class ContextMenuFunctions : IContextMenuFunctions
 
                 // Optional: Log progress every few polls
                 if (stopwatch.Elapsed.TotalSeconds % 5 < pollInterval.TotalMilliseconds / 1000.0)
+                {
                     _logger.Debug(
                         $"[Screenshot] Polling... Elapsed: {stopwatch.Elapsed.TotalSeconds:F1}s / {maxWaitTime.TotalSeconds}s");
+                }
             }
 
             stopwatch.Stop();
@@ -1240,10 +1243,12 @@ public class ContextMenuFunctions : IContextMenuFunctions
                 await flashWindow.ShowFlashAsync();
 
                 if (button != null)
+                {
                     // Update the button's image using the new ImageLoader
                     try
                     {
                         if (button.Content is Grid grid)
+                        {
                             // Find the Image control within the button's template
                             if (grid.Children.OfType<Border>().FirstOrDefault()?.Child is Image imageControl)
                             {
@@ -1252,6 +1257,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                                 var (imageStream, _) = await imageLoader.LoadImageAsync(screenshotPath);
                                 imageControl.Source = imageStream.ToBitmapImage(); // Assign the loaded image
                             }
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -1261,6 +1267,7 @@ public class ContextMenuFunctions : IContextMenuFunctions
                         logErrors.Error(ex, contextMessage);
                         // Do not notify the user
                     }
+                }
             }
 
             // Reload the current Game List
@@ -1383,9 +1390,11 @@ public class ContextMenuFunctions : IContextMenuFunctions
             playSoundEffects.PlayTrashSound();
 
             if (string.Equals(Path.GetFileNameWithoutExtension(coverPath), fileNameWithoutExtension,
-                    StringComparison.Ordinal) & !string.Equals(Path.GetFileNameWithoutExtension(coverPath), "default",
+                    StringComparison.Ordinal) && !string.Equals(Path.GetFileNameWithoutExtension(coverPath), "default",
                     StringComparison.Ordinal))
+            {
                 await DeleteFiles.TryDeleteFileAsync(coverPath);
+            }
 
             await Task.Delay(400);
 

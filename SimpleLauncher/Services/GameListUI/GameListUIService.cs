@@ -64,7 +64,7 @@ public class GameListUiService
             }
         });
 
-        await _host.Dispatcher.InvokeAsync(() => { _host.SetPaginationButtonsVisible(true); });
+        await _host.Dispatcher.InvokeAsync(() => _host.SetPaginationButtonsVisible(true));
     }
 
     /// <summary>
@@ -109,8 +109,10 @@ public class GameListUiService
         if (_host.GameFileGrid == null) return;
 
         foreach (var child in _host.GameFileGrid.Children)
+        {
             if (child is Button button)
                 button.IsEnabled = isEnabled;
+        }
     }
 
     /// <summary>
@@ -120,6 +122,7 @@ public class GameListUiService
     public static void ClearGameButtonImages(Panel panel)
     {
         foreach (var child in panel.Children)
+        {
             switch (child)
             {
                 case Image image:
@@ -148,6 +151,7 @@ public class GameListUiService
                     ClearImageFromBorder(border);
                     break;
             }
+        }
     }
 
     /// <summary>

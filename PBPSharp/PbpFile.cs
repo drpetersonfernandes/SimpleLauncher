@@ -196,7 +196,7 @@ public sealed class PbpFile : IDisposable
         for (var i = 0; i < entryCount; i++)
         {
             var dirBuffer = new byte[16];
-            stream.Seek(header.SfoOffset + 20 + i * 16, SeekOrigin.Begin);
+            stream.Seek(header.SfoOffset + 20 + (i * 16), SeekOrigin.Begin);
             stream.ReadExactly(dirBuffer, 0, 16);
 
             // Layout: KeyOffset(2) + Format(2) + Length(4) + MaxLength(4) + DataOffset(4)

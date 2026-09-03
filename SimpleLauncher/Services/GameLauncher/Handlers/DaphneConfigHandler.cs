@@ -34,6 +34,7 @@ public class DaphneConfigHandler : IEmulatorConfigHandler
     {
         var shouldRun = true;
         if (context is { Settings.Daphne.ShowSettingsBeforeLaunch: true, WindowContext: not null })
+        {
             await context.WindowContext.Dispatcher.InvokeAsync(() =>
             {
                 var win = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<InjectDaphneConfigWindow>();
@@ -42,6 +43,7 @@ public class DaphneConfigHandler : IEmulatorConfigHandler
                 win.ShowDialog();
                 shouldRun = win.ShouldRun;
             });
+        }
 
         if (shouldRun)
         {

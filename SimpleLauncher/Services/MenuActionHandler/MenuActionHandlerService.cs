@@ -694,7 +694,7 @@ public class MenuActionHandlerService
     public void HandleExit()
     {
         _playSoundEffects.PlayNotificationSound();
-        if (Application.Current.MainWindow != null) Application.Current.MainWindow.Close();
+        Application.Current.MainWindow?.Close();
     }
 
     // ---- Show Games Settings ----
@@ -838,8 +838,10 @@ public class MenuActionHandlerService
             try
             {
                 if (newPage is 1000 or 10000 or 1000000)
+                {
                     if (await _messageBoxLibrary.WarnUserAboutMemoryConsumptionMessageBoxAsync() == MessageBoxResult.No)
                         return;
+                }
 
                 _playSoundEffects.PlayNotificationSound();
 
@@ -1083,8 +1085,10 @@ public class MenuActionHandlerService
 
                 var result = await _messageBoxLibrary.ScanGamePathForRetroAchievementsMessageBoxAsync();
                 if (result != MessageBoxResult.Yes)
+                {
                     // User cancelled: do not filter the list of games
                     return;
+                }
 
                 var selectedManager = _host.GetSystemManagers()
                     .FirstOrDefault(m => m.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));

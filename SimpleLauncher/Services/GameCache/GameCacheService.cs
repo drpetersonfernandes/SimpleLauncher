@@ -170,7 +170,10 @@ public class GameCacheService : IGameCacheService, IDisposable
                 var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(folder);
                 if (string.IsNullOrEmpty(resolvedPath) ||
                     !Directory.Exists(resolvedPath) ||
-                    config.FileFormatsToSearch == null) continue;
+                    config.FileFormatsToSearch == null)
+                {
+                    continue;
+                }
 
                 var filesInFolder = await fileService.GetFilesAsync(resolvedPath, config.FileFormatsToSearch,
                     config.DisableRecursiveSearch, config.GroupByFolder, ct);
@@ -213,6 +216,7 @@ public class GameCacheService : IGameCacheService, IDisposable
         try
         {
             if (_lock.Wait(5000))
+            {
                 try
                 {
                     _currentSearchResults?.Clear();
@@ -222,8 +226,11 @@ public class GameCacheService : IGameCacheService, IDisposable
                 {
                     _lock.Release();
                 }
+            }
             else
+            {
                 _logger?.Debug("GameCacheService.ClearSync timed out waiting for lock after 5 seconds.");
+            }
         }
         catch (ObjectDisposedException)
         {

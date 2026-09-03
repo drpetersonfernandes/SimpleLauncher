@@ -43,6 +43,7 @@ public class ScanAmazonGames : IGamePlatformScanner
 
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
+            {
                 try
                 {
                     if (!reader.IsDBNull(0))
@@ -69,6 +70,7 @@ public class ScanAmazonGames : IGamePlatformScanner
                 {
                     logErrors.Error(ex, "Error processing an Amazon game entry.");
                 }
+            }
         }
         catch (Exception ex)
         {

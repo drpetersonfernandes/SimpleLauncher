@@ -43,6 +43,7 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
             if (context.Settings is { DuckStation.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
+                {
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
                         var win = _scopeFactory.CreateScope().ServiceProvider
@@ -52,6 +53,7 @@ public class DuckStationConfigHandler : IEmulatorConfigHandler
                         win.ShowDialog();
                         shouldRun = win.ShouldRun;
                     });
+                }
             }
             else
             {

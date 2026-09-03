@@ -51,6 +51,7 @@ public class RaineConfigHandler : IEmulatorConfigHandler
                     if (context.Settings.Raine.ShowSettingsBeforeLaunch)
                     {
                         if (context.WindowContext != null)
+                        {
                             await context.WindowContext.Dispatcher.InvokeAsync(() =>
                             {
                                 var win = _scopeFactory.CreateScope().ServiceProvider
@@ -60,6 +61,7 @@ public class RaineConfigHandler : IEmulatorConfigHandler
                                 win.ShowDialog();
                                 shouldRun = win.ShouldRun;
                             });
+                        }
                     }
                     else if (File.Exists(resolvedExe))
                     {

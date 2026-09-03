@@ -43,6 +43,7 @@ public class RedreamConfigHandler : IEmulatorConfigHandler
             if (context.Settings is { Redream.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
+                {
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
                         var win = _scopeFactory.CreateScope().ServiceProvider
@@ -52,6 +53,7 @@ public class RedreamConfigHandler : IEmulatorConfigHandler
                         win.ShowDialog();
                         shouldRun = win.ShouldRun;
                     });
+                }
             }
             else
             {

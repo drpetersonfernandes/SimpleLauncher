@@ -30,6 +30,7 @@ public class ScanEpicGames : IGamePlatformScanner
             var installedDatPath = Path.Combine(allUsersPath, "UnrealEngineLauncher", "LauncherInstalled.dat");
 
             if (File.Exists(installedDatPath))
+            {
                 try
                 {
                     var jsonString = await File.ReadAllTextAsync(installedDatPath);
@@ -43,7 +44,9 @@ public class ScanEpicGames : IGamePlatformScanner
                             if (string.IsNullOrEmpty(app.AppName) ||
                                 app.AppName.StartsWith("UE_", StringComparison.Ordinal) ||
                                 app.AppName.StartsWith("Falcon", StringComparison.Ordinal))
+                            {
                                 continue;
+                            }
 
                             // We need the display name. LauncherInstalled.dat usually has AppName as the ID (e.g., "Codename").
                             // We might need to cross-reference with Manifests to get the pretty DisplayName.
@@ -90,6 +93,7 @@ public class ScanEpicGames : IGamePlatformScanner
                 {
                     logErrors.Error(ex, "Error reading Epic LauncherInstalled.dat. Falling back to manifests.");
                 }
+            }
 
             // Method 2: Fallback to scanning Manifests directly
             var manifestsDir = Path.Combine(allUsersPath, "EpicGamesLauncher", "Data", "Manifests");
@@ -97,6 +101,7 @@ public class ScanEpicGames : IGamePlatformScanner
             {
                 var manifestFiles = Directory.GetFiles(manifestsDir, "*.item");
                 foreach (var manifestFile in manifestFiles)
+                {
                     try
                     {
                         var jsonContent = await File.ReadAllTextAsync(manifestFile);
@@ -104,7 +109,10 @@ public class ScanEpicGames : IGamePlatformScanner
                         var root = doc.RootElement;
 
                         if (!root.TryGetProperty("DisplayName", out var nameProp) ||
-                            !root.TryGetProperty("AppName", out var appNameProp)) continue;
+                            !root.TryGetProperty("AppName", out var appNameProp))
+                        {
+                            continue;
+                        }
 
                         var displayName = nameProp.GetString();
                         var appName = appNameProp.GetString();
@@ -112,13 +120,18 @@ public class ScanEpicGames : IGamePlatformScanner
                         // Filter UE stuff and ignored games
                         if (string.IsNullOrEmpty(appName) || string.IsNullOrEmpty(displayName) ||
                             appName.StartsWith("UE_", StringComparison.InvariantCulture) ||
-                            ignoredGameNames.Contains(displayName)) continue;
+                            ignoredGameNames.Contains(displayName))
+                        {
+                            continue;
+                        }
 
                         // Filter DLCs: If MainGameAppName exists and is different from AppName, it's likely a DLC
                         if (root.TryGetProperty("MainGameAppName", out var mainGameAppName) &&
                             !string.IsNullOrEmpty(mainGameAppName.GetString()))
+                        {
                             if (!string.Equals(appName, mainGameAppName.GetString(), StringComparison.Ordinal))
                                 continue;
+                        }
 
                         // Filter by Category (exclude plugins, editors, etc.)
                         if (root.TryGetProperty("AppCategories", out var cats))
@@ -149,6 +162,7 @@ public class ScanEpicGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Error processing Epic manifest: {manifestFile}");
                     }
+                }
             }
         }
         catch (Exception ex)

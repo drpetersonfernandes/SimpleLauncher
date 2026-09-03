@@ -37,6 +37,7 @@ internal class ScanGogGames : IGamePlatformScanner
                 if (baseKey == null) continue;
 
                 foreach (var subKeyName in baseKey.GetSubKeyNames())
+                {
                     try
                     {
                         using var subKey = baseKey.OpenSubKey(subKeyName);
@@ -65,6 +66,7 @@ internal class ScanGogGames : IGamePlatformScanner
                         var isDlc = false;
 
                         if (File.Exists(infoFile))
+                        {
                             try
                             {
                                 var json = await File.ReadAllTextAsync(infoFile);
@@ -73,7 +75,9 @@ internal class ScanGogGames : IGamePlatformScanner
                                 // If RootGameId exists and is different from GameId, this is a DLC
                                 if (gameInfo != null && !string.IsNullOrEmpty(gameInfo.RootGameId) &&
                                     !string.Equals(gameInfo.RootGameId, gameInfo.GameId, StringComparison.Ordinal))
+                                {
                                     isDlc = true;
+                                }
 
                                 if (!isDlc)
                                 {
@@ -87,6 +91,7 @@ internal class ScanGogGames : IGamePlatformScanner
                             {
                                 // Fallback to heuristics if JSON parsing fails
                             }
+                        }
 
                         if (isDlc) continue;
 
@@ -110,6 +115,7 @@ internal class ScanGogGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Error processing GOG game registry key: {subKeyName}");
                     }
+                }
             }
         }
         catch (Exception ex)

@@ -61,7 +61,9 @@ public class ChdMountStrategy : ILaunchStrategy
     {
         if (string.IsNullOrEmpty(context.ResolvedFilePath) ||
             string.IsNullOrEmpty(context.EmulatorName))
+        {
             return false;
+        }
 
         var isChd = Path.GetExtension(context.ResolvedFilePath).Equals(".chd", StringComparison.OrdinalIgnoreCase);
         if (!isChd) return false;
@@ -113,31 +115,47 @@ public class ChdMountStrategy : ILaunchStrategy
             await _mountChdFiles.MountAsync(context.ResolvedFilePath, consoleAlias, _logger, _messageBox);
 
         if (!mountedDrive.IsMounted)
+        {
             // Mount failed - error message already shown by MountChdFiles
             return;
+        }
 
         if (_isRpcs3)
+        {
             // RPCS3 needs the path to EBOOT.BIN
             gameFilePath = FindEbootBin.FindEbootBinRecursive(mountedDrive.MountedPath, _logger, _logger);
+        }
         else if (_isXenia)
+        {
             // Xenia needs the path to default.xex
             gameFilePath = FindDefaultXex.Find(mountedDrive.MountedPath, _logger);
+        }
         else if (_isXemu)
+        {
             // Xemu needs the path to image.iso
             gameFilePath = FindImageIso.Find(mountedDrive.MountedPath, _logger);
+        }
         else if (_isCxbxReloaded)
+        {
             // Cxbx-Reloaded needs the path to default.xbe
             gameFilePath = FindDefaultXbe.Find(mountedDrive.MountedPath, _logger);
+        }
         else if (_isGens || _cDiEmu || _isKegaFusion)
+        {
             // Path to a .bin file
             gameFilePath = FindBinFile.Find(mountedDrive.MountedPath, _logger);
+        }
         else if (_isGenesisPlusGx || _is4Do || _isBlastem || _isFinalBurnAlpha || _isFinalBurnNeo || _isMednafen ||
                  _isMesen || _isNebula ||
                  _isPcsxRedux || _isPicoDrive || _isRaine || _isTsugaru || _isYabause)
+        {
             // Path to a .cue file
             gameFilePath = FindCueFile.Find(mountedDrive.MountedPath, _logger);
+        }
         else
+        {
             gameFilePath = null; // return null -->> will be handle by the next Strategy
+        }
 
         if (string.IsNullOrEmpty(gameFilePath))
         {

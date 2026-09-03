@@ -43,6 +43,7 @@ public class MednafenConfigHandler : IEmulatorConfigHandler
             if (context.Settings is { Mednafen.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
+                {
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
                         var win = _scopeFactory.CreateScope().ServiceProvider
@@ -52,6 +53,7 @@ public class MednafenConfigHandler : IEmulatorConfigHandler
                         win.ShowDialog();
                         shouldRun = win.ShouldRun;
                     });
+                }
             }
             else
             {

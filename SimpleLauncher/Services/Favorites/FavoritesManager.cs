@@ -43,6 +43,7 @@ public class FavoritesManager
     public static FavoritesManager LoadFavorites(ILogger? logErrors = null)
     {
         if (File.Exists(DatFilePath))
+        {
             try
             {
                 var bytes = File.ReadAllBytes(DatFilePath);
@@ -56,6 +57,7 @@ public class FavoritesManager
                 const string contextMessage = "Error loading favorites.dat";
                 logErrors?.Error(ex, contextMessage);
             }
+        }
 
         // If no files exist, create a new instance
         var defaultManager = new FavoritesManager { _logger = logErrors };
@@ -80,11 +82,13 @@ public class FavoritesManager
         lock (ListLock)
         {
             foreach (var favorite in FavoriteList)
+            {
                 if (favorite.SystemName.Equals(oldSystemName, StringComparison.OrdinalIgnoreCase))
                 {
                     favorite.SystemName = newSystemName;
                     changed = true;
                 }
+            }
         }
 
         return changed ? SaveFavoritesAsync() : Task.CompletedTask;
@@ -104,8 +108,10 @@ public class FavoritesManager
         lock (ListLock)
         {
             foreach (var favorite in FavoriteList)
+            {
                 if (!validNames.Any(name => name.Equals(favorite.SystemName, StringComparison.OrdinalIgnoreCase)))
                     toRemove.Add(favorite);
+            }
 
             foreach (var favorite in toRemove) FavoriteList.Remove(favorite);
         }
@@ -146,6 +152,7 @@ public class FavoritesManager
             var attempt = 0;
 
             while (attempt < maxRetries)
+            {
                 try
                 {
                     // Serialize using the sorted snapshot
@@ -171,6 +178,7 @@ public class FavoritesManager
 
                     // If in portable mode, try falling back to LocalAppData and reset retries
                     if (FileLocation.IsPortableMode && attempt >= maxRetries)
+                    {
                         try
                         {
                             if (FileLocation.TryFallbackToLocalAppData())
@@ -183,6 +191,7 @@ public class FavoritesManager
                         {
                             Log.Debug($"[FavoritesManager] FallbackToLocalAppData failed: {fallbackEx.Message}");
                         }
+                    }
 
                     if (attempt < maxRetries)
                     {
@@ -205,6 +214,7 @@ public class FavoritesManager
                     lastException = ex;
                     break; // Don't retry non-transient errors
                 }
+            }
 
             // All retries exhausted or non-transient error
             _logger?.Error(lastException, "Error saving favorites.dat");

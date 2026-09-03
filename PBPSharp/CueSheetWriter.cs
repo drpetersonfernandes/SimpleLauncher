@@ -47,7 +47,7 @@ public static class CueSheetWriter
     private static (int Minutes, int Seconds, int Frames) SubtractLeadin(int minutes, int seconds, int frames,
         int leadinFrames)
     {
-        var totalFrames = minutes * 60 * 75 + seconds * 75 + frames - leadinFrames;
+        var totalFrames = (minutes * 60 * 75) + (seconds * 75) + frames - leadinFrames;
         if (totalFrames < 0) totalFrames = 0;
 
         var m = totalFrames / (60 * 75);

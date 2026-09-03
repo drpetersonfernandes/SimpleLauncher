@@ -73,6 +73,7 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
             if (context.Settings is { Blastem.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
+                {
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
                         var win = _scopeFactory.CreateScope().ServiceProvider
@@ -82,11 +83,13 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
                         win.ShowDialog();
                         shouldRun = win.ShouldRun;
                     });
+                }
             }
             else
             {
                 shouldRun = true;
                 if (!string.IsNullOrEmpty(resolvedExe) && File.Exists(resolvedExe))
+                {
                     try
                     {
                         BlastemConfigurationService.InjectSettings(resolvedExe, context.Settings!, _logger);
@@ -99,8 +102,11 @@ public class BlastemConfigHandler : IEmulatorConfigHandler
                             $"BlastemConfigHandler: Configuration injection failed for path: {resolvedExe}");
                         // Continue launching the game even if injection fails
                     }
+                }
                 else
+                {
                     _logger.Debug("[BlastemConfigHandler] Skipping configuration injection - emulator not found");
+                }
             }
 
             return shouldRun;

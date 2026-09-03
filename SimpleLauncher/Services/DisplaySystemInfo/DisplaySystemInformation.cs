@@ -178,7 +178,10 @@ public class DisplaySystemInformation : IDisplaySystemInformation
         foreach (var emulator in selectedManager.Emulators)
         {
             if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) ||
-                CheckPath.IsValidEmulatorExecutablePath(emulator.EmulatorLocation)) continue;
+                CheckPath.IsValidEmulatorExecutablePath(emulator.EmulatorLocation))
+            {
+                continue;
+            }
 
             result.IsValid = false;
             result.InvalidEmulatorLocations.Add(emulator.EmulatorLocation);
@@ -198,6 +201,7 @@ public class DisplaySystemInformation : IDisplaySystemInformation
     private static void ClearGameButtonImages(Panel panel)
     {
         foreach (var child in panel.Children)
+        {
             switch (child)
             {
                 case Image image:
@@ -228,6 +232,7 @@ public class DisplaySystemInformation : IDisplaySystemInformation
                     ClearImageFromBorder(border);
                     break;
             }
+        }
     }
 
     /// <summary>

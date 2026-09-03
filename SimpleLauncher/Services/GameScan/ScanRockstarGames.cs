@@ -69,6 +69,7 @@ public partial class ScanRockstarGames : IGamePlatformScanner
                 if (baseKey == null) continue;
 
                 foreach (var subKeyName in baseKey.GetSubKeyNames())
+                {
                     try
                     {
                         using var subKey = baseKey.OpenSubKey(subKeyName);
@@ -113,6 +114,7 @@ public partial class ScanRockstarGames : IGamePlatformScanner
                     {
                         logErrors.Error(ex, $"Error processing Rockstar game registry key: {subKeyName}");
                     }
+                }
             }
         }
         catch (Exception ex)

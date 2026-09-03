@@ -43,6 +43,7 @@ public class SupermodelConfigHandler : IEmulatorConfigHandler
             if (context.Settings is { Supermodel.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
+                {
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
                         var win = _scopeFactory.CreateScope().ServiceProvider
@@ -52,6 +53,7 @@ public class SupermodelConfigHandler : IEmulatorConfigHandler
                         win.ShowDialog();
                         shouldRun = win.ShouldRun;
                     });
+                }
             }
             else
             {

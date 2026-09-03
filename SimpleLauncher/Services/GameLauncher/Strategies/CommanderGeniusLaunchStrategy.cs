@@ -57,7 +57,9 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
     {
         if (string.IsNullOrEmpty(context.EmulatorName) ||
             string.IsNullOrEmpty(context.ResolvedFilePath))
+        {
             return false;
+        }
 
         if (!context.EmulatorName.Contains("Commander Genius", StringComparison.OrdinalIgnoreCase))
             return false;
@@ -114,7 +116,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
                 var arguments = $"dir=\"games/{zipName}\"";
 
-                _logger.Debug($"CommanderGeniusLaunchStrategy:\n\n" +
+                _logger.Debug("CommanderGeniusLaunchStrategy:\n\n" +
                               $"Program Location: {emulatorLocation}\n" +
                               $"Arguments: {arguments}\n" +
                               $"Working Directory: {cgDataPath}\n" +
@@ -173,7 +175,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                 catch (Win32Exception ex)
                 {
                     var exitCodeInfo = SafeGetExitCode(process);
-                    var errorDetail = $"Commander Genius could not start.\n" +
+                    var errorDetail = "Commander Genius could not start.\n" +
                                       $"{exitCodeInfo}\n" +
                                       $"Emulator: {psi.FileName}\n" +
                                       $"Arguments: {psi.Arguments}\n" +
@@ -181,14 +183,16 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                     _logger.Error(ex, errorDetail);
 
                     if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
+                    {
                         await _messageBox.CouldNotLaunchGameMessageBoxAsync(
                             PathHelper.ResolveLogFilePath(
                                 _configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    }
                 }
                 catch (Exception ex)
                 {
                     var exitCodeInfo = SafeGetExitCode(process);
-                    var errorDetail = $"Commander Genius error.\n" +
+                    var errorDetail = "Commander Genius error.\n" +
                                       $"{exitCodeInfo}\n" +
                                       $"Emulator: {psi.FileName}\n" +
                                       $"Arguments: {psi.Arguments}\n" +
@@ -198,9 +202,11 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                     _logger.Error(ex, errorDetail);
 
                     if (context.EmulatorManager?.ReceiveANotificationOnEmulatorError == true)
+                    {
                         await _messageBox.CouldNotLaunchGameMessageBoxAsync(
                             PathHelper.ResolveLogFilePath(
                                 _configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                    }
                 }
             }
         }
@@ -326,8 +332,10 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         }
 
         if (resolved.Equals(".", StringComparison.Ordinal))
+        {
             if (!string.IsNullOrEmpty(emulatorLocation))
                 resolved = Path.GetDirectoryName(emulatorLocation) ?? resolved;
+        }
 
         return Path.GetFullPath(resolved);
     }
@@ -347,6 +355,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
         var dirScores = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         foreach (var dir in dirsToScore)
+        {
             try
             {
                 var count = Directory.EnumerateFiles(dir)
@@ -358,6 +367,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
             {
                 _logger.Debug($"[CommanderGenius] Error scanning directory '{dir}': {ex.Message}");
             }
+        }
 
         string bestDir;
         if (dirScores.Count > 0)
@@ -375,7 +385,9 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
 
         if (!string.IsNullOrEmpty(bestDir) &&
             !string.Equals(bestDir, extractionDir, StringComparison.OrdinalIgnoreCase))
+        {
             MoveDirectoryContentsToRoot(bestDir, extractionDir);
+        }
 
         CleanEmptySubdirectories(extractionDir);
     }
@@ -452,6 +464,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
         try
         {
             foreach (var subdir in Directory.GetDirectories(rootDir))
+            {
                 try
                 {
                     if (!Directory.EnumerateFileSystemEntries(subdir).Any()) Directory.Delete(subdir, false);
@@ -460,6 +473,7 @@ public partial class CommanderGeniusLaunchStrategy : ILaunchStrategy
                 {
                     // ignored
                 }
+            }
         }
         catch (Exception ex)
         {

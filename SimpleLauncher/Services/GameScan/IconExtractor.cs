@@ -8,7 +8,7 @@ namespace SimpleLauncher.Services.GameScan;
 /// <summary>
 ///     A utility class to extract icons from executable files.
 /// </summary>
-public class IconExtractor : IIconExtractor
+public partial class IconExtractor : IIconExtractor
 {
     /// <summary>
     ///     Extracts the first icon from an executable and saves it as a PNG file.
@@ -56,10 +56,10 @@ public class IconExtractor : IIconExtractor
         }
     }
 
-    [DllImport("shell32.dll", CharSet = CharSet.Auto)]
-    private static extern IntPtr ExtractIcon(IntPtr hInst, string lpszExeFileName, int nIconIndex);
+    [LibraryImport("shell32.dll", EntryPoint = "ExtractIconW", StringMarshalling = StringMarshalling.Utf16)]
+    private static partial IntPtr ExtractIcon(IntPtr hInst, string lpszExeFileName, int nIconIndex);
 
-    [DllImport("user32.dll", SetLastError = true)]
+    [LibraryImport("user32.dll", EntryPoint = "DestroyIconW", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool DestroyIcon(IntPtr hIcon);
+    private static partial bool DestroyIcon(IntPtr hIcon);
 }

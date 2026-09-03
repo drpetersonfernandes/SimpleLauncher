@@ -44,6 +44,7 @@ public class AresConfigHandler : IEmulatorConfigHandler
             if (context.Settings is { Ares.ShowSettingsBeforeLaunch: true })
             {
                 if (context.WindowContext != null)
+                {
                     await context.WindowContext.Dispatcher.InvokeAsync(() =>
                     {
                         var aresWindow = _scopeFactory.CreateScope().ServiceProvider
@@ -53,6 +54,7 @@ public class AresConfigHandler : IEmulatorConfigHandler
                         aresWindow.ShowDialog();
                         shouldRun = aresWindow.ShouldRun;
                     });
+                }
             }
             else
             {

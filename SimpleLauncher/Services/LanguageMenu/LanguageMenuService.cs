@@ -114,7 +114,9 @@ public class LanguageMenuService
     public void SetLanguageCheckMarks(string languageCode)
     {
         foreach (var (name, code) in NameToCode)
+        {
             if (_host.FindMenuItemByName(name) is { } item)
                 item.IsChecked = string.Equals(code, languageCode, StringComparison.Ordinal);
+        }
     }
 }

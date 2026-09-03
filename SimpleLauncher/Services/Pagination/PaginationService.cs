@@ -99,7 +99,7 @@ public class PaginationService : IPaginationService
             return allFiles;
         }
 
-        var startIndex = (CurrentPage - 1) * FilesPerPage + 1;
+        var startIndex = ((CurrentPage - 1) * FilesPerPage) + 1;
         var endIndex = Math.Min(startIndex + FilesPerPage - 1, TotalFiles);
 
         if (TotalFiles > PaginationThreshold)
