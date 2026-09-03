@@ -34,7 +34,19 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Meziantou.Analyzer" Version="3.0.194">
+        <PackageReference Include="Meziantou.Analyzer" Version="3.0.203">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Roslynator.Analyzers" Version="5.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="5.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Roslynator.Formatting.Analyzers" Version="5.0.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -43,9 +55,9 @@
         <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
         <PackageReference Include="SharpCompress" Version="0.50.4" />
-        <PackageReference Include="Avalonia" Version="12.1.1" />
-        <PackageReference Include="Avalonia.Desktop" Version="12.1.1" />
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.1" />
+        <PackageReference Include="Avalonia" Version="12.1.2" />
+        <PackageReference Include="Avalonia.Desktop" Version="12.1.2" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.2" />
     </ItemGroup>
 
 </Project>

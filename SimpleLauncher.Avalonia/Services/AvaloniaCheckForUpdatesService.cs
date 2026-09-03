@@ -10,6 +10,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Threading;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Avalonia.Services.AvaloniaServices;
 using SimpleLauncher.Core.Interfaces;
 using CoreMessageBoxResult = SimpleLauncher.Core.Models.MessageBoxResult;
 using IApplicationLifetime = SimpleLauncher.Core.Interfaces.IApplicationLifetime;
