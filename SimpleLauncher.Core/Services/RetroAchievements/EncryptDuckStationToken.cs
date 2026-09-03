@@ -8,7 +8,7 @@ namespace SimpleLauncher.Core.Services.RetroAchievements;
 /// <summary>
 ///     Provides DuckStation-compatible AES encryption for RetroAchievements API tokens.
 /// </summary>
-public class EncryptDuckStationToken
+public static class EncryptDuckStationToken
 {
     /// <summary>
     ///     Encrypts a RetroAchievements token using DuckStation's AES-128-CBC scheme with a user-derived key.

@@ -13,7 +13,7 @@ namespace SimpleLauncher.Services.UsageStats;
 /// <summary>
 ///     Sends anonymous application usage statistics to the remote stats API.
 /// </summary>
-public class ApplicationStats
+public static class ApplicationStats
 {
     private static readonly Lazy<ILogger> DebugLogger2 = new(() =>
     {

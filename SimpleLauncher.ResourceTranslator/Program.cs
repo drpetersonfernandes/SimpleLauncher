@@ -11,7 +11,7 @@ namespace SimpleLauncher.ResourceTranslator;
 /// <summary>
 ///     Entry point for the SimpleLauncher Resource Translator tool.
 /// </summary>
-public class Program
+public static class Program
 {
     private const int BatchSize = 40;
 

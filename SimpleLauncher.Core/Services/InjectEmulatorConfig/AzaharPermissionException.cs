@@ -22,4 +22,8 @@ public class AzaharPermissionException : Exception
     public AzaharPermissionException(string message, Exception innerException) : base(message, innerException)
     {
     }
+
+    public AzaharPermissionException() : base()
+    {
+    }
 }

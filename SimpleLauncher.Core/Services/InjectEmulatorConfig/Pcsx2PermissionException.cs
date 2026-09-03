@@ -22,4 +22,8 @@ public class Pcsx2PermissionException : Exception
     public Pcsx2PermissionException(string message, Exception innerException) : base(message, innerException)
     {
     }
+
+    public Pcsx2PermissionException() : base()
+    {
+    }
 }
