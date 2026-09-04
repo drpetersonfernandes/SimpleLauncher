@@ -175,7 +175,7 @@ public class AvaloniaContextMenuFunctions(
             return;
         }
 
-        var selectedEmulatorName = AvaloniaContextMenuFunctions.ResolveEmulatorName(context);
+        var selectedEmulatorName = ResolveEmulatorName(context);
         if (string.IsNullOrEmpty(selectedEmulatorName))
         {
             _logErrors.Information("[ContextMenu] Launch requested but no emulator name was resolved.");

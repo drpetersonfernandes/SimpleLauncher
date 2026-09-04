@@ -61,5 +61,5 @@ public partial class IconExtractor : IIconExtractor
 
     [LibraryImport("user32.dll", EntryPoint = "DestroyIconW", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool DestroyIcon(IntPtr hIcon);
+    private static partial void DestroyIcon(IntPtr hIcon);
 }

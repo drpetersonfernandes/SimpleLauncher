@@ -57,7 +57,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     ///     Font size for the game title caption on cards (from the Filename Font Size setting).
     /// </summary>
     [ObservableProperty]
-    public partial double CaptionFontSize { get; set; } = 13;
+    public partial double CaptionFontSize { get; set; }
 
     [ObservableProperty] public partial double CardWidth { get; set; } = 168;
 
@@ -79,7 +79,7 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
 
     [ObservableProperty] public partial ObservableCollection<GameCardViewModel> Games { get; set; } = new();
 
-    [ObservableProperty] public partial bool IsGridView { get; set; } = true;
+    [ObservableProperty] public partial bool IsGridView { get; set; }
 
     [ObservableProperty] public partial bool IsLoading { get; set; }
 

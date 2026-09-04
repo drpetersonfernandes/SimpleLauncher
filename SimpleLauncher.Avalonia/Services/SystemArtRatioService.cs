@@ -161,7 +161,7 @@ public class SystemArtRatioService
         // per-system art ratio for the current view.
         var overrideRatio = GetAspectRatioOverride(_settings.ButtonAspectRatio);
         var ratio = overrideRatio > 0.0 ? overrideRatio :
-            isMixedView ? 0.73 : SystemArtRatioService.GetRatio(systemName);
+            isMixedView ? 0.73 : GetRatio(systemName);
         return cardWidth * ratio;
     }
 }

@@ -467,7 +467,7 @@ public partial class SystemManagerService : ISystemManager
                 }
             }
 
-            if (extractFileBeforeLaunch && (formatsToSearch?.All(static f =>
+            if (extractFileBeforeLaunch && (formatsToSearch.All(static f =>
                     f.Equals("zip", StringComparison.OrdinalIgnoreCase) ||
                     f.Equals("7z", StringComparison.OrdinalIgnoreCase) ||
                     f.Equals("rar", StringComparison.OrdinalIgnoreCase)) != true))
