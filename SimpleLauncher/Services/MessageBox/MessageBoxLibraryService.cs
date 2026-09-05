@@ -2501,13 +2501,13 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             "There was an error launching this game.");
         var elevationrequired = _resourceProvider.GetString("ElevationRequired",
             "The requested operation requires elevation (Administrator privileges).");
-        var grantSimpleLauncheradministrative = _resourceProvider.GetString("GrantSimpleLauncheradministrative",
-            "Grant 'Simple Launcher' administrative access and try again.");
+        var cannotRunProgramsRequiringElevation = _resourceProvider.GetString("CannotRunProgramsRequiringElevation",
+            "'Simple Launcher' cannot run programs that require elevation. Change the game's configuration to not require administrator rights (for example, uncheck 'Run this program as an administrator' in the executable's compatibility settings).");
         var error = _resourceProvider.GetString("Error", "Error");
 
         return _messageDialog.ShowErrorAsync($"{therewasanerrorlaunchingthisgame}\n\n" +
                                              $"{elevationrequired}\n\n" +
-                                             $"{grantSimpleLauncheradministrative}", error);
+                                             $"{cannotRunProgramsRequiringElevation}", error);
     }
 
     /// <summary>

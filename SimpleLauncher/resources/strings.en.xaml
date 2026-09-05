@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -220,6 +220,7 @@
     <system:String x:Key="Cancelingdownload">Canceling download...</system:String>
     <system:String x:Key="CancellingPleasewait">Cancelling ... Please wait</system:String>
     <system:String x:Key="CancelOperation">Cancel operation</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">'Simple Launcher' cannot run programs that require elevation. Change the game's configuration to not require administrator rights (for example, uncheck 'Run this program as an administrator' in the executable's compatibility settings).</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Cannot take a screenshot of a minimized window.</system:String>
     <system:String x:Key="Cart">Cart</system:String>
     <system:String x:Key="Cartnotfound">Cart not found</system:String>

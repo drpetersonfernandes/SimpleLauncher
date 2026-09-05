@@ -236,6 +236,7 @@
   "CancellingPleasewait": "Cancelling...",
   "CancelOperation": "Cancel operation",
   "Cannotlaunchnoemulatorconfiguredfor": "Cannot launch: no emulator configured for {0}",
+  "CannotRunProgramsRequiringElevation": "\u0027Simple Launcher\u0027 cannot run programs that require elevation. Change the game\u0027s configuration to not require administrator rights (for example, uncheck \u0027Run this program as an administrator\u0027 in the executable\u0027s compatibility settings).",
   "Cannottakeascreenshotofaminimizedwindow": "Cannot take a screenshot of a minimized window.",
   "Cart": "Cart",
   "Cartnotfound": "Cart not found",
