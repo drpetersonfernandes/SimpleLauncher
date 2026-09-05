@@ -52,7 +52,7 @@ public class MountChdFiles : IMountChdFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
             _logger.Debug($"[MountChdFiles.MountAsync] Error: {errorMessage}");
-            logErrors.Warning(errorMessage);
+            logErrors.Information(errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return new MountChdDrive(logErrors, _logger);
         }
@@ -170,7 +170,7 @@ public class MountChdFiles : IMountChdFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
             _logger.Debug($"[MountChdFiles] Error: {errorMessage}");
-            logErrors.Warning(errorMessage);
+            logErrors.Information(errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
@@ -380,7 +380,7 @@ public class MountChdFiles : IMountChdFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount CHD.";
             _logger.Debug($"[MountChdFiles] Error: {errorMessage}");
-            logErrors.Warning(errorMessage);
+            logErrors.Information(errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
