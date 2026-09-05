@@ -198,7 +198,8 @@ public partial class GameLauncherService : ILauncherService
             if (CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
             {
                 await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
-                _logger.Error(ex, "Application control policy blocked launching batch file.");
+                // Expected user-environment condition (OS policy blocks the file): not a bug.
+                _logger.Information(ex, "Application control policy blocked launching batch file.");
                 _updateStatusBar.UpdateContent($"Error: {Path.GetFileName(resolvedFilePath)} failed");
             }
             else if (CheckApplicationControlPolicyService.IsElevationRequired(ex))
@@ -343,7 +344,8 @@ public partial class GameLauncherService : ILauncherService
             if (CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
             {
                 await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
-                _logger.Error(ex, "Application control policy blocked launching shortcut file.");
+                // Expected user-environment condition (OS policy blocks the file): not a bug.
+                _logger.Information(ex, "Application control policy blocked launching shortcut file.");
             }
             else if (CheckApplicationControlPolicyService.IsElevationRequired(ex))
             {
@@ -485,7 +487,8 @@ public partial class GameLauncherService : ILauncherService
             if (CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
             {
                 await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
-                _logger.Error(ex, "Application control policy blocked launching executable.");
+                // Expected user-environment condition (OS policy blocks the file): not a bug.
+                _logger.Information(ex, "Application control policy blocked launching executable.");
             }
             else if (CheckApplicationControlPolicyService.IsElevationRequired(ex))
             {
@@ -700,6 +703,12 @@ public partial class GameLauncherService : ILauncherService
                      (selectedEmulatorName.Contains("Xemu", StringComparison.OrdinalIgnoreCase) ||
                       selectedEmulatorManager.EmulatorLocation.Contains("xemu", StringComparison.OrdinalIgnoreCase));
 
+        var isYmir = selectedEmulatorManager?.EmulatorLocation != null &&
+                     (selectedEmulatorName.Contains("Ymir", StringComparison.OrdinalIgnoreCase) ||
+                      selectedEmulatorName.Contains("Yumir", StringComparison.OrdinalIgnoreCase) ||
+                      selectedEmulatorManager.EmulatorLocation.Contains("ymir",
+                          StringComparison.OrdinalIgnoreCase));
+
         // Declare tempExtractionPath here to be accessible in the finally block
         string? tempExtractionPath = null;
 
@@ -740,7 +749,7 @@ public partial class GameLauncherService : ILauncherService
         }
 
         if ((selectedSystemManager.ExtractFileBeforeLaunch || isAzahar || isCitra || isDuckstation || isOotake ||
-             isSameboy) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
+             isSameboy || isYmir) && !isDirectory && !isMountedXbe && !isMountedZip && !isTempConvertedFile)
         {
             if (fileExtension is ".zip" or ".rar" or ".7z")
             {
@@ -1065,7 +1074,8 @@ public partial class GameLauncherService : ILauncherService
                     if (CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(ex))
                     {
                         await _messageBoxLibrary.ApplicationControlPolicyBlockedMessageBoxAsync();
-                        _logger.Error(ex, "Application control policy blocked launching emulator.");
+                        // Expected user-environment condition (OS policy blocks the emulator): not a bug.
+                        _logger.Information(ex, "Application control policy blocked launching emulator.");
                     }
                     else if (CheckApplicationControlPolicyService.IsElevationRequired(ex))
                     {

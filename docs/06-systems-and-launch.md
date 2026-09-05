@@ -39,7 +39,7 @@ Key points (with citations):
 
 ### Regular emulator launch (`LaunchRegularEmulatorAsync`, `:826`)
 
-- Per-emulator quirks (`:875-906`); archive extraction for Azahar/Citra/DuckStation/Ootake/Sameboy/`ExtractFileBeforeLaunch` (`:935-965`); RetroArch `-L` and Xemu `-dvd_path` parameter validation (`:913-933`).
+- Per-emulator quirks (`:875-906`); archive extraction for Azahar/Citra/DuckStation/Ootake/Sameboy/Ymir/`ExtractFileBeforeLaunch` (`:935-965`); RetroArch `-L` and Xemu `-dvd_path` parameter validation (`:913-933`).
 - Path resolution: emulator exe (`:1026-1038`), emulator folder (`:1041-1053`), containing system folder (`:1056`), ROM name (`:1060`), `ResolveParameterString` (`:1063-1070`).
 - **Auto-append ROM** unless `%ROM%`/`%NAME%`/game placeholder present; MAME/Raine get the bare machine name (`:1080-1104`).
 - `ProcessStartInfo` with redirected UTF-8 stdout/stderr (`:1121-1132`), waits for exit (`:1180`).

@@ -212,7 +212,10 @@ public class LauncherService : ILauncherService
                                             emulatorName.Contains("Azahar", StringComparison.OrdinalIgnoreCase) ||
                                             emulatorName.Contains("Citra", StringComparison.OrdinalIgnoreCase) ||
                                             emulatorName.Contains("Ootake", StringComparison.OrdinalIgnoreCase) ||
-                                            emulatorName.Contains("SameBoy", StringComparison.OrdinalIgnoreCase);
+                                            emulatorName.Contains("SameBoy", StringComparison.OrdinalIgnoreCase) ||
+                                            emulatorName.Contains("Ymir", StringComparison.OrdinalIgnoreCase) ||
+                                            emulatorName.Contains("Yumir", StringComparison.OrdinalIgnoreCase) ||
+                                            emulatorLocation.Contains("ymir", StringComparison.OrdinalIgnoreCase);
                     if (requiresRealFiles)
                     {
                         loadingStateProvider?.SetLoadingState(true,
@@ -554,7 +557,8 @@ public class LauncherService : ILauncherService
                     if (CheckApplicationControlPolicyService.IsApplicationControlPolicyBlocked(win32Ex))
                     {
                         await _messageBox.ApplicationControlPolicyBlockedMessageBoxAsync();
-                        Log.Error(win32Ex, "Application control policy blocked launching emulator.");
+                        // Expected user-environment condition (OS policy blocks the emulator): not a bug.
+                        Log.Information(win32Ex, "Application control policy blocked launching emulator.");
                         loadingStateProvider?.SetLoadingState(false);
                         return;
                     }
