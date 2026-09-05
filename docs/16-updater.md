@@ -35,7 +35,7 @@ sequenceDiagram
 ```
 
 - `QuitSimpleLauncher` (`Services\QuitOrReinstall\QuitSimpleLauncher.cs`):
-  - `RestartApplicationAsync` (`:33`) — spawns itself with `--restarting`, then shuts down; failed restart → "FailedToRestart" box, app stays alive.
+  - `RestartApplicationAsync` (`:34`) — spawns itself with `--restarting`, then shuts down; failed restart → "FailedToRestart" box, app stays alive; user-canceled launch (Win32 error 1223) → Information log + "FailedToRestart" box, app stays alive.
   - `SimpleQuitApplication` (`:70`).
   - `ShutdownForUpdateAsync` (`:78`) — downloads fresh `Updater.exe` from GitHub (fallback: secondary server), launches it with the current PID, kills the app.
 - `ReinstallSimpleLauncher` (`Services\QuitOrReinstall\ReinstallSimpleLauncher.cs`):

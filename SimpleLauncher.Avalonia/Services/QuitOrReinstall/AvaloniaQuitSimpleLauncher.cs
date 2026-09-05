@@ -1,6 +1,8 @@
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using SimpleLauncher.Core.Interfaces;
+using SimpleLauncher.Core.Services;
 
 namespace SimpleLauncher.Avalonia.Services.QuitOrReinstall;
 
@@ -42,6 +44,15 @@ public class AvaloniaQuitSimpleLauncher
         try
         {
             Process.Start(startInfo);
+        }
+        catch (Win32Exception ex) when (CheckApplicationControlPolicyService.IsOperationCanceledByUser(ex))
+        {
+            // Expected user-environment condition (e.g., canceled UAC/security prompt): not a bug.
+            _logger.Information(ex, "Application restart was canceled by the user.");
+
+            // Notify user and don't shut down the current instance if the new one couldn't start
+            await messageBox.FailedToRestartMessageBoxAsync();
+            return;
         }
         catch (Exception ex)
         {
