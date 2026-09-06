@@ -889,6 +889,13 @@ public partial class EditSystemWindow : Window
             return;
         }
 
+        if (string.IsNullOrWhiteSpace(SystemNameTextBox.Text))
+        {
+            await _messageBox.WarningMessageBoxAsync(
+                _localization.GetString("ParameterResolverEnterSystemName", "Please enter a system name first."));
+            return;
+        }
+
         SetLoadingState(true,
             _localization.GetString("ParameterResolverLoading", "Resolving parameters, please wait..."));
 

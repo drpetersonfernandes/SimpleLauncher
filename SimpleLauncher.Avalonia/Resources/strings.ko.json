@@ -1,4 +1,4 @@
-﻿{
+{
   "1000000games": "모든 게임",
   "10000games": "10000 게임",
   "1000games": "1000 게임",
@@ -1279,6 +1279,7 @@
   "Pagination.Displaying": "전체 {2}개 파일 중 {0}~{1} 표시 중",
   "ParameterResolverConfirmApply": "이 제안된 매개변수를 적용하시겠습니까?",
   "ParameterResolverEnterEmulatorName": "먼저 에뮬레이터 이름을 입력하십시오.",
+  "ParameterResolverEnterSystemName": "먼저 시스템 이름을 입력하십시오.",
   "ParameterResolverError": "오류",
   "ParameterResolverLoading": "매개변수를 확인 중입니다. 잠시 기다려 주십시오...",
   "ParameterResolverSuccess": "매개변수 제안",

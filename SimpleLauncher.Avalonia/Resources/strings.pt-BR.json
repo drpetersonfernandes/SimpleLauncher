@@ -1,4 +1,4 @@
-﻿{
+{
   "1000000games": "Todos os jogos",
   "10000games": "10000 jogos",
   "1000games": "1000 jogos",
@@ -1279,6 +1279,7 @@
   "Pagination.Displaying": "Exibindo arquivos de {0} a {1} de {2} no total",
   "ParameterResolverConfirmApply": "Deseja aplicar este parâmetro sugerido?",
   "ParameterResolverEnterEmulatorName": "Por favor, insira um nome de emulador primeiro.",
+  "ParameterResolverEnterSystemName": "Por favor, insira um nome de sistema primeiro.",
   "ParameterResolverError": "Erro",
   "ParameterResolverLoading": "Resolvendo parâmetros, por favor, aguarde...",
   "ParameterResolverSuccess": "Sugestão de Parâmetro",

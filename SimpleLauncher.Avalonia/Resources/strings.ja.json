@@ -1,4 +1,4 @@
-﻿{
+{
   "1000000games": "全ゲーム",
   "10000games": "10000ゲーム",
   "1000games": "1000ゲーム",
@@ -1279,6 +1279,7 @@
   "Pagination.Displaying": "全{2}ファイル中 {0}〜{1} を表示中",
   "ParameterResolverConfirmApply": "この提案されたパラメーターを適用しますか？",
   "ParameterResolverEnterEmulatorName": "まずエミュレーター名を入力してください。",
+  "ParameterResolverEnterSystemName": "まずシステム名を入力してください。",
   "ParameterResolverError": "エラー",
   "ParameterResolverLoading": "パラメーターを解決しています。お待ちください...",
   "ParameterResolverSuccess": "パラメーターの提案",

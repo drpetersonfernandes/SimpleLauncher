@@ -1,4 +1,4 @@
-﻿{
+{
   "1000000games": "كل الألعاب",
   "10000games": "10000 لعبة",
   "1000games": "1000 لعبة",
@@ -1279,6 +1279,7 @@
   "Pagination.Displaying": "عرض الملفات من {0} إلى {1} من أصل {2}",
   "ParameterResolverConfirmApply": "هل تريد تطبيق هذا المعامل المقترح؟",
   "ParameterResolverEnterEmulatorName": "الرجاء إدخال اسم المحاكي أولاً.",
+  "ParameterResolverEnterSystemName": "الرجاء إدخال اسم النظام أولاً.",
   "ParameterResolverError": "خطأ",
   "ParameterResolverLoading": "يتم حل المعاملات، الرجاء الانتظار...",
   "ParameterResolverSuccess": "اقتراح المعامل",

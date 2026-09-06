@@ -783,6 +783,15 @@ internal partial class EditSystemWindow : ILoadingState
             return;
         }
 
+        if (string.IsNullOrWhiteSpace(SystemNameTextBox.Text))
+        {
+            var enterSystemNameMsg =
+                (string)Application.Current.TryFindResource("ParameterResolverEnterSystemName") ??
+                "Please enter a system name first.";
+            await _messageBox.WarningMessageBoxAsync(enterSystemNameMsg);
+            return;
+        }
+
         suggestButton.IsEnabled = false;
         Mouse.OverrideCursor = Cursors.Wait;
 

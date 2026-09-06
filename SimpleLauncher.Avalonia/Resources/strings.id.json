@@ -1,4 +1,4 @@
-﻿{
+{
   "1000000games": "Semua game",
   "10000games": "10000 game",
   "1000games": "1000 game",
@@ -1279,6 +1279,7 @@
   "Pagination.Displaying": "Menampilkan file {0} hingga {1} dari total {2}",
   "ParameterResolverConfirmApply": "Apakah Anda ingin menerapkan parameter yang disarankan ini?",
   "ParameterResolverEnterEmulatorName": "Mohon masukkan nama emulator terlebih dahulu.",
+  "ParameterResolverEnterSystemName": "Mohon masukkan nama sistem terlebih dahulu.",
   "ParameterResolverError": "Kesalahan",
   "ParameterResolverLoading": "Memproses parameter, mohon tunggu...",
   "ParameterResolverSuccess": "Saran Parameter",

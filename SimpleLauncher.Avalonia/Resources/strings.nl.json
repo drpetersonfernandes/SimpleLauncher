@@ -1,4 +1,4 @@
-﻿{
+{
   "1000000games": "Alle spellen",
   "10000games": "10000 spellen",
   "1000games": "1000 spellen",
@@ -1279,6 +1279,7 @@
   "Pagination.Displaying": "Bestanden {0} tot {1} van {2} in totaal weergegeven",
   "ParameterResolverConfirmApply": "Wilt u deze voorgestelde parameter toepassen?",
   "ParameterResolverEnterEmulatorName": "Voer eerst een emulatienaam in.",
+  "ParameterResolverEnterSystemName": "Voer eerst een systeemnaam in.",
   "ParameterResolverError": "Fout",
   "ParameterResolverLoading": "Parameters worden opgelost, even geduld alstublieft...",
   "ParameterResolverSuccess": "Parametersuggestie",

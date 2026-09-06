@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1121,6 +1121,7 @@
     <system:String x:Key="OverlayButtonSettings">Configurações do Botão de Sobreposição</system:String>
     <system:String x:Key="ParameterResolverConfirmApply">Deseja aplicar este parâmetro sugerido?</system:String>
     <system:String x:Key="ParameterResolverEnterEmulatorName">Por favor, insira um nome de emulador primeiro.</system:String>
+    <system:String x:Key="ParameterResolverEnterSystemName">Por favor, insira um nome de sistema primeiro.</system:String>
     <system:String x:Key="ParameterResolverError">Erro</system:String>
     <system:String x:Key="ParameterResolverLoading">Resolvendo parâmetros, por favor, aguarde...</system:String>
     <system:String x:Key="ParameterResolverSuccess">Sugestão de Parâmetro</system:String>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1121,6 +1121,7 @@
     <system:String x:Key="OverlayButtonSettings">Pengaturan Tombol Overlay</system:String>
     <system:String x:Key="ParameterResolverConfirmApply">Apakah Anda ingin menerapkan parameter yang disarankan ini?</system:String>
     <system:String x:Key="ParameterResolverEnterEmulatorName">Mohon masukkan nama emulator terlebih dahulu.</system:String>
+    <system:String x:Key="ParameterResolverEnterSystemName">Mohon masukkan nama sistem terlebih dahulu.</system:String>
     <system:String x:Key="ParameterResolverError">Kesalahan</system:String>
     <system:String x:Key="ParameterResolverLoading">Memproses parameter, mohon tunggu...</system:String>
     <system:String x:Key="ParameterResolverSuccess">Saran Parameter</system:String>

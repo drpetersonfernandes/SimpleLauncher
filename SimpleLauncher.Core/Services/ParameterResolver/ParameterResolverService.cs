@@ -64,7 +64,9 @@ public class ParameterResolverService : IParameterResolverService
 
         var apiException =
             new InvalidOperationException($"ParameterResolver API returned {(int)response.StatusCode}: {responseBody}");
-        _logger.Error(apiException, "ParameterResolver API error");
+        // A non-success response (e.g. 400 validation errors from empty user input) is an expected
+        // user-error condition; log at Information so it is never reported as a bug.
+        _logger.Information(apiException, "ParameterResolver API error");
         return null;
     }
 }

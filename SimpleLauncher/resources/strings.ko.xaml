@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1121,6 +1121,7 @@
     <system:String x:Key="OverlayButtonSettings">오버레이 버튼 설정</system:String>
     <system:String x:Key="ParameterResolverConfirmApply">이 제안된 매개변수를 적용하시겠습니까?</system:String>
     <system:String x:Key="ParameterResolverEnterEmulatorName">먼저 에뮬레이터 이름을 입력하십시오.</system:String>
+    <system:String x:Key="ParameterResolverEnterSystemName">먼저 시스템 이름을 입력하십시오.</system:String>
     <system:String x:Key="ParameterResolverError">오류</system:String>
     <system:String x:Key="ParameterResolverLoading">매개변수를 확인 중입니다. 잠시 기다려 주십시오...</system:String>
     <system:String x:Key="ParameterResolverSuccess">매개변수 제안</system:String>

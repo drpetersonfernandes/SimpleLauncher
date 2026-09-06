@@ -1,4 +1,4 @@
-﻿{
+{
   "1000000games": "Tüm oyunlar",
   "10000games": "10000 oyun",
   "1000games": "1000 oyun",
@@ -1279,6 +1279,7 @@
   "Pagination.Displaying": "Toplam {2} dosyadan {0} ile {1} arası gösteriliyor",
   "ParameterResolverConfirmApply": "Bu önerilen parametreyi uygulamak istiyor musunuz?",
   "ParameterResolverEnterEmulatorName": "Lütfen önce bir emülatör adı girin.",
+  "ParameterResolverEnterSystemName": "Lütfen önce bir sistem adı girin.",
   "ParameterResolverError": "Hata",
   "ParameterResolverLoading": "Parametreler çözümleniyor, lütfen bekleyin...",
   "ParameterResolverSuccess": "Parametre Önerisi",

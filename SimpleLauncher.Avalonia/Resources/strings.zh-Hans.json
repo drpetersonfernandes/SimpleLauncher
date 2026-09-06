@@ -1,4 +1,4 @@
-﻿{
+{
   "1000000games": "所有游戏",
   "10000games": "10000 游戏",
   "1000games": "1000 游戏",
@@ -1279,6 +1279,7 @@
   "Pagination.Displaying": "正在显示共 {2} 个文件中的第 {0} 至 {1} 个",
   "ParameterResolverConfirmApply": "您想应用此建议参数吗？",
   "ParameterResolverEnterEmulatorName": "请先输入模拟器名称。",
+  "ParameterResolverEnterSystemName": "请先输入系统名称。",
   "ParameterResolverError": "错误",
   "ParameterResolverLoading": "正在解析参数，请稍候...",
   "ParameterResolverSuccess": "参数建议",

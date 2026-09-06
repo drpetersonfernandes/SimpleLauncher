@@ -1119,6 +1119,7 @@
     <system:String x:Key="OverlayButtonSettings">Overlay Button Settings</system:String>
     <system:String x:Key="ParameterResolverConfirmApply">Do you want to apply this parameter?</system:String>
     <system:String x:Key="ParameterResolverEnterEmulatorName">Please enter an emulator name first.</system:String>
+    <system:String x:Key="ParameterResolverEnterSystemName">Please enter a system name first.</system:String>
     <system:String x:Key="ParameterResolverError">Error</system:String>
     <system:String x:Key="ParameterResolverLoading">Resolving parameters, please wait...</system:String>
     <system:String x:Key="ParameterResolverSuccess">Parameter Suggestion</system:String>

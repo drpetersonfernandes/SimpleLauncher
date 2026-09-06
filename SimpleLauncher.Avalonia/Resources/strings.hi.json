@@ -1,4 +1,4 @@
-﻿{
+{
   "1000000games": "सभी गेम",
   "10000games": "10000 गेम",
   "1000games": "1000 गेम",
@@ -1279,6 +1279,7 @@
   "Pagination.Displaying": "कुल {2} फ़ाइलों में से {0} से {1} तक दिखाई जा रही हैं",
   "ParameterResolverConfirmApply": "क्या आप इस सुझाए गए पैरामीटर को लागू करना चाहते हैं?",
   "ParameterResolverEnterEmulatorName": "कृपया पहले एक एमुलेटर नाम दर्ज करें।",
+  "ParameterResolverEnterSystemName": "कृपया पहले एक सिस्टम नाम दर्ज करें।",
   "ParameterResolverError": "त्रुटि",
   "ParameterResolverLoading": "पैरामीटर हल किए जा रहे हैं, कृपया प्रतीक्षा करें...",
   "ParameterResolverSuccess": "पैरामीटर सुझाव",

@@ -1279,6 +1279,7 @@
   "Pagination.Displaying": "Displaying files {0} to {1} out of {2} total",
   "ParameterResolverConfirmApply": "Do you want to apply this parameter?",
   "ParameterResolverEnterEmulatorName": "Please enter an emulator name first.",
+  "ParameterResolverEnterSystemName": "Please enter a system name first.",
   "ParameterResolverError": "Error",
   "ParameterResolverLoading": "Resolving parameters, please wait...",
   "ParameterResolverSuccess": "Parameter Suggestion",

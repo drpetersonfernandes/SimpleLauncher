@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1121,6 +1121,7 @@
     <system:String x:Key="OverlayButtonSettings">オーバーレイボタン設定</system:String>
     <system:String x:Key="ParameterResolverConfirmApply">この提案されたパラメーターを適用しますか？</system:String>
     <system:String x:Key="ParameterResolverEnterEmulatorName">まずエミュレーター名を入力してください。</system:String>
+    <system:String x:Key="ParameterResolverEnterSystemName">まずシステム名を入力してください。</system:String>
     <system:String x:Key="ParameterResolverError">エラー</system:String>
     <system:String x:Key="ParameterResolverLoading">パラメーターを解決しています。お待ちください...</system:String>
     <system:String x:Key="ParameterResolverSuccess">パラメーターの提案</system:String>

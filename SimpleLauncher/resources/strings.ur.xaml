@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1121,6 +1121,7 @@
     <system:String x:Key="OverlayButtonSettings">اوورلے بٹن کی ترتیبات</system:String>
     <system:String x:Key="ParameterResolverConfirmApply">کیا آپ اس تجویز کردہ پیرامیٹر کو لاگو کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="ParameterResolverEnterEmulatorName">براہ کرم پہلے ایک ایمولیٹر کا نام درج کریں۔</system:String>
+    <system:String x:Key="ParameterResolverEnterSystemName">براہ کرم پہلے ایک سسٹم کا نام درج کریں۔</system:String>
     <system:String x:Key="ParameterResolverError">خرابی</system:String>
     <system:String x:Key="ParameterResolverLoading">پیرامیٹرز حل کیے جا رہے ہیں، براہ کرم انتظار کریں...</system:String>
     <system:String x:Key="ParameterResolverSuccess">پیرامیٹر کی تجویز</system:String>

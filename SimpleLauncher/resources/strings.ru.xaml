@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1121,6 +1121,7 @@
     <system:String x:Key="OverlayButtonSettings">Настройки кнопки наложения</system:String>
     <system:String x:Key="ParameterResolverConfirmApply">Вы хотите применить этот предложенный параметр?</system:String>
     <system:String x:Key="ParameterResolverEnterEmulatorName">Пожалуйста, сначала введите имя эмулятора.</system:String>
+    <system:String x:Key="ParameterResolverEnterSystemName">Пожалуйста, сначала введите имя системы.</system:String>
     <system:String x:Key="ParameterResolverError">Ошибка</system:String>
     <system:String x:Key="ParameterResolverLoading">Разрешение параметров, пожалуйста, подождите...</system:String>
     <system:String x:Key="ParameterResolverSuccess">Предложение параметра</system:String>

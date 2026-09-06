@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1121,6 +1121,7 @@
     <system:String x:Key="OverlayButtonSettings">Katman Düğmesi Ayarları</system:String>
     <system:String x:Key="ParameterResolverConfirmApply">Bu önerilen parametreyi uygulamak istiyor musunuz?</system:String>
     <system:String x:Key="ParameterResolverEnterEmulatorName">Lütfen önce bir emülatör adı girin.</system:String>
+    <system:String x:Key="ParameterResolverEnterSystemName">Lütfen önce bir sistem adı girin.</system:String>
     <system:String x:Key="ParameterResolverError">Hata</system:String>
     <system:String x:Key="ParameterResolverLoading">Parametreler çözümleniyor, lütfen bekleyin...</system:String>
     <system:String x:Key="ParameterResolverSuccess">Parametre Önerisi</system:String>

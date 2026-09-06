@@ -1,4 +1,4 @@
-﻿{
+{
   "1000000games": "تمام گیمز",
   "10000games": "10000 گیمز",
   "1000games": "1000 گیمز",
@@ -1279,6 +1279,7 @@
   "Pagination.Displaying": "کل {2} فائلوں میں سے {0} سے {1} تک دکھائی جا رہی ہیں",
   "ParameterResolverConfirmApply": "کیا آپ اس تجویز کردہ پیرامیٹر کو لاگو کرنا چاہتے ہیں؟",
   "ParameterResolverEnterEmulatorName": "براہ کرم پہلے ایک ایمولیٹر کا نام درج کریں۔",
+  "ParameterResolverEnterSystemName": "براہ کرم پہلے ایک سسٹم کا نام درج کریں۔",
   "ParameterResolverError": "خرابی",
   "ParameterResolverLoading": "پیرامیٹرز حل کیے جا رہے ہیں، براہ کرم انتظار کریں...",
   "ParameterResolverSuccess": "پیرامیٹر کی تجویز",

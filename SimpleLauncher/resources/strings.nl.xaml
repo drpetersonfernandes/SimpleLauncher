@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1121,6 +1121,7 @@
     <system:String x:Key="OverlayButtonSettings">Overlay-knopinstellingen</system:String>
     <system:String x:Key="ParameterResolverConfirmApply">Wilt u deze voorgestelde parameter toepassen?</system:String>
     <system:String x:Key="ParameterResolverEnterEmulatorName">Voer eerst een emulatienaam in.</system:String>
+    <system:String x:Key="ParameterResolverEnterSystemName">Voer eerst een systeemnaam in.</system:String>
     <system:String x:Key="ParameterResolverError">Fout</system:String>
     <system:String x:Key="ParameterResolverLoading">Parameters worden opgelost, even geduld alstublieft...</system:String>
     <system:String x:Key="ParameterResolverSuccess">Parametersuggestie</system:String>

@@ -1,4 +1,4 @@
-﻿{
+{
   "1000000games": "Tất cả trò chơi",
   "10000games": "10000 trò chơi",
   "1000games": "1000 trò chơi",
@@ -1279,6 +1279,7 @@
   "Pagination.Displaying": "Đang hiển thị tệp {0} đến {1} trong tổng số {2}",
   "ParameterResolverConfirmApply": "Bạn có muốn áp dụng tham số được đề xuất này không?",
   "ParameterResolverEnterEmulatorName": "Vui lòng nhập tên trình giả lập trước.",
+  "ParameterResolverEnterSystemName": "Vui lòng nhập tên hệ thống trước.",
   "ParameterResolverError": "Lỗi",
   "ParameterResolverLoading": "Đang giải quyết tham số, vui lòng đợi...",
   "ParameterResolverSuccess": "Gợi ý Tham số",

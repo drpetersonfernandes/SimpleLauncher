@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1121,6 +1121,7 @@
     <system:String x:Key="OverlayButtonSettings">Cài đặt Nút Lớp phủ</system:String>
     <system:String x:Key="ParameterResolverConfirmApply">Bạn có muốn áp dụng tham số được đề xuất này không?</system:String>
     <system:String x:Key="ParameterResolverEnterEmulatorName">Vui lòng nhập tên trình giả lập trước.</system:String>
+    <system:String x:Key="ParameterResolverEnterSystemName">Vui lòng nhập tên hệ thống trước.</system:String>
     <system:String x:Key="ParameterResolverError">Lỗi</system:String>
     <system:String x:Key="ParameterResolverLoading">Đang giải quyết tham số, vui lòng đợi...</system:String>
     <system:String x:Key="ParameterResolverSuccess">Gợi ý Tham số</system:String>

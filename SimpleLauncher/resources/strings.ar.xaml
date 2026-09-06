@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -1121,6 +1121,7 @@
     <system:String x:Key="OverlayButtonSettings">إعدادات زر التراكب</system:String>
     <system:String x:Key="ParameterResolverConfirmApply">هل تريد تطبيق هذا المعامل المقترح؟</system:String>
     <system:String x:Key="ParameterResolverEnterEmulatorName">الرجاء إدخال اسم المحاكي أولاً.</system:String>
+    <system:String x:Key="ParameterResolverEnterSystemName">الرجاء إدخال اسم النظام أولاً.</system:String>
     <system:String x:Key="ParameterResolverError">خطأ</system:String>
     <system:String x:Key="ParameterResolverLoading">يتم حل المعاملات، الرجاء الانتظار...</system:String>
     <system:String x:Key="ParameterResolverSuccess">اقتراح المعامل</system:String>
