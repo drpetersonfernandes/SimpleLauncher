@@ -56,8 +56,7 @@ public class ZipMountStrategy : ILaunchStrategy
     /// <inheritdoc />
     public Task ExecuteAsync(LaunchContext context, ILauncherService launcher)
     {
-        var log = PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ??
-                                                           "error_user.log");
+        var log = PathHelper.ResolveLogFilePath(_configuration);
         if (context.EmulatorName.Contains("RPCS3", StringComparison.Ordinal))
         {
             return _mountZipFiles.MountZipFileAndLoadEbootBinAsync(context.ResolvedFilePath, context.SystemName,

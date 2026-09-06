@@ -183,7 +183,7 @@ public class GamePadController : IDisposable
         if (startException != null)
         {
             return _messageBoxLibrary.GamePadErrorMessageBoxAsync(
-                PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
         }
 
         return Task.CompletedTask;
@@ -218,7 +218,7 @@ public class GamePadController : IDisposable
         if (stopException != null)
         {
             return _messageBoxLibrary.GamePadErrorMessageBoxAsync(
-                PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
         }
 
         return Task.CompletedTask;
@@ -439,8 +439,7 @@ public class GamePadController : IDisposable
 
                             // Notify user (fire-and-forget inside lock; exception observed via continuation)
                             _ = _messageBoxLibrary.GamePadErrorMessageBoxAsync(
-                                    PathHelper.ResolveRelativeToAppDirectory(
-                                        _configuration.GetValue("LogPath", "error_user.log")))
+                                    PathHelper.ResolveLogFilePath(_configuration))
                                 .ContinueWith(static (t, state) =>
                                 {
                                     if (t.IsFaulted)

@@ -304,7 +304,7 @@ public class GameListFactory(
 
             // Notify user
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
 
             return;
         }
@@ -322,7 +322,7 @@ public class GameListFactory(
 
             // Notify user
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
 
             return;
         }
@@ -334,7 +334,7 @@ public class GameListFactory(
 
             // Notify user
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
 
             return;
         }
@@ -346,7 +346,7 @@ public class GameListFactory(
 
             // Notify user
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
 
             return;
         }
@@ -358,7 +358,7 @@ public class GameListFactory(
 
             // Notify user
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
 
             return;
         }

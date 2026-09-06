@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Services.SystemManager;
 using Xunit;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -816,5 +817,47 @@ public class PathHelperTests
             if (Directory.Exists(baseDir))
                 Directory.Delete(baseDir, true);
         }
+    }
+
+    /// <summary>
+    ///     Verifies that ResolveLogFilePath(IConfiguration) reads the 'LogPath' key and combines it with
+    ///     the SimpleLauncher local app-data folder, matching the Serilog file sink location.
+    /// </summary>
+    [Fact]
+    public void ResolveLogFilePathFromConfigurationUsesLogPathKey()
+    {
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>(StringComparer.Ordinal)
+            {
+                ["LogPath"] = "custom.log"
+            })
+            .Build();
+
+        var result = PathHelper.ResolveLogFilePath(configuration);
+
+        Assert.Equal(
+            Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SimpleLauncher",
+                "custom.log"),
+            result);
+    }
+
+    /// <summary>
+    ///     Verifies that ResolveLogFilePath(IConfiguration) falls back to 'error_user.log' when the
+    ///     'LogPath' key is missing and when the configuration is null.
+    /// </summary>
+    [Fact]
+    public void ResolveLogFilePathFromConfigurationFallsBackToDefault()
+    {
+        var emptyConfiguration = new ConfigurationBuilder().Build();
+
+        var fromEmpty = PathHelper.ResolveLogFilePath(emptyConfiguration);
+        var fromNull = PathHelper.ResolveLogFilePath((IConfiguration?)null);
+
+        var expected = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SimpleLauncher",
+            "error_user.log");
+        Assert.Equal(expected, fromEmpty);
+        Assert.Equal(expected, fromNull);
     }
 }

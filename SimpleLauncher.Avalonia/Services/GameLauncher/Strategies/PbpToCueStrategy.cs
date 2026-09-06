@@ -76,7 +76,7 @@ public class PbpToCueStrategy : ILaunchStrategy
             if (cuePath == null)
             {
                 await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(
-                    PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                    PathHelper.ResolveLogFilePath(_configuration));
                 return;
             }
 

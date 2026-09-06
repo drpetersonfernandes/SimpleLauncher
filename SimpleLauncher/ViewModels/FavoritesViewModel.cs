@@ -206,7 +206,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         {
             _logger.Error(ex, "Error in LaunchGameAsync.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
         }
     }
 
@@ -228,7 +228,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
                 // not a bug, keep it out of the bug report service.
                 _logger.Information("[LaunchGameFromFavoritesAsync] selectedSystemManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                    PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                    PathHelper.ResolveLogFilePath(_configuration));
                 return;
             }
 
@@ -253,7 +253,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             {
                 _logger.Information("[LaunchGameFromFavoritesAsync] emulatorManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                    PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                    PathHelper.ResolveLogFilePath(_configuration));
             }
 
             // Game launching is handled by the caller (code-behind) since it needs WPF Window context
@@ -263,7 +263,7 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
         {
             _logger.Error(ex, $"[LaunchGameFromFavoritesAsync] Error launching: {fileName}, {selectedSystemName}");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
         }
     }
 

@@ -271,8 +271,7 @@ public class ExternalToolLauncherService : IExternalToolLauncher
             _logger.Error(ex, contextMessage);
 
             await _messageBoxLibrary.ErrorLaunchingToolMessageBoxAsync(
-                PathHelper.ResolveRelativeToAppDirectory(_configuration.GetValue<string>("LogPath") ??
-                                                         "error_user.log"));
+                PathHelper.ResolveLogFilePath(_configuration));
         }
     }
 

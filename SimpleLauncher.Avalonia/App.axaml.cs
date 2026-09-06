@@ -68,6 +68,7 @@ using SimpleLauncher.Core.Services.UsageStats;
 using SimpleLauncher.Core.Services.WpfServices;
 using IApplicationLifetime = SimpleLauncher.Core.Interfaces.IApplicationLifetime;
 using IResourceProvider = SimpleLauncher.Core.Interfaces.IResourceProvider;
+using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
 // ReSharper disable once RedundantUsingDirective
 using SimpleLauncher.Avalonia.Views;
 #if WINDOWS
@@ -238,8 +239,7 @@ public class App : Application, IDisposable
             .Enrich.FromLogContext()
             .WriteTo.Debug(outputTemplate: "[{Level}] {Timestamp:HH:mm:ss.fff} - {Message}{NewLine}{Exception}")
             .WriteTo.Async(a => a.File(
-                Path.Combine(appDataLogFolder,
-                    configuration.GetValue<string>("LogPath") ?? "error_user.log"),
+                PathHelper.ResolveLogFilePath(configuration),
                 LogEventLevel.Warning,
                 outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level}] {Message}{NewLine}{Exception}",
                 rollingInterval: RollingInterval.Day,

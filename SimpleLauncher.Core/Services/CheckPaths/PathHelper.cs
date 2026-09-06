@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.Configuration;
 
 namespace SimpleLauncher.Core.Services.CheckPaths;
 
@@ -249,10 +250,25 @@ public static partial class PathHelper
     }
 
     /// <summary>
+    ///     Resolves the full path of the user error log file from application configuration,
+    ///     matching the exact location where Serilog writes it (see the file sink configuration
+    ///     in App startup: '%LOCALAPPDATA%\SimpleLauncher\' + 'LogPath', defaulting to 'error_user.log').
+    /// </summary>
+    /// <param name="configuration">
+    ///     The application configuration to read the 'LogPath' key from, or null to use the default
+    ///     'error_user.log'.
+    /// </param>
+    /// <returns>The absolute path of the log file.</returns>
+    public static string ResolveLogFilePath(IConfiguration? configuration)
+    {
+        return ResolveLogFilePath(configuration?["LogPath"]);
+    }
+
+    /// <summary>
     ///     Resolves the actual log file that should be opened for the user.
     /// </summary>
     /// <remarks>
-    ///     The configured log file (see <see cref="ResolveLogFilePath" />) uses a fixed base name such as
+    ///     The configured log file (see <see cref="ResolveLogFilePath(Microsoft.Extensions.Configuration.IConfiguration)" />) uses a fixed base name such as
     ///     <c>error_user.log</c>, but the Serilog sink is configured with a daily rolling interval
     ///     (<c>RollingInterval.Day</c>). As a result the file actually written to disk is date-stamped, e.g.
     ///     <c>error_user20260825.log</c>. Offering the fixed base name to the user therefore always fails with a
@@ -260,7 +276,7 @@ public static partial class PathHelper
     ///     targets the real on-disk log file. If no matching file exists yet, the original base path is returned so
     ///     the caller can report that no log file has been created.
     /// </remarks>
-    /// <param name="preferredPath">The preferred log path (typically from <see cref="ResolveLogFilePath" />).</param>
+    /// <param name="preferredPath">The preferred log path (typically from <see cref="ResolveLogFilePath(Microsoft.Extensions.Configuration.IConfiguration)" />).</param>
     /// <returns>The path of the most recently written matching log file, or <paramref name="preferredPath" /> if none exists.</returns>
     public static string ResolveActualLogFile(string? preferredPath)
     {

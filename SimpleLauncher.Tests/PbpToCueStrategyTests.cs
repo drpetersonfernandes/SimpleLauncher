@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -16,11 +17,13 @@ public class PbpToCueStrategyTests
         var messageBoxMock = new Mock<IMessageBoxLibraryService>();
         var debugLoggerMock = new Mock<ILogger>();
         var discConverterMock = new Mock<IDiscConverter>();
+        var configurationMock = new Mock<IConfiguration>();
 
         return new PbpToCueStrategy(
             messageBoxMock.Object,
             debugLoggerMock.Object,
-            discConverterMock.Object);
+            discConverterMock.Object,
+            configurationMock.Object);
     }
 
     /// <summary>

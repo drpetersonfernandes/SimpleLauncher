@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Configuration;
 using Moq;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -14,13 +13,11 @@ public class XisoMountStrategyTests
 {
     private static XisoMountStrategy CreateStrategy()
     {
-        var configurationMock = new Mock<IConfiguration>();
         var logErrorsMock = new Mock<ILogger>();
         var messageBoxMock = new Mock<IMessageBoxLibraryService>();
         var mountXisoFilesMock = new Mock<IMountXisoFiles>();
 
         return new XisoMountStrategy(
-            configurationMock.Object,
             logErrorsMock.Object,
             messageBoxMock.Object,
             mountXisoFilesMock.Object);

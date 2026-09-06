@@ -173,8 +173,7 @@ public class LauncherService : ILauncherService
 
                     if (isRpcs3 || isScummVm || isXbla)
                     {
-                        var logPath = PathHelper.ResolveRelativeToAppDirectory(
-                            _configuration.GetValue<string>("LogPath") ?? "error_user.log");
+                        var logPath = PathHelper.ResolveLogFilePath(_configuration);
                         loadingStateProvider?.SetLoadingState(true,
                             _localization.GetString("Mountingarchive", "Mounting archive..."));
 
@@ -253,10 +252,8 @@ public class LauncherService : ILauncherService
                     {
                         loadingStateProvider?.SetLoadingState(true,
                             _localization.GetString("MountingXISO", "Mounting XISO..."));
-                        var logPath = PathHelper.ResolveRelativeToAppDirectory(
-                            _configuration.GetValue<string>("LogPath") ?? "error_user.log");
                         mountedXiso = await _mountXisoFiles.MountAsync(
-                            resolvedFilePath, logPath, Log.Logger, _messageBox);
+                            resolvedFilePath, Log.Logger, _messageBox);
                         if (mountedXiso.IsMounted)
                         {
                             actualFilePath = mountedXiso.MountedPath;
@@ -378,8 +375,9 @@ public class LauncherService : ILauncherService
 
             if (string.IsNullOrWhiteSpace(emulatorPath))
             {
-                await _messageBox.ErrorLaunchingGameMessageBoxAsync(
-                    _localization.GetString("Noemulatorpathconfigured", "No emulator path configured."));
+                await _messageBox.CustomErrorMessageBoxAsync(
+                    _localization.GetString("Noemulatorpathconfigured", "No emulator path configured."),
+                    _localization.GetString("LaunchErrorTitle", "Launch Error"));
                 return;
             }
 
@@ -419,7 +417,8 @@ public class LauncherService : ILauncherService
 
                 // Expected user condition (emulator moved/deleted/unconfigured) — Information level.
                 Log.Information(msg);
-                await _messageBox.ErrorLaunchingGameMessageBoxAsync($"Emulator not found: {emulatorPath}");
+                await _messageBox.CustomErrorMessageBoxAsync($"Emulator not found: {emulatorPath}",
+                    _localization.GetString("LaunchErrorTitle", "Launch Error"));
                 return;
             }
 
@@ -581,13 +580,14 @@ public class LauncherService : ILauncherService
                     {
                         // Expected user-error condition (the file is not a valid executable for
                         // this OS platform): not a bug, don't log as error or offer the AI fix.
-                        await _messageBox.ErrorLaunchingGameMessageBoxAsync(win32Ex.Message);
+                        await _messageBox.CustomErrorMessageBoxAsync(win32Ex.Message,
+                            _localization.GetString("LaunchErrorTitle", "Launch Error"));
                         loadingStateProvider?.SetLoadingState(false);
                         return;
                     }
                 }
 
-                await _messageBox.ErrorLaunchingGameMessageBoxAsync(launchException.Message);
+                await _messageBox.CouldNotLaunchGameMessageBoxAsync(LogFilePath());
                 loadingStateProvider?.SetLoadingState(false);
 
                 // Offer the AI parameter fix (ported from the original launcher)
@@ -884,7 +884,7 @@ public class LauncherService : ILauncherService
 
     private string LogFilePath()
     {
-        return PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+        return PathHelper.ResolveLogFilePath(_configuration);
     }
 
     #region Standard launches
@@ -993,7 +993,7 @@ public class LauncherService : ILauncherService
         if (error is not null)
         {
             launchFeedback?.SetStatusText($"Error: {batchShortName} failed");
-            await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
+            await _messageBox.CouldNotLaunchGameMessageBoxAsync(LogFilePath());
         }
     }
 
@@ -1033,7 +1033,8 @@ public class LauncherService : ILauncherService
         if (!shortcutExists)
         {
             Log.Information("Shortcut file not found: {Path}", resolvedFilePath);
-            await _messageBox.ErrorLaunchingGameMessageBoxAsync($"Shortcut file not found: {resolvedFilePath}");
+            await _messageBox.CustomErrorMessageBoxAsync($"Shortcut file not found: {resolvedFilePath}",
+                _localization.GetString("LaunchErrorTitle", "Launch Error"));
             return;
         }
 
@@ -1044,7 +1045,8 @@ public class LauncherService : ILauncherService
             if (string.IsNullOrWhiteSpace(targetUrl))
             {
                 Log.Information("Invalid .url file format or missing URL in: {Path}", resolvedFilePath);
-                await _messageBox.ErrorLaunchingGameMessageBoxAsync($"Invalid .url file: {resolvedFilePath}");
+                await _messageBox.CustomErrorMessageBoxAsync($"Invalid .url file: {resolvedFilePath}",
+                    _localization.GetString("LaunchErrorTitle", "Launch Error"));
                 return;
             }
 
@@ -1090,7 +1092,7 @@ public class LauncherService : ILauncherService
         });
 
         // Show the error on the UI thread (continuation of the awaited Task.Run)
-        if (error is not null) await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
+        if (error is not null) await _messageBox.CouldNotLaunchGameMessageBoxAsync(LogFilePath());
     }
 
     public async Task LaunchExecutableAsync(
@@ -1128,7 +1130,7 @@ public class LauncherService : ILauncherService
         LastPlayTime = DateTime.Now - startTime;
 
         // Show the error on the UI thread (continuation of the awaited Task.Run)
-        if (error is not null) await _messageBox.ErrorLaunchingGameMessageBoxAsync(error.Message);
+        if (error is not null) await _messageBox.CouldNotLaunchGameMessageBoxAsync(LogFilePath());
     }
 
     #endregion

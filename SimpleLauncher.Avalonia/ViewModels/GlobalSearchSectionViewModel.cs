@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Avalonia.Models;
 using SimpleLauncher.Avalonia.Services.SystemManager;
 using SimpleLauncher.Core.Interfaces;
@@ -17,6 +18,7 @@ namespace SimpleLauncher.Avalonia.ViewModels;
 /// </summary>
 public partial class GlobalSearchSectionViewModel : ObservableObject
 {
+    private readonly IConfiguration _configuration;
     private readonly IFindCoverImageService _findCoverImage;
     private readonly IGetListOfFilesService _getListOfFiles;
     private readonly Services.LocalizationService _localization;
@@ -65,7 +67,8 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
         IMessageBoxLibraryService messageBox,
         MainViewModel mainViewModel,
         ILogger logErrors,
-        Services.LocalizationService localization)
+        Services.LocalizationService localization,
+        IConfiguration configuration)
     {
         _systemManagerService = systemManagerService;
         _getListOfFiles = getListOfFiles;
@@ -76,6 +79,7 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
         _mainViewModel = mainViewModel;
         _logErrors = logErrors;
         _localization = localization;
+        _configuration = configuration;
 
         InitializeSystemNames();
     }
@@ -307,7 +311,7 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
             if (string.IsNullOrEmpty(result.FilePath) || string.IsNullOrEmpty(result.SystemName) ||
                 result.EmulatorManager is null)
             {
-                await _messageBox.ErrorLaunchingGameMessageBoxAsync(null);
+                await _messageBox.ErrorLaunchingGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration));
                 return;
             }
 
@@ -317,7 +321,7 @@ public partial class GlobalSearchSectionViewModel : ObservableObject
         catch (Exception ex)
         {
             _logErrors.Error(ex, "Error launching game from the global search results.");
-            await _messageBox.ErrorLaunchingGameMessageBoxAsync(null);
+            await _messageBox.ErrorLaunchingGameMessageBoxAsync(PathHelper.ResolveLogFilePath(_configuration));
         }
     }
 

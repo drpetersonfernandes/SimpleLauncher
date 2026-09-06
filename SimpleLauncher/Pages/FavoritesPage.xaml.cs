@@ -227,7 +227,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
                 // Expected condition (system has no emulators configured; user is notified below).
                 _logger.Information("emulatorManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                    PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                    PathHelper.ResolveLogFilePath(_configuration));
                 return;
             }
 
@@ -305,7 +305,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
                 // Expected condition (favorite references a removed system; user is notified below).
                 _logger.Information("[LaunchGameFromFavoritesAsync] selectedSystemManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                    PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                    PathHelper.ResolveLogFilePath(_configuration));
                 return;
             }
 
@@ -330,7 +330,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
             {
                 _logger.Information("[LaunchGameFromFavoritesAsync] emulatorManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                    PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                    PathHelper.ResolveLogFilePath(_configuration));
                 return;
             }
 
@@ -343,7 +343,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         {
             _logger.Error(ex, $"[LaunchGameFromFavoritesAsync] Error launching: {fileName}, {selectedSystemName}");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
         }
     }
 
@@ -360,7 +360,7 @@ internal partial class FavoritesPage : ILoadingState, IDisposable
         {
             _logger.Error(ex, "Error in the method MouseDoubleClick.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
         }
     }
 

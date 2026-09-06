@@ -209,7 +209,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
             {
                 _logger.Warning("emulatorManager is null.");
                 await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                    PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                    PathHelper.ResolveLogFilePath(_configuration));
                 return;
             }
 
@@ -257,7 +257,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         {
             _logger.Warning("[LaunchGameFromHistoryAsync] systemManager is null.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
             return;
         }
 
@@ -280,7 +280,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         {
             _logger.Warning("[LaunchGameFromHistoryAsync] emulatorManager is null.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
             return;
         }
 
@@ -323,7 +323,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         {
             _logger.Error(ex, "Error in the method MouseDoubleClick.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
         }
     }
 
@@ -513,7 +513,7 @@ public partial class PlayHistoryPage : ILoadingState, IDisposable
         {
             _logger.Error(ex, "Error in the LaunchGameClickAsync method.");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue("LogPath", "error_user.log")));
+                PathHelper.ResolveLogFilePath(_configuration));
         }
     }
 

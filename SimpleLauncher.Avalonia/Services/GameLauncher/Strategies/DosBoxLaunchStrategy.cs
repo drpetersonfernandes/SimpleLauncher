@@ -164,7 +164,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                 {
                     _logger.Error(ex, $"[DosBoxLaunchStrategy] Error launching DOS game: {context.ResolvedFilePath}");
                     await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                        PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                        PathHelper.ResolveLogFilePath(_configuration));
                 }
                 finally
                 {
@@ -328,7 +328,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         {
             _logger.Error(ex, $"[DosBoxLaunchStrategy] Error scanning ISO: {context.ResolvedFilePath}");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                PathHelper.ResolveLogFilePath(_configuration));
             return;
         }
         finally
@@ -490,7 +490,7 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
         {
             _logger.Error(ex, $"[DosBoxLaunchStrategy] Error launching CHD: {context.ResolvedFilePath}");
             await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
-                PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                PathHelper.ResolveLogFilePath(_configuration));
         }
     }
 

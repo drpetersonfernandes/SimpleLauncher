@@ -195,8 +195,7 @@ public partial class SystemManagerService : ISystemManager
                     if (messageBoxLibrary != null)
                     {
                         _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(
-                            PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ??
-                                                          "error_user.log"));
+                            PathHelper.ResolveLogFilePath(configuration));
                     }
 
                     return []; // Return an empty list
@@ -294,8 +293,7 @@ public partial class SystemManagerService : ISystemManager
                         if (messageBoxLibrary != null)
                         {
                             _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(
-                                PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ??
-                                                              "error_user.log"));
+                                PathHelper.ResolveLogFilePath(configuration));
                         }
 
                         return [];
@@ -398,7 +396,7 @@ public partial class SystemManagerService : ISystemManager
                 if (messageBoxLibrary != null)
                 {
                     _ = messageBoxLibrary.SystemXmlIsCorruptedMessageBoxAsync(
-                        PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+                        PathHelper.ResolveLogFilePath(configuration));
                 }
 
                 return []; // Return an empty list

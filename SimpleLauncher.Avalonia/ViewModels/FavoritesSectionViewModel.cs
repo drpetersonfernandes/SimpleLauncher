@@ -198,7 +198,7 @@ public partial class FavoritesSectionViewModel : ObservableObject
 
     private string GetLogFilePath()
     {
-        return PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+        return PathHelper.ResolveLogFilePath(_configuration);
     }
 
     /// <summary>

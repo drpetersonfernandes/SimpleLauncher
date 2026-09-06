@@ -146,7 +146,7 @@ public partial class App : IDisposable
             "SimpleLauncher");
         Directory.CreateDirectory(appDataLogFolder);
 
-        var logFilePath = PathHelper.ResolveLogFilePath(configuration.GetValue<string>("LogPath") ?? "error_user.log");
+        var logFilePath = PathHelper.ResolveLogFilePath(configuration);
 
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()

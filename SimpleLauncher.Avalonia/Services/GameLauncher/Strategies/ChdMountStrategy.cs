@@ -106,7 +106,7 @@ public class ChdMountStrategy : ILaunchStrategy
         string? gameFilePath;
         ResolveEmulatorFlags(context);
 
-        var logPath = PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log");
+        var logPath = PathHelper.ResolveLogFilePath(_configuration);
 
         // Get the console alias for CHDMounter based on system and emulator
         var consoleAlias = _mountChdFiles.GetConsoleAliasFromSystemName(context.SystemName, context.EmulatorName,

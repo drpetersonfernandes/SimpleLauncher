@@ -197,7 +197,7 @@ public class LaunchStrategyTests
         {
             new DefaultLaunchStrategy(), // 999
             new ZipMountStrategy(config, logger, messageBox, new Mock<IMountZipFiles>().Object), // 30
-            new XisoMountStrategy(config, logger, messageBox, new Mock<IMountXisoFiles>().Object), // 20
+            new XisoMountStrategy(logger, messageBox, new Mock<IMountXisoFiles>().Object), // 20
             new ChdMountStrategy(config, messageBox, chd, logger), // 10
             new PbpToCueStrategy(messageBox, logger, converter, config), // 15
             new CommanderGeniusLaunchStrategy(extraction, config, messageBox, logger), // 20
@@ -234,7 +234,7 @@ public class LaunchStrategyTests
         {
             new DefaultLaunchStrategy(),
             new ZipMountStrategy(config, logger, messageBox, new Mock<IMountZipFiles>().Object),
-            new XisoMountStrategy(config, logger, messageBox, new Mock<IMountXisoFiles>().Object),
+            new XisoMountStrategy(logger, messageBox, new Mock<IMountXisoFiles>().Object),
             new ChdMountStrategy(config, messageBox, chd, logger),
             new PbpToCueStrategy(messageBox, logger, converter, config),
             new CommanderGeniusLaunchStrategy(extraction, config, messageBox, logger),

@@ -140,7 +140,7 @@ public class MountZipFiles : IMountZipFiles
                 $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
             logErrors.Error(ex, errorMessage);
-            await messageBox.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(logPath));
+            await messageBox.CouldNotLaunchGameMessageBoxAsync(logPath);
             return;
         }
 
@@ -436,7 +436,7 @@ public class MountZipFiles : IMountZipFiles
                 $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
             logErrors.Error(ex, errorMessage);
-            await messageBox.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(logPath));
+            await messageBox.CouldNotLaunchGameMessageBoxAsync(logPath);
             return;
         }
 
@@ -705,7 +705,7 @@ public class MountZipFiles : IMountZipFiles
                 $"The compressed file is corrupted or in an unsupported format and cannot be mounted: {resolvedZipFilePath}";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
             logErrors.Error(ex, errorMessage);
-            await messageBox.CouldNotLaunchGameMessageBoxAsync(PathHelper.ResolveRelativeToAppDirectory(logPath));
+            await messageBox.CouldNotLaunchGameMessageBoxAsync(logPath);
             return;
         }
 

@@ -381,7 +381,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         {
             try
             {
-                Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
             }
             catch (Exception ex)
             {
@@ -403,12 +407,38 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
 
     public async Task ErrorLaunchingGameMessageBoxAsync(string? logPath)
     {
-        var msg = string.IsNullOrEmpty(logPath)
-            ? _localization.GetString("Anunknownerroroccurred", "An unknown error occurred.")
-            : logPath;
-        if (O != null)
-            await ShowAsync(O, msg, _localization.GetString("LaunchErrorTitle", "Launch Error"), MessageButtons.Ok,
-                MessageIcon.Error);
+        if (O == null) return;
+
+        var therewasanerrorlaunchingtheselected =
+            _localization.GetString("Therewasanerrorlaunchingtheselected",
+                "There was an error launching the selected game.");
+        var dowanttoopenthefileerroruserlog = _localization.GetString("Dowanttoopenthefileerroruserlog",
+            "Do want to open the file 'error_user.log' to debug the error?");
+        var error = _localization.GetString("Error", "Error");
+
+        var result = await ShowAsync(O,
+            $"{therewasanerrorlaunchingtheselected}\n\n{dowanttoopenthefileerroruserlog}", error,
+            MessageButtons.YesNo, MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+                await ShowAsync(O,
+                    _localization.GetString("Thefileerroruserlogwasnotfound",
+                        "The file 'error_user.log' was not found!"),
+                    error, MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
     }
 
 
@@ -430,12 +460,39 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
 
-    public Task CouldNotLaunchThisGameMessageBoxAsync(string? logPath)
+    public async Task CouldNotLaunchThisGameMessageBoxAsync(string? logPath)
     {
-        if (O == null) return Task.CompletedTask;
-        return ShowAsync(O,
-            _localization.GetString("Thefileerroruserlogwasnotfound", "The file 'error_user.log' was not found!"),
-            _localization.GetString("Error", "Error"), MessageButtons.Ok, MessageIcon.Error);
+        if (O == null) return;
+
+        var simpleLaunchercouldnotlaunchthisgame = _localization.GetString("SimpleLaunchercouldnotlaunchthisgame",
+            "'Simple Launcher' could not launch this game.");
+        var dowanttoopenthefileerroruserlog = _localization.GetString("Dowanttoopenthefileerroruserlog",
+            "Do want to open the file 'error_user.log' to debug the error?");
+        var error = _localization.GetString("Error", "Error");
+
+        var result = await ShowAsync(O,
+            $"{simpleLaunchercouldnotlaunchthisgame}\n\n{dowanttoopenthefileerroruserlog}", error,
+            MessageButtons.YesNo, MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+                await ShowAsync(O,
+                    _localization.GetString("Thefileerroruserlogwasnotfound",
+                        "The file 'error_user.log' was not found!"),
+                    error, MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
     }
 
 
@@ -460,12 +517,50 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
 
-    public Task InvalidOperationExceptionMessageBoxAsync(string? logPath)
+    public async Task InvalidOperationExceptionMessageBoxAsync(string? logPath)
     {
-        if (O == null) return Task.CompletedTask;
-        return ShowAsync(O,
-            _localization.GetString("Thefileerroruserlogwas", "The file 'error_user.log' was not found!"),
-            _localization.GetString("Error", "Error"), MessageButtons.Ok, MessageIcon.Error);
+        if (O == null) return;
+
+        var simpleLaunchercouldnotlaunch = _localization.GetString("SimpleLaunchercouldnotlaunch",
+            "'Simple Launcher' could not launch the selected game.");
+        var makesuretheRoMorIsOyouretrying = _localization.GetString("MakesuretheROMorISOyouretrying",
+            "Make sure the ROM or ISO you're trying to run is not corrupted.");
+        var ifyouaretryingtorunRetroarchensurethattheBios = _localization.GetString(
+            "IfyouaretryingtorunRetroarchensurethattheBIOS",
+            "If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.");
+        var alsomakesureyouarecallingtheemulator = _localization.GetString("Alsomakesureyouarecallingtheemulator",
+            "Also, make sure you are calling the emulator with the correct parameter.");
+        var youcanturnoffthistypeoferrormessageinExpertmode = _localization.GetString(
+            "YoucanturnoffthiserrormessageinExpertmode", "You can turn off this error message in Expert mode.");
+        var doyouwanttoopenthefile = _localization.GetString("Doyouwanttoopenthefile",
+            "Do you want to open the file 'error_user.log' to debug the error?");
+        var error = _localization.GetString("Error", "Error");
+
+        var result = await ShowAsync(O, $"{simpleLaunchercouldnotlaunch}\n\n" +
+                                        $"{makesuretheRoMorIsOyouretrying}\n" +
+                                        $"{ifyouaretryingtorunRetroarchensurethattheBios}\n" +
+                                        $"{alsomakesureyouarecallingtheemulator}\n\n" +
+                                        $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
+                                        $"{doyouwanttoopenthefile}", error, MessageButtons.YesNo, MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+                await ShowAsync(O,
+                    _localization.GetString("Thefileerroruserlogwas", "The file 'error_user.log' was not found!"),
+                    error, MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
     }
 
 
@@ -485,7 +580,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         {
             try
             {
-                Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
             }
             catch (Exception ex)
             {
@@ -605,11 +704,41 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
 
-    public Task ThereWasAnErrorLaunchingThisGameMessageBoxAsync(string? logPath)
+    public async Task ThereWasAnErrorLaunchingThisGameMessageBoxAsync(string? logPath)
     {
-        if (O == null) return Task.CompletedTask;
-        return ShowAsync(O, _localization.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!"),
-            _localization.GetString("Error", "Error"), MessageButtons.Ok, MessageIcon.Error);
+        if (O == null) return;
+
+        var therewasanerrorlaunchingthisgame = _localization.GetString("Therewasanerrorlaunchingthisgame",
+            "There was an error launching this game.");
+        var youcanturnoffthistypeoferrormessageinExpertmode = _localization.GetString(
+            "YoucanturnoffthiserrormessageinExpertmode", "You can turn off this error message in Expert mode.");
+        var doyouwanttoopenthefileerroruserlog = _localization.GetString("Doyouwanttoopenthefile",
+            "Do you want to open the file 'error_user.log' to debug the error?");
+        var error = _localization.GetString("Error", "Error");
+
+        var result = await ShowAsync(O, $"{therewasanerrorlaunchingthisgame}\n\n" +
+                                        $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
+                                        $"{doyouwanttoopenthefileerroruserlog}", error, MessageButtons.YesNo,
+            MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+                await ShowAsync(O,
+                    _localization.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!"),
+                    error, MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
     }
 
 
@@ -695,13 +824,38 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
 
-    public Task ShowCustomMessageBoxAsync(string message, string launchError, string? logPath)
+    public async Task ShowCustomMessageBoxAsync(string message, string launchError, string? logPath)
     {
-        if (O == null) return Task.CompletedTask;
-        return ShowAsync(O,
-            _localization.GetString("Thefileerroruserlogwasnotfound", "The file 'error_user.log' was not found!"),
-            launchError, MessageButtons.Ok,
-            MessageIcon.Error);
+        if (O == null) return;
+
+        var therewasanerrorlaunchingtheselected = _localization.GetString("Therewasanerrorlaunchingtheselected",
+            "There was an error launching the selected game.");
+        var dowanttoopenthefileerroruserlog = _localization.GetString("Dowanttoopenthefileerroruserlog",
+            "Do want to open the file 'error_user.log' to debug the error?");
+
+        var result = await ShowAsync(O,
+            $"{therewasanerrorlaunchingtheselected}\n\n{message}\n\n{dowanttoopenthefileerroruserlog}", launchError,
+            MessageButtons.YesNo, MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+                await ShowAsync(O,
+                    _localization.GetString("Thefileerroruserlogwasnotfound",
+                        "The file 'error_user.log' was not found!"),
+                    launchError, MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
     }
 
 
@@ -989,11 +1143,37 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
 
-    public Task ErrorFindingGameFilesMessageBoxAsync(string logPath)
+    public async Task ErrorFindingGameFilesMessageBoxAsync(string logPath)
     {
-        if (O == null) return Task.CompletedTask;
-        return ShowAsync(O, _localization.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!"),
-            _localization.GetString("Error", "Error"), MessageButtons.Ok, MessageIcon.Error);
+        if (O == null) return;
+
+        var therewasanerrorfinding = _localization.GetString("Therewasanerrorfinding",
+            "There was an error finding the game files.");
+        var doyouwanttoopenthefileerroruserlog = _localization.GetString("Doyouwanttoopenthefileerroruserlog",
+            "Do you want to open the file 'error_user.log' to debug the error?");
+        var error = _localization.GetString("Error", "Error");
+
+        var result = await ShowAsync(O, $"{therewasanerrorfinding}\n\n{doyouwanttoopenthefileerroruserlog}", error,
+            MessageButtons.YesNo, MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+                await ShowAsync(O,
+                    _localization.GetString("Thefileerroruserlogwas", "The file 'error_user.log' was not found!"),
+                    error, MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
     }
 
 
@@ -1296,11 +1476,56 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
 
-    public Task FilePathIsInvalidMessageBoxAsync(string? logPath)
+    public async Task FilePathIsInvalidMessageBoxAsync(string? logPath)
     {
-        if (O == null) return Task.CompletedTask;
-        return ShowAsync(O, _localization.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!"),
-            _localization.GetString("Error", "Error"), MessageButtons.Ok, MessageIcon.Error);
+        if (O == null) return;
+
+        var simpleLaunchercouldnotlaunch = _localization.GetString("SimpleLaunchercouldnotlaunch",
+            "'Simple Launcher' could not launch the selected game.");
+        var thefilepathisinvalid = _localization.GetString("Thefilepathisinvalid",
+            "The filepath is invalid or the file does not exist!");
+        var networkPathIssue = _localization.GetString("networkPathIssue",
+            "If the file is on a network drive ensure your computer is still connected to that drive.");
+        var usbDeviceIssue = _localization.GetString("usbDeviceIssue",
+            "If the file is on a portable USB device ensure it is still connected to your computer.");
+        var oneDriveIssue = _localization.GetString("oneDriveIssue",
+            "If the file is in OneDrive, ensure it is synced and downloaded to your device. Right-click the file in File Explorer and select 'Always keep on this device'.");
+        var avoidusingspecialcharactersinthefilepath = _localization.GetString(
+            "Avoidusingspecialcharactersinthefilepath",
+            "Avoid using special characters in the filepath, such as @, !, ?, ~, or any other special characters.");
+        var youcanturnoffthistypeoferrormessageinExpertmode = _localization.GetString(
+            "YoucanturnoffthiserrormessageinExpertmode", "You can turn off this error message in Expert mode.");
+        var doyouwanttoopenthefile = _localization.GetString("Doyouwanttoopenthefile",
+            "Do you want to open the file 'error_user.log' to debug the error?");
+        var error = _localization.GetString("Error", "Error");
+
+        var result = await ShowAsync(O, $"{simpleLaunchercouldnotlaunch}\n\n" +
+                                        $"{thefilepathisinvalid}\n" +
+                                        $"{networkPathIssue}\n" +
+                                        $"{usbDeviceIssue}\n" +
+                                        $"{oneDriveIssue}\n" +
+                                        $"{avoidusingspecialcharactersinthefilepath}\n\n" +
+                                        $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
+                                        $"{doyouwanttoopenthefile}", error, MessageButtons.YesNo, MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+                await ShowAsync(O,
+                    _localization.GetString("Thefileerroruserlogwas", "The file 'error_user.log' was not found!"),
+                    error, MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
     }
 
 
@@ -1312,11 +1537,48 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
 
-    public Task SystemXmlIsCorruptedMessageBoxAsync(string? logPath)
+    public async Task SystemXmlIsCorruptedMessageBoxAsync(string? logPath)
     {
-        if (O == null) return Task.CompletedTask;
-        return ShowAsync(O, _localization.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!"),
-            _localization.GetString("Error", "Error"), MessageButtons.Ok, MessageIcon.Error);
+        if (O == null) return;
+
+        var systemxmliscorrupted = _localization.GetString("systemxmliscorrupted",
+            "'system.xml' is corrupted or could not be opened.");
+        var pleasefixitmanuallyordeleteit = _localization.GetString("Pleasefixitmanuallyordeleteit",
+            "Please fix it manually or delete it.");
+        var ifyouchoosetodeleteit = _localization.GetString("Ifyouchoosetodeleteit",
+            "If you choose to delete it, 'Simple Launcher' will create a new one for you.");
+        var theapplicationwillshutdown =
+            _localization.GetString("Theapplicationwillshutdown", "The application will shutdown.");
+        var wouldyouliketoopentheerroruserlog = _localization.GetString("Wouldyouliketoopentheerroruserlog",
+            "Would you like to open the 'error_user.log' file to investigate the issue?");
+        var error = _localization.GetString("Error", "Error");
+
+        var result = await ShowAsync(O, $"{systemxmliscorrupted} {pleasefixitmanuallyordeleteit}\n\n" +
+                                        $"{ifyouchoosetodeleteit}\n\n" +
+                                        $"{theapplicationwillshutdown}" +
+                                        $"{wouldyouliketoopentheerroruserlog}", error, MessageButtons.YesNo,
+            MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+                await ShowAsync(O,
+                    _localization.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!"),
+                    error, MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
+
+        App.ServiceProvider.GetRequiredService<AvaloniaQuitSimpleLauncher>().SimpleQuitApplication();
     }
 
 
@@ -1769,12 +2031,43 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
 
-    public Task GamePadErrorMessageBoxAsync(string? logPath)
+    public async Task GamePadErrorMessageBoxAsync(string? logPath)
     {
-        if (O == null) return Task.CompletedTask;
-        return ShowAsync(O,
-            _localization.GetString("Thefileerroruserlogwas", "The file 'error_user.log' was not found!"),
-            _localization.GetString("Error", "Error"), MessageButtons.Ok, MessageIcon.Error);
+        if (O == null) return;
+
+        var therewasanerrorwiththeGamePadController = _localization.GetString("TherewasanerrorwiththeGamePadController",
+            "There was an error with the GamePad Controller.");
+        var grantSimpleLauncheradministrative = _localization.GetString("GrantSimpleLauncheradministrative",
+            "Grant 'Simple Launcher' administrative access and try again.");
+        var temporarilydisableyourantivirus = _localization.GetString("Youcanalsotemporarilydisableyourantivirussoftware",
+            "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.");
+        var doyouwanttoopenthefile = _localization.GetString("Doyouwanttoopenthefile",
+            "Do you want to open the file 'error_user.log' to debug the error?");
+        var error = _localization.GetString("Error", "Error");
+
+        var result = await ShowAsync(O, $"{therewasanerrorwiththeGamePadController}\n\n" +
+                                        $"{grantSimpleLauncheradministrative}\n\n" +
+                                        $"{temporarilydisableyourantivirus}\n\n" +
+                                        $"{doyouwanttoopenthefile}", error, MessageButtons.YesNo, MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+                await ShowAsync(O,
+                    _localization.GetString("Thefileerroruserlogwas", "The file 'error_user.log' was not found!"),
+                    error, MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
     }
 
 
@@ -2510,12 +2803,37 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
 
-    public Task FileSystemXmlIsCorruptedMessageBoxAsync(string? logPath)
+    public async Task FileSystemXmlIsCorruptedMessageBoxAsync(string? logPath)
     {
-        if (O == null) return Task.CompletedTask;
-        return ShowAsync(O,
-            _localization.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!"),
-            _localization.GetString("Error", "Error"), MessageButtons.Ok, MessageIcon.Error);
+        if (O == null) return;
+
+        var thefilesystemxmlisbadlycorrupted = _localization.GetString("Thefilesystemxmlisbadlycorrupted",
+            "The file 'system.xml' is badly corrupted.");
+        var wouldyouliketoopentheerroruserlog = _localization.GetString("Wouldyouliketoopentheerroruserlog",
+            "Would you like to open the 'error_user.log' file to investigate the issue?");
+        var error = _localization.GetString("Error", "Error");
+
+        var result = await ShowAsync(O, $"{thefilesystemxmlisbadlycorrupted}\n\n{wouldyouliketoopentheerroruserlog}",
+            error, MessageButtons.YesNo, MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+                await ShowAsync(O,
+                    _localization.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!"),
+                    error, MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
     }
 
 
@@ -3037,12 +3355,46 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
 
-    public Task ErrorLaunchingToolMessageBoxAsync(string? logPath)
+    public async Task ErrorLaunchingToolMessageBoxAsync(string? logPath)
     {
-        if (O == null) return Task.CompletedTask;
-        return ShowAsync(O,
-            _localization.GetString("Thefileerroruserlogwasnotfound", "The file 'error_user.log' was not found!"),
-            _localization.GetString("Error", "Error"), MessageButtons.Ok, MessageIcon.Error);
+        if (O == null) return;
+
+        var anerroroccurredwhilelaunchingtheselectedtool = _localization.GetString(
+            "Anerroroccurredwhilelaunchingtheselectedtool", "An error occurred while launching the selected tool.");
+        var grantSimpleLauncheradministrative = _localization.GetString("GrantSimpleLauncheradministrative",
+            "Grant 'Simple Launcher' administrative access and try again.");
+        var temporarilydisableyourantivirussoftware = _localization.GetString(
+            "Youcanalsotemporarilydisableyourantivirussoftware",
+            "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.");
+        var dowanttoopenthefileerroruserlog = _localization.GetString("Dowanttoopenthefileerroruserlog",
+            "Do want to open the file 'error_user.log' to debug the error?");
+        var error = _localization.GetString("Error", "Error");
+
+        var result = await ShowAsync(O, $"{anerroroccurredwhilelaunchingtheselectedtool}\n\n" +
+                                        $"{grantSimpleLauncheradministrative}\n\n" +
+                                        $"{temporarilydisableyourantivirussoftware}\n\n" +
+                                        $"{dowanttoopenthefileerroruserlog}", error, MessageButtons.YesNo,
+            MessageIcon.Error);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to open the error log file.");
+                await ShowAsync(O,
+                    _localization.GetString("Thefileerroruserlogwasnotfound",
+                        "The file 'error_user.log' was not found!"),
+                    error, MessageButtons.Ok, MessageIcon.Error);
+            }
+        }
     }
 
 
@@ -3088,7 +3440,11 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         {
             try
             {
-                Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
             }
             catch (Exception ex)
             {

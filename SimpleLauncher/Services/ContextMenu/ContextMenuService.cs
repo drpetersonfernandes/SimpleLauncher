@@ -2,7 +2,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
@@ -17,6 +16,7 @@ namespace SimpleLauncher.Services.ContextMenu;
 /// </summary>
 public class ContextMenuService : IContextMenuService
 {
+    private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
     private readonly IRetroAchievementsHasherTool _raHasherTool;
@@ -24,12 +24,14 @@ public class ContextMenuService : IContextMenuService
     /// <summary>
     ///     Initializes a new instance of the <see cref="ContextMenuService" /> class.
     /// </summary>
+    /// <param name="configuration">The application configuration used to resolve the log file path.</param>
     /// <param name="logger">The service used to log errors.</param>
     /// <param name="messageBox">The service used to display message boxes to the user.</param>
     /// <param name="raHasherTool">The RetroAchievements hasher tool used to check system support.</param>
-    public ContextMenuService(ILogger logger, IMessageBoxLibraryService messageBox,
+    public ContextMenuService(IConfiguration configuration, ILogger logger, IMessageBoxLibraryService messageBox,
         IRetroAchievementsHasherTool raHasherTool)
     {
+        _configuration = configuration;
         _logger = logger;
         _messageBox = messageBox;
         _raHasherTool = raHasherTool;
@@ -705,8 +707,8 @@ public class ContextMenuService : IContextMenuService
                 _logger.Information("Right click context menu was invoked, but the FilePath is null or empty.");
 
                 // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(
-                    App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                    PathHelper.ResolveLogFilePath(_configuration));
 
                 return true;
             }
@@ -719,8 +721,8 @@ public class ContextMenuService : IContextMenuService
                     "[CheckParametersForNullOrEmptyAsync] Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
 
                 // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(
-                    App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                    PathHelper.ResolveLogFilePath(_configuration));
 
                 return true;
             }
@@ -732,8 +734,8 @@ public class ContextMenuService : IContextMenuService
                     "Right click context menu was invoked, but the SelectedSystemName is null or empty.");
 
                 // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(
-                    App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                    PathHelper.ResolveLogFilePath(_configuration));
 
                 return true;
             }
@@ -744,8 +746,8 @@ public class ContextMenuService : IContextMenuService
                 _logger.Information("Right click context menu was invoked, but the SelectedSystemManager is null.");
 
                 // Notify user
-                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(PathHelper.ResolveLogFilePath(
-                    App.ServiceProvider.GetRequiredService<IConfiguration>().GetValue("LogPath", "error_user.log")));
+                await _messageBox.CouldNotLaunchThisGameMessageBoxAsync(
+                    PathHelper.ResolveLogFilePath(_configuration));
 
                 return true;
             }

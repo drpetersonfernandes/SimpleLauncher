@@ -1,6 +1,5 @@
 using System.Windows;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
 using PathHelper = SimpleLauncher.Core.Services.CheckPaths.PathHelper;
@@ -12,6 +11,7 @@ namespace SimpleLauncher.Services.GameLauncher.Strategies;
 /// </summary>
 public class PbpToCueStrategy : ILaunchStrategy
 {
+    private readonly IConfiguration _configuration;
     private readonly IDiscConverter _discConverter;
     private readonly ILogger _logger;
     private readonly IMessageBoxLibraryService _messageBox;
@@ -19,11 +19,13 @@ public class PbpToCueStrategy : ILaunchStrategy
     /// <summary>
     ///     Initializes a new instance of the <see cref="PbpToCueStrategy" /> class.
     /// </summary>
-    public PbpToCueStrategy(IMessageBoxLibraryService messageBox, ILogger logger, IDiscConverter discConverter)
+    public PbpToCueStrategy(IMessageBoxLibraryService messageBox, ILogger logger, IDiscConverter discConverter,
+        IConfiguration configuration)
     {
         _messageBox = messageBox;
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _discConverter = discConverter;
+        _configuration = configuration;
     }
 
     /// <inheritdoc />
@@ -74,8 +76,7 @@ public class PbpToCueStrategy : ILaunchStrategy
             if (cuePath == null)
             {
                 await _messageBox.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(
-                    PathHelper.ResolveLogFilePath(App.ServiceProvider.GetRequiredService<IConfiguration>()
-                        .GetValue("LogPath", "error_user.log")));
+                    PathHelper.ResolveLogFilePath(_configuration));
                 return;
             }
 

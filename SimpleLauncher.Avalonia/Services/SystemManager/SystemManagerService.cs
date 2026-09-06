@@ -156,7 +156,7 @@ public class SystemManagerService
     private void NotifyCorruptedAndMaybeRestore(string path)
     {
         _ = _messageBox?.SystemXmlIsCorruptedMessageBoxAsync(
-            PathHelper.ResolveLogFilePath(_configuration.GetValue<string>("LogPath") ?? "error_user.log"));
+            PathHelper.ResolveLogFilePath(_configuration));
 
         var backup = FindLatestBackup(path);
         if (backup is null) return;
