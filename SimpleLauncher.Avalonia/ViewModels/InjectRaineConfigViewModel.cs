@@ -123,7 +123,7 @@ public partial class InjectRaineConfigViewModel : ObservableObject
     public void Initialize(string? emulatorPath, bool isLauncherMode, string? gameFilePath = null,
         string? systemRomPath = null)
     {
-        _emulatorPath = emulatorPath ?? throw new ArgumentNullException(nameof(emulatorPath));
+        _emulatorPath = emulatorPath ?? "";
         _gameFilePath = gameFilePath ?? "";
         _systemRomPath = systemRomPath ?? "";
         IsLauncherMode = isLauncherMode;
