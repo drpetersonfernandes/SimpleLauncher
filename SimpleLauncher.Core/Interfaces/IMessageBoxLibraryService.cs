@@ -223,6 +223,13 @@ public interface IMessageBoxLibraryService
     Task EmulatorPathNotConfiguredMessageBoxAsync();
 
     /// <summary>
+    ///     Displays an error stating that the configured emulator executable was not found on disk.
+    /// </summary>
+    /// <param name="configuredPath">The emulator path as configured in the system settings.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    Task EmulatorExecutableNotFoundMessageBoxAsync(string configuredPath);
+
+    /// <summary>
     ///     Displays an error message when calculating global statistics fails.
     /// </summary>
     /// <returns>A task representing the asynchronous operation.</returns>

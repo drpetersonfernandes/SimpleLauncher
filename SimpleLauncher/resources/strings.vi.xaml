@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -528,6 +528,9 @@
     <system:String x:Key="Emulator5Path">Đường dẫn Máy giả lập 5</system:String>
     <system:String x:Key="Emulator5pathisrequired">Đường dẫn Trình giả lập 5 là bắt buộc.</system:String>
     <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Trình giả lập đã được cấu hình thành công cho RetroAchievements!</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails1">Không tìm thấy tệp thực thi của trình giả lập tại đường dẫn đã cấu hình:</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails2">Trình giả lập có thể đã bị di chuyển, đổi tên hoặc xóa.</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails3">Vui lòng chỉnh sửa cấu hình hệ thống và chọn lại tệp thực thi của trình giả lập.</system:String>
     <system:String x:Key="EmulatorIntegration">Tích hợp trình giả lập</system:String>
     <system:String x:Key="EmulatorName">Tên Trình giả lập</system:String>
     <system:String x:Key="Emulatornameisrequired">Tên trình giả lập là bắt buộc.</system:String>

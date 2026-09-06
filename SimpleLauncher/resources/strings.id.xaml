@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -528,6 +528,9 @@
     <system:String x:Key="Emulator5Path">Jalur Emulator 5</system:String>
     <system:String x:Key="Emulator5pathisrequired">Path Emulator 5 diperlukan.</system:String>
     <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emulator berhasil dikonfigurasi untuk RetroAchievements!</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails1">File eksekusi emulator tidak ditemukan di jalur yang dikonfigurasi:</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails2">Emulator mungkin telah dipindahkan, diganti namanya, atau dihapus.</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails3">Silakan edit konfigurasi sistem dan pilih file eksekusi emulator lagi.</system:String>
     <system:String x:Key="EmulatorIntegration">Integrasi Emulator</system:String>
     <system:String x:Key="EmulatorName">Nama Emulator</system:String>
     <system:String x:Key="Emulatornameisrequired">Nama emulator diperlukan.</system:String>

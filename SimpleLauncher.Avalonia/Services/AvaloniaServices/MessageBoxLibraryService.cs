@@ -3076,6 +3076,22 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
 
+    public Task EmulatorExecutableNotFoundMessageBoxAsync(string configuredPath)
+    {
+        if (O == null) return Task.CompletedTask;
+        var details1 = _localization.GetString("EmulatorExecutableNotFoundDetails1",
+            "The emulator executable was not found at the configured path:");
+        var details2 = _localization.GetString("EmulatorExecutableNotFoundDetails2",
+            "The emulator may have been moved, renamed, or deleted.");
+        var details3 = _localization.GetString("EmulatorExecutableNotFoundDetails3",
+            "Please edit the system configuration and select the emulator executable again.");
+        return ShowAsync(O,
+            $"{details1}\n{configuredPath}\n\n{details2}\n{details3}",
+            _localization.GetString("EmulatorNotFound", "Emulator Not Found"), MessageButtons.Ok,
+            MessageIcon.Error);
+    }
+
+
     public Task ThereIsNoCabinetMessageBoxAsync()
     {
         if (O == null) return Task.CompletedTask;

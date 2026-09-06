@@ -880,12 +880,14 @@ public partial class GameLauncherService : ILauncherService
                         : "\nThe parent OneDrive folder does not exist or is not accessible. Ensure OneDrive is signed in and synced, and that the folder is available on this device.";
                 }
 
-                _logger.Error(new FileNotFoundException(contextMessage), "Emulator configuration error.");
                 _logger.Debug($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
-                // Notify user
-                await _messageBoxLibrary.CouldNotLaunchThisGameMessageBoxAsync(
-                    PathHelper.ResolveLogFilePath(_configuration));
+                // Expected user condition (emulator moved/renamed/deleted/unconfigured) — Information level.
+                _logger.Information(contextMessage);
+
+                // Notify user with a direct, actionable message (the log file will not contain this at Information level)
+                await _messageBoxLibrary.EmulatorExecutableNotFoundMessageBoxAsync(
+                    selectedEmulatorManager.EmulatorLocation);
 
                 return;
             }

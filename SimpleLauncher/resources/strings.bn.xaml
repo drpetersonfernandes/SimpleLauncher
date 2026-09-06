@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -528,6 +528,9 @@
     <system:String x:Key="Emulator5Path">ইমুলেটর ৫ পথ</system:String>
     <system:String x:Key="Emulator5pathisrequired">এমুলেটর ৫ এর পাথ প্রয়োজন।</system:String>
     <system:String x:Key="Emulatorconfiguredsuccessfullyfor">RetroAchievements-এর জন্য এমুলেটর সফলভাবে কনফিগার করা হয়েছে!</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails1">কনফিগার করা পাথে এমুলেটর এক্সিকিউটেবল ফাইল পাওয়া যায়নি:</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails2">এমুলেটরটি সরানো, নাম পরিবর্তন করা বা মুছে ফেলা হতে পারে।</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails3">অনুগ্রহ করে সিস্টেম কনফিগারেশন সম্পাদনা করুন এবং এমুলেটর এক্সিকিউটেবল আবার নির্বাচন করুন।</system:String>
     <system:String x:Key="EmulatorIntegration">এমুলেটর ইন্টিগ্রেশন</system:String>
     <system:String x:Key="EmulatorName">এমুলেটর নাম</system:String>
     <system:String x:Key="Emulatornameisrequired">এমুলেটারের নাম প্রয়োজন।</system:String>

@@ -292,6 +292,15 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
+    ///     Does nothing. Does not display the emulator-executable-not-found message box.
+    /// </summary>
+    /// <param name="configuredPath">The emulator path as configured in the system settings.</param>
+    public Task EmulatorExecutableNotFoundMessageBoxAsync(string configuredPath)
+    {
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     ///     Does nothing. Does not display the error-calculating-stats message box.
     /// </summary>
     public Task ErrorCalculatingStatsMessageBoxAsync()

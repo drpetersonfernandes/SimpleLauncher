@@ -574,6 +574,25 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
+    ///     Displays an error stating that the configured emulator executable was not found on disk.
+    /// </summary>
+    /// <param name="configuredPath">The emulator path as configured in the system settings.</param>
+    public Task EmulatorExecutableNotFoundMessageBoxAsync(string configuredPath)
+    {
+        var emulatorNotFound = _resourceProvider.GetString("EmulatorNotFound", "Emulator Not Found");
+        var details1 = _resourceProvider.GetString("EmulatorExecutableNotFoundDetails1",
+            "The emulator executable was not found at the configured path:");
+        var details2 = _resourceProvider.GetString("EmulatorExecutableNotFoundDetails2",
+            "The emulator may have been moved, renamed, or deleted.");
+        var details3 = _resourceProvider.GetString("EmulatorExecutableNotFoundDetails3",
+            "Please edit the system configuration and select the emulator executable again.");
+        var error = _resourceProvider.GetString("Error", "Error");
+
+        return _messageDialog.ShowErrorAsync(
+            $"{details1}\n{configuredPath}\n\n{details2}\n{details3}", error);
+    }
+
+    /// <summary>
     ///     Displays an error message when calculating global statistics fails.
     /// </summary>
     public Task ErrorCalculatingStatsMessageBoxAsync()

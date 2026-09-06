@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -528,6 +528,9 @@
     <system:String x:Key="Emulator5Path">ایمولیٹر 5 کا راستہ</system:String>
     <system:String x:Key="Emulator5pathisrequired">ایمولیٹر 5 کا پاتھ درکار ہے۔</system:String>
     <system:String x:Key="Emulatorconfiguredsuccessfullyfor">RetroAchievements کے لیے ایمولیٹر کامیابی سے کنفیگر ہو گیا!</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails1">ترتیب شدہ راستے پر ایمولیٹر ایگزیکیوٹیبل فائل نہیں ملی:</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails2">ایمولیٹر منتقل، نام تبدیل یا حذف کیا گیا ہوسکتا ہے۔</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails3">براہ کرم سسٹم کنفیگریشن میں ترمیم کریں اور ایمولیٹر ایگزیکیوٹیبل فائل دوبارہ منتخب کریں۔</system:String>
     <system:String x:Key="EmulatorIntegration">ایمولیٹر انٹیگریشن</system:String>
     <system:String x:Key="EmulatorName">ایمولیٹر کا نام</system:String>
     <system:String x:Key="Emulatornameisrequired">ایمولیٹر کا نام ضروری ہے۔</system:String>

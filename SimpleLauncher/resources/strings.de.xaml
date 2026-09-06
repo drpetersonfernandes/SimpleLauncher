@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -528,6 +528,9 @@
     <system:String x:Key="Emulator5Path">Emulator 5 Pfad</system:String>
     <system:String x:Key="Emulator5pathisrequired">Emulator 5-Pfad ist erforderlich.</system:String>
     <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Emulator erfolgreich für RetroAchievements konfiguriert!</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails1">Die ausführbare Datei des Emulators wurde unter dem konfigurierten Pfad nicht gefunden:</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails2">Der Emulator wurde möglicherweise verschoben, umbenannt oder gelöscht.</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails3">Bitte bearbeiten Sie die Systemkonfiguration und wählen Sie die Emulator-Datei erneut aus.</system:String>
     <system:String x:Key="EmulatorIntegration">Emulator-Integration</system:String>
     <system:String x:Key="EmulatorName">Name des Emulators</system:String>
     <system:String x:Key="Emulatornameisrequired">Der Name des Emulators ist erforderlich.</system:String>

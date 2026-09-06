@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -528,6 +528,9 @@
     <system:String x:Key="Emulator5Path">مسار المحاكي 5</system:String>
     <system:String x:Key="Emulator5pathisrequired">مسار المحاكي 5 مطلوب.</system:String>
     <system:String x:Key="Emulatorconfiguredsuccessfullyfor">تم تكوين المحاكي بنجاح لـ RetroAchievements!</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails1">لم يتم العثور على الملف التنفيذي للمحاكي في المسار المُكوّن:</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails2">قد يكون المحاكي قد نُقل أو أُعيد تسميته أو حُذف.</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails3">يرجى تعديل تكوين النظام واختيار الملف التنفيذي للمحاكي مرة أخرى.</system:String>
     <system:String x:Key="EmulatorIntegration">تكامل المحاكي</system:String>
     <system:String x:Key="EmulatorName">اسم المحاكي</system:String>
     <system:String x:Key="Emulatornameisrequired">اسم المحاكي مطلوب.</system:String>

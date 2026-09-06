@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -528,6 +528,9 @@
     <system:String x:Key="Emulator5Path">Путь эмулятора 5</system:String>
     <system:String x:Key="Emulator5pathisrequired">Требуется путь к Эмулятору 5.</system:String>
     <system:String x:Key="Emulatorconfiguredsuccessfullyfor">Эмулятор успешно настроен для RetroAchievements!</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails1">Исполняемый файл эмулятора не найден по указанному пути:</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails2">Возможно, эмулятор был перемещён, переименован или удалён.</system:String>
+    <system:String x:Key="EmulatorExecutableNotFoundDetails3">Пожалуйста, измените конфигурацию системы и выберите исполняемый файл эмулятора заново.</system:String>
     <system:String x:Key="EmulatorIntegration">Интеграция эмулятора</system:String>
     <system:String x:Key="EmulatorName">Имя эмулятора</system:String>
     <system:String x:Key="Emulatornameisrequired">Требуется имя эмулятора.</system:String>
