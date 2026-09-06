@@ -109,12 +109,25 @@ public class ParameterResolverServiceTests
     }
 
     [Fact]
-    public async Task ResolveParametersAsync_HttpRequestException_PropagatesToCaller()
+    public async Task ResolveParametersAsync_HttpRequestException_ReturnsNull()
     {
         var handler = new FakeHttpMessageHandler(_ => throw new HttpRequestException("connection refused"));
         var service = CreateService(handler);
 
-        await Assert.ThrowsAsync<HttpRequestException>(() => service.ResolveParametersAsync(CreateRequest()));
+        var result = await service.ResolveParametersAsync(CreateRequest());
+
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public async Task ResolveParametersAsync_Timeout_ReturnsNull()
+    {
+        var handler = new FakeHttpMessageHandler(_ => throw new TaskCanceledException("request timed out"));
+        var service = CreateService(handler);
+
+        var result = await service.ResolveParametersAsync(CreateRequest());
+
+        Assert.Null(result);
     }
 
     [Fact]

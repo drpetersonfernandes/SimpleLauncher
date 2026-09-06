@@ -45,8 +45,20 @@ public class ParameterResolverService : IParameterResolverService
         httpRequest.Headers.Add("X-Api-Key", apiKey);
         httpRequest.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-        var response = await client.SendAsync(httpRequest);
-        var responseBody = await response.Content.ReadAsStringAsync();
+        HttpResponseMessage response;
+        string responseBody;
+        try
+        {
+            response = await client.SendAsync(httpRequest);
+            responseBody = await response.Content.ReadAsStringAsync();
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            // Network/server failure (unreachable host, timeout): an expected external-service
+            // condition, not a bug. Log at Information so it is never reported as a bug.
+            _logger.Information(ex, "ParameterResolver API unreachable or timed out");
+            return null;
+        }
 
         if (response.IsSuccessStatusCode)
         {
@@ -56,8 +68,9 @@ public class ParameterResolverService : IParameterResolverService
             }
             catch (JsonException ex)
             {
-                // The API returned a 200 with an unparseable body; treat it as a failed resolution
-                _logger.Error(ex, "ParameterResolver API returned malformed JSON");
+                // The API returned a 200 with an unparseable body; an external-service condition,
+                // not a bug. Log at Information so it is never reported as a bug.
+                _logger.Information(ex, "ParameterResolver API returned malformed JSON");
                 return null;
             }
         }
