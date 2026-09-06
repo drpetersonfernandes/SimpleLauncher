@@ -36,8 +36,9 @@ public class WpfImageLoader(ILogger logErrors, IConfiguration configuration, IMe
         }
         catch (Exception ex)
         {
+            // Expected user-file condition (missing/corrupt/locked image): not a bug.
             var contextMessage = $"Failed to load primary image: {imagePath}. Attempting to load default.";
-            _logger.Error(ex, contextMessage);
+            _logger.Information(ex, contextMessage);
             return await LoadDefaultImageAsync();
         }
     }
@@ -55,13 +56,15 @@ public class WpfImageLoader(ILogger logErrors, IConfiguration configuration, IMe
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            _logger.Error(ex,
+            // Expected user-file condition (locked file / insufficient permissions): not a bug.
+            _logger.Information(ex,
                 $"Failed to read image file '{filePath}'. It might be locked or permissions are insufficient.");
             return null;
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, $"An unexpected error occurred while reading image file '{filePath}'.");
+            // Expected user-file condition: not a bug.
+            _logger.Information(ex, $"An unexpected error occurred while reading image file '{filePath}'.");
             return null;
         }
     }
@@ -74,8 +77,10 @@ public class WpfImageLoader(ILogger logErrors, IConfiguration configuration, IMe
 
             if (imageBytes == null)
             {
+                // Expected user-environment condition (default image missing from the app folder):
+                // not a bug, keep it out of the bug report service. The user is offered a reinstall.
                 const string contextMessage = "Failed to load global default image: images\\default.png.";
-                _logger.Warning(contextMessage);
+                _logger.Information(contextMessage);
                 await _messageBox.DefaultImageNotFoundMessageBoxAsync();
                 return (null, true);
             }
@@ -84,8 +89,9 @@ public class WpfImageLoader(ILogger logErrors, IConfiguration configuration, IMe
         }
         catch (Exception ex)
         {
+            // Expected user-environment condition: not a bug, keep it out of the bug report service.
             const string contextMessage = "Failed to load global default image: images\\default.png.";
-            _logger.Error(ex, contextMessage);
+            _logger.Information(ex, contextMessage);
             await _messageBox.DefaultImageNotFoundMessageBoxAsync();
             return (null, true);
         }
