@@ -603,7 +603,6 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             "The file may be corrupted, incomplete, or designed for a different platform.");
         var details3 = _resourceProvider.GetString("InvalidExecutableFileDetails3",
             "If this is a game for another system, please configure an emulator for that system and launch the game through it.");
-        var error = _resourceProvider.GetString("Error", "Error");
 
         return _messageDialog.ShowErrorAsync($"{details1}\n\n{details2}\n{details3}", invalidExecutableFile);
     }
