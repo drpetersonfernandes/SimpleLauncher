@@ -33,7 +33,7 @@ public class GamePadController : IDisposable
     private readonly Timer _timer;
     private readonly SemaphoreSlim _updateLock = new(1, 1);
 
-    private readonly Controller _xinputController;
+    private readonly Controller? _xinputController;
 
     // DirectInput object needs to be managed for its lifetime
     private DirectInput? _directInput;
@@ -64,33 +64,46 @@ public class GamePadController : IDisposable
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-        // Initialize Xbox Controller using XInput
-        _xinputController = new Controller(UserIndex.One);
-
-        // Initialize DirectInput object once
-        _directInput = new DirectInput();
-
-        // Initialize PlayStation Controller using DirectInput (find the first gamepad)
-        try
+        // XInput (SharpDX) and DirectInput are Windows-only APIs; their native libraries
+        // (kernel32, dinput8) do not exist on Linux/macOS. Skip initialization there and
+        // leave the controllers null — UpdateAsync already handles null controllers.
+        if (OperatingSystem.IsWindows())
         {
-            var devices = _directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
-            if (devices.Count > 0)
+            // Initialize Xbox Controller using XInput
+            _xinputController = new Controller(UserIndex.One);
+
+            // Initialize DirectInput object once
+            _directInput = new DirectInput();
+
+            // Initialize PlayStation Controller using DirectInput (find the first gamepad)
+            try
             {
-                _directInputController = new Joystick(_directInput, devices[0].InstanceGuid);
-                _directInputController.Acquire();
-                _playStationControllerGuid = devices[0].InstanceGuid; // Store the GUID
+                var devices = _directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
+                if (devices.Count > 0)
+                {
+                    _directInputController = new Joystick(_directInput, devices[0].InstanceGuid);
+                    _directInputController.Acquire();
+                    _playStationControllerGuid = devices[0].InstanceGuid; // Store the GUID
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log initialization errors but allow the application to continue
+                // as XInput might still work or the controller might be connected later.
+                // Notify developer
+                ErrorLogger?.Invoke(ex, $"Error during initial DirectInput controller setup.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}");
+
+                _directInputController = null; // Ensure it's null if setup failed
+                _playStationControllerGuid = Guid.Empty;
             }
         }
-        catch (Exception ex)
+        else
         {
-            // Log initialization errors but allow the application to continue
-            // as XInput might still work or the controller might be connected later.
-            // Notify developer
-            ErrorLogger?.Invoke(ex, $"Error during initial DirectInput controller setup.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}");
-
-            _directInputController = null; // Ensure it's null if setup failed
+            _xinputController = null;
+            _directInput = null;
+            _directInputController = null;
             _playStationControllerGuid = Guid.Empty;
         }
 
@@ -134,6 +147,12 @@ public class GamePadController : IDisposable
     /// <returns>A task that completes when the controller has started, or a message box task if starting failed.</returns>
     internal Task StartAsync()
     {
+        // Gamepad input (XInput/DirectInput/WindowsInput) is Windows-only; no-op elsewhere.
+        if (!OperatingSystem.IsWindows())
+        {
+            return Task.CompletedTask;
+        }
+
         Exception? startException = null;
         lock (_stateLock)
         {
@@ -470,6 +489,9 @@ public class GamePadController : IDisposable
     /// </summary>
     private void CheckAndReconnectControllers()
     {
+        // XInput/DirectInput are Windows-only; nothing to reconnect elsewhere.
+        if (!OperatingSystem.IsWindows()) return;
+
         // *** Acquire _stateLock to prevent race conditions with Update/Dispose ***
         lock (_stateLock)
         {
@@ -478,7 +500,7 @@ public class GamePadController : IDisposable
                 if (!IsRunning || _isDisposed) return;
 
                 // If XInput is already connected, no need to reconnect DirectInput
-                if (_xinputController.IsConnected)
+                if (_xinputController?.IsConnected == true)
                 {
                     // Ensure DirectInput controller is released if XInput is active
                     if (_directInputController == null) return;
