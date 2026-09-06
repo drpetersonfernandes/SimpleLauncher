@@ -236,6 +236,7 @@
   "CancellingPleasewait": "Annulation...",
   "CancelOperation": "Annuler l'opération",
   "Cannotlaunchnoemulatorconfiguredfor": "Impossible de lancer : aucun émulateur configuré pour {0}",
+  "CannotRunProgramsRequiringElevation": "'Simple Launcher' ne peut pas exécuter les programmes nécessitant une élévation des privilèges. Modifiez la configuration du jeu pour qu'elle n'exige pas de droits administrateur (par exemple, décochez 'Exécuter ce programme en tant qu'administrateur' dans les paramètres de compatibilité de l'exécutable).",
   "Cannottakeascreenshotofaminimizedwindow": "Impossible de prendre une capture d'écran d'une fenêtre minimisée.",
   "Cart": "Cartouche",
   "Cartnotfound": "Cartouche introuvable",

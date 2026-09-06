@@ -236,6 +236,7 @@
   "CancellingPleasewait": "Đang hủy...",
   "CancelOperation": "Hủy thao tác",
   "Cannotlaunchnoemulatorconfiguredfor": "Không thể khởi chạy: chưa cấu hình trình giả lập cho {0}",
+  "CannotRunProgramsRequiringElevation": "'Simple Launcher' không thể chạy các chương trình yêu cầu đặc quyền nâng cao. Hãy thay đổi cấu hình của trò chơi để không yêu cầu quyền quản trị viên (ví dụ: bỏ chọn 'Chạy chương trình này với tư cách quản trị viên' trong cài đặt tương thích của tệp thực thi).",
   "Cannottakeascreenshotofaminimizedwindow": "Không thể chụp ảnh màn hình của cửa sổ đã thu nhỏ.",
   "Cart": "Cartridge",
   "Cartnotfound": "Không tìm thấy cartridge",

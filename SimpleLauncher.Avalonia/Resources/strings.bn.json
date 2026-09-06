@@ -236,6 +236,7 @@
   "CancellingPleasewait": "বাতিল করা হচ্ছে...",
   "CancelOperation": "অপারেশন বাতিল করুন",
   "Cannotlaunchnoemulatorconfiguredfor": "চালু করা যাচ্ছে না: {0} এর জন্য কোনো এমুলেটর কনফিগার করা নেই",
+  "CannotRunProgramsRequiringElevation": "'Simple Launcher' এলিভেশন প্রয়োজন এমন প্রোগ্রাম চালাতে পারে না। অ্যাডমিনিস্ট্রেটর অধিকারের প্রয়োজন না হয় এমনভাবে গেমের কনফিগারেশন পরিবর্তন করুন (উদাহরণস্বরূপ, এক্সিকিউটেবলের সামঞ্জস্যতা সেটিংসে 'Run this program as an administrator' বিকল্পটি আনচেক করুন)।",
   "Cannottakeascreenshotofaminimizedwindow": "ছোট করা উইন্ডোর স্ক্রিনশট নেওয়া যাবে না।",
   "Cart": "কার্ট",
   "Cartnotfound": "কার্ট পাওয়া যায়নি",

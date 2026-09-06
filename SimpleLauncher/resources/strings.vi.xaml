@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
     <system:String x:Key="1000games">1000 trò chơi</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">Đang hủy tải xuống...</system:String>
     <system:String x:Key="CancellingPleasewait">Đang hủy... Vui lòng đợi</system:String>
     <system:String x:Key="CancelOperation">Hủy thao tác</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">'Simple Launcher' không thể chạy các chương trình yêu cầu quyền nâng cao. Hãy thay đổi cấu hình của trò chơi để không yêu cầu quyền quản trị viên (ví dụ: bỏ chọn 'Chạy chương trình này với tư cách quản trị viên' trong cài đặt tương thích của tệp thực thi).</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Không thể chụp ảnh màn hình của cửa sổ đã thu nhỏ.</system:String>
     <system:String x:Key="Cart">Cartridge</system:String>
     <system:String x:Key="Cartnotfound">Không tìm thấy cartridge</system:String>

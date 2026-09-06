@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">모든 게임</system:String>
     <system:String x:Key="10000games">10000 게임</system:String>
     <system:String x:Key="1000games">1000 게임</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">다운로드 취소 중...</system:String>
     <system:String x:Key="CancellingPleasewait">취소 중... 잠시 기다려 주십시오</system:String>
     <system:String x:Key="CancelOperation">작업 취소</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">'Simple Launcher'는 권한 상승이 필요한 프로그램을 실행할 수 없습니다. 관리자 권한을 요구하지 않도록 게임 구성을 변경하세요(예: 실행 파일의 호환성 설정에서 '관리자 권한으로 이 프로그램 실행'의 체크를 해제).</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">최소화된 창의 스크린샷을 찍을 수 없습니다.</system:String>
     <system:String x:Key="Cart">카트리지</system:String>
     <system:String x:Key="Cartnotfound">카트리지를 찾을 수 없습니다</system:String>

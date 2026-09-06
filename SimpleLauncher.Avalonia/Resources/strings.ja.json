@@ -236,6 +236,7 @@
   "CancellingPleasewait": "キャンセル中...",
   "CancelOperation": "操作をキャンセル",
   "Cannotlaunchnoemulatorconfiguredfor": "起動できません:{0}用のエミュレータが設定されていません",
+  "CannotRunProgramsRequiringElevation": "'Simple Launcher' は、昇格を必要とするプログラムを実行できません。管理者権限を必要としないようにゲームの設定を変更してください(例：実行ファイルの互換性設定で「管理者としてこのプログラムを実行する」のチェックを解除する)。",
   "Cannottakeascreenshotofaminimizedwindow": "最小化されたウィンドウのスクリーンショットは撮れません。",
   "Cart": "カートリッジ",
   "Cartnotfound": "カートリッジが見つかりません",

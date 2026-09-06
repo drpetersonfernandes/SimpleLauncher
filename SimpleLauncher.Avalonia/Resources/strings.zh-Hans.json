@@ -236,6 +236,7 @@
   "CancellingPleasewait": "正在取消...",
   "CancelOperation": "取消操作",
   "Cannotlaunchnoemulatorconfiguredfor": "无法启动：未为 {0} 配置模拟器",
+  "CannotRunProgramsRequiringElevation": "“Simple Launcher”无法运行需要提升权限的程序。请更改游戏配置，使其不再需要管理员权限（例如，在可执行文件的兼容性设置中取消勾选“以管理员身份运行此程序”）。",
   "Cannottakeascreenshotofaminimizedwindow": "无法截取最小化窗口的屏幕截图。",
   "Cart": "卡带",
   "Cartnotfound": "未找到卡带",

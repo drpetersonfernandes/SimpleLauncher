@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">Todos os jogos</system:String>
     <system:String x:Key="10000games">10000 jogos</system:String>
     <system:String x:Key="1000games">1000 jogos</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">Cancelando download...</system:String>
     <system:String x:Key="CancellingPleasewait">Cancelando... Por favor, aguarde</system:String>
     <system:String x:Key="CancelOperation">Cancelar operação</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">O 'Simple Launcher' não pode executar programas que exigem elevação. Altere a configuração do jogo para que não exija direitos de administrador (por exemplo, desmarque 'Executar este programa como administrador' nas configurações de compatibilidade do executável).</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Não é possível tirar uma captura de tela de uma janela minimizada.</system:String>
     <system:String x:Key="Cart">Cartucho</system:String>
     <system:String x:Key="Cartnotfound">Cartucho não encontrado</system:String>

@@ -236,6 +236,7 @@
   "CancellingPleasewait": "취소 중...",
   "CancelOperation": "작업 취소",
   "Cannotlaunchnoemulatorconfiguredfor": "실행할 수 없음: {0}에 대해 구성된 에뮬레이터가 없습니다",
+  "CannotRunProgramsRequiringElevation": "'Simple Launcher'는 권한 상승이 필요한 프로그램을 실행할 수 없습니다. 게임 구성을 변경하여 관리자 권한이 필요하지 않도록 하세요(예: 실행 파일의 호환성 설정에서 '관리자 권한으로 이 프로그램 실행'의 선택을 취소).",
   "Cannottakeascreenshotofaminimizedwindow": "최소화된 창의 스크린샷을 찍을 수 없습니다.",
   "Cart": "카트리지",
   "Cartnotfound": "카트리지를 찾을 수 없습니다",

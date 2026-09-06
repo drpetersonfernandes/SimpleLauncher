@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">Все игры</system:String>
     <system:String x:Key="10000games">10000 игр</system:String>
     <system:String x:Key="1000games">1000 игр</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">Отмена загрузки...</system:String>
     <system:String x:Key="CancellingPleasewait">Отмена... Пожалуйста, подождите</system:String>
     <system:String x:Key="CancelOperation">Отменить операцию</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">'Simple Launcher' не может запускать программы, требующие повышения прав. Измените настройки игры так, чтобы она не требовала прав администратора (например, снимите флажок «Выполнять эту программу от имени администратора» в параметрах совместимости исполняемого файла).</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Невозможно сделать снимок экрана свёрнутого окна.</system:String>
     <system:String x:Key="Cart">Картридж</system:String>
     <system:String x:Key="Cartnotfound">Картридж не найден</system:String>

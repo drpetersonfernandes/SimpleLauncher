@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
     <system:String x:Key="1000games">1000 गेम</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">डाउनलोड रद्द कर रहा है...</system:String>
     <system:String x:Key="CancellingPleasewait">रद्द किया जा रहा है... कृपया प्रतीक्षा करें</system:String>
     <system:String x:Key="CancelOperation">ऑपरेशन रद्द करें</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">'Simple Launcher' उन प्रोग्रामों को नहीं चला सकता जिन्हें उन्नयन की आवश्यकता होती है। गेम के कॉन्फ़िगरेशन को बदलें ताकि उसे व्यवस्थापक अधिकारों की आवश्यकता न पड़े (उदाहरण के लिए, एक्ज़ीक्यूटेबल की संगतता सेटिंग्स में 'इस प्रोग्राम को व्यवस्थापक के रूप में चलाएँ' विकल्प को अनचेक करें)।</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">मिनिमाइज्ड विंडो का स्क्रीनशॉट नहीं लिया जा सकता।</system:String>
     <system:String x:Key="Cart">कार्ट</system:String>
     <system:String x:Key="Cartnotfound">कार्ट नहीं मिला</system:String>

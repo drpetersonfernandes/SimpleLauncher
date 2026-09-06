@@ -236,6 +236,7 @@
   "CancellingPleasewait": "İptal ediliyor...",
   "CancelOperation": "İşlemi iptal et",
   "Cannotlaunchnoemulatorconfiguredfor": "Başlatılamıyor: {0} için yapılandırılmış emülatör yok",
+  "CannotRunProgramsRequiringElevation": "'Simple Launcher' yükseltme gerektiren programları çalıştıramıyor. Oyunun yapılandırmasını yönetici hakları gerektirmeyecek şekilde değiştirin (örneğin, çalıştırılabilir dosyanın uyumluluk ayarlarında 'Bu programı yönetici olarak çalıştır' seçeneğinin işaretini kaldırın).",
   "Cannottakeascreenshotofaminimizedwindow": "Küçültülmüş bir pencerenin ekran görüntüsü alınamıyor.",
   "Cart": "Kartuş",
   "Cartnotfound": "Kartuş bulunamadı",

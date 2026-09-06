@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">Alle Spiele</system:String>
     <system:String x:Key="10000games">10000 Spiele</system:String>
     <system:String x:Key="1000games">1000 Spiele</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">Download wird abgebrochen...</system:String>
     <system:String x:Key="CancellingPleasewait">Wird abgebrochen... Bitte warten</system:String>
     <system:String x:Key="CancelOperation">Vorgang abbrechen</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">'Simple Launcher' kann keine Programme ausführen, die erhöhte Rechte erfordern. Ändern Sie die Konfiguration des Spiels so, dass keine Administratorrechte erforderlich sind (deaktivieren Sie beispielsweise 'Programm als Administrator ausführen' in den Kompatibilitätseinstellungen der ausführbaren Datei).</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Es kann kein Screenshot eines minimierten Fensters erstellt werden.</system:String>
     <system:String x:Key="Cart">Kassette</system:String>
     <system:String x:Key="Cartnotfound">Kassette nicht gefunden</system:String>

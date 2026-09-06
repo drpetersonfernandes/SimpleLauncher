@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">İndirme iptal ediliyor...</system:String>
     <system:String x:Key="CancellingPleasewait">İptal ediliyor... Lütfen bekleyin</system:String>
     <system:String x:Key="CancelOperation">İşlemi iptal et</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">'Simple Launcher', yükseltme gerektiren programları çalıştıramıyor. Oyunun yapılandırmasını yönetici hakları gerektirmeyecek şekilde değiştirin (örneğin, yürütülebilir dosyanın uyumluluk ayarlarında 'Bu programı yönetici olarak çalıştır' seçeneğinin işaretini kaldırın).</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Küçültülmüş bir pencerenin ekran görüntüsü alınamıyor.</system:String>
     <system:String x:Key="Cart">Kartuş</system:String>
     <system:String x:Key="Cartnotfound">Kartuş bulunamadı</system:String>

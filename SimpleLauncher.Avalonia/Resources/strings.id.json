@@ -236,6 +236,7 @@
   "CancellingPleasewait": "Membatalkan...",
   "CancelOperation": "Batalkan operasi",
   "Cannotlaunchnoemulatorconfiguredfor": "Tidak dapat meluncurkan: tidak ada emulator yang dikonfigurasi untuk {0}",
+  "CannotRunProgramsRequiringElevation": "'Simple Launcher' tidak dapat menjalankan program yang memerlukan elevasi. Ubah konfigurasi permainan agar tidak memerlukan hak administrator (misalnya, hapus centang 'Run this program as an administrator' pada pengaturan kompatibilitas file eksekutabel).",
   "Cannottakeascreenshotofaminimizedwindow": "Tidak dapat mengambil tangkapan layar dari jendela yang diminimalkan.",
   "Cart": "Kartrid",
   "Cartnotfound": "Kartrid tidak ditemukan",

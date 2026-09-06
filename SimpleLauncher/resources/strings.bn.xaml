@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">সমস্ত গেম</system:String>
     <system:String x:Key="10000games">10000 গেম</system:String>
     <system:String x:Key="1000games">1000 গেম</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">ডাউনলোড বাতিল করা হচ্ছে...</system:String>
     <system:String x:Key="CancellingPleasewait">বাতিল করা হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন</system:String>
     <system:String x:Key="CancelOperation">অপারেশন বাতিল করুন</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">'Simple Launcher' এমন প্রোগ্রাম চালাতে পারে না যেগুলোর জন্য উন্নীত অনুমতি প্রয়োজন। গেমের কনফিগারেশন পরিবর্তন করুন যেন অ্যাডমিনিস্ট্রেটর অধিকারের প্রয়োজন না হয় (উদাহরণস্বরূপ, এক্সিকিউটেবলের সামঞ্জস্যতা সেটিংসে 'এই প্রোগ্রামটিকে অ্যাডমিনিস্ট্রেটর হিসেবে চালান' বিকল্পটি আনচেক করুন)।</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">ছোট করা উইন্ডোর স্ক্রিনশট নেওয়া যাবে না।</system:String>
     <system:String x:Key="Cart">কার্ট</system:String>
     <system:String x:Key="Cartnotfound">কার্ট পাওয়া যায়নি</system:String>

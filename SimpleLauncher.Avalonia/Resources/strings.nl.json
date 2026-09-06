@@ -236,6 +236,7 @@
   "CancellingPleasewait": "Annuleren...",
   "CancelOperation": "Annuleer bewerking",
   "Cannotlaunchnoemulatorconfiguredfor": "Kan niet starten: geen emulator geconfigureerd voor {0}",
+  "CannotRunProgramsRequiringElevation": "'Simple Launcher' kan programma's die verhoogde rechten vereisen niet uitvoeren. Wijzig de configuratie van het spel zodat er geen beheerdersrechten nodig zijn (schakel bijvoorbeeld het selectievakje 'Dit programma als administrator uitvoeren' uit in de compatibiliteitsinstellingen van het uitvoerbare bestand).",
   "Cannottakeascreenshotofaminimizedwindow": "Kan geen schermafbeelding maken van een geminimaliseerd venster.",
   "Cart": "Cartridge",
   "Cartnotfound": "Cartridge niet gevonden",

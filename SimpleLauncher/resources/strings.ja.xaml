@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">全ゲーム</system:String>
     <system:String x:Key="10000games">10000ゲーム</system:String>
     <system:String x:Key="1000games">1000ゲーム</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">ダウンロードをキャンセルしています...</system:String>
     <system:String x:Key="CancellingPleasewait">キャンセル中...お待ちください</system:String>
     <system:String x:Key="CancelOperation">操作をキャンセル</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">'Simple Launcher'は、昇格(管理者権限)を必要とするプログラムを実行できません。管理者権限を必要としないようにゲームの設定を変更してください(例：実行ファイルの互換性設定で「管理者としてこのプログラムを実行する」のチェックを外す)。</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">最小化されたウィンドウのスクリーンショットは撮れません。</system:String>
     <system:String x:Key="Cart">カートリッジ</system:String>
     <system:String x:Key="Cartnotfound">カートリッジが見つかりません</system:String>

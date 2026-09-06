@@ -236,6 +236,7 @@
   "CancellingPleasewait": "جارٍ الإلغاء...",
   "CancelOperation": "إلغاء العملية",
   "Cannotlaunchnoemulatorconfiguredfor": "لا يمكن التشغيل: لم يتم تكوين محاكي لـ {0}",
+  "CannotRunProgramsRequiringElevation": "لا يمكن لـ 'Simple Launcher' تشغيل البرامج التي تتطلب رفع الصلاحيات. قم بتغيير إعدادات اللعبة بحيث لا تتطلب حقوق المسؤول (على سبيل المثال، قم بإلغاء تحديد 'تشغيل هذا البرنامج كمسؤول' في إعدادات التوافق للملف التنفيذي).",
   "Cannottakeascreenshotofaminimizedwindow": "لا يمكن التقاط لقطة شاشة لنافذة مصغرة.",
   "Cart": "الشريط",
   "Cartnotfound": "الشريط غير موجود",

@@ -236,6 +236,7 @@
   "CancellingPleasewait": "Annullamento in corso...",
   "CancelOperation": "Annulla operazione",
   "Cannotlaunchnoemulatorconfiguredfor": "Impossibile avviare: nessun emulatore configurato per {0}",
+  "CannotRunProgramsRequiringElevation": "'Simple Launcher' non è in grado di eseguire programmi che richiedono privilegi elevati. Modifica la configurazione del gioco in modo che non richieda i diritti di amministratore (ad esempio, deseleziona 'Esegui questo programma come amministratore' nelle impostazioni di compatibilità dell'eseguibile).",
   "Cannottakeascreenshotofaminimizedwindow": "Impossibile acquisire uno screenshot di una finestra minimizzata.",
   "Cart": "Cartuccia",
   "Cartnotfound": "Cartuccia non trovata",

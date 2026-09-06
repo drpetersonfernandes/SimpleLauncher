@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">所有游戏</system:String>
     <system:String x:Key="10000games">10000 游戏</system:String>
     <system:String x:Key="1000games">1000 游戏</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">正在取消下载...</system:String>
     <system:String x:Key="CancellingPleasewait">正在取消... 请稍候</system:String>
     <system:String x:Key="CancelOperation">取消操作</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">“Simple Launcher”无法运行需要提升权限的程序。请更改游戏配置，使其无需管理员权限（例如，在可执行文件的兼容性设置中取消勾选“以管理员身份运行此程序”）。</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">无法截取最小化窗口的屏幕截图。</system:String>
     <system:String x:Key="Cart">卡带</system:String>
     <system:String x:Key="Cartnotfound">未找到卡带</system:String>

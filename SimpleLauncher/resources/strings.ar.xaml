@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">كل الألعاب</system:String>
     <system:String x:Key="10000games">10000 لعبة</system:String>
     <system:String x:Key="1000games">1000 لعبة</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">جارٍ إلغاء التحميل...</system:String>
     <system:String x:Key="CancellingPleasewait">جاري الإلغاء... يرجى الانتظار</system:String>
     <system:String x:Key="CancelOperation">إلغاء العملية</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">لا يمكن لبرنامج 'Simple Launcher' تشغيل البرامج التي تتطلب صلاحيات مرتفعة. عدِّل إعدادات اللعبة بحيث لا تتطلب صلاحيات المسؤول (على سبيل المثال، أزل التحديد من خيار 'تشغيل هذا البرنامج كمسؤول' في إعدادات التوافق للملف التنفيذي).</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">لا يمكن التقاط لقطة شاشة لنافذة مصغرة.</system:String>
     <system:String x:Key="Cart">الشريط</system:String>
     <system:String x:Key="Cartnotfound">الشريط غير موجود</system:String>

@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">Semua game</system:String>
     <system:String x:Key="10000games">10000 game</system:String>
     <system:String x:Key="1000games">1000 game</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">Membatalkan unduhan...</system:String>
     <system:String x:Key="CancellingPleasewait">Membatalkan... Harap tunggu</system:String>
     <system:String x:Key="CancelOperation">Batalkan operasi</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">'Simple Launcher' tidak dapat menjalankan program yang memerlukan elevasi. Ubah konfigurasi permainan agar tidak memerlukan hak administrator (misalnya, hapus centang pada 'Jalankan program ini sebagai administrator' di pengaturan kompatibilitas file executable).</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Tidak dapat mengambil tangkapan layar dari jendela yang diminimalkan.</system:String>
     <system:String x:Key="Cart">Kartrid</system:String>
     <system:String x:Key="Cartnotfound">Kartrid tidak ditemukan</system:String>

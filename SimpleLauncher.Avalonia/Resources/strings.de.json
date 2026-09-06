@@ -236,6 +236,7 @@
   "CancellingPleasewait": "Wird abgebrochen...",
   "CancelOperation": "Vorgang abbrechen",
   "Cannotlaunchnoemulatorconfiguredfor": "Start nicht möglich: Kein Emulator für {0} konfiguriert",
+  "CannotRunProgramsRequiringElevation": "'Simple Launcher' kann keine Programme ausführen, die erhöhte Rechte erfordern. Ändern Sie die Konfiguration des Spiels so, dass keine Administratorrechte erforderlich sind (deaktivieren Sie beispielsweise 'Programm als Administrator ausführen' in den Kompatibilitätseinstellungen der ausführbaren Datei).",
   "Cannottakeascreenshotofaminimizedwindow": "Es kann kein Screenshot eines minimierten Fensters erstellt werden.",
   "Cart": "Kassette",
   "Cartnotfound": "Kassette nicht gefunden",

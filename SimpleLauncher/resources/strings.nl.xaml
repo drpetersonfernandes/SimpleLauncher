@@ -4,6 +4,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
+    
     <system:String x:Key="1000000games">Alle spellen</system:String>
     <system:String x:Key="10000games">10000 spellen</system:String>
     <system:String x:Key="1000games">1000 spellen</system:String>
@@ -221,6 +222,7 @@
     <system:String x:Key="Cancelingdownload">Download wordt geannuleerd...</system:String>
     <system:String x:Key="CancellingPleasewait">Annuleren... Even geduld aub</system:String>
     <system:String x:Key="CancelOperation">Annuleer bewerking</system:String>
+    <system:String x:Key="CannotRunProgramsRequiringElevation">'Simple Launcher' kan geen programma's uitvoeren die verhoogde rechten vereisen. Wijzig de configuratie van het spel zodat er geen beheerdersrechten vereist zijn (vink bijvoorbeeld 'Dit programma als administrator uitvoeren' uit in de compatibiliteitsinstellingen van het uitvoerbare bestand).</system:String>
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Kan geen schermafbeelding maken van een geminimaliseerd venster.</system:String>
     <system:String x:Key="Cart">Cartridge</system:String>
     <system:String x:Key="Cartnotfound">Cartridge niet gevonden</system:String>
