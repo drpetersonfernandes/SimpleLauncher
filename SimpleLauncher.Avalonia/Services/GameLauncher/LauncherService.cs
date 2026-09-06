@@ -580,8 +580,7 @@ public class LauncherService : ILauncherService
                     {
                         // Expected user-error condition (the file is not a valid executable for
                         // this OS platform): not a bug, don't log as error or offer the AI fix.
-                        await _messageBox.CustomErrorMessageBoxAsync(win32Ex.Message,
-                            _localization.GetString("LaunchErrorTitle", "Launch Error"));
+                        await _messageBox.InvalidExecutableFileMessageBoxAsync();
                         loadingStateProvider?.SetLoadingState(false);
                         return;
                     }

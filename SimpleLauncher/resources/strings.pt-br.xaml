@@ -811,6 +811,10 @@
     <system:String x:Key="InstallImagePack">Instalar Pacote de Imagens</system:String>
     <system:String x:Key="InSystem">No Sistema</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">Nesta janela, você pode baixar e instalar emuladores que não exigem BIOS ou outros arquivos do sistema.</system:String>
+    <system:String x:Key="InvalidExecutableFile">Arquivo executável inválido</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">O arquivo não pôde ser executado porque não é um aplicativo válido para este sistema operacional.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">O arquivo pode estar corrompido, incompleto ou ter sido criado para outra plataforma.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">Se este for um jogo de outro sistema, configure um emulador para esse sistema e execute o jogo através dele.</system:String>
     <system:String x:Key="InvalidImageFormat">Apenas imagens PNG, JPG e JPEG são suportadas.</system:String>
     <system:String x:Key="InvalidImageFormatTitle">Formato de Imagem Inválido</system:String>
     <system:String x:Key="InvalidSearch">Pesquisa inválida</system:String>

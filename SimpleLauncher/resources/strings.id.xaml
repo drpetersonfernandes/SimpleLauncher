@@ -811,6 +811,10 @@
     <system:String x:Key="InstallImagePack">Instal Paket Gambar</system:String>
     <system:String x:Key="InSystem">Dalam Sistem</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">Di jendela ini, Anda dapat mengunduh dan menginstal emulator yang tidak memerlukan BIOS atau file sistem lainnya.</system:String>
+    <system:String x:Key="InvalidExecutableFile">File Eksekusi Tidak Valid</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">File tidak dapat dijalankan karena bukan aplikasi yang valid untuk sistem operasi ini.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">File mungkin rusak, tidak lengkap, atau dibuat untuk platform lain.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">Jika ini adalah game untuk sistem lain, silakan konfigurasikan emulator untuk sistem tersebut dan jalankan game melaluinya.</system:String>
     <system:String x:Key="InvalidImageFormat">Hanya gambar PNG, JPG, dan JPEG yang didukung.</system:String>
     <system:String x:Key="InvalidImageFormatTitle">Format Gambar Tidak Valid</system:String>
     <system:String x:Key="InvalidSearch">Pencarian Tidak Valid</system:String>

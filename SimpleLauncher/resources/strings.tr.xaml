@@ -811,6 +811,10 @@
     <system:String x:Key="InstallImagePack">Resim Paketi Yükle</system:String>
     <system:String x:Key="InSystem">Sistemde</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">Bu pencerede, BIOS veya diğer sistem dosyalarını gerektirmeyen emülatörleri indirebilir ve kurabilirsiniz.</system:String>
+    <system:String x:Key="InvalidExecutableFile">Geçersiz Çalıştırılabilir Dosya</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">Dosya, bu işletim sistemi için geçerli bir uygulama olmadığından çalıştırılamadı.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">Dosya bozuk, eksik veya farklı bir platform için tasarlanmış olabilir.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">Bu başka bir sisteme ait bir oyun ise, lütfen o sistem için bir emülatör yapılandırın ve oyunu onunla başlatın.</system:String>
     <system:String x:Key="InvalidImageFormat">Yalnızca PNG, JPG ve JPEG resimleri desteklenmektedir.</system:String>
     <system:String x:Key="InvalidImageFormatTitle">Geçersiz Resim Biçimi</system:String>
     <system:String x:Key="InvalidSearch">Geçersiz Arama</system:String>

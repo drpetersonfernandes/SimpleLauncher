@@ -586,10 +586,26 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             "The emulator may have been moved, renamed, or deleted.");
         var details3 = _resourceProvider.GetString("EmulatorExecutableNotFoundDetails3",
             "Please edit the system configuration and select the emulator executable again.");
-        var error = _resourceProvider.GetString("Error", "Error");
 
         return _messageDialog.ShowErrorAsync(
-            $"{details1}\n{configuredPath}\n\n{details2}\n{details3}", error);
+            $"{details1}\n{configuredPath}\n\n{details2}\n{details3}", emulatorNotFound);
+    }
+
+    /// <summary>
+    ///     Displays an error stating that the file is not a valid executable for the current OS platform.
+    /// </summary>
+    public Task InvalidExecutableFileMessageBoxAsync()
+    {
+        var invalidExecutableFile = _resourceProvider.GetString("InvalidExecutableFile", "Invalid Executable File");
+        var details1 = _resourceProvider.GetString("InvalidExecutableFileDetails1",
+            "The file could not be run because it is not a valid application for this operating system.");
+        var details2 = _resourceProvider.GetString("InvalidExecutableFileDetails2",
+            "The file may be corrupted, incomplete, or designed for a different platform.");
+        var details3 = _resourceProvider.GetString("InvalidExecutableFileDetails3",
+            "If this is a game for another system, please configure an emulator for that system and launch the game through it.");
+        var error = _resourceProvider.GetString("Error", "Error");
+
+        return _messageDialog.ShowErrorAsync($"{details1}\n\n{details2}\n{details3}", invalidExecutableFile);
     }
 
     /// <summary>

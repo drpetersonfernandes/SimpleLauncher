@@ -811,6 +811,10 @@
     <system:String x:Key="InstallImagePack">Image Pack installieren</system:String>
     <system:String x:Key="InSystem">Im System</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">In diesem Fenster können Sie Emulatoren herunterladen und installieren, die kein BIOS oder andere Systemdateien benötigen.</system:String>
+    <system:String x:Key="InvalidExecutableFile">Ungültige ausführbare Datei</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">Die Datei konnte nicht ausgeführt werden, da sie keine gültige Anwendung für dieses Betriebssystem ist.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">Die Datei ist möglicherweise beschädigt, unvollständig oder für eine andere Plattform bestimmt.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">Wenn dies ein Spiel für ein anderes System ist, richten Sie einen Emulator für dieses System ein und starten Sie das Spiel darüber.</system:String>
     <system:String x:Key="InvalidImageFormat">Es werden nur PNG-, JPG- und JPEG-Bilder unterstützt.</system:String>
     <system:String x:Key="InvalidImageFormatTitle">Ungültiges Bildformat</system:String>
     <system:String x:Key="InvalidSearch">Ungültige Suche</system:String>

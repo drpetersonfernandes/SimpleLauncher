@@ -525,11 +525,8 @@ public partial class GameLauncherService : ILauncherService
                 var contextMessage = $"{errorDetail}\n\n{userNotified}";
                 _logger.Information(contextMessage);
 
-                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
-                {
-                    await _messageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBoxAsync(
-                        PathHelper.ResolveLogFilePath(_configuration));
-                }
+                // Notify user with a direct, actionable message (the log file will not contain this at Information level)
+                await _messageBoxLibrary.InvalidExecutableFileMessageBoxAsync();
             }
             else
             {

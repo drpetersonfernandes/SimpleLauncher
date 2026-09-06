@@ -3092,6 +3092,22 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     }
 
 
+    public Task InvalidExecutableFileMessageBoxAsync()
+    {
+        if (O == null) return Task.CompletedTask;
+        var details1 = _localization.GetString("InvalidExecutableFileDetails1",
+            "The file could not be run because it is not a valid application for this operating system.");
+        var details2 = _localization.GetString("InvalidExecutableFileDetails2",
+            "The file may be corrupted, incomplete, or designed for a different platform.");
+        var details3 = _localization.GetString("InvalidExecutableFileDetails3",
+            "If this is a game for another system, please configure an emulator for that system and launch the game through it.");
+        return ShowAsync(O,
+            $"{details1}\n\n{details2}\n{details3}",
+            _localization.GetString("InvalidExecutableFile", "Invalid Executable File"), MessageButtons.Ok,
+            MessageIcon.Error);
+    }
+
+
     public Task ThereIsNoCabinetMessageBoxAsync()
     {
         if (O == null) return Task.CompletedTask;

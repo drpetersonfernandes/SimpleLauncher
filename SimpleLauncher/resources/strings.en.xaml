@@ -809,6 +809,10 @@
     <system:String x:Key="InstallImagePack">Install Image Pack</system:String>
     <system:String x:Key="InSystem">In System</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">In this window, you can download and install emulators that don’t require BIOS or other system files.</system:String>
+    <system:String x:Key="InvalidExecutableFile">Invalid Executable File</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">The file could not be run because it is not a valid application for this operating system.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">The file may be corrupted, incomplete, or designed for a different platform.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">If this is a game for another system, please configure an emulator for that system and launch the game through it.</system:String>
     <system:String x:Key="InvalidImageFormat">Only PNG, JPG, and JPEG images are supported.</system:String>
     <system:String x:Key="InvalidImageFormatTitle">Invalid Image Format</system:String>
     <system:String x:Key="InvalidSearch">Invalid Search</system:String>

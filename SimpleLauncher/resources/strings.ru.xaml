@@ -811,6 +811,10 @@
     <system:String x:Key="InstallImagePack">Установить пакет изображений</system:String>
     <system:String x:Key="InSystem">В системе</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">В этом окне вы можете скачать и установить эмуляторы, не требующие BIOS или других системных файлов.</system:String>
+    <system:String x:Key="InvalidExecutableFile">Недопустимый исполняемый файл</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">Не удалось запустить файл, так как он не является допустимым приложением для этой операционной системы.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">Возможно, файл повреждён, неполон или предназначен для другой платформы.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">Если это игра для другой системы, настройте для неё эмулятор и запустите игру через него.</system:String>
     <system:String x:Key="InvalidImageFormat">Поддерживаются только изображения форматов PNG, JPG и JPEG.</system:String>
     <system:String x:Key="InvalidImageFormatTitle">Неверный формат изображения</system:String>
     <system:String x:Key="InvalidSearch">Недопустимый поиск</system:String>

@@ -811,6 +811,10 @@
     <system:String x:Key="InstallImagePack">امیج پیک انسٹال کریں</system:String>
     <system:String x:Key="InSystem">سسٹم میں</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">اس ونڈو میں، آپ وہ ایمولیٹر ڈاؤن لوڈ اور انسٹال کر سکتے ہیں جنہیں BIOS یا دیگر سسٹم فائلوں کی ضرورت نہیں ہوتی۔</system:String>
+    <system:String x:Key="InvalidExecutableFile">غلط ایگزیکیوٹیبل فائل</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">فائل کو نہیں چلایا جا سکا کیونکہ یہ اس آپریٹنگ سسٹم کے لیے درست ایپلیکیشن نہیں ہے۔</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">فائل خراب، نامکمل یا کسی دوسرے پلیٹ فارم کے لیے بنی ہوئی ہوسکتی ہے۔</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">اگر یہ کسی دوسرے سسٹم کا گیم ہے تو براہ کرم اس سسٹم کے لیے ایمولیٹر کنفیگر کریں اور اس کے ذریعے گیم چلائیں۔</system:String>
     <system:String x:Key="InvalidImageFormat">صرف PNG، JPG، اور JPEG تصاویر معاون ہیں۔</system:String>
     <system:String x:Key="InvalidImageFormatTitle">غلط تصویر کی شکل</system:String>
     <system:String x:Key="InvalidSearch">غلط تلاش</system:String>

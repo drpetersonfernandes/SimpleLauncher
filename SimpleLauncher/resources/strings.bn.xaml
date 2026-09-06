@@ -811,6 +811,10 @@
     <system:String x:Key="InstallImagePack">ইমেজ প্যাক ইনস্টল করুন</system:String>
     <system:String x:Key="InSystem">সিস্টেমের মধ্যে</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">এই উইন্ডোতে, আপনি এমন এমুলেটর ডাউনলোড ও ইনস্টল করতে পারবেন যারা BIOS বা অন্য কোন সিস্টেম ফাইলের প্রয়োজন হয় না।</system:String>
+    <system:String x:Key="InvalidExecutableFile">অবৈধ এক্সিকিউটেবল ফাইল</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">এই অপারেটিং সিস্টেমের জন্য এটি বৈধ অ্যাপ্লিকেশন নয় বলে ফাইলটি চালানো যায়নি।</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">ফাইলটি সম্ভবত করাপ্ট, অসম্পূর্ণ বা অন্য প্ল্যাটফর্মের জন্য তৈরি।</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">যদি এটি অন্য সিস্টেমের গেম হয়, তবে সেই সিস্টেমের জন্য একটি এমুলেটর কনফিগার করুন এবং তার মাধ্যমে গেমটি চালান।</system:String>
     <system:String x:Key="InvalidImageFormat">শুধুমাত্র PNG, JPG এবং JPEG ছবি সমর্থিত।</system:String>
     <system:String x:Key="InvalidImageFormatTitle">অবৈধ ছবির ফরম্যাট</system:String>
     <system:String x:Key="InvalidSearch">অবৈধ অনুসন্ধান</system:String>

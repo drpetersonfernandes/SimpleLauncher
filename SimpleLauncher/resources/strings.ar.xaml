@@ -811,6 +811,10 @@
     <system:String x:Key="InstallImagePack">تثبيت حزمة الصور</system:String>
     <system:String x:Key="InSystem">في النظام</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">في هذه النافذة، يمكنك تنزيل وتثبيت المحاكيات التي لا تتطلب BIOS أو ملفات نظام أخرى.</system:String>
+    <system:String x:Key="InvalidExecutableFile">ملف تنفيذي غير صالح</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">تعذر تشغيل الملف لأنه ليس تطبيقاً صالحاً لنظام التشغيل هذا.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">قد يكون الملف تالفاً أو غير مكتمل أو مصمماً لمنصة أخرى.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">إذا كانت هذه لعبة لنظام آخر، فيرجى تكوين محاكٍ لذلك النظام وتشغيل اللعبة من خلاله.</system:String>
     <system:String x:Key="InvalidImageFormat">يتم دعم صور PNG و JPG و JPEG فقط.</system:String>
     <system:String x:Key="InvalidImageFormatTitle">تنسيق صورة غير صالح</system:String>
     <system:String x:Key="InvalidSearch">بحث غير صالح</system:String>

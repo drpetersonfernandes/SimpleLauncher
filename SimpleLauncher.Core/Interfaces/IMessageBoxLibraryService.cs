@@ -230,6 +230,12 @@ public interface IMessageBoxLibraryService
     Task EmulatorExecutableNotFoundMessageBoxAsync(string configuredPath);
 
     /// <summary>
+    ///     Displays an error stating that the file is not a valid executable for the current OS platform.
+    /// </summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    Task InvalidExecutableFileMessageBoxAsync();
+
+    /// <summary>
     ///     Displays an error message when calculating global statistics fails.
     /// </summary>
     /// <returns>A task representing the asynchronous operation.</returns>

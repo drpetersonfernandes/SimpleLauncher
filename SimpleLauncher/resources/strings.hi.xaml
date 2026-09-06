@@ -811,6 +811,10 @@
     <system:String x:Key="InstallImagePack">इमेज पैक इंस्टॉल करें</system:String>
     <system:String x:Key="InSystem">सिस्टम में</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">इस विंडो में, आप ऐसे एमुलेटर डाउनलोड और इंस्टॉल कर सकते हैं जिन्हें BIOS या अन्य सिस्टम फाइलों की आवश्यकता नहीं है।</system:String>
+    <system:String x:Key="InvalidExecutableFile">अमान्य निष्पादन योग्य फ़ाइल</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">फ़ाइल को नहीं चलाया जा सका क्योंकि यह इस ऑपरेटिंग सिस्टम के लिए मान्य एप्लिकेशन नहीं है।</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">फ़ाइल दूषित, अधूरी या किसी अन्य प्लेटफ़ॉर्म के लिए बनी हो सकती है।</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">यदि यह किसी अन्य सिस्टम का गेम है, तो कृपया उस सिस्टम के लिए एमुलेटर कॉन्फ़िगर करें और उसके माध्यम से गेम लॉन्च करें।</system:String>
     <system:String x:Key="InvalidImageFormat">केवल PNG, JPG और JPEG छवियाँ समर्थित हैं।</system:String>
     <system:String x:Key="InvalidImageFormatTitle">अमान्य छवि प्रारूप</system:String>
     <system:String x:Key="InvalidSearch">अमान्य खोज</system:String>

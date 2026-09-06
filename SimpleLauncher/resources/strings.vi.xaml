@@ -811,6 +811,10 @@
     <system:String x:Key="InstallImagePack">Cài đặt Gói Hình ảnh</system:String>
     <system:String x:Key="InSystem">Trong hệ thống</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">Trong cửa sổ này, bạn có thể tải xuống và cài đặt trình giả lập không yêu cầu BIOS hoặc các tệp hệ thống khác.</system:String>
+    <system:String x:Key="InvalidExecutableFile">Tệp thực thi không hợp lệ</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">Không thể chạy tệp vì nó không phải là ứng dụng hợp lệ cho hệ điều hành này.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">Tệp có thể bị hỏng, chưa hoàn chỉnh hoặc được thiết kế cho nền tảng khác.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">Nếu đây là trò chơi của hệ thống khác, vui lòng cấu hình trình giả lập cho hệ thống đó và khởi chạy trò chơi thông qua nó.</system:String>
     <system:String x:Key="InvalidImageFormat">Chỉ hỗ trợ hình ảnh PNG, JPG và JPEG.</system:String>
     <system:String x:Key="InvalidImageFormatTitle">Định dạng Hình ảnh Không hợp lệ</system:String>
     <system:String x:Key="InvalidSearch">Tìm kiếm không hợp lệ</system:String>

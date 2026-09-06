@@ -811,6 +811,10 @@
     <system:String x:Key="InstallImagePack">이미지 팩 설치</system:String>
     <system:String x:Key="InSystem">시스템 내</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">이 창에서는 BIOS나 기타 시스템 파일이 필요 없는 에뮬레이터를 다운로드 및 설치할 수 있습니다.</system:String>
+    <system:String x:Key="InvalidExecutableFile">잘못된 실행 파일</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">이 운영 체제에 유효한 응용 프로그램이 아니므로 파일을 실행할 수 없습니다.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">파일이 손상되었거나 불완전하거나 다른 플랫폼용일 수 있습니다.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">다른 시스템용 게임인 경우 해당 시스템의 에뮬레이터를 구성하고 이를 통해 게임을 실행하십시오.</system:String>
     <system:String x:Key="InvalidImageFormat">PNG, JPG, JPEG 이미지 형식만 지원됩니다.</system:String>
     <system:String x:Key="InvalidImageFormatTitle">잘못된 이미지 형식</system:String>
     <system:String x:Key="InvalidSearch">잘못된 검색</system:String>

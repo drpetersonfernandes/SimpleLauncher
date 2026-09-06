@@ -301,6 +301,14 @@ public class NoOpMessageBoxLibraryService : IMessageBoxLibraryService
     }
 
     /// <summary>
+    ///     Does nothing. Does not display the invalid-executable-file message box.
+    /// </summary>
+    public Task InvalidExecutableFileMessageBoxAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     ///     Does nothing. Does not display the error-calculating-stats message box.
     /// </summary>
     public Task ErrorCalculatingStatsMessageBoxAsync()

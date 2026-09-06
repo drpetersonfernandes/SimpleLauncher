@@ -811,6 +811,10 @@
     <system:String x:Key="InstallImagePack">Installatiepakket installeren</system:String>
     <system:String x:Key="InSystem">In systeem</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">In dit venster kun je emulators downloaden en installeren die geen BIOS of andere systeembestanden nodig hebben.</system:String>
+    <system:String x:Key="InvalidExecutableFile">Ongeldig uitvoerbaar bestand</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails1">Het bestand kon niet worden uitgevoerd omdat het geen geldige toepassing is voor dit besturingssysteem.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails2">Het bestand is mogelijk beschadigd, onvolledig of ontworpen voor een ander platform.</system:String>
+    <system:String x:Key="InvalidExecutableFileDetails3">Als dit een spel voor een ander systeem is, configureer dan een emulator voor dat systeem en start het spel daarmee.</system:String>
     <system:String x:Key="InvalidImageFormat">Alleen PNG-, JPG- en JPEG-afbeeldingen worden ondersteund.</system:String>
     <system:String x:Key="InvalidImageFormatTitle">Ongeldig afbeeldingsformaat</system:String>
     <system:String x:Key="InvalidSearch">Ongeldige zoekopdracht</system:String>
