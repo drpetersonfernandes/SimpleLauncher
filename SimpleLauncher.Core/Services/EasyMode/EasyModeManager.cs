@@ -63,6 +63,65 @@ public class EasyModeManager : IDisposable
     }
 
     /// <summary>
+    ///     Gets the platform configuration identifier used to select the EasyMode configuration
+    ///     (API route segment, local XML file name, and fallback URL configuration key).
+    ///     Windows keeps the legacy "x64"/"arm64" identifiers for backward compatibility with
+    ///     the existing API data; Linux uses "linux-x64"/"linux-arm64"; macOS uses
+    ///     "macos-x64"/"macos-arm64"; every other platform keeps the legacy "x64" default.
+    /// </summary>
+    private static string GetPlatformConfigurationId()
+    {
+        if (OperatingSystem.IsLinux())
+        {
+            return RuntimeInformation.OSArchitecture == Architecture.Arm64 ? "linux-arm64" : "linux-x64";
+        }
+
+        if (OperatingSystem.IsMacOS())
+        {
+            return RuntimeInformation.OSArchitecture == Architecture.Arm64 ? "macos-arm64" : "macos-x64";
+        }
+
+        if (OperatingSystem.IsWindows() && RuntimeInformation.OSArchitecture == Architecture.Arm64)
+        {
+            return "arm64";
+        }
+
+        return "x64"; // Legacy default (win-x64 configuration)
+    }
+
+    /// <summary>
+    ///     Gets the local EasyMode XML file name for the current platform configuration.
+    /// </summary>
+    private static string GetLocalXmlFileName()
+    {
+        return GetPlatformConfigurationId() switch
+        {
+            "arm64" => "easymode_arm64.xml",
+            "linux-x64" => "easymode_linux_x64.xml",
+            "linux-arm64" => "easymode_linux_arm64.xml",
+            "macos-x64" => "easymode_macos_x64.xml",
+            "macos-arm64" => "easymode_macos_arm64.xml",
+            _ => "easymode.xml"
+        };
+    }
+
+    /// <summary>
+    ///     Gets the configuration key of the fallback XML URL for the current platform configuration.
+    /// </summary>
+    private static string GetFallbackUrlConfigurationKey()
+    {
+        return GetPlatformConfigurationId() switch
+        {
+            "arm64" => "Urls:EasyModeFallbackXmlArm64",
+            "linux-x64" => "Urls:EasyModeFallbackXmlLinuxX64",
+            "linux-arm64" => "Urls:EasyModeFallbackXmlLinuxArm64",
+            "macos-x64" => "Urls:EasyModeFallbackXmlMacosX64",
+            "macos-arm64" => "Urls:EasyModeFallbackXmlMacosArm64",
+            _ => "Urls:EasyModeFallbackXmlX64"
+        };
+    }
+
+    /// <summary>
     ///     Asynchronously loads the EasyMode configuration. It first tries to load from a local XML file.
     ///     If the file is not found or is empty, it falls back to loading from the web API.
     ///     If the API also fails, it attempts to download from a fallback XML URL.
@@ -102,15 +161,8 @@ public class EasyModeManager : IDisposable
 
     private static EasyModeManager? LoadFromXml(ILogger logErrors)
     {
-        // Determine the XML file based on system architecture
-        var xmlFile = Environment.OSVersion.Platform == PlatformID.Win32NT
-            ? RuntimeInformation.OSArchitecture switch
-            {
-                Architecture.X64 => "easymode.xml",
-                Architecture.Arm64 => "easymode_arm64.xml",
-                _ => "easymode.xml" // Default fallback
-            }
-            : "easymode.xml"; // Default fallback
+        // Determine the XML file based on the platform configuration (OS + architecture)
+        var xmlFile = GetLocalXmlFileName();
 
         var xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
 
@@ -195,15 +247,11 @@ public class EasyModeManager : IDisposable
             _logger.Debug("Fetching EasyMode configuration from API...");
             var client = _httpClientFactory.CreateClient("EasyModeClient");
 
-            var architecture = RuntimeInformation.OSArchitecture switch
-            {
-                Architecture.Arm64 => "arm64",
-                _ => "x64"
-            };
+            var platformConfigurationId = GetPlatformConfigurationId();
 
             // Use a CancellationToken with a timeout (30 seconds to accommodate users with slower connections or VPN)
             using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
-            var response = await client.GetAsync($"api/Systems/{architecture}", cts.Token);
+            var response = await client.GetAsync($"api/Systems/{platformConfigurationId}", cts.Token);
 
             response.EnsureSuccessStatusCode();
 
@@ -271,20 +319,12 @@ public class EasyModeManager : IDisposable
     {
         try
         {
-            // Determine the appropriate XML file based on system architecture
-            var xmlFile = Environment.OSVersion.Platform == PlatformID.Win32NT
-                ? RuntimeInformation.OSArchitecture switch
-                {
-                    Architecture.Arm64 => "easymode_arm64.xml",
-                    _ => "easymode.xml" // Default fallback for x64 and others
-                }
-                : "easymode.xml"; // Default fallback
+            // Determine the appropriate XML file and fallback URL key
+            // based on the platform configuration (OS + architecture)
+            var xmlFile = GetLocalXmlFileName();
 
             // Get the fallback URL from configuration
-            var fallbackUrl = string.Equals(xmlFile, "easymode_arm64.xml"
-                , StringComparison.Ordinal)
-                ? _configuration.GetValue<string>("Urls:EasyModeFallbackXmlArm64")
-                : _configuration.GetValue<string>("Urls:EasyModeFallbackXmlX64");
+            var fallbackUrl = _configuration.GetValue<string>(GetFallbackUrlConfigurationKey());
 
             if (string.IsNullOrEmpty(fallbackUrl))
             {
