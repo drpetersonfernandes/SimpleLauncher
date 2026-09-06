@@ -9,6 +9,7 @@ using SimpleLauncher.Avalonia.Services.QuitOrReinstall;
 using SimpleLauncher.Avalonia.Views;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
+using SimpleLauncher.Core.Services.CheckPaths;
 
 namespace SimpleLauncher.Avalonia.Services.AvaloniaServices;
 
@@ -1367,11 +1368,15 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         {
             try
             {
-                Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = PathHelper.ResolveActualLogFile(logPath),
+                    UseShellExecute = true
+                });
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Failed to open the 'error_user.log' file.");
+                Log.Information(ex, "Failed to open the 'error_user.log' file. The file may not exist.");
                 await ShowAsync(O,
                     _localization.GetString("Thefileerroruserlog", "The file 'error_user.log' was not found!"),
                     _localization.GetString("Error", "Error"), MessageButtons.Ok, MessageIcon.Error);
