@@ -258,13 +258,37 @@
         <PackageReference Include="System.Drawing.Common" Version="10.0.11" />
     </ItemGroup>
 
+    <!-- $(OutDir) already ends with the RID folder (e.g. net10.0\linux-x64\); globbing the
+         updater's publish tree directly and flattening with %(Filename) avoids the
+         RecursiveDir RID-doubling the previous **-glob produced (linux-x64\linux-x64\).
+         AfterTargets=Build refreshes the plain build output; AfterTargets=Publish is
+         required because with ReferenceOutputAssembly=false the SDK publish payload only
+         carries the updater's apphost+runtimeconfig, not its managed dll/deps — without
+         this, a fresh checkout would publish an updater that cannot run. -->
     <Target Name="CopyAvaloniaUpdaterToOutput" AfterTargets="Build" Condition="'$(TargetFramework)' != ''">
         <ItemGroup>
             <AvaloniaUpdaterFiles
-                Include="..\SimpleLauncher.Avalonia.Updater\bin\$(Configuration)\$(TargetFramework)\**\*.*" />
+                Include="..\SimpleLauncher.Avalonia.Updater\bin\$(Configuration)\$(TargetFramework)\$(RuntimeIdentifier)\publish\**\*.*"
+                Condition="'$(RuntimeIdentifier)' != ''" />
+            <AvaloniaUpdaterFiles
+                Include="..\SimpleLauncher.Avalonia.Updater\bin\$(Configuration)\$(TargetFramework)\publish\**\*.*"
+                Condition="'$(RuntimeIdentifier)' == ''" />
         </ItemGroup>
         <Copy SourceFiles="@(AvaloniaUpdaterFiles)"
-              DestinationFiles="@(AvaloniaUpdaterFiles->'$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')"
+              DestinationFiles="@(AvaloniaUpdaterFiles->'$(OutDir)%(Filename)%(Extension)')"
+              SkipUnchangedFiles="true" />
+    </Target>
+    <Target Name="CopyAvaloniaUpdaterToPublishDir" AfterTargets="Publish" Condition="'$(PublishDir)' != ''">
+        <ItemGroup>
+            <AvaloniaUpdaterPublishFiles
+                Include="..\SimpleLauncher.Avalonia.Updater\bin\$(Configuration)\$(TargetFramework)\$(RuntimeIdentifier)\publish\**\*.*"
+                Condition="'$(RuntimeIdentifier)' != ''" />
+            <AvaloniaUpdaterPublishFiles
+                Include="..\SimpleLauncher.Avalonia.Updater\bin\$(Configuration)\$(TargetFramework)\publish\**\*.*"
+                Condition="'$(RuntimeIdentifier)' == ''" />
+        </ItemGroup>
+        <Copy SourceFiles="@(AvaloniaUpdaterPublishFiles)"
+              DestinationFiles="@(AvaloniaUpdaterPublishFiles->'$(PublishDir)%(Filename)%(Extension)')"
               SkipUnchangedFiles="true" />
     </Target>
 </Project>
