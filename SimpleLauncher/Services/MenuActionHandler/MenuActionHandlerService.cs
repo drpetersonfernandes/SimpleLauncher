@@ -411,6 +411,9 @@ public class MenuActionHandlerService
                 await _host.LoadOrReloadSystemManagerAsync();
                 await _host.ResetUiAsync();
             }
+            catch (OperationCanceledException)
+            {
+            }
             catch (Exception ex)
             {
                 _logger.Error(ex, "Error in method ScanForMicrosoftWindowsGames_ClickAsync.");
