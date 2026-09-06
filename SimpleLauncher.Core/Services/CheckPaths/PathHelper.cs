@@ -364,6 +364,34 @@ public static partial class PathHelper
             if (File.Exists(filePath) || File.Exists(longPath)) return filePath;
         }
 
+        // The game browser scans system folders recursively (GetListOfFilesService), so favorites and
+        // play-history records can reference files that live inside subfolders of a system folder.
+        // Fall back to a recursive search, preserving the direct-hit priority of the loop above.
+        foreach (var folder in systemFolders)
+        {
+            var resolvedFolder = ResolveRelativeToAppDirectory(folder);
+            if (string.IsNullOrEmpty(resolvedFolder) || !Directory.Exists(resolvedFolder)) continue;
+
+            try
+            {
+                var match = Directory
+                    .EnumerateFiles(resolvedFolder, fileName, new EnumerationOptions
+                    {
+                        MatchCasing = MatchCasing.CaseInsensitive,
+                        RecurseSubdirectories = true,
+                        IgnoreInaccessible = true
+                    })
+                    .FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(match)) return match;
+            }
+            catch (Exception ex)
+            {
+                Log.Debug(
+                    $"[PathHelper] Error searching subfolders of '{resolvedFolder}' for '{fileName}': {ex.Message}");
+            }
+        }
+
         return null;
     }
 

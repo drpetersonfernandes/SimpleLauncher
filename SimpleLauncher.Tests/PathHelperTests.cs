@@ -485,6 +485,90 @@ public class PathHelperTests
     }
 
     /// <summary>
+    ///     Verifies that FindFileInSystemFolders resolves files stored in subfolders of a system
+    ///     folder, matching the recursive scan performed by the game browser.
+    /// </summary>
+    [Fact]
+    public void FindFileInSystemFoldersFileInSubfolderReturnsPath()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var folder = Path.Combine(baseDir, "roms");
+        var subFolder = Path.Combine(folder, "GameFolder");
+        const string fileName = "disc.gdi";
+        var filePath = Path.Combine(subFolder, fileName);
+
+        try
+        {
+            Directory.CreateDirectory(subFolder);
+            File.WriteAllText(filePath, "dummy");
+
+            var result = PathHelper.FindFileInSystemFolders([folder], fileName);
+            Assert.Equal(filePath, result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
+
+    /// <summary>
+    ///     Verifies that FindFileInSystemFolders prefers a direct hit in the top-level system
+    ///     folder over a same-named file in a subfolder.
+    /// </summary>
+    [Fact]
+    public void FindFileInSystemFoldersPrefersTopLevelFileOverSubfolderMatch()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var folder = Path.Combine(baseDir, "roms");
+        var subFolder = Path.Combine(folder, "GameFolder");
+        const string fileName = "game.zip";
+
+        try
+        {
+            Directory.CreateDirectory(subFolder);
+            var topLevelPath = Path.Combine(folder, fileName);
+            var subFolderPath = Path.Combine(subFolder, fileName);
+            File.WriteAllText(topLevelPath, "top");
+            File.WriteAllText(subFolderPath, "sub");
+
+            var result = PathHelper.FindFileInSystemFolders([folder], fileName);
+            Assert.Equal(topLevelPath, result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
+
+    /// <summary>
+    ///     Verifies that FindFileInSystemFolders resolves a file in a subfolder even when the
+    ///     stored file name differs only by case.
+    /// </summary>
+    [Fact]
+    public void FindFileInSystemFoldersSubfolderMatchIsCaseInsensitive()
+    {
+        var baseDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var folder = Path.Combine(baseDir, "roms");
+        var subFolder = Path.Combine(folder, "GameFolder");
+
+        try
+        {
+            Directory.CreateDirectory(subFolder);
+            File.WriteAllText(Path.Combine(subFolder, "game.zip"), "dummy");
+
+            var result = PathHelper.FindFileInSystemFolders([folder], "GAME.ZIP");
+            Assert.Equal(Path.Combine(subFolder, "game.zip"), result);
+        }
+        finally
+        {
+            if (Directory.Exists(baseDir))
+                Directory.Delete(baseDir, true);
+        }
+    }
+
+    /// <summary>
     ///     Verifies that ResolveParameterString joins multiple system folders with semicolons.
     /// </summary>
     [Fact]
