@@ -21,7 +21,9 @@ public static class AvaloniaProjectPathHelper
             var candidate = Path.Combine(dir.FullName, "SimpleLauncher.Avalonia");
             if (Directory.Exists(candidate) &&
                 File.Exists(Path.Combine(candidate, "SimpleLauncher.Avalonia.csproj")))
+            {
                 return candidate;
+            }
 
             dir = dir.Parent;
         }

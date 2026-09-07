@@ -33,8 +33,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     public async Task ListOfErrorsMessageBoxAsync(StringBuilder errorMessages)
     {
         if (O != null)
+        {
             await ShowAsync(O, errorMessages.ToString(), _localization.GetString("Errors", "Errors"), MessageButtons.Ok,
                 MessageIcon.Error);
+        }
     }
 
 
@@ -185,8 +187,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     public async Task ErrorWhileRemovingGameFromFavoriteMessageBoxAsync()
     {
         if (O != null)
+        {
             await ShowAsync(O, _localization.GetString("Errorremovingfromfavorites", "Error removing from favorites."),
                 _localization.GetString("Error", "Error"), MessageButtons.Ok, MessageIcon.Error);
+        }
     }
 
 
@@ -1829,9 +1833,10 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
     public Task ElevationRequiredMessageBoxAsync()
     {
         if (O == null) return Task.CompletedTask;
-        var message = $"{_localization.GetString("Therewasanerrorlaunchingthisgame", "There was an error launching this game.")}\n\n" +
-                      $"{_localization.GetString("ElevationRequired", "The requested operation requires elevation (Administrator privileges).")}\n\n" +
-                      $"{_localization.GetString("CannotRunProgramsRequiringElevation", "'Simple Launcher' cannot run programs that require elevation. Change the game's configuration to not require administrator rights (for example, uncheck 'Run this program as an administrator' in the executable's compatibility settings).")}";
+        var message =
+            $"{_localization.GetString("Therewasanerrorlaunchingthisgame", "There was an error launching this game.")}\n\n" +
+            $"{_localization.GetString("ElevationRequired", "The requested operation requires elevation (Administrator privileges).")}\n\n" +
+            $"{_localization.GetString("CannotRunProgramsRequiringElevation", "'Simple Launcher' cannot run programs that require elevation. Change the game's configuration to not require administrator rights (for example, uncheck 'Run this program as an administrator' in the executable's compatibility settings).")}";
         return ShowAsync(O, message, _localization.GetString("Error", "Error"), MessageButtons.Ok, MessageIcon.Error);
     }
 
@@ -2039,7 +2044,8 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
             "There was an error with the GamePad Controller.");
         var grantSimpleLauncheradministrative = _localization.GetString("GrantSimpleLauncheradministrative",
             "Grant 'Simple Launcher' administrative access and try again.");
-        var temporarilydisableyourantivirus = _localization.GetString("Youcanalsotemporarilydisableyourantivirussoftware",
+        var temporarilydisableyourantivirus = _localization.GetString(
+            "Youcanalsotemporarilydisableyourantivirussoftware",
             "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.");
         var doyouwanttoopenthefile = _localization.GetString("Doyouwanttoopenthefile",
             "Do you want to open the file 'error_user.log' to debug the error?");

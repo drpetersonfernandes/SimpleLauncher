@@ -215,7 +215,7 @@ public class ConverterTests
     {
         var converter = CreateHeightConverter();
         var result = converter.Convert([null, "NES"], typeof(double), null, CultureInfo.InvariantCulture);
-        Assert.Equal(168.0 * 0.75 + 48.0, (double)result!, 3);
+        Assert.Equal((168.0 * 0.75) + 48.0, (double)result!, 3);
     }
 
     [Fact]
@@ -232,7 +232,7 @@ public class ConverterTests
     {
         var converter = CreateHeightConverter();
         var result = converter.Convert([200.0, "NES"], typeof(double), null, CultureInfo.InvariantCulture);
-        Assert.Equal(200.0 * 0.75 + 48.0, (double)result!, 3);
+        Assert.Equal((200.0 * 0.75) + 48.0, (double)result!, 3);
     }
 
     [Fact]
@@ -240,7 +240,7 @@ public class ConverterTests
     {
         var converter = CreateHeightConverter();
         var result = converter.Convert([200.0, "NES", true], typeof(double), null, CultureInfo.InvariantCulture);
-        Assert.Equal(200.0 * 0.73 + 48.0, (double)result!, 3);
+        Assert.Equal((200.0 * 0.73) + 48.0, (double)result!, 3);
     }
 
     [Fact]

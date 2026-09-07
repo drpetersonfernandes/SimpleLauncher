@@ -156,7 +156,7 @@ public class GlobalStatsViewModelTests
         messageBox.Setup(m => m.WouldYouLikeToSaveAReportMessageBoxAsync()).ReturnsAsync(CoreMessageBoxResult.No);
 
         var closeRequested = false;
-        vm.CloseRequested += (_, _) => { closeRequested = true; };
+        vm.CloseRequested += (_, _) => closeRequested = true;
 
         var startTask = vm.StartCommand.ExecuteAsync(null);
         await HeadlessAvalonia.WaitUntilAsync(() => vm.IsProcessing);

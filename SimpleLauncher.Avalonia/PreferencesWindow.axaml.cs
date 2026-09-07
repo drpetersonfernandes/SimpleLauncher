@@ -72,7 +72,9 @@ public partial class PreferencesWindow : Window
 
             if (int.TryParse(s: CardWidthBox.Text, provider: CultureInfo.InvariantCulture, result: out var cardWidth) &&
                 cardWidth is >= 148 and <= 280)
+            {
                 _settings.ThumbnailSize = cardWidth;
+            }
 
             _settings.EnableGamePadNavigation = GamepadNavCheck.IsChecked == true;
             _settings.DisplayMachineName = DisplayMachineNameCheck.IsChecked == true;

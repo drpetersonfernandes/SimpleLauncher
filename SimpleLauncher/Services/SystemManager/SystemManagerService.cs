@@ -465,10 +465,10 @@ public partial class SystemManagerService : ISystemManager
                 }
             }
 
-            if (extractFileBeforeLaunch && (formatsToSearch.All(static f =>
+            if (extractFileBeforeLaunch && (!formatsToSearch.All(static f =>
                     f.Equals("zip", StringComparison.OrdinalIgnoreCase) ||
                     f.Equals("7z", StringComparison.OrdinalIgnoreCase) ||
-                    f.Equals("rar", StringComparison.OrdinalIgnoreCase)) != true))
+                    f.Equals("rar", StringComparison.OrdinalIgnoreCase))))
             {
                 throw new InvalidOperationException(
                     $"System '{systemName}': When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must ONLY contain 'zip', '7z', or 'rar'.");

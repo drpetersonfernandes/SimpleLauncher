@@ -244,7 +244,8 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
                     if (favoriteToRemove != null) RemoveFavoriteFromCollection(favoriteToRemove);
                 }
 
-                _logger.Information($"[LaunchGameFromFavoritesAsync] File does not exist: {fileName} (system: {selectedSystemName}, resolved path: {filePath ?? "not found"})");
+                _logger.Information(
+                    $"[LaunchGameFromFavoritesAsync] File does not exist: {fileName} (system: {selectedSystemName}, resolved path: {filePath ?? "not found"})");
                 return;
             }
 

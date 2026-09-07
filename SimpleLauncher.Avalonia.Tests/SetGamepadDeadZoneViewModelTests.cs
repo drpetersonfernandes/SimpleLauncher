@@ -44,7 +44,7 @@ public class SetGamepadDeadZoneViewModelTests
         vm.DeadZoneX = 0.2;
         vm.DeadZoneY = 0.1;
         var saved = false;
-        vm.SaveCompleted += (_, _) => { saved = true; };
+        vm.SaveCompleted += (_, _) => saved = true;
 
         await vm.SaveCommand.ExecuteAsync(null);
 
@@ -63,7 +63,7 @@ public class SetGamepadDeadZoneViewModelTests
         vm.DeadZoneX = 0.9;
         vm.DeadZoneY = 0.9;
         var closed = false;
-        vm.CloseRequested += (_, _) => { closed = true; };
+        vm.CloseRequested += (_, _) => closed = true;
 
         await vm.RevertCommand.ExecuteAsync(null);
 
@@ -80,7 +80,7 @@ public class SetGamepadDeadZoneViewModelTests
     {
         var vm = CreateVm(out _, out _);
         var closed = false;
-        vm.CloseRequested += (_, _) => { closed = true; };
+        vm.CloseRequested += (_, _) => closed = true;
 
         vm.CancelCommand.Execute(null);
 

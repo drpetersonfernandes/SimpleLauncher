@@ -41,7 +41,7 @@ public class WindowSelectionDialogViewModelTests
         vm.Initialize([(handle, "Window A"), (new IntPtr(1), "Window B")]);
 
         bool? result = null;
-        vm.DialogResultRequested += (_, e) => { result = e.Value; };
+        vm.DialogResultRequested += (_, e) => result = e.Value;
         vm.SelectedItem = vm.WindowItems[0];
 
         Assert.True(result);
@@ -56,7 +56,7 @@ public class WindowSelectionDialogViewModelTests
         vm.SelectedItem = vm.WindowItems[0];
 
         var events = 0;
-        vm.DialogResultRequested += (_, _) => { events++; };
+        vm.DialogResultRequested += (_, _) => events++;
         vm.SelectedItem = null;
 
         Assert.Equal(0, events);

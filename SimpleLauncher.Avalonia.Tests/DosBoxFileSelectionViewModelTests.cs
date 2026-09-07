@@ -42,7 +42,7 @@ public class DosBoxFileSelectionViewModelTests
         vm.SelectedItem = vm.FileItems[0];
 
         bool? result = null;
-        vm.DialogResultRequested += (_, e) => { result = e.Value; };
+        vm.DialogResultRequested += (_, e) => result = e.Value;
         vm.LaunchCommand.Execute(null);
 
         Assert.True(result);
@@ -56,7 +56,7 @@ public class DosBoxFileSelectionViewModelTests
         vm.Initialize([Path.Combine("C", "dosgames", "game.bat")], Path.Combine("C", "dosgames"));
 
         var events = 0;
-        vm.DialogResultRequested += (_, _) => { events++; };
+        vm.DialogResultRequested += (_, _) => events++;
 
         vm.LaunchCommand.Execute(null);
 
@@ -71,7 +71,7 @@ public class DosBoxFileSelectionViewModelTests
         vm.Initialize([Path.Combine("C", "dosgames", "game.bat")], Path.Combine("C", "dosgames"));
 
         bool? result = null;
-        vm.DialogResultRequested += (_, e) => { result = e.Value; };
+        vm.DialogResultRequested += (_, e) => result = e.Value;
         vm.CancelCommand.Execute(null);
 
         Assert.False(result);
@@ -85,7 +85,7 @@ public class DosBoxFileSelectionViewModelTests
         vm.SelectedItem = vm.FileItems[0];
 
         bool? result = null;
-        vm.DialogResultRequested += (_, e) => { result = e.Value; };
+        vm.DialogResultRequested += (_, e) => result = e.Value;
         vm.OnItemDoubleClicked();
 
         Assert.True(result);

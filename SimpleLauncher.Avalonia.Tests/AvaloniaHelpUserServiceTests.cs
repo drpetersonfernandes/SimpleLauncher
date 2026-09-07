@@ -100,8 +100,10 @@ public class AvaloniaHelpUserServiceTests
         {
             var json = File.ReadAllText(file);
             foreach (var key in keys)
+            {
                 Assert.True(json.Contains($"\"{key}\"", StringComparison.Ordinal),
                     $"{Path.GetFileName(file)} is missing key '{key}'");
+            }
         }
     }
 }

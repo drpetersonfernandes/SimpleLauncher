@@ -65,7 +65,7 @@ public class SetLinksViewModelTests
         vm.VideoUrl = "https://my.example/search?q=";
         vm.InfoUrl = "https://my.example/info?q=";
         var saved = false;
-        vm.SaveCompleted += (_, _) => { saved = true; };
+        vm.SaveCompleted += (_, _) => saved = true;
 
         await vm.SaveCommand.ExecuteAsync(null);
 
@@ -83,7 +83,7 @@ public class SetLinksViewModelTests
         vm.VideoUrl = "changed";
         vm.InfoUrl = "changed";
         var closed = false;
-        vm.CloseRequested += (_, _) => { closed = true; };
+        vm.CloseRequested += (_, _) => closed = true;
 
         await vm.RevertCommand.ExecuteAsync(null);
 
@@ -98,7 +98,7 @@ public class SetLinksViewModelTests
     {
         var vm = CreateVm(out _, out _);
         var closed = false;
-        vm.CloseRequested += (_, _) => { closed = true; };
+        vm.CloseRequested += (_, _) => closed = true;
 
         vm.CancelCommand.Execute(null);
 

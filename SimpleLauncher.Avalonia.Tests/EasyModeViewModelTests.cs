@@ -218,10 +218,12 @@ public class EasyModeViewModelTests
         {
             var url = request.RequestUri?.AbsoluteUri ?? "";
             if (url.Contains("api/Systems", StringComparison.Ordinal))
+            {
                 return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = new StringContent(_json, Encoding.UTF8, "application/json")
                 });
+            }
 
             // Component downloads (emulator / core / image pack archives).
             return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)

@@ -85,7 +85,7 @@ public class AvaloniaPaginationServiceTests
         service.GoToNextPage(); // page 2
         service.GoToNextPage(); // page 3
         Assert.Equal(3, service.CurrentPage);
-        Assert.True(service.CanGoNext() is false);
+        Assert.False(service.CanGoNext());
 
         service.GoToNextPage(); // stays on 3
         Assert.Equal(3, service.CurrentPage);

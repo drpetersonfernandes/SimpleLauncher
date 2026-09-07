@@ -62,7 +62,7 @@ public class SetFuzzyMatchingViewModelTests
         var vm = CreateVm(out var messageBox, out var settings);
         vm.ThresholdValue = 1.5; // way above max
         var saved = false;
-        vm.SaveCompleted += (_, _) => { saved = true; };
+        vm.SaveCompleted += (_, _) => saved = true;
 
         await vm.SaveCommand.ExecuteAsync(null);
 
@@ -77,7 +77,7 @@ public class SetFuzzyMatchingViewModelTests
         var vm = CreateVm(out var messageBox, out var settings);
         vm.ThresholdValue = 0.85;
         var saved = false;
-        vm.SaveCompleted += (_, _) => { saved = true; };
+        vm.SaveCompleted += (_, _) => saved = true;
 
         await vm.SaveCommand.ExecuteAsync(null);
 
@@ -91,7 +91,7 @@ public class SetFuzzyMatchingViewModelTests
     {
         var vm = CreateVm(out _, out _);
         var cancelled = false;
-        vm.CancelRequested += (_, _) => { cancelled = true; };
+        vm.CancelRequested += (_, _) => cancelled = true;
 
         vm.CancelCommand.Execute(null);
 

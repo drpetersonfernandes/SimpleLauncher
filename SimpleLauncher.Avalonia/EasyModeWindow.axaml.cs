@@ -39,7 +39,9 @@ public partial class EasyModeWindow : Window, IDisposable
         {
             if (string.Equals(args.PropertyName, nameof(EasyModeViewModel.IsLoading),
                     StringComparison.OrdinalIgnoreCase))
+            {
                 LoadingOverlay.IsVisible = _viewModel.IsLoading;
+            }
         };
         _viewModel.PropertyChanged += _onViewModelPropertyChanged;
     }

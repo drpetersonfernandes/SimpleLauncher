@@ -1815,7 +1815,10 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             if (sender is not MenuItem { Tag: string tag } ||
-                !int.TryParse(tag, CultureInfo.InvariantCulture, out var size)) return;
+                !int.TryParse(tag, CultureInfo.InvariantCulture, out var size))
+            {
+                return;
+            }
 
             _settings.ThumbnailSize = size;
             await _settings.SaveAsync();
@@ -1860,7 +1863,10 @@ public partial class MainWindow : Window, IPaginationHost
         try
         {
             if (sender is not MenuItem { Tag: string tag } ||
-                !int.TryParse(tag, CultureInfo.InvariantCulture, out var page)) return;
+                !int.TryParse(tag, CultureInfo.InvariantCulture, out var page))
+            {
+                return;
+            }
 
             _settings.GamesPerPage = page;
             await _settings.SaveAsync();

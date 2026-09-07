@@ -98,7 +98,7 @@ public class UiResetServiceTests
     public async Task ResetUiAsync_SetsIsUiUpdating_GuardFlag()
     {
         var isUpdatingSequence = new List<bool>();
-        _host.SetupSet(h => { h.IsUiUpdating = It.IsAny<bool>(); })
+        _host.SetupSet(h => h.IsUiUpdating = It.IsAny<bool>())
             .Callback<bool>(v => isUpdatingSequence.Add(v));
 
         // IsUiUpdating getter returns false initially, then true during body

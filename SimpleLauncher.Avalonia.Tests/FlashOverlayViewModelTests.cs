@@ -32,7 +32,7 @@ public class FlashOverlayViewModelTests
     {
         var vm = new FlashOverlayViewModel();
         var raised = false;
-        vm.CloseRequested += (_, _) => { raised = true; };
+        vm.CloseRequested += (_, _) => raised = true;
 
         vm.OnAnimationCompleted();
 

@@ -82,7 +82,7 @@ public class InjectDolphinConfigViewModelTests : IDisposable
         vm.Initialize(_fakeExe, true);
 
         var raised = false;
-        vm.CloseRequested += (_, _) => { raised = true; };
+        vm.CloseRequested += (_, _) => raised = true;
 
         vm.CancelCommand.Execute(null);
 
@@ -100,7 +100,7 @@ public class InjectDolphinConfigViewModelTests : IDisposable
         vm.Initialize(_fakeExe, true);
 
         var raised = false;
-        vm.CloseRequested += (_, _) => { raised = true; };
+        vm.CloseRequested += (_, _) => raised = true;
 
         await vm.SaveCommand.ExecuteAsync(null);
 

@@ -27,6 +27,7 @@ public class AvaloniaViewSmokeTests
 
         // Special-case services that require real initialization for window ctor to succeed
         if (type == typeof(LocalizationService))
+        {
             try
             {
                 return new LocalizationService();
@@ -35,6 +36,7 @@ public class AvaloniaViewSmokeTests
             {
                 // ignored
             }
+        }
 
         // Interface / abstract -> Moq (use base Mock to avoid ambiguous Object property)
         if (type.IsInterface || type.IsAbstract)
@@ -218,7 +220,7 @@ public class AvaloniaViewSmokeTests
         HeadlessAvalonia.EnsureInitialized();
         var window = ConstructWindow(windowType);
         Assert.NotNull(window);
-        Assert.IsAssignableFrom<Window>(window);
+        Assert.IsType<Window>(window, exactMatch: false);
         // Verify XAML was applied: Avalonia gives each Window a NameScope after InitializeComponent
         // If XAML failed, the window would have thrown before this point.
     }
@@ -230,7 +232,7 @@ public class AvaloniaViewSmokeTests
         HeadlessAvalonia.EnsureInitialized();
         var window = ConstructWindow(windowType);
         Assert.NotNull(window);
-        Assert.IsAssignableFrom<Window>(window);
+        Assert.IsType<Window>(window, exactMatch: false);
     }
 
     [Fact]

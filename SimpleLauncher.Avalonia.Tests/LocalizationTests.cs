@@ -58,11 +58,16 @@ public class LocalizationTests
             var missing = enKeys.Except(keys, StringComparer.OrdinalIgnoreCase).ToList();
             var extra = keys.Except(enKeys, StringComparer.OrdinalIgnoreCase).ToList();
             if (missing.Count > 0)
+            {
                 failures.Add(
                     $"{Path.GetFileName(file)} is missing {missing.Count} key(s): {string.Join(", ", missing)}");
+            }
+
             if (extra.Count > 0)
+            {
                 failures.Add(
                     $"{Path.GetFileName(file)} has {extra.Count} unexpected key(s): {string.Join(", ", extra)}");
+            }
         }
 
         Assert.True(failures.Count == 0,
@@ -85,8 +90,10 @@ public class LocalizationTests
         {
             var strings = LoadKeys(file);
             foreach (var (key, value) in strings)
+            {
                 if (string.IsNullOrWhiteSpace(value))
                     failures.Add($"{Path.GetFileName(file)}: '{key}' has an empty value");
+            }
         }
 
         Assert.True(failures.Count == 0,

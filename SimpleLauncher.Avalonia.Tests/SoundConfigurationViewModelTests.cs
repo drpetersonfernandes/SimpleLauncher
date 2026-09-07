@@ -94,7 +94,7 @@ public class SoundConfigurationViewModelTests
         vm.EnableNotificationSound = true;
         vm.NotificationSoundFile = "custom.mp3";
         var saved = false;
-        vm.SaveCompleted += (_, _) => { saved = true; };
+        vm.SaveCompleted += (_, _) => saved = true;
 
         await vm.SaveCommand.ExecuteAsync(null);
 
@@ -144,6 +144,7 @@ public class SoundConfigurationViewModelTests
     private static void TryDeleteFile(string path)
     {
         for (var attempt = 0; attempt < 10; attempt++)
+        {
             try
             {
                 File.Delete(path);
@@ -153,6 +154,7 @@ public class SoundConfigurationViewModelTests
             {
                 Thread.Sleep(50); // transient handle (AV scanner etc.)
             }
+        }
     }
 
     [Fact]
@@ -160,7 +162,7 @@ public class SoundConfigurationViewModelTests
     {
         var vm = CreateVm(out _, out _);
         var closed = false;
-        vm.CloseRequested += (_, _) => { closed = true; };
+        vm.CloseRequested += (_, _) => closed = true;
 
         vm.CancelCommand.Execute(null);
 

@@ -605,10 +605,14 @@ public partial class EasyModeViewModel : ObservableObject, IDisposable
                        ioEx.Message.Contains("Cannot check disk space", StringComparison.Ordinal))))
                 {
                     if (DownloadErrorClassifier.IsExpectedDownloadException(ex))
+                    {
                         _logger.Information(ex, "Error downloading {Component}. URL: {Url}", componentName,
                             downloadUrl);
+                    }
                     else
+                    {
                         _logger.Error(ex, "Error downloading {Component}. URL: {Url}", componentName, downloadUrl);
+                    }
                 }
 
                 if (_downloadManager.IsFileLockedDuringDownload)

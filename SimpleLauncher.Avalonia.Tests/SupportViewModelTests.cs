@@ -85,7 +85,7 @@ public class SupportViewModelTests
         vm.Email = "tester@example.com";
         vm.SupportRequest = "I need help with my emulator setup.";
         var formCleared = false;
-        vm.FormCleared += (_, _) => { formCleared = true; };
+        vm.FormCleared += (_, _) => formCleared = true;
 
         await vm.SendSupportRequestCommand.ExecuteAsync(null);
 
@@ -141,7 +141,7 @@ public class SupportViewModelTests
         var messageBox = TestDependencies.MessageBox();
         var vm = CreateVm(messageBox);
         var raised = false;
-        vm.CloseRequested += (_, _) => { raised = true; };
+        vm.CloseRequested += (_, _) => raised = true;
 
         vm.CloseCommand.Execute(null);
 

@@ -50,10 +50,12 @@ public partial class DetectMissingResourceStringsTests
         var keysWithoutValues = new List<string>();
 
         foreach (var key in missingKeys)
+        {
             if (csKeys.TryGetValue(key, out var fallback) && !string.IsNullOrEmpty(fallback))
                 keysWithValues[key] = fallback;
             else
                 keysWithoutValues.Add(key);
+        }
 
         // Only auto-add keys that have a known non-empty fallback value.
         if (keysWithValues.Count > 0) AppendMissingEntries(stringsEnPath, keysWithValues);
@@ -171,8 +173,10 @@ public partial class DetectMissingResourceStringsTests
         var existingEntries = LoadKeys(filePath);
 
         foreach (var kvp in missingEntries)
+        {
             if (!existingEntries.ContainsKey(kvp.Key))
                 existingEntries[kvp.Key] = kvp.Value;
+        }
 
         var sorted = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (var kvp in existingEntries) sorted[kvp.Key] = kvp.Value;

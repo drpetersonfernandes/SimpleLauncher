@@ -130,7 +130,7 @@ public class MinimalLauncherServiceGatingTests : IDisposable
 
         // …the "Configuring emulator..." state was shown, then cleared, and nothing else ran.
         Assert.Contains(_loading.Calls, c => c is (true, "Configuring emulator..."));
-        Assert.True(!_loading.Calls.Last().IsLoading, "Loading state must be cleared after abort");
+        Assert.False(_loading.Calls[^1].IsLoading);
         _messageBox.Verify(m => m.CustomErrorMessageBoxAsync(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
     }
 

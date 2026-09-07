@@ -66,7 +66,7 @@ public class AboutViewModelTests : IDisposable
     {
         var (vm, _) = CreateVm();
         var raised = false;
-        vm.CloseRequested += (_, _) => { raised = true; };
+        vm.CloseRequested += (_, _) => raised = true;
 
         vm.CloseCommand.Execute(null);
 
@@ -78,7 +78,7 @@ public class AboutViewModelTests : IDisposable
     {
         var (vm, _) = CreateVm();
         var raised = false;
-        vm.OpenUpdateHistoryRequested += (_, _) => { raised = true; };
+        vm.OpenUpdateHistoryRequested += (_, _) => raised = true;
 
         vm.OpenUpdateHistoryCommand.Execute(null);
 

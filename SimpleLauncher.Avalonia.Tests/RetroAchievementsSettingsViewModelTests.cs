@@ -149,11 +149,11 @@ public class RetroAchievementsSettingsViewModelTests
         // ReSharper disable once NotAccessedVariable
         var callCount = 0;
         // ReSharper disable once UnusedParameter.Local
-        var (vm, settings, messageBox, configurator, _) = CreateVm(req =>
+        var (vm, settings, messageBox, configurator, _) = CreateVm(_ =>
         {
             callCount++;
             return LoginSuccess("newToken");
-        }, initialToken: "", initialApiKey: "");
+        }, initialApiKey: "", initialToken: "");
         vm.Username = "user";
         vm.Password = "pass";
         configurator.Setup(c => c.ConfigurePcsx2(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
@@ -170,7 +170,7 @@ public class RetroAchievementsSettingsViewModelTests
     [Fact]
     public async Task ConfigureEmulator_MissingToken_LoginFails_ShowsFailedToLogin()
     {
-        var (vm, _, messageBox, _, _) = CreateVm(_ => LoginFailure(), initialToken: "", initialApiKey: "");
+        var (vm, _, messageBox, _, _) = CreateVm(_ => LoginFailure(), initialApiKey: "", initialToken: "");
         vm.Username = "user";
         vm.Password = "pass";
         vm.RequestExePath = () => Task.FromResult<string?>(@"C:\emu\pcsx2.exe");
@@ -189,7 +189,7 @@ public class RetroAchievementsSettingsViewModelTests
         {
             httpCalled = true;
             return LoginSuccess();
-        }, initialToken: "existingToken", initialApiKey: "key");
+        }, initialApiKey: "key", initialToken: "existingToken");
         vm.Username = "user";
         vm.Password = "pass";
         configurator.Setup(c => c.ConfigureDuckStation(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
