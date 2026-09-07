@@ -29,10 +29,10 @@
         <PackageIcon>icon2.png</PackageIcon>
         <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <AssemblyVersion>5.6.1</AssemblyVersion>
-        <FileVersion>5.6.1</FileVersion>
+        <AssemblyVersion>5.7.0</AssemblyVersion>
+        <FileVersion>5.7.0</FileVersion>
         <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-        <Version>5.6.1</Version>
+        <Version>5.7.0</Version>
         <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
         <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
         <UseWindowsForms>False</UseWindowsForms>
@@ -1156,7 +1156,7 @@
         <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
         <PackageReference Include="MahApps.Metro" Version="2.4.11" />
         <PackageReference Include="MdXaml" Version="1.27.0" />
-        <PackageReference Include="Meziantou.Analyzer" Version="3.0.221">
+        <PackageReference Include="Meziantou.Analyzer" Version="3.0.223">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
