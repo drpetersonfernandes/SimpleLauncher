@@ -166,7 +166,7 @@ public class MountZipFiles : IMountZipFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.Warning(errorMessage);
+            logErrors.Information(errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
@@ -462,7 +462,7 @@ public class MountZipFiles : IMountZipFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.Warning(errorMessage);
+            logErrors.Information(errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
@@ -731,7 +731,7 @@ public class MountZipFiles : IMountZipFiles
         {
             const string errorMessage = "Dokan driver not found. Cannot mount ZIP.";
             _logger.Debug($"[MountZipFiles] Error: {errorMessage}");
-            logErrors.Warning(errorMessage);
+            logErrors.Information(errorMessage);
             await messageBox.DokanDriverNotInstalledMessageBoxAsync();
             return;
         }
