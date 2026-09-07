@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -214,7 +214,6 @@
     <system:String x:Key="ButtonSizeIcon">بٹن کا سائز</system:String>
     <system:String x:Key="Cabinet">کابینہ</system:String>
     <system:String x:Key="Cabinetnotfound">کابینہ نہیں ملی</system:String>
-    <system:String x:Key="CalculateHashesForAllGamePaths">تمام گیم پاتھز کے لیے ہیش کا حساب لگائیں</system:String>
     <system:String x:Key="CalculatingGameHash">گیم ہیش کا حساب لگایا جا رہا ہے... براہ کرم انتظار کریں۔</system:String>
     <system:String x:Key="CalculatingRetroAchievementsHashes">ریٹرو اچیومنٹس ہیشز کا حساب لگایا جا رہا ہے...</system:String>
     <system:String x:Key="Cancel">منسوخ کریں</system:String>
@@ -1262,8 +1261,7 @@
     <system:String x:Key="RaGenericYes">ہاں</system:String>
     <system:String x:Key="RaHashCalculationComplete">ریٹرو اچیومنٹس ہیش کا حساب {0} کے لیے مکمل ہو گیا ہے۔</system:String>
     <system:String x:Key="RaHashCalculationInProgress">ریٹرو اچیومنٹس ہیش کا حساب پہلے ہی جاری ہے۔ براہ کرم دوبارہ کوشش کرنے سے پہلے اس کے مکمل ہونے کا انتظار کریں۔</system:String>
-    <system:String x:Key="RaHashNoScannableSystems">کوئی بھی کنفیگر شدہ سسٹم ریٹرو اچیومنٹس ہیشنگ کے لیے معاون نہیں ہے۔</system:String>
-    <system:String x:Key="RaHashScanAllStarted">ریٹرو اچیومنٹس ہیش کا حساب تمام گیم پاتھز کے لیے پس منظر میں شروع ہو گیا ہے۔ جب یہ مکمل ہو جائے گا تو آپ کو مطلع کیا جائے گا۔</system:String>
+    <system:String x:Key="RaHashNoSystemSelected">RetroAchievements ہیشز دوبارہ اسکین کرنے سے پہلے براہ کرم ایک سسٹم منتخب کریں۔</system:String>
     <system:String x:Key="RaHashScanInBackgroundMessage">ہیش کا حساب پس منظر میں ہو گا۔ آپ بعد میں دوبارہ فلٹر بٹن پر کلک کر کے دیکھ سکتے ہیں کہ آیا ہیشنگ مکمل ہو گئی ہے۔</system:String>
     <system:String x:Key="RaHashSystemNotSupported">ریٹرو اچیومنٹس ہیشنگ کے لیے معاون نہیں ہے۔</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">ساؤنڈ ڈرائیور:</system:String>
@@ -1409,6 +1407,7 @@
     <system:String x:Key="RemovingHistoryItem">ہسٹری آئٹم ہٹا رہا ہے...</system:String>
     <system:String x:Key="ReportedToDeveloper">اس سیکیورٹی مسئلے کی اطلاع ڈویلپر ٹیم کو دے دی گئی ہے۔</system:String>
     <system:String x:Key="Reportsavedsuccessfully">رپورٹ کامیابی سے محفوظ ہو گئی۔</system:String>
+    <system:String x:Key="RescanRetroAchievementsForSelectedSystem">منتخب کردہ سسٹم کے لیے RetroAchievements دوبارہ اسکین کریں</system:String>
     <system:String x:Key="ResetDates">تاریخیں ری سیٹ کریں</system:String>
     <system:String x:Key="ResetDatesButtonTooltip">تاریخ کے فلٹرز ری سیٹ کریں</system:String>
     <system:String x:Key="ResetDatesTooltip">تاریخوں کا فلٹر ری سیٹ کریں</system:String>
@@ -1971,7 +1970,6 @@
     <system:String x:Key="TooltipAspectRatioMenu">گیم بٹنوں کا پہلو تناسب تبدیل کریں</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">لائٹ اور ڈارک تھیم کے درمیان سوئچ کریں</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">گیم بٹنوں کا سائز ایڈجسٹ کریں</system:String>
-    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">تمام گیم پاتھز کے لیے ریٹرو اچیومنٹس ہیشز کا حساب پس منظر میں لگائیں</system:String>
     <system:String x:Key="ToolTipCancel">موجودہ آپریشن منسوخ کریں</system:String>
     <system:String x:Key="TooltipCheckForUpdate">چیک کریں کہ آیا کوئی نیا ورژن دستیاب ہے</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">پہلے ایمولیٹر ایگزیکیوٹیبل کو براؤز کریں</system:String>
@@ -2125,6 +2123,7 @@
     <system:String x:Key="TooltipRemoveAllFromHistory">تمام پلے ہسٹری ریکارڈز صاف کریں</system:String>
     <system:String x:Key="TooltipRemoveFromFavorites">منتخب گیم کو پسندیدہ سے ہٹائیں</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">منتخب آئٹم کو پلے ہسٹری سے ہٹائیں</system:String>
+    <system:String x:Key="TooltipRescanRetroAchievementsForSelectedSystem">منتخب سسٹم کے تمام گیمز کے لیے RetroAchievements ہیشز دوبارہ حساب کرتا ہے۔ اسکین بیک گراؤنڈ میں چلتا ہے۔</system:String>
     <system:String x:Key="TooltipResetSound">ڈیفالٹ نوٹیفکیشن ساؤنڈ پر ری سیٹ کریں</system:String>
     <system:String x:Key="TooltipRestart">تبدیلیاں لاگو کرنے یا سسٹمز کو دوبارہ لوڈ کرنے کے لیے ایپلیکیشن کو دوبارہ شروع کریں</system:String>
     <system:String x:Key="TooltipResultsDataGrid">عالمی تلاش کے نتائج کی فہرست</system:String>

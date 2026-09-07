@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -214,7 +214,6 @@
     <system:String x:Key="ButtonSizeIcon">Размер кнопок</system:String>
     <system:String x:Key="Cabinet">Кабинет</system:String>
     <system:String x:Key="Cabinetnotfound">Кабинет не найден</system:String>
-    <system:String x:Key="CalculateHashesForAllGamePaths">Рассчитать хеш для всех путей к играм</system:String>
     <system:String x:Key="CalculatingGameHash">Вычисление хеша игры... Пожалуйста, подождите.</system:String>
     <system:String x:Key="CalculatingRetroAchievementsHashes">Вычисляются хеши RetroAchievements...</system:String>
     <system:String x:Key="Cancel">Отмена</system:String>
@@ -1262,8 +1261,7 @@
     <system:String x:Key="RaGenericYes">Да</system:String>
     <system:String x:Key="RaHashCalculationComplete">Расчет хеша RetroAchievements завершен для {0}.</system:String>
     <system:String x:Key="RaHashCalculationInProgress">Расчет хеша RetroAchievements уже выполняется. Пожалуйста, дождитесь его завершения, прежде чем повторить попытку.</system:String>
-    <system:String x:Key="RaHashNoScannableSystems">Ни одна настроенная система не поддерживается для хеширования RetroAchievements.</system:String>
-    <system:String x:Key="RaHashScanAllStarted">Расчет хеша RetroAchievements запущен для всех путей к играм в фоновом режиме. Вы будете уведомлены, когда он будет завершен.</system:String>
+    <system:String x:Key="RaHashNoSystemSelected">Пожалуйста, выберите систему перед повторным сканированием хэшей RetroAchievements.</system:String>
     <system:String x:Key="RaHashScanInBackgroundMessage">Расчет хеша будет выполняться в фоновом режиме. Вы можете нажать кнопку фильтра еще раз позже, чтобы проверить, завершено ли хеширование.</system:String>
     <system:String x:Key="RaHashSystemNotSupported">не поддерживается для хеширования RetroAchievements.</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">Звуковой драйвер:</system:String>
@@ -1409,6 +1407,7 @@
     <system:String x:Key="RemovingHistoryItem">Удаление элемента истории...</system:String>
     <system:String x:Key="ReportedToDeveloper">Эта проблема безопасности была сообщена команде разработчиков.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Отчёт успешно сохранён.</system:String>
+    <system:String x:Key="RescanRetroAchievementsForSelectedSystem">Повторно просканировать RetroAchievements для выбранной системы</system:String>
     <system:String x:Key="ResetDates">Сбросить даты</system:String>
     <system:String x:Key="ResetDatesButtonTooltip">Сбросить фильтры дат</system:String>
     <system:String x:Key="ResetDatesTooltip">Сбросить фильтр дат</system:String>
@@ -1971,7 +1970,6 @@
     <system:String x:Key="TooltipAspectRatioMenu">Изменить соотношение сторон кнопок игр</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Переключиться между светлой и темной темой</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Настроить размер кнопок игр</system:String>
-    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">Рассчитать хеши RetroAchievements для всех путей к играм в фоновом режиме</system:String>
     <system:String x:Key="ToolTipCancel">Отменить текущую операцию</system:String>
     <system:String x:Key="TooltipCheckForUpdate">Проверить наличие новой версии</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">Просмотрите первый исполняемый файл эмулятора</system:String>
@@ -2125,6 +2123,7 @@
     <system:String x:Key="TooltipRemoveAllFromHistory">Очистить все записи истории игр</system:String>
     <system:String x:Key="TooltipRemoveFromFavorites">Удалить выбранную игру из избранного</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">Удалить выбранный элемент из истории игр</system:String>
+    <system:String x:Key="TooltipRescanRetroAchievementsForSelectedSystem">Пересчитывает хэши RetroAchievements для всех игр выбранной системы. Сканирование выполняется в фоновом режиме.</system:String>
     <system:String x:Key="TooltipResetSound">Сбросить звук уведомления к значению по умолчанию</system:String>
     <system:String x:Key="TooltipRestart">Перезапустите приложение, чтобы применить изменения или перезагрузить системы</system:String>
     <system:String x:Key="TooltipResultsDataGrid">Список глобальных результатов поиска</system:String>

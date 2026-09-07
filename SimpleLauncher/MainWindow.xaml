@@ -453,15 +453,6 @@
                                        AutomationProperties.Name="{DynamicResource TrophyIcon}" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <Separator />
-                        <MenuItem Header="{DynamicResource CalculateHashesForAllGamePaths}"
-                                  Click="CalculateHashesForAllGamePaths_Click"
-                                  ToolTip="{DynamicResource TooltipCalculateHashesForAllGamePaths}">
-                            <MenuItem.Icon>
-                                <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16"
-                                       AutomationProperties.Name="{DynamicResource TrophyIcon}" />
-                            </MenuItem.Icon>
-                        </MenuItem>
                     </MenuItem>
                     <MenuItem Header="{DynamicResource InjectEmulatorConfig}"
                               ToolTip="{DynamicResource TooltipInjectConfigMenu}">
@@ -668,6 +659,16 @@
                             <Image
                                 Source="pack://application:,,,/images/search2.png" Width="16" Height="16"
                                 AutomationProperties.Name="{DynamicResource Search2Icon}" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Click="RescanRetroAchievements_Click"
+                              Header="{DynamicResource RescanRetroAchievementsForSelectedSystem}"
+                              ToolTip="{DynamicResource TooltipRescanRetroAchievementsForSelectedSystem}">
+                        <MenuItem.Icon>
+                            <Image
+                                Source="pack://application:,,,/images/trophy.png" Width="16" Height="16"
+                                AutomationProperties.Name="{DynamicResource TrophyIcon}" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>

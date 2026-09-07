@@ -1675,19 +1675,6 @@ public partial class MainWindow : Window, IPaginationHost
         raWindow.Show(this);
     }
 
-    /// <summary>
-    ///     ILoadingState adapter that surfaces loading messages as toasts.
-    /// </summary>
-    private sealed class ToastLoadingState(Action<string, string> showToast) : ILoadingState
-    {
-        private readonly Action<string, string> _showToast = showToast;
-
-        public void SetLoadingState(bool isLoading, string? message = null)
-        {
-            if (isLoading && !string.IsNullOrEmpty(message)) _showToast("RetroAchievements", message);
-        }
-    }
-
     #endregion
 
     #region Menu Bar
@@ -2589,58 +2576,15 @@ public partial class MainWindow : Window, IPaginationHost
         }
     }
 
-    private async void CalculateHashesForAllGamePaths_Click(object? sender, RoutedEventArgs e)
+    private async void RescanRetroAchievements_Click(object? sender, RoutedEventArgs e)
     {
         try
         {
-            var sp = App.ServiceProvider;
-            var hasher = sp.GetRequiredService<IRetroAchievementsHasherTool>();
-            var logger = sp.GetRequiredService<ILogger>();
-
-            var games = _viewModel.GetAllGamesForHashing();
-            if (games.Count == 0)
-            {
-                ShowToast(_localization.GetString("RetroAchievements", "RetroAchievements"),
-                    _localization.GetString("Nogamesfoundtohash", "No games found to hash."));
-                return;
-            }
-
-            var loading = new ToastLoadingState((title, message) =>
-                ShowToast(_localization.GetString("RetroAchievements", title), message));
-            var successCount = 0;
-
-            _viewModel.IsLoading = true;
-            try
-            {
-                foreach (var game in games)
-                {
-                    var system = _systemManagerService.GetSystem(game.SystemName);
-                    var formats = system?.FileFormatsToLaunch ?? new List<string>();
-
-                    try
-                    {
-                        var result = await hasher.GetGameHashForRetroAchievementsAsync(
-                            game.FilePath, game.SystemName, formats, loading, logger);
-                        if (!string.IsNullOrEmpty(result.Hash)) successCount++;
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Debug(ex, "Failed to hash {Path} for RetroAchievements", game.FilePath);
-                    }
-                }
-
-                var hashedTemplate = _localization.GetString("Hashedofgames", "Hashed {0} of {1} games.");
-                ShowToast(_localization.GetString("RetroAchievements", "RetroAchievements"),
-                    string.Format(CultureInfo.InvariantCulture, hashedTemplate, successCount, games.Count));
-            }
-            finally
-            {
-                _viewModel.IsLoading = false;
-            }
+            await _viewModel.RescanRetroAchievementsForSelectedSystemAsync();
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Error in the method CalculateHashesForAllGamePaths_Click");
+            Log.Error(ex, "Error in the method RescanRetroAchievements_Click");
         }
     }
 

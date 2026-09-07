@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -212,7 +212,6 @@
     <system:String x:Key="ButtonSizeIcon">Button Size</system:String>
     <system:String x:Key="Cabinet">Cabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Cabinet not found</system:String>
-    <system:String x:Key="CalculateHashesForAllGamePaths">Calculate hash for all Game Paths</system:String>
     <system:String x:Key="CalculatingGameHash">Calculating Game Hash... Please wait.</system:String>
     <system:String x:Key="CalculatingRetroAchievementsHashes">Calculating RetroAchievements hashes...</system:String>
     <system:String x:Key="Cancel">Cancel</system:String>
@@ -1260,8 +1259,7 @@
     <system:String x:Key="RaGenericYes">Yes</system:String>
     <system:String x:Key="RaHashCalculationComplete">RetroAchievements hash calculation is complete for {0}.</system:String>
     <system:String x:Key="RaHashCalculationInProgress">A RetroAchievements hash calculation is already in progress. Please wait for it to finish before trying again.</system:String>
-    <system:String x:Key="RaHashNoScannableSystems">No configured system is supported for RetroAchievements hashing.</system:String>
-    <system:String x:Key="RaHashScanAllStarted">RetroAchievements hash calculation started for all game paths in the background. You will be notified when it is complete.</system:String>
+    <system:String x:Key="RaHashNoSystemSelected">Please select a system before rescanning RetroAchievements hashes.</system:String>
     <system:String x:Key="RaHashScanInBackgroundMessage">The hash calculation will happen in the background. You can click the filter button again later to see if the hashing is complete.</system:String>
     <system:String x:Key="RaHashSystemNotSupported">is not supported for RetroAchievements hashing.</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">Sound Driver:</system:String>
@@ -1407,6 +1405,7 @@
     <system:String x:Key="RemovingHistoryItem">Removing history item...</system:String>
     <system:String x:Key="ReportedToDeveloper">This security issue has been reported to the developer team.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Report saved successfully.</system:String>
+    <system:String x:Key="RescanRetroAchievementsForSelectedSystem">Rescan RetroAchievements for the Selected System</system:String>
     <system:String x:Key="ResetDates">Reset Dates</system:String>
     <system:String x:Key="ResetDatesButtonTooltip">Reset date filters</system:String>
     <system:String x:Key="ResetDatesTooltip">Reset dates filter</system:String>
@@ -1969,7 +1968,6 @@
     <system:String x:Key="TooltipAspectRatioMenu">Change the aspect ratio of game buttons</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Switch between light and dark theme</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Adjust the size of game buttons</system:String>
-    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">Calculate RetroAchievements hashes for all game paths in the background</system:String>
     <system:String x:Key="ToolTipCancel">Cancel</system:String>
     <system:String x:Key="TooltipCheckForUpdate">Check if a new version is available</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">Browse for the first emulator executable</system:String>
@@ -2123,6 +2121,7 @@
     <system:String x:Key="TooltipRemoveAllFromHistory">Clear all play history records</system:String>
     <system:String x:Key="TooltipRemoveFromFavorites">Remove the selected game from favorites</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">Remove the selected item from play history</system:String>
+    <system:String x:Key="TooltipRescanRetroAchievementsForSelectedSystem">Recalculates the RetroAchievements hashes for all games of the selected system. The scan runs in the background.</system:String>
     <system:String x:Key="TooltipResetSound">Reset to the default notification sound</system:String>
     <system:String x:Key="TooltipRestart">Restart the application to apply changes or reload systems</system:String>
     <system:String x:Key="TooltipResultsDataGrid">List of global search results</system:String>

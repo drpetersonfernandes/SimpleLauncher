@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -214,7 +214,6 @@
     <system:String x:Key="ButtonSizeIcon">Knopgrootte</system:String>
     <system:String x:Key="Cabinet">Kast</system:String>
     <system:String x:Key="Cabinetnotfound">Kast niet gevonden</system:String>
-    <system:String x:Key="CalculateHashesForAllGamePaths">Bereken hash voor alle spelpaden</system:String>
     <system:String x:Key="CalculatingGameHash">Game Hash berekenen... Even geduld.</system:String>
     <system:String x:Key="CalculatingRetroAchievementsHashes">RetroAchievements-hashes berekenen...</system:String>
     <system:String x:Key="Cancel">Annuleren</system:String>
@@ -1262,8 +1261,7 @@
     <system:String x:Key="RaGenericYes">Ja</system:String>
     <system:String x:Key="RaHashCalculationComplete">RetroAchievements-hashberekening is voltooid voor {0}.</system:String>
     <system:String x:Key="RaHashCalculationInProgress">Een RetroAchievements-hashberekening is al bezig. Wacht tot deze is voltooid voordat u het opnieuw probeert.</system:String>
-    <system:String x:Key="RaHashNoScannableSystems">Geen geconfigureerd systeem wordt ondersteund voor RetroAchievements-hashing.</system:String>
-    <system:String x:Key="RaHashScanAllStarted">RetroAchievements-hashberekening is op de achtergrond gestart voor alle spelpaden. U ontvangt een melding wanneer deze is voltooid.</system:String>
+    <system:String x:Key="RaHashNoSystemSelected">Selecteer een systeem voordat u de RetroAchievements-hashes opnieuw scant.</system:String>
     <system:String x:Key="RaHashScanInBackgroundMessage">De hashberekening vindt op de achtergrond plaats. U kunt later opnieuw op de filterknop klikken om te zien of de hashing is voltooid.</system:String>
     <system:String x:Key="RaHashSystemNotSupported">wordt niet ondersteund voor RetroAchievements-hashing.</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">Geluidsstuurprogramma:</system:String>
@@ -1409,6 +1407,7 @@
     <system:String x:Key="RemovingHistoryItem">Geschiedenisitem verwijderen...</system:String>
     <system:String x:Key="ReportedToDeveloper">Dit beveiligingsprobleem is gemeld aan het ontwikkelaarsteam.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapport succesvol opgeslagen.</system:String>
+    <system:String x:Key="RescanRetroAchievementsForSelectedSystem">RetroAchievements opnieuw scannen voor het geselecteerde systeem</system:String>
     <system:String x:Key="ResetDates">Datums resetten</system:String>
     <system:String x:Key="ResetDatesButtonTooltip">Reset datumfilters</system:String>
     <system:String x:Key="ResetDatesTooltip">Reset datumsfilter</system:String>
@@ -1971,7 +1970,6 @@
     <system:String x:Key="TooltipAspectRatioMenu">Wijzig de beeldverhouding van spelknoppen</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Schakel tussen licht en donker thema</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Pas de grootte van spelknoppen aan</system:String>
-    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">Bereken RetroAchievements-hashes voor alle spelpaden op de achtergrond</system:String>
     <system:String x:Key="ToolTipCancel">Annuleren</system:String>
     <system:String x:Key="TooltipCheckForUpdate">Controleer of een nieuwe versie beschikbaar is</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">Blader naar het uitvoerbare bestand van de eerste emulator</system:String>
@@ -2125,6 +2123,7 @@
     <system:String x:Key="TooltipRemoveAllFromHistory">Wis alle speelgeschiedenisrecords</system:String>
     <system:String x:Key="TooltipRemoveFromFavorites">Verwijder het geselecteerde spel uit favorieten</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">Verwijder het geselecteerde item uit de speelgeschiedenis</system:String>
+    <system:String x:Key="TooltipRescanRetroAchievementsForSelectedSystem">Berekent de RetroAchievements-hashes voor alle games van het geselecteerde systeem opnieuw. De scan wordt op de achtergrond uitgevoerd.</system:String>
     <system:String x:Key="TooltipResetSound">Herstel naar het standaard meldingsgeluid</system:String>
     <system:String x:Key="TooltipRestart">Herstart de applicatie om wijzigingen toe te passen of systemen te herladen</system:String>
     <system:String x:Key="TooltipResultsDataGrid">Lijst met wereldwijde zoekresultaten</system:String>

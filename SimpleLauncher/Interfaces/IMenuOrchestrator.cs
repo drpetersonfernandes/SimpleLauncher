@@ -175,10 +175,10 @@ public interface IMenuOrchestrator
     Task HandleShowGamesWithRetroAchievementsAsync();
 
     /// <summary>
-    ///     Handles calculating RetroAchievements hashes for all game paths in the background.
+    ///     Handles rescanning RetroAchievements hashes for the selected system in the background.
     /// </summary>
     /// <returns>A task representing the asynchronous operation.</returns>
-    Task HandleCalculateHashesForAllGamePathsAsync();
+    Task HandleRescanRetroAchievementsForSelectedSystemAsync();
 
     /// <summary>
     ///     Handles zooming in on the game display.

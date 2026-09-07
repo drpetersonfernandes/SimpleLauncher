@@ -278,11 +278,11 @@ public class MenuOrchestratorService : IMenuOrchestrator
     }
 
     /// <summary>
-    ///     Calculates RetroAchievements hashes for all game paths in the background.
+    ///     Rescans RetroAchievements hashes for the selected system in the background.
     /// </summary>
-    public Task HandleCalculateHashesForAllGamePathsAsync()
+    public Task HandleRescanRetroAchievementsForSelectedSystemAsync()
     {
-        return _menuActionHandler.HandleCalculateHashesForAllGamePathsAsync();
+        return _menuActionHandler.HandleRescanRetroAchievementsForSelectedSystemAsync();
     }
 
     /// <summary>

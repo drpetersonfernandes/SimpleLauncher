@@ -718,12 +718,71 @@ public partial class MainViewModel : ObservableObject, ILoadingState, ILaunchFee
     }
 
     /// <summary>
-    ///     Returns every game across all configured systems without applying any
-    ///     visibility filter (used by "Calculate Hashes For All Game Paths").
+    ///     Rescans the game folders of the selected system and recalculates its
+    ///     RetroAchievements hashes in the background (unchanged files are skipped
+    ///     by the scanner).
     /// </summary>
-    public List<GameCardViewModel> GetAllGamesForHashing()
+    public Task RescanRetroAchievementsForSelectedSystemAsync()
     {
-        return ScanGames(_systemManager.LoadSystems());
+        try
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(SelectedSystem))
+                {
+                    ShowToast(_localization.GetString("RetroAchievements", "RetroAchievements"),
+                        _localization.GetString("RaHashNoSystemSelected",
+                            "Please select a system before rescanning RetroAchievements hashes."));
+                    return Task.CompletedTask;
+                }
+
+                if (_raHashScanner.IsScanning)
+                {
+                    ShowToast(_localization.GetString("RetroAchievements", "RetroAchievements"),
+                        _localization.GetString("RaHashCalculationInProgress",
+                            "A RetroAchievements hash calculation is already in progress. Please wait for it to finish before trying again."));
+                    return Task.CompletedTask;
+                }
+
+                var system = _systemManager.GetSystem(SelectedSystem);
+                if (system == null) return Task.CompletedTask;
+
+                if (!_raHashScanner.IsSystemScannable(system.SystemName))
+                {
+                    ShowToast(_localization.GetString("RetroAchievements", "RetroAchievements"),
+                        $"{system.SystemName} {_localization.GetString("RaHashSystemNotSupported", "is not supported for RetroAchievements hashing.")}");
+                    return Task.CompletedTask;
+                }
+
+                StatusText = _localization.GetString("CalculatingRetroAchievementsHashes",
+                    "Calculating RetroAchievements hashes...");
+
+                _ = _raHashScanner.ScanSystemAsync(
+                    system.SystemName,
+                    system.SystemFolders,
+                    system.FileFormatsToSearch,
+                    system.FileFormatsToLaunch,
+                    system.DisableRecursiveSearch,
+                    system.GroupByFolder,
+                    OnHashScanCompleted);
+
+                // Non-blocking notification: the app stays fully responsive while
+                // the hash calculation runs in the background
+                ShowToast(_localization.GetString("RetroAchievements", "RetroAchievements"),
+                    _localization.GetString("RaHashScanInBackgroundMessage",
+                        "The hash calculation will happen in the background. You can click the filter button again later to see if the hashing is complete."));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error rescanning RetroAchievements for the selected system");
+            }
+
+            return Task.CompletedTask;
+        }
+        catch (Exception exception)
+        {
+            return Task.FromException(exception);
+        }
     }
 
     /// <summary>

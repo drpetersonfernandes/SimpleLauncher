@@ -337,14 +337,6 @@
                             <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <Separator />
-                    <MenuItem Header="{ext:Translate CalculateHashesForAllGamePaths}"
-                              Click="CalculateHashesForAllGamePaths_Click"
-                              ToolTip.Tip="{ext:Translate TooltipCalculateHashesForAllGamePaths}">
-                        <MenuItem.Icon>
-                            <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
-                        </MenuItem.Icon>
-                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="{ext:Translate InjectEmulatorConfig}"
                           ToolTip.Tip="{ext:Translate TooltipInjectConfigMenu}">
@@ -542,6 +534,14 @@
                           ToolTip.Tip="{ext:Translate TooltipEditSystem}">
                     <MenuItem.Icon>
                         <Image Source="avares://SimpleLauncher.Avalonia/images/search2.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="{ext:Translate RescanRetroAchievementsForSelectedSystem}"
+                          Click="RescanRetroAchievements_Click"
+                          ToolTip.Tip="{ext:Translate TooltipRescanRetroAchievementsForSelectedSystem}">
+                    <MenuItem.Icon>
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/trophy.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>

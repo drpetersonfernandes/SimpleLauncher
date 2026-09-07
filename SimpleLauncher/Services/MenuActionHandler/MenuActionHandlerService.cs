@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Core;
 using SimpleLauncher.Core.Interfaces;
-using SimpleLauncher.Core.Models;
 using SimpleLauncher.Core.Services.GamePad;
 using SimpleLauncher.Core.Services.PlaySound;
 using SimpleLauncher.InjectConfigWindows;
@@ -1139,74 +1138,74 @@ public class MenuActionHandlerService
         }
     }
 
-    // ---- Calculate Hashes For All Game Paths ----
+    // ---- Rescan RetroAchievements for Selected System ----
 
     /// <summary>
-    ///     Calculates RetroAchievements hashes for all game paths of every configured system
-    ///     in the background, preventing parallel hash calculations.
+    ///     Rescans the game folders of the selected system and recalculates its
+    ///     RetroAchievements hashes in the background (unchanged files are skipped
+    ///     by the scanner).
     /// </summary>
-    public Task HandleCalculateHashesForAllGamePathsAsync()
+    public Task HandleRescanRetroAchievementsForSelectedSystemAsync()
     {
         try
         {
-            try
+            var selectedSystem = _host.GetSelectedSystem();
+            if (string.IsNullOrEmpty(selectedSystem))
             {
-                if (_raHashScanner.IsScanning)
-                {
-                    _toastNotificationService.ShowToast(
-                        (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
-                        (string)Application.Current.TryFindResource("RaHashCalculationInProgress") ??
-                        "A RetroAchievements hash calculation is already in progress. Please wait for it to finish before trying again.");
-                    return Task.CompletedTask;
-                }
-
-                var systemManagers = _host.GetSystemManagers();
-                if (systemManagers.Count == 0) return Task.CompletedTask;
-
-                var targets = systemManagers
-                    .Where(m => _raHashScanner.IsSystemScannable(m.SystemName))
-                    .Select(m => new RaHashScanTarget
-                    {
-                        SystemName = m.SystemName,
-                        SystemFolders = m.SystemFolders,
-                        FileFormatsToSearch = m.FileFormatsToSearch,
-                        FileFormatsToLaunch = m.FileFormatsToLaunch,
-                        DisableRecursiveSearch = m.DisableRecursiveSearch,
-                        GroupByFolder = m.GroupByFolder
-                    })
-                    .ToList();
-
-                if (targets.Count == 0)
-                {
-                    _toastNotificationService.ShowToast(
-                        (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
-                        (string)Application.Current.TryFindResource("RaHashNoScannableSystems") ??
-                        "No configured system is supported for RetroAchievements hashing.");
-                    return Task.CompletedTask;
-                }
-
-                _updateStatusBar.UpdateContent(
-                    (string)Application.Current.TryFindResource("CalculatingRetroAchievementsHashes") ??
-                    "Calculating RetroAchievements hashes...");
-
-                _ = _raHashScanner.ScanAllSystemsAsync(targets, ShowHashScanCompletedToast);
-
                 _toastNotificationService.ShowToast(
                     (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
-                    (string)Application.Current.TryFindResource("RaHashScanAllStarted") ??
-                    "RetroAchievements hash calculation started for all game paths in the background. You will be notified when it is complete.");
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Error in the method HandleCalculateHashesForAllGamePathsAsync.");
+                    (string)Application.Current.TryFindResource("RaHashNoSystemSelected") ??
+                    "Please select a system before rescanning RetroAchievements hashes.");
+                return Task.CompletedTask;
             }
 
-            return Task.CompletedTask;
+            if (_raHashScanner.IsScanning)
+            {
+                _toastNotificationService.ShowToast(
+                    (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
+                    (string)Application.Current.TryFindResource("RaHashCalculationInProgress") ??
+                    "A RetroAchievements hash calculation is already in progress. Please wait for it to finish before trying again.");
+                return Task.CompletedTask;
+            }
+
+            if (!_raHashScanner.IsSystemScannable(selectedSystem))
+            {
+                _toastNotificationService.ShowToast(
+                    (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
+                    $"{selectedSystem} {(string)Application.Current.TryFindResource("RaHashSystemNotSupported") ?? "is not supported for RetroAchievements hashing."}");
+                return Task.CompletedTask;
+            }
+
+            var selectedManager = _host.GetSystemManagers()
+                .FirstOrDefault(m => m.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+            if (selectedManager == null) return Task.CompletedTask;
+
+            _updateStatusBar.UpdateContent(
+                (string)Application.Current.TryFindResource("CalculatingRetroAchievementsHashes") ??
+                "Calculating RetroAchievements hashes...");
+
+            _ = _raHashScanner.ScanSystemAsync(
+                selectedManager.SystemName,
+                selectedManager.SystemFolders,
+                selectedManager.FileFormatsToSearch,
+                selectedManager.FileFormatsToLaunch,
+                selectedManager.DisableRecursiveSearch,
+                selectedManager.GroupByFolder,
+                ShowHashScanCompletedToast);
+
+            // Non-blocking notification: the app stays fully responsive while
+            // the hash calculation runs in the background
+            _toastNotificationService.ShowToast(
+                (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements",
+                (string)Application.Current.TryFindResource("RaHashScanInBackgroundMessage") ??
+                "The hash calculation will happen in the background. You can click the filter button again later to see if the hashing is complete.");
         }
-        catch (Exception exception)
+        catch (Exception ex)
         {
-            return Task.FromException(exception);
+            _logger.Error(ex, "Error in the method HandleRescanRetroAchievementsForSelectedSystemAsync.");
         }
+
+        return Task.CompletedTask;
     }
 
     /// <summary>

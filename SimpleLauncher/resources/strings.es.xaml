@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -214,7 +214,6 @@
     <system:String x:Key="ButtonSizeIcon">Tamaño del botón</system:String>
     <system:String x:Key="Cabinet">Gabinete</system:String>
     <system:String x:Key="Cabinetnotfound">Gabinete no encontrado</system:String>
-    <system:String x:Key="CalculateHashesForAllGamePaths">Calcular hash para todas las rutas de juego</system:String>
     <system:String x:Key="CalculatingGameHash">Calculando hash del juego... Por favor, espere.</system:String>
     <system:String x:Key="CalculatingRetroAchievementsHashes">Calculando hashes de RetroAchievements...</system:String>
     <system:String x:Key="Cancel">Cancelar</system:String>
@@ -1262,8 +1261,7 @@
     <system:String x:Key="RaGenericYes">Sí</system:String>
     <system:String x:Key="RaHashCalculationComplete">El cálculo de hash de RetroAchievements está completo para {0}.</system:String>
     <system:String x:Key="RaHashCalculationInProgress">Un cálculo de hash de RetroAchievements ya está en curso. Por favor, espera a que termine antes de intentarlo de nuevo.</system:String>
-    <system:String x:Key="RaHashNoScannableSystems">Ningún sistema configurado es compatible para el cálculo de hashes de RetroAchievements.</system:String>
-    <system:String x:Key="RaHashScanAllStarted">El cálculo de hash de RetroAchievements ha comenzado para todas las rutas de juego en segundo plano. Se te notificará cuando esté completo.</system:String>
+    <system:String x:Key="RaHashNoSystemSelected">Seleccione un sistema antes de volver a escanear los hashes de RetroAchievements.</system:String>
     <system:String x:Key="RaHashScanInBackgroundMessage">El cálculo de hash se realizará en segundo plano. Puedes hacer clic en el botón de filtro de nuevo más tarde para ver si el cálculo de hashes está completo.</system:String>
     <system:String x:Key="RaHashSystemNotSupported">no es compatible para el cálculo de hashes de RetroAchievements.</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">Controlador de sonido:</system:String>
@@ -1409,6 +1407,7 @@
     <system:String x:Key="RemovingHistoryItem">Eliminando elemento del historial...</system:String>
     <system:String x:Key="ReportedToDeveloper">Este problema de seguridad ha sido reportado al equipo de desarrolladores.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Informe guardado con éxito.</system:String>
+    <system:String x:Key="RescanRetroAchievementsForSelectedSystem">Volver a escanear RetroAchievements para el sistema seleccionado</system:String>
     <system:String x:Key="ResetDates">Restablecer fechas</system:String>
     <system:String x:Key="ResetDatesButtonTooltip">Restablecer filtros de fecha</system:String>
     <system:String x:Key="ResetDatesTooltip">Restablecer filtro de fechas</system:String>
@@ -1971,7 +1970,6 @@
     <system:String x:Key="TooltipAspectRatioMenu">Cambiar la relación de aspecto de los botones de juego</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Cambiar entre tema claro y oscuro</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Ajustar el tamaño de los botones de juego</system:String>
-    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">Calcular hashes de RetroAchievements para todas las rutas de juego en segundo plano</system:String>
     <system:String x:Key="ToolTipCancel">Cancelar la operación actual</system:String>
     <system:String x:Key="TooltipCheckForUpdate">Comprobar si hay una nueva versión disponible</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">Buscar el primer ejecutable del emulador</system:String>
@@ -2125,6 +2123,7 @@
     <system:String x:Key="TooltipRemoveAllFromHistory">Borrar todos los registros del historial de juego</system:String>
     <system:String x:Key="TooltipRemoveFromFavorites">Eliminar el juego seleccionado de favoritos</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">Eliminar el elemento seleccionado del historial de juego</system:String>
+    <system:String x:Key="TooltipRescanRetroAchievementsForSelectedSystem">Recalcula los hashes de RetroAchievements para todos los juegos del sistema seleccionado. El escaneo se ejecuta en segundo plano.</system:String>
     <system:String x:Key="TooltipResetSound">Restablecer al sonido de notificación predeterminado</system:String>
     <system:String x:Key="TooltipRestart">Reiniciar la aplicación para aplicar cambios o recargar sistemas</system:String>
     <system:String x:Key="TooltipResultsDataGrid">Lista de resultados de búsqueda global</system:String>

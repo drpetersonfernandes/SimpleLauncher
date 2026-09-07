@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -214,7 +214,6 @@
     <system:String x:Key="ButtonSizeIcon">Düğme Boyutu</system:String>
     <system:String x:Key="Cabinet">Kabin</system:String>
     <system:String x:Key="Cabinetnotfound">Kabin bulunamadı</system:String>
-    <system:String x:Key="CalculateHashesForAllGamePaths">Tüm Oyun Yolları için hash hesapla</system:String>
     <system:String x:Key="CalculatingGameHash">Oyun Hash değeri hesaplanıyor... Lütfen bekleyin.</system:String>
     <system:String x:Key="CalculatingRetroAchievementsHashes">RetroAchievements hash'leri hesaplanıyor...</system:String>
     <system:String x:Key="Cancel">İptal</system:String>
@@ -1262,8 +1261,7 @@
     <system:String x:Key="RaGenericYes">Evet</system:String>
     <system:String x:Key="RaHashCalculationComplete">{0} için RetroAchievements hash hesaplaması tamamlandı.</system:String>
     <system:String x:Key="RaHashCalculationInProgress">Bir RetroAchievements hash hesaplaması zaten devam ediyor. Lütfen tekrar denemeden önce bitmesini bekleyin.</system:String>
-    <system:String x:Key="RaHashNoScannableSystems">Yapılandırılmış hiçbir sistem RetroAchievements hash'leme için desteklenmiyor.</system:String>
-    <system:String x:Key="RaHashScanAllStarted">Tüm oyun yolları için RetroAchievements hash hesaplaması arka planda başladı. Tamamlandığında size bildirim gönderilecektir.</system:String>
+    <system:String x:Key="RaHashNoSystemSelected">RetroAchievements hash'lerini yeniden taramadan önce lütfen bir sistem seçin.</system:String>
     <system:String x:Key="RaHashScanInBackgroundMessage">Hash hesaplaması arka planda gerçekleşecektir. Hash'lemenin tamamlanıp tamamlanmadığını görmek için daha sonra tekrar filtre düğmesine tıklayabilirsiniz.</system:String>
     <system:String x:Key="RaHashSystemNotSupported">RetroAchievements hash'leme için desteklenmiyor.</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">Ses Sürücüsü:</system:String>
@@ -1409,6 +1407,7 @@
     <system:String x:Key="RemovingHistoryItem">Geçmiş öğesi kaldırılıyor...</system:String>
     <system:String x:Key="ReportedToDeveloper">Bu güvenlik sorunu geliştirici ekibine bildirildi.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapor başarıyla kaydedildi.</system:String>
+    <system:String x:Key="RescanRetroAchievementsForSelectedSystem">Seçilen Sistem için RetroAchievements'i Yeniden Tara</system:String>
     <system:String x:Key="ResetDates">Tarihleri Sıfırla</system:String>
     <system:String x:Key="ResetDatesButtonTooltip">Tarih filtrelerini sıfırla</system:String>
     <system:String x:Key="ResetDatesTooltip">Tarih filtrelerini sıfırla</system:String>
@@ -1971,7 +1970,6 @@
     <system:String x:Key="TooltipAspectRatioMenu">Oyun düğmelerinin en boy oranını değiştir</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Açık ve koyu tema arasında geçiş yap</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Oyun düğmelerinin boyutunu ayarla</system:String>
-    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">Tüm oyun yolları için RetroAchievements hash'lerini arka planda hesapla</system:String>
     <system:String x:Key="ToolTipCancel">Mevcut işlemi iptal et</system:String>
     <system:String x:Key="TooltipCheckForUpdate">Yeni bir sürümün olup olmadığını kontrol edin</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">İlk emülatör yürütülebilir dosyasına göz atın</system:String>
@@ -2125,6 +2123,7 @@
     <system:String x:Key="TooltipRemoveAllFromHistory">Tüm oynatma geçmişi kayıtlarını temizle</system:String>
     <system:String x:Key="TooltipRemoveFromFavorites">Seçilen oyunu favorilerden kaldırın</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">Seçilen öğeyi oynatma geçmişinden kaldırın</system:String>
+    <system:String x:Key="TooltipRescanRetroAchievementsForSelectedSystem">Seçilen sistemdeki tüm oyunlar için RetroAchievements hash'lerini yeniden hesaplar. Tarama arka planda çalışır.</system:String>
     <system:String x:Key="TooltipResetSound">Varsayılan bildirim sesine sıfırla</system:String>
     <system:String x:Key="TooltipRestart">Değişiklikleri uygulamak veya sistemleri yeniden yüklemek için uygulamayı yeniden başlatın</system:String>
     <system:String x:Key="TooltipResultsDataGrid">Küresel arama sonuçları listesi</system:String>

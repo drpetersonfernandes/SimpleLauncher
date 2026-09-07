@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -214,7 +214,6 @@
     <system:String x:Key="ButtonSizeIcon">Ukuran Tombol</system:String>
     <system:String x:Key="Cabinet">Kabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Kabinet tidak ditemukan</system:String>
-    <system:String x:Key="CalculateHashesForAllGamePaths">Hitung hash untuk semua Jalur Game</system:String>
     <system:String x:Key="CalculatingGameHash">Menghitung Hash Game... Mohon tunggu.</system:String>
     <system:String x:Key="CalculatingRetroAchievementsHashes">Menghitung hash RetroAchievements...</system:String>
     <system:String x:Key="Cancel">Batal</system:String>
@@ -1262,8 +1261,7 @@
     <system:String x:Key="RaGenericYes">Ya</system:String>
     <system:String x:Key="RaHashCalculationComplete">Perhitungan hash RetroAchievements selesai untuk {0}.</system:String>
     <system:String x:Key="RaHashCalculationInProgress">Perhitungan hash RetroAchievements sudah berjalan. Harap tunggu hingga selesai sebelum mencoba lagi.</system:String>
-    <system:String x:Key="RaHashNoScannableSystems">Tidak ada sistem yang dikonfigurasi yang didukung untuk hashing RetroAchievements.</system:String>
-    <system:String x:Key="RaHashScanAllStarted">Perhitungan hash RetroAchievements dimulai untuk semua jalur game di latar belakang. Anda akan diberi tahu saat selesai.</system:String>
+    <system:String x:Key="RaHashNoSystemSelected">Silakan pilih sistem sebelum memindai ulang hash RetroAchievements.</system:String>
     <system:String x:Key="RaHashScanInBackgroundMessage">Perhitungan hash akan berjalan di latar belakang. Anda dapat mengklik tombol filter lagi nanti untuk melihat apakah hashing sudah selesai.</system:String>
     <system:String x:Key="RaHashSystemNotSupported">tidak didukung untuk hashing RetroAchievements.</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">Driver Suara:</system:String>
@@ -1409,6 +1407,7 @@
     <system:String x:Key="RemovingHistoryItem">Menghapus item riwayat...</system:String>
     <system:String x:Key="ReportedToDeveloper">Masalah keamanan ini telah dilaporkan ke tim pengembang.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Laporan berhasil disimpan.</system:String>
+    <system:String x:Key="RescanRetroAchievementsForSelectedSystem">Pindai Ulang RetroAchievements untuk Sistem yang Dipilih</system:String>
     <system:String x:Key="ResetDates">Setel Ulang Tanggal</system:String>
     <system:String x:Key="ResetDatesButtonTooltip">Setel ulang filter tanggal</system:String>
     <system:String x:Key="ResetDatesTooltip">Setel ulang filter tanggal</system:String>
@@ -1971,7 +1970,6 @@
     <system:String x:Key="TooltipAspectRatioMenu">Ubah rasio aspek tombol game</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">Beralih antara tema terang dan gelap</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">Sesuaikan ukuran tombol game</system:String>
-    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">Hitung hash RetroAchievements untuk semua jalur game di latar belakang</system:String>
     <system:String x:Key="ToolTipCancel">Batalkan operasi saat ini</system:String>
     <system:String x:Key="TooltipCheckForUpdate">Periksa apakah versi baru tersedia</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">Jelajahi untuk executable emulator pertama</system:String>
@@ -2125,6 +2123,7 @@
     <system:String x:Key="TooltipRemoveAllFromHistory">Bersihkan semua catatan riwayat bermain</system:String>
     <system:String x:Key="TooltipRemoveFromFavorites">Hapus game yang dipilih dari favorit</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">Hapus item yang dipilih dari riwayat bermain</system:String>
+    <system:String x:Key="TooltipRescanRetroAchievementsForSelectedSystem">Menghitung ulang hash RetroAchievements untuk semua game pada sistem yang dipilih. Pemindaian berjalan di latar belakang.</system:String>
     <system:String x:Key="TooltipResetSound">Setel ulang ke suara notifikasi default</system:String>
     <system:String x:Key="TooltipRestart">Mulai ulang aplikasi untuk menerapkan perubahan atau memuat ulang sistem</system:String>
     <system:String x:Key="TooltipResultsDataGrid">Daftar hasil pencarian global</system:String>

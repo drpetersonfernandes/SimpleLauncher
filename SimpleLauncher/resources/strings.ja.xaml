@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -214,7 +214,6 @@
     <system:String x:Key="ButtonSizeIcon">ボタンのサイズ</system:String>
     <system:String x:Key="Cabinet">キャビネット</system:String>
     <system:String x:Key="Cabinetnotfound">キャビネットが見つかりません</system:String>
-    <system:String x:Key="CalculateHashesForAllGamePaths">すべてのゲームパスのハッシュを計算</system:String>
     <system:String x:Key="CalculatingGameHash">ゲームハッシュを計算中... お待ちください。</system:String>
     <system:String x:Key="CalculatingRetroAchievementsHashes">RetroAchievementsのハッシュを計算中...</system:String>
     <system:String x:Key="Cancel">キャンセル</system:String>
@@ -1262,8 +1261,7 @@
     <system:String x:Key="RaGenericYes">はい</system:String>
     <system:String x:Key="RaHashCalculationComplete">{0}のRetroAchievementsのハッシュ計算が完了しました。</system:String>
     <system:String x:Key="RaHashCalculationInProgress">RetroAchievementsのハッシュ計算がすでに進行中です。完了するまで待ってから、もう一度お試しください。</system:String>
-    <system:String x:Key="RaHashNoScannableSystems">設定されているシステムはどれもRetroAchievementsのハッシュ計算に対応していません。</system:String>
-    <system:String x:Key="RaHashScanAllStarted">すべてのゲームパスのRetroAchievementsハッシュ計算がバックグラウンドで開始されました。完了したら通知されます。</system:String>
+    <system:String x:Key="RaHashNoSystemSelected">RetroAchievementsのハッシュを再スキャンする前に、システムを選択してください。</system:String>
     <system:String x:Key="RaHashScanInBackgroundMessage">ハッシュ計算はバックグラウンドで実行されます。後で再度フィルターボタンをクリックして、ハッシュ化が完了したかどうかを確認できます。</system:String>
     <system:String x:Key="RaHashSystemNotSupported">はRetroAchievementsのハッシュ計算に対応していません。</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">サウンドドライバー:</system:String>
@@ -1409,6 +1407,7 @@
     <system:String x:Key="RemovingHistoryItem">履歴アイテムを削除中...</system:String>
     <system:String x:Key="ReportedToDeveloper">このセキュリティ問題は開発者チームに報告されました。</system:String>
     <system:String x:Key="Reportsavedsuccessfully">レポートが正常に保存されました。</system:String>
+    <system:String x:Key="RescanRetroAchievementsForSelectedSystem">選択したシステムのRetroAchievementsを再スキャン</system:String>
     <system:String x:Key="ResetDates">日付をリセット</system:String>
     <system:String x:Key="ResetDatesButtonTooltip">日付フィルターをリセット</system:String>
     <system:String x:Key="ResetDatesTooltip">日付フィルターをリセット</system:String>
@@ -1971,7 +1970,6 @@
     <system:String x:Key="TooltipAspectRatioMenu">ゲームボタンのアスペクト比を変更します</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">ライトテーマとダークテーマを切り替えます</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">ゲームボタンのサイズを調整します</system:String>
-    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">すべてのゲームパスのRetroAchievementsハッシュをバックグラウンドで計算</system:String>
     <system:String x:Key="ToolTipCancel">現在の操作をキャンセルします</system:String>
     <system:String x:Key="TooltipCheckForUpdate">新しいバージョンが利用可能か確認します</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">最初のエミュレータ実行ファイルを参照します</system:String>
@@ -2125,6 +2123,7 @@
     <system:String x:Key="TooltipRemoveAllFromHistory">すべてのプレイ履歴レコードをクリアします</system:String>
     <system:String x:Key="TooltipRemoveFromFavorites">選択したゲームをお気に入りから削除します</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">プレイ履歴から選択した項目を削除します</system:String>
+    <system:String x:Key="TooltipRescanRetroAchievementsForSelectedSystem">選択したシステムのすべてのゲームのRetroAchievementsハッシュを再計算します。スキャンはバックグラウンドで実行されます。</system:String>
     <system:String x:Key="TooltipResetSound">デフォルトの通知サウンドにリセットします</system:String>
     <system:String x:Key="TooltipRestart">変更を適用したり、システムをリロードするためにアプリケーションを再起動します</system:String>
     <system:String x:Key="TooltipResultsDataGrid">グローバル検索結果リスト</system:String>

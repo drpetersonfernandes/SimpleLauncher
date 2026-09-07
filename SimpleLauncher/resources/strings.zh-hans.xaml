@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -214,7 +214,6 @@
     <system:String x:Key="ButtonSizeIcon">按钮大小</system:String>
     <system:String x:Key="Cabinet">机柜</system:String>
     <system:String x:Key="Cabinetnotfound">未找到机柜</system:String>
-    <system:String x:Key="CalculateHashesForAllGamePaths">计算所有游戏路径的哈希</system:String>
     <system:String x:Key="CalculatingGameHash">正在计算游戏哈希值... 请稍候。</system:String>
     <system:String x:Key="CalculatingRetroAchievementsHashes">正在计算 RetroAchievements 哈希...</system:String>
     <system:String x:Key="Cancel">取消</system:String>
@@ -1262,8 +1261,7 @@
     <system:String x:Key="RaGenericYes">是</system:String>
     <system:String x:Key="RaHashCalculationComplete">RetroAchievements 哈希计算已完成，针对 {0}。</system:String>
     <system:String x:Key="RaHashCalculationInProgress">RetroAchievements 哈希计算已在进行中。请等待其完成再试。</system:String>
-    <system:String x:Key="RaHashNoScannableSystems">未配置任何系统支持 RetroAchievements 哈希计算。</system:String>
-    <system:String x:Key="RaHashScanAllStarted">RetroAchievements 哈希计算已在后台针对所有游戏路径开始。完成后您将收到通知。</system:String>
+    <system:String x:Key="RaHashNoSystemSelected">请在重新扫描 RetroAchievements 哈希值之前选择一个系统。</system:String>
     <system:String x:Key="RaHashScanInBackgroundMessage">哈希计算将在后台进行。您可以稍后再次点击筛选按钮，查看哈希是否完成。</system:String>
     <system:String x:Key="RaHashSystemNotSupported">不支持 RetroAchievements 哈希计算。</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">音频驱动：</system:String>
@@ -1409,6 +1407,7 @@
     <system:String x:Key="RemovingHistoryItem">正在删除历史项目...</system:String>
     <system:String x:Key="ReportedToDeveloper">此安全问题已报告给开发团队。</system:String>
     <system:String x:Key="Reportsavedsuccessfully">报告已成功保存。</system:String>
+    <system:String x:Key="RescanRetroAchievementsForSelectedSystem">重新扫描所选系统的 RetroAchievements</system:String>
     <system:String x:Key="ResetDates">重置日期</system:String>
     <system:String x:Key="ResetDatesButtonTooltip">重置日期筛选器</system:String>
     <system:String x:Key="ResetDatesTooltip">重置日期筛选器</system:String>
@@ -1971,7 +1970,6 @@
     <system:String x:Key="TooltipAspectRatioMenu">更改游戏按钮的宽高比</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">在浅色和深色主题之间切换</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">调整游戏按钮的大小</system:String>
-    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">在后台计算所有游戏路径的 RetroAchievements 哈希</system:String>
     <system:String x:Key="ToolTipCancel">取消当前操作</system:String>
     <system:String x:Key="TooltipCheckForUpdate">检查是否有新版本可用</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">浏览第一个模拟器可执行文件</system:String>
@@ -2125,6 +2123,7 @@
     <system:String x:Key="TooltipRemoveAllFromHistory">清除所有游玩历史记录</system:String>
     <system:String x:Key="TooltipRemoveFromFavorites">从收藏中移除所选游戏</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">从游玩历史中移除所选项目</system:String>
+    <system:String x:Key="TooltipRescanRetroAchievementsForSelectedSystem">为所选系统的所有游戏重新计算 RetroAchievements 哈希值。扫描将在后台运行。</system:String>
     <system:String x:Key="TooltipResetSound">重置为默认通知声音</system:String>
     <system:String x:Key="TooltipRestart">重启应用程序以应用更改或重新加载系统</system:String>
     <system:String x:Key="TooltipResultsDataGrid">全局搜索结果列表</system:String>

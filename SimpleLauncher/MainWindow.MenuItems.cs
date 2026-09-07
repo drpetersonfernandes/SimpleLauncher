@@ -603,15 +603,15 @@ public partial class MainWindow
         }
     }
 
-    private async void CalculateHashesForAllGamePaths_Click(object sender, RoutedEventArgs e)
+    private async void RescanRetroAchievements_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            await _menuOrchestrator.HandleCalculateHashesForAllGamePathsAsync();
+            await _menuOrchestrator.HandleRescanRetroAchievementsForSelectedSystemAsync();
         }
         catch (Exception ex)
         {
-            _logger.Error(ex, "Error in the method CalculateHashesForAllGamePaths_Click.");
+            _logger.Error(ex, "Error in the method RescanRetroAchievements_Click.");
         }
     }
 

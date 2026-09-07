@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -214,7 +214,6 @@
     <system:String x:Key="ButtonSizeIcon">বাটনের আকার</system:String>
     <system:String x:Key="Cabinet">কেবিনেট</system:String>
     <system:String x:Key="Cabinetnotfound">কেবিনেট পাওয়া যায়নি</system:String>
-    <system:String x:Key="CalculateHashesForAllGamePaths">সমস্ত গেম পাথের জন্য হ্যাশ গণনা করুন</system:String>
     <system:String x:Key="CalculatingGameHash">গেম হ্যাশ গণনা করা হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন।</system:String>
     <system:String x:Key="CalculatingRetroAchievementsHashes">রেট্রোঅ্যাচিভমেন্টস হ্যাশ গণনা করা হচ্ছে...</system:String>
     <system:String x:Key="Cancel">বাতিল করুন</system:String>
@@ -1262,8 +1261,7 @@
     <system:String x:Key="RaGenericYes">হ্যাঁ</system:String>
     <system:String x:Key="RaHashCalculationComplete">{0} এর জন্য রেট্রোঅ্যাচিভমেন্টস হ্যাশ গণনা সম্পূর্ণ হয়েছে।</system:String>
     <system:String x:Key="RaHashCalculationInProgress">একটি রেট্রোঅ্যাচিভমেন্টস হ্যাশ গণনা ইতিমধ্যেই চলছে। আবার চেষ্টা করার আগে এটি শেষ হওয়ার জন্য অপেক্ষা করুন।</system:String>
-    <system:String x:Key="RaHashNoScannableSystems">রেট্রোঅ্যাচিভমেন্টস হ্যাশিংয়ের জন্য কোনো কনফিগার করা সিস্টেম সমর্থিত নয়।</system:String>
-    <system:String x:Key="RaHashScanAllStarted">সমস্ত গেম পাথের জন্য রেট্রোঅ্যাচিভমেন্টস হ্যাশ গণনা ব্যাকগ্রাউন্ডে শুরু হয়েছে। এটি সম্পূর্ণ হলে আপনাকে জানানো হবে।</system:String>
+    <system:String x:Key="RaHashNoSystemSelected">RetroAchievements হ্যাশ পুনরায় স্ক্যান করার আগে একটি সিস্টেম নির্বাচন করুন।</system:String>
     <system:String x:Key="RaHashScanInBackgroundMessage">হ্যাশ গণনা ব্যাকগ্রাউন্ডে হবে। হ্যাশিং সম্পূর্ণ হয়েছে কিনা তা দেখতে আপনি পরে আবার ফিল্টার বোতামে ক্লিক করতে পারেন।</system:String>
     <system:String x:Key="RaHashSystemNotSupported">রেট্রোঅ্যাচিভমেন্টস হ্যাশিংয়ের জন্য সমর্থিত নয়।</system:String>
     <system:String x:Key="RaineConfig_AudioDriver">সাউন্ড ড্রাইভার:</system:String>
@@ -1409,6 +1407,7 @@
     <system:String x:Key="RemovingHistoryItem">হিস্টরি আইটেম সরানো হচ্ছে...</system:String>
     <system:String x:Key="ReportedToDeveloper">এই নিরাপত্তা সমস্যাটি ডেভেলপার টিমের কাছে রিপোর্ট করা হয়েছে।</system:String>
     <system:String x:Key="Reportsavedsuccessfully">রিপোর্ট সফল হয়েছে।</system:String>
+    <system:String x:Key="RescanRetroAchievementsForSelectedSystem">নির্বাচিত সিস্টেমের জন্য RetroAchievements পুনরায় স্ক্যান করুন</system:String>
     <system:String x:Key="ResetDates">তারিখগুলি রিসেট করুন</system:String>
     <system:String x:Key="ResetDatesButtonTooltip">তারিখ ফিল্টার রিসেট করুন</system:String>
     <system:String x:Key="ResetDatesTooltip">তারিখ ফিল্টার রিসেট করুন</system:String>
@@ -1971,7 +1970,6 @@
     <system:String x:Key="TooltipAspectRatioMenu">গেম বোতামগুলির অনুপাত পরিবর্তন করুন</system:String>
     <system:String x:Key="TooltipBaseThemeMenu">হালকা এবং গাঢ় থিমের মধ্যে স্যুইচ করুন</system:String>
     <system:String x:Key="TooltipButtonSizeMenu">গেম বোতামগুলির আকার সামঞ্জস্য করুন</system:String>
-    <system:String x:Key="TooltipCalculateHashesForAllGamePaths">ব্যাকগ্রাউন্ডে সমস্ত গেম পাথের জন্য রেট্রোঅ্যাচিভমেন্টস হ্যাশ গণনা করুন</system:String>
     <system:String x:Key="ToolTipCancel">বর্তমান অপারেশন বাতিল করুন</system:String>
     <system:String x:Key="TooltipCheckForUpdate">একটি নতুন সংস্করণ উপলব্ধ আছে কিনা তা পরীক্ষা করুন</system:String>
     <system:String x:Key="TooltipChooseEmulator1Path">প্রথম এমুলেটর এক্সিকিউটেবল ব্রাউজ করুন</system:String>
@@ -2125,6 +2123,7 @@
     <system:String x:Key="TooltipRemoveAllFromHistory">সমস্ত খেলার ইতিহাস রেকর্ড পরিষ্কার করুন</system:String>
     <system:String x:Key="TooltipRemoveFromFavorites">পছন্দসই থেকে নির্বাচিত গেমটি সরান</system:String>
     <system:String x:Key="TooltipRemoveFromHistory">খেলার ইতিহাস থেকে নির্বাচিত আইটেমটি সরান</system:String>
+    <system:String x:Key="TooltipRescanRetroAchievementsForSelectedSystem">নির্বাচিত সিস্টেমের সমস্ত গেমের জন্য RetroAchievements হ্যাশ পুনরায় গণনা করে। স্ক্যান ব্যাকগ্রাউন্ডে চলে।</system:String>
     <system:String x:Key="TooltipResetSound">ডিফল্ট নোটিফিকেশন সাউন্ডে রিসেট করুন</system:String>
     <system:String x:Key="TooltipRestart">পরিবর্তনগুলি প্রয়োগ করতে বা সিস্টেমগুলি পুনরায় লোড করতে অ্যাপ্লিকেশনটি পুনরায় চালু করুন</system:String>
     <system:String x:Key="TooltipResultsDataGrid">বিশ্বব্যাপী অনুসন্ধানের ফলাফলের তালিকা</system:String>
