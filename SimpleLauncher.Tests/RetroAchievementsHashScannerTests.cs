@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO.Compression;
 using SimpleLauncher.Core.Interfaces;
 using SimpleLauncher.Core.Models;
@@ -320,6 +321,43 @@ public class RetroAchievementsHashScannerTests : IDisposable
     }
 
     /// <summary>
+    ///     Verifies that <see cref="RetroAchievementsHashScanner.CancelScanAndWaitAsync" />
+    ///     cancels a running scan (even one blocked inside the hasher), waits for it to
+    ///     finish within the timeout, releases the scan flag, and makes the abandoned
+    ///     scan task return false instead of throwing.
+    /// </summary>
+    [Fact]
+    public async Task CancelScanAndWaitAsync_CancelsRunningScanAndReleasesFlag()
+    {
+        File.WriteAllText(Path.Combine(_romsFolder, "Game.7z"), "rom");
+
+        _fileHasher.BlockCalls = true;
+
+        var scanTask = _scanner.ScanSystemAsync(
+            "Nintendo 64",
+            [_romsFolder],
+            [".7z"],
+            [".a26"],
+            true,
+            false);
+
+        // Wait until the scan is blocked inside the hasher before canceling.
+        var waitStopwatch = Stopwatch.StartNew();
+        while (_fileHasher.HashCallCount == 0 && waitStopwatch.Elapsed < TimeSpan.FromSeconds(5))
+        {
+            await Task.Delay(10);
+        }
+
+        Assert.Equal(1, _fileHasher.HashCallCount);
+        Assert.True(_scanner.IsScanning);
+
+        await _scanner.CancelScanAndWaitAsync(TimeSpan.FromSeconds(10)).WaitAsync(TimeSpan.FromSeconds(20));
+
+        Assert.False(_scanner.IsScanning);
+        Assert.False(await scanTask);
+    }
+
+    /// <summary>
     ///     Verifies that systems without a usable RetroAchievements console ID are reported as not scannable.
     /// </summary>
     [Fact]
@@ -434,12 +472,13 @@ public class RetroAchievementsHashScannerTests : IDisposable
         /// </summary>
         public bool BlockCalls { get; set; }
 
-        public async Task<string?> CalculateHashAsync(string filePath, string systemName)
+        public async Task<string?> CalculateHashAsync(string filePath, string systemName,
+            CancellationToken cancellationToken = default)
         {
             HashCallCount++;
             HashedPaths.Add(filePath);
 
-            if (BlockCalls) await _gate.Task;
+            if (BlockCalls) await _gate.Task.WaitAsync(cancellationToken);
 
             if (FailAll) return null;
 

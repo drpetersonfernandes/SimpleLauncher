@@ -41,7 +41,8 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
     }
 
     /// <inheritdoc />
-    public async Task<string?> CalculateHashAsync(string filePath, string systemName)
+    public async Task<string?> CalculateHashAsync(string filePath, string systemName,
+        CancellationToken cancellationToken = default)
     {
         if (!File.Exists(filePath))
         {
@@ -87,7 +88,8 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
             process.Start();
 
             var stdoutTask = process.StandardOutput.ReadToEndAsync();
-            using var timeoutCts = new CancellationTokenSource(SingleFileTimeout);
+            using var timeoutCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            timeoutCts.CancelAfter(SingleFileTimeout);
             await process.WaitForExitAsync(timeoutCts.Token);
 
             var stdout = (await stdoutTask).Trim();
@@ -106,9 +108,19 @@ public class RetroAchievementsFileHasher : IRetroAchievementsFileHasher
         }
         catch (OperationCanceledException)
         {
-            _logger.Warning(
-                $"[RA File Hasher] Hashing of '{filePath}' timed out after {SingleFileTimeout.TotalMinutes:0} minute(s).");
+            // Expected condition (application shutdown or per-file timeout): not a bug.
             TryKillProcess(process);
+            if (cancellationToken.IsCancellationRequested)
+            {
+                _logger.Information(
+                    $"[RA File Hasher] Hashing of '{filePath}' was canceled.");
+            }
+            else
+            {
+                _logger.Warning(
+                    $"[RA File Hasher] Hashing of '{filePath}' timed out after {SingleFileTimeout.TotalMinutes:0} minute(s).");
+            }
+
             return null;
         }
         catch (Exception ex)

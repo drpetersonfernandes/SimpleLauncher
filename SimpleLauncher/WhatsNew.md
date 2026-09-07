@@ -1,3 +1,48 @@
+# Release 5.7.0
+*2026-09-07*
+---
+
+## RetroAchievements Compatibility Filter (Hash-Based)
+- **Hash-based filtering** — The "RetroAchievements-compatible games" filter now matches games by real ROM hash instead of fuzzy name matching.
+- **Background hash scanning** — Scans run off the UI thread with progress toasts, so the app never freezes while calculating hashes.
+- **Archive-aware hashing** — ROM content is hashed directly from `.zip` archives (and per-game zips) without extraction, so zipped games match their RetroAchievements entries.
+- **Bundled hashing tool** — Hashing is delegated to a bundled RetroAchievementsSharp CLI tool for accuracy and performance.
+- **Updated RetroAchievements database** — Refreshed RetroAchievements.dat with new systems and games.
+
+## Update Flow
+- **Multi-source update fallback chain** — Update checks now try the primary GitHub repository, then the transferred GitHub organization, then the secondary server (`assets.purelogiccode.com`), so updates keep working through the GitHub organization transfer.
+- **Updater fixes** — Fixed an updater bug where waiting for the app to exit could throw `InvalidOperationException` and abort the update; the updater now disposes process handles safely.
+- **Download resilience** — Raised the download timeout to 5 minutes so slow connections can complete large update packages.
+- **Toast notifications** — Replaced tray balloon notifications with modern toast notifications.
+
+## Launch Fixes
+- **Missing emulator executable** — Launching with an emulator whose executable no longer exists now shows an actionable dialog (with the configured path) instead of a generic error.
+- **Invalid executable format** — Games pointing at invalid executables (Win32 error 193) now show a direct, localized dialog explaining the problem instead of an error-log prompt.
+- **Ymir** — Archives are force-extracted before launching Ymir, since it does not support mounted archives.
+- **Elevation** — The elevation message now instructs users to disable the "Run as administrator" requirement on the emulator, and the Avalonia app gained an equivalent elevation dialog.
+- **Parameter suggestions** — System names are validated before calling the ParameterResolver API; API rejections and network failures are logged as info and handled gracefully.
+
+## Favorites & Play History
+- **Rename/remove sync** — Favorites and play history now stay in sync when systems are renamed or removed, in both the WPF and Avalonia apps.
+- **Subfolder resolution** — Favorites and play-history entries pointing to files stored in system-folder subfolders resolve correctly again.
+- **Protection against wiping favorites** — Favorites are never wiped when the systems file fails to load (e.g., corrupt or transient `system.xml` failure).
+
+## Easy Mode
+- **Temp folder fix** — Easy Mode downloads no longer fail when startup cleanup removes the temp folder; the folder is re-created on demand.
+
+## Other Fixes
+- **Unified log path resolution** — WPF and Avalonia now resolve log files identically; opening the log from dialogs always opens the actual rolling log file.
+- **Storefront icon extraction** — Fixed a `DestroyIconW` entry-point error that threw on every successful icon extraction (handle leak + false error reports).
+- **Microsoft Windows folders** — Windows/Microsoft Games folders are created before store scans, with a warning for protected locations.
+- **Raine config window** — Opening the Raine configuration window with a null emulator path no longer crashes; it prompts for the executable instead.
+- **Edit System stability** — Fixed a crash from WPF-only cursor definitions and refreshed sidebar counts after the dialog closes.
+- **Debug window** — No longer owned by the main window, so it stays usable independently.
+
+## Tooling
+- **Dependencies** — NAudio 3, Markdown.Avalonia 12, Meziantou.Analyzer 3.0.224 and other library updates.
+
+---
+
 # Release 5.6.1
 *2026-08-11*
 ---

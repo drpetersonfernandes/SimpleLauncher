@@ -270,7 +270,11 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
 
                     // Hash-based matching: only games whose file hash exists in the local
                     // RetroAchievements hash scan AND resolves to a known RA game are kept.
-                    var systemHashes = _raHashStore.LoadSystemHashes(selectedManager.SystemName);
+                    // Loading the hash store and matching hashes do synchronous file I/O and
+                    // CPU work, so they run on a worker thread to keep the UI responsive
+                    // for large libraries (mirrors the Avalonia app).
+                    var systemHashes = await Task.Run(
+                        () => _raHashStore.LoadSystemHashes(selectedManager.SystemName), token);
                     var cachedGames = await _gameCacheService.GetAllGamesAsync(token);
 
                     if (systemHashes == null || systemHashes.Hashes.Count == 0 || cachedGames.Count == 0)
@@ -280,7 +284,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                         break;
                     }
 
-                    allFiles = cachedGames.Where(filePath =>
+                    allFiles = await Task.Run(() => cachedGames.Where(filePath =>
                     {
                         if (!systemHashes.Hashes.TryGetValue(filePath, out var hash) ||
                             string.IsNullOrEmpty(hash))
@@ -289,7 +293,7 @@ public class GameFileLoadingOrchestratorService : IGameFileLoadingOrchestrator
                         }
 
                         return _retroAchievementsService.RaManager.GetGameInfoByHash(hash) != null;
-                    }).ToList();
+                    }).ToList(), token);
 
                     await _gameCacheService.SetSearchResultsAsync(allFiles, token);
                 }

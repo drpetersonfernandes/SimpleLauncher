@@ -62,4 +62,13 @@ public interface IRetroAchievementsHashScanner
         IEnumerable<RaHashScanTarget> targets,
         Action<string>? onCompleted = null,
         CancellationToken cancellationToken = default);
+
+    /// <summary>
+    ///     Cancels the running hash scan (if any) and waits up to <paramref name="timeout" />
+    ///     for it to finish, killing any CLI hashing processes along the way. Intended to be
+    ///     called during application shutdown so no scan threads or CLI processes are orphaned.
+    /// </summary>
+    /// <param name="timeout">The maximum time to wait for the scan to finish before continuing anyway.</param>
+    /// <returns>A task representing the asynchronous cancel-and-wait operation.</returns>
+    Task CancelScanAndWaitAsync(TimeSpan timeout);
 }

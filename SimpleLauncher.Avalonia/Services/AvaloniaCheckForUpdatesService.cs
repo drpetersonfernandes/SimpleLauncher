@@ -446,6 +446,13 @@ public partial class AvaloniaCheckForUpdatesService
                 var content = await response.Content.ReadAsStringAsync();
                 var (latestVersion, releasePackageUrl, updaterZipAssetUrl) =
                     ParseVersionAndAssetUrlsFromResponse(content);
+                if (latestVersion is null)
+                {
+                    _logger.Debug(
+                        $"[UpdateChecker] GitHub API response from '{repoOwner}/{RepoName}' could not be parsed; trying the next source.");
+                    continue;
+                }
+
                 return (latestVersion, releasePackageUrl, updaterZipAssetUrl, false);
             }
             catch (Exception ex)

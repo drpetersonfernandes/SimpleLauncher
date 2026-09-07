@@ -109,10 +109,15 @@ public partial class FavoritesViewModel : ObservableObject, IDisposable
             // Reconcile favorites against the current system configuration: entries whose
             // system no longer exists (renamed without migration, or deleted) would otherwise
             // fail to launch with a missing system manager.
+            // Only reconcile when systems are actually loaded: an empty list must never be
+            // interpreted as "every favorite belongs to a missing system" (which would wipe them).
             var validSystemNames = _systemManagers.Select(static manager => manager.SystemName).ToList();
-            var removedCount = await _favoritesManager.RemoveFavoritesForMissingSystemsAsync(validSystemNames);
-            if (removedCount > 0)
-                _logger.Information($"Removed {removedCount} favorite(s) referencing systems that no longer exist.");
+            if (validSystemNames.Count != 0)
+            {
+                var removedCount = await _favoritesManager.RemoveFavoritesForMissingSystemsAsync(validSystemNames);
+                if (removedCount > 0)
+                    _logger.Information($"Removed {removedCount} favorite(s) referencing systems that no longer exist.");
+            }
 
             var favoritesSnapshot = _favoritesManager.FavoriteList.ToList();
             var systemManagersSnapshot = _systemManagers.ToList();

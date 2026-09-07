@@ -14,8 +14,9 @@ public interface IRetroAchievementsFileHasher
     /// </summary>
     /// <param name="filePath">The full path to the game file.</param>
     /// <param name="systemName">The RetroAchievements system name (resolved to a console ID internally).</param>
+    /// <param name="cancellationToken">A cancellation token that terminates the hash process.</param>
     /// <returns>The 32-character lowercase hex hash, or null if the file could not be hashed.</returns>
-    Task<string?> CalculateHashAsync(string filePath, string systemName);
+    Task<string?> CalculateHashAsync(string filePath, string systemName, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Calculates the RetroAchievements hashes for a set of game files of the same system

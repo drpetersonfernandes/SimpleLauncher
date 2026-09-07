@@ -1,4 +1,5 @@
 using System.IO.Compression;
+using System.Net;
 using System.Reflection;
 using SimpleLauncher.Tests.TestHelpers;
 using Xunit;
@@ -391,6 +392,93 @@ public class CheckForUpdatesTests : IDisposable
     }
 
     // ------------------------------------------------------------------
+    // GetLatestReleaseInfoAsync — fallback chain
+    // ------------------------------------------------------------------
+
+    /// <summary>
+    ///     Verifies that a 200 response with an unparseable body from the primary repository does
+    ///     not short-circuit the fallback chain: the second repository is tried and its result is used.
+    /// </summary>
+    [Fact]
+    public async Task GetLatestReleaseInfoUnparseablePrimaryBodyTriesNextRepository()
+    {
+        const string unparseableJson = """
+                                       { "tag_name": "", "assets": [] }
+                                       """;
+        const string validJson = """
+                                 {
+                                   "tag_name": "release5.7.0",
+                                   "assets": [
+                                     { "name": "release_5.7.0_win-x64.zip", "browser_download_url": "https://example.com/release-x64.zip" },
+                                     { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater-x64.zip" }
+                                   ]
+                                 }
+                                 """;
+
+        var handler = new StubHttpMessageHandler(request =>
+        {
+            var uri = request.RequestUri?.AbsoluteUri ?? string.Empty;
+            if (uri.Contains("repos/drpetersonfernandes/", StringComparison.Ordinal))
+            {
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(unparseableJson)
+                };
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(validJson) };
+        });
+
+        var (latestVersion, _, _, fromFallback) = await InvokeGetLatestReleaseInfoAsync(handler);
+
+        Assert.Equal("5.7.0.0", latestVersion);
+        Assert.False(fromFallback);
+    }
+
+    /// <summary>
+    ///     Verifies that an unparseable body from the primary repository combined with a failure from
+    ///     the second repository falls through to the secondary-server fallback instead of returning nulls.
+    /// </summary>
+    [Fact]
+    public async Task GetLatestReleaseInfoUnparseableBodyAndFailingRepositoryFallsBackToSecondaryServer()
+    {
+        const string unparseableJson = """
+                                       { "tag_name": "", "assets": [] }
+                                       """;
+
+        var handler = new StubHttpMessageHandler(request =>
+        {
+            var uri = request.RequestUri?.AbsoluteUri ?? string.Empty;
+            if (uri.Contains("repos/drpetersonfernandes/", StringComparison.Ordinal))
+            {
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(unparseableJson)
+                };
+            }
+
+            if (uri.Contains("repos/purelogiccode/", StringComparison.Ordinal))
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
+
+            if (uri.EndsWith("version.txt", StringComparison.Ordinal))
+            {
+                return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("release5.7.0") };
+            }
+
+            return new HttpResponseMessage(HttpStatusCode.NotFound);
+        });
+
+        var (latestVersion, releasePackageUrl, _, fromFallback) = await InvokeGetLatestReleaseInfoAsync(handler);
+
+        Assert.Equal("5.7.0.0", latestVersion);
+        Assert.True(fromFallback);
+        Assert.NotNull(releasePackageUrl);
+        Assert.Contains("assets.purelogiccode.com", releasePackageUrl, StringComparison.Ordinal);
+    }
+
+    // ------------------------------------------------------------------
     // ExtractAllFromZip
     // ------------------------------------------------------------------
 
@@ -610,6 +698,21 @@ public class CheckForUpdatesTests : IDisposable
                                              throw new InvalidOperationException("Reflection invoke returned null."));
     }
 
+    private static async Task<(string? latestVersion, string? releasePackageUrl, string? updaterZipAssetUrl,
+        bool fromFallback)> InvokeGetLatestReleaseInfoAsync(HttpMessageHandler handler)
+    {
+        var constructor = typeof(CheckForUpdatesService)
+            .GetConstructors(BindingFlags.Instance | BindingFlags.Public).First();
+        var checker = (CheckForUpdatesService)constructor.Invoke(
+            [new StubHttpClientFactory(handler), null, null, new NoOpLogger(), null, null]);
+        var method = typeof(CheckForUpdatesService).GetMethod("GetLatestReleaseInfoAsync",
+            BindingFlags.NonPublic | BindingFlags.Instance);
+        var task = (Task<(string?, string?, string?, bool)>)(method?.Invoke(checker, []) ??
+                                                             throw new InvalidOperationException(
+                                                                 "Reflection invoke returned null."));
+        return await task;
+    }
+
     private static CheckForUpdatesService CreateCheckerInstance()
     {
         var constructor = typeof(CheckForUpdatesService)
@@ -629,6 +732,45 @@ public class CheckForUpdatesTests : IDisposable
         public HttpClient CreateClient(string name)
         {
             return new HttpClient();
+        }
+    }
+
+    /// <summary>
+    ///     An <see cref="IHttpClientFactory" /> that returns clients bound to a stub message handler,
+    ///     so tests can script HTTP responses without touching the network.
+    /// </summary>
+    private sealed class StubHttpClientFactory(HttpMessageHandler handler) : IHttpClientFactory
+    {
+        private readonly HttpMessageHandler _handler = handler;
+
+        /// <summary>
+        ///     Creates a new <see cref="HttpClient" /> bound to the stub handler.
+        /// </summary>
+        /// <param name="name">The logical name of the client.</param>
+        /// <returns>A new <see cref="HttpClient" /> instance.</returns>
+        public HttpClient CreateClient(string name)
+        {
+            return new HttpClient(_handler);
+        }
+    }
+
+    /// <summary>
+    ///     A scripted <see cref="HttpMessageHandler" /> that delegates every request to a responder delegate.
+    /// </summary>
+    private sealed class StubHttpMessageHandler(Func<HttpRequestMessage, HttpResponseMessage> responder) : HttpMessageHandler
+    {
+        private readonly Func<HttpRequestMessage, HttpResponseMessage> _responder = responder;
+
+        /// <summary>
+        ///     Sends the request to the scripted responder.
+        /// </summary>
+        /// <param name="request">The request message.</param>
+        /// <param name="cancellationToken">A cancellation token (unused by the stub).</param>
+        /// <returns>The scripted response.</returns>
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+            CancellationToken cancellationToken)
+        {
+            return Task.FromResult(_responder(request));
         }
     }
 }

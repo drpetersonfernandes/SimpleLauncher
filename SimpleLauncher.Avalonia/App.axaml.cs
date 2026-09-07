@@ -116,6 +116,20 @@ public class App : Application, IDisposable
             Log.Debug(ex, "Error disposing the tray icon manager.");
         }
 
+        // Cancel any running RetroAchievements hash scan and wait (bounded) so no
+        // scan threads or CLI hashing processes are orphaned by the shutdown.
+        try
+        {
+            ServiceProvider?.GetService<IRetroAchievementsHashScanner>()
+                ?.CancelScanAndWaitAsync(TimeSpan.FromSeconds(10))
+                .GetAwaiter()
+                .GetResult();
+        }
+        catch (Exception ex)
+        {
+            Log.Debug(ex, "Error canceling the RetroAchievements hash scan on shutdown.");
+        }
+
         try
         {
             var gamePadController = ServiceProvider?.GetService<GamePadController>();

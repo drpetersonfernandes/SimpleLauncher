@@ -214,7 +214,7 @@ public class LauncherService : ILauncherService
                                             emulatorName.Contains("SameBoy", StringComparison.OrdinalIgnoreCase) ||
                                             emulatorName.Contains("Ymir", StringComparison.OrdinalIgnoreCase) ||
                                             emulatorName.Contains("Yumir", StringComparison.OrdinalIgnoreCase) ||
-                                            emulatorLocation.Contains("ymir", StringComparison.OrdinalIgnoreCase);
+                                            IsYmirEmulatorLocation(emulatorLocation);
                     if (requiresRealFiles)
                     {
                         loadingStateProvider?.SetLoadingState(true,
@@ -417,8 +417,9 @@ public class LauncherService : ILauncherService
 
                 // Expected user condition (emulator moved/deleted/unconfigured) — Information level.
                 Log.Information(msg);
-                await _messageBox.CustomErrorMessageBoxAsync($"Emulator not found: {emulatorPath}",
-                    _localization.GetString("LaunchErrorTitle", "Launch Error"));
+
+                // Direct, actionable message with the configured path (WPF parity)
+                await _messageBox.EmulatorExecutableNotFoundMessageBoxAsync(emulatorPath);
                 return;
             }
 
@@ -959,8 +960,10 @@ public class LauncherService : ILauncherService
                     // WPF parity: the timeout path returns without a success toast.
                     try
                     {
+                        // Expected user condition (a hung or long-running batch file) —
+                        // Information level so it is never reported as a bug (WPF parity).
                         process.Kill();
-                        Log.Warning("Batch file timed out after 5 minutes and was killed: {Path}", resolvedFilePath);
+                        Log.Information("Batch file timed out after 5 minutes and was killed: {Path}", resolvedFilePath);
                     }
                     catch (Exception killEx)
                     {
@@ -1597,6 +1600,31 @@ public class LauncherService : ILauncherService
         // WPF parity: substring matching (any skip-list entry contained in the emulator name)
         return _emulatorsToSkipErrorChecking.Any(skip =>
             emulatorName.Contains(skip, StringComparison.OrdinalIgnoreCase));
+    }
+
+    /// <summary>
+    ///     Determines whether the configured emulator location refers to the Ymir/Yumir
+    ///     emulator. Matches the executable's file name or its containing folder name
+    ///     exactly ("Ymir"/"Yumir") instead of a substring of the whole path, so unrelated
+    ///     paths that merely contain "ymir" (e.g. "...\Skymir\...") do not force extraction.
+    /// </summary>
+    /// <param name="emulatorLocation">The configured emulator executable path (may be a folder).</param>
+    /// <returns>True when the location points at (or into) a Ymir/Yumir installation.</returns>
+    private static bool IsYmirEmulatorLocation(string? emulatorLocation)
+    {
+        if (string.IsNullOrWhiteSpace(emulatorLocation)) return false;
+
+        var fileName = Path.GetFileNameWithoutExtension(emulatorLocation);
+        if (fileName.Equals("Ymir", StringComparison.OrdinalIgnoreCase) ||
+            fileName.Equals("Yumir", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        var parentPath = Path.GetDirectoryName(emulatorLocation.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+        var parentName = Path.GetFileName(parentPath ?? string.Empty);
+        return parentName.Equals("Ymir", StringComparison.OrdinalIgnoreCase) ||
+               parentName.Equals("Yumir", StringComparison.OrdinalIgnoreCase);
     }
 
     #endregion

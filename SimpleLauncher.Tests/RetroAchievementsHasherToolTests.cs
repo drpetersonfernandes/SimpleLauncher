@@ -127,7 +127,8 @@ public class RetroAchievementsHasherToolTests : IDisposable
         /// </summary>
         public List<string> HashedPaths { get; } = [];
 
-        public Task<string?> CalculateHashAsync(string filePath, string systemName)
+        public Task<string?> CalculateHashAsync(string filePath, string systemName,
+            CancellationToken cancellationToken = default)
         {
             HashedPaths.Add(filePath);
             return Task.FromResult<string?>($"hash-{Path.GetFileNameWithoutExtension(filePath)}");

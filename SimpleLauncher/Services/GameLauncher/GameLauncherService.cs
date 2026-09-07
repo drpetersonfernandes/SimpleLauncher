@@ -114,7 +114,9 @@ public partial class GameLauncherService : ILauncherService
             var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError
                 ? "User was notified."
                 : "User was not notified.";
-            _logger.Error(new DirectoryNotFoundException(msg), $"{msg}\n{userNotified}");
+            // Expected user condition (batch file folder moved/deleted/not configured) —
+            // Information level so it is never reported as a bug.
+            _logger.Information(new DirectoryNotFoundException(msg), $"{msg}\n{userNotified}");
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 await _messageBoxLibrary.BatchFileFailedMessageBoxAsync(resolvedFilePath,
@@ -141,7 +143,9 @@ public partial class GameLauncherService : ILauncherService
             }
             catch (OperationCanceledException)
             {
-                _logger.Error(new TimeoutException($"Batch file timed out after 5 minutes: {resolvedFilePath}"),
+                // Expected user condition (a hung or long-running batch file) —
+                // Information level so it is never reported as a bug.
+                _logger.Information(new TimeoutException($"Batch file timed out after 5 minutes: {resolvedFilePath}"),
                     $"Batch file timed out: {resolvedFilePath}");
                 try
                 {
@@ -703,8 +707,7 @@ public partial class GameLauncherService : ILauncherService
         var isYmir = selectedEmulatorManager?.EmulatorLocation != null &&
                      (selectedEmulatorName.Contains("Ymir", StringComparison.OrdinalIgnoreCase) ||
                       selectedEmulatorName.Contains("Yumir", StringComparison.OrdinalIgnoreCase) ||
-                      selectedEmulatorManager.EmulatorLocation.Contains("ymir",
-                          StringComparison.OrdinalIgnoreCase));
+                      IsYmirEmulatorLocation(selectedEmulatorManager.EmulatorLocation));
 
         // Declare tempExtractionPath here to be accessible in the finally block
         string? tempExtractionPath = null;
@@ -1803,6 +1806,31 @@ public partial class GameLauncherService : ILauncherService
             _logger.Debug($"[IsProtocolRegistered] Error checking protocol '{protocol}': {ex.Message}");
             return false;
         }
+    }
+
+    /// <summary>
+    ///     Determines whether the configured emulator location refers to the Ymir/Yumir
+    ///     emulator. Matches the executable's file name or its containing folder name
+    ///     exactly ("Ymir"/"Yumir") instead of a substring of the whole path, so unrelated
+    ///     paths that merely contain "ymir" (e.g. "...\Skymir\...") do not force extraction.
+    /// </summary>
+    /// <param name="emulatorLocation">The configured emulator executable path (may be a folder).</param>
+    /// <returns>True when the location points at (or into) a Ymir/Yumir installation.</returns>
+    private static bool IsYmirEmulatorLocation(string emulatorLocation)
+    {
+        if (string.IsNullOrWhiteSpace(emulatorLocation)) return false;
+
+        var fileName = Path.GetFileNameWithoutExtension(emulatorLocation);
+        if (fileName.Equals("Ymir", StringComparison.OrdinalIgnoreCase) ||
+            fileName.Equals("Yumir", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        var parentPath = Path.GetDirectoryName(emulatorLocation.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+        var parentName = Path.GetFileName(parentPath ?? string.Empty);
+        return parentName.Equals("Ymir", StringComparison.OrdinalIgnoreCase) ||
+               parentName.Equals("Yumir", StringComparison.OrdinalIgnoreCase);
     }
 
     [SuppressMessage("Meziantou.Analyzer", "MA0023:UseRegexOptionsExplicitCapture",

@@ -30,6 +30,18 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     private int _isScanningFlag;
 
     /// <summary>
+    ///     Canceled when the application is shutting down so the running scan can be
+    ///     stopped and its CLI processes killed instead of being orphaned.
+    /// </summary>
+    private readonly CancellationTokenSource _shutdownCts = new();
+
+    /// <summary>
+    ///     The currently running scan task, or null. Written only while the scan flag is
+    ///     held; read by <see cref="CancelScanAndWaitAsync" /> during shutdown.
+    /// </summary>
+    private Task? _runningScanTask;
+
+    /// <summary>
     ///     Initializes a new instance of the <see cref="RetroAchievementsHashScanner" /> class.
     /// </summary>
     /// <param name="logErrors">The logger instance used for debugging and error output.</param>
@@ -111,26 +123,105 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     ///     Scans the game folders of multiple systems sequentially and persists the calculated hashes.
     ///     The whole operation runs on a thread-pool thread so the UI thread is never blocked.
     /// </summary>
-    public async Task<bool> ScanAllSystemsAsync(
+    public Task<bool> ScanAllSystemsAsync(
         IEnumerable<RaHashScanTarget> targets,
         Action<string>? onCompleted = null,
         CancellationToken cancellationToken = default)
     {
-        // Prevent parallel hash scans (they would spawn many CLI processes at once)
+        // Prevent parallel hash scans (they would spawn many CLI processes at once).
+        // The flag is set synchronously so a concurrent request is rejected immediately.
         if (Interlocked.CompareExchange(ref _isScanningFlag, 1, 0) != 0)
         {
             _logger.Information("[RA Hash Scanner] A hash scan is already in progress. Ignoring the new request.");
-            return false;
+            return Task.FromResult(false);
         }
 
+        var runTask = RunScanAsync(targets, onCompleted, cancellationToken);
+        Volatile.Write(ref _runningScanTask, runTask);
+        return runTask;
+    }
+
+    /// <summary>
+    ///     Runs the scan and owns the scan-flag lifetime: the flag is released and the
+    ///     running-task reference cleared before the returned task completes, so callers
+    ///     of <see cref="CancelScanAndWaitAsync" /> observe a fully finished scan.
+    /// </summary>
+    private async Task<bool> RunScanAsync(
+        IEnumerable<RaHashScanTarget> targets,
+        Action<string>? onCompleted,
+        CancellationToken cancellationToken)
+    {
         try
         {
-            await Task.Run(() => ScanCoreAsync(targets.ToList(), onCompleted, cancellationToken), cancellationToken);
-            return true;
+            // The caller token (usually None for fire-and-forget scans) is linked with the
+            // shutdown token so an application exit can cancel and clean up the scan.
+            if (_shutdownCts.IsCancellationRequested) return false;
+
+            using var linkedCts =
+                CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, _shutdownCts.Token);
+
+            // Capture the token (a struct copy) instead of the CancellationTokenSource so
+            // the scan delegate never references a disposable owned by this scope.
+            var linkedToken = linkedCts.Token;
+            var scanTask = Task.Run(
+                () => ScanCoreAsync(targets.ToList(), onCompleted, linkedToken), linkedToken);
+
+            try
+            {
+                await scanTask;
+                return true;
+            }
+            catch (OperationCanceledException)
+            {
+                _logger.Information("[RA Hash Scanner] Hash scan was canceled.");
+                return false;
+            }
+            finally
+            {
+                Volatile.Write(ref _runningScanTask, null);
+            }
         }
         finally
         {
             Volatile.Write(ref _isScanningFlag, 0);
+        }
+    }
+
+    /// <inheritdoc />
+    public async Task CancelScanAndWaitAsync(TimeSpan timeout)
+    {
+        var scanTask = Volatile.Read(ref _runningScanTask);
+        if (scanTask == null) return;
+
+        _logger.Information(
+            $"[RA Hash Scanner] Application is shutting down: canceling the running hash scan (wait up to {timeout.TotalSeconds:0} s).");
+
+        try
+        {
+            _shutdownCts.Cancel();
+        }
+        catch (ObjectDisposedException)
+        {
+            return;
+        }
+
+        try
+        {
+            await scanTask.WaitAsync(timeout);
+            _logger.Debug("[RA Hash Scanner] Hash scan finished cleanly during shutdown.");
+        }
+        catch (TimeoutException)
+        {
+            _logger.Information(
+                $"[RA Hash Scanner] The running hash scan did not finish within {timeout.TotalSeconds:0} s; continuing shutdown.");
+        }
+        catch (OperationCanceledException)
+        {
+            // Expected: the scan was canceled as requested.
+        }
+        catch (Exception ex)
+        {
+            _logger.Debug($"[RA Hash Scanner] Hash scan ended during shutdown: {ex.Message}");
         }
     }
 
@@ -237,7 +328,8 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var hash = await HashExtractedArchiveAsync(archivePath, matchedSystemName, target.FileFormatsToLaunch);
+            var hash = await HashExtractedArchiveAsync(archivePath, matchedSystemName, target.FileFormatsToLaunch,
+                cancellationToken);
             if (!string.IsNullOrEmpty(hash)) hashes[archivePath] = hash;
         }
 
@@ -249,6 +341,11 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
             HashVersion = CurrentHashVersion,
             Hashes = hashes
         };
+
+        // Do not persist a partially-hashed scan when the scan was canceled (e.g. by an
+        // application shutdown): a partial or empty result would otherwise be treated
+        // as an up-to-date scan by the RetroAchievements filter.
+        cancellationToken.ThrowIfCancellationRequested();
 
         _hashStore.SaveSystemHashes(result);
 
@@ -267,9 +364,10 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
     /// <param name="archivePath">The full path to the .7z/.rar archive.</param>
     /// <param name="matchedSystemName">The resolved RetroAchievements system name.</param>
     /// <param name="fileFormatsToLaunch">The extensions to look for inside the archive.</param>
+    /// <param name="cancellationToken">Token to cancel the hashing of the extracted file.</param>
     /// <returns>The 32-character hash, or null if the file could not be hashed.</returns>
     private async Task<string?> HashExtractedArchiveAsync(string archivePath, string matchedSystemName,
-        IList<string> fileFormatsToLaunch)
+        IList<string> fileFormatsToLaunch, CancellationToken cancellationToken)
     {
         string? tempExtractionPath = null;
 
@@ -293,7 +391,7 @@ public class RetroAchievementsHashScanner : IRetroAchievementsHashScanner
                 return null;
             }
 
-            return await _fileHasher.CalculateHashAsync(extractedGameFilePath, matchedSystemName);
+            return await _fileHasher.CalculateHashAsync(extractedGameFilePath, matchedSystemName, cancellationToken);
         }
         catch (Exception ex)
         {

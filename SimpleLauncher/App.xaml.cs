@@ -797,6 +797,21 @@ public partial class App : IDisposable
     /// <param name="e">The exit event arguments.</param>
     protected override void OnExit(ExitEventArgs e)
     {
+        // Cancel any running RetroAchievements hash scan and wait (bounded) so no
+        // scan threads or CLI hashing processes are orphaned by the shutdown.
+        try
+        {
+            ServiceProvider.GetService<IRetroAchievementsHashScanner>()
+                ?.CancelScanAndWaitAsync(TimeSpan.FromSeconds(10))
+                .GetAwaiter()
+                .GetResult();
+        }
+        catch (Exception ex)
+        {
+            ServiceProvider.GetRequiredService<ILogger>()
+                .Information(ex, "Failed to cancel the RetroAchievements hash scan on exit.");
+        }
+
         // Kill any lingering CHDMounter processes as a safety net
         try
         {

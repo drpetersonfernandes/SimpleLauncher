@@ -800,7 +800,7 @@
                               ToolTip="{DynamicResource TooltipOpenAppDataPath}">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/settings.png" Width="16" Height="16"
-                                   AutomationProperties.Name="{DynamicResource OpenAppDataPathIcon}" />
+                                   AutomationProperties.Name="{DynamicResource OpenAppDataPath}" />
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator />

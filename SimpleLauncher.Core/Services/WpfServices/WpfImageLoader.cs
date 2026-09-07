@@ -36,9 +36,9 @@ public class WpfImageLoader(ILogger logErrors, IConfiguration configuration, IMe
         }
         catch (Exception ex)
         {
-            // Expected user-file condition (missing/corrupt/locked image): not a bug.
+            // Unexpected exception: potential coding bug, report it (Warning+ reaches the bug report API).
             var contextMessage = $"Failed to load primary image: {imagePath}. Attempting to load default.";
-            _logger.Information(ex, contextMessage);
+            _logger.Warning(ex, contextMessage);
             return await LoadDefaultImageAsync();
         }
     }
@@ -63,8 +63,8 @@ public class WpfImageLoader(ILogger logErrors, IConfiguration configuration, IMe
         }
         catch (Exception ex)
         {
-            // Expected user-file condition: not a bug.
-            _logger.Information(ex, $"An unexpected error occurred while reading image file '{filePath}'.");
+            // Unexpected exception: potential coding bug, report it (Warning+ reaches the bug report API).
+            _logger.Warning(ex, $"An unexpected error occurred while reading image file '{filePath}'.");
             return null;
         }
     }
@@ -89,9 +89,9 @@ public class WpfImageLoader(ILogger logErrors, IConfiguration configuration, IMe
         }
         catch (Exception ex)
         {
-            // Expected user-environment condition: not a bug, keep it out of the bug report service.
+            // Unexpected exception: potential coding bug, report it (Warning+ reaches the bug report API).
             const string contextMessage = "Failed to load global default image: images\\default.png.";
-            _logger.Information(ex, contextMessage);
+            _logger.Warning(ex, contextMessage);
             await _messageBox.DefaultImageNotFoundMessageBoxAsync();
             return (null, true);
         }

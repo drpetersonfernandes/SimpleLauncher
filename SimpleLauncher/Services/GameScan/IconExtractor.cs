@@ -59,7 +59,6 @@ public partial class IconExtractor : IIconExtractor
     [LibraryImport("shell32.dll", EntryPoint = "ExtractIconW", StringMarshalling = StringMarshalling.Utf16)]
     private static partial IntPtr ExtractIcon(IntPtr hInst, string lpszExeFileName, int nIconIndex);
 
-    [LibraryImport("user32.dll", EntryPoint = "DestroyIconW", SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
+    [LibraryImport("user32.dll", EntryPoint = "DestroyIcon", SetLastError = true)]
     private static partial void DestroyIcon(IntPtr hIcon);
 }

@@ -1075,8 +1075,11 @@ public class MenuActionHandlerService
             }
 
             // If no valid hash scan result exists yet (missing or produced by older hash
-            // logic), ask the user to scan the game path first
-            if (!_raHashScanner.IsScanUpToDate(selectedSystem))
+            // logic), ask the user to scan the game path first.
+            // IsScanUpToDate performs synchronous file I/O + JSON deserialization, so it
+            // runs on a worker thread to keep the UI responsive for large libraries.
+            var isScanUpToDate = await Task.Run(() => _raHashScanner.IsScanUpToDate(selectedSystem));
+            if (!isScanUpToDate)
             {
                 if (!_raHashScanner.IsSystemScannable(selectedSystem))
                 {
