@@ -661,7 +661,6 @@
                                 AutomationProperties.Name="{DynamicResource Search2Icon}" />
                         </MenuItem.Icon>
                     </MenuItem>
-                    <Separator />
                     <MenuItem Click="RescanRetroAchievements_Click"
                               Header="{DynamicResource RescanRetroAchievementsForSelectedSystem}"
                               ToolTip="{DynamicResource TooltipRescanRetroAchievementsForSelectedSystem}">
