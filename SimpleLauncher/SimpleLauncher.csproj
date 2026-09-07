@@ -27,14 +27,14 @@
     <PropertyGroup>
         <StartupObject>SimpleLauncher.App</StartupObject>
         <PackageIcon>icon2.png</PackageIcon>
-        <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
+        <RepositoryUrl>https://github.com/purelogiccode/SimpleLauncher</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <AssemblyVersion>5.7.0</AssemblyVersion>
         <FileVersion>5.7.0</FileVersion>
         <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
         <Version>5.7.0</Version>
         <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
-        <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/purelogiccode/SimpleLauncher</PackageProjectUrl>
         <UseWindowsForms>False</UseWindowsForms>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -864,6 +864,9 @@
         <None Update="tools\RetroAchievementsSharp\RetroAchievementsSharp_arm64">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="images\systems\TigerGameCom.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <Page Include="resources2\Theme.HighContrast.xaml">
@@ -1156,7 +1159,7 @@
         <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
         <PackageReference Include="MahApps.Metro" Version="2.4.11" />
         <PackageReference Include="MdXaml" Version="1.27.0" />
-        <PackageReference Include="Meziantou.Analyzer" Version="3.0.224">
+        <PackageReference Include="Meziantou.Analyzer" Version="3.0.226">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -1173,9 +1176,9 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.11" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.11" />
         <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.9.0" />
-        <PackageReference Include="NAudio.Core" Version="3.0.1" />
-        <PackageReference Include="NAudio.Wasapi" Version="3.0.1" />
-        <PackageReference Include="NAudio.WinMM" Version="3.0.1" />
+        <PackageReference Include="NAudio.Core" Version="3.1.0" />
+        <PackageReference Include="NAudio.Wasapi" Version="3.1.0" />
+        <PackageReference Include="NAudio.WinMM" Version="3.1.0" />
         <PackageReference Include="Roslynator.Analyzers" Version="5.0.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -112,7 +112,7 @@ The site is served from `/docs` via **docsify** (client-side rendering, no build
 
 1. Enable once in repo settings: **Settings → Pages → Deploy from a branch → branch `master`, folder `/docs`**.
 2. Every push to `docs/**` rebuilds the site automatically.
-3. URL: `https://drpetersonfernandes.github.io/SimpleLauncher/`.
+3. URL: `https://purelogiccode.github.io/SimpleLauncher/`.
 
 `docs/index.html` (docsify loader), `docs/_sidebar.md` (TOC) and `docs/.nojekyll` are the site assets. `docs/parameters.md` and `docs/manual-tests.md` are **copies** kept for the site and wiki:
 
@@ -128,7 +128,7 @@ python scripts/sync-wiki.py --dry-run   # preview
 python scripts/sync-wiki.py             # clone/pull, rewrite, commit, push
 ```
 
-The script maps `docs/README.md` → `Home`, copies all `docs/NN-*.md` as pages, and **protects the `parameters` page** (`https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters`) — the app opens this URL (`EditSystemWindow.xaml.cs`, config key `WikiParametersUrl`), so it is never deleted and is refreshed from `docs/parameters.md`. Stale pages are deleted, `_Sidebar.md` is regenerated, and markdown links are rewritten to the flat wiki namespace.
+The script maps `docs/README.md` → `Home`, copies all `docs/NN-*.md` as pages, and **protects the `parameters` page** (`https://github.com/purelogiccode/SimpleLauncher/wiki/parameters`) — the app opens this URL (`EditSystemWindow.xaml.cs`, config key `WikiParametersUrl`), so it is never deleted and is refreshed from `docs/parameters.md`. Stale pages are deleted, `_Sidebar.md` is regenerated, and markdown links are rewritten to the flat wiki namespace.
 
 For CI automation (optional): add a workflow that runs the script with a `WIKI_PAT` secret (classic PAT, `repo` scope) on `docs/**` pushes.
 

@@ -24,9 +24,9 @@
         <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
         <ApplicationIcon>icon\icon.ico</ApplicationIcon>
         <PackageIcon>icon\icon2.png</PackageIcon>
-        <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
+        <RepositoryUrl>https://github.com/purelogiccode/SimpleLauncher</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/purelogiccode/SimpleLauncher</PackageProjectUrl>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <UseWindowsForms>False</UseWindowsForms>
         <StartupObject>SimpleLauncher.Avalonia.Program</StartupObject>
@@ -70,7 +70,7 @@
 
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-        <PackageReference Include="Meziantou.Analyzer" Version="3.0.224">
+        <PackageReference Include="Meziantou.Analyzer" Version="3.0.226">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -114,6 +114,309 @@
         <None Update="Resources\strings.*.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="images\systems\Amiga.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Amstrad CPC.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Amstrad GX4000.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Arcade.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Arcade - Raine.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari Jaguar.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari Jaguar CD.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari Lynx.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari ST.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari 8-Bit.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari 800.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari 2600.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari 5200.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atari 7800.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Atomiswave.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Bandai WonderSwan.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Bandai WonderSwan Color.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Casio PV-1000.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\ColecoVision.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Commander Genius.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Commodore Amiga.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Commodore Amiga CD32.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Commodore 64.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Commodore 128.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\default.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\FM Towns.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\J2ME.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\LaserDisk.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Magnavox Odyssey 2.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Mattel Aquarius.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Mattel Intellivision.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft DOS.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft MSX.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft MSX2.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft Windows.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft Xbox.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft Xbox 360.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Microsoft Xbox 360 XBLA.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC PC-FX.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC PC Engine.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC PC Engine CD.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC PC88.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC PCFX.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC SuperGrafx.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC TurboGrafx 16.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\NEC TurboGrafx 16 CD.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo DS.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Entertainment System.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Famicom.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Family Computer Disk System.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Game Boy.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Game Boy Advance.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Game Boy Color.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo GameCube.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo NES.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Satellaview.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo SNES.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo SNES MSU1.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Super Famicom.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Switch.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Virtual Boy.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo Wii.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo WiiU.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo WiiWare.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo 3DS.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo 64.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Nintendo 64DD.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Panasonic 3DO.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Philips CD-i.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\ScummVM.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Dreamcast.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Game Gear.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Genesis.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Genesis CD.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Genesis 32X.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Mark III.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Master System.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Model 3.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Naomi.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Naomi 2.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Nomad.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Pico.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega Saturn.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega SC-3000.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sega SG-1000.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sharp x68000.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sinclair ZX Spectrum.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\SNK Neo Geo.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\SNK Neo Geo CD.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\SNK Neo Geo Pocket.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\SNK Neo Geo Pocket Color.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sony PlayStation Vita.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sony PlayStation 1.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sony PlayStation 2.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sony PlayStation 3.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sony PlayStation 4.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Sony PSP.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Super ACan.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Super Nintendo Entertainment System.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\TigerGameCom.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="images\systems\Zeebo.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <!-- Files sourced from the original SimpleLauncher project (outside this project dir)
@@ -124,9 +427,6 @@
         </None>
         <None Include="..\SimpleLauncher\tools\RetroAchievementsSharp\*"
               Link="tools\RetroAchievementsSharp\%(Filename)%(Extension)">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Include="..\SimpleLauncher\images\systems\*.png" Link="images\systems\%(Filename)%(Extension)">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Include="..\SimpleLauncher\audio\*.mp3" Link="audio\%(Filename)%(Extension)">
@@ -153,9 +453,9 @@
         </None>
     </ItemGroup>
 
-    <!-- UI icons (root of images\; images\systems\*.png is linked above) -->
+    <!-- UI icons (root of images\) — physical copies kept in this project -->
     <ItemGroup>
-        <None Include="..\SimpleLauncher\images\*.png" Link="images\%(Filename)%(Extension)">
+        <None Include="images\*.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <!-- UI icons embedded into the binary (Avalonia equivalent of the WPF
@@ -163,7 +463,7 @@
              avares://SimpleLauncher.Avalonia/images/*.png. Loose copies below are kept
              because appsettings.json / user config reference some icons by file path
              (e.g. images\default.png), exactly like the WPF app ships them. -->
-        <AvaloniaResource Include="..\SimpleLauncher\images\*.png" Link="images\%(Filename)%(Extension)" />
+        <AvaloniaResource Include="images\*.png" />
         <None Include="icon\icon.ico">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>

@@ -8,7 +8,7 @@
 `SimpleLauncher\Services\CheckForUpdatesService.cs`
 
 - **Source fallback chain** (app + both updaters): 
-  1. GitHub API `https://api.github.com/repos/drpetersonfernandes/SimpleLauncher/releases/latest` (primary repo),
+  1. GitHub API `https://api.github.com/repos/purelogiccode/SimpleLauncher/releases/latest` (primary repo),
   2. GitHub API `https://api.github.com/repos/purelogiccode/SimpleLauncher/releases/latest` (transferred organization),
   3. Secondary server `assets.purelogiccode.com/Simple Launcher/Simple Launcher/version.txt` (Cloudflare-hosted) — builds the release/updater URLs from it (`release_{version}_{rid}.zip`, `updater_{rid}.zip`).
 - **Silent check** at startup (`CheckForUpdatesService.cs`). If every GitHub source is unreachable (offline, rate-limited, blocked), the check falls back to the secondary server.

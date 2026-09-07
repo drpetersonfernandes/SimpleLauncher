@@ -44,7 +44,7 @@ If the automatic update fails (due to network issues, permission errors, etc.), 
 ## Configuration
 The updater is configured via constants located in `MainWindow.xaml.cs`:
 ```csharp
-private const string RepoOwner = "drpetersonfernandes";
+private const string RepoOwner = "purelogiccode";
 private const string RepoName = "SimpleLauncher";
 ```
 

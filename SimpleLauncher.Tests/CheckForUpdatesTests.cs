@@ -418,7 +418,7 @@ public class CheckForUpdatesTests : IDisposable
         var handler = new StubHttpMessageHandler(request =>
         {
             var uri = request.RequestUri?.AbsoluteUri ?? string.Empty;
-            if (uri.Contains("repos/drpetersonfernandes/", StringComparison.Ordinal))
+            if (uri.Contains("repos/purelogiccode/", StringComparison.Ordinal))
             {
                 return new HttpResponseMessage(HttpStatusCode.OK)
                 {
@@ -449,7 +449,7 @@ public class CheckForUpdatesTests : IDisposable
         var handler = new StubHttpMessageHandler(request =>
         {
             var uri = request.RequestUri?.AbsoluteUri ?? string.Empty;
-            if (uri.Contains("repos/drpetersonfernandes/", StringComparison.Ordinal))
+            if (uri.Contains("repos/purelogiccode/", StringComparison.Ordinal))
             {
                 return new HttpResponseMessage(HttpStatusCode.OK)
                 {
@@ -457,7 +457,7 @@ public class CheckForUpdatesTests : IDisposable
                 };
             }
 
-            if (uri.Contains("repos/purelogiccode/", StringComparison.Ordinal))
+            if (uri.Contains("repos/drpetersonfernandes/", StringComparison.Ordinal))
             {
                 return new HttpResponseMessage(HttpStatusCode.NotFound);
             }

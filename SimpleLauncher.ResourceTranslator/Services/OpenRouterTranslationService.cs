@@ -136,7 +136,7 @@ public class OpenRouterTranslationService
             using var request = new HttpRequestMessage(HttpMethod.Post, apiUrl);
             request.Headers.Add("Authorization", $"Bearer {_apiKey}");
             // Optional OpenRouter attribution headers
-            request.Headers.Add("HTTP-Referer", "https://github.com/drpetersonfernandes/SimpleLauncher");
+            request.Headers.Add("HTTP-Referer", "https://github.com/purelogiccode/SimpleLauncher");
             request.Headers.Add("X-Title", "Simple Launcher Resource Translator");
             request.Content = JsonContent.Create(requestData);
 

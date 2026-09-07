@@ -8,7 +8,7 @@ Mappings applied:
   docs/README.md            -> Home.md
   docs/NN-*.md (01..18)     -> same filename (wiki page name = filename without .md)
   docs/parameters.md        -> parameters.md   (PROTECTED: the app opens this page,
-                               https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters)
+                               https://github.com/purelogiccode/SimpleLauncher/wiki/parameters)
   docs/manual-tests.md      -> manual-tests.md
   skipped: docs/index.html, docs/_sidebar.md, docs/.nojekyll, DocsPlan.md
 
@@ -32,7 +32,7 @@ import subprocess
 import sys
 import tempfile
 
-WIKI_REPO_URL = "https://github.com/drpetersonfernandes/SimpleLauncher.wiki.git"
+WIKI_REPO_URL = "https://github.com/purelogiccode/SimpleLauncher.wiki.git"
 
 # Files in the wiki that are never deleted, even if not in the publish set.
 PROTECTED_WIKI_FILES = {"parameters.md"}

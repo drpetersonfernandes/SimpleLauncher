@@ -51,7 +51,7 @@ The Avalonia port ships the same 18 languages as JSON resources: `SimpleLauncher
 - The `SimpleLauncher.Updater\version.txt` file mirrors the current release (e.g. `release5.6.1`) and is what the secondary server publishes.
 - Framework: **.NET 10** (`net10.0-windows`), **C# 14**, nullable reference types enabled.
 - License: **GPLv3** (`LICENSE.txt`).
-- Repository: https://github.com/drpetersonfernandes/SimpleLauncher
+- Repository: https://github.com/purelogiccode/SimpleLauncher
 
 ## Release history
 

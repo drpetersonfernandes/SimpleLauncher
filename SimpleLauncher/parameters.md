@@ -5802,6 +5802,37 @@ To use this emulator you need to use a MAME compatible set of ROMs, with the rig
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Look for MAME Software List ROMs. I am not affiliated with PleasureDome in any way.<br>
 You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).
 
+## Tiger Game.com
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the 'Simple Launcher' path<br>
+**%SYSTEMFOLDER%** - Represents the System path<br>
+**%EMULATORFOLDER%** - Represents the Emulator path<br>
+**%ROM%** - Represents the full ROM path, with path and extension<br>
+**%NAME%** - Represents the ROM name, without path or extension<br>
+**%ROMSYSTEMFOLDER%** - Represents the System Folder that contains the selected ROM<br>
+
+**System Folder (Example):** c:\Tiger Game.com<br>
+**Extension to Search in the System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
+**Extension to Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
+
+.
+
+**Emulator Name:** MAME<br>
+**Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
+**Emulator Parameters (Example):** -window -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%BASEFOLDER%\roms\Tiger Game.com;%SYSTEMFOLDER%;%ROMSYSTEMFOLDER%" gamecom -cart1<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+**Attention**<br>
+The game filenames must follow the MAME naming convention (MAME Software List ROMs).<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. Download the 'Software List ROMs (split)' package and use the 'gamecom' folder. I am not affiliated with PleasureDome in any way.<br>
+You can download this emulator on the [Official Website](https://www.mamedev.org/release.html).
+
 ## Zeebo
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>

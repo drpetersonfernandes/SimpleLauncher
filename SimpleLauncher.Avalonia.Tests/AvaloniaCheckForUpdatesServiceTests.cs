@@ -43,7 +43,7 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
             {
                 name = n,
                 browser_download_url =
-                    $"https://github.com/drpetersonfernandes/SimpleLauncher/releases/download/{versionTag}/{n}"
+                    $"https://github.com/purelogiccode/SimpleLauncher/releases/download/{versionTag}/{n}"
             })
         });
     }

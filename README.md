@@ -1,5 +1,5 @@
-[![GitHub release](https://img.shields.io/github/v/release/drpetersonfernandes/SimpleLauncher)](https://github.com/drpetersonfernandes/SimpleLauncher/releases)
-[![Platform](https://img.shields.io/badge/platform-Windows%20x64%20%7C%20ARM64-blue)](https://github.com/drpetersonfernandes/SimpleLauncher/releases)
+[![GitHub release](https://img.shields.io/github/v/release/purelogiccode/SimpleLauncher)](https://github.com/purelogiccode/SimpleLauncher/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%20x64%20%7C%20ARM64-blue)](https://github.com/purelogiccode/SimpleLauncher/releases)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE.txt)
 
 # 🎮 Simple Launcher
@@ -162,7 +162,7 @@ The launcher supports an extensive range of gaming systems including:
 
 ## 📥 Installation
 
-1. **Download:** Grab the latest release for your architecture (x64 or ARM64) from the [Releases Page](https://github.com/drpetersonfernandes/SimpleLauncher/releases).
+1. **Download:** Grab the latest release for your architecture (x64 or ARM64) from the [Releases Page](https://github.com/purelogiccode/SimpleLauncher/releases).
 2. **Extract:** Unzip the contents into a **writable folder** (e.g., `C:\Games\SimpleLauncher`).
    * *Note: Do not install in `C:\Program Files` to avoid permission issues.*
 3. **Prerequisites:**
@@ -216,7 +216,7 @@ Development status and the step-by-step plan are tracked in [`References/Avaloni
 
 * **Bug Reports:** Use the built-in **Support Window** to send detailed error reports directly to the developers.
 * **Documentation:** Comprehensive `parameters.md` with official emulator download links and parameter documentation
-* **Wiki:** Check our [GitHub Wiki](https://github.com/drpetersonfernandes/SimpleLauncher/wiki) for advanced parameter guides.
+* **Wiki:** Check our [GitHub Wiki](https://github.com/purelogiccode/SimpleLauncher/wiki) for advanced parameter guides.
 * **Donate:** If you find this project useful, consider [supporting the developer](https://www.purelogiccode.com/donate).
 
 **⭐ If you like this project, please give us a star on GitHub! ⭐**

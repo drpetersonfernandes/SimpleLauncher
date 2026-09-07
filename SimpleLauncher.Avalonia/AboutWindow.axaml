@@ -32,8 +32,8 @@
                     Foreground="{DynamicResource LinkBrush}"
                     HorizontalAlignment="Left"
                     Command="{Binding OpenWebsiteCommand}"
-                    CommandParameter="https://github.com/drpetersonfernandes/SimpleLauncher"
-                    Content="https://github.com/drpetersonfernandes/SimpleLauncher" />
+                    CommandParameter="https://github.com/purelogiccode/SimpleLauncher"
+                    Content="https://github.com/purelogiccode/SimpleLauncher" />
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="10"

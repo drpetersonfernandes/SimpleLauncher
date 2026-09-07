@@ -785,7 +785,7 @@ public partial class EditSystemWindow : Window
         {
             _playSoundEffects.PlayNotificationSound();
             var searchUrl = _configuration.GetValue<string>("WikiParametersUrl")
-                            ?? "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters/";
+                            ?? "https://github.com/purelogiccode/SimpleLauncher/wiki/parameters/";
             try
             {
                 Process.Start(new ProcessStartInfo

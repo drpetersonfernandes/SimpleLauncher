@@ -37,9 +37,9 @@
             </TextBlock>
             <TextBlock Margin="0,10,0,10">
                 <Hyperlink Command="{Binding OpenWebsiteCommand}"
-                           CommandParameter="https://github.com/drpetersonfernandes/SimpleLauncher"
+                           CommandParameter="https://github.com/purelogiccode/SimpleLauncher"
                            ToolTip="{DynamicResource TooltipNavigateToGithub}">
-                    https://github.com/drpetersonfernandes/SimpleLauncher
+                    https://github.com/purelogiccode/SimpleLauncher
                 </Hyperlink>
             </TextBlock>
         </StackPanel>

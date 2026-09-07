@@ -1332,7 +1332,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         if (messageBoxResult)
         {
             var downloadPageUrl = _configuration.GetValue<string>("Urls:GitHubReleases") ??
-                                  "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest/";
+                                  "https://github.com/purelogiccode/SimpleLauncher/releases/latest/";
 
             try
             {
@@ -1379,7 +1379,7 @@ public class MessageBoxLibraryService : IMessageBoxLibraryService
         if (messageBoxResult)
         {
             var downloadPageUrl = _configuration.GetValue<string>("Urls:GitHubReleases") ??
-                                  "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest/";
+                                  "https://github.com/purelogiccode/SimpleLauncher/releases/latest/";
 
             try
             {

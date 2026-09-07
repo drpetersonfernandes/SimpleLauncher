@@ -13,7 +13,7 @@
 
 ## Install
 
-1. Download the latest release zip (`release_{version}_{rid}.zip`, rid = `win-x64` or `win-arm64`) from the [GitHub releases page](https://github.com/drpetersonfernandes/SimpleLauncher/releases).
+1. Download the latest release zip (`release_{version}_{rid}.zip`, rid = `win-x64` or `win-arm64`) from the [GitHub releases page](https://github.com/purelogiccode/SimpleLauncher/releases).
 2. Extract to a folder (e.g. `C:\SimpleLauncher`). Do **not** run from a temporary/Downloads extraction folder.
 3. Run `SimpleLauncher.exe`.
 
@@ -67,7 +67,7 @@ Data files (`settings.xml`, `system.xml`, `favorites.dat`, `playhistory.dat`, �
 
 - Emulator parameters per system: `parameters.md` in the app folder (also shown via the Help pane in Edit System) — see [18 — Emulator Parameters](18-emulator-parameters.md).
 - Update history: **Help → Update History** (`WhatsNew.md`).
-- Bugs/support: the built-in **Support Window** or the [GitHub issues](https://github.com/drpetersonfernandes/SimpleLauncher/issues).
+- Bugs/support: the built-in **Support Window** or the [GitHub issues](https://github.com/purelogiccode/SimpleLauncher/issues).
 - Debug logs: see [13 — Logging & Debug](13-logging-and-debug.md).
 
 ## Related docs
