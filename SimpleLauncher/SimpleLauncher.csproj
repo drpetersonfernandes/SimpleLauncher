@@ -864,7 +864,7 @@
         <None Update="tools\RetroAchievementsSharp\RetroAchievementsSharp_arm64">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="images\systems\TigerGameCom.png">
+        <None Update="images\systems\Tiger Game.Com.png">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>

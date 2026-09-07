@@ -411,7 +411,7 @@
         <None Update="images\systems\Super Nintendo Entertainment System.png">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="images\systems\TigerGameCom.png">
+        <None Update="images\systems\Tiger Game.Com.png">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
         <None Update="images\systems\Zeebo.png">
