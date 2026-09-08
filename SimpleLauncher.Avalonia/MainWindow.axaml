@@ -29,7 +29,7 @@
                 <MenuItem x:Name="LanguageMenu" Header="{ext:Translate Language}"
                           ToolTip.Tip="{ext:Translate TooltipLanguageMenu}">
                     <MenuItem.Icon>
-                        <Image Source="avares://SimpleLauncher.Avalonia/images/I language.png" Width="16" Height="16" />
+                        <Image Source="avares://SimpleLauncher.Avalonia/images/language.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                     <MenuItem x:Name="LanguageArabic" GroupName="LanguageGroup" Header="العربية"
                               Click="ChangeLanguage_Click" ToggleType="CheckBox"

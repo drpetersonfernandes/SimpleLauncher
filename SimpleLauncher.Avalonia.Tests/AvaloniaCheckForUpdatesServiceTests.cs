@@ -368,9 +368,11 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         messageBox.Verify(m => m.ErrorCheckingForUpdatesMessageBoxAsync(), Times.Once);
     }
 
-    private static IServiceProvider? GetAppServiceProvider() =>
-        typeof(App).GetProperty("ServiceProvider", BindingFlags.Static | BindingFlags.Public)?
+    private static IServiceProvider? GetAppServiceProvider()
+    {
+        return typeof(App).GetProperty("ServiceProvider", BindingFlags.Static | BindingFlags.Public)?
             .GetValue(null) as IServiceProvider;
+    }
 
     private static void SetAppServiceProvider(IServiceProvider? value)
     {
