@@ -10,12 +10,21 @@ using SimpleLauncher.Avalonia.Services;
 namespace SimpleLauncher.Avalonia.Tests;
 
 /// <summary>
+///     This collection must never run in parallel with other test classes: its tests
+///     mutate the static <see cref="App.ServiceProvider" /> (fake provider installed via
+///     reflection), which leaks across test classes while the static lives.
+/// </summary>
+[CollectionDefinition(nameof(MutatesStaticAppState), DisableParallelization = true)]
+public sealed class MutatesStaticAppState;
+
+/// <summary>
 ///     Headless view smoke tests — constructs each Avalonia Window on the dedicated headless UI thread.
 ///     Construction exercises !XamlIlPopulate (Avalonia XAML parsing) and catches invalid property values
 ///     (e.g. Cursor="SizeWE"), missing resources or event-handler mismatches without displaying UI.
 ///     Where the window constructor pulls services from App.ServiceProvider, a fake provider that returns
 ///     uninitialized fakes for any requested type is installed via reflection.
 /// </summary>
+[Collection(nameof(MutatesStaticAppState))]
 public class AvaloniaViewSmokeTests
 {
     private static object CreateFake(Type type)

@@ -14,3 +14,5 @@ dotnet_diagnostic.MA0016.severity = none
 dotnet_diagnostic.MA0046.severity = none
 
 dotnet_diagnostic.RCS1075.severity = none
+
+dotnet_diagnostic.MA0048.severity = none

@@ -1,5 +1,6 @@
 using System.IO.Compression;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using Moq;
@@ -20,10 +21,23 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
     private readonly string _updaterDir = Path.Combine(
         Path.GetTempPath(), "SimpleLauncherUpdateTests", Guid.NewGuid().ToString("N"));
 
+    private readonly IServiceProvider? _savedAppServiceProvider;
+
+    public AvaloniaCheckForUpdatesServiceTests()
+    {
+        // AvaloniaViewSmokeTests installs a fake static App.ServiceProvider that fabricates
+        // objects for any type (including UpdateLogWindow). The update flow must not see it —
+        // it would divert the launch flow into UI-dispatcher error paths. Save the current
+        // value, neutralize it for the duration of the test, and restore it on Dispose.
+        _savedAppServiceProvider = GetAppServiceProvider();
+        SetAppServiceProvider(null);
+    }
+
     private static string Rid => AvaloniaCheckForUpdatesService.CurrentRuntimeIdentifier;
 
     public void Dispose()
     {
+        SetAppServiceProvider(_savedAppServiceProvider);
         try
         {
             if (Directory.Exists(_updaterDir)) Directory.Delete(_updaterDir, true);
@@ -352,6 +366,16 @@ public class AvaloniaCheckForUpdatesServiceTests : IDisposable
         await service.ManualCheckForUpdatesAsync(null);
 
         messageBox.Verify(m => m.ErrorCheckingForUpdatesMessageBoxAsync(), Times.Once);
+    }
+
+    private static IServiceProvider? GetAppServiceProvider() =>
+        typeof(App).GetProperty("ServiceProvider", BindingFlags.Static | BindingFlags.Public)?
+            .GetValue(null) as IServiceProvider;
+
+    private static void SetAppServiceProvider(IServiceProvider? value)
+    {
+        var prop = typeof(App).GetProperty("ServiceProvider", BindingFlags.Static | BindingFlags.Public)!;
+        prop.GetSetMethod(true)!.Invoke(null, [value]);
     }
 
     private sealed class FakeMessageHandler : HttpMessageHandler

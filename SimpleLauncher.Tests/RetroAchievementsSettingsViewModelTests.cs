@@ -97,8 +97,7 @@ public class RetroAchievementsSettingsViewModelTests
         await vm.SaveCommand.ExecuteAsync(null);
 
         // Username is trimmed before save; ApiKey and Password are stored as-is.
-        // In WPF the save also launches a browser (Process.Start) which may be suppressed in headless tests,
-        // but settings should still be updated if the command completed.
+        // The browser launch is delegated to the view (OpenInBrowser), so unit tests never open a browser.
         // We verify at least the ViewModel's Username was trimmed and the event was attempted.
         Assert.Equal("  bob  ", vm.Username); // ViewModel retains original input; settings should be trimmed
         // Settings may be trimmed or not depending on whether SaveCommand completed — allow either,

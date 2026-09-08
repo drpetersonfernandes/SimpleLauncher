@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Windows;
 using Microsoft.Win32;
 using SimpleLauncher.ViewModels;
@@ -33,6 +34,7 @@ public partial class RetroAchievementsSettingsWindow
 
         _viewModel.SaveCompleted += _saveCompletedHandler;
         _viewModel.RequestExePath += OnRequestExePath;
+        _viewModel.OpenInBrowser = OpenControlPanel;
 
         Closing += (_, _) =>
         {
@@ -61,5 +63,17 @@ public partial class RetroAchievementsSettingsWindow
         };
 
         return openFileDialog.ShowDialog() == true ? openFileDialog.FileName : null;
+    }
+
+    private static void OpenControlPanel(string url)
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
     }
 }

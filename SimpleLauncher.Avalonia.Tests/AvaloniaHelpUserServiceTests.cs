@@ -11,11 +11,24 @@ namespace SimpleLauncher.Avalonia.Tests;
 /// </summary>
 public class AvaloniaHelpUserServiceTests
 {
-    private static AvaloniaHelpUserService CreateService()
+    private static AvaloniaHelpUserService CreateService(LocalizationService? localization = null)
     {
-        return new AvaloniaHelpUserService(
+        var service = new AvaloniaHelpUserService(
             new Mock<ILogger>().Object,
-            TestDependencies.MessageBox().Object);
+            TestDependencies.MessageBox().Object,
+            localization);
+        WaitUntilHelpDataSettled(service);
+        return service;
+    }
+
+    private static void WaitUntilHelpDataSettled(AvaloniaHelpUserService service)
+    {
+        // The constructor starts a one-shot async load of parameters.md; when the file is
+        // present in the test output, Systems flips from empty to parsed asynchronously,
+        // which makes text-equality assertions racy. Wait for the load to settle before asserting.
+        if (!File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "parameters.md"))) return;
+
+        for (var i = 0; i < 100 && !service.HasSystemDetails("Nintendo 64"); i++) Thread.Sleep(50);
     }
 
     [Fact]
@@ -71,11 +84,7 @@ public class AvaloniaHelpUserServiceTests
     [Fact]
     public void GetHelpText_WithLocalization_ReturnsLocalizedNoSystemNameFallback()
     {
-        var localization = new LocalizationService();
-        var service = new AvaloniaHelpUserService(
-            new Mock<ILogger>().Object,
-            TestDependencies.MessageBox().Object,
-            localization);
+        var service = CreateService(new LocalizationService());
 
         Assert.Equal("No system name provided.", service.GetHelpText(""));
     }

@@ -33,6 +33,7 @@ public partial class RetroAchievementsSettingsWindow : Window
         _viewModel.SaveCompleted += _saveCompletedHandler;
         _viewModel.CloseRequested += _closeRequestedHandler;
         _viewModel.RequestExePath += OnRequestExePath;
+        _viewModel.OpenInBrowser = OpenControlPanel;
 
         Closing += (_, _) =>
         {
@@ -61,10 +62,14 @@ public partial class RetroAchievementsSettingsWindow : Window
 
     private void OpenControlPanel_Click(object? sender, RoutedEventArgs e)
     {
+        OpenControlPanel("https://retroachievements.org/controlpanel.php");
+    }
+
+    private static void OpenControlPanel(string url)
+    {
         try
         {
-            Process.Start(new ProcessStartInfo("https://retroachievements.org/controlpanel.php")
-                { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
         }
         catch (Exception ex)
         {

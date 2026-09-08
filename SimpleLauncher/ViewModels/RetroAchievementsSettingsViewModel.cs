@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SimpleLauncher.Core.Interfaces;
@@ -50,6 +49,9 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
     /// <summary>Event raised to request the emulator executable path from the view.</summary>
     public Func<string?>? RequestExePath { get; set; }
 
+    /// <summary>Delegate that opens a URL in the browser; wired by the view so unit tests never launch a browser.</summary>
+    public Action<string>? OpenInBrowser { get; set; }
+
     /// <summary>Event raised when settings have been saved successfully.</summary>
     public event EventHandler SaveCompleted = null!;
 
@@ -66,8 +68,7 @@ public partial class RetroAchievementsSettingsViewModel : ObservableObject
             _settings.RaPassword = Password;
             await _settings.SaveAsync();
 
-            Process.Start(new ProcessStartInfo("https://retroachievements.org/controlpanel.php")
-                { UseShellExecute = true });
+            OpenInBrowser?.Invoke("https://retroachievements.org/controlpanel.php");
 
             SaveCompleted?.Invoke(this, EventArgs.Empty);
         }
