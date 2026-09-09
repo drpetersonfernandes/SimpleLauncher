@@ -725,6 +725,17 @@ public partial class EditSystemWindow : Window
                     {
                         await Task.Delay(retryDelayMs * attempt);
                     }
+                    catch (IOException ex)
+                    {
+                        // Expected user-environment condition (the destination is locked by another
+                        // program, e.g. another running SimpleLauncher instance, an image viewer or
+                        // the OS file manager preview): not a bug, keep it out of the bug report.
+                        _logger.Information(ex,
+                            "Could not copy the system image to '{DestFilePath}': the file is in use by another program. Ask the user to close the other program and retry.",
+                            destFilePath);
+                        await _messageBox.FailedToCopySystemImageMessageBoxAsync(ex.Message);
+                        return;
+                    }
                 }
 
                 UpdateSystemImagePreview();
