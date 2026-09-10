@@ -108,7 +108,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                     if (gameFiles.Count == 0)
                     {
                         _logger.Debug($"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found in {workingDir}");
-                        _logger.Warning($"No DOS game executable found in: {context.ResolvedFilePath}");
+                        // Expected user-input condition (archive contains no DOS executable): not a bug.
+                        _logger.Information($"No DOS game executable found in: {context.ResolvedFilePath}");
                         await _messageBox.CouldNotFindAFileMessageBoxAsync();
                         return;
                     }
@@ -288,7 +289,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
                 case 0:
                     _logger.Debug(
                         $"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted ISO at {mountPath}");
-                    _logger.Warning($"No DOS game executable found in ISO: {context.ResolvedFilePath}");
+                    // Expected user-input condition (ISO contains no DOS executable): not a bug.
+                    _logger.Information($"No DOS game executable found in ISO: {context.ResolvedFilePath}");
                     await _messageBox.CouldNotFindAFileMessageBoxAsync();
                     return;
                 case 1:
@@ -439,7 +441,8 @@ public class DosBoxLaunchStrategy : ILaunchStrategy
             {
                 _logger.Debug(
                     $"[DosBoxLaunchStrategy] No game file (conf/bat/exe/com) found on mounted CHD at {mountPath}");
-                _logger.Warning($"No DOS game executable found in CHD: {context.ResolvedFilePath}");
+                // Expected user-input condition (CHD contains no DOS executable): not a bug.
+                _logger.Information($"No DOS game executable found in CHD: {context.ResolvedFilePath}");
                 await _messageBox.CouldNotFindAFileMessageBoxAsync();
                 return;
             }
