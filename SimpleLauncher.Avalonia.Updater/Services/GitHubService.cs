@@ -16,7 +16,7 @@ internal partial class GitHubService
         "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
 
     private const int GitHubTimeoutSeconds = 5;
-    private static readonly string[] RepoOwners = ["purelogiccode", "drpetersonfernandes"];
+    private static readonly string[] RepoOwners = ["purelogiccode"];
 
     private readonly HttpClient _httpClient;
 

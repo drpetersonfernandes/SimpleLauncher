@@ -33,7 +33,7 @@ public partial class AvaloniaCheckForUpdatesService
         "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
 
     private const string UpdaterFileName = "SimpleLauncher.Avalonia.Updater";
-    private static readonly string[] RepoOwners = ["purelogiccode", "drpetersonfernandes"];
+    private static readonly string[] RepoOwners = ["purelogiccode"];
     private readonly IApplicationLifetime _applicationLifetime;
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;

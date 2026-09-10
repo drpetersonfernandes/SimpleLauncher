@@ -22,7 +22,7 @@ public partial class CheckForUpdatesService
     private const string SecondaryServerBaseUrl =
         "https://assets.purelogiccode.com/Simple%20Launcher/Simple%20Launcher/";
 
-    private static readonly string[] RepoOwners = ["purelogiccode", "drpetersonfernandes"];
+    private static readonly string[] RepoOwners = ["purelogiccode"];
 
     private static readonly char[] Separator = ['.'];
 

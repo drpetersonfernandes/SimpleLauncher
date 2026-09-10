@@ -396,48 +396,8 @@ public class CheckForUpdatesTests : IDisposable
     // ------------------------------------------------------------------
 
     /// <summary>
-    ///     Verifies that a 200 response with an unparseable body from the primary repository does
-    ///     not short-circuit the fallback chain: the second repository is tried and its result is used.
-    /// </summary>
-    [Fact]
-    public async Task GetLatestReleaseInfoUnparseablePrimaryBodyTriesNextRepository()
-    {
-        const string unparseableJson = """
-                                       { "tag_name": "", "assets": [] }
-                                       """;
-        const string validJson = """
-                                 {
-                                   "tag_name": "release5.7.0",
-                                   "assets": [
-                                     { "name": "release_5.7.0_win-x64.zip", "browser_download_url": "https://example.com/release-x64.zip" },
-                                     { "name": "updater_win-x64.zip", "browser_download_url": "https://example.com/updater-x64.zip" }
-                                   ]
-                                 }
-                                 """;
-
-        var handler = new StubHttpMessageHandler(request =>
-        {
-            var uri = request.RequestUri?.AbsoluteUri ?? string.Empty;
-            if (uri.Contains("repos/purelogiccode/", StringComparison.Ordinal))
-            {
-                return new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StringContent(unparseableJson)
-                };
-            }
-
-            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(validJson) };
-        });
-
-        var (latestVersion, _, _, fromFallback) = await InvokeGetLatestReleaseInfoAsync(handler);
-
-        Assert.Equal("5.7.0.0", latestVersion);
-        Assert.False(fromFallback);
-    }
-
-    /// <summary>
-    ///     Verifies that an unparseable body from the primary repository combined with a failure from
-    ///     the second repository falls through to the secondary-server fallback instead of returning nulls.
+    ///     Verifies that a 200 response with an unparseable body from the repository
+    ///     falls through to the secondary-server fallback instead of returning nulls.
     /// </summary>
     [Fact]
     public async Task GetLatestReleaseInfoUnparseableBodyAndFailingRepositoryFallsBackToSecondaryServer()
@@ -455,11 +415,6 @@ public class CheckForUpdatesTests : IDisposable
                 {
                     Content = new StringContent(unparseableJson)
                 };
-            }
-
-            if (uri.Contains("repos/drpetersonfernandes/", StringComparison.Ordinal))
-            {
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
 
             if (uri.EndsWith("version.txt", StringComparison.Ordinal))
