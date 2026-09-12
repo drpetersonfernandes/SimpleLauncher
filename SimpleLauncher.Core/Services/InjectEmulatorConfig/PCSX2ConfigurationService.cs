@@ -41,11 +41,24 @@ public static class Pcsx2ConfigurationService
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    logger.Debug(
-                        $"[PCSX2Config] Failed to create PCSX2.ini from sample due to permissions: {ex.Message}");
-                    logger.Error(ex, $"[PCSX2Config] Failed to create PCSX2.ini from sample: {ex.Message}");
+                    // Expected user-environment condition (read-only, ACL-protected, or OneDrive-redirected
+                    // Documents folder). The UI shows guidance and the game still launches, so keep it out
+                    // of the bug report.
+                    logger.Information(ex,
+                        "[PCSX2Config] Access denied creating PCSX2.ini from sample: {ConfigPath}", configPath);
                     throw new Pcsx2PermissionException(
                         $"Cannot write to configuration directory: {Path.GetDirectoryName(configPath)}", ex);
+                }
+                catch (IOException ex)
+                {
+                    // Expected user-environment condition: the config folder cannot be created (e.g. a
+                    // stale or cloud-only OneDrive-redirected Documents folder, a path blocked by a file,
+                    // or an unavailable drive). The UI shows guidance and the game still launches, so keep
+                    // it out of the bug report.
+                    logger.Information(ex, "[PCSX2Config] Failed to create PCSX2.ini from sample: {ConfigPath}",
+                        configPath);
+                    throw new Pcsx2PermissionException(
+                        $"Cannot create configuration directory: {Path.GetDirectoryName(configPath)}", ex);
                 }
                 catch (Exception ex)
                 {
@@ -97,15 +110,16 @@ public static class Pcsx2ConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            logger.Debug($"[PCSX2Config] Failed to read PCSX2.ini due to permissions: {ex.Message}");
-            logger.Error(ex, $"[PCSX2Config] Failed to read PCSX2.ini: {ex.Message}");
+            // Expected user-environment condition: keep it out of the bug report.
+            logger.Information(ex, "[PCSX2Config] Access denied reading PCSX2.ini: {ConfigPath}", configPath);
             throw new Pcsx2PermissionException($"Cannot read configuration file: {configPath}", ex);
         }
         catch (IOException ex)
         {
-            logger.Debug($"[PCSX2Config] I/O error reading PCSX2.ini: {configPath}");
-            logger.Error(ex, $"[PCSX2Config] I/O error reading PCSX2.ini: {configPath}");
-            throw;
+            // Expected user-environment condition (locked, cloud-only, or otherwise unavailable config
+            // file). The UI shows guidance and the game still launches, so keep it out of the bug report.
+            logger.Information(ex, "[PCSX2Config] I/O error reading PCSX2.ini: {ConfigPath}", configPath);
+            throw new Pcsx2PermissionException($"Cannot read configuration file: {configPath}", ex);
         }
 
         var modified = false;
@@ -167,8 +181,16 @@ public static class Pcsx2ConfigurationService
             }
             catch (UnauthorizedAccessException ex)
             {
-                logger.Debug($"[PCSX2Config] Failed to inject configuration changes due to permissions: {ex.Message}");
-                logger.Error(ex, $"[PCSX2Config] Failed to inject configuration changes: {ex.Message}");
+                // Expected user-environment condition (read-only, ACL-protected, or OneDrive-synced config
+                // file). The UI shows guidance and the game still launches, so keep it out of the bug report.
+                logger.Information(ex, "[PCSX2Config] Access denied writing PCSX2.ini: {ConfigPath}", configPath);
+                throw new Pcsx2PermissionException($"Cannot write to configuration file: {configPath}", ex);
+            }
+            catch (IOException ex)
+            {
+                // Expected user-environment condition (locked, cloud-only, or otherwise unavailable config
+                // file). The UI shows guidance and the game still launches, so keep it out of the bug report.
+                logger.Information(ex, "[PCSX2Config] Failed to inject configuration changes: {ConfigPath}", configPath);
                 throw new Pcsx2PermissionException($"Cannot write to configuration file: {configPath}", ex);
             }
             catch (Exception ex)

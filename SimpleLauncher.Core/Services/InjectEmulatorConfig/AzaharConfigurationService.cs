@@ -46,10 +46,20 @@ public static class AzaharConfigurationService
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    logger.Debug(
-                        $"[AzaharConfig] Failed to create qt-config.ini from sample due to permissions: {ex.Message}");
-                    logger.Error(ex, $"[AzaharConfig] Failed to create qt-config.ini from sample: {ex.Message}");
+                    // Expected user-environment condition (read-only or ACL-protected emulator directory).
+                    // The UI shows guidance and the game still launches, so keep it out of the bug report.
+                    logger.Information(ex, "[AzaharConfig] Access denied creating qt-config.ini from sample: {ConfigPath}",
+                        configPath);
                     throw new AzaharPermissionException($"Cannot write to emulator directory: {emuDir}", ex);
+                }
+                catch (IOException ex)
+                {
+                    // Expected user-environment condition: the config cannot be created (e.g. a path
+                    // blocked by a file, a locked file, or an unavailable drive). The UI shows guidance
+                    // and the game still launches, so keep it out of the bug report.
+                    logger.Information(ex, "[AzaharConfig] Failed to create qt-config.ini from sample: {ConfigPath}",
+                        configPath);
+                    throw new AzaharPermissionException($"Cannot create configuration file: {configPath}", ex);
                 }
                 catch (Exception ex)
                 {
@@ -99,15 +109,16 @@ public static class AzaharConfigurationService
         }
         catch (UnauthorizedAccessException ex)
         {
-            logger.Debug($"[AzaharConfig] Failed to read qt-config.ini due to permissions: {ex.Message}");
-            logger.Error(ex, $"[AzaharConfig] Failed to read qt-config.ini: {ex.Message}");
+            // Expected user-environment condition: keep it out of the bug report.
+            logger.Information(ex, "[AzaharConfig] Access denied reading qt-config.ini: {ConfigPath}", configPath);
             throw new AzaharPermissionException($"Cannot read configuration file: {configPath}", ex);
         }
         catch (IOException ex)
         {
-            logger.Debug($"[AzaharConfig] I/O error reading qt-config.ini: {configPath}");
-            logger.Error(ex, $"[AzaharConfig] I/O error reading qt-config.ini: {configPath}");
-            throw;
+            // Expected user-environment condition (locked, cloud-only, or otherwise unavailable config
+            // file). The UI shows guidance and the game still launches, so keep it out of the bug report.
+            logger.Information(ex, "[AzaharConfig] I/O error reading qt-config.ini: {ConfigPath}", configPath);
+            throw new AzaharPermissionException($"Cannot read configuration file: {configPath}", ex);
         }
 
         var modified = false;
@@ -193,8 +204,17 @@ public static class AzaharConfigurationService
             }
             catch (UnauthorizedAccessException ex)
             {
-                logger.Debug($"[AzaharConfig] Failed to inject configuration changes due to permissions: {ex.Message}");
-                logger.Error(ex, $"[AzaharConfig] Failed to inject configuration changes: {ex.Message}");
+                // Expected user-environment condition (read-only or ACL-protected config file).
+                // The UI shows guidance and the game still launches, so keep it out of the bug report.
+                logger.Information(ex, "[AzaharConfig] Access denied writing qt-config.ini: {ConfigPath}", configPath);
+                throw new AzaharPermissionException($"Cannot write to configuration file: {configPath}", ex);
+            }
+            catch (IOException ex)
+            {
+                // Expected user-environment condition (locked, cloud-only, or otherwise unavailable config
+                // file). The UI shows guidance and the game still launches, so keep it out of the bug report.
+                logger.Information(ex, "[AzaharConfig] Failed to inject configuration changes: {ConfigPath}",
+                    configPath);
                 throw new AzaharPermissionException($"Cannot write to configuration file: {configPath}", ex);
             }
             catch (Exception ex)

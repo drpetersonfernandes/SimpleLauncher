@@ -1,7 +1,8 @@
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-///     Exception thrown when PCSX2 configuration cannot be modified due to file permission issues.
+///     Exception thrown when PCSX2 configuration cannot be read or written because of file access or
+///     environment issues (permissions denied, a locked or cloud-only file, or an unavailable folder).
 /// </summary>
 public class Pcsx2PermissionException : Exception
 {

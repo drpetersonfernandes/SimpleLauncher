@@ -179,6 +179,26 @@ public class EmulatorConfigInjectionTests2 : IDisposable
     }
 
     /// <summary>
+    ///     Verifies that an I/O failure while writing an existing qt-config.ini (simulated by another
+    ///     process holding the file open) surfaces an <see cref="AzaharPermissionException" /> instead
+    ///     of a raw IOException, so the launcher can still start the game (bug 66928).
+    /// </summary>
+    [Fact]
+    public void AzaharLockedConfigFileThrowsPermissionException()
+    {
+        var emuDir = Path.Combine(_testDirectory, "AzaharLocked");
+        Directory.CreateDirectory(emuDir);
+        var configPath = Path.Combine(emuDir, "qt-config.ini");
+        File.WriteAllText(configPath, "[UI]\nfullscreen=true\n");
+
+        var settings = CreateSettingsManager();
+
+        using var lockStream = new FileStream(configPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        Assert.Throws<AzaharPermissionException>(() =>
+            AzaharConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger));
+    }
+
+    /// <summary>
     ///     Verifies that Cemu emulator settings are correctly injected into the settings.xml configuration file.
     /// </summary>
     [Fact]

@@ -1,7 +1,8 @@
 namespace SimpleLauncher.Core.Services.InjectEmulatorConfig;
 
 /// <summary>
-///     Exception thrown when Azahar configuration cannot be modified due to file permission issues.
+///     Exception thrown when Azahar configuration cannot be read or written because of file access or
+///     environment issues (permissions denied, a locked file, or an unavailable folder).
 /// </summary>
 public class AzaharPermissionException : Exception
 {

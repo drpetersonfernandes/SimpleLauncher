@@ -190,6 +190,46 @@ public class EmulatorConfigInjectionTests : IDisposable
     }
 
     /// <summary>
+    ///     Verifies that when the PCSX2 config folder cannot be created (e.g. a stale or cloud-only
+    ///     OneDrive-redirected Documents folder, simulated here by a file occupying the 'inis' path),
+    ///     injection surfaces a <see cref="Pcsx2PermissionException" /> instead of a raw IOException,
+    ///     so the launcher can still start the game with default settings (bug 66928).
+    /// </summary>
+    [Fact]
+    public void Pcsx2UnavailableConfigDirectoryThrowsPermissionException()
+    {
+        var emuDir = Path.Combine(_testDirectory, "PCSX2Blocked");
+        Directory.CreateDirectory(emuDir);
+        File.WriteAllText(Path.Combine(emuDir, "portable.ini"), string.Empty);
+        File.WriteAllText(Path.Combine(emuDir, "inis"), "not a directory");
+
+        var settings = CreateSettingsManager();
+
+        Assert.Throws<Pcsx2PermissionException>(() =>
+            Pcsx2ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger));
+    }
+
+    /// <summary>
+    ///     Verifies that an I/O failure while writing an existing PCSX2.ini (simulated by another
+    ///     process holding the file open) surfaces a <see cref="Pcsx2PermissionException" /> instead
+    ///     of a raw IOException, so the launcher can still start the game (bug 66928).
+    /// </summary>
+    [Fact]
+    public void Pcsx2LockedConfigFileThrowsPermissionException()
+    {
+        var emuDir = Path.Combine(_testDirectory, "PCSX2Locked");
+        Directory.CreateDirectory(emuDir);
+        var configPath = Path.Combine(emuDir, "PCSX2.ini");
+        File.WriteAllText(configPath, "[UI]\nStartFullscreen = false\n");
+
+        var settings = CreateSettingsManager();
+
+        using var lockStream = new FileStream(configPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        Assert.Throws<Pcsx2PermissionException>(() =>
+            Pcsx2ConfigurationService.InjectSettings(FakeEmulatorExePath(emuDir), settings, Log.Logger));
+    }
+
+    /// <summary>
     ///     Verifies that Mesen settings are correctly injected into a JSON config file.
     /// </summary>
     [Fact]
