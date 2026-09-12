@@ -206,58 +206,68 @@ public sealed class PbpFile : IDisposable
     {
         sfoData = new SfoData();
 
-        stream.Seek(header.SfoOffset, SeekOrigin.Begin);
-        var sfoBuffer = new byte[4];
-
-        sfoData.Magic = ReadUInt32(stream, sfoBuffer);
-        sfoData.Version = ReadUInt32(stream, sfoBuffer);
-
-        // A real SFO starts with the bytes 00 50 53 46 ("\0PSF"), which as a little-endian
-        // uint32 is 0x46535000. Anything else means the SFO region is corrupt or the PBP
-        // header offsets point at the wrong place.
-        if (sfoData.Magic != 0x46535000)
-            return PbpError.InvalidSfo;
-
-        sfoData.KeyTableOffset = ReadUInt32(stream, sfoBuffer);
-        sfoData.DataTableOffset = ReadUInt32(stream, sfoBuffer);
-        var entryCount = ReadUInt32(stream, sfoBuffer);
-
-        var entries = new List<SfoEntry>();
-        for (var i = 0; i < entryCount; i++)
+        try
         {
-            var dirBuffer = new byte[16];
-            stream.Seek(header.SfoOffset + 20 + (i * 16), SeekOrigin.Begin);
-            stream.ReadExactly(dirBuffer, 0, 16);
+            stream.Seek(header.SfoOffset, SeekOrigin.Begin);
+            var sfoBuffer = new byte[4];
 
-            // Layout: KeyOffset(2) + Format(2) + Length(4) + MaxLength(4) + DataOffset(4)
-            var keyOffset = BinaryPrimitives.ReadUInt16LittleEndian(dirBuffer.AsSpan(0, 2));
-            var entry = new SfoEntry
+            sfoData.Magic = ReadUInt32(stream, sfoBuffer);
+            sfoData.Version = ReadUInt32(stream, sfoBuffer);
+
+            // A real SFO starts with the bytes 00 50 53 46 ("\0PSF"), which as a little-endian
+            // uint32 is 0x46535000. A missing or corrupt SFO does not stop the run: none of the
+            // reference tools read the SFO when extracting disc images from the PSAR, so metadata
+            // is simply absent (Title/DiscId are null) rather than the whole file rejected.
+            if (sfoData.Magic != 0x46535000)
+                return PbpError.None;
+
+            sfoData.KeyTableOffset = ReadUInt32(stream, sfoBuffer);
+            sfoData.DataTableOffset = ReadUInt32(stream, sfoBuffer);
+            var entryCount = ReadUInt32(stream, sfoBuffer);
+
+            var entries = new List<SfoEntry>();
+            for (var i = 0; i < entryCount; i++)
             {
-                Format = BinaryPrimitives.ReadUInt16LittleEndian(dirBuffer.AsSpan(2, 2)),
-                Length = BinaryPrimitives.ReadUInt32LittleEndian(dirBuffer.AsSpan(4, 4)),
-                MaxLength = BinaryPrimitives.ReadUInt32LittleEndian(dirBuffer.AsSpan(8, 4))
-            };
+                var dirBuffer = new byte[16];
+                stream.Seek(header.SfoOffset + 20 + (i * 16), SeekOrigin.Begin);
+                stream.ReadExactly(dirBuffer, 0, 16);
 
-            var dataOffset = BinaryPrimitives.ReadUInt32LittleEndian(dirBuffer.AsSpan(12, 4));
+                // Layout: KeyOffset(2) + Format(2) + Length(4) + MaxLength(4) + DataOffset(4)
+                var keyOffset = BinaryPrimitives.ReadUInt16LittleEndian(dirBuffer.AsSpan(0, 2));
+                var entry = new SfoEntry
+                {
+                    Format = BinaryPrimitives.ReadUInt16LittleEndian(dirBuffer.AsSpan(2, 2)),
+                    Length = BinaryPrimitives.ReadUInt32LittleEndian(dirBuffer.AsSpan(4, 4)),
+                    MaxLength = BinaryPrimitives.ReadUInt32LittleEndian(dirBuffer.AsSpan(8, 4))
+                };
 
-            stream.Seek(header.SfoOffset + sfoData.KeyTableOffset + keyOffset, SeekOrigin.Begin);
-            entry.Key = ReadNullTerminatedString(stream, 128);
+                var dataOffset = BinaryPrimitives.ReadUInt32LittleEndian(dirBuffer.AsSpan(12, 4));
 
-            stream.Seek(header.SfoOffset + sfoData.DataTableOffset + dataOffset, SeekOrigin.Begin);
-            switch (entry.Format)
-            {
-                case 0x0204:
-                    entry.Value = ReadNullTerminatedString(stream, (int)entry.Length);
-                    break;
-                case 0x0404:
-                    entry.Value = ReadUInt32(stream, new byte[4]);
-                    break;
+                stream.Seek(header.SfoOffset + sfoData.KeyTableOffset + keyOffset, SeekOrigin.Begin);
+                entry.Key = ReadNullTerminatedString(stream, 128);
+
+                stream.Seek(header.SfoOffset + sfoData.DataTableOffset + dataOffset, SeekOrigin.Begin);
+                switch (entry.Format)
+                {
+                    case 0x0204:
+                        entry.Value = ReadNullTerminatedString(stream, (int)entry.Length);
+                        break;
+                    case 0x0404:
+                        entry.Value = ReadUInt32(stream, new byte[4]);
+                        break;
+                }
+
+                entries.Add(entry);
             }
 
-            entries.Add(entry);
+            sfoData.Entries = entries;
+        }
+        catch
+        {
+            // Best effort: keep whatever entries parsed before the failure. A malformed SFO
+            // table must not abort extraction of an otherwise readable PSAR.
         }
 
-        sfoData.Entries = entries;
         return PbpError.None;
     }
 
@@ -286,20 +296,21 @@ public sealed class PbpFile : IDisposable
             stream.ReadExactly(skipBuffer, 0, 4); // padding
             stream.ReadExactly(skipBuffer, 0, 4); // padding
 
-            // Read and validate the fixed magic values of the PSTITLEIMG000000 header.
-            // The reference implementation rejects files whose DWORDs differ.
-            var magicBuffer = new byte[16];
-            stream.ReadExactly(magicBuffer, 0, 16);
+            // The next 16 bytes are a fixed "random" template in popstation/PSX2PSP/iPoPS
+            // (0x2CC9C5BC, 0x33B5A90F, 0x06F6B4B3, 0xB25945BA), but pop-fe leaves them zero in
+            // its multi-disc PBPs and they are still perfectly readable. The disc position
+            // table at +0x200 is what actually locates the discs, so tolerate any value here
+            // and let the per-disc parsing validate the real structure.
+            stream.ReadExactly(skipBuffer, 0, 4);
+            stream.ReadExactly(skipBuffer, 0, 4);
+            stream.ReadExactly(skipBuffer, 0, 4);
+            stream.ReadExactly(skipBuffer, 0, 4);
 
-            if (
-                BitConverter.ToUInt32(magicBuffer, 0) != 0x2CC9C5BC
-                || BitConverter.ToUInt32(magicBuffer, 4) != 0x33B5A90F
-                || BitConverter.ToUInt32(magicBuffer, 8) != 0x06F6B4B3
-                || BitConverter.ToUInt32(magicBuffer, 12) != 0xB25945BA
-            )
-            {
-                return PbpError.InvalidPsarHeader;
-            }
+            // The next 16 bytes are a fixed "random" template in popstation/PSX2PSP/iPoPS
+            // (0x2CC9C5BC, 0x33B5A90F, 0x06F6B4B3, 0xB25945BA), but pop-fe leaves them zero in
+            // its multi-disc PBPs and they are still perfectly readable. The disc position
+            // table at +0x200 is what actually locates the discs, so tolerate any value here
+            // and let the per-disc parsing validate the real structure.
 
             // Skip 0x76 uint32 values
             var dummyBuffer = new byte[4];

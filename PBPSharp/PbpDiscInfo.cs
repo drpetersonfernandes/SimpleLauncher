@@ -25,6 +25,14 @@ public sealed class PbpDiscInfo
     /// </summary>
     public const int IsoBlockSize = 0x930;
 
+    /// <summary>
+    ///     Upper bound for a single block entry. Incompressible 16-sector blocks stored as a
+    ///     deflate stream are a few bytes LARGER than the raw block (stored-block headers plus
+    ///     framing), so the cap allows that slack instead of rejecting a perfectly good block.
+    ///     This matches the reference implementation, which imposes no cap at all.
+    /// </summary>
+    private const int MaxBlockEntrySize = (16 * IsoBlockSize) + 4096;
+
     private readonly List<IsoIndexEntry> _isoIndex;
     private readonly int _psarOffset;
 
@@ -146,7 +154,7 @@ public sealed class PbpDiscInfo
 
         var thisOffset = (uint)_stream.Position;
         var psarIsoEnd = _psarOffset + PsarIsoOffset;
-        var indexBytes = new byte[32]; // 8 bytes offset+length + 24 bytes dummy
+        var indexBytes = new byte[32]; // 4 offset + 2 size + 2 flags + 16 hash + 8 dummy
 
         while (thisOffset < psarIsoEnd)
         {
@@ -154,13 +162,27 @@ public sealed class PbpDiscInfo
                 break;
 
             var offset = BinaryPrimitives.ReadUInt32LittleEndian(indexBytes.AsSpan(0, 4));
-            var length = BinaryPrimitives.ReadInt32LittleEndian(indexBytes.AsSpan(4, 4));
+
+            // The official index entry stores the block size as a 16-bit value (bytes 4-5)
+            // followed by a flag byte (bit 0 marks a stored/uncompressed block, e.g. pop-fe
+            // with compression disabled) and a SHA-1. Tools that instead write the size as a
+            // full 32-bit int (popstation, PSX2PSP, iPoPS) still leave bytes 6-7 zero for
+            // every legal block size, so the 16-bit read covers both layouts.
+            var size = BinaryPrimitives.ReadUInt16LittleEndian(indexBytes.AsSpan(4, 2));
+            var flags = indexBytes[6];
 
             thisOffset = (uint)_stream.Position;
 
-            if (offset != 0 || length != 0)
+            if (offset != 0 || size != 0)
             {
-                isoIndex.Add(new IsoIndexEntry { Offset = offset, Length = length });
+                isoIndex.Add(
+                    new IsoIndexEntry
+                    {
+                        Offset = offset,
+                        Length = size,
+                        Uncompressed = (flags & 1) != 0
+                    }
+                );
 
                 if (isoIndex.Count >= MaxIndexes)
                     throw new InvalidDataException("Number of indexes exceeds maximum allowed.");
@@ -204,19 +226,29 @@ public sealed class PbpDiscInfo
 
         var entry = _isoIndex[blockIndex];
 
-        // The index length is read as a signed value; a corrupt negative length (or one
-        // larger than the uncompressed block size) would otherwise surface as a raw
-        // ArgumentOutOfRangeException from ArrayPool.Rent or MemoryStream.Write.
-        if (entry.Length is < 0 or > 16 * IsoBlockSize)
+        // The size field is 16 bits, so a value beyond the sane cap can only mean a corrupt
+        // index. The cap only rejects entries far beyond any legitimate block: a deflate
+        // stream for a 16-sector block never exceeds the raw block size by more than a few
+        // dozen bytes of framing.
+        if (entry.Length is < 0 or > MaxBlockEntrySize)
             throw new InvalidDataException("Invalid ISO block length in PSAR index.");
 
-        var thisOffset = _psarOffset + PsarIsoOffset + entry.Offset;
+        // 64-bit math: the PSAR offset plus a large block offset can overflow int32 on
+        // multi-gigabyte files.
+        var thisOffset = (long)_psarOffset + PsarIsoOffset + entry.Offset;
         _stream.Seek(thisOffset, SeekOrigin.Begin);
 
-        if (entry.Length == 16 * IsoBlockSize)
+        // A full-size block, or any block explicitly flagged as stored/uncompressed, is
+        // copied verbatim; everything else is a deflate (raw, or zlib-wrapped) stream.
+        if (entry.Uncompressed || entry.Length == 16 * IsoBlockSize)
         {
-            _stream.ReadExactly(buffer, 0, 16 * IsoBlockSize);
-            bytesRead = 16 * IsoBlockSize;
+            // A stored block can never exceed the raw block size; a larger length here can
+            // only be a corrupt index, and copying it would overrun the caller's buffer.
+            if (entry.Length > 16 * IsoBlockSize)
+                throw new InvalidDataException("Invalid ISO block length in PSAR index.");
+
+            _stream.ReadExactly(buffer, 0, entry.Length);
+            bytesRead = entry.Length;
         }
         else
         {
@@ -305,6 +337,11 @@ public sealed class PbpDiscInfo
             // A block failed to inflate in the reference-compatible SharpZipLib inflater.
             return PbpError.DecompressionError;
         }
+        catch (IndexOutOfRangeException)
+        {
+            // Corrupt deflate stream surfaced as a raw array error by the Inflater.
+            return PbpError.DecompressionError;
+        }
         catch (NotSupportedException)
         {
             // A corrupt block inflated beyond the fixed output buffer capacity.
@@ -331,27 +368,62 @@ public sealed class PbpDiscInfo
 
     private static int DecompressBlock(byte[] compressed, int compressedLength, byte[] output)
     {
-        // SharpZipLib's raw Inflater is the same decompressor the popstation reference
-        // implementation uses for PSAR blocks; it tolerates a few streams that the
-        // stricter .NET DeflateStream rejects with InvalidDataException.
-        using var compressedStream = new MemoryStream(compressed, 0, compressedLength);
-        using var inflaterStream = new InflaterInputStream(
-            compressedStream,
-            new Inflater(true)
-        );
-        using var outputMs = new MemoryStream(output);
-
-        var writeBuffer = new byte[4096];
-        while (true)
+        // The popstation reference tools (popstation, PSX2PSP, iPoPS) compress PSAR blocks as
+        // RAW deflate (zlib deflateInit2 with windowBits -15), so raw inflation first keeps
+        // behaviour identical to the reference. A few other PBP authoring tools instead wrap
+        // the deflate stream in a zlib container (2-byte header + Adler-32 trailer); those
+        // streams always fail raw inflation, so retry the same bytes as a zlib-wrapped stream
+        // before giving up.
+        try
         {
-            var totalRead = inflaterStream.Read(writeBuffer, 0, writeBuffer.Length);
-            if (totalRead <= 0)
-                break;
-
-            outputMs.Write(writeBuffer, 0, totalRead);
+            return Inflate(compressed, compressedLength, output, noHeader: true);
+        }
+        catch (Exception ex)
+            when (ex
+                      is SharpZipBaseException
+                      or InvalidDataException
+                  && compressedLength > 2
+                 )
+        {
+            return Inflate(compressed, compressedLength, output, noHeader: false);
         }
 
-        return (int)outputMs.Position;
+        static int Inflate(
+            byte[] compressed,
+            int compressedLength,
+            byte[] output,
+            bool noHeader
+        )
+        {
+            using var compressedStream = new MemoryStream(compressed, 0, compressedLength);
+            using var inflaterStream = new InflaterInputStream(
+                compressedStream,
+                new Inflater(noHeader)
+            );
+            using var outputMs = new MemoryStream(output);
+
+            try
+            {
+                var writeBuffer = new byte[4096];
+                while (true)
+                {
+                    var totalRead = inflaterStream.Read(writeBuffer, 0, writeBuffer.Length);
+                    if (totalRead <= 0)
+                        break;
+
+                    outputMs.Write(writeBuffer, 0, totalRead);
+                }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                // A malformed deflate stream can drive SharpZipLib's Inflater into a raw
+                // IndexOutOfRangeException instead of its own exception type. Normalize it so
+                // callers classify the failure as decompression data rather than an app bug.
+                throw new InvalidDataException("Corrupt deflate stream in PSAR block.");
+            }
+
+            return (int)outputMs.Position;
+        }
     }
 
     private static int FromBinaryDecimal(byte value)
@@ -365,5 +437,10 @@ public sealed class PbpDiscInfo
     {
         public uint Offset { get; init; }
         public int Length { get; init; }
+
+        /// <summary>
+        ///     Flag bit 0 from the index entry: the block is stored uncompressed.
+        /// </summary>
+        public bool Uncompressed { get; init; }
     }
 }
