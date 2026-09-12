@@ -62,7 +62,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
         ["sega cd"] = new RaSystemInfo(9,
         [
             "sega cd", "segacd", "sega genesis cd", "genesis cd", "sega megadrive cd", "megadrive cd",
-            "sega mega drive cd", "mega drive cd", "SEGA MEGA-CD"
+            "sega mega drive cd", "mega drive cd", "SEGA MEGA-CD", "Mega CD"
         ]),
         ["32x"] = new RaSystemInfo(10,
         [
@@ -157,7 +157,7 @@ public class RetroAchievementsSystemMatcher : IRetroAchievementsSystemMatcher
             "C64 - Floppy [Scene Collection]"
         ]),
         ["amiga"] = new RaSystemInfo(35, ["amiga", "commodore amiga"]),
-        ["zx spectrum"] = new RaSystemInfo(59, ["zx spectrum", "zxspectrum", "spectrum"]),
+        ["zx spectrum"] = new RaSystemInfo(59, ["zx spectrum", "zxspectrum", "spectrum", "Sinclair ZX Spectrum"]),
         ["fairchild channel f"] = new RaSystemInfo(57, ["fairchild channel f", "channel f"]),
         ["philips cd-i"] = new RaSystemInfo(42, ["philips cd-i", "cd-i"]),
         ["sharp x68000"] = new RaSystemInfo(52, ["sharp x68000", "x68000"]),
