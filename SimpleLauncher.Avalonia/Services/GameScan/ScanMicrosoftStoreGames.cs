@@ -375,37 +375,9 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
             if (!string.IsNullOrEmpty(logoRelativePath))
             {
                 var fullLogoPath = Path.Combine(installPath, logoRelativePath);
-                if (File.Exists(fullLogoPath))
-                {
-                    // Use try-catch for file operations
-                    try
-                    {
-                        await Task.Run(() => File.Copy(fullLogoPath, destPath, true));
-                        return;
-                    }
-                    catch (IOException)
-                    {
-                        // EFS encryption error or other IO error - fallback to byte-level copy which doesn't preserve encryption attributes
-                        try
-                        {
-                            await Task.Run(() =>
-                            {
-                                var bytes = File.ReadAllBytes(fullLogoPath);
-                                File.WriteAllBytes(destPath, bytes);
-                            });
-                            return;
-                        }
-                        catch (Exception fallbackEx)
-                        {
-                            logErrors.Error(fallbackEx,
-                                $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
-                    }
-                }
+                if (File.Exists(fullLogoPath) &&
+                    await TryCopyStoreLogoAsync(fullLogoPath, destPath, sanitizedGameName, logErrors))
+                    return;
             }
 
             // 3. Heuristic Search: Look for common logo names
@@ -429,37 +401,9 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                 foreach (var fileName in possibleFiles)
                 {
                     var p = Path.Combine(dir, fileName);
-                    if (File.Exists(p))
-                    {
-                        try
-                        {
-                            await Task.Run(() => File.Copy(p, destPath, true));
-                            return;
-                        }
-                        catch (IOException)
-                        {
-                            // EFS encryption error or other IO error - fallback to byte-level copy which doesn't preserve encryption attributes
-                            try
-                            {
-                                await Task.Run(() =>
-                                {
-                                    var bytes = File.ReadAllBytes(p);
-                                    File.WriteAllBytes(destPath, bytes);
-                                });
-                                return;
-                            }
-                            catch (Exception fallbackEx)
-                            {
-                                logErrors.Error(fallbackEx,
-                                    $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
-                            // Continue to next possibility
-                        }
-                    }
+                    if (File.Exists(p) &&
+                        await TryCopyStoreLogoAsync(p, destPath, sanitizedGameName, logErrors))
+                        return;
                 }
 
                 // Check for high-res targetsize images
@@ -495,36 +439,9 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                     }) // Bigger is usually better quality
                     .FirstOrDefault();
 
-                if (bestIcon != null)
-                {
-                    try
-                    {
-                        await Task.Run(() => File.Copy(bestIcon, destPath, true));
-                        return;
-                    }
-                    catch (IOException)
-                    {
-                        // EFS encryption error or other IO error - fallback to byte-level copy which doesn't preserve encryption attributes
-                        try
-                        {
-                            await Task.Run(() =>
-                            {
-                                var bytes = File.ReadAllBytes(bestIcon);
-                                File.WriteAllBytes(destPath, bytes);
-                            });
-                            return;
-                        }
-                        catch (Exception fallbackEx)
-                        {
-                            logErrors.Error(fallbackEx,
-                                $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
-                    }
-                }
+                if (bestIcon != null &&
+                    await TryCopyStoreLogoAsync(bestIcon, destPath, sanitizedGameName, logErrors))
+                    return;
 
                 // Fallback: Just take the largest PNG in the Assets folder
                 if (dir.EndsWith("Assets", StringComparison.Ordinal) ||
@@ -541,36 +458,9 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
                             return 0L;
                         }
                     }).FirstOrDefault();
-                    if (largestPng != null)
-                    {
-                        try
-                        {
-                            await Task.Run(() => File.Copy(largestPng, destPath, true));
-                            return;
-                        }
-                        catch (IOException)
-                        {
-                            // EFS encryption error or other IO error - fallback to byte-level copy which doesn't preserve encryption attributes
-                            try
-                            {
-                                await Task.Run(() =>
-                                {
-                                    var bytes = File.ReadAllBytes(largestPng);
-                                    File.WriteAllBytes(destPath, bytes);
-                                });
-                                return;
-                            }
-                            catch (Exception fallbackEx)
-                            {
-                                logErrors.Error(fallbackEx,
-                                    $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
-                        }
-                    }
+                    if (largestPng != null &&
+                        await TryCopyStoreLogoAsync(largestPng, destPath, sanitizedGameName, logErrors))
+                        return;
                 }
             }
 
@@ -581,6 +471,66 @@ public partial class ScanMicrosoftStoreGames : IGamePlatformScanner
         catch (Exception ex)
         {
             logErrors.Error(ex, $"Failed to extract Microsoft Store icon for {sanitizedGameName}");
+        }
+    }
+
+    /// <summary>
+    ///     Copies a store logo into the images folder, falling back to a byte-level copy when the
+    ///     copy fails with an I/O error (e.g. EFS encryption attributes). Access denied is expected
+    ///     for assets inside the ACL-protected Microsoft Store package folder
+    ///     (C:\Program Files\WindowsApps) and is logged at Information level so it is not reported
+    ///     as a bug (bug 66892).
+    /// </summary>
+    /// <param name="sourcePath">The logo path inside the store package folder.</param>
+    /// <param name="destPath">The destination image path.</param>
+    /// <param name="sanitizedGameName">The sanitized game name used in log messages.</param>
+    /// <param name="logErrors">The error logger.</param>
+    /// <returns>True when the logo was copied; false when the copy failed and another candidate should be tried.</returns>
+    private static async Task<bool> TryCopyStoreLogoAsync(string sourcePath, string destPath, string sanitizedGameName,
+        ILogger logErrors)
+    {
+        try
+        {
+            await Task.Run(() => File.Copy(sourcePath, destPath, true));
+            return true;
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            // Expected user-environment condition: some assets in the Microsoft Store package
+            // folder cannot be read without elevation (bug 66892).
+            logErrors.Information(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
+            return false;
+        }
+        catch (IOException)
+        {
+            // EFS encryption error or other IO error - fallback to byte-level copy which doesn't preserve encryption attributes
+            try
+            {
+                await Task.Run(() =>
+                {
+                    var bytes = File.ReadAllBytes(sourcePath);
+                    File.WriteAllBytes(destPath, bytes);
+                });
+                return true;
+            }
+            catch (UnauthorizedAccessException fallbackEx)
+            {
+                // Expected user-environment condition: see above.
+                logErrors.Information(fallbackEx,
+                    $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                return false;
+            }
+            catch (Exception fallbackEx)
+            {
+                logErrors.Error(fallbackEx,
+                    $"Failed to copy Microsoft Store logo for {sanitizedGameName} (fallback method)");
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            logErrors.Error(ex, $"Failed to copy Microsoft Store logo for {sanitizedGameName}");
+            return false;
         }
     }
 

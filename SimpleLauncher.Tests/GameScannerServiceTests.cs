@@ -1,4 +1,5 @@
 using System.Reflection;
+using Moq;
 using SimpleLauncher.Services.GameScan;
 using Xunit;
 
@@ -465,5 +466,34 @@ public class GameScannerServiceTests : IDisposable
         var result = method.Invoke(null, [filePath, "ROMs", silentLogger]);
 
         Assert.False((bool)result!);
+    }
+
+    // TryCopyStoreLogo tests (via reflection since it's private static)
+
+    /// <summary>
+    ///     Verifies that an access-denied logo copy from the ACL-protected Microsoft Store package
+    ///     folder (C:\Program Files\WindowsApps, simulated here by using a directory as the source,
+    ///     which makes File.Copy throw UnauthorizedAccessException) is logged at Information level and
+    ///     never at Error, so it is not reported as a bug (bug 66892).
+    /// </summary>
+    [Fact]
+    public async Task TryCopyStoreLogoAccessDeniedLogsInformationNotError()
+    {
+        var method = typeof(ScanMicrosoftStoreGames).GetMethod("TryCopyStoreLogoAsync",
+            BindingFlags.NonPublic | BindingFlags.Static);
+        Assert.NotNull(method);
+
+        var sourceDirectory = Path.Combine(_testDirectory, "StoreLogoSource");
+        Directory.CreateDirectory(sourceDirectory);
+        var destination = Path.Combine(_testDirectory, "logo.png");
+
+        var logger = new Mock<ILogger>();
+        var task = (Task<bool>)method.Invoke(null,
+            [sourceDirectory, destination, "Forza Horizon 4", logger.Object])!;
+        var copied = await task;
+
+        Assert.False(copied);
+        logger.Verify(l => l.Information(It.IsAny<Exception>(), It.IsAny<string>()), Times.Once);
+        logger.Verify(l => l.Error(It.IsAny<Exception>(), It.IsAny<string>()), Times.Never);
     }
 }
